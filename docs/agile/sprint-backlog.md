@@ -248,9 +248,9 @@
 
 **用户故事：** 作为产品负责人，我希望在 A/B 比较与 audit 基础上形成唯一的 Release 1 整体架构主文档，以便 Sprint 2 有明确、单一的架构事实源。
 
-**优先级：** P0 · **状态：** In Review
+**优先级：** P0 · **状态：** Done
 
-**工作分支：** `docs/s1b-architecture-finalize`
+**工作分支：** `docs/s1b-architecture-finalize`（已 merge 至 `sprint/s1b-core-tech-governance`）
 
 **验收标准：**
 
