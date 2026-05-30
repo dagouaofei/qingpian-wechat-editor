@@ -78,4 +78,5 @@ tests/            # 测试
 | [docs/product/release-1-scope.md](docs/product/release-1-scope.md) | Release 1 范围 |
 | [docs/agile/product-backlog.md](docs/agile/product-backlog.md) | Product Backlog |
 | [docs/agile/sprint-backlog.md](docs/agile/sprint-backlog.md) | 当前 Sprint Backlog |
+| [docs/agile/git-workflow.md](docs/agile/git-workflow.md) | Git 工作流与分支策略 |
 | [docs/architecture/architecture-overview.md](docs/architecture/architecture-overview.md) | 架构总览 |

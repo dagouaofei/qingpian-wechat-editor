@@ -1,57 +1,180 @@
 # 微信公众号复制样式规则
 
 > 轻篇公众号排版 · qingpian-wechat-editor
+>
+> 状态：正式技术方案 · Sprint 1-B 定稿
 
-> 状态：文档骨架 · Sprint 1 未实现代码
+---
 
-## P0 质量标准
+## 1. P0 质量标准
 
-**微信公众号复制一致性是 Release 1 P0 质量标准。**
+**复制一致性是 Release 1 P0，不是后期补 Bug。**
 
 - 不允许只追求网页预览效果
+- 不允许「先上线 Preview，Copy 以后再修」
+- 每个涉及样式的 Story 必须同时验收 Preview 和 Copy
 - 复制到微信公众号编辑器后的样式一致性是首要质量目标
 
-## 样式检查维度
+---
 
-涉及样式的任务必须考虑复制后以下维度是否保留：
+## 2. 设计原则
 
-| 维度 | 检查项 |
-|------|--------|
-| 字体 | 字体族是否正确 |
-| 字号 | 字号是否一致 |
-| 颜色 | 文字颜色、背景色 |
-| 间距 | 段落间距、内边距 |
-| 边框 | 边框样式、圆角 |
-| 背景 | 背景色、渐变 |
-| 卡片 | 信息卡片整体样式 |
+### 2.1 共享样式定义
 
-## 测试要求
+Preview Renderer 和 Copy Renderer 必须调用同一 `resolveStyle()`，读取同一 `BlockStyleRegistry`，输出数值一致的 typography / spacing / decoration。
 
-- 后续每个样式 variant 都应进入**粘贴测试范围**
-- 建立人工粘贴测试清单
-- 保留测试记录（日期、样式、结果、截图）
+### 2.2 Inline Style 优先
 
-## 旧项目历史问题（质量约束）
+Copy 输出全部使用 inline style。VariantDefinition 设计时必须可完整转为 inline style 字符串。
 
-旧一键成稿项目中曾出现以下问题，新项目必须作为前期质量约束：
+### 2.3 微信安全子集
 
-| 问题 | 说明 |
-|------|------|
-| preview 与 copy 不一致 | 网页预览正常，粘贴后样式丢失或变化 |
-| 135 与微信公众号编辑器表现不一致 | 第三方编辑器兼容不等于微信兼容 |
-| 标题样式丢失 | 标题字体、颜色、装饰丢失 |
-| 字体字号变化 | 粘贴后字体或字号被微信重置 |
-| 卡片样式变化 | 信息卡片边框、背景、圆角丢失 |
+只使用微信粘贴后可靠保留的 CSS 属性：
 
-## 设计原则
+**可靠：**
 
-1. Copy Renderer 与 Preview Renderer 共享样式定义
-2. 样式面向微信 inline style 兼容设计
-3. 避免依赖微信不支持的 CSS 特性
-4. 以微信公众号编辑器粘贴效果为最终验收标准
+- `font-size`、`font-weight`、`font-family`、`color`
+- `line-height`、`text-align`
+- `margin-*`、`padding-*`
+- `background-color`
+- `border`、`border-radius`（适度）
+- `display: block` / `inline` / `inline-block`
+
+**不可靠（需 fallback）：**
+
+- `box-shadow` → border
+- `linear-gradient` → background-color
+- `::before` / `::after` → 真实 DOM
+- `flex` 复杂布局 → 简单 block
+- `class` 引用 → inline
+
+### 2.4 以微信公众号编辑器为唯一验收标准
+
+135 编辑器、浏览器预览、截图对比均不能替代微信公众号编辑器粘贴测试。
+
+---
+
+## 3. 样式检查维度
+
+每个 variant 粘贴测试必须检查：
+
+| 维度 | 检查项 | 通过标准 |
+|------|--------|----------|
+| 字体 | font-family | 粘贴后字体未变为 Times New Roman 等默认字体 |
+| 字号 | font-size | 与 Preview 一致（±1px 容忍） |
+| 字重 | font-weight | bold 保留 |
+| 颜色 | color | 文字颜色未丢失 |
+| 背景 | background-color | 卡片/高亮背景保留 |
+| 间距 | margin, padding | 段落间距、卡片内边距基本一致 |
+| 边框 | border, border-radius | 卡片边框、圆角保留 |
+| 对齐 | text-align | 标题居中/左对齐保留 |
+| 列表 | 序号/圆点 | 列表标记保留 |
+| 装饰 | slot 元素 | 下划线、色条等保留 |
+
+---
+
+## 4. 旧项目历史问题（质量约束清单）
+
+以下问题来自旧一键成稿项目，新项目必须作为**设计阶段约束**：
+
+| # | 问题 | 约束 |
+|---|------|------|
+| 1 | preview 与 copy 不一致 | 共享 ResolvedBlockStyle，禁止独立样式 |
+| 2 | 135 与微信公众号编辑器表现不一致 | 以微信为唯一标准 |
+| 3 | 标题样式丢失 | title variant Copy 必须 inline 全部 typography |
+| 4 | 字体字号变化 | Copy 必须 inline font-family + font-size |
+| 5 | 卡片样式变化 | info_card Copy 模板必须 inline border + background + padding |
+| 6 | 间距丢失 | Copy 必须 inline margin + padding，不依赖 margin collapse |
+| 7 | 高亮背景丢失 | highlight variant Copy 必须 inline background-color |
+| 8 | CTA 按钮样式丢失 | cta variant Copy 必须 inline 按钮样式 |
+
+---
+
+## 5. 测试流程
+
+### 5.1 每个 variant 必须测试
+
+新增或修改 variant 时：
+
+1. 准备包含该 variant 的 fixture Article
+2. 生成 Copy HTML
+3. 粘贴到微信公众号编辑器
+4. 逐项检查 §3 维度
+5. 记录结果（PASS / FAIL + 截图）
+6. FAIL → 创建 Bug 到 `docs/agile/bugs.md`
+
+### 5.2 测试记录存放
+
+- 手动测试记录：`tests/manual/paste-test-log.md`（后续 Sprint 创建）
+- Bug 跟踪：`docs/agile/bugs.md`
+
+### 5.3 135 编辑器测试
+
+- 可选辅助测试
+- 结果标注「135 参考，非最终标准」
+- 135 PASS + 微信 FAIL = 以微信 FAIL 为准
+
+---
+
+## 6. Copy 一致性对 Style System 的反向约束
+
+Style System 设计 VariantDefinition 时必须回答：
+
+1. 这个 variant 的全部视觉属性能否转为 inline style？
+2. Copy 输出嵌套是否 ≤ 3 层？
+3. 是否有 unreliable CSS 属性？fallback 是什么？
+4. 字体是否使用安全栈？
+
+若任一答案不满足，variant 设计需要修改，不是 Copy Renderer 单独兜底。
+
+---
+
+## 7. Release 1 复制一致性验收范围
+
+| 范围 | 验收标准 |
+|------|----------|
+| classic-news preset 全部 11 block variant | 粘贴后 typography + spacing + decoration 基本一致 |
+| standard density | 间距正确 |
+| 完整 fixture 文章 | 端到端粘贴测试 PASS |
+| 流式生成终态 Article | 与 batch 生成 Copy 结果一致 |
+
+**不在 Release 1 验收范围：**
+
+- 多 preset 切换（架构支持，测试随 preset 增加而扩展）
+- 135 编辑器兼容性
+- 图片真实渲染（仅 placeholder）
+
+---
+
+## 8. Bug 严重级别
+
+| 级别 | 定义 | 示例 |
+|------|------|------|
+| P0 | 粘贴后核心样式丢失，影响发布 | 标题字号丢失、卡片无边框 |
+| P1 | 粘贴后次要样式差异 | 间距差 4px、圆角丢失 |
+| P2 | 视觉微调 | 颜色偏差、装饰细节 |
+
+复制相关 Bug 默认 P0 或 P1，不设 P2 预置。
+
+---
+
+## 9. 与渲染链路的关系
+
+```text
+Style System (设计约束: 可 inline)
+       ↓
+Style Resolver (共享)
+       ↓
+  ╱         ╲
+Preview     Copy
+(视觉对照)  (粘贴验收 ← P0)
+```
+
+Copy 是样式系统的**最终验收环节**，不是附属功能。
 
 ## 相关文档
 
 - [复制链路](copy-to-wechat-pipeline.md)
 - [样式系统](style-system.md)
-- [prototype-lessons.md](prototype-lessons.md)
+- [渲染链路](rendering-pipeline.md)
+- [旧项目经验](prototype-lessons.md)

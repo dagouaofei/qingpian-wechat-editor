@@ -9,14 +9,31 @@
 
 ---
 
-## 2026-05-30 · Sprint 1
+## 2026-05-30 · Sprint 1-A
 
 | 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
 |------|--------|----------|----------|----------------------|
-| 2026-05-30 | Sprint 1 | 初始化 qingpian-wechat-editor 正式项目（Next.js + TypeScript + Tailwind + ESLint + Prettier + Vitest + Playwright + Zod） | 工程 | S1-STORY-001 |
-| 2026-05-30 | Sprint 1 | 建立 `.cursor/rules/` 六类项目规则 | 开发约束 | S1-STORY-002, DECISION-003 |
-| 2026-05-30 | Sprint 1 | 建立 docs/agile 敏捷文档体系 | 项目管理 | S1-STORY-003, DECISION-007~010 |
-| 2026-05-30 | Sprint 1 | 建立 docs/product 产品文档体系 | 产品 | S1-STORY-004, DECISION-004 |
-| 2026-05-30 | Sprint 1 | 建立 docs/architecture 架构文档骨架 | 架构 | S1-STORY-005, DECISION-005~006 |
-| 2026-05-30 | Sprint 1 | 沉淀 Sprint 2 候选目标（A/B/C 三方向） | 敏捷规划 | S1-STORY-006 |
-| 2026-05-30 | Sprint 1 | 沉淀旧一键成稿历史经验（prototype-lessons、migration-reference） | 架构 / 迁移 | S1-STORY-007, DECISION-009 |
+| 2026-05-30 | Sprint 1-A | 初始化 qingpian-wechat-editor 正式项目（Next.js + TypeScript + Tailwind + ESLint + Prettier + Vitest + Playwright + Zod） | 工程 | S1-STORY-001 |
+| 2026-05-30 | Sprint 1-A | 建立 `.cursor/rules/` 六类项目规则 | 开发约束 | S1-STORY-002, DECISION-003 |
+| 2026-05-30 | Sprint 1-A | 建立 docs/agile 敏捷文档体系 | 项目管理 | S1-STORY-003 |
+| 2026-05-30 | Sprint 1-A | 建立 docs/product 产品文档体系 | 产品 | S1-STORY-004, DECISION-004 |
+| 2026-05-30 | Sprint 1-A | 建立 docs/architecture 架构文档骨架 | 架构 | S1-STORY-005, DECISION-005~006 |
+| 2026-05-30 | Sprint 1-A | 沉淀 Sprint 2 候选目标（A/B/C 三方向） | 敏捷规划 | S1-STORY-006 |
+| 2026-05-30 | Sprint 1-A | 沉淀旧一键成稿历史经验（prototype-lessons、migration-reference） | 架构 / 迁移 | S1-STORY-007, DECISION-009 |
+| 2026-05-30 | Sprint 1-A | Git 初始化，Sprint 1-A commit 至 main 分支 | 工程治理 | S1-STORY-008 |
+
+---
+
+## 2026-05-30 · Sprint 1-B
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-05-30 | Sprint 1-B | Sprint 1 范围扩展，去除 1 人/1 周约束 | 敏捷 | DECISION-011~013 |
+| 2026-05-30 | Sprint 1-B | 建立 Git 工作流文档与分支策略，完善 .gitignore | 工程治理 | S1-STORY-008, DECISION-016~017 |
+| 2026-05-30 | Sprint 1-B | article-schema.md / block-schema.md 升级为正式技术方案 | 架构 | S1-STORY-009 |
+| 2026-05-30 | Sprint 1-B | style-system.md 升级为正式技术方案（theme/preset/variant/registry/slot/density） | 架构 | S1-STORY-010, DECISION-014 |
+| 2026-05-30 | Sprint 1-B | rendering-pipeline.md 升级为正式技术方案 | 架构 | S1-STORY-011 |
+| 2026-05-30 | Sprint 1-B | copy-to-wechat-pipeline.md / wechat-copy-style-rules.md 升级为正式方案 | 架构 | S1-STORY-012 |
+| 2026-05-30 | Sprint 1-B | generation-pipeline.md 升级为正式技术方案 | 架构 | S1-STORY-013 |
+| 2026-05-30 | Sprint 1-B | 核心技术方案一致性审查，修正 architecture-overview 等文档 | 架构 | S1-STORY-014, DECISION-018 |
+| 2026-05-30 | Sprint 1-B | 更新 sprint-plan / sprint-backlog / decisions / changelog | 敏捷 | S1-STORY-015 |
