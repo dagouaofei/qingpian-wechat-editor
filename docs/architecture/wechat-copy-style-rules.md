@@ -15,6 +15,20 @@
 - 每个涉及样式的 Story 必须同时验收 Preview 和 Copy
 - 复制到微信公众号编辑器后的样式一致性是首要质量目标
 
+### 1.1 Copy Fidelity DoD
+
+| 状态 | 含义 |
+|------|------|
+| **Done（代码）** | Preview + Copy 成对实现完成 |
+| **Done（粘贴 QA）** | 微信公众号粘贴验收通过 |
+
+Story / variant 关闭须区分上述两种 Done。
+
+### 1.2 粘贴 QA 时间线
+
+- **Sprint 4：** Preview/Copy 闭环时启动最小人工粘贴 QA
+- **Sprint 6：** fixture 三联（Article JSON + copy HTML snapshot + paste checklist）系统化回归
+
 ---
 
 ## 2. 设计原则

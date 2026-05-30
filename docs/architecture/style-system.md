@@ -63,6 +63,29 @@ Article 和 Block **永远不携带 CSS**。
 
 ---
 
+## 3.1 StyleDefinition 最小模型（定稿）
+
+> 与 [architecture-overview.md](architecture-overview.md) §7 一致。Preview 与 Copy 的**唯一**共享样式来源。
+
+解析结果为 `ResolvedBlockStyle`，Release 1 最小字段：
+
+| 字段 | 说明 |
+|------|------|
+| `styleId` | 解析结果唯一 ID |
+| `blockType` | 对应 Block.type |
+| `variant` | variantId |
+| `slots` | 已解析 slot 装饰 |
+| `tokens` | typography / spacing / decoration 数值 |
+| `layout` | 排列 token |
+| `copySafety` | `strict` \| `balanced` \| `preview_only` |
+| `wechatCompatibility` | 微信安全子集与 fallback |
+| `sourceType` | Release 1: `"systemPreset"`；预留 `importedTemplate` / `generatedStyle` / `userStyleLibrary` |
+| `density` | `compact` \| `standard` \| `relaxed` |
+
+未来扩展：`renderMode`、`compatibility`、`importMeta`（Release 4+ Style Import Adapter 使用）。
+
+---
+
 ## 4. 核心概念定义
 
 ### 4.1 theme（主题）
@@ -411,13 +434,13 @@ Style Definition (VariantDefinition)
 
 | 能力 | 接入方式 |
 |------|----------|
-| 样式市场 | 新增 preset / variant 注册到 registry，UI 展示 registry.listPresets() |
-| 135 / 秀米导入 | 解析外部样式 → 转为 VariantDefinition → 注册到 registry |
-| 用户自定义样式 | 用户编辑 VariantDefinition → 存为用户 preset → 通过 styleAssignment 引用 |
-| 整篇风格切换 | 修改 Article.styleAssignment.presetId → 重新 resolve → 重渲染 |
-| 品牌样式库 | 品牌 theme + 品牌 preset 集合 |
+| 样式市场 | 新增 preset / variant 注册到 registry |
+| 135 / 秀米导入 | Style Import Adapter：外部 HTML/CSS → Sanitizer → Parser → Template AST → Style Validator → StyleDefinition → registry（见 architecture-overview §15） |
+| 用户自定义 / 样式库 | 用户 StyleDefinition → 存为用户 preset → styleAssignment 引用 |
+| 整篇风格切换 | 修改 presetId → 重新 resolve → 重渲染 |
+| 品牌样式库 | 品牌 theme + preset 集合 |
 
-所有扩展都走 registry + assignment，不修改 Article Schema 或 Renderer 核心逻辑。
+**约束：** 导入样式不得绕过 StyleDefinition 和 Copy Renderer。
 
 ---
 

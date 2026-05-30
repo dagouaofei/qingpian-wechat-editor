@@ -24,6 +24,14 @@
 | DECISION-018 | 2026-05-30 | 核心技术方案一致性审查完成，9 份架构文档 + 产品/敏捷文档对齐 | 已确认 |
 | DECISION-019 | 2026-05-30 | 建立 execution report 作为 ChatGPT + Cursor 协作交接机制 | 已确认 |
 | DECISION-020 | 2026-05-30 | 建立 Sprint 分支与迭代内工作分支机制 | 已确认 |
+| DECISION-021 | 2026-05-30 | Release 1 整体技术架构 A 版（产品推导） | 已确认 |
+| DECISION-022 | 2026-05-30 | 采用 A/B 架构设计比较方式 | 已确认 |
+| DECISION-023 | 2026-05-30 | 定稿方式：A 为骨、B 风险层并入，形成唯一 architecture-overview | 已确认 |
+| DECISION-024 | 2026-05-30 | GenerationEvent 统一为 block.start / block.delta / block.complete / done.article | 已确认 |
+| DECISION-025 | 2026-05-30 | StyleDefinition 是 Preview / Copy 唯一共享样式来源 | 已确认 |
+| DECISION-026 | 2026-05-30 | Release 1 第一批 11 种 semantic block（含 image_placeholder） | 已确认 |
+| DECISION-027 | 2026-05-30 | Copy Fidelity DoD：Done（代码）与 Done（粘贴 QA）分离 | 已确认 |
+| DECISION-028 | 2026-05-30 | Style Import Adapter 后置，StyleDefinition 预留 sourceType 等扩展点 | 已确认 |
 
 ### DECISION-019 详情
 
@@ -47,6 +55,19 @@
   4. Sprint 整体验收通过后，sprint 分支再合并回 main
   5. Cursor 不得未经用户确认直接关闭 Sprint 或合并 main
 - **影响范围：** `docs/agile/git-workflow.md`、`.cursor/rules/`、协作流程
+- **状态：** 已确认
+
+### DECISION-021 ~ DECISION-028 详情（架构定稿）
+
+- **背景：** A/B 架构候选与 audit 完成后，需形成 Release 1 唯一整体架构主文档，并关闭 Sprint 2 前 P0 决策项。
+- **决策摘要：**
+  1. **DECISION-023：** 定稿版 `architecture-overview.md` 以 A 版为骨架，并入 B 版风险层（校验清单、排除项、Copy Fidelity DoD、fixture 三联），为唯一主文档
+  2. **DECISION-024：** GenerationEvent 采用 `block.start` / `block.delta` / `block.complete` / `done.article`；废弃 `block.append`、`block.update` 及 underscore 命名
+  3. **DECISION-025：** StyleDefinition（ResolvedBlockStyle）为 Preview / Copy 唯一共享样式来源；最小字段见 architecture-overview §7
+  4. **DECISION-026：** Release 1 冻结 11 种 semantic block，不照搬旧项目 12 P0
+  5. **DECISION-027：** variant 交付区分 Done（代码）与 Done（粘贴 QA）；Sprint 4 启动最小粘贴 QA
+  6. **DECISION-028：** Style Import Adapter（135/秀米）Release 4+；Release 1 预留 sourceType / compatibility / importMeta
+- **影响范围：** docs/architecture/、Sprint 2+ 启动条件
 - **状态：** 已确认
 
 ## 待确认决策

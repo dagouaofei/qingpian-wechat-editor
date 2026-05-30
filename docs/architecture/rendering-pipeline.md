@@ -94,6 +94,7 @@ Preview Renderer 和 Copy Renderer 可以分离；
 
 - 两者调用**同一个** `resolveStyle()` 函数
 - 两者读取**同一个** `BlockStyleRegistry`
+- 输出 **StyleDefinition（ResolvedBlockStyle）** 为唯一共享来源（见 [architecture-overview.md](architecture-overview.md) §7）
 - 数值（fontSize、color、padding 等）完全一致，只是映射方式不同
 
 ---

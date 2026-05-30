@@ -241,3 +241,24 @@
 - [x] AC-8 decisions.md 已记录 DECISION-020
 - [x] AC-9 changelog.md 已记录本轮变更
 - [x] AC-10 Sprint 1-B 状态仍保持 In Review
+
+---
+
+## S1-STORY-020 Release 1 整体架构定稿
+
+**用户故事：** 作为产品负责人，我希望在 A/B 比较与 audit 基础上形成唯一的 Release 1 整体架构主文档，以便 Sprint 2 有明确、单一的架构事实源。
+
+**优先级：** P0 · **状态：** In Review
+
+**工作分支：** `docs/s1b-architecture-finalize`
+
+**验收标准：**
+
+- [x] AC-1 定稿版 architecture-overview.md 已产出
+- [x] AC-2 P0-1 ~ P0-6 决策项已在文档中关闭
+- [x] AC-3 generation-pipeline.md 事件模型已与定稿一致
+- [x] AC-4 decisions.md 已记录 DECISION-023 ~ 028
+- [x] AC-5 架构校验清单已纳入定稿文档
+- [x] AC-6 进入 Sprint 2 前置条件已列出
+- [x] AC-7 已生成 execution report
+- [x] AC-8 Sprint 1-B 保持 In Review（待用户确认收口）
