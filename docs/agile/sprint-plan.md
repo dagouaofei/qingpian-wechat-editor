@@ -22,7 +22,7 @@
 - Sprint 2 候选目标沉淀
 - 旧一键成稿历史经验审计与迁移清单
 
-### Sprint 1-B：核心技术方案补齐与 Git 仓库治理 — Done
+### Sprint 1-B：核心技术方案补齐与 Git 仓库治理 — In Review
 
 - Git 仓库治理与分支策略
 - Article / Block Schema 正式技术方案

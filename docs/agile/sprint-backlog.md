@@ -1,8 +1,8 @@
 # Sprint 1 Backlog
 
 > Sprint 1：正式项目启动、核心技术方案定稿与工程治理
-> Sprint 1-A：Done · Sprint 1-B：Done
-> 整体状态：**Done**
+> Sprint 1-A：Done · Sprint 1-B：**In Review**
+> 整体状态：**In Review**
 
 ---
 
@@ -200,3 +200,21 @@
 - [x] DECISION-011 ~ DECISION-018 已记录
 - [x] Changelog 记录 1-A 和 1-B
 - [x] 全部 Story 001~015 状态已更新
+
+---
+
+## S1-STORY-016 建立 execution report 协作机制
+
+**用户故事：** 作为产品负责人，我希望 Cursor 每轮执行后都在项目中生成 execution report，以便 ChatGPT 可以基于项目文档审查执行结果，而不是依赖复制完整对话。
+
+**优先级：** P0 · **状态：** Done
+
+**验收标准：**
+
+- [x] AC-1 docs/agile/execution-reports/README.md 已建立
+- [x] AC-2 docs/agile/execution-reports/_template.md 已建立
+- [x] AC-3 .cursor/rules/agile-rules.mdc 已写入 execution report 默认规则
+- [x] AC-4 .cursor/rules/collaboration-rules.mdc 已写入 ChatGPT + Cursor + docs + execution report 协作机制
+- [x] AC-5 chatgpt-cursor-docs-workflow.md 已同步更新
+- [x] AC-6 decisions.md 已记录 DECISION-019
+- [x] AC-7 changelog.md 已记录本轮变更

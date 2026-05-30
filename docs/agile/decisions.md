@@ -22,6 +22,19 @@
 | DECISION-016 | 2026-05-30 | Git 主分支为 `main`，采用 feature/sprint/bugfix/docs 分支策略 | 已确认 |
 | DECISION-017 | 2026-05-30 | Remote 仓库待配置，配置后 push 至 origin | 已确认 |
 | DECISION-018 | 2026-05-30 | 核心技术方案一致性审查完成，9 份架构文档 + 产品/敏捷文档对齐 | 已确认 |
+| DECISION-019 | 2026-05-30 | 建立 execution report 作为 ChatGPT + Cursor 协作交接机制 | 已确认 |
+
+### DECISION-019 详情
+
+- **背景：** 旧一键成稿项目经验表明，ChatGPT 与 Cursor 协作需要结构化交接，避免每轮复制完整对话或在指令中重复要求报告。
+- **决策：**
+  1. 每轮 Cursor 执行后必须生成 execution report
+  2. 存放于 `docs/agile/execution-reports/`
+  3. execution report 是 ChatGPT 审查 Cursor 执行结果的主要输入
+  4. Cursor 不应仅凭自己的总结关闭 Sprint / Story
+  5. Sprint / Story 的最终关闭需要用户确认
+- **影响范围：** `.cursor/rules/`、docs/agile/、协作流程
+- **状态：** 已确认
 
 ## 待确认决策
 
