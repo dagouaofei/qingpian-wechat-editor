@@ -1,0 +1,41 @@
+---
+description: 架构约束与主链路规则
+globs: src/core/**,docs/architecture/**
+alwaysApply: false
+---
+
+# 架构规则
+
+## 唯一主模型
+
+- **Article** 是唯一文章主模型
+- 不得出现多套 Article Schema
+- 不得出现 `mockArticle` / `aiArticle` / `streamArticle` / `wechatArticle` 等平行结构
+
+## Block 语义
+
+- Block 是内容语义，**不等于**视觉样式
+- 样式由 Style Assignment / Style Definition 处理，不绑定在 Block 上
+
+## 渲染链路
+
+- Preview Renderer 和 Copy Renderer **可以分离**
+- 但不得拥有两套样式来源
+- 不允许预览一套样式、复制一套样式
+
+## 输入归一
+
+- 所有输入来源（主题、资料、草稿、fixture、AI batch、AI stream）最终必须进入统一 Article Schema
+- 生成链路不能写死为 topic → article
+
+## 禁止项
+
+- 不得建立临时 mock 主链路
+- 不得保留旧项目废弃链路和旁路兼容逻辑
+- 不得让原始 token 流成为独立文章结构
+
+## 参考文档
+
+- `docs/architecture/architecture-overview.md`
+- `docs/architecture/article-schema.md`
+- `docs/architecture/block-schema.md`

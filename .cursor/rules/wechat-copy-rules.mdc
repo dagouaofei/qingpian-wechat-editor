@@ -1,0 +1,38 @@
+---
+description: 微信公众号复制一致性规则
+globs: src/core/copy/**,src/core/renderer/**,docs/architecture/copy-to-wechat-pipeline.md,docs/architecture/wechat-copy-style-rules.md
+alwaysApply: false
+---
+
+# 公众号复制规则
+
+## P0 质量标准
+
+- 复制到微信公众号编辑器后的**样式一致性**是 Release 1 **P0** 质量标准
+- 不允许只做网页预览效果而忽略复制效果
+
+## 渲染共享
+
+- Preview Renderer 和 Copy Renderer 必须共享同一套样式定义
+- Copy Renderer 输出微信兼容 HTML
+- 样式需要面向微信粘贴兼容设计
+
+## 任务要求
+
+- 涉及样式的任务必须考虑微信复制兼容
+- 涉及复制能力的任务必须建立**人工粘贴测试清单或测试记录**
+
+## 历史教训
+
+旧一键成稿项目中曾出现：
+
+- 网页预览与微信公众号粘贴不一致
+- 135 与微信公众号编辑器表现不一致
+- 标题样式丢失、字体字号变化、卡片样式变化
+
+新项目必须把这些作为前期质量约束，避免重复踩坑。
+
+## 参考文档
+
+- `docs/architecture/copy-to-wechat-pipeline.md`
+- `docs/architecture/wechat-copy-style-rules.md`

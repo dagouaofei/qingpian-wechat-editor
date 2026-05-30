@@ -1,0 +1,48 @@
+---
+description: 样式系统规则与 Release 1 样式约束
+globs: src/core/styles/**,docs/architecture/style-system.md
+alwaysApply: false
+---
+
+# 样式系统规则
+
+## Release 1 定位
+
+- 样式系统属于 **Release 1 核心范围**，不是后置预留
+- Release 1 不做完整样式市场，但必须按正式样式系统实现第一批样式
+
+## 架构方向
+
+样式方案必须考虑：
+
+- theme
+- style preset
+- style variant
+- block style registry
+- style assignment
+- slot
+- density
+- layout
+- spacing
+- typography
+- decoration
+
+## 扩展目标
+
+- 样式系统要支持未来「样式千变万化」的扩展目标
+- 不得把样式写死为不可复用的页面样式
+
+## 复制一致性
+
+- 涉及样式的任务必须考虑公众号复制一致性
+- Preview Renderer 和 Copy Renderer 必须共享同一套样式定义
+
+## 旧项目经验
+
+- 可参考旧一键成稿项目中的 Component DSL、slot、density、variant、registry 等探索经验
+- 但不得照搬旧项目混杂方案（Visual Layer、Space Style 等）
+
+## 参考文档
+
+- `docs/architecture/style-system.md`
+- `docs/architecture/wechat-copy-style-rules.md`

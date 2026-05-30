@@ -1,0 +1,40 @@
+---
+description: ChatGPT + Cursor + docs 协作规则
+alwaysApply: true
+---
+
+# 协作规则
+
+## 角色分工
+
+| 工具 | 职责 |
+|------|------|
+| **ChatGPT** | 产品梳理、架构讨论、敏捷规划、Cursor 指令生成、结果审查 |
+| **Cursor** | 读取项目文件、修改代码、维护 docs、执行测试和提交变更 |
+| **docs** | ChatGPT 与 Cursor 之间的共享事实源 |
+
+## 执行流程
+
+1. Cursor 每轮执行前**必须优先阅读相关 docs**，而不是只依赖当前对话
+2. Cursor 执行后**必须同步更新相关 docs**，避免代码和文档脱节
+3. 用户可以把 Cursor 的变更摘要、文件列表、关键文档内容发给 ChatGPT 复核
+
+## 冲突处理
+
+- 如果 ChatGPT 指令、Cursor 当前理解和 docs 内容冲突，应**优先以 docs 为准**
+- 需要用户确认的决策记录到 `docs/agile/decisions.md`
+
+## 禁止项
+
+- 不允许把 Cursor 对话记忆当成唯一事实来源
+- 不允许只改代码不改文档
+- 不允许只改文档但与项目实际状态不一致
+- 旧项目经验应先进入 docs，再影响技术方案，不直接进入代码
+
+## 连续性
+
+- 新项目应通过 docs 维持跨工具、跨会话、跨 Sprint 的连续性
+
+## 参考文档
+
+- `docs/agile/chatgpt-cursor-docs-workflow.md`

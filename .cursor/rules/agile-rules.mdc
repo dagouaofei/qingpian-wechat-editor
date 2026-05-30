@@ -1,0 +1,37 @@
+---
+description: 敏捷项目管理规则
+alwaysApply: true
+---
+
+# 敏捷规则
+
+## 任务管理
+
+- 所有任务必须对应 **Story / Bug / Decision**
+- 每个 Story 必须有验收标准（AC）
+- 每个 Sprint 必须更新 `docs/agile/sprint-backlog.md`
+
+## 范围变更
+
+- 涉及需求范围变化时，必须更新 Product Backlog 或 Release Scope
+- 重大决策记录到 `docs/agile/decisions.md`
+
+## Sprint 约束
+
+- Sprint 默认按 **1 人 / 1 周** 工作量控制
+- Sprint 目标必须可在 1 人 1 周内完成
+- 不允许把 Release 1 的全部范围塞进单个 Sprint
+
+## 执行报告
+
+- 本项目不要求额外生成 execution report
+- 相关规则已由用户放在 Cursor 全局规则中
+
+## 文档位置
+
+- Product Backlog：`docs/agile/product-backlog.md`
+- Sprint Plan：`docs/agile/sprint-plan.md`
+- Sprint Backlog：`docs/agile/sprint-backlog.md`
+- Bug Backlog：`docs/agile/bugs.md`
+- 决策记录：`docs/agile/decisions.md`
+- 变更日志：`docs/agile/changelog.md`
