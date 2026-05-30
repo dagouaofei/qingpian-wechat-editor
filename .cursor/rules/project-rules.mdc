@@ -31,9 +31,19 @@ alwaysApply: true
 
 ## Sprint 约束
 
-- Sprint 1 已完成（1-A 项目初始化 + 1-B 核心技术方案定稿）
+- Sprint 1 整体状态为 **In Review**（1-A Done，1-B In Review）
 - 后续 Sprint 按合理工作量拆分，业务功能实现必须在核心技术方案完成之后进入
 - 不允许把 Release 1 的全部实现范围塞进单个 Sprint
+
+## Git 分支规则
+
+- 每个 Sprint / 迭代必须有独立 **`sprint/<sprint-slug>`** 分支
+- Sprint 内每个具体任务必须从**当前 sprint 分支**新建独立工作分支（`feature/` / `docs/` / `bugfix/` / `chore/`）
+- **不得在 main 分支直接开发具体任务**
+- **不得把多个无关任务混在同一个工作分支中**
+- 工作分支完成后合并回 **sprint 分支**；Sprint 验收通过后才合并 **main**
+- Cursor **不得未经用户确认**自行关闭 Sprint 或合并 main
+- 详见 `docs/agile/git-workflow.md`
 
 ## 事实来源
 
