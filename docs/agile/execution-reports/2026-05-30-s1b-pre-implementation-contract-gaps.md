@@ -94,7 +94,7 @@
 
 ## 13. Commit
 
-- Commit hash：（提交后更新）
+- Commit hash：`97b7835`
 
 ## 14. Sprint 1-B 状态
 
