@@ -23,6 +23,7 @@
 | DECISION-017 | 2026-05-30 | Remote 仓库待配置，配置后 push 至 origin | 已确认 |
 | DECISION-018 | 2026-05-30 | 核心技术方案一致性审查完成，9 份架构文档 + 产品/敏捷文档对齐 | 已确认 |
 | DECISION-019 | 2026-05-30 | 建立 execution report 作为 ChatGPT + Cursor 协作交接机制 | 已确认 |
+| DECISION-020 | 2026-05-30 | 建立 Sprint 分支与迭代内工作分支机制 | 已确认 |
 
 ### DECISION-019 详情
 
@@ -34,6 +35,18 @@
   4. Cursor 不应仅凭自己的总结关闭 Sprint / Story
   5. Sprint / Story 的最终关闭需要用户确认
 - **影响范围：** `.cursor/rules/`、docs/agile/、协作流程
+- **状态：** 已确认
+
+### DECISION-020 详情
+
+- **背景：** 需要清晰的分支边界，使 Sprint 内每项工作可独立审查、合并、回滚，避免在 main 上直接开发或多任务混分支。
+- **决策：**
+  1. 每个 Sprint 新建 `sprint/<sprint-slug>` 分支
+  2. Sprint 内每个具体任务从当前 sprint 分支新建 `feature/` / `docs/` / `bugfix/` / `chore/` 分支
+  3. 工作分支完成并经审查后合并回 sprint 分支
+  4. Sprint 整体验收通过后，sprint 分支再合并回 main
+  5. Cursor 不得未经用户确认直接关闭 Sprint 或合并 main
+- **影响范围：** `docs/agile/git-workflow.md`、`.cursor/rules/`、协作流程
 - **状态：** 已确认
 
 ## 待确认决策

@@ -218,3 +218,26 @@
 - [x] AC-5 chatgpt-cursor-docs-workflow.md 已同步更新
 - [x] AC-6 decisions.md 已记录 DECISION-019
 - [x] AC-7 changelog.md 已记录本轮变更
+
+---
+
+## S1-STORY-017 建立迭代分支与工作分支规则
+
+**用户故事：** 作为产品负责人，我希望每个 Sprint 有独立迭代分支，并且 Sprint 内每项工作从迭代分支新开工作分支，以便每轮任务边界清晰、便于审查、回滚和合并。
+
+**优先级：** P0 · **状态：** Done
+
+**工作分支：** `docs/s1b-iteration-branch-workflow`
+
+**验收标准：**
+
+- [x] AC-1 git-workflow.md 已明确 main / sprint / feature / docs / bugfix / chore 分支模型
+- [x] AC-2 git-workflow.md 已明确每个 Sprint 新建 sprint 分支
+- [x] AC-3 git-workflow.md 已明确 Sprint 内任务从 sprint 分支新建工作分支
+- [x] AC-4 project-rules.mdc 已写入该规则
+- [x] AC-5 agile-rules.mdc 已写入 Story / Bug / Docs / Chore 与工作分支对应规则
+- [x] AC-6 collaboration-rules.mdc 已写入分支说明要求
+- [x] AC-7 chatgpt-cursor-docs-workflow.md 已同步更新
+- [x] AC-8 decisions.md 已记录 DECISION-020
+- [x] AC-9 changelog.md 已记录本轮变更
+- [x] AC-10 Sprint 1-B 状态仍保持 In Review

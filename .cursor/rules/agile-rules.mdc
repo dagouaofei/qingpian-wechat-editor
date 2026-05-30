@@ -10,6 +10,16 @@ alwaysApply: true
 - 所有任务必须对应 **Story / Bug / Decision**
 - 每个 Story 必须有验收标准（AC）
 - 每个 Sprint 必须更新 `docs/agile/sprint-backlog.md`
+- **每个 Story / Bug / Docs / Chore 任务应对应一个独立工作分支**
+- `sprint-backlog.md` 中应记录任务分支名（如有）
+
+## Git 分支与任务
+
+- 每个 Sprint 从 `main` 新建 `sprint/<sprint-slug>` 分支
+- Sprint 内任务从**当前 sprint 分支**切出 `feature/` / `docs/` / `bugfix/` / `chore/` 分支
+- 一个工作分支只解决一个问题
+- 工作分支完成后合并回 sprint 分支，**不直接合并 main**
+- 详见 `docs/agile/git-workflow.md`
 
 ## 范围变更
 
@@ -50,7 +60,9 @@ YYYY-MM-DD-<short-task-slug>.md
 ### 每份 report 至少包含
 
 - 任务背景
-- 分支名
+- 分支名（当前分支）
+- **来源分支**
+- **目标合并分支**
 - 关联 Sprint / Story / Bug / Decision
 - 本轮目标
 - 执行范围
@@ -76,6 +88,7 @@ YYYY-MM-DD-<short-task-slug>.md
 ### Sprint / Story 关闭
 
 - Cursor **不应仅凭自己的总结**宣布 Sprint 或 Story 完成
+- **任务完成状态不等于 Sprint 关闭**；Sprint 关闭必须由**用户确认**
 - Sprint / Story 的最终关闭需要**用户确认**
 - 存在争议时，状态标记为 `In Review` 或 `Needs Review`，而非直接 `Done`
 
