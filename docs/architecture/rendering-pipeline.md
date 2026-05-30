@@ -28,7 +28,8 @@ Preview Renderer 和 Copy Renderer 可以分离；
 | 职责 | 说明 |
 |------|------|
 | 读取 Article | 遍历 `blocks[]`，按顺序渲染 |
-| 解析样式 | 调用 Style Resolver 获取 `ResolvedBlockStyle` |
+| 解析样式 | 调用 Style Resolver 获取 `ResolvedBlockStyle` / `ResolvedArticleStyle` |
+| 渲染 InlineContent | paragraph / lead 的 InlineMark 由 Style System 映射为 DOM 样式（非 Block 内 CSS） |
 | 输出 DOM | React 组件树，用于页面预览 |
 | 流式更新 | 支持 blocks 增量追加时的增量渲染 |
 | 交互 | Release 1 仅只读预览，不含编辑 |
@@ -92,10 +93,10 @@ Preview Renderer 和 Copy Renderer 可以分离；
         (style → DOM)      (style → inline HTML)
 ```
 
-- 两者调用**同一个** `resolveStyle()` 函数
-- 两者读取**同一个** `BlockStyleRegistry`
-- 输出 **StyleDefinition（ResolvedBlockStyle）** 为唯一共享来源（见 [architecture-overview.md](architecture-overview.md) §7）
-- 数值（fontSize、color、padding 等）完全一致，只是映射方式不同
+- 两者调用**同一个** `resolveStyle()` → 产出 **ResolvedArticleStyle**
+- Preview / Copy **不直接消费** VariantDefinition；消费 **ResolvedBlockStyle**（见 [style-system.md](style-system.md) §3.2）
+- 两者读取**同一个** BlockStyleRegistry（StyleResolver 内部）
+- 数值（fontSize、color、padding、slots 等）完全一致，只是输出适配层不同
 
 ---
 

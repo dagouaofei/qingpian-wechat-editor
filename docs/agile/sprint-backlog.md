@@ -262,3 +262,29 @@
 - [x] AC-6 进入 Sprint 2 前置条件已列出
 - [x] AC-7 已生成 execution report
 - [x] AC-8 Sprint 1-B 保持 In Review（待用户确认收口）
+
+---
+
+## S1-STORY-021 核心技术方案实现前契约缺口修正
+
+**用户故事：** 作为产品负责人，我希望在 Sprint 2 代码实现前，补齐 InlineContent、StyleDefinition 命名边界、slot copy-safe 边界、WeChatCompatibilityProfile 等实现前契约，以避免 Article / Block、Style System、Renderer、Copy Pipeline 在实现阶段出现返工或概念混乱。
+
+**优先级：** P0 · **状态：** In Review
+
+**工作分支：** `docs/s1b-pre-implementation-contract-gaps`
+
+**验收标准：**
+
+- [x] AC-1 article-schema.md / block-schema.md 已补充 InlineContent / InlineMark / 段内高亮协议
+- [x] AC-2 style-system.md 已明确 StyleDefinition、VariantDefinition、ResolvedBlockStyle、ResolvedArticleStyle 命名边界
+- [x] AC-3 style-system.md 已补充 slot copy-safe 边界、fallback 规则、preview_only 限制
+- [x] AC-4 wechat-copy-style-rules.md 已补充 WeChatCompatibilityProfile
+- [x] AC-5 copy-to-wechat-pipeline.md 已同步 WeChatCompatibilityProfile 与 Copy Renderer
+- [x] AC-6 rendering-pipeline.md 已同步 ResolvedBlockStyle / ResolvedArticleStyle 共享输入边界
+- [x] AC-7 sprint-plan.md 已调整 Sprint 2~6 计划
+- [x] AC-8 product-backlog.md 已补充 TECH-ARCH-002~005
+- [x] AC-9 decisions.md 已记录 DECISION-029~033
+- [x] AC-10 changelog.md 已记录本轮变更
+- [x] AC-11 已生成 execution report
+- [x] AC-12 pnpm lint / pnpm build 通过
+- [x] AC-13 Sprint 1-B 保持 In Review

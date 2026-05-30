@@ -61,3 +61,17 @@
 - `docs/agile/migration-reference.md`
 
 样式系统、复制一致性、流式生成等方向已在 Release 1 Epic 中前置，不后置预留。
+
+---
+
+## Release 1 Technical Enablers（架构契约）
+
+| ID | 名称 | 归属 Epic | 说明 |
+|----|------|-----------|------|
+| TECH-ARCH-001 | Release 1 整体技术架构定稿 | 全链路 | 唯一 architecture-overview（S1-STORY-020） |
+| TECH-ARCH-002 | InlineContent / InlineMark 文本协议 | EPIC-003 | 段内富文本语义；paragraph/lead Release 1 必须支持 |
+| TECH-ARCH-003 | StyleDefinition 命名边界与 ResolvedStyle 契约 | EPIC-004 | VariantDefinition vs ResolvedBlockStyle / ResolvedArticleStyle |
+| TECH-ARCH-004 | SlotRenderSpec copy-safe 边界 | EPIC-004 / EPIC-006 | slot fallback、copySafety、preview_only 限制 |
+| TECH-ARCH-005 | WeChatCompatibilityProfile 可执行兼容规则 | EPIC-006 | Allowed/Risky/Forbidden CSS + FallbackPolicy |
+
+状态：文档契约已写入架构方案（S1-STORY-021）；代码实现按 Sprint 2~4 拆分。

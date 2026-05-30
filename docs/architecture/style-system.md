@@ -88,6 +88,60 @@ Article 和 Block **永远不携带 CSS**。
 
 ---
 
+## 3.2 样式命名边界（实现前契约）
+
+> 避免 StyleDefinition、VariantDefinition、ResolvedBlockStyle 等概念混用。
+
+| 概念 | 定义 | 持久化 / 注册 | 消费方 |
+|------|------|---------------|--------|
+| **StylePreset** | 整篇风格包：`themeId`、`defaultDensity`、`blockDefaults` 等 | registry / 配置文件 | Style Assignment |
+| **StyleVariant** | preset 内对某 block type 的 variant 引用 ID | preset 配置 | Style Assignment |
+| **VariantDefinition** | 某 `blockType` × `variantId` 的可注册样式定义（layout/spacing/typography/decoration/slots） | **registry** | StyleResolver（读取） |
+| **StyleDefinition** | 可持久化或可注册的样式定义**集合**概念；Release 1 以 system preset + registry 形式存在 | registry + theme | 架构层术语 |
+| **ArticleStylePlan** | 针对一篇 Article 的样式分配计划；来自 `Article.styleAssignment` + preset 解析 | 运行时中间结构 | StyleResolver 输入 |
+| **ResolvedBlockStyle** | **单个 block 实例**解析后的最终样式；含 tokens、slots、copySafety 等 | 运行时，不持久化 | **Preview / Copy Renderer 直接输入** |
+| **ResolvedArticleStyle** | 整篇 Article 的 resolved map：`Map<blockId, ResolvedBlockStyle>` | 运行时 | Preview / Copy 批量渲染 |
+
+**关键边界：**
+
+- Preview / Copy **不直接消费** VariantDefinition
+- Preview / Copy **消费** ResolvedBlockStyle / ResolvedArticleStyle
+- **StyleResolver** 负责：`ArticleStylePlan` + registry → ResolvedArticleStyle
+- **不要把 StyleDefinition（集合/注册概念）与 ResolvedBlockStyle（实例结果）混用**
+
+DECISION-025 中「StyleDefinition 为共享来源」在实现层指 **ResolvedBlockStyle** 的解析结果字段集合；注册层使用 **VariantDefinition**。
+
+---
+
+## 3.3 SlotRenderSpec 与 copy-safe 边界（实现前契约）
+
+slot 是 variant 内部的可替换装饰区域；**Release 1 的 slot 必须 copy-safe**。
+
+```text
+SlotRenderSpec
+├── slotName: string
+├── kind: "line" | "dot" | "badge" | "iconText" | "label" | "divider"
+├── tokens: typography / spacing / decoration
+├── copySafety: "strict" | "balanced" | "preview_only"
+└── fallback?: SlotRenderSpec
+```
+
+| 规则 | 说明 |
+|------|------|
+| 真实 DOM | slot 可表达 line、dot、badge、iconText、label、divider 等真实 DOM 装饰 |
+| 禁止 pseudo | 不得依赖 `::before` / `::after` |
+| 禁止复杂定位 | Release 1 copy 不得依赖 complex absolute 定位 |
+| 禁止 preview-only 交互 | 不得依赖 hover / transition / animation |
+| 必须有 fallback | 每个 slot 须有 Copy Renderer 可渲染的 fallback |
+| copySafety | slot 必须带 copySafety；Release 1 默认 variant 的 slot **不得** preview_only |
+| 解析路径 | preset 或 blockOverride → 最终解析到 `ResolvedBlockStyle.slots` |
+
+Preview Renderer 可用更灵活 DOM 展示 slot；Copy Renderer 必须将 slot 渲染为微信兼容 inline HTML。**若 slot 无法 copy-safe，该 variant 不得进入 Release 1 正式交付。**
+
+详见 [wechat-copy-style-rules.md](wechat-copy-style-rules.md) WeChatCompatibilityProfile。
+
+---
+
 ## 4. 核心概念定义
 
 ### 4.1 theme（主题）

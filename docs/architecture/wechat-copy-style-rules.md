@@ -31,6 +31,65 @@ Story / variant 关闭须区分上述两种 Done。
 
 ---
 
+## 1.3 WeChatCompatibilityProfile（实现前契约）
+
+> 将微信复制规则从原则变为**可执行 profile**，供 Copy Renderer 与 Style System 开发阶段判断 copy-safe。
+
+### 1.3.1 结构
+
+```text
+WeChatCompatibilityProfile
+├── profileId: "wechat-mp-editor-v1"
+├── allowedCssProperties: string[]
+├── riskyCssProperties: { property: string; fallback: string; note: string }[]
+├── forbiddenCssProperties: string[]
+├── maxNestingDepth: number              # Release 1: 3
+├── requireInlineStyle: true
+├── requireTextNodeTypography: true      # 文本节点必须 inline font-size / font-family
+└── fallbackPolicy: FallbackPolicy[]
+
+FallbackPolicy
+├── from: string                         # CSS 属性或模式
+├── to: string                           # fallback 属性或值策略
+├── reason: string
+└── requiredForRelease1: boolean
+```
+
+### 1.3.2 AllowedCssProperties（Release 1）
+
+`font-size`, `font-weight`, `font-family`, `color`, `line-height`, `text-align`, `margin`, `padding`, `background-color`, `border`, `border-radius`, `display:block`, `display:inline`, `display:inline-block`
+
+### 1.3.3 RiskyCssProperties（须 fallback + 粘贴测试）
+
+| property | fallback | note |
+|----------|----------|------|
+| `box-shadow` | `border` | 用 border 模拟卡片层次 |
+| `linear-gradient` | `background-color` | 纯色背景 |
+| `opacity` | explicit `color` / `background-color` | 避免透明度丢失 |
+| `letter-spacing` | 保留但须 paste test | 中风险 |
+| `border-radius` | 保留但须 paste test | 中风险 |
+
+### 1.3.4 ForbiddenCssProperties（Copy HTML 禁止）
+
+- class-based style（依赖 class 的选择器）
+- `<style>` 标签
+- external / web font（`@font-face`、外链字体）
+- CSS variables（`var(--*)`）在 copy HTML 中
+- `animation`、`transition`
+- `:hover` 及交互伪类
+- `::before` / `::after`
+- Release 1 copy：**complex grid / flex layout**、**absolute positioning**
+
+### 1.3.5 使用规则
+
+1. **VariantDefinition** 必须声明或可推导 `wechatCompatibility`（关联 profileId）
+2. **Copy Renderer** 输出前必须使用 WeChatCompatibilityProfile 过滤 / fallback inline style
+3. **InlineMark** 映射（bold/highlight/color）须符合 profile 的 allowed + risky 规则
+4. Release 1 variant 若无法满足 profile，**不得**进入正式可用集
+5. profile 是开发阶段 copy-safe 判断依据，**不替代**人工粘贴 QA
+
+---
+
 ## 2. 设计原则
 
 ### 2.1 共享样式定义

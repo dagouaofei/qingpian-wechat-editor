@@ -190,7 +190,12 @@ InputRequest → NormalizedInput
 | ArticleStylePlan | 样式分配计划 | Style Assignment | Style System | 3+ |
 | StylePreset | 整篇风格包 | Style System | Assignment | 3+ |
 | StyleVariant | block 视觉变体 | Style System | Registry | 3+ |
-| **StyleDefinition** | 解析后样式（见 §7） | Style System | Preview、Copy | 3+ |
+| **StyleDefinition** | 可注册样式定义集合（架构术语）；Release 1 以 registry + preset 存在 | Style System | StyleResolver | 3+ |
+| **VariantDefinition** | blockType × variantId 注册定义 | Style System / registry | StyleResolver | 3+ |
+| **ArticleStylePlan** | 单篇样式分配计划 | Style Assignment | StyleResolver | 3+ |
+| **ResolvedBlockStyle** | 单 block 实例解析结果 | StyleResolver | Preview、Copy | 3+ |
+| **ResolvedArticleStyle** | 整篇 Map\<blockId, ResolvedBlockStyle\> | StyleResolver | Preview、Copy | 3+ |
+| **InlineContent** | 段内富文本语义节点 | Block content | Renderer、Copy | 2+ |
 | PreviewRenderResult | 页面预览输出 | Preview | UI | 4+ |
 | CopyHtmlResult | 微信兼容 HTML | Copy | Clipboard、Paste QA | 4+ |
 | PasteTestRecord | 粘贴测试记录 | Paste QA | bugs.md | 4+（最小）/ 6（系统） |
@@ -255,13 +260,16 @@ Article
 
 ### 7.1 核心原则
 
-**StyleDefinition（解析结果为 `ResolvedBlockStyle`）是 Preview Renderer 与 Copy Renderer 的唯一共享样式来源。**
+**ResolvedBlockStyle** 是 Preview Renderer 与 Copy Renderer 的**直接共享输入**（StyleResolver 输出）。
 
-- Preview 与 Copy 读取**同一份** resolved 数值 token
+- Preview 与 Copy 读取**同一份** ResolvedBlockStyle / ResolvedArticleStyle
+- **VariantDefinition** 存在于 registry；Renderer **不直接消费**
 - 差异仅在**输出适配层**（DOM vs inline HTML）
 - Release 1 只实现**系统预设样式**，不实现完整样式市场
 
-### 7.2 Release 1 最小字段
+命名边界详见 [style-system.md](style-system.md) §3.2。
+
+### 7.2 Release 1 最小字段（ResolvedBlockStyle）
 
 每个 block 实例解析后的 `ResolvedBlockStyle` / `StyleDefinition` 至少包含：
 
@@ -292,6 +300,10 @@ Article
 | `importMeta?` | 外部导入溯源（135/秀米/企业模板 ID） |
 
 **约束：** 未来导入样式必须经 Style Import Adapter（§15）归一为 StyleDefinition，不得绕过 Copy Renderer。
+
+**WeChatCompatibilityProfile：** Copy 输出须符合可执行兼容 profile，见 [wechat-copy-style-rules.md](wechat-copy-style-rules.md) §1.3。
+
+**InlineContent：** 段内富文本协议见 [block-schema.md](block-schema.md) §3.1；Release 1 `paragraph` / `lead` 必须支持。
 
 ---
 
@@ -550,11 +562,13 @@ Release 1 **不实现**完整导入；StyleDefinition 已通过 `sourceType` / `
 
 ## 18. 后续 Sprint 建议
 
+> 与 [sprint-plan.md](../agile/sprint-plan.md) 对齐。Sprint 2 启动前须完成 **S1-STORY-021** 审查。
+
 | Sprint | 焦点 |
 |--------|------|
-| **Sprint 2** | Article / Block Schema **代码契约** |
-| **Sprint 3** | Style System 深度 + registry + 第一批 StyleDefinition |
-| **Sprint 4** | Preview / Copy **成对最小闭环** + **最小粘贴 QA 启动** |
+| **Sprint 2** | Article / Block Schema + **InlineContent** 代码契约（Zod/TS/fixture/单测；不含 Renderer/Style/Generation） |
+| **Sprint 3** | Style System 代码契约：Theme/Preset/VariantDefinition/Registry/StyleResolver/ResolvedBlockStyle/SlotRenderSpec/WeChatCompatibilityProfile |
+| **Sprint 4** | Preview / Copy **成对最小闭环** + WeChatCompatibilityProfile 应用 + **最小粘贴 QA 启动** |
 | **Sprint 5** | Generation / Streaming 最小闭环 + `done.article` |
 | **Sprint 6** | Fixture **三联**系统化回归 + Paste QA 体系完善 |
 
@@ -570,10 +584,11 @@ Release 1 **不实现**完整导入；StyleDefinition 已通过 `sourceType` / `
 | 4 | StyleDefinition 最小结构明确 | ✅ §7 |
 | 5 | Release 1 block 清单明确 | ✅ §8 |
 | 6 | 第一批 variant + Paste QA 范围明确 | ✅ §12.2 |
-| 7 | 定稿 merge 至 sprint 分支 | ⏳ 待用户审查 merge |
-| 8 | 用户确认 Sprint 1-B 架构收口 | ⏳ 待用户确认 |
+| 7 | 实现前契约缺口（S1-STORY-021）已补齐 | ⏳ 本轮 In Review |
+| 8 | 定稿 merge 至 sprint 分支 | ✅ |
+| 9 | 用户确认 Sprint 1-B 收口 | ⏳ 待用户确认 |
 
-**Sprint 2 代码实现可在上述 1–6 满足、7–8 用户确认后启动。**
+**Sprint 2 代码实现须在 S1-STORY-021 审查通过、用户确认 Sprint 1-B 收口后启动。**
 
 ---
 
@@ -635,3 +650,4 @@ Release 1 **不实现**完整导入；StyleDefinition 已通过 `sourceType` / `
 - DECISION-021：A 版整体架构（产品推导）
 - DECISION-022：A/B 比较方式
 - DECISION-023 ~ 028：定稿决策（见 [decisions.md](../agile/decisions.md)）
+- DECISION-029 ~ 033：实现前契约与 Sprint 2~6 计划

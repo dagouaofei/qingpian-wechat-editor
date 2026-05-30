@@ -32,6 +32,11 @@
 | DECISION-026 | 2026-05-30 | Release 1 第一批 11 种 semantic block（含 image_placeholder） | 已确认 |
 | DECISION-027 | 2026-05-30 | Copy Fidelity DoD：Done（代码）与 Done（粘贴 QA）分离 | 已确认 |
 | DECISION-028 | 2026-05-30 | Style Import Adapter 后置，StyleDefinition 预留 sourceType 等扩展点 | 已确认 |
+| DECISION-029 | 2026-05-30 | 将 InlineContent、命名边界、slot copy-safe、WeChatCompatibilityProfile 纳入 Sprint 1-B 实现前契约 | 已确认 |
+| DECISION-030 | 2026-05-30 | Sprint 2 = Article / Block Schema + InlineContent 代码契约 | 已确认 |
+| DECISION-031 | 2026-05-30 | Sprint 3 = Style System 代码契约与第一批 StyleDefinition | 已确认 |
+| DECISION-032 | 2026-05-30 | Sprint 4 = Preview / Copy 最小闭环并启动最小粘贴 QA | 已确认 |
+| DECISION-033 | 2026-05-30 | Sprint 5 / 6 分别聚焦 Generation / Streaming 与 Fixture 三联 + Paste QA 回归 | 已确认 |
 
 ### DECISION-019 详情
 
@@ -70,9 +75,19 @@
 - **影响范围：** docs/architecture/、Sprint 2+ 启动条件
 - **状态：** 已确认
 
-## 待确认决策
+### DECISION-029 ~ DECISION-033 详情（实现前契约与 Sprint 计划）
 
-- Sprint 2 主要方向（A / B / C 或组合）：待用户确认
+- **背景：** 技术方案审计发现 InlineContent、Style 命名边界、slot copy-safe、WeChatCompatibilityProfile 等缺口若留到 Sprint 2 实现将导致返工。
+- **决策摘要：**
+  1. **DECISION-029：** 上述四项纳入 Sprint 1-B 文档契约（S1-STORY-021），Sprint 2 启动前须审查
+  2. **DECISION-030：** Sprint 2 聚焦 Article/Block + InlineContent 代码契约
+  3. **DECISION-031：** Sprint 3 聚焦 Style System 代码契约与 classic-news variant
+  4. **DECISION-032：** Sprint 4 聚焦 Preview/Copy 闭环 + 最小粘贴 QA
+  5. **DECISION-033：** Sprint 5 Generation/Streaming；Sprint 6 Fixture 三联 + Paste QA 回归
+- **影响范围：** docs/architecture/、sprint-plan.md、Sprint 2+ 启动条件
+- **状态：** 已确认
+
+## 待确认决策
 
 ## 决策模板
 

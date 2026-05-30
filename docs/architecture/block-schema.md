@@ -44,6 +44,45 @@ BlockMeta
 
 ---
 
+## 3.1 InlineContent / InlineMark 文本协议（实现前契约）
+
+> 解决 `paragraph.content.text + emphasis` 不足以表达词级 / 句内高亮的问题。
+
+### 3.1.1 模型
+
+```text
+InlineContent = InlineTextNode[]
+
+InlineTextNode
+├── text: string
+└── marks?: InlineMark[]
+
+InlineMark
+├── type: "bold" | "italic" | "highlight" | "color" | "link"
+├── color?: string              # 语义色意图，非 CSS
+├── href?: string                # link 预留；Release 1 不做真实跳转
+└── semantic?: "keyword" | "warning" | "benefit" | "note"
+```
+
+### 3.1.2 规则
+
+| 规则 | 说明 |
+|------|------|
+| 语义非 CSS | InlineMark 是语义级标记；视觉由 Style System + Copy inline 映射决定 |
+| 禁止 HTML 富文本 | 不允许用 HTML string 存储富文本；不允许 Block 内直接存 `<span style="">` |
+| 适用 block | `paragraph`、`lead` **Release 1 必须支持** InlineContent；`quote`、`highlight`、`cta` 等可逐步升级 |
+| Copy 映射 | Copy Renderer 必须把 InlineMark 转为微信兼容 inline HTML |
+| link mark | 可预留字段；Release 1 不实现真实链接跳转 |
+
+### 3.1.3 Release 1 最小实现
+
+- `paragraph.content` / `lead.content` 支持 `string` **或** `InlineContent`（联合类型）
+- 代码实现阶段可先 **normalize 为 InlineContent** 统一处理
+- `highlight` mark 至少支持 **background-color / font-weight** 的 copy-safe 映射
+- 旧 `emphasis?: ("bold" \| "italic")[]` 在实现前应 migrate 为 InlineMark（文档兼容期可并存，normalize 时转换）
+
+---
+
 ## 4. 核心 Block 类型清单
 
 Release 1 必须支持以下 11 种 Block：
@@ -79,10 +118,11 @@ content: { text: string }
 ### 5.2 lead
 
 ```text
-content: { text: string }
+content: { body: string | InlineContent }
 ```
 
 - **语义边界：** 开篇导语，1~3 句，概括全文；区别于普通 paragraph 的语义角色
+- **InlineContent：** Release 1 必须支持（见 §3.1）
 - **样式：** 通常比正文略大或带次要色，由 variant 控制
 
 ### 5.3 heading
@@ -97,10 +137,11 @@ content: { text: string; level: 1 | 2 | 3 }
 ### 5.4 paragraph
 
 ```text
-content: { text: string; emphasis?: ("bold" | "italic")[] }
+content: { body: string | InlineContent }
 ```
 
-- **语义边界：** 普通正文段落；`emphasis` 标记行内强调（语义级，不是样式级）
+- **语义边界：** 普通正文段落；段内强调通过 InlineMark 表达（见 §3.1）
+- **Release 1：** 必须支持 InlineContent；`string` 形式在 normalize 时转为单节点 InlineContent
 - **样式：** 段落间距、字号由 preset + density 决定
 
 ### 5.5 list
@@ -225,6 +266,7 @@ SSE: { type: "done.article",   article: Article }
 | Block 硬编码 variant | variant 由 styleAssignment 管理 |
 | 为 preview/copy 定义不同 Block 类型 | 同一 Block，不同 Renderer 输出 |
 | `wechatBlock` / `previewBlock` 平行类型 | 违反唯一 Schema |
+| Block 内嵌 HTML 富文本 | 须使用 InlineContent / InlineMark（§3.1） |
 
 ---
 

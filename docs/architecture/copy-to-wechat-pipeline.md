@@ -33,6 +33,18 @@
 | **Sprint 4** | Preview/Copy 最小闭环时，启动**最小人工粘贴 QA**（classic-news 各 variant） |
 | **Sprint 6** | fixture 三联系统化回归；**不是**首次粘贴验证 |
 
+### 1.3 WeChatCompatibilityProfile 与 Copy Renderer
+
+Copy Renderer 生成 HTML 前必须加载 **WeChatCompatibilityProfile**（默认 `wechat-mp-editor-v1`），见 [wechat-copy-style-rules.md](wechat-copy-style-rules.md) §1.3。
+
+| 步骤 | 说明 |
+|------|------|
+| 输入 | `Article` + `ResolvedArticleStyle`（非 VariantDefinition） |
+| InlineMark | 段内 mark 映射为 allowed inline style；risky 属性走 FallbackPolicy |
+| Slot | `ResolvedBlockStyle.slots` 中每个 SlotRenderSpec 经 profile 过滤；preview_only slot 不输出 |
+| 输出 | 嵌套深度 ≤ `maxNestingDepth`；仅 inline style；无 class / `<style>` |
+| 验收 | profile 通过 ≠ 粘贴 QA 通过；须 PasteTestRecord |
+
 ---
 
 ## 2. Copy Renderer 输出什么

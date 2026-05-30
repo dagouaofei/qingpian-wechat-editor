@@ -7,6 +7,7 @@
 - 后续 Sprint 可按合理工作量拆分，避免单个 Sprint 塞入过多 Release 1 范围
 - Sprint 1 不受「1 人 / 1 周」约束限制，需完成必要地基（见 DECISION-011）
 - 不允许把 Release 1 的全部实现范围塞进单个 Sprint
+- **Sprint 2 启动前须完成 S1-STORY-021 审查**（DECISION-029）
 
 ---
 
@@ -31,38 +32,76 @@
 - Copy-to-WeChat 与复制一致性正式技术方案
 - Generation / Streaming 正式技术方案
 - 核心技术方案一致性审查
-- Sprint 状态、决策记录与 Changelog 更新
+- Release 1 整体架构定稿（S1-STORY-020）
+- **实现前契约缺口修正（S1-STORY-021）** — In Review
 
 **Sprint 1 明确不做：** 业务功能代码实现（Article Zod、Renderer、Copy Pipeline、AI 生成、SSE 实现、样式 Gallery）。
 
 ---
 
-## Sprint 2 方向（待启动）
+## Sprint 2 ~ 6 计划（Release 1 代码实现）
 
-> 核心技术方案已在 Sprint 1-B 定稿。Sprint 2 进入**代码实现**，应按合理工作量选择主要目标。
-> 业务功能实现必须在核心技术方案完成之后进入（DECISION-015）。
+> 业务功能实现必须在核心技术方案 + 实现前契约完成之后进入（DECISION-015、DECISION-029~033）。
 
-### 方向 A：Article / Block Schema 代码实现
+### Sprint 2：Article / Block Schema + InlineContent 代码契约
 
-- Zod Schema 定义
-- TypeScript 类型
-- Fixture 数据结构
-- 单元测试
+**目标：**
 
-### 方向 B：样式系统代码实现与第一批样式
+- 实现 Article / Block TypeScript 类型
+- 实现 Zod Schema
+- 实现 InlineContent / InlineMark
+- 实现基础 fixture
+- 实现 schema 单元测试
 
-- theme / preset / variant / registry 代码
-- Style Resolver
-- classic-news preset 全部 variant 定义
-- Copy adapter（inline style 映射）
+**不做：** Renderer、Style System、Generation
 
-### 方向 C：Preview / Copy Renderer 最小实现
+### Sprint 3：Style System 代码契约与第一批 StyleDefinition
 
-- Preview Renderer（基于 fixture）
-- Copy Renderer（基于 fixture）
-- 共享 Style Definition 验证
-- 人工粘贴测试清单
+**目标：**
 
-**建议顺序：** A → B → C（或 A + B 合并为一个 Sprint，C 单独一个 Sprint）。
+- 实现 Theme / Preset / VariantDefinition / Registry
+- 实现 StyleResolver → ResolvedBlockStyle / ResolvedArticleStyle
+- 实现 SlotRenderSpec copy-safe 边界
+- 实现 WeChatCompatibilityProfile 基础规则
+- 定义 classic-news 第一批 11 block variant
 
-最终 Sprint 2 方向需用户确认，并记录到 `decisions.md`。
+**不做：** 完整 Preview / Copy Renderer
+
+### Sprint 4：Preview / Copy Renderer 最小闭环 + 最小粘贴 QA
+
+**目标：**
+
+- 基于 fixture 渲染 Preview
+- 基于同一 ResolvedArticleStyle 生成 Copy HTML
+- Copy Renderer 使用 WeChatCompatibilityProfile
+- InlineMark → 微信兼容 inline HTML
+- 启动最小人工微信公众号粘贴 QA
+- 区分 Done（代码）与 Done（粘贴 QA）
+
+### Sprint 5：Generation / Streaming 最小闭环
+
+**目标：**
+
+- 实现 InputRequest / NormalizedInput
+- 实现 batch / stream 统一输出 Article
+- 实现 GenerationEvent：`status` / `metadata` / `block.start` / `block.delta` / `block.complete` / `done.article`
+- 前端可逐步展示 partial Article
+- 禁止 streamArticle 平行结构
+
+### Sprint 6：Fixture 三联 + Paste QA 回归体系
+
+**目标：**
+
+- Article JSON fixture
+- Copy HTML snapshot
+- Paste checklist / PasteTestRecord
+- 复制一致性 Bug 录入流程
+- classic-news 全 variant 回归
+
+---
+
+## 原则
+
+- 后续 Sprint 可按合理工作量继续拆分
+- 不允许将 Release 1 全部实现塞进单个 Sprint
+- Sprint 方向变更须记录到 `decisions.md`
