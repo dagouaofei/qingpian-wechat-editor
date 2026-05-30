@@ -111,7 +111,6 @@
 - 定稿分支尚未 merge 至 sprint（待用户审查）
 - Sprint 1-B 关闭需用户确认
 - 非流式 generate API：定稿保留 batch + stream 双模式，均输出同一 Article；是否在 Release 1 UI 暴露 batch 入口待产品确认
-- `references/prototype-architecture-lessons.md` 仍在 B 版分支，finalize 分支未复制（overview 引用 B 分支路径）
 
 ## 12. 是否建议进入 Sprint 2
 
@@ -129,3 +128,9 @@
 ## 14. Commit
 
 - Commit hash：`eaf02d0`
+
+## 15. 合并前小修复记录
+
+- 已将 `docs/architecture/references/prototype-architecture-lessons.md` 纳入当前分支，修复 architecture-overview 引用路径。
+- 已补充 `preview_only` 的 Release 1 限制：正式交付的 block × variant 不允许使用 `preview_only`（architecture-overview §7、§10；style-system §3.1；copy-to-wechat-pipeline §1.1）。
+- 本轮未写业务代码，未进入 Sprint 2，未 merge / push。

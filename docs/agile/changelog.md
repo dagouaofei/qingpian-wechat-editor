@@ -59,3 +59,4 @@
 | 2026-05-30 | Sprint 1-B | GenerationEvent 统一为 block.start/delta/complete | 架构 | DECISION-024 |
 | 2026-05-30 | Sprint 1-B | StyleDefinition 最小模型与 Copy Fidelity DoD 定稿 | 架构 | DECISION-025~027 |
 | 2026-05-30 | Sprint 1-B | Style Import Adapter 扩展点预留 | 架构 | DECISION-028 |
+| 2026-05-30 | Sprint 1-B | 架构定稿合并前修复：纳入 prototype architecture lessons reference，明确 preview_only 不计入 Release 1 正式交付 | 架构 | S1-STORY-020 |

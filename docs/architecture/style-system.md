@@ -77,12 +77,14 @@ Article 和 Block **永远不携带 CSS**。
 | `slots` | 已解析 slot 装饰 |
 | `tokens` | typography / spacing / decoration 数值 |
 | `layout` | 排列 token |
-| `copySafety` | `strict` \| `balanced` \| `preview_only` |
+| `copySafety` | `strict` \| `balanced` \| `preview_only`（Release 1 正式交付不得用 `preview_only`，见下） |
 | `wechatCompatibility` | 微信安全子集与 fallback |
 | `sourceType` | Release 1: `"systemPreset"`；预留 `importedTemplate` / `generatedStyle` / `userStyleLibrary` |
 | `density` | `compact` \| `standard` \| `relaxed` |
 
 未来扩展：`renderMode`、`compatibility`、`importMeta`（Release 4+ Style Import Adapter 使用）。
+
+**`preview_only` 约束（Release 1）：** 正式交付的 block × variant 不允许 `copySafety: preview_only`。该值仅保留给未来实验样式、未发布样式或内部预览；使用 `preview_only` 的 variant 不得标记 Copy Fidelity Done。
 
 ---
 

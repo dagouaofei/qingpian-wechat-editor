@@ -24,6 +24,8 @@
 
 不得将 Done（代码）等同于 Done（粘贴 QA）。
 
+**`preview_only` 排除：** Release 1 正式 block × variant 不得使用 `copySafety: preview_only`；此类样式不计入 Copy Fidelity Done。
+
 ### 1.2 粘贴 QA 启动时机
 
 | Sprint | 范围 |

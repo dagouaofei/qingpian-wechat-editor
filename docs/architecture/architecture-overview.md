@@ -16,7 +16,7 @@
 | **唯一主文档** | 定稿后的 `docs/architecture/architecture-overview.md` 是 Release 1 **唯一**整体架构主文档 |
 | **A/B/audit 定位** | A 版、B 版、`architecture-ab-audit.md` 为定稿依据与历史快照，**不再**作为并列主文档 |
 | **Sprint 2 启动** | Sprint 2 及后续实现 **只能**基于本文档 + 已对齐的专项方案启动 |
-| **参考保留** | [prototype-lessons.md](prototype-lessons.md)、[references/prototype-architecture-lessons.md](references/prototype-architecture-lessons.md)（B 版分支）为外部参考，不进入主链路叙述 |
+| **参考保留** | [prototype-lessons.md](prototype-lessons.md)、[references/prototype-architecture-lessons.md](references/prototype-architecture-lessons.md) 为外部参考，不进入主链路叙述 |
 
 ---
 
@@ -273,12 +273,14 @@ Article
 | `slots` | 已解析的 slot 装饰（Map\<slotName, SlotRenderSpec\>） |
 | `tokens` | typography / color / spacing 数值 token |
 | `layout` | 排列方式 token（align、display 语义） |
-| `copySafety` | `"strict"` \| `"balanced"` \| `"preview_only"` |
+| `copySafety` | `"strict"` \| `"balanced"` \| `"preview_only"`（见下） |
 | `wechatCompatibility` | 微信安全子集标记与 fallback 提示 |
 | `sourceType` | Release 1 固定 `"systemPreset"`；预留扩展（见 §7.3） |
 | `density` | `compact` \| `standard` \| `relaxed`（Release 1 默认 standard） |
 
 `tokens` 内部结构：`typography`、`spacing`、`decoration`（与 [style-system.md](style-system.md) §4.8 一致）。
+
+**`copySafety` 与 Release 1：** Release 1 正式交付的 block × variant **不得**使用 `preview_only`。`preview_only` 仅用于未来实验样式、未发布样式或内部预览状态，**不能**计入 Release 1 Copy Fidelity Done（代码或粘贴 QA）。
 
 ### 7.3 未来扩展字段（Release 1 不实现，架构预留）
 
@@ -353,6 +355,7 @@ StyleDefinition (ResolvedBlockStyle)
 **成对交付规则：**
 
 - 新 block type 或 variant 上线：**Preview + Copy 必须同时交付**
+- Release 1 正式 block × variant 的 `copySafety` 必须为 `strict` 或 `balanced`，**不得**为 `preview_only`
 - 禁止「先 card preview、后补 copy」
 - 禁止 Preview 用 Tailwind 硬编码而 Copy 另写 plain text
 
@@ -524,7 +527,7 @@ Release 1 **不实现**完整导入；StyleDefinition 已通过 `sourceType` / `
 | 历史实验代码（typewriter/hybrid 未合并分支） | 新项目验证后再合 |
 | HomePageClient 式上帝组件 | 薄壳 + 模块边界 |
 
-详细审计见 B 版分支 `references/prototype-architecture-lessons.md`。
+详细审计见 [references/prototype-architecture-lessons.md](references/prototype-architecture-lessons.md)。
 
 ---
 
