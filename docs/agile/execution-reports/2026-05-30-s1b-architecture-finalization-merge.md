@@ -88,7 +88,7 @@ S1-STORY-020 已完成并 merge，但 Sprint 1-B 历史上仍有 A/B 分支（01
 ## 10. Commit
 
 - Merge commit hash：`feb9aef`
-- 文档同步 commit：（提交后更新）
+- 文档同步 commit：`8940d61`
 
 ## 11. 未做事项
 
