@@ -288,3 +288,23 @@
 - [x] AC-11 已生成 execution report
 - [x] AC-12 pnpm lint / pnpm build 通过
 - [x] AC-13 Sprint 1-B 保持 In Review
+
+---
+
+## S1-STORY-022 S1-STORY-021 实现前契约二次审计
+
+**用户故事：** 作为产品负责人，我希望在 S1-STORY-021 补齐实现前契约后，基于当前技术文档并对照一键成稿样式经验做一次二次 audit，以判断是否可以进入 Sprint 2 代码实现。
+
+**优先级：** P0 · **状态：** In Review
+
+**工作分支：** `docs/s1b-pre-implementation-contract-audit`
+
+**验收标准：**
+
+- [x] AC-1 已生成 docs/architecture/audits/s1b-pre-implementation-contract-audit.md
+- [x] AC-2 审计覆盖 InlineContent、StyleDefinition 命名边界、slot copy-safe、WeChatCompatibilityProfile 四项
+- [x] AC-3 审计对照 prototype-style-system-technical-lessons.md
+- [x] AC-4 审计判断 Sprint 2 是否可以启动
+- [x] AC-5 审计输出 P0/P1/P2 问题清单
+- [x] AC-6 已生成 execution report
+- [x] AC-7 Sprint 1-B 保持 In Review

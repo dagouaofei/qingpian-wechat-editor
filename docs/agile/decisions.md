@@ -89,6 +89,8 @@
 
 ## 待确认决策
 
+- **DECISION-034（待确认）：** Sprint 2 启动条件 — S1-STORY-021 merge + 审查通过后，在登记 P1-001（block 文本字段 body/text 统一命名）前提下可启动 Article/Block 代码契约（依据：`audits/s1b-pre-implementation-contract-audit.md`）
+
 ## 决策模板
 
 ```
