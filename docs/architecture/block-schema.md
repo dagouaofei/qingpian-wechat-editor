@@ -204,14 +204,16 @@ content: {...}        blockId: "block-uuid"         decoration, layout tokens
 流式生成时，Generation Pipeline 按 block 增量追加到 `Article.blocks`：
 
 ```text
-SSE event: { type: "block.append", block: Block }
-SSE event: { type: "block.update", blockId: "...", content: {...} }
-SSE event: { type: "done.article", article: Article }
+SSE: { type: "block.start",    blockId, blockType, index }
+SSE: { type: "block.delta",    blockId, field, delta }
+SSE: { type: "block.complete", block: Block }
+SSE: { type: "done.article",   article: Article }
 ```
 
-- 增量 block 立即符合 Block Schema，可直接用于流式 Preview
+- `block.complete` 中的 Block 立即符合 Block Schema，可直接用于流式 Preview
 - 不允许维护独立的 `streamBlock[]` 结构
 - `done.article` 中的 blocks 是全量终态
+- 事件命名见 [architecture-overview.md](architecture-overview.md) §11.2、[generation-pipeline.md](generation-pipeline.md) §4.2
 
 ---
 

@@ -15,6 +15,24 @@
 
 复制一致性是 Release 1 **P0**，不是后期补 Bug。
 
+### 1.1 Copy Fidelity DoD（定稿）
+
+| 状态 | 含义 |
+|------|------|
+| **Done（代码）** | Preview + Copy 成对实现已合并；CopyHtmlResult 可生成 |
+| **Done（粘贴 QA）** | 该 block × variant 已通过微信公众号人工粘贴验收 |
+
+不得将 Done（代码）等同于 Done（粘贴 QA）。
+
+**`preview_only` 排除：** Release 1 正式 block × variant 不得使用 `copySafety: preview_only`；此类样式不计入 Copy Fidelity Done。
+
+### 1.2 粘贴 QA 启动时机
+
+| Sprint | 范围 |
+|--------|------|
+| **Sprint 4** | Preview/Copy 最小闭环时，启动**最小人工粘贴 QA**（classic-news 各 variant） |
+| **Sprint 6** | fixture 三联系统化回归；**不是**首次粘贴验证 |
+
 ---
 
 ## 2. Copy Renderer 输出什么
