@@ -53,10 +53,10 @@
 | **P1 / P2** | 已登记至后续 Sprint / Product Backlog（见下方登记表） |
 | **用户确认** | Checklist #10：已确认接受 B 级 final audit；Checklist #11：已确认可以关闭 Sprint 1-B |
 | **Sprint 2** | **Closed**（2026-05-31；DECISION-054） |
-| **Sprint 2 关闭结论** | Contract audit **A** + Code audit **A**；P0=0 |
-| **Release 1 主干** | `release/1`（Sprint 2 已 merge，DECISION-054） |
-| **Sprint 2 分支** | `sprint/s2-article-block-schema`（已 merge 至 `release/1`） |
-| **下一步** | Sprint 3-A：Style System Contract & Registry Infrastructure |
+| **Sprint 3-A** | **In Progress**（DECISION-055，2026-05-31） |
+| **Release 1 主干** | `release/1` |
+| **Sprint 3-A 分支** | `sprint/s3a-style-system-infra`（从 `release/1` 切出） |
+| **下一步** | S3A-STORY-002：Style System 基础类型与 schema 契约 |
 
 ---
 
@@ -144,7 +144,8 @@
 
 ## Sprint 2 ~ 6 计划（Release 1 代码实现）
 
-> **Sprint 2 状态：Closed**（2026-05-31；DECISION-054；contract audit A + code audit A；P0=0）
+> **Sprint 2 状态：Closed**（2026-05-31；DECISION-054）
+> **Sprint 3-A 状态：In Progress**（DECISION-055，2026-05-31；分支 `sprint/s3a-style-system-infra`）
 >
 > 业务功能实现必须在核心技术方案 + 实现前契约完成之后进入（DECISION-015、DECISION-029~045、DECISION-051）。
 
@@ -164,7 +165,11 @@
 
 **不做：** Renderer、Style System、Generation、**AI Style Selection**
 
-### Sprint 3-A：Style System Contract & Registry Infrastructure
+### Sprint 3-A：Style System Contract & Registry Infrastructure — **In Progress**
+
+**分支：** `sprint/s3a-style-system-infra` · **Release 1 主干：** `release/1`
+
+**Stories：** S3A-STORY-001（启动）~ S3A-STORY-007（audit）— 见 `sprint-backlog.md`
 
 **目标：**
 
@@ -174,7 +179,7 @@
 - StyleValidationResult / FallbackVariantPolicy / schemaVersion
 - TitleBlockLayoutCompatibility 定义
 
-**不做：** 全部 33 variants registry；Preview / Copy
+**不做：** 全部 **33** first-wave required variants registry；Preview / Copy Renderer；AI Style Selection 生成；VisualAssetRegistry 全量 assets
 
 ### Sprint 3-B：First-wave Required Variant Registry
 
