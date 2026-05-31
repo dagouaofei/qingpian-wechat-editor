@@ -19,7 +19,9 @@ export {
   inlineMarkSchema,
   inlineMarkSemanticSchema,
   inlineMarkTypeSchema,
+  inlineTextInputSchema,
   inlineTextNodeSchema,
+  plainTextSchema,
 } from "./inline-content.schema";
 export type {
   InlineContentInput,

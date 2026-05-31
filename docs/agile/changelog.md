@@ -93,3 +93,5 @@
 | 2026-05-31 | Sprint 2 | 从 `release/1` 建立 `sprint/s2-article-block-schema` | Git | DECISION-053 |
 | 2026-05-31 | Sprint 2 | 新增 Sprint 2 Backlog S2-STORY-001~007 | 敏捷 | S2-STORY-001 |
 | 2026-05-31 | Sprint 2 | 实现 InlineContent / InlineMark 代码契约（TS + Zod + normalize + 单测） | 代码 / 架构 | S2-STORY-002 |
+| 2026-05-31 | Sprint 2 | S2-STORY-002 merge 至 sprint 分支（`ba149fe`）；状态 Done | Git / 敏捷 | S2-STORY-002 |
+| 2026-05-31 | Sprint 2 | 实现 Block Schema 代码契约（11 block TS + Zod union + 单测） | 代码 / 架构 | S2-STORY-003 |
