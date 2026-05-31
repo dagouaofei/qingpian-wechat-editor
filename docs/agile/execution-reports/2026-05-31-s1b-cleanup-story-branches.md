@@ -108,9 +108,8 @@ chore/s1b-cleanup-story-branches（本轮工作分支）
 
 ## 10. 未完成事项
 
-- chore 分支文档变更未 commit
-- chore 分支未 merge 至 `release/1`
 - `sprint/s1b-core-tech-governance` 是否归档/删除待用户决定
+- `release/1` 尚未 push 至 origin（本地 ahead 2 commits；merge 后若更新 execution report 则 ahead 3）
 
 ## 11. 风险与阻塞
 
@@ -118,15 +117,17 @@ chore/s1b-cleanup-story-branches（本轮工作分支）
 
 ## 12. 需要用户 / ChatGPT 审查的问题
 
-1. 是否 merge `chore/s1b-cleanup-story-branches` → `release/1`？
-2. 是否删除 `sprint/s1b-core-tech-governance`（内容已在 release/1）？
+1. 是否删除 `sprint/s1b-core-tech-governance`（内容已在 release/1）？
+2. 是否 push `release/1` 至 origin？
 
 ## 13. 建议下一步
 
-1. 审查并 merge 本轮 chore 分支至 `release/1`
-2. 用户确认后从 `release/1` 启动 Sprint 2（`sprint/s2-*`）
+1. 用户确认后从 `release/1` 启动 Sprint 2（`sprint/s2-*`）
+2. 可选：push `release/1` 至 origin
 3. 可选：删除或打 tag 归档 `sprint/s1b-core-tech-governance`
 
 ## 14. Commit
 
-- Commit hash：未提交 / not committed
+- 工作分支 commit：`cc71fbf`
+- merge commit（`release/1`）：`7410145`
+- 是否已 merge 至 `release/1`：是
