@@ -99,3 +99,5 @@
 | 2026-05-31 | Sprint 2 | 实现 Article Schema 代码契约（Article TS + Zod + blockSchema 复用 + 单测） | 代码 / 架构 | S2-STORY-004 |
 | 2026-05-31 | Sprint 2 | S2-STORY-004 merge 至 sprint 分支（`d68e503`）；状态 Done | Git / 敏捷 | S2-STORY-004 |
 | 2026-05-31 | Sprint 2 | 实现 schema parse / validate / normalize helper（Article + Block + validation result） | 代码 / 架构 | S2-STORY-005 |
+| 2026-05-31 | Sprint 2 | S2-STORY-005 merge 至 sprint 分支（`9a7d625`）；状态 Done | Git / 敏捷 | S2-STORY-005 |
+| 2026-05-31 | Sprint 2 | 新增基础 Article fixtures 与 schema 回归测试（4 fixtures + invalid cases） | 测试 / 架构 | S2-STORY-006 |
