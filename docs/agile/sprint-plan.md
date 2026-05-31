@@ -23,7 +23,7 @@
 - Sprint 2 候选目标沉淀
 - 旧一键成稿历史经验审计与迁移清单
 
-### Sprint 1-B：核心技术方案补齐与 Git 仓库治理 — In Review
+### Sprint 1-B：核心技术方案补齐与 Git 仓库治理 — **Closed**
 
 - Git 仓库治理与分支策略
 - Article / Block Schema 正式技术方案
@@ -37,31 +37,43 @@
 - Sprint 2 启动前契约收口（S1-STORY-023）— **Done**
 - Component DSL / Style System 收口（S1-STORY-024~027）— **Done**
 - Sprint 1-B 总 Audit（S1-STORY-028）— **Done**
-- 关闭前状态同步（S1-STORY-029）— **In Review**
+- 关闭前状态同步与正式关闭（S1-STORY-029）— **Done**（DECISION-051）
 
 **Sprint 1 明确不做：** 业务功能代码实现（Article Zod、Renderer、Copy Pipeline、AI 生成、SSE 实现、样式 Gallery）。
 
 ---
 
+## Sprint 1-B Closure Summary
+
+| 项 | 内容 |
+|----|------|
+| **关闭日期** | 2026-05-30 |
+| **关闭结论** | Final audit **B 级**通过 |
+| **P0** | 0 |
+| **P1 / P2** | 已登记至后续 Sprint / Product Backlog（见下方登记表） |
+| **用户确认** | Checklist #10：已确认接受 B 级 final audit；Checklist #11：已确认可以关闭 Sprint 1-B |
+| **Sprint 2** | **未启动**（Not Started） |
+| **下一步候选** | Sprint 2：Article / Block Schema + InlineContent 代码契约（须用户单独确认启动） |
+
+---
+
 ## Sprint 1-B Close Readiness Checklist
 
-> 登记于 S1-STORY-029。**本轮只准备关闭条件，不关闭 Sprint 1-B。**
+> 登记于 S1-STORY-029；Sprint 1-B 已于 2026-05-30 正式关闭（DECISION-051）。
 
 | # | 检查项 | 状态 |
 |---|--------|------|
 | 1 | final audit 已 merge 至 `sprint/s1b-core-tech-governance`（`25b9bad`） | ✅ |
-| 2 | S1-STORY-021~028 状态已同步（Done + merge 标注） | ✅（S1-STORY-029） |
+| 2 | S1-STORY-021~028 状态已同步（Done + merge 标注） | ✅ |
 | 3 | P0 = 0（见 `sprint1b-final-audit.md`） | ✅ |
-| 4 | P1/P2 已登记 Product Backlog 或后续 Sprint | ✅（见下方登记表 + TECH-ARCH-023） |
+| 4 | P1/P2 已登记 Product Backlog 或后续 Sprint | ✅ |
 | 5 | Style Quality Gate 已登记 Product Backlog（TECH-ARCH-023） | ✅ |
 | 6 | Sprint 2 范围明确：Article / Block Schema + InlineContent 代码契约 | ✅ |
 | 7 | Sprint 3-A/B/C、4-A/B、5、6-A/B 拆分清晰 | ✅ |
 | 8 | Release 1 first wave 11×3 + expansion 策略已确认（DECISION-043） | ✅ |
 | 9 | 受控 AI Style Selection 边界已确认（DECISION-040） | ✅ |
-| 10 | 用户确认接受 B 级 final audit | ⏳ 待用户 |
-| 11 | 用户确认可以关闭 Sprint 1-B | ⏳ 待用户 |
-
-**关闭 Sprint 1-B 须用户显式确认；Cursor 不得自行关闭。**
+| 10 | 用户确认接受 B 级 final audit | ✅ **已确认** |
+| 11 | 用户确认可以关闭 Sprint 1-B | ✅ **已确认** |
 
 ---
 
@@ -82,7 +94,7 @@
 | P1-007 | requireTextNodeTypography 细则未展开 | Sprint 4 | 登记 |
 | P1-008 | rendering-pipeline.md 实现顺序与 Sprint 2~6 不一致 | Sprint 1-B | **已解决**（S1-STORY-023） |
 | P1-009 | sprint-backlog 021~024 状态滞后 | Sprint 1-B | **已解决**（S1-STORY-029） |
-| P1-010 | architecture-overview §19 仍写 S1-STORY-021 In Review | Sprint 1-B 关闭后 / Sprint 2 前 | 登记 · 待收口 chore |
+| P1-010 | architecture-overview §19 仍写 S1-STORY-021 In Review | Sprint 1-B 关闭 | **已解决**（S1-STORY-029 关闭轮） |
 | P1-011 | 各 variant copySafety tier 未逐项登记 | Sprint 3-B | 登记 · TECH-ARCH-018 |
 | P1-012 | Style Quality Gate 未登记 product-backlog | Backlog | **已解决**（TECH-ARCH-023） |
 
@@ -102,7 +114,9 @@
 
 ## Sprint 2 ~ 6 计划（Release 1 代码实现）
 
-> 业务功能实现必须在核心技术方案 + 实现前契约完成之后进入（DECISION-015、DECISION-029~045）。
+> **Sprint 2 状态：Not Started**（Sprint 1-B 已关闭；须用户单独确认后启动。）
+>
+> 业务功能实现必须在核心技术方案 + 实现前契约完成之后进入（DECISION-015、DECISION-029~045、DECISION-051）。
 
 ### Sprint 2：Article / Block Schema + InlineContent 代码契约
 

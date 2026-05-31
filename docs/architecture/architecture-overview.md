@@ -632,19 +632,20 @@ Release 1 **不实现**完整导入；StyleDefinition 已通过 `sourceType` / `
 
 ## 19. 进入 Sprint 2 前置条件
 
-| # | 条件 | 本轮状态 |
-|---|------|----------|
+| # | 条件 | 状态（2026-05-30 · Sprint 1-B 关闭后） |
+|---|------|----------------------------------------|
 | 1 | 唯一 `architecture-overview.md` 定稿 | ✅ 本文档 |
 | 2 | GenerationEvent 命名统一 | ✅ §11.2；`generation-pipeline.md` 已对齐 |
 | 3 | Article meta/blocks 分工明确 | ✅ §6 |
 | 4 | StyleDefinition 最小结构明确 | ✅ §7 |
 | 5 | Release 1 block 清单明确 | ✅ §8 |
-| 6 | 第一批 variant + Paste QA 范围明确 | ✅ §12.2 |
-| 7 | 实现前契约缺口（S1-STORY-021）已补齐 | ⏳ 本轮 In Review |
-| 8 | 定稿 merge 至 sprint 分支 | ✅ |
-| 9 | 用户确认 Sprint 1-B 收口 | ⏳ 待用户确认 |
+| 6 | 第一批 variant + Paste QA 范围明确 | ✅ §12.2（first wave 11×3 + expansion） |
+| 7 | Sprint 1-B 实现前契约链路（S1-STORY-021~029） | ✅ Done；P0=0；P1/P2 已登记后续 Sprint / backlog |
+| 8 | 定稿 merge 至 sprint 分支 | ✅ `sprint/s1b-core-tech-governance` |
+| 9 | 用户确认 Sprint 1-B 收口 | ✅（DECISION-051；Checklist #10/#11 已确认） |
+| 10 | Sprint 2 代码实现 | ⏳ **未启动**（须用户单独确认后启动） |
 
-**Sprint 2 代码实现须在 S1-STORY-021 审查通过、用户确认 Sprint 1-B 收口后启动。**
+**说明：** S1-STORY-021~028 已 Done；S1-STORY-029 完成关闭前状态同步与 Sprint 1-B 正式关闭。Final audit 分级 **B**；用户已确认接受 B 级结论并可关闭 Sprint 1-B。**关闭 Sprint 1-B ≠ 启动 Sprint 2。**
 
 ---
 

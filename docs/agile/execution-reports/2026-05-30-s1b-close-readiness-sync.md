@@ -56,6 +56,6 @@ merge final audit；同步 Story 021~028 状态；登记 P1/P2 与 Style Quality
 
 ## 10. Commit hash
 
-（提交后更新）
+`45e8b2cb6b3d6b9bf759e2570c530765a99e964a`
 
-## 11. Sprint 1-B：In Review
+## 11. Sprint 1-B：Closed（2026-05-30 · DECISION-051）
