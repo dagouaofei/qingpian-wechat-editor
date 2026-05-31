@@ -545,7 +545,7 @@
 
 **用户故事：** 作为开发者，我需要 Article 顶层结构的 TypeScript 类型与 Zod Schema，以便全项目有唯一可校验的文章主模型。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s2-article-schema-contract`
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s2-article-schema-contract`（已 merge 至 `sprint/s2-article-block-schema` @ `d68e503`）
 
 **明确不做：**
 
@@ -569,23 +569,24 @@
 
 **用户故事：** 作为开发者，我需要统一的 parse / validate / normalize 入口，以便 fixture、测试与后续 Generation 终态共用同一校验与归一逻辑。
 
-**优先级：** P0 · **状态：** Pending · **工作分支：** `feature/s2-schema-helpers`
+**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s2-schema-helpers`
 
 **明确不做：**
 
 - 不实现 JSONL / SSE 流式 parser
 - 不实现 Style Assignment 解析或 StyleOrchestrator
+- 不实现 fixtures 总装（S2-STORY-006）
 - 不修改 Renderer / Copy pipeline
 
 **验收标准：**
 
-- [ ] AC-1 提供 `parseArticle(input: unknown): Article`（或 `safeParse` + 明确错误类型）
-- [ ] AC-2 提供 `parseBlock` / `validateBlocks` 或等价 API
-- [ ] AC-3 normalize 路径：`paragraph` / `lead` 的 `string | InlineContent` → InlineContent（复用 S2-STORY-002）
-- [ ] AC-4 校验错误信息可用于测试与调试（Zod issue 或项目统一 ValidationError）
-- [ ] AC-5 禁止静默丢弃非法 block；失败须显式报错
-- [ ] AC-6 单元测试覆盖 parse 成功、normalize、校验失败
-- [ ] AC-7 `pnpm lint` / `pnpm build` 通过
+- [x] AC-1 `parseArticle(input: unknown): Article` + `ArticleSchemaError`
+- [x] AC-2 `validateArticle` + `parseBlock` / `validateBlock`（`@/core/blocks`）
+- [x] AC-3 `normalizeArticle`：paragraph / lead `content.text` string → InlineContent（复用 `normalizeInlineContent`）
+- [x] AC-4 `SchemaValidationResult` / `SchemaValidationIssue` + `formatZodIssues`（`@/core/schema`）
+- [x] AC-5 非法输入显式失败；`validateArticle` 不 throw
+- [x] AC-6 单元测试 23 helper cases + 3 schema cases（`article-helpers.test.ts`、`validation-result.test.ts`）
+- [x] AC-7 `corepack pnpm lint` / `corepack pnpm test` / `corepack pnpm build` 通过
 
 ---
 

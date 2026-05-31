@@ -97,3 +97,5 @@
 | 2026-05-31 | Sprint 2 | 实现 Block Schema 代码契约（11 block TS + Zod union + 单测） | 代码 / 架构 | S2-STORY-003 |
 | 2026-05-31 | Sprint 2 | S2-STORY-003 merge 至 sprint 分支（`93c6526`）；状态 Done | Git / 敏捷 | S2-STORY-003 |
 | 2026-05-31 | Sprint 2 | 实现 Article Schema 代码契约（Article TS + Zod + blockSchema 复用 + 单测） | 代码 / 架构 | S2-STORY-004 |
+| 2026-05-31 | Sprint 2 | S2-STORY-004 merge 至 sprint 分支（`d68e503`）；状态 Done | Git / 敏捷 | S2-STORY-004 |
+| 2026-05-31 | Sprint 2 | 实现 schema parse / validate / normalize helper（Article + Block + validation result） | 代码 / 架构 | S2-STORY-005 |

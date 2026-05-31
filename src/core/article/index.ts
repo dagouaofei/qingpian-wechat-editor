@@ -33,6 +33,14 @@ export type {
   ArticleStyleAssignmentInput,
 } from "./article.schema";
 
+export {
+  ArticleSchemaError,
+  parseArticle,
+  validateArticle,
+} from "./article.parse";
+
+export { normalizeArticle } from "./article.normalize";
+
 export type {
   InlineContent,
   InlineMark,

@@ -49,3 +49,9 @@ export {
   titleBlockSchema,
 } from "./block.schema";
 export type { BlockInput } from "./block.schema";
+
+export {
+  BlockSchemaError,
+  parseBlock,
+  validateBlock,
+} from "./block.parse";
