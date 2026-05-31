@@ -786,7 +786,7 @@
 
 **用户故事：** 作为开发者，我需要统一的 Style 层 validation result 与 FallbackVariantPolicy，以便 registry 校验与后续 UI / QA 有稳定错误结构。
 
-**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s3a-style-validation-policy`（已 merge 至 `sprint/s3a-style-system-infra`）
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s3a-style-validation-policy`（已 merge 至 `sprint/s3a-style-system-infra`，`bcd6947`；用户确认验收 2026-05-31）
 
 **copySafety 命名统一（本轮）：** 以 `style-system.md` 为准，统一为 `strict | balanced | preview_only`；legacy `safe`/`risky` 仅经 `normalizeCopySafetyInput` helper 兼容，非主模型。
 
@@ -801,7 +801,7 @@
 
 **用户故事：** 作为开发者，我需要 TitleBlockLayoutCompatibility 契约（layoutMode / allowedInCopy / fallbackLayoutMode / riskLevel），以便 first-wave required variants 与 candidate variants 的 copy-safe 边界清晰。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s3a-title-layout-compatibility`
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s3a-title-layout-compatibility`（已 merge 至 `sprint/s3a-style-system-infra`，`f44a131`）
 
 **明确不做：**
 
@@ -828,7 +828,7 @@
 - [x] AC-16 `corepack pnpm test` 通过（221 tests）
 - [x] AC-17 `corepack pnpm build` 通过
 - [x] AC-18 已生成 execution report
-- [ ] AC-19 未 merge 到 sprint / release / main（待用户确认后 merge）
+- [x] AC-19 已 merge 至 `sprint/s3a-style-system-infra`（`f44a131`，用户确认 2026-05-31）
 
 ---
 
