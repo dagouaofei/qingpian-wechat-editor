@@ -27,7 +27,7 @@
 
 ## 4. Commit
 
-- Commit hash：（提交后填写）
+- Commit hash：`ece5fea`
 
 ## 5. 建议下一步
 
