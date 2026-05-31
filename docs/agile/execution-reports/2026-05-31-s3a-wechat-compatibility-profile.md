@@ -117,4 +117,4 @@ Schema 拒绝 `release1_required + copySafety: preview_only`。
 
 ## 14. Commit
 
-- Commit hash：（提交后更新）
+- Commit hash：`e5dba5d`
