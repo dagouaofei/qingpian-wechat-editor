@@ -1,8 +1,8 @@
-# Sprint 1 Backlog
+# Sprint Backlog
 
-> Sprint 1：正式项目启动、核心技术方案定稿与工程治理
-> Sprint 1-A：Done · Sprint 1-B：**Done**
-> 整体状态：**Sprint 1-B Closed**（Sprint 2 未启动）
+> **Sprint 1：** 正式项目启动、核心技术方案定稿与工程治理 · Sprint 1-A / 1-B：**Closed**
+> **Sprint 2：** Article / Block Schema + InlineContent 代码契约 · **Closed**（2026-05-31；DECISION-054）
+> **Release 1 主干：** `release/1` · **Sprint 2 分支：** `sprint/s2-article-block-schema`（DECISION-053）
 
 ---
 
@@ -453,4 +453,201 @@
 - 用户已确认 Checklist **#11**：可以关闭 Sprint 1-B
 - P1/P2 已登记至 Product Backlog / 后续 Sprint
 - P1-010（architecture-overview §19 过期状态）已在本轮修复
-- **Sprint 2 未启动**
+- **Sprint 2 已启动**（DECISION-053，2026-05-31）
+
+---
+
+# Sprint 2 Backlog
+
+> **Sprint 2 目标：** 实现 Article / Block Schema + InlineContent **代码契约**（TypeScript 类型 + Zod + helpers + fixtures + 单元测试）
+> **Sprint 2 分支：** `sprint/s2-article-block-schema`（从 `release/1` 切出）
+> **Sprint 2 不做：** Renderer、Style System、Generation、AI Style Selection
+
+---
+
+## S2-STORY-001 Sprint 2 启动与 Backlog 拆分
+
+**用户故事：** 作为产品负责人，我需要正式启动 Sprint 2 并拆分 Backlog，以便团队在明确边界下按 Story 逐步实现 Article / Block Schema 代码契约。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `docs/s2-start-backlog-split`
+
+**明确不做：**
+
+- 不实现 Article / Block / InlineContent 业务代码
+- 不修改 `src/core/` 下除 README 外的源码
+- 不 merge 至 `release/1` 或 `main`（本轮由用户审查后 merge sprint 分支）
+
+**验收标准：**
+
+- [x] AC-1 工作区干净；已从 `release/1` 创建 `sprint/s2-article-block-schema`
+- [x] AC-2 `sprint-backlog.md` 已新增 Sprint 2 Backlog（S2-STORY-001~007）
+- [x] AC-3 `sprint-plan.md` Sprint 2 状态已更新为 In Progress
+- [x] AC-4 `changelog.md` 已记录 Sprint 2 启动与 sprint 分支建立
+- [x] AC-5 `decisions.md` 已记录 DECISION-053
+- [x] AC-6 每个 Story 含用户故事、优先级、状态、工作分支、AC、不做事项
+- [x] AC-7 `pnpm lint` / `pnpm build` 通过
+- [x] AC-8 已生成 execution report
+
+---
+
+## S2-STORY-002 InlineContent / InlineMark 代码契约
+
+**用户故事：** 作为开发者，我需要 InlineContent / InlineMark 的 TypeScript 类型与 Zod Schema，以便 paragraph / lead 等 block 能表达段内富文本语义且与文档契约一致。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s2-inline-content-contract`（已 merge 至 `sprint/s2-article-block-schema` @ `ba149fe`）
+
+**明确不做：**
+
+- 不实现 Copy Renderer 的 InlineMark → HTML 映射
+- 不实现 Style System 或 ResolvedBlockStyle
+- 不升级 quote / highlight / cta 至 InlineContent（Release 2，见 P2-001）
+
+**验收标准：**
+
+- [x] AC-1 `src/core/article/` 已定义 `InlineMark`、`InlineTextNode`、`InlineContent` TS 类型（`InlineContent = InlineTextNode[]`，与 block-schema §3.1 一致）
+- [x] AC-2 Zod schema 覆盖 mark 类型：`bold` | `italic` | `highlight` | `color` | `link`；可选 `color`、`href`、`semantic`
+- [x] AC-3 禁止 HTML 富文本 string 作为主模型；schema 校验失败有明确错误
+- [x] AC-4 与 `block-schema.md` §3.1 一致；导出 `InlineTextInput` 供 paragraph / lead `text: string | InlineContent` 使用
+- [x] AC-5 提供 `normalizeInlineContent(input: string | InlineContent): InlineContent` 及 `parseInlineContent` / `isInlineContent`
+- [x] AC-6 提供 `legacyEmphasisToMarks` 供文档兼容期 emphasis → InlineMark 迁移
+- [x] AC-7 单元测试覆盖合法 / 非法 InlineContent（22 cases，`tests/core/article/inline-content.test.ts`）
+- [x] AC-8 `corepack pnpm lint` / `corepack pnpm test` / `corepack pnpm build` 通过
+
+---
+
+## S2-STORY-003 Block Schema 代码契约
+
+**用户故事：** 作为开发者，我需要 Release 1 全部 11 种 Block 的 discriminated union 类型与 Zod Schema，以便 Article 内容与后续 Renderer 共享同一语义边界。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s2-block-schema-contract`（已 merge 至 `sprint/s2-article-block-schema` @ `93c6526`）
+
+**明确不做：**
+
+- 不实现 Preview / Copy Renderer
+- 不在 Block 上绑定 variant / CSS / StyleDefinition
+- 不实现 Generation 或流式 block 增量解析
+- 不实现 Article Schema 总装
+
+**验收标准：**
+
+- [x] AC-1 已实现 11 种 `BlockType`（`BLOCK_TYPES` / `blockTypeSchema`）
+- [x] AC-2 每种 block `content` 与 `block-schema.md` §5 一致；paragraph / lead 使用 `content.text`（`inlineTextInputSchema`）
+- [x] AC-3 `info_card.content.body` 保留独立语义
+- [x] AC-4 Block 通用结构 `id` / `type` / `content` / `meta?`；`blockSchema` discriminated union
+- [x] AC-5 `BlockMeta` 已定义（`blockMetaSchema`）
+- [x] AC-6 导出 `Block` / `blockSchema` 及 11 种 block schema（`@/core/blocks`）
+- [x] AC-7 单元测试 26 cases（`tests/core/blocks/block-schema.test.ts`）
+- [x] AC-8 `corepack pnpm lint` / `corepack pnpm test` / `corepack pnpm build` 通过
+
+---
+
+## S2-STORY-004 Article Schema 代码契约
+
+**用户故事：** 作为开发者，我需要 Article 顶层结构的 TypeScript 类型与 Zod Schema，以便全项目有唯一可校验的文章主模型。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s2-article-schema-contract`（已 merge 至 `sprint/s2-article-block-schema` @ `d68e503`）
+
+**明确不做：**
+
+- 不实现 StyleResolver / StyleDefinition / theme registry
+- 不实现 parse / normalize 总 helper（S2-STORY-005）
+- 不引入 `mockArticle` / `streamArticle` 等平行结构
+
+**验收标准：**
+
+- [x] AC-1 Article 顶层：`id`、`version`、`metadata`、`input`、`styleAssignment`、`blocks`、`generation?`
+- [x] AC-2 `ArticleMetadata`、`InputSource`、`StyleAssignment`、`GenerationMeta` 与 `article-schema.md` 一致
+- [x] AC-3 `blocks: Block[]` 复用 `blockSchema`；至少 1 个 block
+- [x] AC-4 `version` 固定 literal `1`
+- [x] AC-5 Article `.strict()`；无 CSS / style / className
+- [x] AC-6 单元测试 23 cases（`tests/core/article/article-schema.test.ts`）
+- [x] AC-7 `corepack pnpm lint` / `corepack pnpm test` / `corepack pnpm build` 通过
+
+---
+
+## S2-STORY-005 Schema normalize / parse / validation helper
+
+**用户故事：** 作为开发者，我需要统一的 parse / validate / normalize 入口，以便 fixture、测试与后续 Generation 终态共用同一校验与归一逻辑。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s2-schema-helpers`（已 merge 至 `sprint/s2-article-block-schema` @ `9a7d625`）
+
+**明确不做：**
+
+- 不实现 JSONL / SSE 流式 parser
+- 不实现 Style Assignment 解析或 StyleOrchestrator
+- 不实现 fixtures 总装（S2-STORY-006）
+- 不修改 Renderer / Copy pipeline
+
+**验收标准：**
+
+- [x] AC-1 `parseArticle(input: unknown): Article` + `ArticleSchemaError`
+- [x] AC-2 `validateArticle` + `parseBlock` / `validateBlock`（`@/core/blocks`）
+- [x] AC-3 `normalizeArticle`：paragraph / lead `content.text` string → InlineContent（复用 `normalizeInlineContent`）
+- [x] AC-4 `SchemaValidationResult` / `SchemaValidationIssue` + `formatZodIssues`（`@/core/schema`）
+- [x] AC-5 非法输入显式失败；`validateArticle` 不 throw
+- [x] AC-6 单元测试 23 helper cases + 3 schema cases（`article-helpers.test.ts`、`validation-result.test.ts`）
+- [x] AC-7 `corepack pnpm lint` / `corepack pnpm test` / `corepack pnpm build` 通过
+
+---
+
+## S2-STORY-006 基础 fixtures 与 schema 单元测试
+
+**用户故事：** 作为开发者，我需要可复用的 Article / Block JSON fixture 与 schema 单元测试，以便后续 Sprint 3~6 在不重写测试数据的情况下扩展。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s2-schema-fixtures`（已 merge 至 `sprint/s2-article-block-schema` @ `049b427`）
+
+**明确不做：**
+
+- 不实现 Copy HTML snapshot fixture（Sprint 6-A）
+- 不实现 Paste QA 记录
+- 不覆盖 33 variants 或 StyleDefinition fixture
+
+**验收标准：**
+
+- [x] AC-1 `minimalArticleFixture` 最小合法 Article（`tests/fixtures/articles/`）
+- [x] AC-2 `inlineMarksArticleFixture` 覆盖 bold / italic / highlight / color / link
+- [x] AC-3 fixture 路径 `tests/fixtures/articles/` + `index.ts` 统一导出
+- [x] AC-4 Vitest：`parseArticle` / `validateArticle` / `normalizeArticle` 与 fixtures 打通
+- [x] AC-5 `fullBlocksArticleFixture` 覆盖 11 种 block 类型
+- [x] AC-6 `corepack pnpm test` 通过
+- [x] AC-7 `corepack pnpm lint` / `corepack pnpm build` 通过
+
+---
+
+## S2-STORY-007 Sprint 2 契约 audit 与关闭准备
+
+**用户故事：** 作为产品负责人，我需要在 Sprint 2 代码实现完成后做一次契约 audit，确认 TS/Zod 与 architecture 文档一致，并准备 Sprint 2 关闭与 Sprint 3 启动条件。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `docs/s2-contract-audit-close-readiness`（已 merge 至 `sprint/s2-article-block-schema` @ `5eda6cd`）
+
+**明确不做：**
+
+- 不在 audit 轮修复 Style System / Renderer / Generation 代码
+- 不自行宣布 Sprint 2 Done（须用户确认）
+- 不 merge sprint 分支至 `release/1`，除非用户确认
+
+**验收标准：**
+
+- [x] AC-1 已生成 `docs/architecture/audits/sprint2-contract-audit.md`
+- [x] AC-2 audit 对照 `article-schema.md`、`block-schema.md`、DECISION-034（text 字段）
+- [x] AC-3 audit 输出 P0=0 / P1=1 / P2=3；P0=0 建议可关闭 Sprint 2（待用户确认）
+- [x] AC-4 S2-STORY-002~006 状态与 sprint-backlog 已同步 Done
+- [x] AC-5 sprint-plan / changelog 已更新 Sprint 2 In Review / Close Readiness
+- [x] AC-6 `corepack pnpm lint` / `corepack pnpm test` / `corepack pnpm build` 通过
+- [x] AC-7 已生成 execution report
+- [x] AC-8 Sprint 2 已关闭（用户确认 2026-05-31；DECISION-054）
+
+---
+
+## Sprint 2 Close Readiness
+
+> **状态：已关闭**（2026-05-31；用户确认；DECISION-054）
+
+| 项 | 状态 |
+|----|------|
+| S2-STORY-002~007 | Done |
+| Contract audit | ✅ A 级，P0=0，P1=1，P2=3（用户已接受） |
+| Code audit | ✅ A 级，P0=0，P1=3，P2=5（用户已接受） |
+| lint / test / build | PASS |
+| Sprint 2 关闭 | ✅ **已关闭**（2026-05-31） |
+| merge sprint → `release/1` | ✅ 用户已确认执行 |

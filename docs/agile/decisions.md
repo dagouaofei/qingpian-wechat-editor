@@ -51,6 +51,8 @@
 | DECISION-045 | 2026-05-30 | 正式拆分 Sprint 3/4/6 为 3-A/B/C、4-A/B、6-A/B | 已确认 |
 | DECISION-051 | 2026-05-30 | 关闭 Sprint 1-B，并保持 Sprint 2 未启动 | 已确认 |
 | DECISION-052 | 2026-05-31 | 建立 `release/1` 作为 Release 1 主干；Sprint 1-B merge 至 release/1；清理 Sprint 1-B story 工作分支 | 已确认 |
+| DECISION-053 | 2026-05-31 | 正式启动 Sprint 2；范围 Article / Block Schema + InlineContent 代码契约；从 release/1 切 sprint/s2-article-block-schema | 已确认 |
+| DECISION-054 | 2026-05-31 | 关闭 Sprint 2；contract audit A + code audit A；P0=0；merge sprint/s2-article-block-schema → release/1 | 已确认 |
 
 ### DECISION-019 详情
 
@@ -165,6 +167,30 @@
   3. Sprint 1-B 全部 15 个 `docs/s1b-*` story 工作分支已清理删除（含已 merge 与未 merge）
 - **保留分支：** `main`、`release/1`、`sprint/s1b-core-tech-governance`（sprint 分支保留作历史快照，可后续归档）
 - **影响范围：** git-workflow.md、Sprint 2+ 切分支来源改为 `release/1`
+- **状态：** 已确认
+
+### DECISION-053 详情（Sprint 2 正式启动）
+
+- **背景：** Sprint 1-B 已关闭（DECISION-051）；Release 1 主干为 `release/1`（DECISION-052）；实现前契约与 P1-001 已收口；用户确认启动 Sprint 2
+- **决策：**
+  1. Sprint 2 **正式启动**，状态 **In Progress**
+  2. 范围保持：**Article / Block Schema + InlineContent 代码契约**（DECISION-030）；**不做** Renderer、Style System、Generation、AI Style Selection
+  3. 从 `release/1` 切出 **`sprint/s2-article-block-schema`**
+  4. Sprint 2 Backlog 拆分为 S2-STORY-001~007（见 `sprint-backlog.md`）
+- **约束：** Sprint 2 工作分支从 sprint 分支切出；验收 merge 至 sprint，再 merge 至 `release/1`（须用户确认）
+- **关联：** S2-STORY-001、DECISION-030、DECISION-034
+- **状态：** 已确认
+
+### DECISION-054 详情（Sprint 2 正式关闭）
+
+- **背景：** S2-STORY-002~007 全部完成；contract audit grade **A**（P0=0，P1=1，P2=3）；code audit grade **A**（P0=0，P1=3，P2=5）；lint/test/build PASS
+- **决策：**
+  1. Sprint 2 **正式关闭**，状态 **Closed**（2026-05-31）
+  2. 用户确认接受 contract audit 与 code audit 结论
+  3. **`sprint/s2-article-block-schema` merge 至 `release/1`**（`--no-ff`）
+  4. P1/P2 登记至 sprint-plan Sprint 2 Close Readiness；不阻塞 Sprint 3-A 启动
+- **约束：** Sprint 3 从 `release/1` 切 sprint 分支（git-workflow.md）
+- **关联：** S2-STORY-007、S2-CODE-AUDIT-001、`sprint2-contract-audit.md`、`sprint2-code-audit.md`
 - **状态：** 已确认
 
 ## 决策模板
