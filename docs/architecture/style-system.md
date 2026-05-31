@@ -619,6 +619,8 @@ heading block → componentId: titleBlock → family: simple|iconDecor|badgeTitl
 
 **First-wave titleBlock copy-safe 四件套（Sprint 3-B）：** `title_with_bottom_line`、`line_top_title_center`、`badge_left_title_inline`、`icon_inline_prefix_title`（均须为 first-wave required 子集）。
 
+> **S3A-STORY-006 代码 enum（机器可读）：** Release 1 实现采用 snake_case `TitleBlockLayoutMode`（`plain`、`left_bar`、`bottom_line`、`top_badge`、`numbered`、`card`、`quote_mark`、`icon_prefix`、`magazine_left_bar`、`overlay`、`offset_background`），见 `src/core/styles/title-layout.ts`。上表 catalog 保留秒篇 DSL 历史命名；Sprint 3-B registry 须映射到代码 enum（例：`line-bottom` → `bottom_line`，`inline-prefix` → `icon_prefix`，`left-bar` → `left_bar`）。
+
 > **`magazine_left_bar_title` 为 release1CandidateVariants** — 不在 first wave；若未来实现须：真实 DOM left bar + text；禁止 absolute / pseudo / complex flex-grid；Copy 嵌套 ≤3；WeChatCompatibilityProfile + 单独 Paste QA。
 
 ### 11.5 titleBlock 专用 slot 规范
@@ -798,32 +800,34 @@ family / variant / slot / assetId / themeTokens 须白名单校验；失败回�
 
 ### 11.10 TitleBlockLayoutCompatibility（DECISION-042）
 
+> **S3A-STORY-006 已实现** — `src/core/styles/title-layout.ts` · `TITLE_BLOCK_LAYOUT_COMPATIBILITY_TABLE`
+
 ```text
 TitleBlockLayoutCompatibility
-├── layoutMode: string
+├── layoutMode: TitleBlockLayoutMode     # snake_case enum
 ├── allowedInCopy: boolean
-├── maxNestingDepth: number
-├── allowAbsolute: false              # Release 1 copy 禁止
-├── allowOverlay: boolean
-├── allowFlex: boolean
-├── fallbackLayoutMode: string
-├── requiredFallbackSlots: string[]
-├── requiredPasteQA: boolean
-└── riskLevel: "low" | "medium" | "high"
+├── riskLevel: "low" | "medium" | "high" | "forbidden"
+├── fallbackLayoutMode?: TitleBlockLayoutMode
+├── allowedCopySafety: CopySafety[]
+├── allowedVariantStatus: VariantStatus[]
+└── notes?: string
 ```
 
 | layoutMode | allowedInCopy | riskLevel | Release 1 说明 |
 |------------|---------------|-----------|----------------|
-| `vertical-stack` | ✅ | low | required 可用 |
-| `line-top` / `line-bottom` | ✅ | low | required 可用 |
-| `inline-prefix` / `inline-badge` | ✅ | low~medium | required 可用 |
-| `left-bar` | ✅ | medium | 须真实 DOM line，禁止 pseudo |
-| `icon-right` | ✅ | medium | 禁止 flex；inline-block fallback |
-| `card-corner` / `card-center` | ⚠️ | medium~high | 限制嵌套；bgShape fallback；candidate |
-| `symmetric` | ⚠️ | high | 除非 copy template 明确，否则 **experimental** |
-| `offset-bg` / `overlay` | ❌ | high | **不得**进入 release1RequiredVariants；experimental 须 preview_only |
+| `plain` | ✅ | low | required 可用 |
+| `left_bar` | ✅ | low | required 可用；真实 DOM line |
+| `bottom_line` | ✅ | low | required 可用 |
+| `top_badge` | ✅ | medium | required 可用 |
+| `numbered` | ✅ | medium | required 可用 |
+| `card` | ✅ | medium | required 可用 |
+| `quote_mark` | ✅ | medium | required 可用 |
+| `icon_prefix` | ✅ | medium | required 可用 |
+| `magazine_left_bar` | ✅ | medium | **candidate / experimental only**；fallback `left_bar` |
+| `overlay` | ❌ | forbidden | **不得** release1_required；fallback `plain` |
+| `offset_background` | ❌ | forbidden | **不得** release1_required；fallback `plain` |
 
-**规则：** layoutMode 不满足 WeChatCompatibilityProfile → 不得进入 release1RequiredVariants；Copy 不得因 layout 复杂降级为 paragraph；overlay 类须有 `fallbackLayoutMode`（如 `vertical-stack`）。
+**规则：** layoutMode 不满足 WeChatCompatibilityProfile → 不得进入 release1RequiredVariants；Copy 不得因 layout 复杂降级为 paragraph；overlay 类须有 `fallbackLayoutMode`（如 `plain`）。
 
 ### 11.11 ResolvedBlockStyle 扩展（titleBlock）
 
@@ -854,20 +858,17 @@ Preview / Copy 按 `componentId` 分发成对 renderer；**不得**因复杂 var
 
 ## 13. 后续实现边界
 
-| 模块 | 路径 | Sprint | 说明 |
-|------|------|--------|------|
-| Theme tokens | `src/core/styles/theme/` | 3 | theme 定义 |
-| Preset config | `src/core/styles/preset/` | 3 | preset 定义 |
-| Variant definitions | `src/core/styles/variant/` | 3 | release1RequiredVariants |
-| Registry | `src/core/styles/registry.ts` | 3-B | **first-wave 11×3=33** required variants |
-| Style resolver | `src/core/styles/resolver.ts` | 3 | assignment → ResolvedBlockStyle |
-| **Protocol** | `src/core/styles/protocol/` | 3 | ComponentProtocol / BlockVisualProtocol |
-| **Assets** | `src/core/styles/assets/` | 3 | VisualAssetRegistry |
-| **Orchestrator** | `src/core/styles/orchestrator/` | 3 | StyleOrchestrator / rhythm policies |
-| **Validation** | `src/core/styles/validation/` | 3 | StyleValidationResult / FallbackVariantPolicy |
-| **AI selection** | `src/core/styles/ai-selection/` | 3 validation · 5 generation | StyleSelectionRequest / Patch 校验 |
-| **Compatibility** | `src/core/styles/compatibility/` | 3 | WeChatCompatibilityProfile / TitleBlockLayoutCompatibility |
-| Copy adapter | `src/core/styles/copy-adapter.ts` | 4 | ResolvedBlockStyle → inline style |
+| 模块 | 路径（Sprint 3-A 实际） | Sprint | 说明 |
+|------|-------------------------|--------|------|
+| Style 类型 / schema | `src/core/styles/types.ts` · `schemas.ts` | 3-A | Theme / Preset / Variant / Registry |
+| Registry helper | `src/core/styles/registry.ts` | 3-A | parse / lookup |
+| Style resolver | `src/core/styles/resolver.ts` | 3-A | assignment → ResolvedBlockStyle |
+| WeChat compatibility | `src/core/styles/compatibility.ts` | 3-A | WeChatCompatibilityProfile |
+| Style validation | `src/core/styles/validation.ts` | 3-A | StyleValidationResult / FallbackVariantPolicy |
+| Title layout compatibility | `src/core/styles/title-layout.ts` | 3-A | TitleBlockLayoutCompatibility |
+| Variant definitions（33） | `src/core/styles/` registry JSON/TS | 3-B | first-wave required variants |
+| Protocol / Assets / Orchestrator / AI | 规划子模块 | 3-C | 见 §11 |
+| Copy adapter | 规划 | 4-A | ResolvedBlockStyle → inline HTML |
 
 **Sprint 3 Style System 最小范围：** 3-A 基础设施；3-B first-wave registry（33）；3-C VisualAssetRegistry + AI validation + Orchestrator。expansion / candidate 不阻塞 3-A。
 

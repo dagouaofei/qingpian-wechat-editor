@@ -53,10 +53,10 @@
 | **P1 / P2** | 已登记至后续 Sprint / Product Backlog（见下方登记表） |
 | **用户确认** | Checklist #10：已确认接受 B 级 final audit；Checklist #11：已确认可以关闭 Sprint 1-B |
 | **Sprint 2** | **Closed**（2026-05-31；DECISION-054） |
-| **Sprint 3-A** | **In Progress**（DECISION-055，2026-05-31） |
+| **Sprint 3-A** | **In Review / Close Readiness**（S3A-STORY-007 audit，2026-05-31） |
 | **Release 1 主干** | `release/1` |
 | **Sprint 3-A 分支** | `sprint/s3a-style-system-infra`（从 `release/1` 切出） |
-| **下一步** | S3A-STORY-002：Style System 基础类型与 schema 契约 |
+| **下一步** | 用户确认 Sprint 3-A 关闭 → merge sprint → `release/1` → 启动 Sprint 3-B |
 
 ---
 
@@ -91,7 +91,7 @@
 | P1-001 | block 文本字段 `body` vs `text` 命名不一致 | Sprint 2 启动前 | **已解决**（DECISION-034） |
 | P1-002 | InlineMark → copy-safe CSS 映射表缺失 | Sprint 3 / Sprint 4 | 登记 · TECH-ARCH-002 |
 | P1-003 | StyleOrchestrator 文章级节奏代码未实现 | Sprint 3-C | 登记 · TECH-ARCH-011 |
-| P1-004 | WeChatCompatibilityProfile 无 machine-readable fixture | Sprint 3-A | 登记 · TECH-ARCH-005 |
+| P1-004 | WeChatCompatibilityProfile 无 machine-readable fixture | Sprint 3-A | **已解决**（S3A-STORY-004） |
 | P1-005 | list / info_card copy 结构保真规则未细化 | Sprint 4-B | 登记 |
 | P1-006 | Clipboard text/html + text/plain 双格式未写清 | Sprint 4 | 登记 |
 | P1-007 | requireTextNodeTypography 细则未展开 | Sprint 4 | 登记 |
@@ -137,15 +137,39 @@
 |----|------|-------------|
 | P1-S2-001 | 测试 fixture 与 `tests/fixtures/articles/` 重复维护 | Chore / Sprint 3-A 前 |
 | P1-CODE-001 | streaming partial Article vs `blocks.min(1)` | Sprint 5 |
-| P1-CODE-002 | InlineMark color token 未接 Style registry | Sprint 3-A |
+| P1-CODE-002 | InlineMark color token 未接 Style registry | Sprint 3-B / 4-A（P2-S3A-003） |
 | P2-S2-001 ~ P2-CODE-005 | 见 `sprint2-contract-audit.md` / `sprint2-code-audit.md` §10 | Sprint 3~6 / Release 2 |
+
+### Sprint 3-A Close Readiness Checklist
+
+> 登记于 S3A-STORY-007；详见 `docs/architecture/audits/sprint3a-contract-audit.md` §11。
+
+| # | 检查项 | 状态 |
+|---|--------|------|
+| 1 | S3A-STORY-002~006 Done 且 merge 至 sprint | ✅ |
+| 2 | Contract audit grade **A**，P0=0 | ✅ |
+| 3 | lint / test / build PASS（221 tests） | ✅ |
+| 4 | Sprint 3-A 范围未越界 | ✅ |
+| 5 | layoutMode / copySafety 文档最小同步 | ✅ |
+| 6 | **用户确认关闭 Sprint 3-A** | ⏳ **待确认** |
+| 7 | merge sprint → `release/1` | ⏳ **待用户确认** |
+
+### Sprint 3-A audit P1/P2 登记（不阻塞关闭）
+
+| ID | 问题 | 建议 Sprint |
+|----|------|-------------|
+| P1-S3A-001 | §11.4 catalog layoutMode 与代码 enum 映射 | Sprint 3-B |
+| P1-S3A-002 | wechat-copy-style-rules profile 字段与代码结构差异 | Sprint 3-B / 4-A |
+| P1-S3A-003 | validateStyleRegistry 命名易混淆 | Sprint 3-B |
+| P1-S3A-004 | ResolvedBlockStyle 未展开 componentProtocol | Sprint 4-A |
+| P2-S3A-001 ~ P2-S3A-003 | 见 `sprint3a-contract-audit.md` §10 | Sprint 3-B~6 |
 
 ---
 
 ## Sprint 2 ~ 6 计划（Release 1 代码实现）
 
 > **Sprint 2 状态：Closed**（2026-05-31；DECISION-054）
-> **Sprint 3-A 状态：In Progress**（DECISION-055，2026-05-31；分支 `sprint/s3a-style-system-infra`）
+> **Sprint 3-A 状态：In Review / Close Readiness**（S3A-STORY-007 contract audit，2026-05-31；分支 `sprint/s3a-style-system-infra` @ `767ebae`；**P0=0，grade A**；须用户确认关闭）
 >
 > 业务功能实现必须在核心技术方案 + 实现前契约完成之后进入（DECISION-015、DECISION-029~045、DECISION-051）。
 
@@ -165,9 +189,9 @@
 
 **不做：** Renderer、Style System、Generation、**AI Style Selection**
 
-### Sprint 3-A：Style System Contract & Registry Infrastructure — **In Progress**
+### Sprint 3-A：Style System Contract & Registry Infrastructure — **In Review / Close Readiness**
 
-**分支：** `sprint/s3a-style-system-infra` · **Release 1 主干：** `release/1`
+**分支：** `sprint/s3a-style-system-infra` @ `767ebae` · **Audit：** `docs/architecture/audits/sprint3a-contract-audit.md`（grade **A**，P0=0，P1=4，P2=3）
 
 **Stories：** S3A-STORY-001（启动）~ S3A-STORY-007（audit）— 见 `sprint-backlog.md`
 

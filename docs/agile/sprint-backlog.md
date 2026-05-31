@@ -836,7 +836,7 @@
 
 **用户故事：** 作为产品负责人，我需要在 Sprint 3-A 代码实现完成后做契约 audit，确认与 style-system.md 一致，并准备 Sprint 3-B 启动条件。
 
-**优先级：** P0 · **状态：** Pending · **工作分支：** `docs/s3a-style-system-contract-audit`
+**优先级：** P0 · **状态：** In Review · **工作分支：** `docs/s3a-contract-audit-close-readiness`
 
 **明确不做：**
 
@@ -846,10 +846,22 @@
 
 **验收标准：**
 
-- [ ] AC-1 已生成 `docs/architecture/audits/sprint3a-style-system-contract-audit.md`（或等价路径）
-- [ ] AC-2 audit 对照 `style-system.md`、`architecture-overview.md`、`wechat-copy-style-rules.md`
-- [ ] AC-3 audit 输出 P0/P1/P2；P0=0 方可建议关闭 Sprint 3-A
-- [ ] AC-4 S3A-STORY-002~006 状态与 sprint-backlog 已同步
-- [ ] AC-5 `corepack pnpm lint` / `corepack pnpm test` / `corepack pnpm build` 通过
-- [ ] AC-6 已生成 execution report
-- [ ] AC-7 Sprint 3-A 保持 In Review 直至用户确认关闭
+- [x] AC-1 已从 `sprint/s3a-style-system-infra` 创建 `docs/s3a-contract-audit-close-readiness`
+- [x] AC-2 已生成 `docs/architecture/audits/sprint3a-contract-audit.md`
+- [x] AC-3 audit 覆盖 S3A-STORY-002~006 全部代码契约
+- [x] AC-4 audit 覆盖 Style System / Resolver / WeChatCompatibility / Validation / TitleLayout
+- [x] AC-5 audit 输出 P0 / P1 / P2（P0=0，P1=4，P2=3；grade A）
+- [x] AC-6 audit 明确 Sprint 3-A 可进入 Close Readiness（须用户确认关闭）
+- [x] AC-7 已最小修复 layoutMode §11.10 / §12 与 copySafety 文档一致性
+- [x] AC-8 sprint-backlog 已同步 S3A-STORY-002~006 状态 Done
+- [x] AC-9 sprint-plan 已同步 Sprint 3-A 为 In Review / Close Readiness
+- [x] AC-10 changelog 已记录 S3A-STORY-007 audit
+- [x] AC-11 未实现任何新业务功能
+- [x] AC-12 未 merge 到 `release/1` 或 `main`
+- [x] AC-13 `corepack pnpm lint` 通过
+- [x] AC-14 `corepack pnpm test` 通过（221 tests）
+- [x] AC-15 `corepack pnpm build` 通过
+- [x] AC-16 已生成 execution report
+- [x] AC-17 未自行关闭 Sprint 3-A
+
+---
