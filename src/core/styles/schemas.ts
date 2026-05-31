@@ -125,6 +125,69 @@ const variantMetadataValueSchema = z.union([
   z.boolean(),
 ]);
 
+export const copySafetySchema = z.enum(["safe", "risky", "preview_only"]);
+
+export const variantWeChatCompatibilitySchema = z
+  .object({
+    allowedCssProperties: z.array(safeStyleStringSchema).optional(),
+    riskyCssProperties: z.array(safeStyleStringSchema).optional(),
+    forbiddenCssProperties: z.array(safeStyleStringSchema).optional(),
+    fallbackVariantId: identifierSchema.optional(),
+    notes: safeStyleStringSchema.optional(),
+  })
+  .strict();
+
+export const variantCompatibilitySchema = z
+  .object({
+    copySafety: copySafetySchema.optional(),
+    wechat: variantWeChatCompatibilitySchema.optional(),
+  })
+  .strict();
+
+export const forbiddenCssFallbackActionSchema = z.enum([
+  "reject",
+  "fallback_variant",
+  "strip_property",
+]);
+
+export const riskyCssFallbackActionSchema = z.enum([
+  "warn",
+  "fallback_variant",
+  "allow",
+]);
+
+export const fallbackPolicySchema = z
+  .object({
+    onForbiddenCss: forbiddenCssFallbackActionSchema,
+    onRiskyCss: riskyCssFallbackActionSchema,
+    defaultFallbackVariantId: identifierSchema.optional(),
+    previewOnlyAllowed: z.boolean(),
+    notes: safeStyleStringSchema.optional(),
+  })
+  .strict();
+
+export const weChatCompatibilityTargetSchema = z.enum(["wechat_mp_editor"]);
+
+export const weChatCssRulesSchema = z
+  .object({
+    allowed: z.array(safeStyleStringSchema),
+    risky: z.array(safeStyleStringSchema),
+    forbidden: z.array(safeStyleStringSchema),
+  })
+  .strict();
+
+export const weChatCompatibilityProfileSchema = z
+  .object({
+    id: identifierSchema,
+    name: safeStyleStringSchema,
+    schemaVersion: styleSchemaVersionSchema,
+    target: weChatCompatibilityTargetSchema,
+    cssRules: weChatCssRulesSchema,
+    fallbackPolicy: fallbackPolicySchema,
+    notes: safeStyleStringSchema.optional(),
+  })
+  .strict();
+
 export const variantDefinitionSchema = z
   .object({
     id: identifierSchema,
@@ -137,9 +200,7 @@ export const variantDefinitionSchema = z
     status: variantStatusSchema,
     slots: z.record(identifierSchema, variantSlotDefinitionSchema).optional(),
     tokens: z.record(tokenKeySchema, safeStyleStringSchema).optional(),
-    compatibility: z
-      .record(identifierSchema, variantMetadataValueSchema)
-      .optional(),
+    compatibility: variantCompatibilitySchema.optional(),
     componentProtocol: variantComponentProtocolSchema.optional(),
     metadata: z.record(identifierSchema, variantMetadataValueSchema).optional(),
   })
@@ -154,6 +215,18 @@ export const variantDefinitionSchema = z
         message:
           "magazine_left_bar_title must not be release1_required (candidate only)",
         path: ["status"],
+      });
+    }
+
+    if (
+      variant.status === "release1_required" &&
+      variant.compatibility?.copySafety === "preview_only"
+    ) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message:
+          "release1_required variant must not declare copySafety preview_only",
+        path: ["compatibility", "copySafety"],
       });
     }
   });
@@ -171,6 +244,9 @@ export type ThemeDefinitionInput = z.input<typeof themeDefinitionSchema>;
 export type PresetDefinitionInput = z.input<typeof presetDefinitionSchema>;
 export type VariantDefinitionInput = z.input<typeof variantDefinitionSchema>;
 export type StyleRegistryInput = z.input<typeof styleRegistrySchema>;
+export type WeChatCompatibilityProfileInput = z.input<
+  typeof weChatCompatibilityProfileSchema
+>;
 
 /** 校验 InlineMark color：token ref 为推荐路径；其它 string 为 legacy */
 export const inlineMarkColorInputSchema = z.union([

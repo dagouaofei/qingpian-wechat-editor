@@ -59,6 +59,21 @@ export type VariantComponentProtocol = {
   layoutMode?: string;
 };
 
+export type CopySafety = "safe" | "risky" | "preview_only";
+
+export type VariantWeChatCompatibility = {
+  allowedCssProperties?: string[];
+  riskyCssProperties?: string[];
+  forbiddenCssProperties?: string[];
+  fallbackVariantId?: string;
+  notes?: string;
+};
+
+export type VariantCompatibility = {
+  copySafety?: CopySafety;
+  wechat?: VariantWeChatCompatibility;
+};
+
 export type VariantDefinition = {
   id: string;
   schemaVersion: StyleSchemaVersion;
@@ -71,9 +86,74 @@ export type VariantDefinition = {
   slots?: Record<string, VariantSlotDefinition>;
   /** variant 级 token override；value 为 token 名或字面量，不含 HTML/CSS selector */
   tokens?: Record<string, string>;
-  compatibility?: Record<string, string | number | boolean>;
+  compatibility?: VariantCompatibility;
   componentProtocol?: VariantComponentProtocol;
   metadata?: Record<string, string | number | boolean>;
+};
+
+export type WeChatCompatibilityTarget = "wechat_mp_editor";
+
+export type ForbiddenCssFallbackAction =
+  | "reject"
+  | "fallback_variant"
+  | "strip_property";
+
+export type RiskyCssFallbackAction = "warn" | "fallback_variant" | "allow";
+
+export type FallbackPolicy = {
+  onForbiddenCss: ForbiddenCssFallbackAction;
+  onRiskyCss: RiskyCssFallbackAction;
+  defaultFallbackVariantId?: string;
+  previewOnlyAllowed: boolean;
+  notes?: string;
+};
+
+export type WeChatCssRules = {
+  allowed: string[];
+  risky: string[];
+  forbidden: string[];
+};
+
+export type WeChatCompatibilityProfile = {
+  id: string;
+  name: string;
+  schemaVersion: StyleSchemaVersion;
+  target: WeChatCompatibilityTarget;
+  cssRules: WeChatCssRules;
+  fallbackPolicy: FallbackPolicy;
+  notes?: string;
+};
+
+export type CssCompatibilityLevel =
+  | "allowed"
+  | "risky"
+  | "forbidden"
+  | "unknown";
+
+export type CompatibilityIssue = {
+  code: string;
+  message: string;
+  level: CssCompatibilityLevel;
+  severity: "error" | "warning";
+  property?: string;
+  value?: string;
+};
+
+export type CssCompatibilityResult = {
+  ok: boolean;
+  level: CssCompatibilityLevel;
+  issues: CompatibilityIssue[];
+  property?: string;
+  value?: string;
+  message?: string;
+};
+
+export type WeChatCompatibilityCheckResult = {
+  ok: boolean;
+  issues: CompatibilityIssue[];
+  variantId: string;
+  copySafety?: CopySafety;
+  blocking: boolean;
 };
 
 export type StyleRegistry = {
@@ -113,7 +193,7 @@ export type ResolvedBlockStyle = {
   themeId: string;
   tokens: ResolvedStyleTokens;
   slots?: Record<string, VariantSlotDefinition>;
-  compatibility?: Record<string, string | number | boolean>;
+  compatibility?: VariantCompatibility;
   source: ResolvedStyleSource;
   fallbackReason?: string;
 };

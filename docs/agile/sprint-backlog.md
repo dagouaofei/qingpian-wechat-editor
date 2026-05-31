@@ -752,7 +752,7 @@
 
 **用户故事：** 作为开发者，我需要 WeChatCompatibilityProfile 的机器可读契约与 copy-safe 校验 helper，以便 VariantDefinition 的 compatibility 字段有统一校验基础。
 
-**优先级：** P0 · **状态：** Pending · **工作分支：** `feature/s3a-wechat-compatibility-profile`
+**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s3a-wechat-compatibility-profile`
 
 **明确不做：**
 
@@ -762,12 +762,23 @@
 
 **验收标准：**
 
-- [ ] AC-1 Allowed / Risky / Forbidden CSS 能力分层契约完成
-- [ ] AC-2 fallback policy 数据结构完成
-- [ ] AC-3 copy-safe validation helper 完成
-- [ ] AC-4 与 VariantDefinition compatibility 字段打通
-- [ ] AC-5 单元测试覆盖
-- [ ] AC-6 `corepack pnpm lint` / `corepack pnpm test` / `corepack pnpm build` 通过
+- [x] AC-1 已从 `sprint/s3a-style-system-infra` 创建 `feature/s3a-wechat-compatibility-profile`
+- [x] AC-2 已定义 WeChatCompatibilityProfile 类型与 schema（`src/core/styles/types.ts` / `schemas.ts`）
+- [x] AC-3 已定义 allowed / risky / forbidden CSS 能力分层（`WECHAT_MP_COMPATIBILITY_PROFILE`）
+- [x] AC-4 已定义基础 FallbackPolicy 数据结构
+- [x] AC-5 已提供默认 `WECHAT_MP_COMPATIBILITY_PROFILE`
+- [x] AC-6 已打通 VariantDefinition.compatibility 的 copySafety / wechat 字段
+- [x] AC-7 已实现 validateVariantWechatCompatibility / validateCssPropertyCompatibility / validateCssDeclarationCompatibility
+- [x] AC-8 forbidden CSS 不得 silent allow
+- [x] AC-9 risky CSS 至少产生 warning / issue
+- [x] AC-10 preview_only 不得进入 release1_required 默认 copy-safe path
+- [x] AC-11 单元测试 19 cases（`tests/core/styles/wechat-compatibility.test.ts`）
+- [x] AC-12 未实现 Copy Renderer / Preview Renderer / 33 variants / Paste QA
+- [x] AC-13 `corepack pnpm lint` 通过
+- [x] AC-14 `corepack pnpm test` 通过（189 tests）
+- [x] AC-15 `corepack pnpm build` 通过
+- [x] AC-16 已生成 execution report
+- [ ] AC-17 未 merge 到 sprint / release / main（待用户确认后 merge）
 
 ---
 
