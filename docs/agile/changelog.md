@@ -123,3 +123,4 @@
 | 2026-05-31 | Sprint 3-A | 实现 WeChatCompatibilityProfile 机器可读契约与 copy-safe validation helper | 代码 / 架构 | S3A-STORY-004 |
 | 2026-05-31 | Sprint 3-A | S3A-STORY-004 merge 至 `sprint/s3a-style-system-infra`（`11a3d11`）；状态 Done | Git / 敏捷 | S3A-STORY-004 |
 | 2026-05-31 | Sprint 3-A | 实现 StyleValidationResult / FallbackVariantPolicy；copySafety 统一为 `strict \| balanced \| preview_only` | 代码 / 架构 | S3A-STORY-005 |
+| 2026-05-31 | Sprint 3-A | S3A-STORY-005 merge 至 sprint（前置）；实现 TitleBlockLayoutCompatibility 契约 | 代码 / 架构 | S3A-STORY-005, S3A-STORY-006 |

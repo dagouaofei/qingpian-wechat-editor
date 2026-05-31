@@ -786,36 +786,14 @@
 
 **用户故事：** 作为开发者，我需要统一的 Style 层 validation result 与 FallbackVariantPolicy，以便 registry 校验与后续 UI / QA 有稳定错误结构。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s3a-style-validation-policy`
-
-**明确不做：**
-
-- 不实现 toast / UI 文案
-- 不实现 Renderer
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s3a-style-validation-policy`（已 merge 至 `sprint/s3a-style-system-infra`）
 
 **copySafety 命名统一（本轮）：** 以 `style-system.md` 为准，统一为 `strict | balanced | preview_only`；legacy `safe`/`risky` 仅经 `normalizeCopySafetyInput` helper 兼容，非主模型。
 
 **验收标准：**
 
-- [x] AC-1 已从 `sprint/s3a-style-system-infra` 创建 `feature/s3a-style-validation-policy`
-- [x] AC-2 已统一 copySafety 枚举为 `strict | balanced | preview_only`
-- [x] AC-3 已定义 StyleValidationResult / StyleValidationIssue 类型与 schema
-- [x] AC-4 已定义 FallbackVariantPolicy 类型与 schema
-- [x] AC-5 已提供 Release 1 默认 `RELEASE1_FALLBACK_VARIANT_POLICY`
-- [x] AC-6 已实现 validateStyleRegistry / validateVariantDefinition / validateVariantForWechatCopy / validateResolvedArticleStyle
-- [x] AC-7 WeChat compatibility check 已转换进入 StyleValidationResult
-- [x] AC-8 forbidden CSS 产生 error，不 silent allow
-- [x] AC-9 risky CSS 至少产生 warning
-- [x] AC-10 preview_only 不得进入 release1_required copy-safe path
-- [x] AC-11 experimental 不作为默认 fallback
-- [x] AC-12 magazine_left_bar_title 不作为 required / 默认 fallback
-- [x] AC-13 单元测试 16 cases（`tests/core/styles/style-validation.test.ts`）
-- [x] AC-14 未实现 TitleBlockLayoutCompatibility / Renderer / 33 variants / Paste QA
-- [x] AC-15 `corepack pnpm lint` 通过
-- [x] AC-16 `corepack pnpm test` 通过（205 tests）
-- [x] AC-17 `corepack pnpm build` 通过
-- [x] AC-18 已生成 execution report
-- [ ] AC-19 未 merge 到 sprint / release / main（待用户确认后 merge）
+- [x] AC-1 ~ AC-18（见上轮 execution report）
+- [x] AC-19 已 merge 至 `sprint/s3a-style-system-infra`（本轮前置 merge）
 
 ---
 
@@ -823,7 +801,7 @@
 
 **用户故事：** 作为开发者，我需要 TitleBlockLayoutCompatibility 契约（layoutMode / allowedInCopy / fallbackLayoutMode / riskLevel），以便 first-wave required variants 与 candidate variants 的 copy-safe 边界清晰。
 
-**优先级：** P0 · **状态：** Pending · **工作分支：** `feature/s3a-title-block-layout-compat`
+**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s3a-title-layout-compatibility`
 
 **明确不做：**
 
@@ -832,11 +810,25 @@
 
 **验收标准：**
 
-- [ ] AC-1 `layoutMode` 定义与 Zod schema 完成
-- [ ] AC-2 `allowedInCopy`、`fallbackLayoutMode`、`riskLevel` 完成
-- [ ] AC-3 required / candidate / experimental 的 copy-safe 边界在 schema 或文档注释中明确
-- [ ] AC-4 单元测试覆盖
-- [ ] AC-5 `corepack pnpm lint` / `corepack pnpm test` / `corepack pnpm build` 通过
+- [x] AC-1 已从 `sprint/s3a-style-system-infra` 创建 `feature/s3a-title-layout-compatibility`
+- [x] AC-2 已定义 TitleBlockLayoutMode（11 项）
+- [x] AC-3 已定义 TitleBlockLayoutCompatibility 类型与 schema
+- [x] AC-4 已提供 TITLE_BLOCK_LAYOUT_COMPATIBILITY_TABLE
+- [x] AC-5 compatibility table 覆盖全部 layoutMode
+- [x] AC-6 已与 VariantDefinition.componentProtocol.layoutMode 最小打通
+- [x] AC-7 已实现 getTitleBlockLayoutCompatibility / validateTitleBlockLayoutCompatibility / isTitleBlockLayoutAllowedForCopy / getFallbackTitleBlockLayoutMode
+- [x] AC-8 release1_required + overlay / offset_background 必须 error
+- [x] AC-9 release1_required + magazine_left_bar 必须 error
+- [x] AC-10 candidate + magazine_left_bar 可存在但 warning（不得进入 required 默认路径）
+- [x] AC-11 fallbackLayoutMode 必须更安全，不得指向自身
+- [x] AC-12 helper 输出 StyleValidationResult
+- [x] AC-13 单元测试 16 cases（`tests/core/styles/title-layout-compatibility.test.ts`）
+- [x] AC-14 未实现 renderer / 33 variants / Paste QA / AI Style Selection
+- [x] AC-15 `corepack pnpm lint` 通过
+- [x] AC-16 `corepack pnpm test` 通过（221 tests）
+- [x] AC-17 `corepack pnpm build` 通过
+- [x] AC-18 已生成 execution report
+- [ ] AC-19 未 merge 到 sprint / release / main（待用户确认后 merge）
 
 ---
 

@@ -2,6 +2,7 @@ import { z } from "zod";
 
 import { blockTypeSchema } from "@/core/blocks/block.schema";
 
+import { TITLE_BLOCK_LAYOUT_MODES } from "./types";
 import {
   COLOR_TOKEN_REFS,
   STYLE_SCHEMA_VERSION,
@@ -75,6 +76,8 @@ export const variantStatusSchema = z.enum([
   "experimental",
 ]);
 
+export const copySafetySchema = z.enum(["strict", "balanced", "preview_only"]);
+
 const defaultVariantByBlockTypeSchema = z
   .object({
     title: identifierSchema.optional(),
@@ -111,11 +114,58 @@ export const variantSlotDefinitionSchema = z
   })
   .strict();
 
+export const titleBlockLayoutModeSchema = z.enum(TITLE_BLOCK_LAYOUT_MODES);
+
+export const titleBlockLayoutRiskLevelSchema = z.enum([
+  "low",
+  "medium",
+  "high",
+  "forbidden",
+]);
+
+export const titleBlockLayoutCompatibilitySchema = z
+  .object({
+    layoutMode: titleBlockLayoutModeSchema,
+    allowedInCopy: z.boolean(),
+    riskLevel: titleBlockLayoutRiskLevelSchema,
+    fallbackLayoutMode: titleBlockLayoutModeSchema.optional(),
+    allowedCopySafety: z.array(copySafetySchema).min(1),
+    allowedVariantStatus: z.array(variantStatusSchema).min(1),
+    notes: safeStyleStringSchema.optional(),
+  })
+  .strict()
+  .superRefine((entry, ctx) => {
+    if (
+      entry.fallbackLayoutMode &&
+      entry.fallbackLayoutMode === entry.layoutMode
+    ) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "fallbackLayoutMode must not equal layoutMode",
+        path: ["fallbackLayoutMode"],
+      });
+    }
+  });
+
+export const titleBlockLayoutCompatibilityTableSchema = z
+  .object(
+    Object.fromEntries(
+      TITLE_BLOCK_LAYOUT_MODES.map((mode) => [
+        mode,
+        titleBlockLayoutCompatibilitySchema,
+      ]),
+    ) as Record<
+      (typeof TITLE_BLOCK_LAYOUT_MODES)[number],
+      typeof titleBlockLayoutCompatibilitySchema
+    >,
+  )
+  .strict();
+
 export const variantComponentProtocolSchema = z
   .object({
     componentId: identifierSchema.optional(),
     familyId: identifierSchema.optional(),
-    layoutMode: identifierSchema.optional(),
+    layoutMode: titleBlockLayoutModeSchema.optional(),
   })
   .strict();
 
@@ -124,8 +174,6 @@ const variantMetadataValueSchema = z.union([
   z.number(),
   z.boolean(),
 ]);
-
-export const copySafetySchema = z.enum(["strict", "balanced", "preview_only"]);
 
 export const variantWeChatCompatibilitySchema = z
   .object({
