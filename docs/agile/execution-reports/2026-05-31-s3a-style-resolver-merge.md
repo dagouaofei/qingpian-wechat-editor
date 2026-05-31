@@ -48,12 +48,15 @@
 
 | 命令 | 结果 | 说明 |
 |------|------|------|
-| merge 后 lint/test/build | （merge 后运行） | |
+| corepack pnpm lint | PASS | merge 后 sprint 分支 |
+| corepack pnpm test | PASS | 170 tests |
+| corepack pnpm build | PASS | |
 
 ## 9. Commit / Merge
 
-- Feature 主 commit：`ec95ff5`
-- Merge commit：（merge 后更新）
+- Feature 主 commit：`ec95ff5`（`feat: add style resolver contract`）
+- Docs commit：`468641f`（backlog / DECISION-056）
+- **Merge commit：`85ffcbd`**
 
 ## 10. 建议下一步
 

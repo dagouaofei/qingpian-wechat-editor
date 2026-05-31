@@ -718,7 +718,7 @@
 
 **用户故事：** 作为开发者，我需要 StyleResolver 最小实现，将 Article.styleAssignment 解析为 ResolvedBlockStyle / ResolvedArticleStyle，以便 Preview / Copy 后续共享同一 resolved 输入。
 
-**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s3a-style-resolver`（已 merge 至 `sprint/s3a-style-system-infra`）
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s3a-style-resolver`（已 merge 至 `sprint/s3a-style-system-infra`，`85ffcbd`）
 
 **明确不做：**
 
