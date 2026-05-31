@@ -206,7 +206,7 @@ describe("wechat compatibility profile", () => {
           componentProtocol: {
             componentId: "titleBlock",
             familyId: "simple",
-            layoutMode: "vertical-stack",
+            layoutMode: "plain",
           },
         }),
       ).toMatchObject({ id: "title-centered" });

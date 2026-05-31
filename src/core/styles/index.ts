@@ -30,8 +30,13 @@ export type {
   ThemeDefinition,
   ThemeTokenMap,
   ThemeTokens,
+  TitleBlockLayoutCompatibility,
+  TitleBlockLayoutCompatibilityTable,
+  TitleBlockLayoutMode,
+  TitleBlockLayoutRiskLevel,
   ValidateResolvedArticleStyleContext,
   ValidateStyleRegistryOptions,
+  ValidateTitleBlockLayoutOptions,
   ValidateVariantDefinitionContext,
   VariantCompatibility,
   VariantComponentProtocol,
@@ -54,6 +59,11 @@ export {
 } from "./tokens";
 
 export {
+  TITLE_BLOCK_COMPONENT_ID,
+  TITLE_BLOCK_LAYOUT_MODES,
+} from "./types";
+
+export {
   blockTypeMismatchFallbackActionSchema,
   colorTokenRefSchema,
   copySafetySchema,
@@ -74,6 +84,10 @@ export {
   styleValidationSeveritySchema,
   themeDefinitionSchema,
   themeTokensSchema,
+  titleBlockLayoutCompatibilitySchema,
+  titleBlockLayoutCompatibilityTableSchema,
+  titleBlockLayoutModeSchema,
+  titleBlockLayoutRiskLevelSchema,
   variantCompatibilitySchema,
   variantComponentProtocolSchema,
   variantDefinitionSchema,
@@ -128,3 +142,13 @@ export {
   validateVariantDefinition,
   validateVariantForWechatCopy,
 } from "./validation";
+
+export {
+  TITLE_BLOCK_LAYOUT_COMPATIBILITY_TABLE,
+  assertTitleBlockLayoutTableComplete,
+  getFallbackTitleBlockLayoutMode,
+  getTitleBlockLayoutCompatibility,
+  isTitleBlockLayoutAllowedForCopy,
+  isTitleBlockVariant,
+  validateTitleBlockLayoutCompatibility,
+} from "./title-layout";

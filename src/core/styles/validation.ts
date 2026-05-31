@@ -3,6 +3,7 @@ import {
   validateVariantWechatCompatibility,
 } from "./compatibility";
 import { getVariantById, validateStyleRegistrySchema } from "./registry";
+import { validateTitleBlockLayoutCompatibility } from "./title-layout";
 import {
   fallbackVariantPolicySchema,
   styleValidationIssueSchema,
@@ -280,6 +281,9 @@ export function validateVariantDefinition(
       });
     }
   }
+
+  const layoutValidation = validateTitleBlockLayoutCompatibility(parsed.data);
+  issues.push(...layoutValidation.issues);
 
   return buildStyleValidationResult(issues);
 }

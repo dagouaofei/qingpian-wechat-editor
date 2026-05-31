@@ -49,7 +49,7 @@ const variantFixture = {
   componentProtocol: {
     componentId: "titleBlock",
     familyId: "simple",
-    layoutMode: "vertical-stack",
+    layoutMode: "plain",
   },
 };
 

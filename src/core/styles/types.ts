@@ -48,18 +48,61 @@ export type VariantStatus =
   | "release1_candidate"
   | "experimental";
 
+export type CopySafety = "strict" | "balanced" | "preview_only";
+
 export type VariantSlotDefinition = {
   id: string;
   label?: string;
 };
 
+export const TITLE_BLOCK_LAYOUT_MODES = [
+  "plain",
+  "left_bar",
+  "bottom_line",
+  "top_badge",
+  "numbered",
+  "card",
+  "quote_mark",
+  "icon_prefix",
+  "magazine_left_bar",
+  "overlay",
+  "offset_background",
+] as const;
+
+export type TitleBlockLayoutMode = (typeof TITLE_BLOCK_LAYOUT_MODES)[number];
+
+export type TitleBlockLayoutRiskLevel =
+  | "low"
+  | "medium"
+  | "high"
+  | "forbidden";
+
+export type TitleBlockLayoutCompatibility = {
+  layoutMode: TitleBlockLayoutMode;
+  allowedInCopy: boolean;
+  riskLevel: TitleBlockLayoutRiskLevel;
+  fallbackLayoutMode?: TitleBlockLayoutMode;
+  allowedCopySafety: CopySafety[];
+  allowedVariantStatus: VariantStatus[];
+  notes?: string;
+};
+
+export type TitleBlockLayoutCompatibilityTable = Record<
+  TitleBlockLayoutMode,
+  TitleBlockLayoutCompatibility
+>;
+
+export type ValidateTitleBlockLayoutOptions = {
+  copySafety?: CopySafety;
+};
+
+export const TITLE_BLOCK_COMPONENT_ID = "titleBlock";
+
 export type VariantComponentProtocol = {
   componentId?: string;
   familyId?: string;
-  layoutMode?: string;
+  layoutMode?: TitleBlockLayoutMode;
 };
-
-export type CopySafety = "strict" | "balanced" | "preview_only";
 
 export type VariantWeChatCompatibility = {
   allowedCssProperties?: string[];
