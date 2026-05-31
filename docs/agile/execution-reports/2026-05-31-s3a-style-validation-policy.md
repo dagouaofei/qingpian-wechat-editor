@@ -87,7 +87,7 @@
 
 ## 9. Commit
 
-- Commit hash：（提交后更新）
+- Commit hash：`efcf801`
 
 ## 10. 建议下一步
 
