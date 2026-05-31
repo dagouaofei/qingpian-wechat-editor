@@ -82,3 +82,13 @@
 | 2026-05-31 | Release 1 | 建立 `release/1` 作为 Release 1 主干；`sprint/s1b-core-tech-governance` merge 至 release/1 | Git | DECISION-052 |
 | 2026-05-31 | Release 1 | 清理 Sprint 1-B 全部 15 个 `docs/s1b-*` story 工作分支（含已 merge 与未 merge） | Git | DECISION-052 |
 | 2026-05-31 | Release 1 | 更新 git-workflow.md：main ← release ← sprint ← work 四层分支模型 | Git / 协作 | DECISION-052 |
+
+---
+
+## 2026-05-31 · Sprint 2
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-05-31 | Sprint 2 | **正式启动 Sprint 2**；范围 Article / Block Schema + InlineContent 代码契约 | 敏捷 / 架构 | S2-STORY-001, DECISION-053 |
+| 2026-05-31 | Sprint 2 | 从 `release/1` 建立 `sprint/s2-article-block-schema` | Git | DECISION-053 |
+| 2026-05-31 | Sprint 2 | 新增 Sprint 2 Backlog S2-STORY-001~007 | 敏捷 | S2-STORY-001 |
