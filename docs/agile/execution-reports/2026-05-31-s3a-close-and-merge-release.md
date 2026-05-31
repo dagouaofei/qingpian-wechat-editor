@@ -25,7 +25,7 @@
 | **Sprint 3-A 关闭文档** | **`bd1b784`** | `docs: close sprint 3a style system infrastructure` |
 | **Merge docs → sprint** | **`17dd13b`** | `Merge branch 'docs/s3a-contract-audit-close-readiness' into sprint/s3a-style-system-infra` |
 | **Merge sprint → release/1** | **`1b017aa`** | `Merge branch 'sprint/s3a-style-system-infra' into release/1` |
-| Execution report | （提交后更新） | 本文件 |
+| Execution report | **`01f781e`** | `docs: report sprint 3a close and release merge` |
 
 ## 4. Sprint 3-A 关闭状态
 
@@ -71,4 +71,4 @@
 
 ## 9. Commit
 
-- Execution report commit hash：（提交后更新）
+- Execution report commit hash：`01f781e`
