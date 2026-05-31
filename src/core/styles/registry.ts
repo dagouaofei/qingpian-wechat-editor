@@ -41,7 +41,7 @@ export function parseStyleRegistry(input: unknown): StyleRegistry {
   }
 }
 
-export function validateStyleRegistry(
+export function validateStyleRegistrySchema(
   input: unknown,
 ): SchemaValidationResult<StyleRegistry> {
   const result = styleRegistrySchema.safeParse(input);

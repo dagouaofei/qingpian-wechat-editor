@@ -379,17 +379,21 @@ export function validateVariantWechatCompatibility(
   if (wechat?.riskyCssProperties) {
     for (const declaration of wechat.riskyCssProperties) {
       const result = validateCssDeclarationCompatibility(declaration, profile);
+      const isStrict = copySafety === "strict";
       if (result.level === "risky" || result.level === "unknown") {
         issues.push(
           buildIssue(
             "variant_declared_risky_css",
             `Variant declares risky CSS: ${declaration}`,
             result.level,
-            "warning",
+            isStrict ? "error" : "warning",
             result.property,
             result.value,
           ),
         );
+        if (isStrict) {
+          blocking = true;
+        }
       } else if (result.level === "forbidden") {
         issues.push(
           buildIssue(
@@ -410,17 +414,22 @@ export function validateVariantWechatCompatibility(
     for (const declaration of wechat.allowedCssProperties) {
       const result = validateCssDeclarationCompatibility(declaration, profile);
       if (!result.ok) {
+        const isStrict = copySafety === "strict";
+        const severity =
+          result.level === "forbidden" || (isStrict && result.level === "risky")
+            ? "error"
+            : "warning";
         issues.push(
           buildIssue(
             "variant_allowed_css_not_copy_safe",
             `Variant allowedCssProperties entry is not copy-safe: ${declaration}`,
             result.level,
-            result.level === "forbidden" ? "error" : "warning",
+            severity,
             result.property,
             result.value,
           ),
         );
-        if (result.level === "forbidden") {
+        if (severity === "error") {
           blocking = true;
         }
       }

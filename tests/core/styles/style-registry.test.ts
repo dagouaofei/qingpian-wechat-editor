@@ -8,7 +8,7 @@ import {
   getVariantById,
   getVariantsForBlockType,
   parseStyleRegistry,
-  validateStyleRegistry,
+  validateStyleRegistrySchema,
 } from "@/core/styles";
 
 function minimalRegistry() {
@@ -82,9 +82,9 @@ describe("style registry helpers", () => {
     });
   });
 
-  describe("validateStyleRegistry", () => {
+  describe("validateStyleRegistrySchema", () => {
     it("returns ok true for valid registry", () => {
-      const result = validateStyleRegistry(minimalRegistry());
+      const result = validateStyleRegistrySchema(minimalRegistry());
       expect(result.ok).toBe(true);
       if (result.ok) {
         expect(result.issues).toEqual([]);
@@ -92,7 +92,7 @@ describe("style registry helpers", () => {
     });
 
     it("returns ok false without throwing", () => {
-      const result = validateStyleRegistry({ schemaVersion: 1 });
+      const result = validateStyleRegistrySchema({ schemaVersion: 1 });
       expect(result.ok).toBe(false);
       if (!result.ok) {
         expect(result.issues.length).toBeGreaterThan(0);

@@ -786,20 +786,36 @@
 
 **用户故事：** 作为开发者，我需要统一的 Style 层 validation result 与 FallbackVariantPolicy，以便 registry 校验与后续 UI / QA 有稳定错误结构。
 
-**优先级：** P0 · **状态：** Pending · **工作分支：** `feature/s3a-style-validation`
+**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s3a-style-validation-policy`
 
 **明确不做：**
 
 - 不实现 toast / UI 文案
 - 不实现 Renderer
 
+**copySafety 命名统一（本轮）：** 以 `style-system.md` 为准，统一为 `strict | balanced | preview_only`；legacy `safe`/`risky` 仅经 `normalizeCopySafetyInput` helper 兼容，非主模型。
+
 **验收标准：**
 
-- [ ] AC-1 `StyleValidationResult`、`StyleValidationIssue` 完成
-- [ ] AC-2 `FallbackVariantPolicy` 完成
-- [ ] AC-3 `validateVariantDefinition`、`validateStyleRegistry` 完成
-- [ ] AC-4 单元测试覆盖合法 / 非法 registry
-- [ ] AC-5 `corepack pnpm lint` / `corepack pnpm test` / `corepack pnpm build` 通过
+- [x] AC-1 已从 `sprint/s3a-style-system-infra` 创建 `feature/s3a-style-validation-policy`
+- [x] AC-2 已统一 copySafety 枚举为 `strict | balanced | preview_only`
+- [x] AC-3 已定义 StyleValidationResult / StyleValidationIssue 类型与 schema
+- [x] AC-4 已定义 FallbackVariantPolicy 类型与 schema
+- [x] AC-5 已提供 Release 1 默认 `RELEASE1_FALLBACK_VARIANT_POLICY`
+- [x] AC-6 已实现 validateStyleRegistry / validateVariantDefinition / validateVariantForWechatCopy / validateResolvedArticleStyle
+- [x] AC-7 WeChat compatibility check 已转换进入 StyleValidationResult
+- [x] AC-8 forbidden CSS 产生 error，不 silent allow
+- [x] AC-9 risky CSS 至少产生 warning
+- [x] AC-10 preview_only 不得进入 release1_required copy-safe path
+- [x] AC-11 experimental 不作为默认 fallback
+- [x] AC-12 magazine_left_bar_title 不作为 required / 默认 fallback
+- [x] AC-13 单元测试 16 cases（`tests/core/styles/style-validation.test.ts`）
+- [x] AC-14 未实现 TitleBlockLayoutCompatibility / Renderer / 33 variants / Paste QA
+- [x] AC-15 `corepack pnpm lint` 通过
+- [x] AC-16 `corepack pnpm test` 通过（205 tests）
+- [x] AC-17 `corepack pnpm build` 通过
+- [x] AC-18 已生成 execution report
+- [ ] AC-19 未 merge 到 sprint / release / main（待用户确认后 merge）
 
 ---
 
