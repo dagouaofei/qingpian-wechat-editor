@@ -58,7 +58,7 @@ Sprint 3-A contract audit 与 Close Readiness；最小文档同步；不关闭 S
 
 ## 8. Commit
 
-- Commit hash：（提交后更新）
+- Commit hash：`aa97e50`
 
 ## 9. 建议下一步
 
