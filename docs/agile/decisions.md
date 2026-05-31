@@ -50,6 +50,7 @@
 | DECISION-044 | 2026-05-30 | magazine_left_bar_title 降为 release1CandidateVariants，不进入 first-wave required | 已确认 |
 | DECISION-045 | 2026-05-30 | 正式拆分 Sprint 3/4/6 为 3-A/B/C、4-A/B、6-A/B | 已确认 |
 | DECISION-051 | 2026-05-30 | 关闭 Sprint 1-B，并保持 Sprint 2 未启动 | 已确认 |
+| DECISION-052 | 2026-05-31 | 建立 `release/1` 作为 Release 1 主干；Sprint 1-B merge 至 release/1；清理 Sprint 1-B story 工作分支 | 已确认 |
 
 ### DECISION-019 详情
 
@@ -153,6 +154,17 @@
 - **决策：** Sprint 1-B 于 2026-05-30 正式关闭
 - **约束：** 关闭 Sprint 1-B **不等于**启动 Sprint 2；Sprint 2 须在用户**单独确认**后启动
 - **关联：** S1-STORY-029、architecture-overview §19、DECISION-051
+- **状态：** 已确认
+
+### DECISION-052 详情（Release 1 主干与 Sprint 1-B 分支清理）
+
+- **背景：** Sprint 1-B 已关闭；用户从 `main` 创建 `release/1`，并将 `sprint/s1b-core-tech-governance` merge 至 `release/1`（`882a43d`）
+- **决策：**
+  1. `release/1` 代表 **Release 1 开发主干**；后续 Release 1 内 Sprint 从 `release/1` 切 sprint 分支，验收后 merge 回 `release/1`
+  2. `main` 仅接收 Release 级合并（Release 1 整体验收后 merge `release/1` → `main`）
+  3. Sprint 1-B 全部 15 个 `docs/s1b-*` story 工作分支已清理删除（含已 merge 与未 merge）
+- **保留分支：** `main`、`release/1`、`sprint/s1b-core-tech-governance`（sprint 分支保留作历史快照，可后续归档）
+- **影响范围：** git-workflow.md、Sprint 2+ 切分支来源改为 `release/1`
 - **状态：** 已确认
 
 ## 决策模板

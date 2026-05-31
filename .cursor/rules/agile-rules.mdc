@@ -15,10 +15,11 @@ alwaysApply: true
 
 ## Git 分支与任务
 
-- 每个 Sprint 从 `main` 新建 `sprint/<sprint-slug>` 分支
+- 每个 Release 从 `main` 新建 `release/<n>` 分支（Release 1：`release/1`）
+- 每个 Sprint 从**当前 release 主干**新建 `sprint/<sprint-slug>` 分支
 - Sprint 内任务从**当前 sprint 分支**切出 `feature/` / `docs/` / `bugfix/` / `chore/` 分支
 - 一个工作分支只解决一个问题
-- 工作分支完成后合并回 sprint 分支，**不直接合并 main**
+- 工作分支完成后合并回 sprint 分支，**不直接合并 release 或 main**
 - 详见 `docs/agile/git-workflow.md`
 
 ## 范围变更
