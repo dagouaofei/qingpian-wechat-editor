@@ -134,4 +134,5 @@
 
 ## 14. Commit
 
-- Commit hash：（提交后更新）
+- Commit hash：`ec95ff5`（`feat: add style resolver contract`）
+- 补充 commit：`b02bd10`（`test: add minimal style registry fixture for resolver tests`；首轮 commit 遗漏 fixture，已补交）
