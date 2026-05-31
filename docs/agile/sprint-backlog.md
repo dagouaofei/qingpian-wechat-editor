@@ -693,7 +693,7 @@
 
 **用户故事：** 作为开发者，我需要 Theme / Preset / VariantDefinition / StyleRegistry 的 TypeScript 类型与 Zod Schema，以便后续 StyleResolver 与 Sprint 3-B variant registry 有统一契约。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s3a-style-system-schema`
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s3a-style-system-schema`（已 merge 至 `sprint/s3a-style-system-infra`，`08bc500`）
 
 **明确不做：**
 
@@ -718,7 +718,7 @@
 
 **用户故事：** 作为开发者，我需要 StyleResolver 最小实现，将 Article.styleAssignment 解析为 ResolvedBlockStyle / ResolvedArticleStyle，以便 Preview / Copy 后续共享同一 resolved 输入。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s3a-style-resolver`
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s3a-style-resolver`（已 merge 至 `sprint/s3a-style-system-infra`）
 
 **明确不做：**
 
@@ -744,7 +744,7 @@
 - [x] AC-14 `corepack pnpm test` 通过（170 tests）
 - [x] AC-15 `corepack pnpm build` 通过
 - [x] AC-16 已生成 execution report
-- [ ] AC-17 未 merge 到 sprint / release / main（待用户确认后 merge）
+- [x] AC-17 已 merge 至 `sprint/s3a-style-system-infra`（用户确认 2026-05-31）
 
 ---
 

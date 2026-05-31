@@ -54,6 +54,7 @@
 | DECISION-053 | 2026-05-31 | 正式启动 Sprint 2；范围 Article / Block Schema + InlineContent 代码契约；从 release/1 切 sprint/s2-article-block-schema | 已确认 |
 | DECISION-054 | 2026-05-31 | 关闭 Sprint 2；contract audit A + code audit A；P0=0；merge sprint/s2-article-block-schema → release/1 | 已确认 |
 | DECISION-055 | 2026-05-31 | 正式启动 Sprint 3-A；Style System Contract & Registry Infrastructure；从 release/1 切 sprint/s3a-style-system-infra | 已确认 |
+| DECISION-056 | 2026-05-31 | StyleResolver：explicit variant 失败但 preset default 成功时 source=preset_default 并记录 variant_not_found issue；S3A-STORY-002 Done；merge feature/s3a-style-resolver → sprint | 已确认 |
 
 ### DECISION-019 详情
 
@@ -204,6 +205,17 @@
   4. Sprint 3-A Backlog 拆分为 S3A-STORY-001~007（见 `sprint-backlog.md`）
 - **约束：** Sprint 3-A **不做** 33 first-wave required variants 全量 registry、Preview / Copy Renderer、AI Style Selection 生成、VisualAssetRegistry 全量 assets；工作分支从 sprint 分支切出；验收 merge 至 sprint，再 merge 至 `release/1`（须用户确认）
 - **关联：** S3A-STORY-001、DECISION-040~045、style-system.md
+- **状态：** 已确认
+
+### DECISION-056 详情（StyleResolver source 语义与 S3A-STORY-002/003 merge）
+
+- **背景：** S3A-STORY-003 实现后审查：explicit variant 不存在时若 preset default 可用，`ResolvedBlockStyle.source` 为 `preset_default`（非 `fallback`），同时仍记录 `variant_not_found` issue；S3A-STORY-002 已 merge 至 sprint 但 backlog 仍为 In Review
+- **决策：**
+  1. **接受**上述 source 语义：`source` 反映最终生效路径；issue 记录 explicit 失败原因，二者不冲突
+  2. **S3A-STORY-002 标记 Done**（merge commit `08bc500`）
+  3. **`feature/s3a-style-resolver` merge 至 `sprint/s3a-style-system-infra`**；S3A-STORY-003 标记 Done
+- **约束：** 不 merge 至 `release/1` 或 `main`（须 Sprint 3-A 关闭后用户确认）
+- **关联：** S3A-STORY-002、S3A-STORY-003、style-system.md
 - **状态：** 已确认
 
 ## 决策模板
