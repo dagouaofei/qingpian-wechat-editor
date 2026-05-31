@@ -1,7 +1,7 @@
 # Sprint Backlog
 
 > **Sprint 1：** 正式项目启动、核心技术方案定稿与工程治理 · Sprint 1-A / 1-B：**Closed**
-> **Sprint 2：** Article / Block Schema + InlineContent 代码契约 · **In Review**（待用户确认关闭；close readiness 见 `docs/architecture/audits/sprint2-contract-audit.md` §11）
+> **Sprint 2：** Article / Block Schema + InlineContent 代码契约 · **Closed**（2026-05-31；DECISION-054）
 > **Release 1 主干：** `release/1` · **Sprint 2 分支：** `sprint/s2-article-block-schema`（DECISION-053）
 
 ---
@@ -618,7 +618,7 @@
 
 **用户故事：** 作为产品负责人，我需要在 Sprint 2 代码实现完成后做一次契约 audit，确认 TS/Zod 与 architecture 文档一致，并准备 Sprint 2 关闭与 Sprint 3 启动条件。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `docs/s2-contract-audit-close-readiness`
+**优先级：** P0 · **状态：** Done · **工作分支：** `docs/s2-contract-audit-close-readiness`（已 merge 至 `sprint/s2-article-block-schema` @ `5eda6cd`）
 
 **明确不做：**
 
@@ -635,19 +635,19 @@
 - [x] AC-5 sprint-plan / changelog 已更新 Sprint 2 In Review / Close Readiness
 - [x] AC-6 `corepack pnpm lint` / `corepack pnpm test` / `corepack pnpm build` 通过
 - [x] AC-7 已生成 execution report
-- [x] AC-8 Sprint 2 保持 In Review 直至用户确认关闭
+- [x] AC-8 Sprint 2 已关闭（用户确认 2026-05-31；DECISION-054）
 
 ---
 
 ## Sprint 2 Close Readiness
 
-> **状态：待用户审查** — 详见 `docs/architecture/audits/sprint2-contract-audit.md` §11 Close Readiness Checklist
+> **状态：已关闭**（2026-05-31；用户确认；DECISION-054）
 
 | 项 | 状态 |
 |----|------|
-| S2-STORY-002~006 | Done |
-| S2-STORY-007 | In Review |
-| P0 findings | 0 |
+| S2-STORY-002~007 | Done |
+| Contract audit | ✅ A 级，P0=0，P1=1，P2=3（用户已接受） |
+| Code audit | ✅ A 级，P0=0，P1=3，P2=5（用户已接受） |
 | lint / test / build | PASS |
-| Sprint 2 关闭 | ⏳ 待用户确认 |
-| merge sprint → `release/1` | ⏳ 待用户确认 |
+| Sprint 2 关闭 | ✅ **已关闭**（2026-05-31） |
+| merge sprint → `release/1` | ✅ 用户已确认执行 |

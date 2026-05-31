@@ -52,10 +52,11 @@
 | **P0** | 0 |
 | **P1 / P2** | 已登记至后续 Sprint / Product Backlog（见下方登记表） |
 | **用户确认** | Checklist #10：已确认接受 B 级 final audit；Checklist #11：已确认可以关闭 Sprint 1-B |
-| **Sprint 2** | **In Review**（待用户确认关闭；2026-05-31 contract audit） |
-| **Release 1 主干** | `release/1`（`sprint/s1b-core-tech-governance` 已 merge，DECISION-052） |
-| **Sprint 2 分支** | `sprint/s2-article-block-schema`（从 `release/1` 切出） |
-| **下一步** | S2-STORY-002：InlineContent / InlineMark 代码契约 |
+| **Sprint 2** | **Closed**（2026-05-31；DECISION-054） |
+| **Sprint 2 关闭结论** | Contract audit **A** + Code audit **A**；P0=0 |
+| **Release 1 主干** | `release/1`（Sprint 2 已 merge，DECISION-054） |
+| **Sprint 2 分支** | `sprint/s2-article-block-schema`（已 merge 至 `release/1`） |
+| **下一步** | Sprint 3-A：Style System Contract & Registry Infrastructure |
 
 ---
 
@@ -114,15 +115,42 @@
 
 ---
 
+## Sprint 2 Close Readiness Checklist
+
+> 登记于 S2-STORY-007；Sprint 2 已于 2026-05-31 正式关闭（DECISION-054）。
+
+| # | 检查项 | 状态 |
+|---|--------|------|
+| 1 | S2-STORY-002~007 全部 Done | ✅ |
+| 2 | Contract audit A 级，P0=0（`sprint2-contract-audit.md`） | ✅ |
+| 3 | Code audit A 级，P0=0（`sprint2-code-audit.md`） | ✅ |
+| 4 | lint / test / build PASS | ✅ |
+| 5 | Sprint 2 范围未越界 | ✅ |
+| 6 | 用户确认接受 contract audit（A，P1=1，P2=3） | ✅ **已确认** |
+| 7 | 用户确认接受 code audit（A，P1=3，P2=5） | ✅ **已确认** |
+| 8 | 用户确认关闭 Sprint 2 | ✅ **已确认** |
+| 9 | merge `sprint/s2-article-block-schema` → `release/1` | ✅ **已确认** |
+
+### Sprint 2 audit P1/P2 登记（不阻塞关闭）
+
+| ID | 问题 | 建议 Sprint |
+|----|------|-------------|
+| P1-S2-001 | 测试 fixture 与 `tests/fixtures/articles/` 重复维护 | Chore / Sprint 3-A 前 |
+| P1-CODE-001 | streaming partial Article vs `blocks.min(1)` | Sprint 5 |
+| P1-CODE-002 | InlineMark color token 未接 Style registry | Sprint 3-A |
+| P2-S2-001 ~ P2-CODE-005 | 见 `sprint2-contract-audit.md` / `sprint2-code-audit.md` §10 | Sprint 3~6 / Release 2 |
+
+---
+
 ## Sprint 2 ~ 6 计划（Release 1 代码实现）
 
-> **Sprint 2 状态：In Review**（DECISION-053，2026-05-31；分支 `sprint/s2-article-block-schema`；contract audit 见 `docs/architecture/audits/sprint2-contract-audit.md`；**待用户确认关闭**）
+> **Sprint 2 状态：Closed**（2026-05-31；DECISION-054；contract audit A + code audit A；P0=0）
 >
 > 业务功能实现必须在核心技术方案 + 实现前契约完成之后进入（DECISION-015、DECISION-029~045、DECISION-051）。
 
-### Sprint 2：Article / Block Schema + InlineContent 代码契约 — **In Review**（待用户确认关闭）
+### Sprint 2：Article / Block Schema + InlineContent 代码契约 — **Closed**（2026-05-31）
 
-**分支：** `sprint/s2-article-block-schema` · **Release 1 主干：** `release/1`
+**分支：** `sprint/s2-article-block-schema`（已 merge 至 `release/1`） · **Release 1 主干：** `release/1`
 
 **Stories：** S2-STORY-001（启动）~ S2-STORY-007（audit）— 见 `sprint-backlog.md`
 
