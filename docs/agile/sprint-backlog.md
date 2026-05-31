@@ -693,7 +693,7 @@
 
 **用户故事：** 作为开发者，我需要 Theme / Preset / VariantDefinition / StyleRegistry 的 TypeScript 类型与 Zod Schema，以便后续 StyleResolver 与 Sprint 3-B variant registry 有统一契约。
 
-**优先级：** P0 · **状态：** Pending · **工作分支：** `feature/s3a-style-system-schema`
+**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s3a-style-system-schema`
 
 **明确不做：**
 
@@ -703,11 +703,14 @@
 
 **验收标准：**
 
-- [ ] AC-1 `ThemeDefinition`、`PresetDefinition`、`VariantDefinition` TS 类型完成
-- [ ] AC-2 `StyleRegistry` 结构与 `schemaVersion` 完成
-- [ ] AC-3 Zod schema 覆盖上述类型；`.strict()` 拒绝未知字段
-- [ ] AC-4 单元测试覆盖合法 / 非法 registry 输入
-- [ ] AC-5 `corepack pnpm lint` / `corepack pnpm test` / `corepack pnpm build` 通过
+- [x] AC-1 `ThemeDefinition`、`PresetDefinition`、`VariantDefinition` TS 类型完成（`src/core/styles/types.ts`）
+- [x] AC-2 `StyleRegistry` 结构与 `schemaVersion` 完成（`STYLE_SCHEMA_VERSION = 1`）
+- [x] AC-3 Zod schema 覆盖上述类型；`.strict()` 拒绝未知字段
+- [x] AC-4 `ColorTokenRef` 基础契约 + `inlineMarkColorInputSchema` legacy 兼容
+- [x] AC-5 VariantDefinition 复用 `BlockType`；禁止 html/className/style/css
+- [x] AC-6 registry helper：parse / validate / getThemeById / getPresetById / getVariantById / getVariantsForBlockType
+- [x] AC-7 单元测试 28 cases（`tests/core/styles/`）
+- [x] AC-8 `corepack pnpm lint` / `corepack pnpm test` / `corepack pnpm build` 通过
 
 ---
 
