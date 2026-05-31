@@ -117,3 +117,5 @@
 | 2026-05-31 | Sprint 3-A | 从 `release/1` 建立 `sprint/s3a-style-system-infra` | Git | DECISION-055 |
 | 2026-05-31 | Sprint 3-A | 新增 Sprint 3-A Backlog S3A-STORY-001~007 | 敏捷 | S3A-STORY-001 |
 | 2026-05-31 | Sprint 3-A | 实现 Style System 基础类型与 schema 契约（Theme / Preset / Variant / Registry） | 代码 / 架构 | S3A-STORY-002 |
+| 2026-05-31 | Sprint 3-A | 实现 ResolvedStyle 与 StyleResolver 最小实现（resolveArticleStyle / resolveBlockStyle + fallback） | 代码 / 架构 | S3A-STORY-003 |
+| 2026-05-31 | Sprint 3-A | S3A-STORY-002 标记 Done；用户确认 StyleResolver explicit→preset_default 语义（DECISION-056） | 敏捷 / 架构 | S3A-STORY-002, DECISION-056 |

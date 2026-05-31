@@ -4,6 +4,7 @@
  */
 
 import type { BlockType } from "@/core/blocks";
+import type { BlockStyleOverride } from "@/core/article";
 
 import type { ColorTokenRef, StyleSchemaVersion } from "./tokens";
 
@@ -84,3 +85,60 @@ export type StyleRegistry = {
 
 /** InlineMark color 推荐输入：ColorTokenRef；legacy string 仅兼容 */
 export type InlineMarkColorInput = ColorTokenRef | string;
+
+export type ResolvedStyleSource =
+  | "explicit"
+  | "preset_default"
+  | "registry_default"
+  | "fallback";
+
+export type StyleResolveIssue = {
+  code: string;
+  message: string;
+  blockId?: string;
+};
+
+/** Resolved 层 token：theme + variant override，不含 inline style */
+export type ResolvedStyleTokens = {
+  theme: ThemeTokens;
+  variant?: Record<string, string>;
+};
+
+export type ResolvedBlockStyle = {
+  blockId: string;
+  blockType: BlockType;
+  variantId: string;
+  variant: VariantDefinition;
+  presetId: string;
+  themeId: string;
+  tokens: ResolvedStyleTokens;
+  slots?: Record<string, VariantSlotDefinition>;
+  compatibility?: Record<string, string | number | boolean>;
+  source: ResolvedStyleSource;
+  fallbackReason?: string;
+};
+
+export type ResolvedArticleStyle = {
+  articleId: string;
+  schemaVersion: StyleSchemaVersion;
+  presetId: string;
+  themeId: string;
+  blocks: ResolvedBlockStyle[];
+  issues?: StyleResolveIssue[];
+};
+
+export type StyleResolveContext = {
+  registry: StyleRegistry;
+  preset: PresetDefinition;
+  theme: ThemeDefinition;
+  presetId: string;
+  themeId: string;
+  blockOverride?: BlockStyleOverride;
+  issues: StyleResolveIssue[];
+};
+
+export type ResolveArticleStyleOptions = {
+  presetId?: string;
+  themeId?: string;
+  strict?: boolean;
+};

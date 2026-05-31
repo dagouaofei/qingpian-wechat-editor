@@ -3,7 +3,14 @@ export type {
   Density,
   InlineMarkColorInput,
   PresetDefinition,
+  ResolveArticleStyleOptions,
+  ResolvedArticleStyle,
+  ResolvedBlockStyle,
+  ResolvedStyleSource,
+  ResolvedStyleTokens,
   StyleRegistry,
+  StyleResolveContext,
+  StyleResolveIssue,
   StyleSchemaVersion,
   ThemeDefinition,
   ThemeTokenMap,
@@ -53,3 +60,9 @@ export {
   parseStyleRegistry,
   validateStyleRegistry,
 } from "./registry";
+
+export {
+  StyleResolveError,
+  resolveArticleStyle,
+  resolveBlockStyle,
+} from "./resolver";
