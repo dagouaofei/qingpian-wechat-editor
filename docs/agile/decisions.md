@@ -49,6 +49,7 @@
 | DECISION-043 | 2026-05-30 | Release 1 样式采用 first-wave 11×3 required 与 expansion 分阶段策略 | 已确认 |
 | DECISION-044 | 2026-05-30 | magazine_left_bar_title 降为 release1CandidateVariants，不进入 first-wave required | 已确认 |
 | DECISION-045 | 2026-05-30 | 正式拆分 Sprint 3/4/6 为 3-A/B/C、4-A/B、6-A/B | 已确认 |
+| DECISION-051 | 2026-05-30 | 关闭 Sprint 1-B，并保持 Sprint 2 未启动 | 已确认 |
 
 ### DECISION-019 详情
 
@@ -144,6 +145,14 @@
 - **DECISION-044：** `magazine_left_bar_title` = candidate；不在 first wave；实现须真实 DOM left bar + text，禁止 absolute/pseudo/complex layout，单独 Paste QA
 - **DECISION-045：** Sprint 3→3-A/B/C；Sprint 4→4-A/B；Sprint 6→6-A/B；Sprint 2/5 不变；拆分不降低最终 11×5 目标
 - **影响范围：** style-system §10、sprint-plan、product-backlog TECH-ARCH-018~022
+- **状态：** 已确认
+
+### DECISION-051 详情（Sprint 1-B 正式关闭）
+
+- **背景：** Sprint 1-B final audit 分级 B；P0=0；P1/P2 已登记；用户确认 Checklist #10（接受 B 级 audit）与 #11（关闭 Sprint 1-B）
+- **决策：** Sprint 1-B 于 2026-05-30 正式关闭
+- **约束：** 关闭 Sprint 1-B **不等于**启动 Sprint 2；Sprint 2 须在用户**单独确认**后启动
+- **关联：** S1-STORY-029、architecture-overview §19、DECISION-051
 - **状态：** 已确认
 
 ## 决策模板

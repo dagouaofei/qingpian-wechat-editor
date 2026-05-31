@@ -71,3 +71,4 @@
 | 2026-05-30 | Sprint 1-B | 新增 S1-STORY-028：Sprint 1-B 总 Audit；分级 B；P0=0 P1=9 P2=5；025~027 已在 sprint merge；Sprint 1-B 保持 In Review | 架构 / 敏捷 | S1-STORY-028 |
 | 2026-05-30 | Sprint 1-B | Merge S1-STORY-028 final audit 至 `sprint/s1b-core-tech-governance`（`25b9bad`） | Git / 敏捷 | S1-STORY-028 |
 | 2026-05-30 | Sprint 1-B | 新增 S1-STORY-029：Sprint 1-B 关闭前状态同步；同步 S1-STORY-021~028 Done；登记 TECH-ARCH-023 Style Quality Gate；补充 Close Readiness Checklist；Sprint 1-B 保持 In Review | 敏捷 | S1-STORY-029, TECH-ARCH-023 |
+| 2026-05-30 | Sprint 1-B | **关闭 Sprint 1-B**；修复 architecture-overview §19 P1-010；S1-STORY-029 Done；DECISION-051；Sprint 2 未启动 | 敏捷 / 架构 | S1-STORY-029, DECISION-051 |

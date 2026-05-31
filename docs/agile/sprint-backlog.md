@@ -1,8 +1,8 @@
 # Sprint 1 Backlog
 
 > Sprint 1：正式项目启动、核心技术方案定稿与工程治理
-> Sprint 1-A：Done · Sprint 1-B：**In Review**
-> 整体状态：**In Review**
+> Sprint 1-A：Done · Sprint 1-B：**Done**
+> 整体状态：**Sprint 1-B Closed**（Sprint 2 未启动）
 
 ---
 
@@ -442,34 +442,15 @@
 
 **用户故事：** 作为产品负责人，我希望在 Sprint 1-B 关闭前，同步 final audit、Story 状态、遗留风险登记和关闭前检查项，以便 Sprint 1-B 可以在用户确认后关闭，并安全进入 Sprint 2。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `docs/s1b-close-readiness-sync`
+**优先级：** P0 · **状态：** Done · **工作分支：** `docs/s1b-close-readiness-sync`（已 merge 至 `sprint/s1b-core-tech-governance`）
 
-**验收标准：**
+**验收标准：** AC-1~AC-8 — 全部 PASS；Sprint 1-B 已正式关闭（DECISION-051）
 
-- [x] AC-1 docs/s1b-final-audit 已 merge 到 sprint/s1b-core-tech-governance（`25b9bad`）
-- [x] AC-2 sprint-backlog.md 已同步 S1-STORY-021~028 状态为 Done + merge 标注
-- [x] AC-3 P1/P2 风险已登记到 product-backlog / sprint-plan
-- [x] AC-4 Style Quality Gate 已登记 TECH-ARCH-023（不展开方案正文）
-- [x] AC-5 sprint-plan.md 已补充 Sprint 1-B Close Readiness Checklist
-- [x] AC-6 changelog.md 已记录本轮
-- [x] AC-7 pnpm lint / build 通过
-- [x] AC-8 Sprint 1-B 仍保持 In Review，不得关闭
+**Sprint 1-B 关闭依据：**
 
----
-
-## S1-STORY-029 Sprint 1-B 关闭前状态同步
-
-**用户故事：** 作为产品负责人，我希望在 Sprint 1-B 关闭前，同步 final audit、Story 状态、遗留风险登记和关闭前检查项，以便 Sprint 1-B 可以在用户确认后关闭，并安全进入 Sprint 2。
-
-**优先级：** P0 · **状态：** In Review · **工作分支：** `docs/s1b-close-readiness-sync`
-
-**验收标准：**
-
-- [x] AC-1 docs/s1b-final-audit 已 merge 到 sprint/s1b-core-tech-governance（`25b9bad`）
-- [x] AC-2 sprint-backlog.md 已同步 S1-STORY-021~028 状态为 Done + merge 标注
-- [x] AC-3 P1/P2 风险已登记到 product-backlog / sprint-plan
-- [x] AC-4 Style Quality Gate 已登记 TECH-ARCH-023（不展开方案正文）
-- [x] AC-5 sprint-plan.md 已补充 Sprint 1-B Close Readiness Checklist
-- [x] AC-6 changelog.md 已记录本轮
-- [x] AC-7 pnpm lint / build 通过
-- [x] AC-8 Sprint 1-B 仍保持 In Review，不得关闭
+- Sprint 1-B final audit 分级 **B**；**P0 = 0**
+- 用户已确认 Checklist **#10**：接受 B 级 final audit
+- 用户已确认 Checklist **#11**：可以关闭 Sprint 1-B
+- P1/P2 已登记至 Product Backlog / 后续 Sprint
+- P1-010（architecture-overview §19 过期状态）已在本轮修复
+- **Sprint 2 未启动**
