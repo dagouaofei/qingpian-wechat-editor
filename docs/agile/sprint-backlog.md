@@ -569,7 +569,7 @@
 
 **用户故事：** 作为开发者，我需要统一的 parse / validate / normalize 入口，以便 fixture、测试与后续 Generation 终态共用同一校验与归一逻辑。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s2-schema-helpers`
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s2-schema-helpers`（已 merge 至 `sprint/s2-article-block-schema` @ `9a7d625`）
 
 **明确不做：**
 
@@ -594,7 +594,7 @@
 
 **用户故事：** 作为开发者，我需要可复用的 Article / Block JSON fixture 与 schema 单元测试，以便后续 Sprint 3~6 在不重写测试数据的情况下扩展。
 
-**优先级：** P0 · **状态：** Pending · **工作分支：** `feature/s2-schema-fixtures-tests`
+**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s2-schema-fixtures`
 
 **明确不做：**
 
@@ -604,13 +604,13 @@
 
 **验收标准：**
 
-- [ ] AC-1 至少 1 个最小合法 Article JSON fixture（含多种 block 类型）
-- [ ] AC-2 至少 1 个含 InlineContent（bold / highlight）的 paragraph 或 lead fixture
-- [ ] AC-3 fixture 路径与命名符合项目约定（如 `src/core/**/fixtures/` 或 `tests/fixtures/`）
-- [ ] AC-4 Vitest 测试：fixture 可通过 `parseArticle`；非法 fixture 被拒绝
-- [ ] AC-5 11 种 block 类型在 fixture 或测试中均有覆盖（可分散在多个 fixture）
-- [ ] AC-6 CI 本地 `pnpm test`（或项目等价命令）通过
-- [ ] AC-7 `pnpm lint` / `pnpm build` 通过
+- [x] AC-1 `minimalArticleFixture` 最小合法 Article（`tests/fixtures/articles/`）
+- [x] AC-2 `inlineMarksArticleFixture` 覆盖 bold / italic / highlight / color / link
+- [x] AC-3 fixture 路径 `tests/fixtures/articles/` + `index.ts` 统一导出
+- [x] AC-4 Vitest：`parseArticle` / `validateArticle` / `normalizeArticle` 与 fixtures 打通
+- [x] AC-5 `fullBlocksArticleFixture` 覆盖 11 种 block 类型
+- [x] AC-6 `corepack pnpm test` 通过
+- [x] AC-7 `corepack pnpm lint` / `corepack pnpm build` 通过
 
 ---
 
