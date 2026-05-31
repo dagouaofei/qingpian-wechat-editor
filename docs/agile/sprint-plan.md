@@ -53,10 +53,10 @@
 | **P1 / P2** | 已登记至后续 Sprint / Product Backlog（见下方登记表） |
 | **用户确认** | Checklist #10：已确认接受 B 级 final audit；Checklist #11：已确认可以关闭 Sprint 1-B |
 | **Sprint 2** | **Closed**（2026-05-31；DECISION-054） |
-| **Sprint 3-A** | **In Review / Close Readiness**（S3A-STORY-007 audit，2026-05-31） |
-| **Release 1 主干** | `release/1` |
-| **Sprint 3-A 分支** | `sprint/s3a-style-system-infra`（从 `release/1` 切出） |
-| **下一步** | 用户确认 Sprint 3-A 关闭 → merge sprint → `release/1` → 启动 Sprint 3-B |
+| **Sprint 3-A** | **Closed**（2026-05-31；DECISION-057） |
+| **Release 1 主干** | `release/1`（Sprint 3-A 已 merge，DECISION-057） |
+| **Sprint 3-A 分支** | `sprint/s3a-style-system-infra`（已 merge 至 `release/1`） |
+| **下一步** | Sprint 3-B：First-wave Required Variant Registry（**未启动**） |
 
 ---
 
@@ -151,8 +151,8 @@
 | 3 | lint / test / build PASS（221 tests） | ✅ |
 | 4 | Sprint 3-A 范围未越界 | ✅ |
 | 5 | layoutMode / copySafety 文档最小同步 | ✅ |
-| 6 | **用户确认关闭 Sprint 3-A** | ⏳ **待确认** |
-| 7 | merge sprint → `release/1` | ⏳ **待用户确认** |
+| 6 | **用户确认关闭 Sprint 3-A** | ✅ **已确认**（2026-05-31；DECISION-057） |
+| 7 | merge sprint → `release/1` | ✅ **已确认**（2026-05-31；DECISION-057） |
 
 ### Sprint 3-A audit P1/P2 登记（不阻塞关闭）
 
@@ -169,7 +169,7 @@
 ## Sprint 2 ~ 6 计划（Release 1 代码实现）
 
 > **Sprint 2 状态：Closed**（2026-05-31；DECISION-054）
-> **Sprint 3-A 状态：In Review / Close Readiness**（S3A-STORY-007 contract audit，2026-05-31；分支 `sprint/s3a-style-system-infra` @ `767ebae`；**P0=0，grade A**；须用户确认关闭）
+> **Sprint 3-A 状态：Closed**（2026-05-31；DECISION-057；contract audit **A**，P0=0，P1=4，P2=3；`sprint/s3a-style-system-infra` 已 merge 至 `release/1`）
 >
 > 业务功能实现必须在核心技术方案 + 实现前契约完成之后进入（DECISION-015、DECISION-029~045、DECISION-051）。
 
@@ -189,11 +189,18 @@
 
 **不做：** Renderer、Style System、Generation、**AI Style Selection**
 
-### Sprint 3-A：Style System Contract & Registry Infrastructure — **In Review / Close Readiness**
+### Sprint 3-A：Style System Contract & Registry Infrastructure — **Closed**（2026-05-31）
 
-**分支：** `sprint/s3a-style-system-infra` @ `767ebae` · **Audit：** `docs/architecture/audits/sprint3a-contract-audit.md`（grade **A**，P0=0，P1=4，P2=3）
+**分支：** `sprint/s3a-style-system-infra`（已 merge 至 `release/1`，DECISION-057） · **Audit：** `docs/architecture/audits/sprint3a-contract-audit.md`（grade **A**，P0=0，P1=4，P2=3）
 
-**Stories：** S3A-STORY-001（启动）~ S3A-STORY-007（audit）— 见 `sprint-backlog.md`
+**关闭结论：**
+
+- Contract audit **A** 级；P0=0；P1=4 / P2=3 已登记
+- lint / test / build PASS（221 tests）
+- 未越界实现 33 variants / Preview / Copy / Paste QA
+- 用户确认关闭（DECISION-057）
+
+**Stories：** S3A-STORY-001（启动）~ S3A-STORY-007（audit + 关闭）— 见 `sprint-backlog.md`
 
 **目标：**
 
@@ -206,6 +213,11 @@
 **不做：** 全部 **33** first-wave required variants registry；Preview / Copy Renderer；AI Style Selection 生成；VisualAssetRegistry 全量 assets
 
 ### Sprint 3-B：First-wave Required Variant Registry
+
+> **启动前须带入（Sprint 3-A audit 遗留）：**
+>
+> - **P1-S3A-001：** `style-system.md` §11.4 titleBlock catalog 历史 layoutMode 命名 → 代码 snake_case enum 映射
+> - **P2-S3A-002：** slot 级 copySafety 尚未在 schema 强制
 
 **目标：**
 

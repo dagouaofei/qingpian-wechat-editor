@@ -2,8 +2,8 @@
 
 > **Sprint 1：** 正式项目启动、核心技术方案定稿与工程治理 · Sprint 1-A / 1-B：**Closed**
 > **Sprint 2：** Article / Block Schema + InlineContent 代码契约 · **Closed**（2026-05-31；DECISION-054）
-> **Sprint 3-A：** Style System Contract & Registry Infrastructure · **In Progress**
-> **Release 1 主干：** `release/1` · **Sprint 3-A 分支：** `sprint/s3a-style-system-infra`（DECISION-055）
+> **Sprint 3-A：** Style System Contract & Registry Infrastructure · **Closed**（2026-05-31；DECISION-057）
+> **Release 1 主干：** `release/1`（Sprint 3-A 已 merge，DECISION-057） · **Sprint 3-A 分支：** `sprint/s3a-style-system-infra`（DECISION-055）
 
 ---
 
@@ -658,7 +658,7 @@
 # Sprint 3-A Backlog
 
 > **Sprint 3-A 目标：** Style System **代码契约与 Registry 基础设施**（Theme / Preset / VariantDefinition / StyleResolver / WeChatCompatibilityProfile / validation helpers）
-> **Sprint 3-A 分支：** `sprint/s3a-style-system-infra`（从 `release/1` 切出，DECISION-055）
+> **Sprint 3-A 分支：** `sprint/s3a-style-system-infra`（从 `release/1` 切出，DECISION-055）· **状态：Closed**（2026-05-31；DECISION-057）
 > **Sprint 3-A 不做：** 33 first-wave required variants 全量 registry、Preview / Copy Renderer、AI Style Selection 生成、VisualAssetRegistry 全量 assets
 
 ---
@@ -836,7 +836,14 @@
 
 **用户故事：** 作为产品负责人，我需要在 Sprint 3-A 代码实现完成后做契约 audit，确认与 style-system.md 一致，并准备 Sprint 3-B 启动条件。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `docs/s3a-contract-audit-close-readiness`
+**优先级：** P0 · **状态：** Done · **工作分支：** `docs/s3a-contract-audit-close-readiness`（已 merge 至 sprint）
+
+**用户确认（2026-05-31）：**
+
+- 用户已确认接受 contract audit **A** 级
+- 用户已确认 **P0=0**
+- 用户已确认关闭 Sprint 3-A（DECISION-057）
+- merge `sprint/s3a-style-system-infra` → `release/1` 已由用户确认执行
 
 **明确不做：**
 
@@ -862,6 +869,22 @@
 - [x] AC-14 `corepack pnpm test` 通过（221 tests）
 - [x] AC-15 `corepack pnpm build` 通过
 - [x] AC-16 已生成 execution report
-- [x] AC-17 未自行关闭 Sprint 3-A
+- [x] AC-17 未自行关闭 Sprint 3-A（用户确认后关闭，DECISION-057）
+
+---
+
+## Sprint 3-A Close Readiness
+
+> **状态：已关闭**（2026-05-31；用户确认；DECISION-057）
+
+| 项 | 状态 |
+|----|------|
+| S3A-STORY-001~007 | Done |
+| Contract audit | ✅ A 级，P0=0，P1=4，P2=3（用户已接受） |
+| lint / test / build | PASS（221 tests） |
+| Sprint 3-A 范围未越界 | ✅ |
+| Sprint 3-A 关闭 | ✅ **已关闭**（2026-05-31） |
+| merge sprint → `release/1` | ✅ 用户已确认执行 |
+| 下一步 | Sprint 3-B：First-wave Required Variant Registry（**未启动**） |
 
 ---
