@@ -114,6 +114,8 @@ Copy Renderer 输出**微信兼容 HTML 片段**：
 | Slot fallback | 每启用 slot 须有 Copy fallback |
 | QA | 每 titleBlock variant 单独粘贴 QA |
 
+**Release 1 范围：** 全部 **release1RequiredVariants**（11×3~5）须 Preview + Copy 成对 + Paste QA（style-system §10.3~10.4）。
+
 详见 [style-system.md](style-system.md) §11、[wechat-copy-style-rules.md](wechat-copy-style-rules.md) §10。
 
 ---

@@ -464,23 +464,43 @@ Style Definition (VariantDefinition)
 
 - `classic-news` — 经典资讯风格（Release 1 默认 preset）
 
-### 10.3 每个 Block 至少 1 个 Variant
+### 10.3 Release 1 Variant 范围（DECISION-039）
 
-| block type | Release 1 variant | 说明 |
-|------------|-------------------|------|
-| title | `title-centered` | 居中标题 |
-| lead | `lead-muted` | 灰色导语 |
-| heading | `heading-underline` | 带下划线小标题 |
-| paragraph | `paragraph-default` | 标准正文 |
-| list | `list-bullet` | 圆点列表 |
-| quote | `quote-left-border` | 左边框引用 |
-| highlight | `highlight-bg` | 背景高亮 |
-| info_card | `card-bordered` | 边框卡片 |
-| cta | `cta-button` | 按钮式 CTA |
-| divider | `divider-line` | 实线分隔 |
-| image_placeholder | `placeholder-dashed` | 虚线占位框 |
+**Release 1 第一批 variant：**
 
-### 10.4 Density
+```text
+11 semantic block × 各 3~5 release1RequiredVariants × 若干 VisualAssetRegistry 系统内置 icon / shape / mark assets
+```
+
+**三层分类：**
+
+| 层级 | 定义 | Copy Fidelity |
+|------|------|---------------|
+| **release1RequiredVariants** | Release 1 **必须**实现；Preview + Copy **成对**；**必须** Paste QA | 计入 Done（代码）与 Done（粘贴 QA） |
+| **release1CandidateVariants** | Sprint 3 优先规划；未完成不阻塞最小闭环 | 未完成不得标记 Release 1 Copy Fidelity Done |
+| **experimentalVariants** | 内部预览 / 后续 Release；可 `preview_only` | **不得**进入 Release 1 正式交付 |
+
+**规则：** 每个 required variant 须 `copySafety: strict | balanced`；须支持 Copy Renderer；须进入 Paste QA。
+
+### 10.4 Release 1 Variant Coverage Plan
+
+| block type | required count | release1RequiredVariants（示例） | notes |
+|------------|----------------|----------------------------------|-------|
+| `title` | 3~5 | `title-centered`, `title-left`, `titleBlock-line`, `titleBlock-badge`, `titleBlock-card` | titleBlock 优先 |
+| `lead` | 3~5 | `lead-muted`, `lead-card`, `lead-border`, `lead-quote`, `lead-highlight` | |
+| `heading` | 3~5 | `heading-underline`, `title_with_bottom_line`, `line_top_title_center`, `badge_left_title_inline`, `icon_inline_prefix_title` | titleBlock 优先 |
+| `paragraph` | 3~5 | `paragraph-default`, `paragraph-relaxed`, `paragraph-indent`, `paragraph-highlight-inline`, `paragraph-compact` | |
+| `list` | 3~5 | `list-bullet`, `list-numbered`, `list-card`, `list-check`, `list-step` | |
+| `quote` | 3~5 | `quote-left-border`, `quote-card`, `quote-minimal`, `quote-bg`, `quote-large-mark` | |
+| `highlight` | 3~5 | `highlight-bg`, `highlight-border`, `highlight-marker`, `highlight-card`, `highlight-inline` | |
+| `info_card` | 3~5 | `card-bordered`, `card-filled`, `card-minimal`, `card-icon`, `card-key-takeaway` | |
+| `cta` | 3~5 | `cta-button`, `cta-card`, `cta-inline`, `cta-follow`, `cta-summary` | |
+| `divider` | 3~5 | `divider-line`, `divider-dot`, `divider-space`, `divider-label`, `divider-short-line` | |
+| `image_placeholder` | 3~5 | `placeholder-dashed`, `placeholder-caption`, `placeholder-card`, `placeholder-full`, `placeholder-minimal` | |
+
+**VisualAssetRegistry（Release 1）：** 系统内置 **若干** icon / shape / mark（Sprint 3 目标 15~30 assets），供 titleBlock 及 info_card / list 等 variant 引用。
+
+### 10.5 Density
 
 - Release 1 默认 `standard`，架构支持 compact / relaxed
 
@@ -595,6 +615,30 @@ TitleBlockSlotDefinition
 
 **组合约束：** 建议启用 2~4 slot；超过 5 个风险高；icon 与 bgShape 不宜同为主角。
 
+### 11.5.1 titleBlock slot 内容来源绑定（SlotContentBinding · DECISION-041）
+
+> Style System **不得**生成、改写或补写 Article.blocks 中的正文语义内容。
+
+```text
+SlotContentBinding
+├── slotName: string
+├── sourceType: "blockContent" | "articleMetadata" | "orchestratorGenerated" | "assetRegistry" | "variantDefinition"
+├── sourcePath?: string
+├── editable: boolean
+├── affectsArticleContent: false          # 恒为 false
+└── fallback: SlotRenderSpec | disabled
+```
+
+| 规则 | 说明 |
+|------|------|
+| **title slot** | **必须**绑定当前 block 的 `content.text`（title → `title.content.text`；heading → `heading.content.text`） |
+| **subtitle slot** | 不得默认生成正文语义；可绑定 `metadata.subtitle`、未来 `block.content.subtitle`，或 **disabled** |
+| **badge slot** | 可由 StyleOrchestrator 根据 section/heading index 生成展示型编号（如 `01` / `STEP 1`）；属 presentation metadata，**不改变** Article 内容 |
+| **icon / bgShape / extraMark** | **只能**来自 VisualAssetRegistry 已注册 assetId |
+| **decorationLine** | 只能来自 VariantDefinition / SlotDefinition；不得承载正文 |
+| **Style System** | 不得生成、改写、补写正文内容 |
+| **AI Style Selection** | 不得生成正文语义；只能建议 family / variant / slots / assetId / density / token override |
+
 ### 11.6 VisualAssetRegistry
 
 ```text
@@ -610,7 +654,7 @@ VisualAsset
 | 白名单 | 不得引用未注册 assetId |
 | 复用 | 同一 assetId 一篇文章默认最多 2 次 |
 | 密度 | strong density 不得连续高频 |
-| Sprint 3 | 10~20 系统内置 icon/shape |
+| Sprint 3 | **15~30** 系统内置 icon/shape/mark（Release 1 required assets） |
 
 AssetRegistry 属于 Style System，**不属于** Article 内容。
 
@@ -631,16 +675,77 @@ StyleOrchestrator 位于 StyleResolver **之前**，不修改 Article，只输�
 
 Sprint 3 最小实现 R1、R2、R8。
 
-### 11.8 AI Style Selection Guardrails
+### 11.8 Release 1 受控 AI Style Selection（DECISION-040）
 
-Release 1 **默认不启用** AI 自由选样式。未来启用时：
+**Release 1 启用受控 AI 样式选择。** Generation 可产生样式建议，但须完整走校验链（§11.8.1~11.8.3）。
 
 1. AI 只输出 `StyleSelectionRequest` / `StyleAssignmentPatch`
-2. 不得输出 HTML / CSS
-3. 不得引用未注册 family / variant / slot / assetId
-4. 须经 ComponentProtocol + Registry + WeChatCompatibilityProfile 校验
-5. 建议两步：选 family+variant → 补 slots+token override
-6. 失败 fallback 到 copy-safe simple variant
+2. **不得**输出 HTML / CSS / inline style
+3. **不得**引用未注册 family / variant / slot / assetId
+4. **不得**生成或修改 Article.blocks 正文语义
+5. **不得**直接调用 Preview / Copy Renderer
+6. **不得**绕过 Style System
+7. 须经 §11.8.3 校验链；失败 fallback 到 copy-safe simple variant
+8. 校验通过后只影响 `styleAssignment` / ArticleStylePlan，**不 mutate** blocks 内容
+
+#### 11.8.1 StyleSelectionRequest
+
+```text
+StyleSelectionRequest
+├── articleId: string
+├── articleContext?: { blockCount, headingCount, densityHint? }
+├── preferredPresetId?: string
+├── blockStyleHints[]
+│   ├── blockId: string
+│   ├── blockType: BlockType
+│   ├── suggestedFamilyId?: string
+│   ├── suggestedVariantId?: string
+│   ├── suggestedSlotOverrides?: Record<string, unknown>
+│   ├── suggestedAssetIds?: string[]
+│   └── reason?: string
+└── constraints
+    ├── mustUseRegisteredVariants: true
+    ├── mustUseRegisteredAssets: true
+    ├── mustPassWeChatCompatibility: true
+    └── maxDecorationDensity?: "light" | "medium" | "strong"
+```
+
+#### 11.8.2 StyleAssignmentPatch
+
+```text
+StyleAssignmentPatch
+├── presetId?: string
+├── blockOverrides[]
+│   ├── blockId: string
+│   ├── variantId?: string
+│   ├── familyId?: string
+│   ├── slotOverrides?: Record<string, unknown>
+│   ├── assetBindings?: Record<string, string>
+│   └── density?: Density
+└── meta
+    ├── source: "ai_style_selection"
+    ├── modelId?: string
+    ├── generatedAt: string
+    └── validationStatus?: "pending" | "valid" | "fallback_applied"
+```
+
+#### 11.8.3 校验路径（StyleSelection Validation Pipeline）
+
+```text
+StyleSelectionRequest / StyleAssignmentPatch
+  → ComponentProtocol validation
+  → BlockVisualProtocol validation
+  → Style Registry validation
+  → VisualAssetRegistry validation
+  → WeChatCompatibilityProfile validation
+  → TitleBlockLayoutCompatibility validation（titleBlock variant）
+  → StyleOrchestrator rhythm validation
+  → StyleValidationResult
+  → merge to ArticleStylePlan / styleAssignment（仅 valid 或 fallback_applied）
+  → StyleResolver → ResolvedArticleStyle
+```
+
+**未经校验的建议不得写入 `Article.styleAssignment`。**
 
 ### 11.9 fallback / validation / versioning
 
@@ -650,9 +755,44 @@ FallbackVariantPolicy { blockType, componentId, preferredFallbackVariant, copySa
 StyleDefinitionVersioning { schemaVersion, rawInput?, validatedOutput, finalResolvedOutput, validationMeta }
 ```
 
-family / variant / slot / assetId / themeTokens 须白名单校验；失败回退 simple copy-safe variant；区分 raw / validated / final 存储（Release 1 可预留不实现）。
+family / variant / slot / assetId / themeTokens 须白名单校验；失败回退 simple copy-safe variant。
 
-### 11.10 ResolvedBlockStyle 扩展（titleBlock）
+**Sprint 3 必须实现：** `schemaVersion`、`StyleValidationResult`、`FallbackVariantPolicy`、errors/warnings、`fallbackApplied` 标记、validation 入口（含 AI Style Selection）。
+
+**Release 4+ 再实现：** raw AI style output 持久化、validated output 持久化、final persisted style library、用户样式库版本管理。
+
+**Release 1：** 需要 validation 与 fallback **能力**；**不需要**完整样式库持久化系统。
+
+### 11.10 TitleBlockLayoutCompatibility（DECISION-042）
+
+```text
+TitleBlockLayoutCompatibility
+├── layoutMode: string
+├── allowedInCopy: boolean
+├── maxNestingDepth: number
+├── allowAbsolute: false              # Release 1 copy 禁止
+├── allowOverlay: boolean
+├── allowFlex: boolean
+├── fallbackLayoutMode: string
+├── requiredFallbackSlots: string[]
+├── requiredPasteQA: boolean
+└── riskLevel: "low" | "medium" | "high"
+```
+
+| layoutMode | allowedInCopy | riskLevel | Release 1 说明 |
+|------------|---------------|-----------|----------------|
+| `vertical-stack` | ✅ | low | required 可用 |
+| `line-top` / `line-bottom` | ✅ | low | required 可用 |
+| `inline-prefix` / `inline-badge` | ✅ | low~medium | required 可用 |
+| `left-bar` | ✅ | medium | 须真实 DOM line，禁止 pseudo |
+| `icon-right` | ✅ | medium | 禁止 flex；inline-block fallback |
+| `card-corner` / `card-center` | ⚠️ | medium~high | 限制嵌套；bgShape fallback；candidate |
+| `symmetric` | ⚠️ | high | 除非 copy template 明确，否则 **experimental** |
+| `offset-bg` / `overlay` | ❌ | high | **不得**进入 release1RequiredVariants；experimental 须 preview_only |
+
+**规则：** layoutMode 不满足 WeChatCompatibilityProfile → 不得进入 release1RequiredVariants；Copy 不得因 layout 复杂降级为 paragraph；overlay 类须有 `fallbackLayoutMode`（如 `vertical-stack`）。
+
+### 11.11 ResolvedBlockStyle 扩展（titleBlock）
 
 | 字段 | 说明 |
 |------|------|
@@ -681,16 +821,22 @@ Preview / Copy 按 `componentId` 分发成对 renderer；**不得**因复杂 var
 
 ## 13. 后续实现边界
 
-| 模块 | 路径 | 说明 |
-|------|------|------|
-| Theme tokens | `src/core/styles/theme/` | theme 定义 |
-| Preset config | `src/core/styles/preset/` | preset 定义 |
-| Variant definitions | `src/core/styles/variant/` | 各 block variant |
-| Registry | `src/core/styles/registry.ts` | 注册与查询 |
-| Style resolver | `src/core/styles/resolver.ts` | assignment → ResolvedBlockStyle |
-| Copy adapter | `src/core/styles/copy-adapter.ts` | ResolvedBlockStyle → inline style |
+| 模块 | 路径 | Sprint | 说明 |
+|------|------|--------|------|
+| Theme tokens | `src/core/styles/theme/` | 3 | theme 定义 |
+| Preset config | `src/core/styles/preset/` | 3 | preset 定义 |
+| Variant definitions | `src/core/styles/variant/` | 3 | release1RequiredVariants |
+| Registry | `src/core/styles/registry.ts` | 3 | 11×3~5 required variants |
+| Style resolver | `src/core/styles/resolver.ts` | 3 | assignment → ResolvedBlockStyle |
+| **Protocol** | `src/core/styles/protocol/` | 3 | ComponentProtocol / BlockVisualProtocol |
+| **Assets** | `src/core/styles/assets/` | 3 | VisualAssetRegistry |
+| **Orchestrator** | `src/core/styles/orchestrator/` | 3 | StyleOrchestrator / rhythm policies |
+| **Validation** | `src/core/styles/validation/` | 3 | StyleValidationResult / FallbackVariantPolicy |
+| **AI selection** | `src/core/styles/ai-selection/` | 3 validation · 5 generation | StyleSelectionRequest / Patch 校验 |
+| **Compatibility** | `src/core/styles/compatibility/` | 3 | WeChatCompatibilityProfile / TitleBlockLayoutCompatibility |
+| Copy adapter | `src/core/styles/copy-adapter.ts` | 4 | ResolvedBlockStyle → inline style |
 
-**前置条件：** 本方案定稿 + Article/Block Schema 定稿后方可实现。
+**Sprint 3 Style System 最小范围：** ComponentProtocol、VisualAssetRegistry、StyleOrchestrator 最小规则、StyleSelection validation 入口、WeChatCompatibilityProfile、**release1RequiredVariants registry**（11 block × 3~5）。
 
 ## 相关文档
 

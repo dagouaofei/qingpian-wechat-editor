@@ -63,4 +63,5 @@
 | 2026-05-30 | Sprint 1-B | Release 1 architecture overview finalized and merged into sprint governance branch | 架构 / Git | S1-STORY-020 |
 | 2026-05-30 | Sprint 1-B | 新增 S1-STORY-021 实现前契约缺口修正；补充 InlineContent、Style 命名边界、slot copy-safe、WeChatCompatibilityProfile；调整 Sprint 2~6 计划 | 架构 / 敏捷 | S1-STORY-021, DECISION-029~033 |
 | 2026-05-30 | Sprint 1-B | 新增 S1-STORY-022；基于 prototype-style-system-technical-lessons.md 对 S1-STORY-021 修正方案二次审计；Sprint 1-B 保持 In Review | 架构 / 敏捷 | S1-STORY-022 |
-| 2026-05-30 | Sprint 1-B | 新增 S1-STORY-024：Component DSL 能力对齐与 Style System 补强；补充 ComponentProtocol、titleBlock 5 family / 15 variant catalog、7 slot、VisualAssetRegistry、StyleOrchestrator、AI Guardrails；调整 Sprint 3；DECISION-036~038；Sprint 1-B 保持 In Review | 架构 / 敏捷 | S1-STORY-024, DECISION-036~038 |
+| 2026-05-30 | Sprint 1-B | 新增 S1-STORY-024：Component DSL 能力对齐与 Style System 补强；…DECISION-036~038；Sprint 1-B 保持 In Review | 架构 / 敏捷 | S1-STORY-024, DECISION-036~038 |
+| 2026-05-30 | Sprint 1-B | 新增 S1-STORY-025：Style System 实现前收口；SlotContentBinding；Release 1 variant 升级为 11×3~5+icons；Release 1 受控 AI 样式选择；TitleBlockLayoutCompatibility；Sprint 3~6 调整；DECISION-039~042；Sprint 1-B 保持 In Review | 架构 / 敏捷 | S1-STORY-025, DECISION-039~042 |

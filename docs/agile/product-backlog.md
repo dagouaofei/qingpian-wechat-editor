@@ -79,6 +79,11 @@
 | TECH-ARCH-009 | titleBlock slot protocol | EPIC-004 / EPIC-006 | 7 类 slot + fallback |
 | TECH-ARCH-010 | VisualAssetRegistry / icon asset pool | EPIC-004 | 系统内置 asset |
 | TECH-ARCH-011 | StyleOrchestrator / ArticleRhythmPolicy | EPIC-004 | 文章级去重/节奏 |
-| TECH-ARCH-012 | AI Style Selection Guardrails | EPIC-002 / EPIC-004 | AI 不得输出 HTML/CSS |
+| TECH-ARCH-012 | AI Style Selection Guardrails | EPIC-002 / EPIC-004 | AI 不得输出 HTML/CSS；须 registry 校验 |
+| TECH-ARCH-013 | Release 1 Variant Coverage Plan | EPIC-004 / EPIC-006 | 11 block × 3~5 release1RequiredVariants + assets |
+| TECH-ARCH-014 | SlotContentBinding | EPIC-004 | titleBlock slot 内容来源；禁止 Style 生成正文 |
+| TECH-ARCH-015 | TitleBlockLayoutCompatibility | EPIC-004 / EPIC-006 | layoutMode 微信 copy 可执行约束 |
+| TECH-ARCH-016 | AI Style Selection in Release 1 | EPIC-002 / EPIC-004 | Release 1 启用受控 AI 样式选择 |
+| TECH-ARCH-017 | StyleSelection Validation Pipeline | EPIC-004 | Protocol/Registry/Profile/Orchestrator 串联校验 |
 
-状态：文档契约 S1-STORY-021~024；代码按 Sprint 2~6 拆分。
+状态：文档契约 S1-STORY-021~025；代码按 Sprint 2~6 拆分。

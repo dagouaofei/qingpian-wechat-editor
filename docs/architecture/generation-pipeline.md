@@ -196,16 +196,37 @@ done.article 到达:
 
 ## 8. 生成与样式系统的关系
 
-生成链路**不负责样式**，只负责产出 Article（含 blocks + 默认 styleAssignment）：
+生成链路负责产出 **Article 内容** + **受控样式建议**；**不负责**直接渲染或输出 HTML/CSS。
+
+### 8.1 Release 1 受控 AI 样式选择（DECISION-040）
+
+Generation Module 在 Release 1 **启用受控 AI 样式选择**：
+
+| 允许 | 禁止 |
+|------|------|
+| 产出 Article（blocks + 默认 styleAssignment） | 直接输出 HTML |
+| 产出 `StyleSelectionRequest` / `StyleAssignmentPatch` | 直接输出 CSS / inline style |
+| 样式建议经 Style System 校验链 | 输出未注册 variant / assetId |
+| | 直接调用 Preview / Copy Renderer |
+| | 绕过 Style System |
 
 ```text
 GenerationEngine 产出:
-  Article.styleAssignment = { themeId: "default", presetId: "classic-news" }
+  Article.blocks + Article.styleAssignment（默认 preset）
+  StyleSelectionRequest? / StyleAssignmentPatch?（样式建议，可选）
 
-样式解析由 Style System 在渲染时完成。
+样式建议 → Style System validation pipeline（见 style-system §11.8.3）
+校验通过 → 合并至 ArticleStylePlan / styleAssignment
+StyleResolver → ResolvedArticleStyle → Preview / Copy
 ```
 
-后续 Release 2 可支持「生成后切换 preset」，但 Release 1 使用系统默认 preset。
+**规则：** 未经校验的 AI 样式建议**不得**写入 `Article.styleAssignment`；AI 建议**不得**修改 Article.blocks 正文语义。
+
+详见 [style-system.md](style-system.md) §11.8、[architecture-overview.md](architecture-overview.md) §9.2。
+
+### 8.2 Release 1 默认 preset
+
+Release 1 系统默认 `styleAssignment = { themeId: "default", presetId: "classic-news" }`；AI 可在约束内建议 variant / family / slot / asset 覆盖。
 
 ---
 

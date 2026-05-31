@@ -70,7 +70,7 @@
 
 ## Sprint 2 ~ 6 计划（Release 1 代码实现）
 
-> 业务功能实现必须在核心技术方案 + 实现前契约完成之后进入（DECISION-015、DECISION-029~033）。
+> 业务功能实现必须在核心技术方案 + 实现前契约完成之后进入（DECISION-015、DECISION-029~042）。
 
 ### Sprint 2：Article / Block Schema + InlineContent 代码契约
 
@@ -82,62 +82,57 @@
 - 实现基础 fixture
 - 实现 schema 单元测试
 
-**不做：** Renderer、Style System、Generation
+**不做：** Renderer、Style System、Generation、**AI Style Selection**
 
 **登记 P1/P2：** 无（P1-001 已在 Sprint 1-B 解决）
 
-### Sprint 3：Style System 代码契约、ComponentProtocol 与第一批 titleBlock variants
+### Sprint 3：Style System + ComponentProtocol + Release 1 Variant Registry + AI Style Selection Validation
 
 **目标：**
 
 - 实现 Theme / Preset / VariantDefinition / Registry
+- 实现 **11 block × 各 3~5 release1RequiredVariants** registry contract
 - 实现 StyleResolver → ResolvedBlockStyle / ResolvedArticleStyle
-- 实现 **ComponentProtocol / BlockVisualProtocol** 最小模型
-- 实现 **title / heading → titleBlock** 映射
-- 实现 titleBlock **3~5 copy-safe variant**（style-system §11.4）
-- 实现 titleBlock slots 最小子集 + **VisualAssetRegistry**（10~20 asset）
-- 实现 **StyleOrchestrator** 最小去重（R1、R2、R8）
-- 实现 SlotRenderSpec + WeChatCompatibilityProfile 基础校验
-- classic-news 11 block variant（含 titleBlock family）
+- 实现 ComponentProtocol / BlockVisualProtocol + SlotContentBinding
+- 实现 title / heading → titleBlock + **TitleBlockLayoutCompatibility**
+- 实现 VisualAssetRegistry 最小 **15~30** assets
+- 实现 StyleOrchestrator 最小规则（R1、R2、R8）
+- 实现 **StyleSelectionRequest / StyleAssignmentPatch validation 入口**
+- 实现 StyleValidationResult / FallbackVariantPolicy / schemaVersion
+- 实现 WeChatCompatibilityProfile 基础校验
 
-**不做：** 完整 Preview / Copy；15 variant 全量
+**不做：** 完整 Preview / Copy；Generation 侧 AI 样式建议生成（Sprint 5）
 
-**明确：** Sprint 2 不实现 ComponentProtocol / titleBlock
+**工作量提示：** 可按 block 类型拆分子 Sprint；**不得降低** release1RequiredVariants 范围
 
-**登记 P1/P2：** P1-002、P1-003（orchestrator 完整）、P1-004；P2-002、P2-003
-
-### Sprint 4：Preview / Copy Renderer 最小闭环 + 最小粘贴 QA
+### Sprint 4：Preview / Copy 成对闭环 + release1RequiredVariants 粘贴 QA
 
 **目标：**
 
-- 基于 fixture 渲染 Preview
-- 基于同一 ResolvedArticleStyle 生成 Copy HTML
-- Copy Renderer 使用 WeChatCompatibilityProfile
+- 基于 Sprint 3 registry 实现 Preview / Copy 成对 renderer
+- WeChatCompatibilityProfile + TitleBlockLayoutCompatibility
 - InlineMark → 微信兼容 inline HTML
+- **每个 release1RequiredVariant** 进入粘贴 QA 计划
 - 启动最小人工微信公众号粘贴 QA
-- 区分 Done（代码）与 Done（粘贴 QA）
 
-**登记 P1/P2：** P1-002（InlineMark 映射）、P1-005（list/info_card copy）、P1-006（Clipboard 双格式）、P1-007（text-node typography）
+**登记 P1/P2：** P1-002、P1-005、P1-006、P1-007
 
-### Sprint 5：Generation / Streaming 最小闭环
-
-**目标：**
-
-- 实现 InputRequest / NormalizedInput
-- 实现 batch / stream 统一输出 Article
-- 实现 GenerationEvent：`status` / `metadata` / `block.start` / `block.delta` / `block.complete` / `done.article`
-- 前端可逐步展示 partial Article
-- 禁止 streamArticle 平行结构
-
-### Sprint 6：Fixture 三联 + Paste QA 回归体系
+### Sprint 5：Generation / Streaming + 受控 AI 样式选择最小闭环
 
 **目标：**
 
-- Article JSON fixture
-- Copy HTML snapshot
+- InputRequest / NormalizedInput、GenerationEvent、`done.article`
+- **StyleSelectionRequest / StyleAssignmentPatch 生成**
+- 所有样式建议必须走 Sprint 3 validation pipeline
+- 禁止 streamArticle；禁止绕过 Style System
+
+### Sprint 6：Fixture 三联 + release1RequiredVariants Paste QA 回归
+
+**目标：**
+
+- Article JSON fixture + Copy HTML snapshot（required variants golden）
 - Paste checklist / PasteTestRecord
-- 复制一致性 Bug 录入流程
-- classic-news 全 variant 回归
+- **release1RequiredVariants** 全量系统化回归
 
 ---
 

@@ -200,15 +200,32 @@ InputRequest → NormalizedInput
 | CopyHtmlResult | 微信兼容 HTML | Copy | Clipboard、Paste QA | 4+ |
 | PasteTestRecord | 粘贴测试记录 | Paste QA | bugs.md | 4+（最小）/ 6（系统） |
 | ExecutionReport | 执行交接 | Governance | ChatGPT、用户 | 已建立 |
+| **ComponentProtocol** | 视觉控件 family/variant/slot/asset 白名单协议 | Style System registry | StyleValidator、StyleResolver | 3+ · **R1** |
+| **BlockVisualProtocol** | semantic block → visual component 映射协议 | Style System | StyleResolver、Orchestrator | 3+ · **R1** |
+| **VisualAssetRegistry** | 系统内置 icon/shape/mark 资产池 | Style System | StyleResolver、AI validation | 3+ · **R1** |
+| **VisualAsset** | 单个注册资产定义 | Style System | Registry、Renderer slot | 3+ · **R1** |
+| **StyleOrchestrator** | 文章级样式编排（去重/节奏） | Style System | StyleResolver 前 | 3+ · **R1**（最小规则） |
+| **ArticleRhythmPolicy** | 长文/短文节奏策略 | Style System | StyleOrchestrator | 3+ · 部分 R1 |
+| **VariantDedupPolicy** | 相邻 variant 去重 | Style System | StyleOrchestrator | 3+ · **R1** |
+| **AssetReusePolicy** | assetId 复用上限 | Style System | StyleOrchestrator | 3+ · **R1** |
+| **StyleSelectionRequest** | AI 样式建议请求 | **Generation** | Style validation pipeline | 5+ · **R1** |
+| **StyleAssignmentPatch** | 校验通过的样式分配补丁 | Generation → Style validation | ArticleStylePlan | 5+ · **R1** |
+| **StyleValidationResult** | 样式建议校验结果 | Style validation | Generation、StyleResolver | 3+ · **R1** |
+| **FallbackVariantPolicy** | 校验失败回退策略 | Style System | StyleResolver | 3+ · **R1** |
+| **StyleDefinitionVersioning** | raw/validated/final 分层 | Style System | 持久化（R4+） | 3+ schema · 持久化 R4+ |
+| **TitleBlockSlotDefinition** | titleBlock slot 结构定义 | Style System / registry | VariantDefinition | 3+ · **R1** |
+| **TitleBlockLayoutCompatibility** | layoutMode 微信 copy 可执行约束 | Style System / WeChat profile | Copy Renderer | 3+ · **R1** |
+| **SlotContentBinding** | slot 内容来源绑定规则 | Style System | StyleResolver、Renderer | 3+ · **R1** |
 
----
+> **边界：** 上表扩展契约属于 Style System / AI Style Selection / Governance **扩展层**；**不改变** Article / Block Schema；**不引入** visualArticle / componentArticle。**Sprint 2 不实现**；**Sprint 3 起**实现 Style System 相关契约；Generation 侧 StyleSelectionRequest 在 **Sprint 5** 与 Generation 闭环一并实现，但 **Release 1 架构边界本轮已定**。
 
 ## 5. 模块依赖与边界规则
 
 | 规则 | 说明 |
 |------|------|
 | Input **不直接调用** Renderer | 输入只进入 Generation |
-| Generation **不直接输出** HTML | 只产出 Article / GenerationEvent |
+| Generation **不直接输出** HTML / CSS / inline style | 只产出 Article / GenerationEvent / StyleSelectionRequest |
+| Generation **不直接调用** Preview / Copy Renderer | 样式须经 Style System 校验链 |
 | Article / Block **不包含** CSS | 内容与样式分离 |
 | Style System **不修改** Article 内容语义 | 只读 Article + styleAssignment |
 | Preview **不生成** Copy HTML | 输出 DOM |
@@ -348,7 +365,7 @@ Article (语义)  →  Style Assignment  →  Style System  →  StyleDefinition
 ```
 
 - slot / density / variant / registry 是 Release 1 **样式模型组成部分**（非仅未来方向）
-- Release 1 实现：`default` theme + `classic-news` preset + 每 block 至少 1 variant + registry 架构
+- Release 1 实现：`default` theme + `classic-news` preset + **11 block × 各 3~5 release1RequiredVariants** + VisualAssetRegistry 系统内置 assets + registry 架构
 - 完整样式市场后置；**样式系统架构前置**
 
 ### 9.1 Component DSL 扩展层（S1-STORY-024）
@@ -366,6 +383,27 @@ Article (语义)  →  Style Assignment  →  Style System  →  StyleDefinition
 **禁止：** visualArticle / componentArticle；旧 DSL 代码；Visual Layer / Space Style 作为主方案。
 
 详见 [style-system.md](style-system.md) §11、[references/miaopian-title-component-dsl-v1.md](references/miaopian-title-component-dsl-v1.md)。
+
+### 9.2 Release 1 受控 AI 样式选择主链路（S1-STORY-025）
+
+**Release 1 启用受控 AI 样式选择**（DECISION-040）。Generation 可产出 `StyleSelectionRequest` / `StyleAssignmentPatch`，但**不得绕过 Style System**：
+
+```text
+Generation Module
+  → Article（blocks 内容）+ StyleSelectionRequest / StyleAssignmentPatch（样式建议）
+  → ComponentProtocol / BlockVisualProtocol validation
+  → Style Registry + VisualAssetRegistry validation
+  → WeChatCompatibilityProfile + TitleBlockLayoutCompatibility validation
+  → StyleOrchestrator rhythm validation
+  → StyleValidationResult（含 fallbackApplied）
+  → ArticleStylePlan / 合并至 styleAssignment
+  → StyleResolver → ResolvedArticleStyle
+  → Preview Renderer / Copy Renderer（只消费 ResolvedArticleStyle）
+```
+
+**禁止：** Generation 直接输出 HTML/CSS/inline style；未校验样式建议写入 styleAssignment；Renderer 接收 Generation 原始样式输出。
+
+详见 [generation-pipeline.md](generation-pipeline.md) §8.1、[style-system.md](style-system.md) §11.8。
 
 ---
 
@@ -465,8 +503,8 @@ Article + StyleDefinition
 |----|----------------|
 | Theme | `default` |
 | Preset | `classic-news`（系统默认） |
-| Variant | 11 block × 各 1 默认 variant（见 [style-system.md](style-system.md) §10.3） |
-| 粘贴 QA | **每个** Release 1 variant 必须有粘贴用例；Sprint 4 启动最小人工 QA；Sprint 6 三联回归体系 |
+| Variant | **11 block × 各 3~5 release1RequiredVariants** + VisualAssetRegistry assets（见 [style-system.md](style-system.md) §10.3） |
+| 粘贴 QA | **每个 release1RequiredVariant** 须有粘贴用例；Sprint 4 启动最小 QA；Sprint 6 对全部 required variants 系统化回归 |
 
 Release 1 **不是**完整样式市场，但 Style System 架构必须前置。
 
@@ -581,10 +619,10 @@ Release 1 **不实现**完整导入；StyleDefinition 已通过 `sourceType` / `
 | Sprint | 焦点 |
 |--------|------|
 | **Sprint 2** | Article / Block Schema + **InlineContent** 代码契约（Zod/TS/fixture/单测；不含 Renderer/Style/Generation） |
-| **Sprint 3** | Style System + **ComponentProtocol** + 第一批 **titleBlock** variants（3~5 copy-safe）+ VisualAssetRegistry + StyleOrchestrator 最小去重 |
-| **Sprint 4** | Preview / Copy **成对最小闭环** + WeChatCompatibilityProfile 应用 + **最小粘贴 QA 启动** |
-| **Sprint 5** | Generation / Streaming 最小闭环 + `done.article` |
-| **Sprint 6** | Fixture **三联**系统化回归 + Paste QA 体系完善 |
+| **Sprint 3** | Style System + ComponentProtocol + **11×3~5 release1RequiredVariants registry** + VisualAssetRegistry + AI Style Selection **validation** + TitleBlockLayoutCompatibility |
+| **Sprint 4** | Preview/Copy 成对闭环 + **release1RequiredVariants** 最小粘贴 QA |
+| **Sprint 5** | Generation/Streaming + **StyleSelectionRequest 生成**（须走 validation 链） |
+| **Sprint 6** | Fixture 三联 + **release1RequiredVariants** 系统化 Paste QA 回归 |
 
 ---
 

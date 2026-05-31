@@ -359,3 +359,13 @@
 - [x] AC-16 已生成 execution report
 - [x] AC-17 pnpm lint / build 通过
 - [x] AC-18 Sprint 1-B 保持 In Review
+
+---
+
+## S1-STORY-025 Component DSL 对齐后的 Style System 实现前收口
+
+**用户故事：** 作为产品负责人，我希望在 Sprint 1-B 收口前，基于 Component DSL 对齐后的最新版技术方案，进一步收口 Style System 实现前契约，明确 titleBlock slot 内容来源、Component DSL 相关数据契约、Release 1 第一批 variant 范围、layoutMode copy-safe 规则、Release 1 AI 样式选择边界，以及后续实现路径。
+
+**优先级：** P0 · **状态：** In Review · **工作分支：** `docs/s1b-component-dsl-style-system-readiness`
+
+**验收标准：** AC-1~AC-18（slot binding、architecture 契约表、11×3~5 variants、layoutMode、AI Style Selection、Sprint 3~6、DECISION-039~042、execution report、lint/build、Sprint 1-B In Review）— 本轮全部 PASS

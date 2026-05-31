@@ -42,6 +42,10 @@
 | DECISION-036 | 2026-05-30 | 吸收秒篇 Component DSL 的 family / variant / slot / asset / orchestrator 思想，不迁移旧实现代码 | 已确认 |
 | DECISION-037 | 2026-05-30 | title 与 heading 共享 titleBlock visual component，保持不同语义 block | 已确认 |
 | DECISION-038 | 2026-05-30 | Sprint 3 增加 ComponentProtocol 与第一批 titleBlock variants 作为 Style System 前置范围 | 已确认 |
+| DECISION-039 | 2026-05-30 | Release 1 第一批 variant 升级为 11 block × 各 3~5 默认 variant × 若干 VisualAssetRegistry assets | 已确认 |
+| DECISION-040 | 2026-05-30 | Release 1 启用受控 AI 样式选择，AI 不得绕过 Style System | 已确认 |
+| DECISION-041 | 2026-05-30 | titleBlock slot 必须绑定合法内容来源，Style System 不得生成正文语义 | 已确认 |
+| DECISION-042 | 2026-05-30 | Release 1 titleBlock layoutMode 必须通过可执行 copy-safe 约束 | 已确认 |
 
 ### DECISION-019 详情
 
@@ -120,6 +124,15 @@
 - **DECISION-037：** title / heading 共享 titleBlock visual component；映射属 Style System，不改 Block Schema
 - **DECISION-038：** Sprint 3 纳入 ComponentProtocol、titleBlock 3~5 copy-safe variant、VisualAssetRegistry 最小 pool、StyleOrchestrator 最小去重；Sprint 2 仍只做 Article/Block/InlineContent
 - **影响范围：** style-system §11、sprint-plan Sprint 3、TECH-ARCH-007~012
+- **状态：** 已确认
+
+### DECISION-039 ~ DECISION-042 详情（S1-STORY-025 Style System 实现前收口）
+
+- **DECISION-039：** Release 1 required variant = 11 semantic block × each 3~5 release1RequiredVariants + VisualAssetRegistry assets；三层分类 required/candidate/experimental；全部 required 须 Preview+Copy+Paste QA
+- **DECISION-040：** Release 1 启用受控 AI 样式选择；Generation 产出 StyleSelectionRequest/Patch；不得输出 HTML/CSS/inline style/未注册 variant/asset；须经完整 validation pipeline
+- **DECISION-041：** SlotContentBinding；title→block.content.text；subtitle→metadata或disabled；badge→orchestrator presentation；icon/bgShape→assetRegistry；Style System 不得生成正文
+- **DECISION-042：** TitleBlockLayoutCompatibility；layoutMode 须声明 allowedInCopy/fallbackLayoutMode/riskLevel；overlay/offset-bg 不得进入 release1RequiredVariants
+- **影响范围：** style-system §10/§11、architecture-overview §4/§9.2、generation-pipeline §8.1、sprint-plan Sprint 3~6
 - **状态：** 已确认
 
 ## 决策模板
