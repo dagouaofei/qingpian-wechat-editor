@@ -494,7 +494,7 @@
 
 **用户故事：** 作为开发者，我需要 InlineContent / InlineMark 的 TypeScript 类型与 Zod Schema，以便 paragraph / lead 等 block 能表达段内富文本语义且与文档契约一致。
 
-**优先级：** P0 · **状态：** Pending · **工作分支：** `feature/s2-inline-content-contract`
+**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s2-inline-content-contract`
 
 **明确不做：**
 
@@ -504,14 +504,14 @@
 
 **验收标准：**
 
-- [ ] AC-1 `src/core/blocks/`（或约定子路径）已定义 `InlineMark`、`InlineTextNode`、`InlineContent` TS 类型
-- [ ] AC-2 Zod schema 覆盖 mark 类型：`bold` | `italic` | `highlight` | `color` | `link`；可选 `color`、`href`、`semantic`
-- [ ] AC-3 禁止 HTML 富文本 string 作为主模型；schema 校验失败有明确错误
-- [ ] AC-4 与 `block-schema.md` §3.1 一致；`paragraph` / `lead` 主文本字段为 `text: string | InlineContent`
-- [ ] AC-5 提供 `normalizeToInlineContent(input: string | InlineContent): InlineContent` 最小 helper（或等价命名）
-- [ ] AC-6 旧 `emphasis` 字段若有兼容，须在 normalize 路径转为 InlineMark（文档兼容期）
-- [ ] AC-7 单元测试覆盖合法 / 非法 InlineContent
-- [ ] AC-8 `pnpm lint` / `pnpm build` 通过
+- [x] AC-1 `src/core/article/` 已定义 `InlineMark`、`InlineTextNode`、`InlineContent` TS 类型（`InlineContent = InlineTextNode[]`，与 block-schema §3.1 一致）
+- [x] AC-2 Zod schema 覆盖 mark 类型：`bold` | `italic` | `highlight` | `color` | `link`；可选 `color`、`href`、`semantic`
+- [x] AC-3 禁止 HTML 富文本 string 作为主模型；schema 校验失败有明确错误
+- [x] AC-4 与 `block-schema.md` §3.1 一致；导出 `InlineTextInput` 供 paragraph / lead `text: string | InlineContent` 使用
+- [x] AC-5 提供 `normalizeInlineContent(input: string | InlineContent): InlineContent` 及 `parseInlineContent` / `isInlineContent`
+- [x] AC-6 提供 `legacyEmphasisToMarks` 供文档兼容期 emphasis → InlineMark 迁移
+- [x] AC-7 单元测试覆盖合法 / 非法 InlineContent（22 cases，`tests/core/article/inline-content.test.ts`）
+- [x] AC-8 `corepack pnpm lint` / `corepack pnpm test` / `corepack pnpm build` 通过
 
 ---
 
