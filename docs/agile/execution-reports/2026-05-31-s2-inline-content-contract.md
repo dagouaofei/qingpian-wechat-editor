@@ -109,4 +109,4 @@ S2-STORY-003：`feature/s2-block-schema-contract`（引用 `@/core/article` Inli
 
 ## 14. Commit
 
-- Commit hash：（提交后填写）
+- Commit hash：`f5046c2`
