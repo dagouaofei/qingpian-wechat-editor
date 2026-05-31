@@ -106,3 +106,13 @@
 | 2026-05-31 | Sprint 2 | 完成 Sprint 2 code audit（P0=0；grade A） | 架构 / 敏捷 | S2-CODE-AUDIT-001 |
 | 2026-05-31 | Sprint 2 | **正式关闭 Sprint 2**；用户确认 contract + code audit；DECISION-054 | 敏捷 | S2-STORY-007 |
 | 2026-05-31 | Release 1 | `sprint/s2-article-block-schema` merge 至 `release/1` | Git | DECISION-054 |
+
+---
+
+## 2026-05-31 · Sprint 3-A
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-05-31 | Sprint 3-A | **正式启动 Sprint 3-A**；范围 Style System Contract & Registry Infrastructure | 敏捷 / 架构 | S3A-STORY-001, DECISION-055 |
+| 2026-05-31 | Sprint 3-A | 从 `release/1` 建立 `sprint/s3a-style-system-infra` | Git | DECISION-055 |
+| 2026-05-31 | Sprint 3-A | 新增 Sprint 3-A Backlog S3A-STORY-001~007 | 敏捷 | S3A-STORY-001 |

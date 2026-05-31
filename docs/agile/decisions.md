@@ -53,6 +53,7 @@
 | DECISION-052 | 2026-05-31 | 建立 `release/1` 作为 Release 1 主干；Sprint 1-B merge 至 release/1；清理 Sprint 1-B story 工作分支 | 已确认 |
 | DECISION-053 | 2026-05-31 | 正式启动 Sprint 2；范围 Article / Block Schema + InlineContent 代码契约；从 release/1 切 sprint/s2-article-block-schema | 已确认 |
 | DECISION-054 | 2026-05-31 | 关闭 Sprint 2；contract audit A + code audit A；P0=0；merge sprint/s2-article-block-schema → release/1 | 已确认 |
+| DECISION-055 | 2026-05-31 | 正式启动 Sprint 3-A；Style System Contract & Registry Infrastructure；从 release/1 切 sprint/s3a-style-system-infra | 已确认 |
 
 ### DECISION-019 详情
 
@@ -191,6 +192,18 @@
   4. P1/P2 登记至 sprint-plan Sprint 2 Close Readiness；不阻塞 Sprint 3-A 启动
 - **约束：** Sprint 3 从 `release/1` 切 sprint 分支（git-workflow.md）
 - **关联：** S2-STORY-007、S2-CODE-AUDIT-001、`sprint2-contract-audit.md`、`sprint2-code-audit.md`
+- **状态：** 已确认
+
+### DECISION-055 详情（Sprint 3-A 正式启动）
+
+- **背景：** Sprint 2 已关闭并 merge 至 `release/1`（DECISION-054）；Article / Block / InlineContent 代码契约已在 release/1；用户确认启动 Sprint 3-A
+- **决策：**
+  1. Sprint 3-A **正式启动**，状态 **In Progress**
+  2. 范围：**Style System Contract & Registry Infrastructure**（Theme / Preset / VariantDefinition / Registry、StyleResolver、WeChatCompatibilityProfile、StyleValidationResult、TitleBlockLayoutCompatibility）
+  3. 从 `release/1` 切出 **`sprint/s3a-style-system-infra`**
+  4. Sprint 3-A Backlog 拆分为 S3A-STORY-001~007（见 `sprint-backlog.md`）
+- **约束：** Sprint 3-A **不做** 33 first-wave required variants 全量 registry、Preview / Copy Renderer、AI Style Selection 生成、VisualAssetRegistry 全量 assets；工作分支从 sprint 分支切出；验收 merge 至 sprint，再 merge 至 `release/1`（须用户确认）
+- **关联：** S3A-STORY-001、DECISION-040~045、style-system.md
 - **状态：** 已确认
 
 ## 决策模板

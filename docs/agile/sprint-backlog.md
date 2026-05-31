@@ -2,7 +2,8 @@
 
 > **Sprint 1：** 正式项目启动、核心技术方案定稿与工程治理 · Sprint 1-A / 1-B：**Closed**
 > **Sprint 2：** Article / Block Schema + InlineContent 代码契约 · **Closed**（2026-05-31；DECISION-054）
-> **Release 1 主干：** `release/1` · **Sprint 2 分支：** `sprint/s2-article-block-schema`（DECISION-053）
+> **Sprint 3-A：** Style System Contract & Registry Infrastructure · **In Progress**
+> **Release 1 主干：** `release/1` · **Sprint 3-A 分支：** `sprint/s3a-style-system-infra`（DECISION-055）
 
 ---
 
@@ -651,3 +652,171 @@
 | lint / test / build | PASS |
 | Sprint 2 关闭 | ✅ **已关闭**（2026-05-31） |
 | merge sprint → `release/1` | ✅ 用户已确认执行 |
+
+---
+
+# Sprint 3-A Backlog
+
+> **Sprint 3-A 目标：** Style System **代码契约与 Registry 基础设施**（Theme / Preset / VariantDefinition / StyleResolver / WeChatCompatibilityProfile / validation helpers）
+> **Sprint 3-A 分支：** `sprint/s3a-style-system-infra`（从 `release/1` 切出，DECISION-055）
+> **Sprint 3-A 不做：** 33 first-wave required variants 全量 registry、Preview / Copy Renderer、AI Style Selection 生成、VisualAssetRegistry 全量 assets
+
+---
+
+## S3A-STORY-001 Sprint 3-A 启动与 Backlog 拆分
+
+**用户故事：** 作为产品负责人，我需要正式启动 Sprint 3-A 并拆分 Backlog，以便团队在明确边界下按 Story 逐步实现 Style System 基础设施。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `docs/s3a-start-backlog-split`
+
+**明确不做：**
+
+- 不实现 Style System 业务代码（S3A-STORY-002 起）
+- 不实现 33 variants registry
+- 不实现 Preview / Copy Renderer
+- 不 merge 至 `release/1` 或 `main`（本轮由用户审查后 merge sprint 分支）
+
+**验收标准：**
+
+- [x] AC-1 工作区干净；已从 `release/1` 创建 `sprint/s3a-style-system-infra`
+- [x] AC-2 `sprint-backlog.md` 已新增 Sprint 3-A Backlog（S3A-STORY-001~007）
+- [x] AC-3 `sprint-plan.md` Sprint 3-A 状态已更新为 In Progress
+- [x] AC-4 `changelog.md` 已记录 Sprint 3-A 启动与 sprint 分支建立
+- [x] AC-5 `decisions.md` 已记录 DECISION-055
+- [x] AC-6 每个 Story 含用户故事、优先级、状态、工作分支、AC、不做事项
+- [x] AC-7 `corepack pnpm lint` / `corepack pnpm build` 通过
+- [x] AC-8 已生成 execution report
+
+---
+
+## S3A-STORY-002 Style System 基础类型与 schema 契约
+
+**用户故事：** 作为开发者，我需要 Theme / Preset / VariantDefinition / StyleRegistry 的 TypeScript 类型与 Zod Schema，以便后续 StyleResolver 与 Sprint 3-B variant registry 有统一契约。
+
+**优先级：** P0 · **状态：** Pending · **工作分支：** `feature/s3a-style-system-schema`
+
+**明确不做：**
+
+- 不写 33 first-wave required variants 定义
+- 不实现 Preview / Copy Renderer
+- 不输出 Copy HTML
+
+**验收标准：**
+
+- [ ] AC-1 `ThemeDefinition`、`PresetDefinition`、`VariantDefinition` TS 类型完成
+- [ ] AC-2 `StyleRegistry` 结构与 `schemaVersion` 完成
+- [ ] AC-3 Zod schema 覆盖上述类型；`.strict()` 拒绝未知字段
+- [ ] AC-4 单元测试覆盖合法 / 非法 registry 输入
+- [ ] AC-5 `corepack pnpm lint` / `corepack pnpm test` / `corepack pnpm build` 通过
+
+---
+
+## S3A-STORY-003 ResolvedStyle 与 StyleResolver 最小实现
+
+**用户故事：** 作为开发者，我需要 StyleResolver 最小实现，将 Article.styleAssignment 解析为 ResolvedBlockStyle / ResolvedArticleStyle，以便 Preview / Copy 后续共享同一 resolved 输入。
+
+**优先级：** P0 · **状态：** Pending · **工作分支：** `feature/s3a-style-resolver`
+
+**明确不做：**
+
+- 不实现文章级复杂 StyleOrchestrator 编排（Sprint 3-C）
+- 不实现 AI 样式选择
+- 不实现 Renderer 输出
+
+**验收标准：**
+
+- [ ] AC-1 `ResolvedBlockStyle`、`ResolvedArticleStyle` 类型完成
+- [ ] AC-2 `resolveArticleStyle` / `resolveBlockStyle` 最小实现完成
+- [ ] AC-3 Article.styleAssignment 与 registry 最小打通
+- [ ] AC-4 fallback 基础逻辑（未知 variant → 文档约定 fallback）
+- [ ] AC-5 单元测试覆盖 resolve 合法 / 非法输入
+- [ ] AC-6 `corepack pnpm lint` / `corepack pnpm test` / `corepack pnpm build` 通过
+
+---
+
+## S3A-STORY-004 WeChatCompatibilityProfile 机器可读契约
+
+**用户故事：** 作为开发者，我需要 WeChatCompatibilityProfile 的机器可读契约与 copy-safe 校验 helper，以便 VariantDefinition 的 compatibility 字段有统一校验基础。
+
+**优先级：** P0 · **状态：** Pending · **工作分支：** `feature/s3a-wechat-compatibility-profile`
+
+**明确不做：**
+
+- 不做人工粘贴 QA
+- 不做 Copy Renderer
+- 不做 PasteTestRecord
+
+**验收标准：**
+
+- [ ] AC-1 Allowed / Risky / Forbidden CSS 能力分层契约完成
+- [ ] AC-2 fallback policy 数据结构完成
+- [ ] AC-3 copy-safe validation helper 完成
+- [ ] AC-4 与 VariantDefinition compatibility 字段打通
+- [ ] AC-5 单元测试覆盖
+- [ ] AC-6 `corepack pnpm lint` / `corepack pnpm test` / `corepack pnpm build` 通过
+
+---
+
+## S3A-STORY-005 StyleValidationResult / FallbackVariantPolicy
+
+**用户故事：** 作为开发者，我需要统一的 Style 层 validation result 与 FallbackVariantPolicy，以便 registry 校验与后续 UI / QA 有稳定错误结构。
+
+**优先级：** P0 · **状态：** Pending · **工作分支：** `feature/s3a-style-validation`
+
+**明确不做：**
+
+- 不实现 toast / UI 文案
+- 不实现 Renderer
+
+**验收标准：**
+
+- [ ] AC-1 `StyleValidationResult`、`StyleValidationIssue` 完成
+- [ ] AC-2 `FallbackVariantPolicy` 完成
+- [ ] AC-3 `validateVariantDefinition`、`validateStyleRegistry` 完成
+- [ ] AC-4 单元测试覆盖合法 / 非法 registry
+- [ ] AC-5 `corepack pnpm lint` / `corepack pnpm test` / `corepack pnpm build` 通过
+
+---
+
+## S3A-STORY-006 TitleBlockLayoutCompatibility 契约
+
+**用户故事：** 作为开发者，我需要 TitleBlockLayoutCompatibility 契约（layoutMode / allowedInCopy / fallbackLayoutMode / riskLevel），以便 first-wave required variants 与 candidate variants 的 copy-safe 边界清晰。
+
+**优先级：** P0 · **状态：** Pending · **工作分支：** `feature/s3a-title-block-layout-compat`
+
+**明确不做：**
+
+- 不将 `magazine_left_bar_title` 纳入 first-wave required（保持 candidate）
+- 不实现 titleBlock Renderer
+
+**验收标准：**
+
+- [ ] AC-1 `layoutMode` 定义与 Zod schema 完成
+- [ ] AC-2 `allowedInCopy`、`fallbackLayoutMode`、`riskLevel` 完成
+- [ ] AC-3 required / candidate / experimental 的 copy-safe 边界在 schema 或文档注释中明确
+- [ ] AC-4 单元测试覆盖
+- [ ] AC-5 `corepack pnpm lint` / `corepack pnpm test` / `corepack pnpm build` 通过
+
+---
+
+## S3A-STORY-007 Sprint 3-A 契约 audit 与关闭准备
+
+**用户故事：** 作为产品负责人，我需要在 Sprint 3-A 代码实现完成后做契约 audit，确认与 style-system.md 一致，并准备 Sprint 3-B 启动条件。
+
+**优先级：** P0 · **状态：** Pending · **工作分支：** `docs/s3a-style-system-contract-audit`
+
+**明确不做：**
+
+- 不在 audit 轮实现 33 variants 或 Renderer
+- 不自行宣布 Sprint 3-A Done（须用户确认）
+- 不 merge sprint 分支至 `release/1`，除非用户确认
+
+**验收标准：**
+
+- [ ] AC-1 已生成 `docs/architecture/audits/sprint3a-style-system-contract-audit.md`（或等价路径）
+- [ ] AC-2 audit 对照 `style-system.md`、`architecture-overview.md`、`wechat-copy-style-rules.md`
+- [ ] AC-3 audit 输出 P0/P1/P2；P0=0 方可建议关闭 Sprint 3-A
+- [ ] AC-4 S3A-STORY-002~006 状态与 sprint-backlog 已同步
+- [ ] AC-5 `corepack pnpm lint` / `corepack pnpm test` / `corepack pnpm build` 通过
+- [ ] AC-6 已生成 execution report
+- [ ] AC-7 Sprint 3-A 保持 In Review 直至用户确认关闭
