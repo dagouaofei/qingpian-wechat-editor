@@ -92,3 +92,4 @@
 | 2026-05-31 | Sprint 2 | **正式启动 Sprint 2**；范围 Article / Block Schema + InlineContent 代码契约 | 敏捷 / 架构 | S2-STORY-001, DECISION-053 |
 | 2026-05-31 | Sprint 2 | 从 `release/1` 建立 `sprint/s2-article-block-schema` | Git | DECISION-053 |
 | 2026-05-31 | Sprint 2 | 新增 Sprint 2 Backlog S2-STORY-001~007 | 敏捷 | S2-STORY-001 |
+| 2026-05-31 | Sprint 2 | 实现 InlineContent / InlineMark 代码契约（TS + Zod + normalize + 单测） | 代码 / 架构 | S2-STORY-002 |
