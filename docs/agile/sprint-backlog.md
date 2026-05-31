@@ -718,7 +718,7 @@
 
 **用户故事：** 作为开发者，我需要 StyleResolver 最小实现，将 Article.styleAssignment 解析为 ResolvedBlockStyle / ResolvedArticleStyle，以便 Preview / Copy 后续共享同一 resolved 输入。
 
-**优先级：** P0 · **状态：** Pending · **工作分支：** `feature/s3a-style-resolver`
+**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s3a-style-resolver`
 
 **明确不做：**
 
@@ -728,12 +728,23 @@
 
 **验收标准：**
 
-- [ ] AC-1 `ResolvedBlockStyle`、`ResolvedArticleStyle` 类型完成
-- [ ] AC-2 `resolveArticleStyle` / `resolveBlockStyle` 最小实现完成
-- [ ] AC-3 Article.styleAssignment 与 registry 最小打通
-- [ ] AC-4 fallback 基础逻辑（未知 variant → 文档约定 fallback）
-- [ ] AC-5 单元测试覆盖 resolve 合法 / 非法输入
-- [ ] AC-6 `corepack pnpm lint` / `corepack pnpm test` / `corepack pnpm build` 通过
+- [x] AC-1 已从 `sprint/s3a-style-system-infra` 创建 `feature/s3a-style-resolver`
+- [x] AC-2 `ResolvedBlockStyle`、`ResolvedArticleStyle` 类型完成（`src/core/styles/types.ts`）
+- [x] AC-3 `resolveArticleStyle` / `resolveBlockStyle` 最小实现完成（`src/core/styles/resolver.ts`）
+- [x] AC-4 resolver 输入使用 Article + StyleRegistry，不引入平行 Article 模型
+- [x] AC-5 variant 选择优先级：block-level assignment > preset default > registry fallback
+- [x] AC-6 preset / theme 解析有明确 fallback 或 issue
+- [x] AC-7 fallback 不 silent fail，记录 issue / fallbackReason
+- [x] AC-8 fallback 不默认选择 experimental
+- [x] AC-9 `magazine_left_bar_title` 不作为 required 默认 fallback
+- [x] AC-10 resolver 不修改 Article / Block 主模型
+- [x] AC-11 resolver 输出不包含 html / css / className / style / React component
+- [x] AC-12 单元测试 16 cases（`tests/core/styles/style-resolver.test.ts` + `tests/fixtures/styles/`）
+- [x] AC-13 `corepack pnpm lint` 通过
+- [x] AC-14 `corepack pnpm test` 通过（170 tests）
+- [x] AC-15 `corepack pnpm build` 通过
+- [x] AC-16 已生成 execution report
+- [ ] AC-17 未 merge 到 sprint / release / main（待用户确认后 merge）
 
 ---
 
