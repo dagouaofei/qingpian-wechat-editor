@@ -7,7 +7,7 @@
 - 后续 Sprint 可按合理工作量拆分，避免单个 Sprint 塞入过多 Release 1 范围
 - Sprint 1 不受「1 人 / 1 周」约束限制，需完成必要地基（见 DECISION-011）
 - 不允许把 Release 1 的全部实现范围塞进单个 Sprint
-- **Sprint 2 启动前须完成 S1-STORY-021 审查**（DECISION-029）
+- **Sprint 2 启动前须完成 S1-STORY-021 审查及 S1-STORY-023 契约收口**（DECISION-029、DECISION-034~035）
 
 ---
 
@@ -34,8 +34,37 @@
 - 核心技术方案一致性审查
 - Release 1 整体架构定稿（S1-STORY-020）
 - **实现前契约缺口修正（S1-STORY-021）** — In Review
+- **Sprint 2 启动前契约收口（S1-STORY-023）** — In Review
 
 **Sprint 1 明确不做：** 业务功能代码实现（Article Zod、Renderer、Copy Pipeline、AI 生成、SSE 实现、样式 Gallery）。
+
+---
+
+## S1-STORY-022 审计遗留 P1/P2 登记
+
+> 登记于 S1-STORY-023；Sprint 1-B 仅解决 P1-001、P1-008，其余按 Sprint 分配处理。
+
+### P1（7 项）
+
+| ID | 问题 | 建议 Sprint | Sprint 1-B 处理 |
+|----|------|-------------|-----------------|
+| P1-001 | block 文本字段 `body` vs `text` 命名不一致 | Sprint 2 启动前 | **已解决**（DECISION-034） |
+| P1-002 | InlineMark → copy-safe CSS 映射表缺失 | Sprint 3 / Sprint 4 | 登记 |
+| P1-003 | ArticleStylePlan / orchestrator 文章级节奏未定义 | Sprint 3 | 登记 |
+| P1-004 | WeChatCompatibilityProfile 无 machine-readable fixture | Sprint 3 | 登记 |
+| P1-005 | list / info_card copy 结构保真规则未细化 | Sprint 4 | 登记 |
+| P1-006 | Clipboard text/html + text/plain 双格式未写清 | Sprint 4 | 登记 |
+| P1-007 | card 内文字 requireTextNodeTypography 细则未展开 | Sprint 4 | 登记 |
+| P1-008 | rendering-pipeline.md 实现顺序与 Sprint 2~6 不一致 | Sprint 1-B | **已解决**（S1-STORY-023） |
+
+### P2（4 项）
+
+| ID | 问题 | 建议 Sprint |
+|----|------|-------------|
+| P2-001 | quote / highlight / cta 未升级 InlineContent | Release 2 或 Sprint 5+ |
+| P2-002 | classic-news slot 无具体 SlotRenderSpec 示例 | Sprint 3 |
+| P2-003 | semantic block → visual 映射表未写 | Sprint 3 |
+| P2-004 | article-schema InlineContent 说明重复 | 文档小修（S1-STORY-023 已去重） |
 
 ---
 
@@ -55,6 +84,8 @@
 
 **不做：** Renderer、Style System、Generation
 
+**登记 P1/P2：** 无（P1-001 已在 Sprint 1-B 解决）
+
 ### Sprint 3：Style System 代码契约与第一批 StyleDefinition
 
 **目标：**
@@ -67,6 +98,8 @@
 
 **不做：** 完整 Preview / Copy Renderer
 
+**登记 P1/P2：** P1-002（InlineMark 映射）、P1-003（orchestrator）、P1-004（WeChat profile fixture）；P2-002（slot 示例）、P2-003（semantic→visual 映射）
+
 ### Sprint 4：Preview / Copy Renderer 最小闭环 + 最小粘贴 QA
 
 **目标：**
@@ -77,6 +110,8 @@
 - InlineMark → 微信兼容 inline HTML
 - 启动最小人工微信公众号粘贴 QA
 - 区分 Done（代码）与 Done（粘贴 QA）
+
+**登记 P1/P2：** P1-002（InlineMark 映射）、P1-005（list/info_card copy）、P1-006（Clipboard 双格式）、P1-007（text-node typography）
 
 ### Sprint 5：Generation / Streaming 最小闭环
 

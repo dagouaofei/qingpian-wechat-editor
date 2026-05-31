@@ -63,3 +63,4 @@
 | 2026-05-30 | Sprint 1-B | Release 1 architecture overview finalized and merged into sprint governance branch | 架构 / Git | S1-STORY-020 |
 | 2026-05-30 | Sprint 1-B | 新增 S1-STORY-021 实现前契约缺口修正；补充 InlineContent、Style 命名边界、slot copy-safe、WeChatCompatibilityProfile；调整 Sprint 2~6 计划 | 架构 / 敏捷 | S1-STORY-021, DECISION-029~033 |
 | 2026-05-30 | Sprint 1-B | 新增 S1-STORY-022；基于 prototype-style-system-technical-lessons.md 对 S1-STORY-021 修正方案二次审计；Sprint 1-B 保持 In Review | 架构 / 敏捷 | S1-STORY-022 |
+| 2026-05-30 | Sprint 1-B | 新增 S1-STORY-023：Sprint 2 启动前契约收口；统一 paragraph / lead 文本字段为 content.text；登记 audit 剩余 P1/P2；修正 rendering-pipeline 实现顺序；新增 DECISION-034~035；Sprint 1-B 保持 In Review | 架构 / 敏捷 | S1-STORY-023, DECISION-034~035 |

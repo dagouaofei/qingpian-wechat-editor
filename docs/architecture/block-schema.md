@@ -76,8 +76,8 @@ InlineMark
 
 ### 3.1.3 Release 1 最小实现
 
-- `paragraph.content` / `lead.content` 支持 `string` **或** `InlineContent`（联合类型）
-- 代码实现阶段可先 **normalize 为 InlineContent** 统一处理
+- `paragraph.content` / `lead.content` 主文本字段统一为 **`text`**：`string | InlineContent`（联合类型）
+- 代码实现阶段可先 **normalize 为 InlineContent** 统一处理；**不再使用 `body` 作为 paragraph / lead 主文本字段**（`info_card.content.body` 保留，语义不同，见 §5.8）
 - `highlight` mark 至少支持 **background-color / font-weight** 的 copy-safe 映射
 - 旧 `emphasis?: ("bold" \| "italic")[]` 在实现前应 migrate 为 InlineMark（文档兼容期可并存，normalize 时转换）
 
@@ -118,11 +118,11 @@ content: { text: string }
 ### 5.2 lead
 
 ```text
-content: { body: string | InlineContent }
+content: { text: string | InlineContent }
 ```
 
 - **语义边界：** 开篇导语，1~3 句，概括全文；区别于普通 paragraph 的语义角色
-- **InlineContent：** Release 1 必须支持（见 §3.1）
+- **InlineContent：** Release 1 必须支持（见 §3.1）；`string` 形式在 normalize 时转为单节点 InlineContent
 - **样式：** 通常比正文略大或带次要色，由 variant 控制
 
 ### 5.3 heading
@@ -137,7 +137,7 @@ content: { text: string; level: 1 | 2 | 3 }
 ### 5.4 paragraph
 
 ```text
-content: { body: string | InlineContent }
+content: { text: string | InlineContent }
 ```
 
 - **语义边界：** 普通正文段落；段内强调通过 InlineMark 表达（见 §3.1）

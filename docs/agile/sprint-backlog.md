@@ -308,3 +308,25 @@
 - [x] AC-5 审计输出 P0/P1/P2 问题清单
 - [x] AC-6 已生成 execution report
 - [x] AC-7 Sprint 1-B 保持 In Review
+
+---
+
+## S1-STORY-023 Sprint 2 启动前契约收口
+
+**用户故事：** 作为产品负责人，我希望在 Sprint 2 代码实现前，吸收 S1-STORY-022 二次 audit 结论，解决 block 文本字段命名不一致问题，并将剩余 P1 / P2 风险登记到后续 Sprint 计划，以便 Sprint 2 可以在清晰契约下启动。
+
+**优先级：** P0 · **状态：** In Review
+
+**工作分支：** `docs/s1b-sprint2-readiness-contract-closure`
+
+**验收标准：**
+
+- [x] AC-1 block-schema.md 已统一 paragraph / lead 的文本字段命名，不再使用 body
+- [x] AC-2 architecture-overview.md / article-schema.md / rendering-pipeline.md 中相关描述已同步
+- [x] AC-3 剩余 P1 / P2 问题已登记到 sprint-plan.md 或 product-backlog.md
+- [x] AC-4 rendering-pipeline.md 的后续实现顺序已与 Sprint 2~6 最新计划一致
+- [x] AC-5 decisions.md 已记录文本字段命名决策和 Sprint 2 readiness 决策
+- [x] AC-6 changelog.md 已记录本轮变更
+- [x] AC-7 已生成 execution report
+- [x] AC-8 pnpm lint / pnpm build 通过
+- [x] AC-9 Sprint 1-B 仍保持 In Review，不得关闭

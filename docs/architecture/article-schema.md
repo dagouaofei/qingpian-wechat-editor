@@ -75,8 +75,8 @@ ArticleMetadata
 - 若 `title` block 存在，`metadata.title` 应与其 `content.text` 保持一致（生成链路负责同步）
 - `metadata.summary` 可与 `lead` block 镜像（列表/SEO），但不替代 blocks[] 内结构
 - 正文结构（heading、paragraph、list 等）**仅**存在于 `blocks[]`
-- 段内富文本语义（词级高亮、加粗等）通过 **InlineContent / InlineMark** 表达，见 [block-schema.md](block-schema.md) §3.1
-- **InlineContent / InlineMark** 用于段内富文本语义（见 [block-schema.md](block-schema.md) §3.1）；不属于 metadata 层
+- 段内富文本语义（词级高亮、加粗等）通过 **InlineContent / InlineMark** 表达（见 [block-schema.md](block-schema.md) §3.1）；不属于 metadata 层
+- Release 1 文本型 block 主文本字段统一为 `content.text`；`paragraph` / `lead` 支持 `string | InlineContent`，实现阶段 normalize 为 InlineContent
 
 ---
 

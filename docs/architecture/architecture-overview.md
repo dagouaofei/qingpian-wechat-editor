@@ -303,7 +303,7 @@ Article
 
 **WeChatCompatibilityProfile：** Copy 输出须符合可执行兼容 profile，见 [wechat-copy-style-rules.md](wechat-copy-style-rules.md) §1.3。
 
-**InlineContent：** 段内富文本协议见 [block-schema.md](block-schema.md) §3.1；Release 1 `paragraph` / `lead` 必须支持。
+**InlineContent：** 段内富文本协议见 [block-schema.md](block-schema.md) §3.1；Release 1 `paragraph` / `lead` 使用 `content.text: string | InlineContent`，实现阶段 normalize 为 InlineContent（DECISION-034）。
 
 ---
 

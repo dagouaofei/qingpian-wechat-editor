@@ -37,6 +37,8 @@
 | DECISION-031 | 2026-05-30 | Sprint 3 = Style System 代码契约与第一批 StyleDefinition | 已确认 |
 | DECISION-032 | 2026-05-30 | Sprint 4 = Preview / Copy 最小闭环并启动最小粘贴 QA | 已确认 |
 | DECISION-033 | 2026-05-30 | Sprint 5 / 6 分别聚焦 Generation / Streaming 与 Fixture 三联 + Paste QA 回归 | 已确认 |
+| DECISION-034 | 2026-05-30 | Block 文本字段统一使用 text；paragraph / lead 的 InlineContent 字段不使用 body | 已确认 |
+| DECISION-035 | 2026-05-30 | Sprint 2 启动前收口 audit P1/P2 风险；P1-001 与 P1-008 在 Sprint 1-B 解决，其余登记后续 Sprint | 已确认 |
 
 ### DECISION-019 详情
 
@@ -87,9 +89,27 @@
 - **影响范围：** docs/architecture/、sprint-plan.md、Sprint 2+ 启动条件
 - **状态：** 已确认
 
-## 待确认决策
+- **状态：** 已确认
 
-- **DECISION-034（待确认）：** Sprint 2 启动条件 — S1-STORY-021 merge + 审查通过后，在登记 P1-001（block 文本字段 body/text 统一命名）前提下可启动 Article/Block 代码契约（依据：`audits/s1b-pre-implementation-contract-audit.md`）
+### DECISION-034 详情（Block 文本字段命名）
+
+- **背景：** S1-STORY-022 audit 发现 `paragraph` / `lead` 使用 `content.body`，与其它 block 的 `content.text` 不一致，增加 Sprint 2 Zod/TS 实现复杂度。
+- **决策：**
+  1. Release 1 文本型 block 主文本字段统一为 `content.text`
+  2. `paragraph` / `lead` 支持 `string | InlineContent`，实现阶段 normalize 为 InlineContent
+  3. `info_card.content.body` 保留，因其语义是卡片正文，不属于普通文本型 block 主字段
+- **影响范围：** block-schema.md、article-schema.md、architecture-overview.md、rendering-pipeline.md、Sprint 2 代码契约
+- **状态：** 已确认
+
+### DECISION-035 详情（Sprint 2 readiness 契约收口）
+
+- **背景：** S1-STORY-022 audit 显示 P0=0，Sprint 2 有条件可启动；但仍有 P1/P2 需登记，且 rendering-pipeline 实现顺序易误导后续执行。
+- **决策：**
+  1. Sprint 1-B（S1-STORY-023）只修复影响 Sprint 2 代码契约的 P1-001（字段命名）与 P1-008（实现顺序）
+  2. 其余 P1/P2 按 Sprint 3/4/6 或后续 Release 处理，登记于 sprint-plan.md
+  3. Sprint 2 启动仍须用户确认 Sprint 1-B 收口；Sprint 1-B 保持 In Review
+- **影响范围：** sprint-plan.md、product-backlog.md、rendering-pipeline.md §11
+- **状态：** 已确认
 
 ## 决策模板
 
