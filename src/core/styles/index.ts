@@ -1,6 +1,12 @@
 export type {
   ColorTokenRef,
+  CompatibilityIssue,
+  CopySafety,
+  CssCompatibilityLevel,
+  CssCompatibilityResult,
   Density,
+  FallbackPolicy,
+  ForbiddenCssFallbackAction,
   InlineMarkColorInput,
   PresetDefinition,
   ResolveArticleStyleOptions,
@@ -8,6 +14,7 @@ export type {
   ResolvedBlockStyle,
   ResolvedStyleSource,
   ResolvedStyleTokens,
+  RiskyCssFallbackAction,
   StyleRegistry,
   StyleResolveContext,
   StyleResolveIssue,
@@ -15,10 +22,16 @@ export type {
   ThemeDefinition,
   ThemeTokenMap,
   ThemeTokens,
+  VariantCompatibility,
   VariantComponentProtocol,
   VariantDefinition,
   VariantSlotDefinition,
   VariantStatus,
+  VariantWeChatCompatibility,
+  WeChatCompatibilityCheckResult,
+  WeChatCompatibilityProfile,
+  WeChatCompatibilityTarget,
+  WeChatCssRules,
 } from "./types";
 
 export {
@@ -31,17 +44,24 @@ export {
 
 export {
   colorTokenRefSchema,
+  copySafetySchema,
   densitySchema,
+  fallbackPolicySchema,
   inlineMarkColorInputSchema,
   presetDefinitionSchema,
   styleRegistrySchema,
   styleSchemaVersionSchema,
   themeDefinitionSchema,
   themeTokensSchema,
+  variantCompatibilitySchema,
   variantComponentProtocolSchema,
   variantDefinitionSchema,
   variantSlotDefinitionSchema,
   variantStatusSchema,
+  variantWeChatCompatibilitySchema,
+  weChatCompatibilityProfileSchema,
+  weChatCompatibilityTargetSchema,
+  weChatCssRulesSchema,
 } from "./schemas";
 
 export type {
@@ -49,6 +69,7 @@ export type {
   StyleRegistryInput,
   ThemeDefinitionInput,
   VariantDefinitionInput,
+  WeChatCompatibilityProfileInput,
 } from "./schemas";
 
 export {
@@ -66,3 +87,11 @@ export {
   resolveArticleStyle,
   resolveBlockStyle,
 } from "./resolver";
+
+export {
+  WECHAT_MP_COMPATIBILITY_PROFILE,
+  parseWeChatCompatibilityProfile,
+  validateCssDeclarationCompatibility,
+  validateCssPropertyCompatibility,
+  validateVariantWechatCompatibility,
+} from "./compatibility";
