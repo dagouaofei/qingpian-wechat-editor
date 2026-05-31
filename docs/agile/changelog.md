@@ -68,3 +68,4 @@
 | 2026-05-30 | Sprint 1-B | 新增 S1-STORY-026：S1-STORY-025 二次审计；…S1-STORY-025 分级 B 可 merge；Sprint 1-B 保持 In Review | 架构 / 敏捷 | S1-STORY-026 |
 | 2026-05-30 | Sprint 1-B | 新增 S1-STORY-027：Release 1 样式范围与 Sprint 拆分收口；first wave 11×3、expansion 11×5 target、magazine_left_bar_title 降为 candidate、Sprint 3-A/B/C & 4-A/B & 6-A/B；DECISION-043~045；Sprint 1-B 保持 In Review | 架构 / 敏捷 | S1-STORY-027, DECISION-043~045 |
 | 2026-05-30 | Sprint 1-B | Merge S1-STORY-025 → 026 → 027 文档链至 `sprint/s1b-core-tech-governance`；Sprint 1-B 保持 In Review | Git / 敏捷 | S1-STORY-025~027 |
+| 2026-05-30 | Sprint 1-B | 新增 S1-STORY-028：Sprint 1-B 总 Audit；分级 B；P0=0 P1=9 P2=5；025~027 已在 sprint merge；Sprint 1-B 保持 In Review | 架构 / 敏捷 | S1-STORY-028 |

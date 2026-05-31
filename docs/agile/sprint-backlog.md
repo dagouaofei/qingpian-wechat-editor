@@ -407,3 +407,27 @@
 **工作分支：** `docs/s1b-release1-style-scope-closure`（已 merge 至 `sprint/s1b-core-tech-governance`）
 
 **验收标准：** AC-1~AC-12 — first wave 11×3、expansion 分层、magazine candidate、Sprint 3-A/B/C & 4-A/B & 6-A/B、DECISION-043~045、execution report、lint/build、Sprint 1-B In Review — 本轮全部 PASS
+
+---
+
+## S1-STORY-028 Sprint 1-B 总 Audit
+
+**用户故事：** 作为产品负责人，我希望在 Sprint 1-B 关闭前，对全部技术方案、敏捷文档、决策记录和 execution reports 做一次总 audit，以确认当前架构是否已经足够进入 Sprint 2 代码实现，是否存在 P0/P1/P2 风险，以及是否可以将 S1-STORY-025~027 链路 merge 回 Sprint 1-B 主分支。
+
+**优先级：** P0 · **状态：** In Review · **工作分支：** `docs/s1b-final-audit`
+
+**验收标准：**
+
+- [x] AC-1 已生成 `docs/architecture/audits/sprint1b-final-audit.md`
+- [x] AC-2 Audit 覆盖 Article / Block / InlineContent — PASS
+- [x] AC-3 Audit 覆盖 Style System / Component DSL / Variant Scope / VisualAssetRegistry / StyleOrchestrator — PASS
+- [x] AC-4 Audit 覆盖 AI Style Selection 与 Generation 边界 — PASS
+- [x] AC-5 Audit 覆盖 Preview / Copy / WeChat Paste QA — PASS
+- [x] AC-6 Audit 覆盖 Sprint 2~6 可执行性 — PASS
+- [x] AC-7 Audit 覆盖敏捷文档一致性与 execution report 链路 — PARTIAL（021~024 状态滞后）
+- [x] AC-8 Audit 输出 P0=0 / P1=9 / P2=5
+- [x] AC-9 025~027 **已在 sprint merge**（`23e6fb0`）；建议 merge 本轮 final-audit
+- [x] AC-10 Sprint 1-B **有条件可准备关闭**（需用户确认）
+- [x] AC-11 已生成 execution report
+- [x] AC-12 pnpm lint / build 通过
+- [x] AC-13 Sprint 1-B 保持 In Review
