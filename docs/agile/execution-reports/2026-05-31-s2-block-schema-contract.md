@@ -56,4 +56,4 @@ merge → sprint；启动 S2-STORY-004 Article Schema
 
 ## 10. Commit
 
-- Commit hash：（提交后填写）
+- Commit hash：`f5c8391`
