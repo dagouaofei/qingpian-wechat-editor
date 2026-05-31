@@ -37,12 +37,13 @@ alwaysApply: true
 
 ## Git 分支规则
 
-- 每个 Sprint / 迭代必须有独立 **`sprint/<sprint-slug>`** 分支
+- 每个 Release 有独立 **`release/<n>`** 主干（Release 1 为 `release/1`）
+- 每个 Sprint 从**当前 release 主干**新建 **`sprint/<sprint-slug>`** 分支
 - Sprint 内每个具体任务必须从**当前 sprint 分支**新建独立工作分支（`feature/` / `docs/` / `bugfix/` / `chore/`）
 - **不得在 main 分支直接开发具体任务**
 - **不得把多个无关任务混在同一个工作分支中**
-- 工作分支完成后合并回 **sprint 分支**；Sprint 验收通过后才合并 **main**
-- Cursor **不得未经用户确认**自行关闭 Sprint 或合并 main
+- 工作分支完成后合并回 **sprint 分支**；Sprint 验收通过后 merge **release 主干**；Release 整体验收通过后才 merge **main**
+- Cursor **不得未经用户确认**自行关闭 Sprint / Release 或合并 main
 - 详见 `docs/agile/git-workflow.md`
 
 ## 事实来源

@@ -53,7 +53,8 @@
 | **P1 / P2** | 已登记至后续 Sprint / Product Backlog（见下方登记表） |
 | **用户确认** | Checklist #10：已确认接受 B 级 final audit；Checklist #11：已确认可以关闭 Sprint 1-B |
 | **Sprint 2** | **未启动**（Not Started） |
-| **下一步候选** | Sprint 2：Article / Block Schema + InlineContent 代码契约（须用户单独确认启动） |
+| **Release 1 主干** | `release/1`（`sprint/s1b-core-tech-governance` 已 merge，DECISION-052） |
+| **下一步候选** | Sprint 2：Article / Block Schema + InlineContent 代码契约（须用户单独确认启动；从 `release/1` 切 sprint 分支） |
 
 ---
 
