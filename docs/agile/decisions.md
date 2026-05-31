@@ -39,6 +39,9 @@
 | DECISION-033 | 2026-05-30 | Sprint 5 / 6 分别聚焦 Generation / Streaming 与 Fixture 三联 + Paste QA 回归 | 已确认 |
 | DECISION-034 | 2026-05-30 | Block 文本字段统一使用 text；paragraph / lead 的 InlineContent 字段不使用 body | 已确认 |
 | DECISION-035 | 2026-05-30 | Sprint 2 启动前收口 audit P1/P2 风险；P1-001 与 P1-008 在 Sprint 1-B 解决，其余登记后续 Sprint | 已确认 |
+| DECISION-036 | 2026-05-30 | 吸收秒篇 Component DSL 的 family / variant / slot / asset / orchestrator 思想，不迁移旧实现代码 | 已确认 |
+| DECISION-037 | 2026-05-30 | title 与 heading 共享 titleBlock visual component，保持不同语义 block | 已确认 |
+| DECISION-038 | 2026-05-30 | Sprint 3 增加 ComponentProtocol 与第一批 titleBlock variants 作为 Style System 前置范围 | 已确认 |
 
 ### DECISION-019 详情
 
@@ -109,6 +112,14 @@
   2. 其余 P1/P2 按 Sprint 3/4/6 或后续 Release 处理，登记于 sprint-plan.md
   3. Sprint 2 启动仍须用户确认 Sprint 1-B 收口；Sprint 1-B 保持 In Review
 - **影响范围：** sprint-plan.md、product-backlog.md、rendering-pipeline.md §11
+- **状态：** 已确认
+
+### DECISION-036 ~ DECISION-038 详情（Component DSL 对齐）
+
+- **DECISION-036：** 吸收 ComponentProtocol、titleBlock catalog、VisualAssetRegistry、StyleOrchestrator、AI Guardrails 至 Style System；不迁移旧 DSL 代码 / Visual Layer / Space Style
+- **DECISION-037：** title / heading 共享 titleBlock visual component；映射属 Style System，不改 Block Schema
+- **DECISION-038：** Sprint 3 纳入 ComponentProtocol、titleBlock 3~5 copy-safe variant、VisualAssetRegistry 最小 pool、StyleOrchestrator 最小去重；Sprint 2 仍只做 Article/Block/InlineContent
+- **影响范围：** style-system §11、sprint-plan Sprint 3、TECH-ARCH-007~012
 - **状态：** 已确认
 
 ## 决策模板

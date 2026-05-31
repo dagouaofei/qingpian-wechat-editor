@@ -437,7 +437,7 @@ Style Definition (VariantDefinition)
 
 | 经验 | 新项目落地 |
 |------|------------|
-| Component DSL 思路 | VariantDefinition 结构化描述 block 视觉 |
+| Component DSL 思路 | VariantDefinition + **ComponentProtocol**（§11）结构化描述 block 视觉 |
 | slot 概念 | variant 内 slot 可替换装饰 |
 | density 参数 | preset 级 spacing 缩放 |
 | variant 注册 | block style registry 集中管理 |
@@ -486,7 +486,186 @@ Style Definition (VariantDefinition)
 
 ---
 
-## 11. 后续扩展接入方式
+## 11. Component DSL 能力对齐
+
+> 吸收秒篇 [titleBlock Component DSL v1](references/miaopian-title-component-dsl-v1.md)（原始 [docx](./references/秒篇成稿-标题控件DSL与布局骨架规范-v1.docx)）中经过验证的 family、variant、slot、asset pool、编排与 AI 约束思想；**不改变** Article / Block 主模型，不迁移旧实现代码（DECISION-036~038）。
+
+### 11.1 ComponentProtocol / BlockVisualProtocol
+
+**ComponentProtocol / BlockVisualProtocol** 是 Style System 中位于 **semantic block** 与 **VariantDefinition** 之间的**控件协议层**。
+
+```text
+BlockVisualProtocol
+├── blockType: BlockType
+├── componentId: string
+├── allowedFamilies: string[]
+├── allowedVariants: string[]
+├── allowedSlots: string[]
+├── requiredSlots: string[]
+├── allowedAssetKinds: ("icon" | "shape" | "mark" | "divider")[]
+├── copySafetyRules: CopySafetyRule[]
+├── fallbackVariant: string
+└── version: string
+```
+
+**层级关系：**
+
+| 层 | 职责 |
+|----|------|
+| **Block** | 内容语义；不承载 CSS |
+| **ComponentProtocol** | 定义视觉控件可用的 family / variant / slot / asset 白名单 |
+| **VariantDefinition** | 合法 variant 的具体样式定义（registry 注册） |
+| **ResolvedBlockStyle** | StyleResolver 输出的运行时解析结果 |
+| **Renderer** | 消费 ResolvedBlockStyle；须先经 ComponentProtocol + Registry 校验 |
+
+### 11.2 title / heading → titleBlock visual component
+
+`title` 与 `heading` **共享** `titleBlock` visual component 的 family / variant / slot 能力，保持不同 semantic block 类型。
+
+| 语义 block | 角色 | 映射 |
+|------------|------|------|
+| `title` | 文章主标题，通常 `blocks[0]` | `componentId: titleBlock` |
+| `heading` | 章节标题，可多次出现 | `componentId: titleBlock` |
+
+**规则：** 映射由 `styleAssignment` + StyleResolver（及可选 StyleOrchestrator）完成；二者默认 variant / family 可不同；Block Schema 不新增 visual 字段。
+
+```text
+title block   → componentId: titleBlock → family: simple|cardTitle → variant: title-centered
+heading block → componentId: titleBlock → family: simple|iconDecor|badgeTitle|magazine → variant: heading-underline|title_with_bottom_line
+```
+
+### 11.3 titleBlock family 体系（v1）
+
+| familyId | 说明 | 适用场景 | copy-safe 风险 | Sprint 3 |
+|----------|------|----------|----------------|----------|
+| `simple` | 纯文字 + 线条 | 章节标题 | **低** | **必做** |
+| `badgeTitle` | 徽章 + 标题 | 强调小节 | 中 | **建议做** |
+| `iconDecor` | 图标 + 标题 | 带图标 section | 中 | 最小 1~2 variant |
+| `cardTitle` | 卡片背景 + 标题 | 区块感标题 | 中高 | 登记，可后置 |
+| `magazine` | 杂志风左栏/偏移 | 长文节奏 | **高** | 登记 catalog |
+
+### 11.4 titleBlock variant catalog（15 候选）
+
+> 不要求 Release 1 全部实现；纳入 catalog 避免重新发明。
+
+| variantId | family | layoutMode | 核心 slots | copy-safe | Sprint 3 |
+|-----------|--------|------------|------------|-----------|----------|
+| `icon_top_title_bottom` | iconDecor | vertical-stack | icon, title | 中 | 后置 |
+| `icon_left_top_title_center` | iconDecor | icon-left | icon, title | 中 | 后置 |
+| `title_left_icon_right` | iconDecor | icon-right | title, icon | 中 | 后置 |
+| `double_icon_symmetric` | iconDecor | symmetric | icon, title, icon | 高 | 后置 |
+| `badge_top_title_bottom` | badgeTitle | vertical-stack | badge, title | 中 | 可选 |
+| `badge_left_title_inline` | badgeTitle | inline-badge | badge, title | 低~中 | **建议做** |
+| `line_top_title_center` | simple | line-top | decorationLine, title | **低** | **建议做** |
+| `title_with_bottom_line` | simple | line-bottom | title, decorationLine | **低** | **必做** |
+| `card_bg_icon_corner` | cardTitle | card-corner | bgShape, icon, title | 高 | 后置 |
+| `card_center_title_badge_top` | cardTitle | card-center | badge, title, bgShape | 高 | 后置 |
+| `magazine_left_bar_title` | magazine | left-bar | decorationLine, title | 中 | **建议做**（须 DOM fallback） |
+| `magazine_offset_icon_bg` | magazine | offset-bg | bgShape, icon, title | 高 | 后置 |
+| `icon_inline_prefix_title` | iconDecor | inline-prefix | icon, title | 低~中 | **建议做** |
+| `title_top_subtitle_bottom_line` | simple | title-subtitle-line | title, subtitle, decorationLine | 中 | 可选 |
+| `badge_icon_title_stack` | badgeTitle | stack | badge, icon, title | 中 | 可选 |
+
+**Sprint 3 最小 copy-safe 五件套：** `title_with_bottom_line`、`line_top_title_center`、`badge_left_title_inline`、`icon_inline_prefix_title`、`magazine_left_bar_title`。
+
+### 11.5 titleBlock 专用 slot 规范
+
+```text
+TitleBlockSlotDefinition
+├── slotName: "icon"|"badge"|"title"|"subtitle"|"decorationLine"|"bgShape"|"extraMark"
+├── slotType: "text"|"shape"|"icon"|"image"|"line"|"bgShape"|"mark"
+├── required: boolean
+├── enabledDefault: boolean
+├── allowedPositionModes: string[]
+├── allowedColorModes: string[]
+├── assetBinding?: { assetKind: string; assetId?: string }
+├── copySafety: "strict"|"balanced"|"preview_only"
+└── fallback?: TitleBlockSlotDefinition | SlotRenderSpec
+```
+
+| slotName | 必选 | copy-safe 约束 |
+|----------|------|----------------|
+| `title` | **是** | requireTextNodeTypography |
+| `icon` | 否 | 绑定 VisualAsset；禁止外链图 |
+| `badge` | 否 | inline 背景色；避免 complex shape |
+| `subtitle` | 否 | heading 默认不启用 |
+| `decorationLine` | 否 | 真实 DOM，禁止 pseudo |
+| `bgShape` | 否 | 高风险；须纯色 border fallback |
+| `extraMark` | 否 | 简单 inline 元素 |
+
+**组合约束：** 建议启用 2~4 slot；超过 5 个风险高；icon 与 bgShape 不宜同为主角。
+
+### 11.6 VisualAssetRegistry
+
+```text
+VisualAsset
+├── assetId, kind, category, style, density
+├── suitableFor, aspectRatio, defaultColors
+├── copySafe: boolean
+└── fallbackAssetId?
+```
+
+| 规则 | 说明 |
+|------|------|
+| 白名单 | 不得引用未注册 assetId |
+| 复用 | 同一 assetId 一篇文章默认最多 2 次 |
+| 密度 | strong density 不得连续高频 |
+| Sprint 3 | 10~20 系统内置 icon/shape |
+
+AssetRegistry 属于 Style System，**不属于** Article 内容。
+
+### 11.7 StyleOrchestrator / 文章级节奏
+
+StyleOrchestrator 位于 StyleResolver **之前**，不修改 Article，只输出 ArticleStylePlan / blockOverrides。
+
+| 规则 | 内容 |
+|------|------|
+| R1 | 相邻 heading 不允许同一 variant |
+| R2 | 同一 assetId 默认最多 2 次 |
+| R3 | 连续 3 heading 不能同对齐方式 |
+| R4 | iconDecor/cardTitle 连续不超过 2 次 |
+| R5 | 主色系最多 2 套 |
+| R6 | badge 强调型不应每 section 都出现 |
+| R7 | 长文变体稳定；短文可提高变化 |
+| R8 | title 与首个 heading 避免同 family+variant |
+
+Sprint 3 最小实现 R1、R2、R8。
+
+### 11.8 AI Style Selection Guardrails
+
+Release 1 **默认不启用** AI 自由选样式。未来启用时：
+
+1. AI 只输出 `StyleSelectionRequest` / `StyleAssignmentPatch`
+2. 不得输出 HTML / CSS
+3. 不得引用未注册 family / variant / slot / assetId
+4. 须经 ComponentProtocol + Registry + WeChatCompatibilityProfile 校验
+5. 建议两步：选 family+variant → 补 slots+token override
+6. 失败 fallback 到 copy-safe simple variant
+
+### 11.9 fallback / validation / versioning
+
+```text
+StyleValidationResult { valid, errors, warnings, fallbackApplied? }
+FallbackVariantPolicy { blockType, componentId, preferredFallbackVariant, copySafetyRequired }
+StyleDefinitionVersioning { schemaVersion, rawInput?, validatedOutput, finalResolvedOutput, validationMeta }
+```
+
+family / variant / slot / assetId / themeTokens 须白名单校验；失败回退 simple copy-safe variant；区分 raw / validated / final 存储（Release 1 可预留不实现）。
+
+### 11.10 ResolvedBlockStyle 扩展（titleBlock）
+
+| 字段 | 说明 |
+|------|------|
+| `componentId` | 如 `titleBlock` |
+| `familyId` | 如 `simple` |
+| `enabledSlots` | 已启用 slot 列表 |
+| `assetBindings` | slot → assetId |
+
+Preview / Copy 按 `componentId` 分发成对 renderer；**不得**因复杂 variant 降级为 paragraph。
+
+---
+
+## 12. 后续扩展接入方式
 
 | 能力 | 接入方式 |
 |------|----------|
@@ -500,7 +679,7 @@ Style Definition (VariantDefinition)
 
 ---
 
-## 12. 后续实现边界
+## 13. 后续实现边界
 
 | 模块 | 路径 | 说明 |
 |------|------|------|
@@ -520,3 +699,4 @@ Style Definition (VariantDefinition)
 - [渲染链路](rendering-pipeline.md)
 - [公众号复制样式规则](wechat-copy-style-rules.md)
 - [旧项目经验](prototype-lessons.md)
+- [秒篇 titleBlock DSL 参考](references/miaopian-title-component-dsl-v1.md)

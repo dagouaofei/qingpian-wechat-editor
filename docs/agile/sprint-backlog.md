@@ -330,3 +330,32 @@
 - [x] AC-7 已生成 execution report
 - [x] AC-8 pnpm lint / pnpm build 通过
 - [x] AC-9 Sprint 1-B 仍保持 In Review，不得关闭
+
+---
+
+## S1-STORY-024 Component DSL 能力对齐与 Style System 补强
+
+**用户故事：** 作为产品负责人，我希望在 Sprint 1-B 收口前，将秒篇 Component DSL 规范中经过验证的 family、variant、slot、asset pool、AI 生成约束、文章级编排规则等能力，对齐到轻篇 Style System 的正式技术方案中，以便后续 Sprint 3 实现 Style System 时既保持轻篇主架构干净，又能支撑类似 135 编辑器的丰富标题控件与样式变化能力。
+
+**优先级：** P0 · **状态：** In Review · **工作分支：** `docs/s1b-component-dsl-style-system-alignment`
+
+**验收标准：**
+
+- [x] AC-1 style-system.md 已新增 Component DSL 能力对齐章节
+- [x] AC-2 已明确 ComponentProtocol / BlockVisualProtocol
+- [x] AC-3 已明确 title / heading → titleBlock
+- [x] AC-4 已补充 5 family
+- [x] AC-5 已补充 15 variant 候选 + Sprint 3 最小范围
+- [x] AC-6 已补充 7 类 titleBlock slot
+- [x] AC-7 已补充 VisualAssetRegistry
+- [x] AC-8 已补充 StyleOrchestrator / 节奏规则
+- [x] AC-9 已补充 AI 样式选择约束
+- [x] AC-10 已补充 fallback / validation / versioning
+- [x] AC-11 architecture-overview.md 已同步
+- [x] AC-12 rendering / copy pipeline 已同步 titleBlock 成对 renderer
+- [x] AC-13 sprint-plan.md 已同步 Sprint 3
+- [x] AC-14 decisions.md DECISION-036~038
+- [x] AC-15 changelog.md 已记录
+- [x] AC-16 已生成 execution report
+- [x] AC-17 pnpm lint / build 通过
+- [x] AC-18 Sprint 1-B 保持 In Review

@@ -86,19 +86,25 @@
 
 **登记 P1/P2：** 无（P1-001 已在 Sprint 1-B 解决）
 
-### Sprint 3：Style System 代码契约与第一批 StyleDefinition
+### Sprint 3：Style System 代码契约、ComponentProtocol 与第一批 titleBlock variants
 
 **目标：**
 
 - 实现 Theme / Preset / VariantDefinition / Registry
 - 实现 StyleResolver → ResolvedBlockStyle / ResolvedArticleStyle
-- 实现 SlotRenderSpec copy-safe 边界
-- 实现 WeChatCompatibilityProfile 基础规则
-- 定义 classic-news 第一批 11 block variant
+- 实现 **ComponentProtocol / BlockVisualProtocol** 最小模型
+- 实现 **title / heading → titleBlock** 映射
+- 实现 titleBlock **3~5 copy-safe variant**（style-system §11.4）
+- 实现 titleBlock slots 最小子集 + **VisualAssetRegistry**（10~20 asset）
+- 实现 **StyleOrchestrator** 最小去重（R1、R2、R8）
+- 实现 SlotRenderSpec + WeChatCompatibilityProfile 基础校验
+- classic-news 11 block variant（含 titleBlock family）
 
-**不做：** 完整 Preview / Copy Renderer
+**不做：** 完整 Preview / Copy；15 variant 全量
 
-**登记 P1/P2：** P1-002（InlineMark 映射）、P1-003（orchestrator）、P1-004（WeChat profile fixture）；P2-002（slot 示例）、P2-003（semantic→visual 映射）
+**明确：** Sprint 2 不实现 ComponentProtocol / titleBlock
+
+**登记 P1/P2：** P1-002、P1-003（orchestrator 完整）、P1-004；P2-002、P2-003
 
 ### Sprint 4：Preview / Copy Renderer 最小闭环 + 最小粘贴 QA
 

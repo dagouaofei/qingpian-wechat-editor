@@ -104,7 +104,21 @@ Copy Renderer 输出**微信兼容 HTML 片段**：
 
 ---
 
-## 5. 微信粘贴可能丢失的样式
+## 5. titleBlock visual component 与 Copy 保真
+
+| 规则 | 说明 |
+|------|------|
+| 成对 renderer | Preview / Copy titleBlock renderer 必须成对交付 |
+| 禁止降级 | 不得因 variant 复杂降级为普通 `<p>` |
+| Profile | family / variant / slot 须经 WeChatCompatibilityProfile |
+| Slot fallback | 每启用 slot 须有 Copy fallback |
+| QA | 每 titleBlock variant 单独粘贴 QA |
+
+详见 [style-system.md](style-system.md) §11、[wechat-copy-style-rules.md](wechat-copy-style-rules.md) §10。
+
+---
+
+## 6. 微信粘贴可能丢失的样式
 
 | 样式 | 丢失概率 | 应对策略 |
 |------|----------|----------|
@@ -120,7 +134,7 @@ Copy Renderer 输出**微信兼容 HTML 片段**：
 
 ---
 
-## 6. 旧项目 preview/copy 不一致的典型问题
+## 7. 旧项目 preview/copy 不一致的典型问题
 
 | 问题 | 根因 | 新项目约束 |
 |------|------|------------|

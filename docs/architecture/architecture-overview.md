@@ -351,7 +351,21 @@ Article (语义)  →  Style Assignment  →  Style System  →  StyleDefinition
 - Release 1 实现：`default` theme + `classic-news` preset + 每 block 至少 1 variant + registry 架构
 - 完整样式市场后置；**样式系统架构前置**
 
-详见 [style-system.md](style-system.md)。
+### 9.1 Component DSL 扩展层（S1-STORY-024）
+
+秒篇 Component DSL 有效能力作为 Style System **扩展层**吸收，**不改变** Article 主模型：
+
+| 能力 | 位置 | 说明 |
+|------|------|------|
+| ComponentProtocol / BlockVisualProtocol | Style System | semantic block 与 VariantDefinition 之间 |
+| titleBlock visual component | Style System + Renderer | title / heading 均可映射 |
+| StyleOrchestrator | StyleResolver 前 | 去重/节奏；不 mutate Article |
+| VisualAssetRegistry | Style System | icon/shape pool |
+| AI Style Selection Guardrails | Generation → Style | 不得输出 HTML/CSS |
+
+**禁止：** visualArticle / componentArticle；旧 DSL 代码；Visual Layer / Space Style 作为主方案。
+
+详见 [style-system.md](style-system.md) §11、[references/miaopian-title-component-dsl-v1.md](references/miaopian-title-component-dsl-v1.md)。
 
 ---
 
@@ -567,7 +581,7 @@ Release 1 **不实现**完整导入；StyleDefinition 已通过 `sourceType` / `
 | Sprint | 焦点 |
 |--------|------|
 | **Sprint 2** | Article / Block Schema + **InlineContent** 代码契约（Zod/TS/fixture/单测；不含 Renderer/Style/Generation） |
-| **Sprint 3** | Style System 代码契约：Theme/Preset/VariantDefinition/Registry/StyleResolver/ResolvedBlockStyle/SlotRenderSpec/WeChatCompatibilityProfile |
+| **Sprint 3** | Style System + **ComponentProtocol** + 第一批 **titleBlock** variants（3~5 copy-safe）+ VisualAssetRegistry + StyleOrchestrator 最小去重 |
 | **Sprint 4** | Preview / Copy **成对最小闭环** + WeChatCompatibilityProfile 应用 + **最小粘贴 QA 启动** |
 | **Sprint 5** | Generation / Streaming 最小闭环 + `done.article` |
 | **Sprint 6** | Fixture **三联**系统化回归 + Paste QA 体系完善 |

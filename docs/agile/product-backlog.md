@@ -73,6 +73,12 @@
 | TECH-ARCH-003 | StyleDefinition 命名边界与 ResolvedStyle 契约 | EPIC-004 | VariantDefinition vs ResolvedBlockStyle / ResolvedArticleStyle |
 | TECH-ARCH-004 | SlotRenderSpec copy-safe 边界 | EPIC-004 / EPIC-006 | slot fallback、copySafety、preview_only 限制 |
 | TECH-ARCH-005 | WeChatCompatibilityProfile 可执行兼容规则 | EPIC-006 | Allowed/Risky/Forbidden CSS + FallbackPolicy |
-| TECH-ARCH-006 | Sprint 2 readiness contract closure | EPIC-003 / EPIC-004 / EPIC-006 | 统一 InlineContent 字段命名（`content.text`）；登记 audit 剩余 P1/P2 至 Sprint 3~6 |
+| TECH-ARCH-006 | Sprint 2 readiness contract closure | EPIC-003 / EPIC-004 / EPIC-006 | 统一 content.text；登记 audit P1/P2 |
+| TECH-ARCH-007 | ComponentProtocol / BlockVisualProtocol | EPIC-004 | 控件协议层 |
+| TECH-ARCH-008 | titleBlock family / variant catalog | EPIC-004 | 5 family + 15 variant catalog |
+| TECH-ARCH-009 | titleBlock slot protocol | EPIC-004 / EPIC-006 | 7 类 slot + fallback |
+| TECH-ARCH-010 | VisualAssetRegistry / icon asset pool | EPIC-004 | 系统内置 asset |
+| TECH-ARCH-011 | StyleOrchestrator / ArticleRhythmPolicy | EPIC-004 | 文章级去重/节奏 |
+| TECH-ARCH-012 | AI Style Selection Guardrails | EPIC-002 / EPIC-004 | AI 不得输出 HTML/CSS |
 
-状态：文档契约已写入架构方案（S1-STORY-021、S1-STORY-023）；代码实现按 Sprint 2~6 拆分。
+状态：文档契约 S1-STORY-021~024；代码按 Sprint 2~6 拆分。

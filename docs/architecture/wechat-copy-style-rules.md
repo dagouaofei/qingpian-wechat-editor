@@ -245,6 +245,19 @@ Preview     Copy
 
 Copy 是样式系统的**最终验收环节**，不是附属功能。
 
+---
+
+## 10. titleBlock family / variant / slot 与 Copy 约束
+
+| 约束 | 说明 |
+|------|------|
+| Profile 校验 | titleBlock family / variant / slot 须经 WeChatCompatibilityProfile |
+| Slot fallback | icon / badge / decorationLine / bgShape / extraMark 须有 copy-safe fallback |
+| 禁止项 | 不得依赖 pseudo、复杂 absolute、复杂 flex/grid |
+| 高风险 | bgShape / magazine / overlay 类须有真实 DOM fallback |
+| Done 分离 | titleBlock Done（代码）≠ Done（粘贴 QA） |
+| QA | 每 titleBlock variant 进入 block × variant × paste QA |
+
 ## 相关文档
 
 - [复制链路](copy-to-wechat-pipeline.md)

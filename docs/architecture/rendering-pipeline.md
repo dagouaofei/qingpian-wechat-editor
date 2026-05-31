@@ -164,6 +164,18 @@ CopyAdapter.toInlineStyle(resolvedStyle):
 
 Copy **全部 inline**，不输出 class 或 `<style>` 标签。
 
+### 7.4 titleBlock visual component 渲染
+
+| 规则 | 说明 |
+|------|------|
+| 输入 | semantic block + ResolvedBlockStyle（`componentId: titleBlock`） |
+| 分发 | Preview / Copy 成对 titleBlock renderer |
+| 语义不变 | family / variant / slots 只影响视觉 |
+| 成对交付 | 每 variant 须 Preview + Copy 同时实现 |
+| 禁止降级 | Copy 不得降级为普通 paragraph |
+
+详见 [style-system.md](style-system.md) §11、[copy-to-wechat-pipeline.md](copy-to-wechat-pipeline.md) §5。
+
 ---
 
 ## 8. 可共享 vs 必须特殊处理
