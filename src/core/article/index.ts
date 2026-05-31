@@ -1,4 +1,39 @@
 export type {
+  Article,
+  ArticleInput,
+  ArticleMetadata,
+  ArticleStyleAssignment,
+  BlockStyleOverride,
+  GenerationMeta,
+  GenerationMode,
+  GenerationStatus,
+  InputSource,
+  InputSourceType,
+  SlotOverrideValue,
+  StyleAssignment,
+} from "./article.types";
+
+export {
+  articleIdSchema,
+  articleInputSchema,
+  articleMetadataSchema,
+  articleSchema,
+  articleStyleAssignmentSchema,
+  articleVersionSchema,
+  blockStyleOverrideSchema,
+  generationMetaSchema,
+  generationModeSchema,
+  generationStatusSchema,
+  inputSourceSchema,
+  inputSourceTypeSchema,
+  styleAssignmentSchema,
+} from "./article.schema";
+export type {
+  ArticleMetadataInput,
+  ArticleStyleAssignmentInput,
+} from "./article.schema";
+
+export type {
   InlineContent,
   InlineMark,
   InlineMarkBold,

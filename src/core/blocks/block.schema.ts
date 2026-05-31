@@ -3,7 +3,7 @@ import { z } from "zod";
 import {
   inlineTextInputSchema,
   plainTextSchema,
-} from "@/core/article";
+} from "@/core/article/inline-content.schema";
 
 import type { Block } from "./block.types";
 import { BLOCK_TYPES } from "./block.types";

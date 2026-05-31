@@ -519,7 +519,7 @@
 
 **用户故事：** 作为开发者，我需要 Release 1 全部 11 种 Block 的 discriminated union 类型与 Zod Schema，以便 Article 内容与后续 Renderer 共享同一语义边界。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s2-block-schema-contract`
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s2-block-schema-contract`（已 merge 至 `sprint/s2-article-block-schema` @ `93c6526`）
 
 **明确不做：**
 
@@ -545,23 +545,23 @@
 
 **用户故事：** 作为开发者，我需要 Article 顶层结构的 TypeScript 类型与 Zod Schema，以便全项目有唯一可校验的文章主模型。
 
-**优先级：** P0 · **状态：** Pending · **工作分支：** `feature/s2-article-schema-contract`
+**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s2-article-schema-contract`
 
 **明确不做：**
 
 - 不实现 StyleResolver / StyleDefinition / theme registry
-- 不实现 GenerationMeta 写入或 SSE 事件
+- 不实现 parse / normalize 总 helper（S2-STORY-005）
 - 不引入 `mockArticle` / `streamArticle` 等平行结构
 
 **验收标准：**
 
-- [ ] AC-1 `src/core/article/` 已定义 Article 顶层：`id`、`version`、`metadata`、`input`、`styleAssignment`、`blocks`、`generation?`
-- [ ] AC-2 `ArticleMetadata`、`InputSource`、`StyleAssignment`、`GenerationMeta` 与 `article-schema.md` 一致
-- [ ] AC-3 `blocks: Block[]` 引用 S2-STORY-003 的 Block schema；至少 1 个 block
-- [ ] AC-4 `version` 当前固定为 `1`；schema 可校验
-- [ ] AC-5 Article 不携带 CSS / inline style / Tailwind class
-- [ ] AC-6 单元测试：最小合法 Article + 缺字段 / 非法 block 拒绝
-- [ ] AC-7 `pnpm lint` / `pnpm build` 通过
+- [x] AC-1 Article 顶层：`id`、`version`、`metadata`、`input`、`styleAssignment`、`blocks`、`generation?`
+- [x] AC-2 `ArticleMetadata`、`InputSource`、`StyleAssignment`、`GenerationMeta` 与 `article-schema.md` 一致
+- [x] AC-3 `blocks: Block[]` 复用 `blockSchema`；至少 1 个 block
+- [x] AC-4 `version` 固定 literal `1`
+- [x] AC-5 Article `.strict()`；无 CSS / style / className
+- [x] AC-6 单元测试 23 cases（`tests/core/article/article-schema.test.ts`）
+- [x] AC-7 `corepack pnpm lint` / `corepack pnpm test` / `corepack pnpm build` 通过
 
 ---
 

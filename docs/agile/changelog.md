@@ -95,3 +95,5 @@
 | 2026-05-31 | Sprint 2 | 实现 InlineContent / InlineMark 代码契约（TS + Zod + normalize + 单测） | 代码 / 架构 | S2-STORY-002 |
 | 2026-05-31 | Sprint 2 | S2-STORY-002 merge 至 sprint 分支（`ba149fe`）；状态 Done | Git / 敏捷 | S2-STORY-002 |
 | 2026-05-31 | Sprint 2 | 实现 Block Schema 代码契约（11 block TS + Zod union + 单测） | 代码 / 架构 | S2-STORY-003 |
+| 2026-05-31 | Sprint 2 | S2-STORY-003 merge 至 sprint 分支（`93c6526`）；状态 Done | Git / 敏捷 | S2-STORY-003 |
+| 2026-05-31 | Sprint 2 | 实现 Article Schema 代码契约（Article TS + Zod + blockSchema 复用 + 单测） | 代码 / 架构 | S2-STORY-004 |
