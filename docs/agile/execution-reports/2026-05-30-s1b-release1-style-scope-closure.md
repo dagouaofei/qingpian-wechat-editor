@@ -78,6 +78,6 @@ merge S1-STORY-025~027 链路至 sprint；用户确认 Sprint 1-B 后启动 Spri
 
 ## 14. Commit hash
 
-`93a19c6533a4d92c9edd630b2e90c31210c29954`
+`64f6e75a3febef227ca7561f8d07b8ad004e621b`
 
 ## 15. Sprint 1-B：In Review
