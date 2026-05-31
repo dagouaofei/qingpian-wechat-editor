@@ -106,3 +106,27 @@
 | 2026-05-31 | Sprint 2 | 完成 Sprint 2 code audit（P0=0；grade A） | 架构 / 敏捷 | S2-CODE-AUDIT-001 |
 | 2026-05-31 | Sprint 2 | **正式关闭 Sprint 2**；用户确认 contract + code audit；DECISION-054 | 敏捷 | S2-STORY-007 |
 | 2026-05-31 | Release 1 | `sprint/s2-article-block-schema` merge 至 `release/1` | Git | DECISION-054 |
+
+---
+
+## 2026-05-31 · Sprint 3-A
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-05-31 | Sprint 3-A | **正式启动 Sprint 3-A**；范围 Style System Contract & Registry Infrastructure | 敏捷 / 架构 | S3A-STORY-001, DECISION-055 |
+| 2026-05-31 | Sprint 3-A | 从 `release/1` 建立 `sprint/s3a-style-system-infra` | Git | DECISION-055 |
+| 2026-05-31 | Sprint 3-A | 新增 Sprint 3-A Backlog S3A-STORY-001~007 | 敏捷 | S3A-STORY-001 |
+| 2026-05-31 | Sprint 3-A | 实现 Style System 基础类型与 schema 契约（Theme / Preset / Variant / Registry） | 代码 / 架构 | S3A-STORY-002 |
+| 2026-05-31 | Sprint 3-A | 实现 ResolvedStyle 与 StyleResolver 最小实现（resolveArticleStyle / resolveBlockStyle + fallback） | 代码 / 架构 | S3A-STORY-003 |
+| 2026-05-31 | Sprint 3-A | S3A-STORY-002 标记 Done；用户确认 StyleResolver explicit→preset_default 语义（DECISION-056） | 敏捷 / 架构 | S3A-STORY-002, DECISION-056 |
+| 2026-05-31 | Sprint 3-A | S3A-STORY-003 merge 至 `sprint/s3a-style-system-infra`（`85ffcbd`）；状态 Done | Git / 敏捷 | S3A-STORY-003 |
+| 2026-05-31 | Sprint 3-A | 实现 WeChatCompatibilityProfile 机器可读契约与 copy-safe validation helper | 代码 / 架构 | S3A-STORY-004 |
+| 2026-05-31 | Sprint 3-A | S3A-STORY-004 merge 至 `sprint/s3a-style-system-infra`（`11a3d11`）；状态 Done | Git / 敏捷 | S3A-STORY-004 |
+| 2026-05-31 | Sprint 3-A | 实现 StyleValidationResult / FallbackVariantPolicy；copySafety 统一为 `strict \| balanced \| preview_only` | 代码 / 架构 | S3A-STORY-005 |
+| 2026-05-31 | Sprint 3-A | S3A-STORY-005 merge 至 `sprint/s3a-style-system-infra`（`bcd6947`）；状态 Done；用户确认验收 | Git / 敏捷 | S3A-STORY-005 |
+| 2026-05-31 | Sprint 3-A | S3A-STORY-005 merge 至 sprint（前置）；实现 TitleBlockLayoutCompatibility 契约 | 代码 / 架构 | S3A-STORY-005, S3A-STORY-006 |
+| 2026-05-31 | Sprint 3-A | S3A-STORY-006 merge 至 `sprint/s3a-style-system-infra`（`f44a131`）；状态 Done | Git / 敏捷 | S3A-STORY-006 |
+| 2026-05-31 | Sprint 3-A | Sprint 3-A contract audit（grade A，P0=0）；Close Readiness | 架构 / 敏捷 | S3A-STORY-007 |
+| 2026-05-31 | Sprint 3-A | 用户确认接受 contract audit（A，P0=0，P1=4，P2=3） | 敏捷 | S3A-STORY-007 |
+| 2026-05-31 | Sprint 3-A | **正式关闭 Sprint 3-A**；DECISION-057 | 敏捷 | S3A-STORY-007, DECISION-057 |
+| 2026-05-31 | Release 1 | `sprint/s3a-style-system-infra` merge 至 `release/1` | Git | DECISION-057 |

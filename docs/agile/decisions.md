@@ -53,6 +53,9 @@
 | DECISION-052 | 2026-05-31 | 建立 `release/1` 作为 Release 1 主干；Sprint 1-B merge 至 release/1；清理 Sprint 1-B story 工作分支 | 已确认 |
 | DECISION-053 | 2026-05-31 | 正式启动 Sprint 2；范围 Article / Block Schema + InlineContent 代码契约；从 release/1 切 sprint/s2-article-block-schema | 已确认 |
 | DECISION-054 | 2026-05-31 | 关闭 Sprint 2；contract audit A + code audit A；P0=0；merge sprint/s2-article-block-schema → release/1 | 已确认 |
+| DECISION-055 | 2026-05-31 | 正式启动 Sprint 3-A；Style System Contract & Registry Infrastructure；从 release/1 切 sprint/s3a-style-system-infra | 已确认 |
+| DECISION-056 | 2026-05-31 | StyleResolver：explicit variant 失败但 preset default 成功时 source=preset_default 并记录 variant_not_found issue；S3A-STORY-002 Done；merge feature/s3a-style-resolver → sprint | 已确认 |
+| DECISION-057 | 2026-05-31 | 关闭 Sprint 3-A；contract audit A，P0=0；merge sprint/s3a-style-system-infra → release/1 | 已确认 |
 
 ### DECISION-019 详情
 
@@ -191,6 +194,45 @@
   4. P1/P2 登记至 sprint-plan Sprint 2 Close Readiness；不阻塞 Sprint 3-A 启动
 - **约束：** Sprint 3 从 `release/1` 切 sprint 分支（git-workflow.md）
 - **关联：** S2-STORY-007、S2-CODE-AUDIT-001、`sprint2-contract-audit.md`、`sprint2-code-audit.md`
+- **状态：** 已确认
+
+### DECISION-055 详情（Sprint 3-A 正式启动）
+
+- **背景：** Sprint 2 已关闭并 merge 至 `release/1`（DECISION-054）；Article / Block / InlineContent 代码契约已在 release/1；用户确认启动 Sprint 3-A
+- **决策：**
+  1. Sprint 3-A **正式启动**，状态 **In Progress**
+  2. 范围：**Style System Contract & Registry Infrastructure**（Theme / Preset / VariantDefinition / Registry、StyleResolver、WeChatCompatibilityProfile、StyleValidationResult、TitleBlockLayoutCompatibility）
+  3. 从 `release/1` 切出 **`sprint/s3a-style-system-infra`**
+  4. Sprint 3-A Backlog 拆分为 S3A-STORY-001~007（见 `sprint-backlog.md`）
+- **约束：** Sprint 3-A **不做** 33 first-wave required variants 全量 registry、Preview / Copy Renderer、AI Style Selection 生成、VisualAssetRegistry 全量 assets；工作分支从 sprint 分支切出；验收 merge 至 sprint，再 merge 至 `release/1`（须用户确认）
+- **关联：** S3A-STORY-001、DECISION-040~045、style-system.md
+- **状态：** 已确认
+
+### DECISION-056 详情（StyleResolver source 语义与 S3A-STORY-002/003 merge）
+
+- **背景：** S3A-STORY-003 实现后审查：explicit variant 不存在时若 preset default 可用，`ResolvedBlockStyle.source` 为 `preset_default`（非 `fallback`），同时仍记录 `variant_not_found` issue；S3A-STORY-002 已 merge 至 sprint 但 backlog 仍为 In Review
+- **决策：**
+  1. **接受**上述 source 语义：`source` 反映最终生效路径；issue 记录 explicit 失败原因，二者不冲突
+  2. **S3A-STORY-002 标记 Done**（merge commit `08bc500`）
+  3. **`feature/s3a-style-resolver` merge 至 `sprint/s3a-style-system-infra`**；S3A-STORY-003 标记 Done
+- **约束：** 不 merge 至 `release/1` 或 `main`（须 Sprint 3-A 关闭后用户确认）
+- **关联：** S3A-STORY-002、S3A-STORY-003、style-system.md
+- **状态：** 已确认
+
+### DECISION-057 详情（关闭 Sprint 3-A）
+
+- **背景：**
+  - S3A-STORY-002~006 已完成并 merge 至 `sprint/s3a-style-system-infra`
+  - S3A-STORY-007 contract audit 完成（`docs/architecture/audits/sprint3a-contract-audit.md`）
+  - audit 结论 **A** 级，**P0=0**，P1=4，P2=3
+- **决策：**
+  1. 用户确认接受 Sprint 3-A contract audit
+  2. Sprint 3-A **正式关闭**
+  3. `sprint/s3a-style-system-infra` **merge 至 `release/1`**
+  4. P1/P2 登记至 Sprint 3-B / 4-A / 6-B，不阻塞关闭
+  5. **不 merge 至 `main`**
+  6. **不自动启动 Sprint 3-B**
+- **关联：** S3A-STORY-007、`sprint3a-contract-audit.md`
 - **状态：** 已确认
 
 ## 决策模板

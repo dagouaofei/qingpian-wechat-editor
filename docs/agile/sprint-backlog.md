@@ -2,7 +2,8 @@
 
 > **Sprint 1：** 正式项目启动、核心技术方案定稿与工程治理 · Sprint 1-A / 1-B：**Closed**
 > **Sprint 2：** Article / Block Schema + InlineContent 代码契约 · **Closed**（2026-05-31；DECISION-054）
-> **Release 1 主干：** `release/1` · **Sprint 2 分支：** `sprint/s2-article-block-schema`（DECISION-053）
+> **Sprint 3-A：** Style System Contract & Registry Infrastructure · **Closed**（2026-05-31；DECISION-057）
+> **Release 1 主干：** `release/1`（Sprint 3-A 已 merge，DECISION-057） · **Sprint 3-A 分支：** `sprint/s3a-style-system-infra`（DECISION-055）
 
 ---
 
@@ -651,3 +652,239 @@
 | lint / test / build | PASS |
 | Sprint 2 关闭 | ✅ **已关闭**（2026-05-31） |
 | merge sprint → `release/1` | ✅ 用户已确认执行 |
+
+---
+
+# Sprint 3-A Backlog
+
+> **Sprint 3-A 目标：** Style System **代码契约与 Registry 基础设施**（Theme / Preset / VariantDefinition / StyleResolver / WeChatCompatibilityProfile / validation helpers）
+> **Sprint 3-A 分支：** `sprint/s3a-style-system-infra`（从 `release/1` 切出，DECISION-055）· **状态：Closed**（2026-05-31；DECISION-057）
+> **Sprint 3-A 不做：** 33 first-wave required variants 全量 registry、Preview / Copy Renderer、AI Style Selection 生成、VisualAssetRegistry 全量 assets
+
+---
+
+## S3A-STORY-001 Sprint 3-A 启动与 Backlog 拆分
+
+**用户故事：** 作为产品负责人，我需要正式启动 Sprint 3-A 并拆分 Backlog，以便团队在明确边界下按 Story 逐步实现 Style System 基础设施。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `docs/s3a-start-backlog-split`
+
+**明确不做：**
+
+- 不实现 Style System 业务代码（S3A-STORY-002 起）
+- 不实现 33 variants registry
+- 不实现 Preview / Copy Renderer
+- 不 merge 至 `release/1` 或 `main`（本轮由用户审查后 merge sprint 分支）
+
+**验收标准：**
+
+- [x] AC-1 工作区干净；已从 `release/1` 创建 `sprint/s3a-style-system-infra`
+- [x] AC-2 `sprint-backlog.md` 已新增 Sprint 3-A Backlog（S3A-STORY-001~007）
+- [x] AC-3 `sprint-plan.md` Sprint 3-A 状态已更新为 In Progress
+- [x] AC-4 `changelog.md` 已记录 Sprint 3-A 启动与 sprint 分支建立
+- [x] AC-5 `decisions.md` 已记录 DECISION-055
+- [x] AC-6 每个 Story 含用户故事、优先级、状态、工作分支、AC、不做事项
+- [x] AC-7 `corepack pnpm lint` / `corepack pnpm build` 通过
+- [x] AC-8 已生成 execution report
+
+---
+
+## S3A-STORY-002 Style System 基础类型与 schema 契约
+
+**用户故事：** 作为开发者，我需要 Theme / Preset / VariantDefinition / StyleRegistry 的 TypeScript 类型与 Zod Schema，以便后续 StyleResolver 与 Sprint 3-B variant registry 有统一契约。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s3a-style-system-schema`（已 merge 至 `sprint/s3a-style-system-infra`，`08bc500`）
+
+**明确不做：**
+
+- 不写 33 first-wave required variants 定义
+- 不实现 Preview / Copy Renderer
+- 不输出 Copy HTML
+
+**验收标准：**
+
+- [x] AC-1 `ThemeDefinition`、`PresetDefinition`、`VariantDefinition` TS 类型完成（`src/core/styles/types.ts`）
+- [x] AC-2 `StyleRegistry` 结构与 `schemaVersion` 完成（`STYLE_SCHEMA_VERSION = 1`）
+- [x] AC-3 Zod schema 覆盖上述类型；`.strict()` 拒绝未知字段
+- [x] AC-4 `ColorTokenRef` 基础契约 + `inlineMarkColorInputSchema` legacy 兼容
+- [x] AC-5 VariantDefinition 复用 `BlockType`；禁止 html/className/style/css
+- [x] AC-6 registry helper：parse / validate / getThemeById / getPresetById / getVariantById / getVariantsForBlockType
+- [x] AC-7 单元测试 28 cases（`tests/core/styles/`）
+- [x] AC-8 `corepack pnpm lint` / `corepack pnpm test` / `corepack pnpm build` 通过
+
+---
+
+## S3A-STORY-003 ResolvedStyle 与 StyleResolver 最小实现
+
+**用户故事：** 作为开发者，我需要 StyleResolver 最小实现，将 Article.styleAssignment 解析为 ResolvedBlockStyle / ResolvedArticleStyle，以便 Preview / Copy 后续共享同一 resolved 输入。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s3a-style-resolver`（已 merge 至 `sprint/s3a-style-system-infra`，`85ffcbd`）
+
+**明确不做：**
+
+- 不实现文章级复杂 StyleOrchestrator 编排（Sprint 3-C）
+- 不实现 AI 样式选择
+- 不实现 Renderer 输出
+
+**验收标准：**
+
+- [x] AC-1 已从 `sprint/s3a-style-system-infra` 创建 `feature/s3a-style-resolver`
+- [x] AC-2 `ResolvedBlockStyle`、`ResolvedArticleStyle` 类型完成（`src/core/styles/types.ts`）
+- [x] AC-3 `resolveArticleStyle` / `resolveBlockStyle` 最小实现完成（`src/core/styles/resolver.ts`）
+- [x] AC-4 resolver 输入使用 Article + StyleRegistry，不引入平行 Article 模型
+- [x] AC-5 variant 选择优先级：block-level assignment > preset default > registry fallback
+- [x] AC-6 preset / theme 解析有明确 fallback 或 issue
+- [x] AC-7 fallback 不 silent fail，记录 issue / fallbackReason
+- [x] AC-8 fallback 不默认选择 experimental
+- [x] AC-9 `magazine_left_bar_title` 不作为 required 默认 fallback
+- [x] AC-10 resolver 不修改 Article / Block 主模型
+- [x] AC-11 resolver 输出不包含 html / css / className / style / React component
+- [x] AC-12 单元测试 16 cases（`tests/core/styles/style-resolver.test.ts` + `tests/fixtures/styles/`）
+- [x] AC-13 `corepack pnpm lint` 通过
+- [x] AC-14 `corepack pnpm test` 通过（170 tests）
+- [x] AC-15 `corepack pnpm build` 通过
+- [x] AC-16 已生成 execution report
+- [x] AC-17 已 merge 至 `sprint/s3a-style-system-infra`（用户确认 2026-05-31）
+
+---
+
+## S3A-STORY-004 WeChatCompatibilityProfile 机器可读契约
+
+**用户故事：** 作为开发者，我需要 WeChatCompatibilityProfile 的机器可读契约与 copy-safe 校验 helper，以便 VariantDefinition 的 compatibility 字段有统一校验基础。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s3a-wechat-compatibility-profile`（已 merge 至 `sprint/s3a-style-system-infra`，`11a3d11`）
+
+**明确不做：**
+
+- 不做人工粘贴 QA
+- 不做 Copy Renderer
+- 不做 PasteTestRecord
+
+**验收标准：**
+
+- [x] AC-1 已从 `sprint/s3a-style-system-infra` 创建 `feature/s3a-wechat-compatibility-profile`
+- [x] AC-2 已定义 WeChatCompatibilityProfile 类型与 schema（`src/core/styles/types.ts` / `schemas.ts`）
+- [x] AC-3 已定义 allowed / risky / forbidden CSS 能力分层（`WECHAT_MP_COMPATIBILITY_PROFILE`）
+- [x] AC-4 已定义基础 FallbackPolicy 数据结构
+- [x] AC-5 已提供默认 `WECHAT_MP_COMPATIBILITY_PROFILE`
+- [x] AC-6 已打通 VariantDefinition.compatibility 的 copySafety / wechat 字段
+- [x] AC-7 已实现 validateVariantWechatCompatibility / validateCssPropertyCompatibility / validateCssDeclarationCompatibility
+- [x] AC-8 forbidden CSS 不得 silent allow
+- [x] AC-9 risky CSS 至少产生 warning / issue
+- [x] AC-10 preview_only 不得进入 release1_required 默认 copy-safe path
+- [x] AC-11 单元测试 19 cases（`tests/core/styles/wechat-compatibility.test.ts`）
+- [x] AC-12 未实现 Copy Renderer / Preview Renderer / 33 variants / Paste QA
+- [x] AC-13 `corepack pnpm lint` 通过
+- [x] AC-14 `corepack pnpm test` 通过（189 tests）
+- [x] AC-15 `corepack pnpm build` 通过
+- [x] AC-16 已生成 execution report
+- [x] AC-17 已 merge 至 `sprint/s3a-style-system-infra`（`11a3d11`，用户确认 2026-05-31）
+
+---
+
+## S3A-STORY-005 StyleValidationResult / FallbackVariantPolicy
+
+**用户故事：** 作为开发者，我需要统一的 Style 层 validation result 与 FallbackVariantPolicy，以便 registry 校验与后续 UI / QA 有稳定错误结构。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s3a-style-validation-policy`（已 merge 至 `sprint/s3a-style-system-infra`，`bcd6947`；用户确认验收 2026-05-31）
+
+**copySafety 命名统一（本轮）：** 以 `style-system.md` 为准，统一为 `strict | balanced | preview_only`；legacy `safe`/`risky` 仅经 `normalizeCopySafetyInput` helper 兼容，非主模型。
+
+**验收标准：**
+
+- [x] AC-1 ~ AC-18（见上轮 execution report）
+- [x] AC-19 已 merge 至 `sprint/s3a-style-system-infra`（本轮前置 merge）
+
+---
+
+## S3A-STORY-006 TitleBlockLayoutCompatibility 契约
+
+**用户故事：** 作为开发者，我需要 TitleBlockLayoutCompatibility 契约（layoutMode / allowedInCopy / fallbackLayoutMode / riskLevel），以便 first-wave required variants 与 candidate variants 的 copy-safe 边界清晰。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s3a-title-layout-compatibility`（已 merge 至 `sprint/s3a-style-system-infra`，`f44a131`）
+
+**明确不做：**
+
+- 不将 `magazine_left_bar_title` 纳入 first-wave required（保持 candidate）
+- 不实现 titleBlock Renderer
+
+**验收标准：**
+
+- [x] AC-1 已从 `sprint/s3a-style-system-infra` 创建 `feature/s3a-title-layout-compatibility`
+- [x] AC-2 已定义 TitleBlockLayoutMode（11 项）
+- [x] AC-3 已定义 TitleBlockLayoutCompatibility 类型与 schema
+- [x] AC-4 已提供 TITLE_BLOCK_LAYOUT_COMPATIBILITY_TABLE
+- [x] AC-5 compatibility table 覆盖全部 layoutMode
+- [x] AC-6 已与 VariantDefinition.componentProtocol.layoutMode 最小打通
+- [x] AC-7 已实现 getTitleBlockLayoutCompatibility / validateTitleBlockLayoutCompatibility / isTitleBlockLayoutAllowedForCopy / getFallbackTitleBlockLayoutMode
+- [x] AC-8 release1_required + overlay / offset_background 必须 error
+- [x] AC-9 release1_required + magazine_left_bar 必须 error
+- [x] AC-10 candidate + magazine_left_bar 可存在但 warning（不得进入 required 默认路径）
+- [x] AC-11 fallbackLayoutMode 必须更安全，不得指向自身
+- [x] AC-12 helper 输出 StyleValidationResult
+- [x] AC-13 单元测试 16 cases（`tests/core/styles/title-layout-compatibility.test.ts`）
+- [x] AC-14 未实现 renderer / 33 variants / Paste QA / AI Style Selection
+- [x] AC-15 `corepack pnpm lint` 通过
+- [x] AC-16 `corepack pnpm test` 通过（221 tests）
+- [x] AC-17 `corepack pnpm build` 通过
+- [x] AC-18 已生成 execution report
+- [x] AC-19 已 merge 至 `sprint/s3a-style-system-infra`（`f44a131`，用户确认 2026-05-31）
+
+---
+
+## S3A-STORY-007 Sprint 3-A 契约 audit 与关闭准备
+
+**用户故事：** 作为产品负责人，我需要在 Sprint 3-A 代码实现完成后做契约 audit，确认与 style-system.md 一致，并准备 Sprint 3-B 启动条件。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `docs/s3a-contract-audit-close-readiness`（已 merge 至 sprint）
+
+**用户确认（2026-05-31）：**
+
+- 用户已确认接受 contract audit **A** 级
+- 用户已确认 **P0=0**
+- 用户已确认关闭 Sprint 3-A（DECISION-057）
+- merge `sprint/s3a-style-system-infra` → `release/1` 已由用户确认执行
+
+**明确不做：**
+
+- 不在 audit 轮实现 33 variants 或 Renderer
+- 不自行宣布 Sprint 3-A Done（须用户确认）
+- 不 merge sprint 分支至 `release/1`，除非用户确认
+
+**验收标准：**
+
+- [x] AC-1 已从 `sprint/s3a-style-system-infra` 创建 `docs/s3a-contract-audit-close-readiness`
+- [x] AC-2 已生成 `docs/architecture/audits/sprint3a-contract-audit.md`
+- [x] AC-3 audit 覆盖 S3A-STORY-002~006 全部代码契约
+- [x] AC-4 audit 覆盖 Style System / Resolver / WeChatCompatibility / Validation / TitleLayout
+- [x] AC-5 audit 输出 P0 / P1 / P2（P0=0，P1=4，P2=3；grade A）
+- [x] AC-6 audit 明确 Sprint 3-A 可进入 Close Readiness（须用户确认关闭）
+- [x] AC-7 已最小修复 layoutMode §11.10 / §12 与 copySafety 文档一致性
+- [x] AC-8 sprint-backlog 已同步 S3A-STORY-002~006 状态 Done
+- [x] AC-9 sprint-plan 已同步 Sprint 3-A 为 In Review / Close Readiness
+- [x] AC-10 changelog 已记录 S3A-STORY-007 audit
+- [x] AC-11 未实现任何新业务功能
+- [x] AC-12 未 merge 到 `release/1` 或 `main`
+- [x] AC-13 `corepack pnpm lint` 通过
+- [x] AC-14 `corepack pnpm test` 通过（221 tests）
+- [x] AC-15 `corepack pnpm build` 通过
+- [x] AC-16 已生成 execution report
+- [x] AC-17 未自行关闭 Sprint 3-A（用户确认后关闭，DECISION-057）
+
+---
+
+## Sprint 3-A Close Readiness
+
+> **状态：已关闭**（2026-05-31；用户确认；DECISION-057）
+
+| 项 | 状态 |
+|----|------|
+| S3A-STORY-001~007 | Done |
+| Contract audit | ✅ A 级，P0=0，P1=4，P2=3（用户已接受） |
+| lint / test / build | PASS（221 tests） |
+| Sprint 3-A 范围未越界 | ✅ |
+| Sprint 3-A 关闭 | ✅ **已关闭**（2026-05-31） |
+| merge sprint → `release/1` | ✅ 用户已确认执行 |
+| 下一步 | Sprint 3-B：First-wave Required Variant Registry（**未启动**） |
+
+---

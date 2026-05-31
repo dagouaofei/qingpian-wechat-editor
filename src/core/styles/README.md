@@ -1,6 +1,6 @@
 # Styles 模块
 
-> 状态：占位 · Sprint 1 未实现业务代码
+> 状态：Sprint 3-A · Style System 基础类型与 schema 契约（S3A-STORY-002）
 
 ## 职责
 

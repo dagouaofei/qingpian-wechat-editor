@@ -53,10 +53,10 @@
 | **P1 / P2** | 已登记至后续 Sprint / Product Backlog（见下方登记表） |
 | **用户确认** | Checklist #10：已确认接受 B 级 final audit；Checklist #11：已确认可以关闭 Sprint 1-B |
 | **Sprint 2** | **Closed**（2026-05-31；DECISION-054） |
-| **Sprint 2 关闭结论** | Contract audit **A** + Code audit **A**；P0=0 |
-| **Release 1 主干** | `release/1`（Sprint 2 已 merge，DECISION-054） |
-| **Sprint 2 分支** | `sprint/s2-article-block-schema`（已 merge 至 `release/1`） |
-| **下一步** | Sprint 3-A：Style System Contract & Registry Infrastructure |
+| **Sprint 3-A** | **Closed**（2026-05-31；DECISION-057） |
+| **Release 1 主干** | `release/1`（Sprint 3-A 已 merge，DECISION-057） |
+| **Sprint 3-A 分支** | `sprint/s3a-style-system-infra`（已 merge 至 `release/1`） |
+| **下一步** | Sprint 3-B：First-wave Required Variant Registry（**未启动**） |
 
 ---
 
@@ -91,7 +91,7 @@
 | P1-001 | block 文本字段 `body` vs `text` 命名不一致 | Sprint 2 启动前 | **已解决**（DECISION-034） |
 | P1-002 | InlineMark → copy-safe CSS 映射表缺失 | Sprint 3 / Sprint 4 | 登记 · TECH-ARCH-002 |
 | P1-003 | StyleOrchestrator 文章级节奏代码未实现 | Sprint 3-C | 登记 · TECH-ARCH-011 |
-| P1-004 | WeChatCompatibilityProfile 无 machine-readable fixture | Sprint 3-A | 登记 · TECH-ARCH-005 |
+| P1-004 | WeChatCompatibilityProfile 无 machine-readable fixture | Sprint 3-A | **已解决**（S3A-STORY-004） |
 | P1-005 | list / info_card copy 结构保真规则未细化 | Sprint 4-B | 登记 |
 | P1-006 | Clipboard text/html + text/plain 双格式未写清 | Sprint 4 | 登记 |
 | P1-007 | requireTextNodeTypography 细则未展开 | Sprint 4 | 登记 |
@@ -137,14 +137,39 @@
 |----|------|-------------|
 | P1-S2-001 | 测试 fixture 与 `tests/fixtures/articles/` 重复维护 | Chore / Sprint 3-A 前 |
 | P1-CODE-001 | streaming partial Article vs `blocks.min(1)` | Sprint 5 |
-| P1-CODE-002 | InlineMark color token 未接 Style registry | Sprint 3-A |
+| P1-CODE-002 | InlineMark color token 未接 Style registry | Sprint 3-B / 4-A（P2-S3A-003） |
 | P2-S2-001 ~ P2-CODE-005 | 见 `sprint2-contract-audit.md` / `sprint2-code-audit.md` §10 | Sprint 3~6 / Release 2 |
+
+### Sprint 3-A Close Readiness Checklist
+
+> 登记于 S3A-STORY-007；详见 `docs/architecture/audits/sprint3a-contract-audit.md` §11。
+
+| # | 检查项 | 状态 |
+|---|--------|------|
+| 1 | S3A-STORY-002~006 Done 且 merge 至 sprint | ✅ |
+| 2 | Contract audit grade **A**，P0=0 | ✅ |
+| 3 | lint / test / build PASS（221 tests） | ✅ |
+| 4 | Sprint 3-A 范围未越界 | ✅ |
+| 5 | layoutMode / copySafety 文档最小同步 | ✅ |
+| 6 | **用户确认关闭 Sprint 3-A** | ✅ **已确认**（2026-05-31；DECISION-057） |
+| 7 | merge sprint → `release/1` | ✅ **已确认**（2026-05-31；DECISION-057） |
+
+### Sprint 3-A audit P1/P2 登记（不阻塞关闭）
+
+| ID | 问题 | 建议 Sprint |
+|----|------|-------------|
+| P1-S3A-001 | §11.4 catalog layoutMode 与代码 enum 映射 | Sprint 3-B |
+| P1-S3A-002 | wechat-copy-style-rules profile 字段与代码结构差异 | Sprint 3-B / 4-A |
+| P1-S3A-003 | validateStyleRegistry 命名易混淆 | Sprint 3-B |
+| P1-S3A-004 | ResolvedBlockStyle 未展开 componentProtocol | Sprint 4-A |
+| P2-S3A-001 ~ P2-S3A-003 | 见 `sprint3a-contract-audit.md` §10 | Sprint 3-B~6 |
 
 ---
 
 ## Sprint 2 ~ 6 计划（Release 1 代码实现）
 
-> **Sprint 2 状态：Closed**（2026-05-31；DECISION-054；contract audit A + code audit A；P0=0）
+> **Sprint 2 状态：Closed**（2026-05-31；DECISION-054）
+> **Sprint 3-A 状态：Closed**（2026-05-31；DECISION-057；contract audit **A**，P0=0，P1=4，P2=3；`sprint/s3a-style-system-infra` 已 merge 至 `release/1`）
 >
 > 业务功能实现必须在核心技术方案 + 实现前契约完成之后进入（DECISION-015、DECISION-029~045、DECISION-051）。
 
@@ -164,7 +189,18 @@
 
 **不做：** Renderer、Style System、Generation、**AI Style Selection**
 
-### Sprint 3-A：Style System Contract & Registry Infrastructure
+### Sprint 3-A：Style System Contract & Registry Infrastructure — **Closed**（2026-05-31）
+
+**分支：** `sprint/s3a-style-system-infra`（已 merge 至 `release/1`，DECISION-057） · **Audit：** `docs/architecture/audits/sprint3a-contract-audit.md`（grade **A**，P0=0，P1=4，P2=3）
+
+**关闭结论：**
+
+- Contract audit **A** 级；P0=0；P1=4 / P2=3 已登记
+- lint / test / build PASS（221 tests）
+- 未越界实现 33 variants / Preview / Copy / Paste QA
+- 用户确认关闭（DECISION-057）
+
+**Stories：** S3A-STORY-001（启动）~ S3A-STORY-007（audit + 关闭）— 见 `sprint-backlog.md`
 
 **目标：**
 
@@ -174,9 +210,14 @@
 - StyleValidationResult / FallbackVariantPolicy / schemaVersion
 - TitleBlockLayoutCompatibility 定义
 
-**不做：** 全部 33 variants registry；Preview / Copy
+**不做：** 全部 **33** first-wave required variants registry；Preview / Copy Renderer；AI Style Selection 生成；VisualAssetRegistry 全量 assets
 
 ### Sprint 3-B：First-wave Required Variant Registry
+
+> **启动前须带入（Sprint 3-A audit 遗留）：**
+>
+> - **P1-S3A-001：** `style-system.md` §11.4 titleBlock catalog 历史 layoutMode 命名 → 代码 snake_case enum 映射
+> - **P2-S3A-002：** slot 级 copySafety 尚未在 schema 强制
 
 **目标：**
 
