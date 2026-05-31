@@ -258,6 +258,19 @@ Copy 是样式系统的**最终验收环节**，不是附属功能。
 | Done 分离 | titleBlock Done（代码）≠ Done（粘贴 QA） |
 | QA | 每 titleBlock variant 进入 block × variant × paste QA |
 
+**Release 1 Paste QA 范围（DECISION-039、DECISION-043）：** **First wave 33 variants**（11×3）须进入 Paste QA；Sprint 4-A/B 启动最小 QA；Sprint 6-B first-wave 全量回归；expansion variants 后续批次 QA。
+
+> **`magazine_left_bar_title`（candidate）：** 不进入 first-wave QA 范围；若实现须单独 Paste QA（DECISION-044）。
+
+### 10.1 TitleBlockLayoutCompatibility 与 WeChat profile
+
+Copy Renderer 对 titleBlock 须额外校验 `TitleBlockLayoutCompatibility`（见 [style-system.md](style-system.md) §11.10）：
+
+- Release 1 copy 禁止 absolute positioning
+- overlay / offset-bg 类须 `fallbackLayoutMode`
+- 不满足 `allowedInCopy` 的 layoutMode 不得进入 release1RequiredVariants
+- Copy 不得因 layout 复杂降级为 paragraph
+
 ## 相关文档
 
 - [复制链路](copy-to-wechat-pipeline.md)

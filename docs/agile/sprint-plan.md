@@ -70,7 +70,7 @@
 
 ## Sprint 2 ~ 6 计划（Release 1 代码实现）
 
-> 业务功能实现必须在核心技术方案 + 实现前契约完成之后进入（DECISION-015、DECISION-029~033）。
+> 业务功能实现必须在核心技术方案 + 实现前契约完成之后进入（DECISION-015、DECISION-029~045）。
 
 ### Sprint 2：Article / Block Schema + InlineContent 代码契约
 
@@ -82,62 +82,92 @@
 - 实现基础 fixture
 - 实现 schema 单元测试
 
-**不做：** Renderer、Style System、Generation
+**不做：** Renderer、Style System、Generation、**AI Style Selection**
 
-**登记 P1/P2：** 无（P1-001 已在 Sprint 1-B 解决）
-
-### Sprint 3：Style System 代码契约、ComponentProtocol 与第一批 titleBlock variants
+### Sprint 3-A：Style System Contract & Registry Infrastructure
 
 **目标：**
 
-- 实现 Theme / Preset / VariantDefinition / Registry
-- 实现 StyleResolver → ResolvedBlockStyle / ResolvedArticleStyle
-- 实现 **ComponentProtocol / BlockVisualProtocol** 最小模型
-- 实现 **title / heading → titleBlock** 映射
-- 实现 titleBlock **3~5 copy-safe variant**（style-system §11.4）
-- 实现 titleBlock slots 最小子集 + **VisualAssetRegistry**（10~20 asset）
-- 实现 **StyleOrchestrator** 最小去重（R1、R2、R8）
-- 实现 SlotRenderSpec + WeChatCompatibilityProfile 基础校验
-- classic-news 11 block variant（含 titleBlock family）
+- Theme / Preset / VariantDefinition / Registry **基础设施**
+- StyleResolver → ResolvedBlockStyle / ResolvedArticleStyle
+- WeChatCompatibilityProfile 基础校验
+- StyleValidationResult / FallbackVariantPolicy / schemaVersion
+- TitleBlockLayoutCompatibility 定义
 
-**不做：** 完整 Preview / Copy；15 variant 全量
+**不做：** 全部 33 variants registry；Preview / Copy
 
-**明确：** Sprint 2 不实现 ComponentProtocol / titleBlock
-
-**登记 P1/P2：** P1-002、P1-003（orchestrator 完整）、P1-004；P2-002、P2-003
-
-### Sprint 4：Preview / Copy Renderer 最小闭环 + 最小粘贴 QA
+### Sprint 3-B：First-wave Required Variant Registry
 
 **目标：**
 
-- 基于 fixture 渲染 Preview
-- 基于同一 ResolvedArticleStyle 生成 Copy HTML
-- Copy Renderer 使用 WeChatCompatibilityProfile
-- InlineMark → 微信兼容 inline HTML
-- 启动最小人工微信公众号粘贴 QA
-- 区分 Done（代码）与 Done（粘贴 QA）
+- **11 block × 3 = 33** first-wave required variants registry definitions
+- title / heading titleBlock ComponentProtocol
+- titleBlock first-wave variants（不含 `magazine_left_bar_title` candidate）
+- SlotContentBinding 规则落地到 registry
 
-**登记 P1/P2：** P1-002（InlineMark 映射）、P1-005（list/info_card copy）、P1-006（Clipboard 双格式）、P1-007（text-node typography）
+**不做：** VisualAssetRegistry 全量；AI 样式建议生成（Sprint 5）
 
-### Sprint 5：Generation / Streaming 最小闭环
+### Sprint 3-C：VisualAssetRegistry + AI Style Selection Validation + Orchestrator
 
 **目标：**
 
-- 实现 InputRequest / NormalizedInput
-- 实现 batch / stream 统一输出 Article
-- 实现 GenerationEvent：`status` / `metadata` / `block.start` / `block.delta` / `block.complete` / `done.article`
-- 前端可逐步展示 partial Article
-- 禁止 streamArticle 平行结构
+- VisualAssetRegistry 最小 **15~30** assets
+- StyleSelectionRequest / StyleAssignmentPatch **validation 入口**
+- ComponentProtocol / BlockVisualProtocol 完整校验链
+- StyleOrchestrator 最小规则 R1 / R2 / R8
+- **expansion variants 规划**（不要求全部实现）
 
-### Sprint 6：Fixture 三联 + Paste QA 回归体系
+### Sprint 4-A：Preview / Copy Renderer for Text-first Blocks
+
+**目标：**
+
+- title / lead / heading / paragraph / divider 成对 Preview / Copy
+- 使用 **first-wave** required variants
+- 启动最小 Paste QA
+
+### Sprint 4-B：Preview / Copy Renderer for Structured Blocks
+
+**目标：**
+
+- list / quote / highlight / info_card / cta / image_placeholder 成对 Preview / Copy
+- first-wave required variants
+- 完成 first-wave **33 variants** 最小 Paste QA 计划
+
+**登记 P1/P2：** P1-002、P1-005、P1-006、P1-007
+
+### Sprint 5：Generation / Streaming + 受控 AI 样式选择最小闭环
+
+**目标：**
+
+- InputRequest / NormalizedInput、GenerationEvent、`done.article`
+- **StyleSelectionRequest / StyleAssignmentPatch 生成**
+- 所有样式建议必须走 Sprint 3-C validation pipeline
+- 禁止 streamArticle；禁止绕过 Style System
+
+**不变** — 与 S1-STORY-025 一致。
+
+### Sprint 6-A：Fixture Triple Infrastructure
 
 **目标：**
 
 - Article JSON fixture
-- Copy HTML snapshot
-- Paste checklist / PasteTestRecord
+- Copy HTML snapshot schema
+- Paste checklist / PasteTestRecord schema
 - 复制一致性 Bug 录入流程
-- classic-news 全 variant 回归
+
+### Sprint 6-B：First-wave Required Variants Paste QA Regression
+
+**目标：**
+
+- **33** first-wave required variants 全量粘贴 QA
+- PasteTestRecord 记录
+- expansion variants 进入后续批次
+
+**原则（DECISION-045）：**
+
+- Sprint 2 / Sprint 5 **不变**
+- 拆分保证可执行性，**不降低** Release 1 样式丰富度目标（最终 up to 11×5）
+- First wave 先 11×3，expansion 分后续子 Sprint
 
 ---
 

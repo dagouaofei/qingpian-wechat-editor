@@ -28,7 +28,7 @@ Preview Renderer 和 Copy Renderer 可以分离；
 | 职责 | 说明 |
 |------|------|
 | 读取 Article | 遍历 `blocks[]`，按顺序渲染 |
-| 解析样式 | 调用 Style Resolver 获取 `ResolvedBlockStyle` / `ResolvedArticleStyle` |
+| 解析样式 | 调用 Style Resolver 获取 **校验后的** `ResolvedBlockStyle` / `ResolvedArticleStyle` |
 | 渲染 InlineContent | paragraph / lead 的 `content.text`（InlineContent）经 Style System 映射为 DOM 样式（非 Block 内 CSS） |
 | 输出 DOM | React 组件树，用于页面预览 |
 | 流式更新 | 支持 blocks 增量追加时的增量渲染 |
@@ -168,13 +168,16 @@ Copy **全部 inline**，不输出 class 或 `<style>` 标签。
 
 | 规则 | 说明 |
 |------|------|
-| 输入 | semantic block + ResolvedBlockStyle（`componentId: titleBlock`） |
+| 输入 | semantic block + **校验后的** `ResolvedBlockStyle`（`componentId: titleBlock`） |
+| 禁止 | 接收 Generation 原始 StyleSelectionRequest / 未校验样式输出 |
 | 分发 | Preview / Copy 成对 titleBlock renderer |
 | 语义不变 | family / variant / slots 只影响视觉 |
 | 成对交付 | 每 variant 须 Preview + Copy 同时实现 |
 | 禁止降级 | Copy 不得降级为普通 paragraph |
 
 详见 [style-system.md](style-system.md) §11、[copy-to-wechat-pipeline.md](copy-to-wechat-pipeline.md) §5。
+
+**Renderer 边界（S1-STORY-025）：** Preview / Copy **只消费** StyleResolver 输出的 `ResolvedArticleStyle`；**不接收** Generation 直接输出的 HTML/CSS/inline style 或未校验的 `StyleSelectionRequest` / `StyleAssignmentPatch`。
 
 ---
 

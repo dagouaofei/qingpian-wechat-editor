@@ -42,6 +42,13 @@
 | DECISION-036 | 2026-05-30 | 吸收秒篇 Component DSL 的 family / variant / slot / asset / orchestrator 思想，不迁移旧实现代码 | 已确认 |
 | DECISION-037 | 2026-05-30 | title 与 heading 共享 titleBlock visual component，保持不同语义 block | 已确认 |
 | DECISION-038 | 2026-05-30 | Sprint 3 增加 ComponentProtocol 与第一批 titleBlock variants 作为 Style System 前置范围 | 已确认 |
+| DECISION-039 | 2026-05-30 | Release 1 第一批 variant 升级为 11 block × 各 3~5 默认 variant × 若干 VisualAssetRegistry assets | 已确认 |
+| DECISION-040 | 2026-05-30 | Release 1 启用受控 AI 样式选择，AI 不得绕过 Style System | 已确认 |
+| DECISION-041 | 2026-05-30 | titleBlock slot 必须绑定合法内容来源，Style System 不得生成正文语义 | 已确认 |
+| DECISION-042 | 2026-05-30 | Release 1 titleBlock layoutMode 必须通过可执行 copy-safe 约束 | 已确认 |
+| DECISION-043 | 2026-05-30 | Release 1 样式采用 first-wave 11×3 required 与 expansion 分阶段策略 | 已确认 |
+| DECISION-044 | 2026-05-30 | magazine_left_bar_title 降为 release1CandidateVariants，不进入 first-wave required | 已确认 |
+| DECISION-045 | 2026-05-30 | 正式拆分 Sprint 3/4/6 为 3-A/B/C、4-A/B、6-A/B | 已确认 |
 
 ### DECISION-019 详情
 
@@ -120,6 +127,23 @@
 - **DECISION-037：** title / heading 共享 titleBlock visual component；映射属 Style System，不改 Block Schema
 - **DECISION-038：** Sprint 3 纳入 ComponentProtocol、titleBlock 3~5 copy-safe variant、VisualAssetRegistry 最小 pool、StyleOrchestrator 最小去重；Sprint 2 仍只做 Article/Block/InlineContent
 - **影响范围：** style-system §11、sprint-plan Sprint 3、TECH-ARCH-007~012
+- **状态：** 已确认
+
+### DECISION-039 ~ DECISION-042 详情（S1-STORY-025 Style System 实现前收口）
+
+- **DECISION-039：** Release 1 required variant = 11 semantic block × each 3~5 release1RequiredVariants + VisualAssetRegistry assets；三层分类 required/candidate/experimental；全部 required 须 Preview+Copy+Paste QA
+- **DECISION-040：** Release 1 启用受控 AI 样式选择；Generation 产出 StyleSelectionRequest/Patch；不得输出 HTML/CSS/inline style/未注册 variant/asset；须经完整 validation pipeline
+- **DECISION-041：** SlotContentBinding；title→block.content.text；subtitle→metadata或disabled；badge→orchestrator presentation；icon/bgShape→assetRegistry；Style System 不得生成正文
+- **DECISION-042：** TitleBlockLayoutCompatibility；layoutMode 须声明 allowedInCopy/fallbackLayoutMode/riskLevel；overlay/offset-bg 不得进入 release1RequiredVariants
+- **影响范围：** style-system §10/§11、architecture-overview §4/§9.2、generation-pipeline §8.1、sprint-plan Sprint 3~6
+- **状态：** 已确认
+
+### DECISION-043 ~ DECISION-045 详情（S1-STORY-027 范围收口与 Sprint 拆分）
+
+- **DECISION-043：** First wave = 11×3=33 release1RequiredVariants；expansion = 每 block 第 4/5 个；first-wave 须 Preview+Copy+Paste QA；expansion 不阻塞 Sprint 3-A/4-A
+- **DECISION-044：** `magazine_left_bar_title` = candidate；不在 first wave；实现须真实 DOM left bar + text，禁止 absolute/pseudo/complex layout，单独 Paste QA
+- **DECISION-045：** Sprint 3→3-A/B/C；Sprint 4→4-A/B；Sprint 6→6-A/B；Sprint 2/5 不变；拆分不降低最终 11×5 目标
+- **影响范围：** style-system §10、sprint-plan、product-backlog TECH-ARCH-018~022
 - **状态：** 已确认
 
 ## 决策模板
