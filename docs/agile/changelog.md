@@ -101,3 +101,5 @@
 | 2026-05-31 | Sprint 2 | 实现 schema parse / validate / normalize helper（Article + Block + validation result） | 代码 / 架构 | S2-STORY-005 |
 | 2026-05-31 | Sprint 2 | S2-STORY-005 merge 至 sprint 分支（`9a7d625`）；状态 Done | Git / 敏捷 | S2-STORY-005 |
 | 2026-05-31 | Sprint 2 | 新增基础 Article fixtures 与 schema 回归测试（4 fixtures + invalid cases） | 测试 / 架构 | S2-STORY-006 |
+| 2026-05-31 | Sprint 2 | S2-STORY-006 merge 至 sprint 分支（`049b427`）；状态 Done | Git / 敏捷 | S2-STORY-006 |
+| 2026-05-31 | Sprint 2 | 完成 Sprint 2 contract audit（P0=0；grade A）；Sprint 2 进入 Close Readiness | 架构 / 敏捷 | S2-STORY-007 |
