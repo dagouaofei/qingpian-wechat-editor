@@ -28,7 +28,8 @@ Preview Renderer 和 Copy Renderer 可以分离；
 | 职责 | 说明 |
 |------|------|
 | 读取 Article | 遍历 `blocks[]`，按顺序渲染 |
-| 解析样式 | 调用 Style Resolver 获取 `ResolvedBlockStyle` |
+| 解析样式 | 调用 Style Resolver 获取 **校验后的** `ResolvedBlockStyle` / `ResolvedArticleStyle` |
+| 渲染 InlineContent | paragraph / lead 的 `content.text`（InlineContent）经 Style System 映射为 DOM 样式（非 Block 内 CSS） |
 | 输出 DOM | React 组件树，用于页面预览 |
 | 流式更新 | 支持 blocks 增量追加时的增量渲染 |
 | 交互 | Release 1 仅只读预览，不含编辑 |
@@ -92,9 +93,10 @@ Preview Renderer 和 Copy Renderer 可以分离；
         (style → DOM)      (style → inline HTML)
 ```
 
-- 两者调用**同一个** `resolveStyle()` 函数
-- 两者读取**同一个** `BlockStyleRegistry`
-- 数值（fontSize、color、padding 等）完全一致，只是映射方式不同
+- 两者调用**同一个** `resolveStyle()` → 产出 **ResolvedArticleStyle**
+- Preview / Copy **不直接消费** VariantDefinition；消费 **ResolvedBlockStyle**（见 [style-system.md](style-system.md) §3.2）
+- 两者读取**同一个** BlockStyleRegistry（StyleResolver 内部）
+- 数值（fontSize、color、padding、slots 等）完全一致，只是输出适配层不同
 
 ---
 
@@ -161,6 +163,21 @@ CopyAdapter.toInlineStyle(resolvedStyle):
 ```
 
 Copy **全部 inline**，不输出 class 或 `<style>` 标签。
+
+### 7.4 titleBlock visual component 渲染
+
+| 规则 | 说明 |
+|------|------|
+| 输入 | semantic block + **校验后的** `ResolvedBlockStyle`（`componentId: titleBlock`） |
+| 禁止 | 接收 Generation 原始 StyleSelectionRequest / 未校验样式输出 |
+| 分发 | Preview / Copy 成对 titleBlock renderer |
+| 语义不变 | family / variant / slots 只影响视觉 |
+| 成对交付 | 每 variant 须 Preview + Copy 同时实现 |
+| 禁止降级 | Copy 不得降级为普通 paragraph |
+
+详见 [style-system.md](style-system.md) §11、[copy-to-wechat-pipeline.md](copy-to-wechat-pipeline.md) §5。
+
+**Renderer 边界（S1-STORY-025）：** Preview / Copy **只消费** StyleResolver 输出的 `ResolvedArticleStyle`；**不接收** Generation 直接输出的 HTML/CSS/inline style 或未校验的 `StyleSelectionRequest` / `StyleAssignmentPatch`。
 
 ---
 
@@ -234,15 +251,42 @@ src/core/copy/
 
 ## 11. 后续最小实现建议
 
-**Sprint 2+ 建议顺序：**
+> 与 [sprint-plan.md](../../docs/agile/sprint-plan.md) Sprint 2~6 计划一致（S1-STORY-023 / DECISION-035）。**Sprint 2 不得先做 Style System 或 Renderer。**
 
-1. 实现 Style Resolver + 1 个 preset + 全部 block 的默认 variant
-2. 实现 Copy Renderer（优先，因为 Copy 约束更严）
-3. 用 fixture Article 验证 Copy HTML → 人工粘贴
-4. 实现 Preview Renderer，对照 Copy 确认样式数值一致
-5. 建立 variant 级粘贴测试记录
+**Sprint 2：**
 
-**最小可验收闭环：**
+- 实现 Article / Block Schema + InlineContent 代码契约（TypeScript 类型、Zod Schema、normalize、fixture、单测）
+- **不实现** Renderer、Style System、Generation
+
+**Sprint 3：**
+
+- 实现 Style System 代码契约
+- 包括 Theme / Preset / VariantDefinition / Registry / StyleResolver / ResolvedBlockStyle / ResolvedArticleStyle / SlotRenderSpec / WeChatCompatibilityProfile
+
+**Sprint 4：**
+
+- 实现 Preview / Copy Renderer 最小闭环
+- 基于 fixture 和 ResolvedArticleStyle
+- Copy Renderer 应用 WeChatCompatibilityProfile
+- 启动最小微信公众号粘贴 QA
+
+**Sprint 5：**
+
+- 实现 Generation / Streaming 最小闭环
+- 输出 Article / GenerationEvent / `done.article`
+
+**Sprint 6：**
+
+- 实现 Fixture 三联 + Paste QA 回归体系
+
+**核心原则（不变）：**
+
+```text
+Preview Renderer 和 Copy Renderer 可以分离；
+但二者不得拥有两套样式来源。
+```
+
+**最小可验收闭环（Sprint 4 目标）：**
 
 ```text
 fixture Article → resolveStyle → Copy HTML → 粘贴微信 → 样式基本一致

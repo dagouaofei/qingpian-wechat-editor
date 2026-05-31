@@ -15,6 +15,36 @@
 
 复制一致性是 Release 1 **P0**，不是后期补 Bug。
 
+### 1.1 Copy Fidelity DoD（定稿）
+
+| 状态 | 含义 |
+|------|------|
+| **Done（代码）** | Preview + Copy 成对实现已合并；CopyHtmlResult 可生成 |
+| **Done（粘贴 QA）** | 该 block × variant 已通过微信公众号人工粘贴验收 |
+
+不得将 Done（代码）等同于 Done（粘贴 QA）。
+
+**`preview_only` 排除：** Release 1 正式 block × variant 不得使用 `copySafety: preview_only`；此类样式不计入 Copy Fidelity Done。
+
+### 1.2 粘贴 QA 启动时机
+
+| Sprint | 范围 |
+|--------|------|
+| **Sprint 4** | Preview/Copy 最小闭环时，启动**最小人工粘贴 QA**（classic-news 各 variant） |
+| **Sprint 6** | fixture 三联系统化回归；**不是**首次粘贴验证 |
+
+### 1.3 WeChatCompatibilityProfile 与 Copy Renderer
+
+Copy Renderer 生成 HTML 前必须加载 **WeChatCompatibilityProfile**（默认 `wechat-mp-editor-v1`），见 [wechat-copy-style-rules.md](wechat-copy-style-rules.md) §1.3。
+
+| 步骤 | 说明 |
+|------|------|
+| 输入 | `Article` + `ResolvedArticleStyle`（非 VariantDefinition） |
+| InlineMark | 段内 mark 映射为 allowed inline style；risky 属性走 FallbackPolicy |
+| Slot | `ResolvedBlockStyle.slots` 中每个 SlotRenderSpec 经 profile 过滤；preview_only slot 不输出 |
+| 输出 | 嵌套深度 ≤ `maxNestingDepth`；仅 inline style；无 class / `<style>` |
+| 验收 | profile 通过 ≠ 粘贴 QA 通过；须 PasteTestRecord |
+
 ---
 
 ## 2. Copy Renderer 输出什么
@@ -74,7 +104,23 @@ Copy Renderer 输出**微信兼容 HTML 片段**：
 
 ---
 
-## 5. 微信粘贴可能丢失的样式
+## 5. titleBlock visual component 与 Copy 保真
+
+| 规则 | 说明 |
+|------|------|
+| 成对 renderer | Preview / Copy titleBlock renderer 必须成对交付 |
+| 禁止降级 | 不得因 variant 复杂降级为普通 `<p>` |
+| Profile | family / variant / slot 须经 WeChatCompatibilityProfile |
+| Slot fallback | 每启用 slot 须有 Copy fallback |
+| QA | 每 titleBlock variant 单独粘贴 QA |
+
+**Release 1 范围（first wave）：** **33** first-wave **release1RequiredVariants**（11×3）须 Preview + Copy 成对 + Paste QA（style-system §10.3~10.4）。Expansion variants 分批交付。
+
+详见 [style-system.md](style-system.md) §11、[wechat-copy-style-rules.md](wechat-copy-style-rules.md) §10。
+
+---
+
+## 6. 微信粘贴可能丢失的样式
 
 | 样式 | 丢失概率 | 应对策略 |
 |------|----------|----------|
@@ -90,7 +136,7 @@ Copy Renderer 输出**微信兼容 HTML 片段**：
 
 ---
 
-## 6. 旧项目 preview/copy 不一致的典型问题
+## 7. 旧项目 preview/copy 不一致的典型问题
 
 | 问题 | 根因 | 新项目约束 |
 |------|------|------------|

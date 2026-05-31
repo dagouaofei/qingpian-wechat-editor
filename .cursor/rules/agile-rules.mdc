@@ -10,6 +10,16 @@ alwaysApply: true
 - 所有任务必须对应 **Story / Bug / Decision**
 - 每个 Story 必须有验收标准（AC）
 - 每个 Sprint 必须更新 `docs/agile/sprint-backlog.md`
+- **每个 Story / Bug / Docs / Chore 任务应对应一个独立工作分支**
+- `sprint-backlog.md` 中应记录任务分支名（如有）
+
+## Git 分支与任务
+
+- 每个 Sprint 从 `main` 新建 `sprint/<sprint-slug>` 分支
+- Sprint 内任务从**当前 sprint 分支**切出 `feature/` / `docs/` / `bugfix/` / `chore/` 分支
+- 一个工作分支只解决一个问题
+- 工作分支完成后合并回 sprint 分支，**不直接合并 main**
+- 详见 `docs/agile/git-workflow.md`
 
 ## 范围变更
 
@@ -21,10 +31,66 @@ alwaysApply: true
 - 后续 Sprint 可按合理工作量拆分
 - 每个 Sprint 必须更新 `docs/agile/sprint-backlog.md`
 
-## 执行报告
+## Execution Report（默认必须）
 
-- 本项目不要求额外生成 execution report
-- 相关规则已由用户放在 Cursor 全局规则中
+每轮 Cursor 执行完成后，**必须**生成一份 execution report。
+
+### 存放路径
+
+```text
+docs/agile/execution-reports/
+```
+
+### 命名规则
+
+```text
+YYYY-MM-DD-<short-task-slug>.md
+```
+
+示例：
+
+```text
+2026-05-30-s1b-execution-report-workflow.md
+2026-05-30-style-system-review.md
+2026-05-31-article-schema-contract.md
+```
+
+- 文件名**必须以日期开头**
+
+### 每份 report 至少包含
+
+- 任务背景
+- 分支名（当前分支）
+- **来源分支**
+- **目标合并分支**
+- 关联 Sprint / Story / Bug / Decision
+- 本轮目标
+- 执行范围
+- 修改文件
+- 新增文件
+- 未修改但阅读过的关键文件
+- 关键决策
+- 验收标准完成情况
+- 运行的检查命令
+- 检查结果
+- 未完成事项
+- 风险与阻塞
+- 需要用户 / ChatGPT 继续审查的问题
+- 建议下一步
+- commit hash（若本轮无 commit，写明「未提交 / not committed」）
+
+### 默认行为
+
+- 项目规则已默认要求 execution report，**无需在每条 Cursor 指令中重复要求**
+- 仅当用户**明确要求本轮不生成** execution report 时，才可跳过，并在 Cursor 回复中说明原因
+- 使用 [`docs/agile/execution-reports/_template.md`](../../docs/agile/execution-reports/_template.md) 作为模板
+
+### Sprint / Story 关闭
+
+- Cursor **不应仅凭自己的总结**宣布 Sprint 或 Story 完成
+- **任务完成状态不等于 Sprint 关闭**；Sprint 关闭必须由**用户确认**
+- Sprint / Story 的最终关闭需要**用户确认**
+- 存在争议时，状态标记为 `In Review` 或 `Needs Review`，而非直接 `Done`
 
 ## 文档位置
 
@@ -34,3 +100,4 @@ alwaysApply: true
 - Bug Backlog：`docs/agile/bugs.md`
 - 决策记录：`docs/agile/decisions.md`
 - 变更日志：`docs/agile/changelog.md`
+- Execution Reports：`docs/agile/execution-reports/`

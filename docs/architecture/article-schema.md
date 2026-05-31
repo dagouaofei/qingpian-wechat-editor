@@ -68,11 +68,15 @@ ArticleMetadata
 └── tags?: string[]                 # 标签（Release 1 可选）
 ```
 
-**设计原则：**
+**设计原则（与 [architecture-overview.md](architecture-overview.md) §6 一致）：**
 
 - `metadata.title` 是文章级标题，用于列表展示、SEO、复制 HTML `<title>` 等
 - `metadata` 不重复 block 内的全部内容，只承载文章级元信息
 - 若 `title` block 存在，`metadata.title` 应与其 `content.text` 保持一致（生成链路负责同步）
+- `metadata.summary` 可与 `lead` block 镜像（列表/SEO），但不替代 blocks[] 内结构
+- 正文结构（heading、paragraph、list 等）**仅**存在于 `blocks[]`
+- 段内富文本语义（词级高亮、加粗等）通过 **InlineContent / InlineMark** 表达（见 [block-schema.md](block-schema.md) §3.1）；不属于 metadata 层
+- Release 1 文本型 block 主文本字段统一为 `content.text`；`paragraph` / `lead` 支持 `string | InlineContent`，实现阶段 normalize 为 InlineContent
 
 ---
 
@@ -131,7 +135,7 @@ Article 只存**引用 ID**，Style Definition 的解析在渲染时由样式系
 
 ```
                     ┌─────────────┐
-  主题/资料/草稿 ──→│  Generation  │──→ blocks 增量 / done.article
+  主题/资料/草稿 ──→│  Generation  │──→ block.start/delta/complete / done.article
                     └──────┬──────┘
                            │
                            ▼

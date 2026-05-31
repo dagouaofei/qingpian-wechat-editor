@@ -84,25 +84,42 @@ Article（唯一输出结构）
 | 应用层 | 事件解析、block 组装、状态管理 | SSE + JSONL events |
 | 体验层 | 用户看到的逐步显示 | 打字机式 UI / block 增量渲染 |
 
-### 4.2 应用层事件模型
+### 4.2 应用层事件模型（GenerationEvent 定稿）
+
+> 与 [architecture-overview.md](architecture-overview.md) §11.2 一致。Release 1 **唯一**事件模型。
 
 ```text
 SSE 连接: POST /api/generate/stream
 
-事件类型:
-├── { type: "status",    status: "started" | "generating" | "structuring" }
-├── { type: "metadata",  data: { title?: string } }
-├── { type: "block.append", block: Block }
-├── { type: "block.update", blockId: string, content: Partial<BlockContent> }
-├── { type: "block.delta",  blockId: string, field: string, delta: string }  // 可选：字段级增量
-├── { type: "error",     message: string }
+GenerationEvent:
+├── { type: "status",    phase: "started" | "generating" | "structuring" | "failed" }
+├── { type: "metadata",  patch: Partial<ArticleMetadata> }
+├── { type: "block.start",    blockId, blockType, index, initialContent? }
+├── { type: "block.delta",    blockId, field, delta }
+├── { type: "block.complete", block: Block }
+├── { type: "error",     code, message }
 └── { type: "done.article", article: Article }
 ```
 
+**语义：**
+
+- `block.start` — 新 block 开始；UI 可创建占位
+- `block.delta` — block 内字段增量，驱动打字机 UX
+- `block.complete` — 该 block 已符合 Block Schema，可参与 Preview
+- 模型一次输出整 block（JSONL 一行）时：emit `block.start` + `block.complete`（可无 delta）
+
+**废弃命名（不得在新代码中使用）：**
+
+| 废弃 | 映射 |
+|------|------|
+| `block.append` | → `block.start` + `block.complete` |
+| `block.update` | → `block.delta` 或 `block.complete` |
+| `block_start` / `block_delta` / `block_done` | 旧项目 underscore 命名；轻篇用 dot 命名，语义等价 |
+
 ### 4.3 关键原则
 
-1. **block.append / block.update** 事件中的 Block 立即符合 Block Schema
-2. UI 收到 block 事件后，更新 Article.blocks 并触发 Preview 增量渲染
+1. **`block.complete` 中的 Block** 立即符合 Block Schema
+2. UI 收到 block 生命周期事件后，更新 Article.blocks 并触发 Preview 增量渲染
 3. **done.article** 携带完整、校验通过的 Article，作为唯一可信终态
 4. 若 done.article 与增量 blocks 不一致，**以 done.article 为准**
 5. 原始 token 流**不暴露给前端**，不在 UI 层维护 token 缓冲区作为文章结构
@@ -169,8 +186,8 @@ done.article 到达:
 
 | 体验 | 实现 |
 |------|------|
-| 打字机式 | block.append 事件 → 新 block 动画进入 Preview |
-| 逐步显示 | 已有 block 的 content 通过 block.update 增量更新 |
+| 打字机式 | block.delta 事件 → block 内字段逐步追加 |
+| 新 block 出现 | block.start → block.complete → Preview 增量渲染 |
 | 进度感 | status 事件 → 进度条 / 状态文字 |
 | 生成中预览 | Preview Renderer 渲染 partial Article |
 | 生成完成 | done.article → 完整 Preview + 可复制 |
@@ -179,16 +196,37 @@ done.article 到达:
 
 ## 8. 生成与样式系统的关系
 
-生成链路**不负责样式**，只负责产出 Article（含 blocks + 默认 styleAssignment）：
+生成链路负责产出 **Article 内容** + **受控样式建议**；**不负责**直接渲染或输出 HTML/CSS。
+
+### 8.1 Release 1 受控 AI 样式选择（DECISION-040）
+
+Generation Module 在 Release 1 **启用受控 AI 样式选择**：
+
+| 允许 | 禁止 |
+|------|------|
+| 产出 Article（blocks + 默认 styleAssignment） | 直接输出 HTML |
+| 产出 `StyleSelectionRequest` / `StyleAssignmentPatch` | 直接输出 CSS / inline style |
+| 样式建议经 Style System 校验链 | 输出未注册 variant / assetId |
+| | 直接调用 Preview / Copy Renderer |
+| | 绕过 Style System |
 
 ```text
 GenerationEngine 产出:
-  Article.styleAssignment = { themeId: "default", presetId: "classic-news" }
+  Article.blocks + Article.styleAssignment（默认 preset）
+  StyleSelectionRequest? / StyleAssignmentPatch?（样式建议，可选）
 
-样式解析由 Style System 在渲染时完成。
+样式建议 → Style System validation pipeline（见 style-system §11.8.3）
+校验通过 → 合并至 ArticleStylePlan / styleAssignment
+StyleResolver → ResolvedArticleStyle → Preview / Copy
 ```
 
-后续 Release 2 可支持「生成后切换 preset」，但 Release 1 使用系统默认 preset。
+**规则：** 未经校验的 AI 样式建议**不得**写入 `Article.styleAssignment`；AI 建议**不得**修改 Article.blocks 正文语义。
+
+详见 [style-system.md](style-system.md) §11.8、[architecture-overview.md](architecture-overview.md) §9.2。
+
+### 8.2 Release 1 默认 preset
+
+Release 1 系统默认 `styleAssignment = { themeId: "default", presetId: "classic-news" }`；AI 可在约束内建议 variant / family / slot / asset 覆盖。
 
 ---
 

@@ -37,3 +37,38 @@
 | 2026-05-30 | Sprint 1-B | generation-pipeline.md 升级为正式技术方案 | 架构 | S1-STORY-013 |
 | 2026-05-30 | Sprint 1-B | 核心技术方案一致性审查，修正 architecture-overview 等文档 | 架构 | S1-STORY-014, DECISION-018 |
 | 2026-05-30 | Sprint 1-B | 更新 sprint-plan / sprint-backlog / decisions / changelog | 敏捷 | S1-STORY-015 |
+
+---
+
+## 2026-05-30 · Sprint 1-B（进行中）
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-05-30 | Sprint 1-B | 建立 execution report 协作机制 | 协作 / 规则 | S1-STORY-016, DECISION-019 |
+| 2026-05-30 | Sprint 1-B | 新增 execution-reports 目录与模板 | 敏捷 | S1-STORY-016 |
+| 2026-05-30 | Sprint 1-B | 更新 Cursor 项目规则（agile-rules、collaboration-rules） | 开发约束 | S1-STORY-016 |
+| 2026-05-30 | Sprint 1-B | 更新 chatgpt-cursor-docs-workflow.md 协作流 | 协作 | S1-STORY-016 |
+| 2026-05-30 | Sprint 1-B | Sprint 1-B 整体状态调整为 In Review | 敏捷 | S1-STORY-016 |
+| 2026-05-30 | Sprint 1-B | 建立 Sprint 分支与迭代内工作分支规则 | Git / 协作 | S1-STORY-017, DECISION-020 |
+| 2026-05-30 | Sprint 1-B | 更新 git-workflow.md 分支模型与合并规则 | Git | S1-STORY-017 |
+| 2026-05-30 | Sprint 1-B | 更新 Cursor 项目规则（project/agile/collaboration） | 开发约束 | S1-STORY-017 |
+| 2026-05-30 | Sprint 1-B | 更新 chatgpt-cursor-docs-workflow.md | 协作 | S1-STORY-017 |
+| 2026-05-30 | Sprint 1-B | Sprint 1-B 保持 In Review | 敏捷 | S1-STORY-017 |
+| 2026-05-30 | Sprint 1-B | A/B 架构独立 audit | 架构 | architecture-ab-audit |
+| 2026-05-30 | Sprint 1-B | Release 1 整体架构定稿（唯一 architecture-overview.md） | 架构 | S1-STORY-020, DECISION-023 |
+| 2026-05-30 | Sprint 1-B | GenerationEvent 统一为 block.start/delta/complete | 架构 | DECISION-024 |
+| 2026-05-30 | Sprint 1-B | StyleDefinition 最小模型与 Copy Fidelity DoD 定稿 | 架构 | DECISION-025~027 |
+| 2026-05-30 | Sprint 1-B | Style Import Adapter 扩展点预留 | 架构 | DECISION-028 |
+| 2026-05-30 | Sprint 1-B | 架构定稿合并前修复：纳入 prototype architecture lessons reference，明确 preview_only 不计入 Release 1 正式交付 | 架构 | S1-STORY-020 |
+| 2026-05-30 | Sprint 1-B | Release 1 architecture overview finalized and merged into sprint governance branch | 架构 / Git | S1-STORY-020 |
+| 2026-05-30 | Sprint 1-B | 新增 S1-STORY-021 实现前契约缺口修正；补充 InlineContent、Style 命名边界、slot copy-safe、WeChatCompatibilityProfile；调整 Sprint 2~6 计划 | 架构 / 敏捷 | S1-STORY-021, DECISION-029~033 |
+| 2026-05-30 | Sprint 1-B | 新增 S1-STORY-022；基于 prototype-style-system-technical-lessons.md 对 S1-STORY-021 修正方案二次审计；Sprint 1-B 保持 In Review | 架构 / 敏捷 | S1-STORY-022 |
+| 2026-05-30 | Sprint 1-B | 新增 S1-STORY-024：Component DSL 能力对齐与 Style System 补强；…DECISION-036~038；Sprint 1-B 保持 In Review | 架构 / 敏捷 | S1-STORY-024, DECISION-036~038 |
+| 2026-05-30 | Sprint 1-B | 新增 S1-STORY-025：Style System 实现前收口；…DECISION-039~042；Sprint 1-B 保持 In Review | 架构 / 敏捷 | S1-STORY-025, DECISION-039~042 |
+| 2026-05-30 | Sprint 1-B | 新增 S1-STORY-026：S1-STORY-025 二次审计；…S1-STORY-025 分级 B 可 merge；Sprint 1-B 保持 In Review | 架构 / 敏捷 | S1-STORY-026 |
+| 2026-05-30 | Sprint 1-B | 新增 S1-STORY-027：Release 1 样式范围与 Sprint 拆分收口；first wave 11×3、expansion 11×5 target、magazine_left_bar_title 降为 candidate、Sprint 3-A/B/C & 4-A/B & 6-A/B；DECISION-043~045；Sprint 1-B 保持 In Review | 架构 / 敏捷 | S1-STORY-027, DECISION-043~045 |
+| 2026-05-30 | Sprint 1-B | Merge S1-STORY-025 → 026 → 027 文档链至 `sprint/s1b-core-tech-governance`；Sprint 1-B 保持 In Review | Git / 敏捷 | S1-STORY-025~027 |
+| 2026-05-30 | Sprint 1-B | 新增 S1-STORY-028：Sprint 1-B 总 Audit；分级 B；P0=0 P1=9 P2=5；025~027 已在 sprint merge；Sprint 1-B 保持 In Review | 架构 / 敏捷 | S1-STORY-028 |
+| 2026-05-30 | Sprint 1-B | Merge S1-STORY-028 final audit 至 `sprint/s1b-core-tech-governance`（`25b9bad`） | Git / 敏捷 | S1-STORY-028 |
+| 2026-05-30 | Sprint 1-B | 新增 S1-STORY-029：Sprint 1-B 关闭前状态同步；同步 S1-STORY-021~028 Done；登记 TECH-ARCH-023 Style Quality Gate；补充 Close Readiness Checklist；Sprint 1-B 保持 In Review | 敏捷 | S1-STORY-029, TECH-ARCH-023 |
+| 2026-05-30 | Sprint 1-B | **关闭 Sprint 1-B**；修复 architecture-overview §19 P1-010；S1-STORY-029 Done；DECISION-051；Sprint 2 未启动 | 敏捷 / 架构 | S1-STORY-029, DECISION-051 |

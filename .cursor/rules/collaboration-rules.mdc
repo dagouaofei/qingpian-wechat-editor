@@ -7,34 +7,85 @@ alwaysApply: true
 
 ## 角色分工
 
-| 工具 | 职责 |
-|------|------|
-| **ChatGPT** | 产品梳理、架构讨论、敏捷规划、Cursor 指令生成、结果审查 |
-| **Cursor** | 读取项目文件、修改代码、维护 docs、执行测试和提交变更 |
-| **docs** | ChatGPT 与 Cursor 之间的共享事实源 |
+### ChatGPT
+
+- 产品梳理
+- 架构讨论
+- Sprint 拆分
+- Cursor 指令生成（**应建议本轮任务分支名**）
+- **execution report 审查**
+- 下一步判断（是否合并、是否关闭 Story/Sprint）
+
+### Cursor
+
+- **确认当前分支是否符合 git-workflow.md**（执行前）
+- **从当前 sprint 分支新建本轮工作分支**（每轮尽量一个问题、一个分支）
+- 阅读项目 docs（执行前优先阅读相关 docs）
+- 执行文档或代码修改
+- 运行必要检查（lint、build、test 等）
+- 更新相关 docs
+- **生成 execution report**（每轮执行后默认必须）
+- **不自行关闭**存在争议的 Sprint / Story
+- **不自行 merge 至 sprint 或 main**（需用户确认）
+
+### docs
+
+- ChatGPT 与 Cursor 之间的**共享事实源**
+- 承接跨工具、跨会话、跨 Sprint 的上下文
+
+### execution report
+
+- 每轮 Cursor 执行后的**交接文档**
+- ChatGPT 审查 Cursor 执行结果的**主要输入**
+- 用户判断是否进入下一步的依据
 
 ## 执行流程
 
-1. Cursor 每轮执行前**必须优先阅读相关 docs**，而不是只依赖当前对话
-2. Cursor 执行后**必须同步更新相关 docs**，避免代码和文档脱节
-3. 用户可以把 Cursor 的变更摘要、文件列表、关键文档内容发给 ChatGPT 复核
+1. ChatGPT 给出**单问题** Cursor 指令（含建议分支名）
+2. Cursor **确认当前 sprint 分支**，新建本轮工作分支
+3. Cursor **阅读相关 docs**
+4. Cursor **执行本轮任务**
+5. Cursor **更新相关 docs**
+6. Cursor **生成 execution report** → `docs/agile/execution-reports/`
+7. 用户将 **execution report 或摘要** 发给 ChatGPT
+8. ChatGPT **审查是否通过**、是否建议合并回 sprint 分支
+9. 用户决定是否**合并、关闭 Story/Sprint、进入下一步**
 
-## 冲突处理
+## Cursor 执行后必须说明
 
-- 如果 ChatGPT 指令、Cursor 当前理解和 docs 内容冲突，应**优先以 docs 为准**
-- 需要用户确认的决策记录到 `docs/agile/decisions.md`
+在回复和 execution report 中说明：
+
+- **当前分支**
+- **来源分支**
+- **建议合并目标**（通常为当前 sprint 分支）
+- **是否已 commit**
+- **是否已 merge**（默认未 merge，待用户确认）
+
+## 关键规则
+
+1. **执行前读 docs** — 含 `git-workflow.md`、`sprint-plan.md`、`sprint-backlog.md`
+2. **执行后写 docs** — 代码/文档变更必须同步
+3. **执行后写 execution report** — 摘要必须沉淀到项目文件
+4. **冲突以 docs 为准** — 记录到 `decisions.md` 待用户确认
+5. **Sprint/Story 关闭需用户确认** — Cursor 不自行宣布 Done
+6. **争议标记 In Review** — 不用 Done
+7. **每轮一个问题** — 一个工作分支、一份 execution report
+8. **合并需用户确认** — 工作分支 → sprint → main，Cursor 不自动 merge
 
 ## 禁止项
 
 - 不允许把 Cursor 对话记忆当成唯一事实来源
 - 不允许只改代码不改文档
 - 不允许只改文档但与项目实际状态不一致
+- 不允许只在聊天窗口回复摘要而不写 execution report
+- 不允许 Cursor 自行关闭存在争议的 Sprint / Story
+- 不允许在 main 上直接开发具体任务
+- 不允许多个无关任务共用一个工作分支
+- 不允许 Cursor 未经用户确认 merge sprint 分支至 main
 - 旧项目经验应先进入 docs，再影响技术方案，不直接进入代码
-
-## 连续性
-
-- 新项目应通过 docs 维持跨工具、跨会话、跨 Sprint 的连续性
 
 ## 参考文档
 
+- `docs/agile/git-workflow.md`
 - `docs/agile/chatgpt-cursor-docs-workflow.md`
+- `docs/agile/execution-reports/README.md`

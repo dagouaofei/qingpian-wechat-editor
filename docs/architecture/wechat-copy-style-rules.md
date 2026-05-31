@@ -15,6 +15,79 @@
 - 每个涉及样式的 Story 必须同时验收 Preview 和 Copy
 - 复制到微信公众号编辑器后的样式一致性是首要质量目标
 
+### 1.1 Copy Fidelity DoD
+
+| 状态 | 含义 |
+|------|------|
+| **Done（代码）** | Preview + Copy 成对实现完成 |
+| **Done（粘贴 QA）** | 微信公众号粘贴验收通过 |
+
+Story / variant 关闭须区分上述两种 Done。
+
+### 1.2 粘贴 QA 时间线
+
+- **Sprint 4：** Preview/Copy 闭环时启动最小人工粘贴 QA
+- **Sprint 6：** fixture 三联（Article JSON + copy HTML snapshot + paste checklist）系统化回归
+
+---
+
+## 1.3 WeChatCompatibilityProfile（实现前契约）
+
+> 将微信复制规则从原则变为**可执行 profile**，供 Copy Renderer 与 Style System 开发阶段判断 copy-safe。
+
+### 1.3.1 结构
+
+```text
+WeChatCompatibilityProfile
+├── profileId: "wechat-mp-editor-v1"
+├── allowedCssProperties: string[]
+├── riskyCssProperties: { property: string; fallback: string; note: string }[]
+├── forbiddenCssProperties: string[]
+├── maxNestingDepth: number              # Release 1: 3
+├── requireInlineStyle: true
+├── requireTextNodeTypography: true      # 文本节点必须 inline font-size / font-family
+└── fallbackPolicy: FallbackPolicy[]
+
+FallbackPolicy
+├── from: string                         # CSS 属性或模式
+├── to: string                           # fallback 属性或值策略
+├── reason: string
+└── requiredForRelease1: boolean
+```
+
+### 1.3.2 AllowedCssProperties（Release 1）
+
+`font-size`, `font-weight`, `font-family`, `color`, `line-height`, `text-align`, `margin`, `padding`, `background-color`, `border`, `border-radius`, `display:block`, `display:inline`, `display:inline-block`
+
+### 1.3.3 RiskyCssProperties（须 fallback + 粘贴测试）
+
+| property | fallback | note |
+|----------|----------|------|
+| `box-shadow` | `border` | 用 border 模拟卡片层次 |
+| `linear-gradient` | `background-color` | 纯色背景 |
+| `opacity` | explicit `color` / `background-color` | 避免透明度丢失 |
+| `letter-spacing` | 保留但须 paste test | 中风险 |
+| `border-radius` | 保留但须 paste test | 中风险 |
+
+### 1.3.4 ForbiddenCssProperties（Copy HTML 禁止）
+
+- class-based style（依赖 class 的选择器）
+- `<style>` 标签
+- external / web font（`@font-face`、外链字体）
+- CSS variables（`var(--*)`）在 copy HTML 中
+- `animation`、`transition`
+- `:hover` 及交互伪类
+- `::before` / `::after`
+- Release 1 copy：**complex grid / flex layout**、**absolute positioning**
+
+### 1.3.5 使用规则
+
+1. **VariantDefinition** 必须声明或可推导 `wechatCompatibility`（关联 profileId）
+2. **Copy Renderer** 输出前必须使用 WeChatCompatibilityProfile 过滤 / fallback inline style
+3. **InlineMark** 映射（bold/highlight/color）须符合 profile 的 allowed + risky 规则
+4. Release 1 variant 若无法满足 profile，**不得**进入正式可用集
+5. profile 是开发阶段 copy-safe 判断依据，**不替代**人工粘贴 QA
+
 ---
 
 ## 2. 设计原则
@@ -171,6 +244,32 @@ Preview     Copy
 ```
 
 Copy 是样式系统的**最终验收环节**，不是附属功能。
+
+---
+
+## 10. titleBlock family / variant / slot 与 Copy 约束
+
+| 约束 | 说明 |
+|------|------|
+| Profile 校验 | titleBlock family / variant / slot 须经 WeChatCompatibilityProfile |
+| Slot fallback | icon / badge / decorationLine / bgShape / extraMark 须有 copy-safe fallback |
+| 禁止项 | 不得依赖 pseudo、复杂 absolute、复杂 flex/grid |
+| 高风险 | bgShape / magazine / overlay 类须有真实 DOM fallback |
+| Done 分离 | titleBlock Done（代码）≠ Done（粘贴 QA） |
+| QA | 每 titleBlock variant 进入 block × variant × paste QA |
+
+**Release 1 Paste QA 范围（DECISION-039、DECISION-043）：** **First wave 33 variants**（11×3）须进入 Paste QA；Sprint 4-A/B 启动最小 QA；Sprint 6-B first-wave 全量回归；expansion variants 后续批次 QA。
+
+> **`magazine_left_bar_title`（candidate）：** 不进入 first-wave QA 范围；若实现须单独 Paste QA（DECISION-044）。
+
+### 10.1 TitleBlockLayoutCompatibility 与 WeChat profile
+
+Copy Renderer 对 titleBlock 须额外校验 `TitleBlockLayoutCompatibility`（见 [style-system.md](style-system.md) §11.10）：
+
+- Release 1 copy 禁止 absolute positioning
+- overlay / offset-bg 类须 `fallbackLayoutMode`
+- 不满足 `allowedInCopy` 的 layoutMode 不得进入 release1RequiredVariants
+- Copy 不得因 layout 复杂降级为 paragraph
 
 ## 相关文档
 
