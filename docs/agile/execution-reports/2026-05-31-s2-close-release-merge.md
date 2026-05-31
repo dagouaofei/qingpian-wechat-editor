@@ -3,7 +3,7 @@
 ## 1. 基本信息
 
 - 日期：2026-05-31
-- 当前分支：（merge 后填写）
+- 当前分支：`release/1`
 - 来源分支：`sprint/s2-article-block-schema`
 - 目标合并分支：`release/1`
 - Sprint：Sprint 2
@@ -53,13 +53,13 @@
 | 命令 | 结果 | 说明 |
 |------|------|------|
 | corepack pnpm lint | PASS | merge 后 |
-| corepack pnpm test | PASS | merge 后 |
+| corepack pnpm test | PASS | 126/126 |
 | corepack pnpm build | PASS | merge 后 |
 
 ## 8. Commit
 
-- Sprint 2 关闭文档 commit：（提交后填写）
-- release/1 merge commit：（merge 后填写）
+- Sprint 2 关闭文档 commit：`3540501`
+- release/1 merge commit：`aac6d8b`
 
 ## 9. 建议下一步
 
