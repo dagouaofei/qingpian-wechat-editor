@@ -52,7 +52,7 @@
 | **P0** | 0 |
 | **P1 / P2** | 已登记至后续 Sprint / Product Backlog（见下方登记表） |
 | **用户确认** | Checklist #10：已确认接受 B 级 final audit；Checklist #11：已确认可以关闭 Sprint 1-B |
-| **Sprint 2** | **In Progress**（DECISION-053，2026-05-31） |
+| **Sprint 2** | **In Review**（待用户确认关闭；2026-05-31 contract audit） |
 | **Release 1 主干** | `release/1`（`sprint/s1b-core-tech-governance` 已 merge，DECISION-052） |
 | **Sprint 2 分支** | `sprint/s2-article-block-schema`（从 `release/1` 切出） |
 | **下一步** | S2-STORY-002：InlineContent / InlineMark 代码契约 |
@@ -116,11 +116,11 @@
 
 ## Sprint 2 ~ 6 计划（Release 1 代码实现）
 
-> **Sprint 2 状态：In Progress**（DECISION-053，2026-05-31；分支 `sprint/s2-article-block-schema`）
+> **Sprint 2 状态：In Review**（DECISION-053，2026-05-31；分支 `sprint/s2-article-block-schema`；contract audit 见 `docs/architecture/audits/sprint2-contract-audit.md`；**待用户确认关闭**）
 >
 > 业务功能实现必须在核心技术方案 + 实现前契约完成之后进入（DECISION-015、DECISION-029~045、DECISION-051）。
 
-### Sprint 2：Article / Block Schema + InlineContent 代码契约 — **In Progress**
+### Sprint 2：Article / Block Schema + InlineContent 代码契约 — **In Review**（待用户确认关闭）
 
 **分支：** `sprint/s2-article-block-schema` · **Release 1 主干：** `release/1`
 

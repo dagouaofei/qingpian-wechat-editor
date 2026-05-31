@@ -1,7 +1,7 @@
 # Sprint Backlog
 
 > **Sprint 1：** 正式项目启动、核心技术方案定稿与工程治理 · Sprint 1-A / 1-B：**Closed**
-> **Sprint 2：** Article / Block Schema + InlineContent 代码契约 · **In Progress**
+> **Sprint 2：** Article / Block Schema + InlineContent 代码契约 · **In Review**（待用户确认关闭；close readiness 见 `docs/architecture/audits/sprint2-contract-audit.md` §11）
 > **Release 1 主干：** `release/1` · **Sprint 2 分支：** `sprint/s2-article-block-schema`（DECISION-053）
 
 ---
@@ -594,7 +594,7 @@
 
 **用户故事：** 作为开发者，我需要可复用的 Article / Block JSON fixture 与 schema 单元测试，以便后续 Sprint 3~6 在不重写测试数据的情况下扩展。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s2-schema-fixtures`
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s2-schema-fixtures`（已 merge 至 `sprint/s2-article-block-schema` @ `049b427`）
 
 **明确不做：**
 
@@ -618,7 +618,7 @@
 
 **用户故事：** 作为产品负责人，我需要在 Sprint 2 代码实现完成后做一次契约 audit，确认 TS/Zod 与 architecture 文档一致，并准备 Sprint 2 关闭与 Sprint 3 启动条件。
 
-**优先级：** P0 · **状态：** Pending · **工作分支：** `docs/s2-schema-contract-audit`
+**优先级：** P0 · **状态：** In Review · **工作分支：** `docs/s2-contract-audit-close-readiness`
 
 **明确不做：**
 
@@ -628,11 +628,26 @@
 
 **验收标准：**
 
-- [ ] AC-1 已生成 `docs/architecture/audits/s2-schema-contract-audit.md`（或等价路径）
-- [ ] AC-2 audit 对照 `article-schema.md`、`block-schema.md`、DECISION-034（text 字段）
-- [ ] AC-3 audit 输出 P0/P1/P2 问题清单；P0=0 方可建议关闭 Sprint 2
-- [ ] AC-4 S2-STORY-002~006 状态与 sprint-backlog 已同步
-- [ ] AC-5 sprint-plan / changelog / decisions 已更新 Sprint 2 关闭准备项（若适用）
-- [ ] AC-6 `pnpm lint` / `pnpm build` / 测试全通过
-- [ ] AC-7 已生成 execution report
-- [ ] AC-8 Sprint 2 保持 In Review 直至用户确认关闭
+- [x] AC-1 已生成 `docs/architecture/audits/sprint2-contract-audit.md`
+- [x] AC-2 audit 对照 `article-schema.md`、`block-schema.md`、DECISION-034（text 字段）
+- [x] AC-3 audit 输出 P0=0 / P1=1 / P2=3；P0=0 建议可关闭 Sprint 2（待用户确认）
+- [x] AC-4 S2-STORY-002~006 状态与 sprint-backlog 已同步 Done
+- [x] AC-5 sprint-plan / changelog 已更新 Sprint 2 In Review / Close Readiness
+- [x] AC-6 `corepack pnpm lint` / `corepack pnpm test` / `corepack pnpm build` 通过
+- [x] AC-7 已生成 execution report
+- [x] AC-8 Sprint 2 保持 In Review 直至用户确认关闭
+
+---
+
+## Sprint 2 Close Readiness
+
+> **状态：待用户审查** — 详见 `docs/architecture/audits/sprint2-contract-audit.md` §11 Close Readiness Checklist
+
+| 项 | 状态 |
+|----|------|
+| S2-STORY-002~006 | Done |
+| S2-STORY-007 | In Review |
+| P0 findings | 0 |
+| lint / test / build | PASS |
+| Sprint 2 关闭 | ⏳ 待用户确认 |
+| merge sprint → `release/1` | ⏳ 待用户确认 |
