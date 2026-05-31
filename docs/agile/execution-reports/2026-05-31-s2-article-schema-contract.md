@@ -43,7 +43,7 @@
 
 ## 7. Commit
 
-- Commit hash：（提交后填写）
+- Commit hash：`77ec4f8`
 
 ## 8. 建议下一步
 
