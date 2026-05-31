@@ -494,7 +494,7 @@
 
 **用户故事：** 作为开发者，我需要 InlineContent / InlineMark 的 TypeScript 类型与 Zod Schema，以便 paragraph / lead 等 block 能表达段内富文本语义且与文档契约一致。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s2-inline-content-contract`
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s2-inline-content-contract`（已 merge 至 `sprint/s2-article-block-schema` @ `ba149fe`）
 
 **明确不做：**
 
@@ -519,24 +519,25 @@
 
 **用户故事：** 作为开发者，我需要 Release 1 全部 11 种 Block 的 discriminated union 类型与 Zod Schema，以便 Article 内容与后续 Renderer 共享同一语义边界。
 
-**优先级：** P0 · **状态：** Pending · **工作分支：** `feature/s2-block-schema-contract`
+**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s2-block-schema-contract`
 
 **明确不做：**
 
 - 不实现 Preview / Copy Renderer
 - 不在 Block 上绑定 variant / CSS / StyleDefinition
 - 不实现 Generation 或流式 block 增量解析
+- 不实现 Article Schema 总装
 
 **验收标准：**
 
-- [ ] AC-1 已实现 11 种 `BlockType`：`title`、`lead`、`heading`、`paragraph`、`list`、`quote`、`highlight`、`info_card`、`cta`、`divider`、`image_placeholder`
-- [ ] AC-2 每种 block 的 `content` 字段与 `block-schema.md` §5 一致（含 `paragraph`/`lead` 的 `text` 字段，**不使用 `body`**）
-- [ ] AC-3 `info_card.content.body` 保留独立语义（非 paragraph body）
-- [ ] AC-4 Block 通用结构：`id`、`type`、`content`、`meta?`；Zod discriminated union 按 `type` 分支
-- [ ] AC-5 `BlockMeta`（`label?`、`sourceIndex?`）已定义并纳入 schema
-- [ ] AC-6 导出统一 `Block` / `BlockSchema` 供 Article 引用
-- [ ] AC-7 单元测试：每种 block 至少 1 个合法 fixture + 1 个非法 case
-- [ ] AC-8 `pnpm lint` / `pnpm build` 通过
+- [x] AC-1 已实现 11 种 `BlockType`（`BLOCK_TYPES` / `blockTypeSchema`）
+- [x] AC-2 每种 block `content` 与 `block-schema.md` §5 一致；paragraph / lead 使用 `content.text`（`inlineTextInputSchema`）
+- [x] AC-3 `info_card.content.body` 保留独立语义
+- [x] AC-4 Block 通用结构 `id` / `type` / `content` / `meta?`；`blockSchema` discriminated union
+- [x] AC-5 `BlockMeta` 已定义（`blockMetaSchema`）
+- [x] AC-6 导出 `Block` / `blockSchema` 及 11 种 block schema（`@/core/blocks`）
+- [x] AC-7 单元测试 26 cases（`tests/core/blocks/block-schema.test.ts`）
+- [x] AC-8 `corepack pnpm lint` / `corepack pnpm test` / `corepack pnpm build` 通过
 
 ---
 

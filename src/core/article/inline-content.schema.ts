@@ -119,6 +119,23 @@ export const inlineContentSchemaLenient: z.ZodType<InlineContent> = z.array(
   inlineTextNodeSchema,
 );
 
+/** 纯文本（无 HTML/CSS 注入） */
+export const plainTextSchema = z
+  .string()
+  .min(1)
+  .refine((text) => !HTML_IN_TEXT_PATTERN.test(text), {
+    message: "text must not contain HTML",
+  })
+  .refine((text) => !CSS_IN_TEXT_PATTERN.test(text), {
+    message: "text must not contain inline CSS or class attributes",
+  });
+
+/** paragraph / lead 主文本：`string | InlineContent` */
+export const inlineTextInputSchema = z.union([
+  plainTextSchema,
+  inlineContentSchema,
+]);
+
 export type InlineMarkInput = z.input<typeof inlineMarkSchema>;
 export type InlineTextNodeInput = z.input<typeof inlineTextNodeSchema>;
 export type InlineContentInput = z.input<typeof inlineContentSchema>;
