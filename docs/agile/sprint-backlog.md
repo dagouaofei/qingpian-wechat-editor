@@ -369,3 +369,25 @@
 **优先级：** P0 · **状态：** In Review · **工作分支：** `docs/s1b-component-dsl-style-system-readiness`
 
 **验收标准：** AC-1~AC-18（slot binding、architecture 契约表、11×3~5 variants、layoutMode、AI Style Selection、Sprint 3~6、DECISION-039~042、execution report、lint/build、Sprint 1-B In Review）— 本轮全部 PASS
+
+---
+
+## S1-STORY-026 S1-STORY-025 二次审计与 Release 1 样式范围可执行性审查
+
+**用户故事：** 作为产品负责人，我希望在 S1-STORY-025 扩大 Release 1 样式范围并启用受控 AI 样式选择后，做一次二次审计，确认 Release 1 样式范围、Sprint 3/4/6 工作量、Paste QA 范围、AI Style Selection 边界是否可执行，避免在进入代码实现前留下范围失控或架构污染风险。
+
+**优先级：** P0 · **状态：** In Review · **工作分支：** `docs/s1b-style-system-readiness-audit`
+
+**验收标准：**
+
+- [x] AC-1 已生成 docs/architecture/audits/s1b-style-system-readiness-audit.md
+- [x] AC-2 审计覆盖 Release 1 11×3~5 variants 范围可执行性
+- [x] AC-3 审计覆盖 Sprint 3/4/6 工作量与拆分建议
+- [x] AC-4 审计覆盖 required/candidate/experimental 三层边界
+- [x] AC-5 审计明确 magazine_left_bar_title 建议降为 candidate
+- [x] AC-6 审计覆盖 AI Style Selection 主链路（PASS，无架构污染）
+- [x] AC-7 审计输出 P0=0 / P1=7 / P2=4
+- [x] AC-8 审计判断 S1-STORY-025 **有条件可以 merge（分级 B）**
+- [x] AC-9 已生成 execution report
+- [x] AC-10 pnpm lint / build 通过
+- [x] AC-11 Sprint 1-B 保持 In Review

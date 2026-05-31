@@ -64,4 +64,5 @@
 | 2026-05-30 | Sprint 1-B | 新增 S1-STORY-021 实现前契约缺口修正；补充 InlineContent、Style 命名边界、slot copy-safe、WeChatCompatibilityProfile；调整 Sprint 2~6 计划 | 架构 / 敏捷 | S1-STORY-021, DECISION-029~033 |
 | 2026-05-30 | Sprint 1-B | 新增 S1-STORY-022；基于 prototype-style-system-technical-lessons.md 对 S1-STORY-021 修正方案二次审计；Sprint 1-B 保持 In Review | 架构 / 敏捷 | S1-STORY-022 |
 | 2026-05-30 | Sprint 1-B | 新增 S1-STORY-024：Component DSL 能力对齐与 Style System 补强；…DECISION-036~038；Sprint 1-B 保持 In Review | 架构 / 敏捷 | S1-STORY-024, DECISION-036~038 |
-| 2026-05-30 | Sprint 1-B | 新增 S1-STORY-025：Style System 实现前收口；SlotContentBinding；Release 1 variant 升级为 11×3~5+icons；Release 1 受控 AI 样式选择；TitleBlockLayoutCompatibility；Sprint 3~6 调整；DECISION-039~042；Sprint 1-B 保持 In Review | 架构 / 敏捷 | S1-STORY-025, DECISION-039~042 |
+| 2026-05-30 | Sprint 1-B | 新增 S1-STORY-025：Style System 实现前收口；…DECISION-039~042；Sprint 1-B 保持 In Review | 架构 / 敏捷 | S1-STORY-025, DECISION-039~042 |
+| 2026-05-30 | Sprint 1-B | 新增 S1-STORY-026：S1-STORY-025 二次审计；Release 1 11×3~5 可执行性审查；建议 Sprint 3/4/6 拆分；magazine_left_bar_title 降为 candidate；S1-STORY-025 分级 B 可 merge；Sprint 1-B 保持 In Review | 架构 / 敏捷 | S1-STORY-026 |
