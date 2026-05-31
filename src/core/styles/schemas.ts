@@ -125,7 +125,7 @@ const variantMetadataValueSchema = z.union([
   z.boolean(),
 ]);
 
-export const copySafetySchema = z.enum(["safe", "risky", "preview_only"]);
+export const copySafetySchema = z.enum(["strict", "balanced", "preview_only"]);
 
 export const variantWeChatCompatibilitySchema = z
   .object({
@@ -230,6 +230,70 @@ export const variantDefinitionSchema = z
       });
     }
   });
+
+export const styleValidationSeveritySchema = z.enum([
+  "error",
+  "warning",
+  "info",
+]);
+
+export const styleValidationIssueSchema = z
+  .object({
+    severity: styleValidationSeveritySchema,
+    code: identifierSchema,
+    message: safeStyleStringSchema,
+    path: z.array(z.union([identifierSchema, z.number()])).optional(),
+    blockId: identifierSchema.optional(),
+    blockType: blockTypeSchema.optional(),
+    variantId: identifierSchema.optional(),
+    property: safeStyleStringSchema.optional(),
+    value: safeStyleStringSchema.optional(),
+    fallbackVariantId: identifierSchema.optional(),
+  })
+  .strict();
+
+export const styleValidationResultSchema = z
+  .object({
+    ok: z.boolean(),
+    issues: z.array(styleValidationIssueSchema),
+  })
+  .strict();
+
+export const missingVariantFallbackActionSchema = z.enum([
+  "error",
+  "fallback_to_preset",
+  "fallback_to_registry_default",
+]);
+
+export const blockTypeMismatchFallbackActionSchema = z.enum([
+  "error",
+  "fallback_to_preset",
+  "fallback_to_registry_default",
+]);
+
+export const forbiddenCssPolicyActionSchema = z.enum([
+  "error",
+  "fallback_variant",
+  "strip_property",
+]);
+
+export const riskyCssPolicyActionSchema = z.enum([
+  "warning",
+  "fallback_variant",
+  "allow",
+]);
+
+export const fallbackVariantPolicySchema = z
+  .object({
+    onMissingVariant: missingVariantFallbackActionSchema,
+    onBlockTypeMismatch: blockTypeMismatchFallbackActionSchema,
+    onForbiddenCss: forbiddenCssPolicyActionSchema,
+    onRiskyCss: riskyCssPolicyActionSchema,
+    allowExperimentalFallback: z.boolean(),
+    allowPreviewOnlyInCopy: z.boolean(),
+    defaultFallbackVariantId: identifierSchema.optional(),
+  })
+  .strict();
 
 export const styleRegistrySchema = z
   .object({

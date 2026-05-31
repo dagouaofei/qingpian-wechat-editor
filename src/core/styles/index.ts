@@ -1,4 +1,5 @@
 export type {
+  BlockTypeMismatchFallbackAction,
   ColorTokenRef,
   CompatibilityIssue,
   CopySafety,
@@ -6,8 +7,11 @@ export type {
   CssCompatibilityResult,
   Density,
   FallbackPolicy,
+  FallbackVariantPolicy,
   ForbiddenCssFallbackAction,
+  ForbiddenCssPolicyAction,
   InlineMarkColorInput,
+  MissingVariantFallbackAction,
   PresetDefinition,
   ResolveArticleStyleOptions,
   ResolvedArticleStyle,
@@ -15,13 +19,20 @@ export type {
   ResolvedStyleSource,
   ResolvedStyleTokens,
   RiskyCssFallbackAction,
+  RiskyCssPolicyAction,
   StyleRegistry,
   StyleResolveContext,
   StyleResolveIssue,
   StyleSchemaVersion,
+  StyleValidationIssue,
+  StyleValidationResult,
+  StyleValidationSeverity,
   ThemeDefinition,
   ThemeTokenMap,
   ThemeTokens,
+  ValidateResolvedArticleStyleContext,
+  ValidateStyleRegistryOptions,
+  ValidateVariantDefinitionContext,
   VariantCompatibility,
   VariantComponentProtocol,
   VariantDefinition,
@@ -43,14 +54,24 @@ export {
 } from "./tokens";
 
 export {
+  blockTypeMismatchFallbackActionSchema,
   colorTokenRefSchema,
   copySafetySchema,
   densitySchema,
   fallbackPolicySchema,
+  fallbackVariantPolicySchema,
+  forbiddenCssFallbackActionSchema,
+  forbiddenCssPolicyActionSchema,
   inlineMarkColorInputSchema,
+  missingVariantFallbackActionSchema,
   presetDefinitionSchema,
+  riskyCssFallbackActionSchema,
+  riskyCssPolicyActionSchema,
   styleRegistrySchema,
   styleSchemaVersionSchema,
+  styleValidationIssueSchema,
+  styleValidationResultSchema,
+  styleValidationSeveritySchema,
   themeDefinitionSchema,
   themeTokensSchema,
   variantCompatibilitySchema,
@@ -79,7 +100,7 @@ export {
   getVariantById,
   getVariantsForBlockType,
   parseStyleRegistry,
-  validateStyleRegistry,
+  validateStyleRegistrySchema,
 } from "./registry";
 
 export {
@@ -95,3 +116,15 @@ export {
   validateCssPropertyCompatibility,
   validateVariantWechatCompatibility,
 } from "./compatibility";
+
+export {
+  RELEASE1_FALLBACK_VARIANT_POLICY,
+  buildStyleValidationResult,
+  normalizeCopySafetyInput,
+  parseFallbackVariantPolicy,
+  parseStyleValidationResult,
+  validateResolvedArticleStyle,
+  validateStyleRegistry,
+  validateVariantDefinition,
+  validateVariantForWechatCopy,
+} from "./validation";

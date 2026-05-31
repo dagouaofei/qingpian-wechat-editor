@@ -120,10 +120,10 @@ describe("wechat compatibility profile", () => {
   });
 
   describe("validateVariantWechatCompatibility", () => {
-    it("passes for release1_required safe variant", () => {
+    it("passes for release1_required strict variant", () => {
       const variant = variantDefinitionSchema.parse({
         ...baseVariant,
-        compatibility: { copySafety: "safe" },
+        compatibility: { copySafety: "strict" },
       });
       const result = validateVariantWechatCompatibility(variant);
       expect(result.ok).toBe(true);
@@ -167,7 +167,7 @@ describe("wechat compatibility profile", () => {
       const variant = variantDefinitionSchema.parse({
         ...baseVariant,
         compatibility: {
-          copySafety: "safe",
+          copySafety: "strict",
           wechat: {
             forbiddenCssProperties: ["position: absolute"],
           },
@@ -184,7 +184,7 @@ describe("wechat compatibility profile", () => {
       const variant = variantDefinitionSchema.parse({
         ...baseVariant,
         compatibility: {
-          copySafety: "safe",
+          copySafety: "balanced",
           wechat: {
             riskyCssProperties: ["display: flex"],
           },

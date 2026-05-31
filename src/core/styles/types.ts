@@ -59,7 +59,7 @@ export type VariantComponentProtocol = {
   layoutMode?: string;
 };
 
-export type CopySafety = "safe" | "risky" | "preview_only";
+export type CopySafety = "strict" | "balanced" | "preview_only";
 
 export type VariantWeChatCompatibility = {
   allowedCssProperties?: string[];
@@ -154,6 +154,69 @@ export type WeChatCompatibilityCheckResult = {
   variantId: string;
   copySafety?: CopySafety;
   blocking: boolean;
+};
+
+export type StyleValidationSeverity = "error" | "warning" | "info";
+
+export type StyleValidationIssue = {
+  severity: StyleValidationSeverity;
+  code: string;
+  message: string;
+  path?: Array<string | number>;
+  blockId?: string;
+  blockType?: BlockType;
+  variantId?: string;
+  property?: string;
+  value?: string;
+  fallbackVariantId?: string;
+};
+
+export type StyleValidationResult = {
+  ok: boolean;
+  issues: StyleValidationIssue[];
+};
+
+export type MissingVariantFallbackAction =
+  | "error"
+  | "fallback_to_preset"
+  | "fallback_to_registry_default";
+
+export type BlockTypeMismatchFallbackAction =
+  | "error"
+  | "fallback_to_preset"
+  | "fallback_to_registry_default";
+
+export type ForbiddenCssPolicyAction =
+  | "error"
+  | "fallback_variant"
+  | "strip_property";
+
+export type RiskyCssPolicyAction = "warning" | "fallback_variant" | "allow";
+
+export type FallbackVariantPolicy = {
+  onMissingVariant: MissingVariantFallbackAction;
+  onBlockTypeMismatch: BlockTypeMismatchFallbackAction;
+  onForbiddenCss: ForbiddenCssPolicyAction;
+  onRiskyCss: RiskyCssPolicyAction;
+  allowExperimentalFallback: boolean;
+  allowPreviewOnlyInCopy: boolean;
+  defaultFallbackVariantId?: string;
+};
+
+export type ValidateStyleRegistryOptions = {
+  profile?: WeChatCompatibilityProfile;
+  policy?: FallbackVariantPolicy;
+};
+
+export type ValidateVariantDefinitionContext = {
+  registry?: StyleRegistry;
+  profile?: WeChatCompatibilityProfile;
+  policy?: FallbackVariantPolicy;
+};
+
+export type ValidateResolvedArticleStyleContext = {
+  profile?: WeChatCompatibilityProfile;
+  policy?: FallbackVariantPolicy;
 };
 
 export type StyleRegistry = {
