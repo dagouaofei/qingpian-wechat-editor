@@ -32,39 +32,71 @@
 - Copy-to-WeChat 与复制一致性正式技术方案
 - Generation / Streaming 正式技术方案
 - 核心技术方案一致性审查
-- Release 1 整体架构定稿（S1-STORY-020）
-- **实现前契约缺口修正（S1-STORY-021）** — In Review
-- **Sprint 2 启动前契约收口（S1-STORY-023）** — In Review
+- Release 1 整体架构定稿（S1-STORY-020）— **Done**
+- 实现前契约缺口修正（S1-STORY-021）— **Done**
+- Sprint 2 启动前契约收口（S1-STORY-023）— **Done**
+- Component DSL / Style System 收口（S1-STORY-024~027）— **Done**
+- Sprint 1-B 总 Audit（S1-STORY-028）— **Done**
+- 关闭前状态同步（S1-STORY-029）— **In Review**
 
 **Sprint 1 明确不做：** 业务功能代码实现（Article Zod、Renderer、Copy Pipeline、AI 生成、SSE 实现、样式 Gallery）。
 
 ---
 
-## S1-STORY-022 审计遗留 P1/P2 登记
+## Sprint 1-B Close Readiness Checklist
 
-> 登记于 S1-STORY-023；Sprint 1-B 仅解决 P1-001、P1-008，其余按 Sprint 分配处理。
+> 登记于 S1-STORY-029。**本轮只准备关闭条件，不关闭 Sprint 1-B。**
 
-### P1（7 项）
+| # | 检查项 | 状态 |
+|---|--------|------|
+| 1 | final audit 已 merge 至 `sprint/s1b-core-tech-governance`（`25b9bad`） | ✅ |
+| 2 | S1-STORY-021~028 状态已同步（Done + merge 标注） | ✅（S1-STORY-029） |
+| 3 | P0 = 0（见 `sprint1b-final-audit.md`） | ✅ |
+| 4 | P1/P2 已登记 Product Backlog 或后续 Sprint | ✅（见下方登记表 + TECH-ARCH-023） |
+| 5 | Style Quality Gate 已登记 Product Backlog（TECH-ARCH-023） | ✅ |
+| 6 | Sprint 2 范围明确：Article / Block Schema + InlineContent 代码契约 | ✅ |
+| 7 | Sprint 3-A/B/C、4-A/B、5、6-A/B 拆分清晰 | ✅ |
+| 8 | Release 1 first wave 11×3 + expansion 策略已确认（DECISION-043） | ✅ |
+| 9 | 受控 AI Style Selection 边界已确认（DECISION-040） | ✅ |
+| 10 | 用户确认接受 B 级 final audit | ⏳ 待用户 |
+| 11 | 用户确认可以关闭 Sprint 1-B | ⏳ 待用户 |
+
+**关闭 Sprint 1-B 须用户显式确认；Cursor 不得自行关闭。**
+
+---
+
+## S1-STORY-022 / final audit 遗留 P1/P2 登记
+
+> 登记于 S1-STORY-023、S1-STORY-028、S1-STORY-029；Sprint 1-B 已解决 P1-001、P1-008、P1-009、P1-012。
+
+### P1（登记项 · 见 `sprint1b-final-audit.md` §10）
 
 | ID | 问题 | 建议 Sprint | Sprint 1-B 处理 |
 |----|------|-------------|-----------------|
 | P1-001 | block 文本字段 `body` vs `text` 命名不一致 | Sprint 2 启动前 | **已解决**（DECISION-034） |
-| P1-002 | InlineMark → copy-safe CSS 映射表缺失 | Sprint 3 / Sprint 4 | 登记 |
-| P1-003 | ArticleStylePlan / orchestrator 文章级节奏未定义 | Sprint 3 | 登记 |
-| P1-004 | WeChatCompatibilityProfile 无 machine-readable fixture | Sprint 3 | 登记 |
-| P1-005 | list / info_card copy 结构保真规则未细化 | Sprint 4 | 登记 |
+| P1-002 | InlineMark → copy-safe CSS 映射表缺失 | Sprint 3 / Sprint 4 | 登记 · TECH-ARCH-002 |
+| P1-003 | StyleOrchestrator 文章级节奏代码未实现 | Sprint 3-C | 登记 · TECH-ARCH-011 |
+| P1-004 | WeChatCompatibilityProfile 无 machine-readable fixture | Sprint 3-A | 登记 · TECH-ARCH-005 |
+| P1-005 | list / info_card copy 结构保真规则未细化 | Sprint 4-B | 登记 |
 | P1-006 | Clipboard text/html + text/plain 双格式未写清 | Sprint 4 | 登记 |
-| P1-007 | card 内文字 requireTextNodeTypography 细则未展开 | Sprint 4 | 登记 |
+| P1-007 | requireTextNodeTypography 细则未展开 | Sprint 4 | 登记 |
 | P1-008 | rendering-pipeline.md 实现顺序与 Sprint 2~6 不一致 | Sprint 1-B | **已解决**（S1-STORY-023） |
+| P1-009 | sprint-backlog 021~024 状态滞后 | Sprint 1-B | **已解决**（S1-STORY-029） |
+| P1-010 | architecture-overview §19 仍写 S1-STORY-021 In Review | Sprint 1-B 关闭后 / Sprint 2 前 | 登记 · 待收口 chore |
+| P1-011 | 各 variant copySafety tier 未逐项登记 | Sprint 3-B | 登记 · TECH-ARCH-018 |
+| P1-012 | Style Quality Gate 未登记 product-backlog | Backlog | **已解决**（TECH-ARCH-023） |
 
-### P2（4 项）
+### P2（登记项）
 
-| ID | 问题 | 建议 Sprint |
-|----|------|-------------|
-| P2-001 | quote / highlight / cta 未升级 InlineContent | Release 2 或 Sprint 5+ |
-| P2-002 | classic-news slot 无具体 SlotRenderSpec 示例 | Sprint 3 |
-| P2-003 | semantic block → visual 映射表未写 | Sprint 3 |
-| P2-004 | article-schema InlineContent 说明重复 | 文档小修（S1-STORY-023 已去重） |
+| ID | 问题 | 建议 Sprint / 归属 |
+|----|------|-------------------|
+| P2-001 | quote / highlight / cta 未升级 InlineContent | Release 2 |
+| P2-002 | classic-news slot 无 SlotRenderSpec 示例 | Sprint 3-B |
+| P2-003 | semantic → visual 映射表未写 | Sprint 3 |
+| P2-004 | article-schema InlineContent 说明重复 | **已解决**（S1-STORY-023） |
+| P2-005 | Story 018/019 编号缺口 | 文档 chore |
+| P2-006 | first wave 33 variants 视觉效果可能偏保守 | TECH-ARCH-023 / Sprint 4+ |
+| P2-007 | expansion variants 未拆独立 Story | Release 1 expansion planning（TECH-ARCH-019） |
 
 ---
 

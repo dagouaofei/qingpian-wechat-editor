@@ -269,9 +269,9 @@
 
 **用户故事：** 作为产品负责人，我希望在 Sprint 2 代码实现前，补齐 InlineContent、StyleDefinition 命名边界、slot copy-safe 边界、WeChatCompatibilityProfile 等实现前契约，以避免 Article / Block、Style System、Renderer、Copy Pipeline 在实现阶段出现返工或概念混乱。
 
-**优先级：** P0 · **状态：** In Review
+**优先级：** P0 · **状态：** Done
 
-**工作分支：** `docs/s1b-pre-implementation-contract-gaps`
+**工作分支：** `docs/s1b-pre-implementation-contract-gaps`（已 merge 至 `sprint/s1b-core-tech-governance`）
 
 **验收标准：**
 
@@ -295,9 +295,9 @@
 
 **用户故事：** 作为产品负责人，我希望在 S1-STORY-021 补齐实现前契约后，基于当前技术文档并对照一键成稿样式经验做一次二次 audit，以判断是否可以进入 Sprint 2 代码实现。
 
-**优先级：** P0 · **状态：** In Review
+**优先级：** P0 · **状态：** Done
 
-**工作分支：** `docs/s1b-pre-implementation-contract-audit`
+**工作分支：** `docs/s1b-pre-implementation-contract-audit`（已 merge 至 `sprint/s1b-core-tech-governance`）
 
 **验收标准：**
 
@@ -315,9 +315,9 @@
 
 **用户故事：** 作为产品负责人，我希望在 Sprint 2 代码实现前，吸收 S1-STORY-022 二次 audit 结论，解决 block 文本字段命名不一致问题，并将剩余 P1 / P2 风险登记到后续 Sprint 计划，以便 Sprint 2 可以在清晰契约下启动。
 
-**优先级：** P0 · **状态：** In Review
+**优先级：** P0 · **状态：** Done
 
-**工作分支：** `docs/s1b-sprint2-readiness-contract-closure`
+**工作分支：** `docs/s1b-sprint2-readiness-contract-closure`（已 merge 至 `sprint/s1b-core-tech-governance`）
 
 **验收标准：**
 
@@ -337,7 +337,9 @@
 
 **用户故事：** 作为产品负责人，我希望在 Sprint 1-B 收口前，将秒篇 Component DSL 规范中经过验证的 family、variant、slot、asset pool、AI 生成约束、文章级编排规则等能力，对齐到轻篇 Style System 的正式技术方案中，以便后续 Sprint 3 实现 Style System 时既保持轻篇主架构干净，又能支撑类似 135 编辑器的丰富标题控件与样式变化能力。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `docs/s1b-component-dsl-style-system-alignment`
+**优先级：** P0 · **状态：** Done（已由 S1-STORY-025~027 吸收并 merge）
+
+**工作分支：** `docs/s1b-component-dsl-style-system-alignment`（已 merge 至 `sprint/s1b-core-tech-governance`）
 
 **验收标准：**
 
@@ -414,7 +416,9 @@
 
 **用户故事：** 作为产品负责人，我希望在 Sprint 1-B 关闭前，对全部技术方案、敏捷文档、决策记录和 execution reports 做一次总 audit，以确认当前架构是否已经足够进入 Sprint 2 代码实现，是否存在 P0/P1/P2 风险，以及是否可以将 S1-STORY-025~027 链路 merge 回 Sprint 1-B 主分支。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `docs/s1b-final-audit`
+**优先级：** P0 · **状态：** Done
+
+**工作分支：** `docs/s1b-final-audit`（已 merge 至 `sprint/s1b-core-tech-governance` @ `25b9bad`）
 
 **验收标准：**
 
@@ -431,3 +435,41 @@
 - [x] AC-11 已生成 execution report
 - [x] AC-12 pnpm lint / build 通过
 - [x] AC-13 Sprint 1-B 保持 In Review
+
+---
+
+## S1-STORY-029 Sprint 1-B 关闭前状态同步
+
+**用户故事：** 作为产品负责人，我希望在 Sprint 1-B 关闭前，同步 final audit、Story 状态、遗留风险登记和关闭前检查项，以便 Sprint 1-B 可以在用户确认后关闭，并安全进入 Sprint 2。
+
+**优先级：** P0 · **状态：** In Review · **工作分支：** `docs/s1b-close-readiness-sync`
+
+**验收标准：**
+
+- [x] AC-1 docs/s1b-final-audit 已 merge 到 sprint/s1b-core-tech-governance（`25b9bad`）
+- [x] AC-2 sprint-backlog.md 已同步 S1-STORY-021~028 状态为 Done + merge 标注
+- [x] AC-3 P1/P2 风险已登记到 product-backlog / sprint-plan
+- [x] AC-4 Style Quality Gate 已登记 TECH-ARCH-023（不展开方案正文）
+- [x] AC-5 sprint-plan.md 已补充 Sprint 1-B Close Readiness Checklist
+- [x] AC-6 changelog.md 已记录本轮
+- [x] AC-7 pnpm lint / build 通过
+- [x] AC-8 Sprint 1-B 仍保持 In Review，不得关闭
+
+---
+
+## S1-STORY-029 Sprint 1-B 关闭前状态同步
+
+**用户故事：** 作为产品负责人，我希望在 Sprint 1-B 关闭前，同步 final audit、Story 状态、遗留风险登记和关闭前检查项，以便 Sprint 1-B 可以在用户确认后关闭，并安全进入 Sprint 2。
+
+**优先级：** P0 · **状态：** In Review · **工作分支：** `docs/s1b-close-readiness-sync`
+
+**验收标准：**
+
+- [x] AC-1 docs/s1b-final-audit 已 merge 到 sprint/s1b-core-tech-governance（`25b9bad`）
+- [x] AC-2 sprint-backlog.md 已同步 S1-STORY-021~028 状态为 Done + merge 标注
+- [x] AC-3 P1/P2 风险已登记到 product-backlog / sprint-plan
+- [x] AC-4 Style Quality Gate 已登记 TECH-ARCH-023（不展开方案正文）
+- [x] AC-5 sprint-plan.md 已补充 Sprint 1-B Close Readiness Checklist
+- [x] AC-6 changelog.md 已记录本轮
+- [x] AC-7 pnpm lint / build 通过
+- [x] AC-8 Sprint 1-B 仍保持 In Review，不得关闭
