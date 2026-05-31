@@ -80,10 +80,15 @@
 | TECH-ARCH-010 | VisualAssetRegistry / icon asset pool | EPIC-004 | 系统内置 asset |
 | TECH-ARCH-011 | StyleOrchestrator / ArticleRhythmPolicy | EPIC-004 | 文章级去重/节奏 |
 | TECH-ARCH-012 | AI Style Selection Guardrails | EPIC-002 / EPIC-004 | AI 不得输出 HTML/CSS；须 registry 校验 |
-| TECH-ARCH-013 | Release 1 Variant Coverage Plan | EPIC-004 / EPIC-006 | 11 block × 3~5 release1RequiredVariants + assets |
+| TECH-ARCH-013 | Release 1 Variant Coverage Plan | EPIC-004 / EPIC-006 | first-wave 11×3 + expansion to 11×5 |
 | TECH-ARCH-014 | SlotContentBinding | EPIC-004 | titleBlock slot 内容来源；禁止 Style 生成正文 |
 | TECH-ARCH-015 | TitleBlockLayoutCompatibility | EPIC-004 / EPIC-006 | layoutMode 微信 copy 可执行约束 |
 | TECH-ARCH-016 | AI Style Selection in Release 1 | EPIC-002 / EPIC-004 | Release 1 启用受控 AI 样式选择 |
 | TECH-ARCH-017 | StyleSelection Validation Pipeline | EPIC-004 | Protocol/Registry/Profile/Orchestrator 串联校验 |
+| TECH-ARCH-018 | First-wave Required Variant Registry | EPIC-004 | 11×3=33 first-wave required variants |
+| TECH-ARCH-019 | Expansion Variant Coverage | EPIC-004 | 每 block 第 4/5 variant；不阻塞 first-wave closure |
+| TECH-ARCH-020 | Sprint 3-A/B/C Style System Delivery Split | EPIC-004 | infrastructure / first-wave registry / AI validation |
+| TECH-ARCH-021 | Sprint 4-A/B Renderer Delivery Split | EPIC-004 / EPIC-006 | text-first vs structured blocks |
+| TECH-ARCH-022 | Sprint 6-A/B Paste QA Regression Split | EPIC-010 | fixture 三联 vs first-wave 33 variants QA |
 
-状态：文档契约 S1-STORY-021~025；代码按 Sprint 2~6 拆分。
+状态：文档契约 S1-STORY-021~027；代码按 Sprint 2 + 3-A/B/C + 4-A/B + 5 + 6-A/B 拆分。

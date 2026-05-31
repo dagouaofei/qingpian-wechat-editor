@@ -391,3 +391,13 @@
 - [x] AC-9 已生成 execution report
 - [x] AC-10 pnpm lint / build 通过
 - [x] AC-11 Sprint 1-B 保持 In Review
+
+---
+
+## S1-STORY-027 Release 1 样式范围与 Sprint 拆分收口
+
+**用户故事：** 作为产品负责人，我希望在 S1-STORY-025 扩大 Release 1 样式范围后，基于 S1-STORY-026 审计结论，将 Release 1 required variants 收口为先 11 block × 3 first-wave required variants、后续扩展到每 block 5 个，并正式拆分 Sprint 3/4/6。
+
+**优先级：** P0 · **状态：** In Review · **工作分支：** `docs/s1b-release1-style-scope-closure`
+
+**验收标准：** AC-1~AC-12 — first wave 11×3、expansion 分层、magazine candidate、Sprint 3-A/B/C & 4-A/B & 6-A/B、DECISION-043~045、execution report、lint/build、Sprint 1-B In Review — 本轮全部 PASS

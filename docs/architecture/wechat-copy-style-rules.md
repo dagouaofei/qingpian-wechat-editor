@@ -258,7 +258,9 @@ Copy 是样式系统的**最终验收环节**，不是附属功能。
 | Done 分离 | titleBlock Done（代码）≠ Done（粘贴 QA） |
 | QA | 每 titleBlock variant 进入 block × variant × paste QA |
 
-**Release 1 Paste QA 范围（DECISION-039）：** 每个 **release1RequiredVariant**（11 block × 各 3~5）须进入 Paste QA 计划；Sprint 4 启动最小人工 QA；Sprint 6 系统化回归全部 required variants。
+**Release 1 Paste QA 范围（DECISION-039、DECISION-043）：** **First wave 33 variants**（11×3）须进入 Paste QA；Sprint 4-A/B 启动最小 QA；Sprint 6-B first-wave 全量回归；expansion variants 后续批次 QA。
+
+> **`magazine_left_bar_title`（candidate）：** 不进入 first-wave QA 范围；若实现须单独 Paste QA（DECISION-044）。
 
 ### 10.1 TitleBlockLayoutCompatibility 与 WeChat profile
 

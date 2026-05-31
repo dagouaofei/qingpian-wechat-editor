@@ -70,7 +70,7 @@
 
 ## Sprint 2 ~ 6 计划（Release 1 代码实现）
 
-> 业务功能实现必须在核心技术方案 + 实现前契约完成之后进入（DECISION-015、DECISION-029~042）。
+> 业务功能实现必须在核心技术方案 + 实现前契约完成之后进入（DECISION-015、DECISION-029~045）。
 
 ### Sprint 2：Article / Block Schema + InlineContent 代码契约
 
@@ -84,36 +84,54 @@
 
 **不做：** Renderer、Style System、Generation、**AI Style Selection**
 
-**登记 P1/P2：** 无（P1-001 已在 Sprint 1-B 解决）
-
-### Sprint 3：Style System + ComponentProtocol + Release 1 Variant Registry + AI Style Selection Validation
+### Sprint 3-A：Style System Contract & Registry Infrastructure
 
 **目标：**
 
-- 实现 Theme / Preset / VariantDefinition / Registry
-- 实现 **11 block × 各 3~5 release1RequiredVariants** registry contract
-- 实现 StyleResolver → ResolvedBlockStyle / ResolvedArticleStyle
-- 实现 ComponentProtocol / BlockVisualProtocol + SlotContentBinding
-- 实现 title / heading → titleBlock + **TitleBlockLayoutCompatibility**
-- 实现 VisualAssetRegistry 最小 **15~30** assets
-- 实现 StyleOrchestrator 最小规则（R1、R2、R8）
-- 实现 **StyleSelectionRequest / StyleAssignmentPatch validation 入口**
-- 实现 StyleValidationResult / FallbackVariantPolicy / schemaVersion
-- 实现 WeChatCompatibilityProfile 基础校验
+- Theme / Preset / VariantDefinition / Registry **基础设施**
+- StyleResolver → ResolvedBlockStyle / ResolvedArticleStyle
+- WeChatCompatibilityProfile 基础校验
+- StyleValidationResult / FallbackVariantPolicy / schemaVersion
+- TitleBlockLayoutCompatibility 定义
 
-**不做：** 完整 Preview / Copy；Generation 侧 AI 样式建议生成（Sprint 5）
+**不做：** 全部 33 variants registry；Preview / Copy
 
-**工作量提示：** 可按 block 类型拆分子 Sprint；**不得降低** release1RequiredVariants 范围
-
-### Sprint 4：Preview / Copy 成对闭环 + release1RequiredVariants 粘贴 QA
+### Sprint 3-B：First-wave Required Variant Registry
 
 **目标：**
 
-- 基于 Sprint 3 registry 实现 Preview / Copy 成对 renderer
-- WeChatCompatibilityProfile + TitleBlockLayoutCompatibility
-- InlineMark → 微信兼容 inline HTML
-- **每个 release1RequiredVariant** 进入粘贴 QA 计划
-- 启动最小人工微信公众号粘贴 QA
+- **11 block × 3 = 33** first-wave required variants registry definitions
+- title / heading titleBlock ComponentProtocol
+- titleBlock first-wave variants（不含 `magazine_left_bar_title` candidate）
+- SlotContentBinding 规则落地到 registry
+
+**不做：** VisualAssetRegistry 全量；AI 样式建议生成（Sprint 5）
+
+### Sprint 3-C：VisualAssetRegistry + AI Style Selection Validation + Orchestrator
+
+**目标：**
+
+- VisualAssetRegistry 最小 **15~30** assets
+- StyleSelectionRequest / StyleAssignmentPatch **validation 入口**
+- ComponentProtocol / BlockVisualProtocol 完整校验链
+- StyleOrchestrator 最小规则 R1 / R2 / R8
+- **expansion variants 规划**（不要求全部实现）
+
+### Sprint 4-A：Preview / Copy Renderer for Text-first Blocks
+
+**目标：**
+
+- title / lead / heading / paragraph / divider 成对 Preview / Copy
+- 使用 **first-wave** required variants
+- 启动最小 Paste QA
+
+### Sprint 4-B：Preview / Copy Renderer for Structured Blocks
+
+**目标：**
+
+- list / quote / highlight / info_card / cta / image_placeholder 成对 Preview / Copy
+- first-wave required variants
+- 完成 first-wave **33 variants** 最小 Paste QA 计划
 
 **登记 P1/P2：** P1-002、P1-005、P1-006、P1-007
 
@@ -123,16 +141,33 @@
 
 - InputRequest / NormalizedInput、GenerationEvent、`done.article`
 - **StyleSelectionRequest / StyleAssignmentPatch 生成**
-- 所有样式建议必须走 Sprint 3 validation pipeline
+- 所有样式建议必须走 Sprint 3-C validation pipeline
 - 禁止 streamArticle；禁止绕过 Style System
 
-### Sprint 6：Fixture 三联 + release1RequiredVariants Paste QA 回归
+**不变** — 与 S1-STORY-025 一致。
+
+### Sprint 6-A：Fixture Triple Infrastructure
 
 **目标：**
 
-- Article JSON fixture + Copy HTML snapshot（required variants golden）
-- Paste checklist / PasteTestRecord
-- **release1RequiredVariants** 全量系统化回归
+- Article JSON fixture
+- Copy HTML snapshot schema
+- Paste checklist / PasteTestRecord schema
+- 复制一致性 Bug 录入流程
+
+### Sprint 6-B：First-wave Required Variants Paste QA Regression
+
+**目标：**
+
+- **33** first-wave required variants 全量粘贴 QA
+- PasteTestRecord 记录
+- expansion variants 进入后续批次
+
+**原则（DECISION-045）：**
+
+- Sprint 2 / Sprint 5 **不变**
+- 拆分保证可执行性，**不降低** Release 1 样式丰富度目标（最终 up to 11×5）
+- First wave 先 11×3，expansion 分后续子 Sprint
 
 ---
 

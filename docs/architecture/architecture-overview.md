@@ -365,7 +365,7 @@ Article (语义)  →  Style Assignment  →  Style System  →  StyleDefinition
 ```
 
 - slot / density / variant / registry 是 Release 1 **样式模型组成部分**（非仅未来方向）
-- Release 1 实现：`default` theme + `classic-news` preset + **11 block × 各 3~5 release1RequiredVariants** + VisualAssetRegistry 系统内置 assets + registry 架构
+- Release 1 实现：`default` theme + `classic-news` preset + **first-wave 11×3 release1RequiredVariants（33）** + VisualAssetRegistry assets + registry 架构；expansion 目标每 block 5 个（DECISION-043）
 - 完整样式市场后置；**样式系统架构前置**
 
 ### 9.1 Component DSL 扩展层（S1-STORY-024）
@@ -503,8 +503,8 @@ Article + StyleDefinition
 |----|----------------|
 | Theme | `default` |
 | Preset | `classic-news`（系统默认） |
-| Variant | **11 block × 各 3~5 release1RequiredVariants** + VisualAssetRegistry assets（见 [style-system.md](style-system.md) §10.3） |
-| 粘贴 QA | **每个 release1RequiredVariant** 须有粘贴用例；Sprint 4 启动最小 QA；Sprint 6 对全部 required variants 系统化回归 |
+| Variant | **First wave：** 11×3=33 release1RequiredVariants + VisualAssetRegistry assets（§10.4）；**Expansion target：** up to 11×5 |
+| 粘贴 QA | **First wave 33 variants** 须 Paste QA；Sprint 4-A/B 启动最小 QA；Sprint 6-B 全量 first-wave 回归；expansion 分批 QA |
 
 Release 1 **不是**完整样式市场，但 Style System 架构必须前置。
 
@@ -619,10 +619,14 @@ Release 1 **不实现**完整导入；StyleDefinition 已通过 `sourceType` / `
 | Sprint | 焦点 |
 |--------|------|
 | **Sprint 2** | Article / Block Schema + **InlineContent** 代码契约（Zod/TS/fixture/单测；不含 Renderer/Style/Generation） |
-| **Sprint 3** | Style System + ComponentProtocol + **11×3~5 release1RequiredVariants registry** + VisualAssetRegistry + AI Style Selection **validation** + TitleBlockLayoutCompatibility |
-| **Sprint 4** | Preview/Copy 成对闭环 + **release1RequiredVariants** 最小粘贴 QA |
-| **Sprint 5** | Generation/Streaming + **StyleSelectionRequest 生成**（须走 validation 链） |
-| **Sprint 6** | Fixture 三联 + **release1RequiredVariants** 系统化 Paste QA 回归 |
+| **Sprint 3-A** | Style System contract & registry infrastructure |
+| **Sprint 3-B** | First-wave 11×3 variant registry + titleBlock ComponentProtocol |
+| **Sprint 3-C** | VisualAssetRegistry + AI Style Selection validation + Orchestrator |
+| **Sprint 4-A** | Preview/Copy text-first blocks（first-wave） |
+| **Sprint 4-B** | Preview/Copy structured blocks + first-wave 最小 Paste QA |
+| **Sprint 5** | Generation/Streaming + StyleSelectionRequest 生成（须 validation） |
+| **Sprint 6-A** | Fixture 三联基础设施 |
+| **Sprint 6-B** | First-wave 33 variants Paste QA 全量回归 |
 
 ---
 

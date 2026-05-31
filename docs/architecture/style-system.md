@@ -464,41 +464,72 @@ Style Definition (VariantDefinition)
 
 - `classic-news` — 经典资讯风格（Release 1 默认 preset）
 
-### 10.3 Release 1 Variant 范围（DECISION-039）
+### 10.3 Release 1 Variant 范围（DECISION-039、DECISION-043）
 
-**Release 1 第一批 variant：**
+**Release 1 Style Coverage（分阶段）：**
 
 ```text
-11 semantic block × 各 3~5 release1RequiredVariants × 若干 VisualAssetRegistry 系统内置 icon / shape / mark assets
+Release 1 target coverage：11 semantic block × up to 5 variants × VisualAssetRegistry assets
+
+First Wave Required Variants（first wave）：
+- 11 semantic block × 每个 block 3 个 release1RequiredVariants
+- 共 33 个 required variants
+- 必须 Preview / Copy 成对实现
+- 必须进入 Paste QA
+- Release 1 最小样式丰富度验收范围
+
+Expansion Required Variants（expansion target）：
+- 每个 block 的第 4 / 第 5 个 variant
+- Release 1 后续迭代补齐至每 block 5 个
+- 不阻塞 Sprint 3-A / Sprint 4-A 最小闭环
+- 正式交付前同样须 Preview / Copy 成对 + Paste QA
+
+Candidate Variants：
+- 已纳入 catalog，未承诺 first wave
+- 可在 Sprint 3-B / 3-C 或后续迭代实现
+- 未完成不阻塞 Sprint 2 或 Sprint 3-A
+
+Experimental Variants：
+- 内部实验或后续 Release；可 preview_only
+- 不得计入 Release 1 Copy Fidelity Done
 ```
 
-**三层分类：**
+**四层关系（含 legacy 三层 + expansion）：**
 
 | 层级 | 定义 | Copy Fidelity |
 |------|------|---------------|
-| **release1RequiredVariants** | Release 1 **必须**实现；Preview + Copy **成对**；**必须** Paste QA | 计入 Done（代码）与 Done（粘贴 QA） |
-| **release1CandidateVariants** | Sprint 3 优先规划；未完成不阻塞最小闭环 | 未完成不得标记 Release 1 Copy Fidelity Done |
-| **experimentalVariants** | 内部预览 / 后续 Release；可 `preview_only` | **不得**进入 Release 1 正式交付 |
+| **first-wave release1RequiredVariants** | 11×3=33；Sprint 3-B registry、Sprint 4 renderer、Sprint 6-B QA | 计入 Done |
+| **expansion release1RequiredVariants** | 每 block 第 4/5 个；分后续子 Sprint | 交付前须 Done |
+| **release1CandidateVariants** | catalog 已登记；不阻塞 first wave | 未完成不得标记 R1 Done |
+| **experimentalVariants** | preview_only 允许 | 不得正式交付 |
 
-**规则：** 每个 required variant 须 `copySafety: strict | balanced`；须支持 Copy Renderer；须进入 Paste QA。
+**规则：** first-wave / expansion required 须 `copySafety: strict | balanced`；须支持 Copy Renderer；first-wave 须进入 Sprint 6-B Paste QA。
 
 ### 10.4 Release 1 Variant Coverage Plan
 
-| block type | required count | release1RequiredVariants（示例） | notes |
-|------------|----------------|----------------------------------|-------|
-| `title` | 3~5 | `title-centered`, `title-left`, `titleBlock-line`, `titleBlock-badge`, `titleBlock-card` | titleBlock 优先 |
-| `lead` | 3~5 | `lead-muted`, `lead-card`, `lead-border`, `lead-quote`, `lead-highlight` | |
-| `heading` | 3~5 | `heading-underline`, `title_with_bottom_line`, `line_top_title_center`, `badge_left_title_inline`, `icon_inline_prefix_title` | titleBlock 优先 |
-| `paragraph` | 3~5 | `paragraph-default`, `paragraph-relaxed`, `paragraph-indent`, `paragraph-highlight-inline`, `paragraph-compact` | |
-| `list` | 3~5 | `list-bullet`, `list-numbered`, `list-card`, `list-check`, `list-step` | |
-| `quote` | 3~5 | `quote-left-border`, `quote-card`, `quote-minimal`, `quote-bg`, `quote-large-mark` | |
-| `highlight` | 3~5 | `highlight-bg`, `highlight-border`, `highlight-marker`, `highlight-card`, `highlight-inline` | |
-| `info_card` | 3~5 | `card-bordered`, `card-filled`, `card-minimal`, `card-icon`, `card-key-takeaway` | |
-| `cta` | 3~5 | `cta-button`, `cta-card`, `cta-inline`, `cta-follow`, `cta-summary` | |
-| `divider` | 3~5 | `divider-line`, `divider-dot`, `divider-space`, `divider-label`, `divider-short-line` | |
-| `image_placeholder` | 3~5 | `placeholder-dashed`, `placeholder-caption`, `placeholder-card`, `placeholder-full`, `placeholder-minimal` | |
+| block type | first-wave required (3) | expansion (4th/5th) | candidate / experimental | notes |
+|------------|-------------------------|---------------------|--------------------------|-------|
+| `title` | `title-centered`, `title-left`, `titleBlock-line` | `titleBlock-card`, `titleBlock-badge` | — | titleBlock 优先 |
+| `lead` | `lead-muted`, `lead-border`, `lead-card` | `lead-highlight`, `lead-quote` | — | |
+| `heading` | `heading-underline`, `title_with_bottom_line`, `line_top_title_center` | `badge_left_title_inline`, `icon_inline_prefix_title` | **`magazine_left_bar_title`** (candidate) | DECISION-044 |
+| `paragraph` | `paragraph-default`, `paragraph-relaxed`, `paragraph-compact` | `paragraph-indent`, `paragraph-highlight-inline` | — | |
+| `list` | `list-bullet`, `list-numbered`, `list-check` | `list-card`, `list-step` | — | |
+| `quote` | `quote-left-border`, `quote-card`, `quote-minimal` | `quote-bg`, `quote-large-mark` | — | |
+| `highlight` | `highlight-bg`, `highlight-border`, `highlight-marker` | `highlight-card`, `highlight-inline` | — | |
+| `info_card` | `card-bordered`, `card-filled`, `card-minimal` | `card-icon`, `card-key-takeaway` | — | |
+| `cta` | `cta-button`, `cta-card`, `cta-inline` | `cta-follow`, `cta-summary` | — | |
+| `divider` | `divider-line`, `divider-dot`, `divider-space` | `divider-label`, `divider-short-line` | — | |
+| `image_placeholder` | `placeholder-dashed`, `placeholder-caption`, `placeholder-card` | `placeholder-full`, `placeholder-minimal` | — | |
 
-**VisualAssetRegistry（Release 1）：** 系统内置 **若干** icon / shape / mark（Sprint 3 目标 15~30 assets），供 titleBlock 及 info_card / list 等 variant 引用。
+**Sprint 映射：**
+
+- **Sprint 3-B：** first-wave 33 variants registry（优先 title/heading titleBlock）
+- **Sprint 4-A / 4-B：** first-wave Preview / Copy 成对 renderer
+- **Sprint 6-B：** first-wave 33 variants 全量 Paste QA
+- **expansion variants：** Sprint 3-C 规划 + 后续 expansion Sprint；不阻塞 3-A
+- **candidate（含 `magazine_left_bar_title`）：** 不进入 first wave；实现须单独 Paste QA（DECISION-044）
+
+**VisualAssetRegistry（Release 1）：** Sprint 3-C 目标 **15~30** 系统内置 icon / shape / mark assets。
 
 ### 10.5 Density
 
@@ -580,13 +611,15 @@ heading block → componentId: titleBlock → family: simple|iconDecor|badgeTitl
 | `title_with_bottom_line` | simple | line-bottom | title, decorationLine | **低** | **必做** |
 | `card_bg_icon_corner` | cardTitle | card-corner | bgShape, icon, title | 高 | 后置 |
 | `card_center_title_badge_top` | cardTitle | card-center | badge, title, bgShape | 高 | 后置 |
-| `magazine_left_bar_title` | magazine | left-bar | decorationLine, title | 中 | **建议做**（须 DOM fallback） |
+| `magazine_left_bar_title` | magazine | left-bar | decorationLine, title | 中 | **candidate**（DECISION-044；非 first wave） |
 | `magazine_offset_icon_bg` | magazine | offset-bg | bgShape, icon, title | 高 | 后置 |
 | `icon_inline_prefix_title` | iconDecor | inline-prefix | icon, title | 低~中 | **建议做** |
 | `title_top_subtitle_bottom_line` | simple | title-subtitle-line | title, subtitle, decorationLine | 中 | 可选 |
 | `badge_icon_title_stack` | badgeTitle | stack | badge, icon, title | 中 | 可选 |
 
-**Sprint 3 最小 copy-safe 五件套：** `title_with_bottom_line`、`line_top_title_center`、`badge_left_title_inline`、`icon_inline_prefix_title`、`magazine_left_bar_title`。
+**First-wave titleBlock copy-safe 四件套（Sprint 3-B）：** `title_with_bottom_line`、`line_top_title_center`、`badge_left_title_inline`、`icon_inline_prefix_title`（均须为 first-wave required 子集）。
+
+> **`magazine_left_bar_title` 为 release1CandidateVariants** — 不在 first wave；若未来实现须：真实 DOM left bar + text；禁止 absolute / pseudo / complex flex-grid；Copy 嵌套 ≤3；WeChatCompatibilityProfile + 单独 Paste QA。
 
 ### 11.5 titleBlock 专用 slot 规范
 
@@ -826,7 +859,7 @@ Preview / Copy 按 `componentId` 分发成对 renderer；**不得**因复杂 var
 | Theme tokens | `src/core/styles/theme/` | 3 | theme 定义 |
 | Preset config | `src/core/styles/preset/` | 3 | preset 定义 |
 | Variant definitions | `src/core/styles/variant/` | 3 | release1RequiredVariants |
-| Registry | `src/core/styles/registry.ts` | 3 | 11×3~5 required variants |
+| Registry | `src/core/styles/registry.ts` | 3-B | **first-wave 11×3=33** required variants |
 | Style resolver | `src/core/styles/resolver.ts` | 3 | assignment → ResolvedBlockStyle |
 | **Protocol** | `src/core/styles/protocol/` | 3 | ComponentProtocol / BlockVisualProtocol |
 | **Assets** | `src/core/styles/assets/` | 3 | VisualAssetRegistry |
@@ -836,7 +869,7 @@ Preview / Copy 按 `componentId` 分发成对 renderer；**不得**因复杂 var
 | **Compatibility** | `src/core/styles/compatibility/` | 3 | WeChatCompatibilityProfile / TitleBlockLayoutCompatibility |
 | Copy adapter | `src/core/styles/copy-adapter.ts` | 4 | ResolvedBlockStyle → inline style |
 
-**Sprint 3 Style System 最小范围：** ComponentProtocol、VisualAssetRegistry、StyleOrchestrator 最小规则、StyleSelection validation 入口、WeChatCompatibilityProfile、**release1RequiredVariants registry**（11 block × 3~5）。
+**Sprint 3 Style System 最小范围：** 3-A 基础设施；3-B first-wave registry（33）；3-C VisualAssetRegistry + AI validation + Orchestrator。expansion / candidate 不阻塞 3-A。
 
 ## 相关文档
 
