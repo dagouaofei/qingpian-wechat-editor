@@ -752,7 +752,7 @@
 
 **用户故事：** 作为开发者，我需要 WeChatCompatibilityProfile 的机器可读契约与 copy-safe 校验 helper，以便 VariantDefinition 的 compatibility 字段有统一校验基础。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s3a-wechat-compatibility-profile`
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s3a-wechat-compatibility-profile`（已 merge 至 `sprint/s3a-style-system-infra`，`11a3d11`）
 
 **明确不做：**
 
@@ -778,7 +778,7 @@
 - [x] AC-14 `corepack pnpm test` 通过（189 tests）
 - [x] AC-15 `corepack pnpm build` 通过
 - [x] AC-16 已生成 execution report
-- [ ] AC-17 未 merge 到 sprint / release / main（待用户确认后 merge）
+- [x] AC-17 已 merge 至 `sprint/s3a-style-system-infra`（`11a3d11`，用户确认 2026-05-31）
 
 ---
 

@@ -121,3 +121,4 @@
 | 2026-05-31 | Sprint 3-A | S3A-STORY-002 标记 Done；用户确认 StyleResolver explicit→preset_default 语义（DECISION-056） | 敏捷 / 架构 | S3A-STORY-002, DECISION-056 |
 | 2026-05-31 | Sprint 3-A | S3A-STORY-003 merge 至 `sprint/s3a-style-system-infra`（`85ffcbd`）；状态 Done | Git / 敏捷 | S3A-STORY-003 |
 | 2026-05-31 | Sprint 3-A | 实现 WeChatCompatibilityProfile 机器可读契约与 copy-safe validation helper | 代码 / 架构 | S3A-STORY-004 |
+| 2026-05-31 | Sprint 3-A | S3A-STORY-004 merge 至 `sprint/s3a-style-system-infra`（`11a3d11`）；状态 Done | Git / 敏捷 | S3A-STORY-004 |
