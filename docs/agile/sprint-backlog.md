@@ -7,8 +7,8 @@
 > **Sprint 4-A：** Preview / Copy Renderer for Text-first Blocks · **Closed**（2026-06-01；DECISION-061；audit Grade A；P0=0）
 > **Sprint 4-B：** Preview / Copy Renderer for Structured Blocks · **Closed**（2026-06-01；DECISION-063；audit Grade A；P0=0）
 > **Sprint 3-C：** Style Assignment / Selection Validation + Orchestrator + VisualAssetRegistry · **Closed**（2026-06-01；DECISION-065；audit Grade A；P0=0 · P1=5 · P2=4；merged `release/1`）
-> **Sprint 5：** Generation / Streaming + Release 1 真实 UI 主流程闭环 · **Planned**（未启动；DECISION-066；**等待用户确认启动 Sprint 5**）
-> **Release 1 主干：** `release/1` · **Sprint 3-C 分支：** `sprint/s3c-style-assignment-validation`（已 merge 至 `release/1`，DECISION-065）
+> **Sprint 5：** Generation / Streaming + Release 1 真实 UI 主流程闭环 · **In Progress**（2026-06-02；DECISION-067；分支 `sprint/s5-generation-ui-main-flow`）
+> **Release 1 主干：** `release/1` · **Sprint 5 分支：** `sprint/s5-generation-ui-main-flow`（从 `release/1` 切出，DECISION-067）
 
 ---
 
@@ -2333,11 +2333,25 @@ S3C-STORY-001（启动）
 # Sprint 5 Backlog
 
 > **Sprint 5 目标：** Generation / Streaming + **Release 1 真实 UI 主流程闭环**（输入 → 生成 → 预览 → 复制）
-> **Sprint 5 状态：** **Planned**（未启动；DECISION-066）
-> **Sprint 5 分支：** 待启动时从 `release/1` 创建 `sprint/s5-*`（本轮未创建）
-> **下一步：** **等待用户确认启动 Sprint 5**；不自动启动 Sprint 5 / Sprint 6-A
-> **Sprint 5 不做：** 真实微信公众号 Paste QA 全量回归、Style Gallery、真实 QR / 小程序 / 图片上传托管 / AI 生图、复杂编辑器 / block 级编辑、样式市场、merge 至 `main`
+> **Sprint 5 状态：** **In Progress**（2026-06-02；DECISION-067）
+> **Sprint 5 分支：** `sprint/s5-generation-ui-main-flow`（从 `release/1` 切出，DECISION-067）
+> **Release 1 主干：** `release/1`
+> **UI 主流程入口：** **`/generate`**（真实业务页面；S5-STORY-006 实现）
+> **下一步：** S5-STORY-003（GenerationEvent / SSE）；不 merge `main`
+> **Sprint 5 不做：** 真实微信公众号 Paste QA 全量回归、不宣称复制到公众号最终保真通过、Style Gallery、真实 QR / 小程序 / 图片上传托管 / AI 生图、复杂编辑器 / block 级编辑、样式市场、merge 至 `main`
 > **保留原则：** 真实 Paste QA 归 Sprint 6-B；Fixture Triple / PasteTestRecord 归 Sprint 6-A / 6-B；Sprint 5 UI smoke test 不替代微信公众号 Paste QA
+
+## Sprint 5 建议执行顺序
+
+```text
+S5-STORY-001 Sprint 5 启动与 Backlog 拆分 — Done
+S5-STORY-002 InputRequest / NormalizedInput 代码契约 — Done
+S5-STORY-003 GenerationEvent / SSE Streaming Runtime — Planned
+S5-STORY-004 done.article 归一与 Article Schema 校验 — Planned
+S5-STORY-005 受控 AI 样式选择生成与 validation pipeline 接入 — Planned
+S5-STORY-006 Release 1 主流程真实 UI 页面集成（/generate）— Planned
+S5-STORY-007 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Planned
+```
 
 ---
 
@@ -2345,25 +2359,13 @@ S3C-STORY-001（启动）
 
 **用户故事：** 作为产品负责人，我需要在正式启动 Sprint 5 时建立 sprint 分支并细化 Backlog，以便团队在明确边界下按 Story 逐步实现 Generation / Streaming 与真实 UI 主流程集成。
 
-**优先级：** P0 · **状态：** Planned · **工作分支：** 待启动（建议 `docs/s5-start-backlog-split`）
+**优先级：** P0 · **状态：** Done · **工作分支：** `docs/s5-start-backlog-split`
 
 **目标：** 正式启动 Sprint 5 时建立 sprint 分支与细化 Backlog。
 
-**明确不做（本轮 docs 变更）：**
+**验收标准：**
 
-- 不启动 Sprint 5（本轮仅计划变更）
-- 不创建 `sprint/s5-*` 分支
-- 不 merge 至 `release/1` 或 `main`
-
-**验收标准（启动 Sprint 5 时执行）：**
-
-- [ ] AC-1 工作区干净；已从 `release/1` 创建 `sprint/s5-*` sprint 分支
-- [ ] AC-2 `sprint-backlog.md` Sprint 5 Story 状态与 AC 已细化
-- [ ] AC-3 `sprint-plan.md` Sprint 5 状态已更新为 In Progress
-- [ ] AC-4 `changelog.md` 已记录 Sprint 5 启动
-- [ ] AC-5 `decisions.md` 已记录 Sprint 5 启动决策（如需要）
-- [ ] AC-6 `corepack pnpm lint` / `test` / `build` 通过
-- [ ] AC-7 已生成 execution report
+- [x] AC-1~AC-13 — Sprint 5 启动与 Backlog 拆分完成（DECISION-067；见 `docs/s5-start-backlog-split` merge）
 
 ---
 
@@ -2371,16 +2373,41 @@ S3C-STORY-001（启动）
 
 **用户故事：** 作为开发者，我需要主题、资料、草稿三类输入的标准化入口契约，以便 Generation 与 UI 共享同一输入模型。
 
-**优先级：** P0 · **状态：** Planned
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s5-input-request-contract`
 
 **目标：** 实现主题、资料、草稿三类输入的标准化入口。
 
-**验收标准（草案）：**
+**实际产物：**
 
-- [ ] AC-1 InputRequest / NormalizedInput TypeScript 类型与 Zod Schema 与 `generation-pipeline.md` 一致
-- [ ] AC-2 三类输入（主题 / 资料 / 草稿）均可 normalize 为统一结构
-- [ ] AC-3 单元测试覆盖合法 / 非法输入
-- [ ] AC-4 `corepack pnpm lint` / `test` / `build` 通过
+| 路径 | 说明 |
+|------|------|
+| `src/core/generation/input.ts` | InputRequest / NormalizedInput 类型与 limits |
+| `src/core/generation/schemas.ts` | Zod schema（`.strict()`） |
+| `src/core/generation/input.parse.ts` | parse / validate / isInputRequest |
+| `src/core/generation/input.normalize.ts` | normalize / parseAndNormalize |
+| `src/core/generation/index.ts` | 模块导出 |
+| `tests/fixtures/generation/` | input request fixtures |
+| `tests/core/generation/input-request.test.ts` | 契约单元测试 |
+
+**明确不做：**
+
+- 不实现 GenerationEvent / SSE（S5-STORY-003）
+- 不实现 done.article 归一（S5-STORY-004）
+- 不实现 AI Style Selection 生成（S5-STORY-005）
+- 不实现 `/generate` UI 页面（S5-STORY-006）
+- 不 merge 至 `release/1` 或 `main`
+
+**验收标准：**
+
+- [x] AC-1 InputRequest / NormalizedInput TypeScript 类型与 Zod Schema 与 `generation-pipeline.md` 一致（Release 1 三类输入 + mode）
+- [x] AC-2 三类输入（主题 / 资料 / 草稿）均可 normalize 为统一结构
+- [x] AC-3 单元测试覆盖合法 / 非法输入（topic_only / topic_with_materials / draft_rewrite / empty / mode mismatch / trim / order / styleIntent / length）
+- [x] AC-4 `corepack pnpm lint` / `test` / `build` 通过
+- [x] AC-5 提供 parse / validate / normalize helper；`validateInputRequest` 不 throw
+- [x] AC-6 未引入 parallel Article 模型；未修改 Article / Block Schema 主契约
+- [x] AC-7 已生成 execution report
+- [x] AC-8 未 merge 至 sprint / release / main
+- [x] AC-9 未启动 S5-STORY-003
 
 ---
 

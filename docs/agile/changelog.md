@@ -229,3 +229,13 @@
 | 2026-06-02 | Sprint 5 | 新增 Sprint 5 Backlog 草案 S5-STORY-001~007（Planned）；含 S5-STORY-006 真实 UI 页面集成、S5-STORY-007 smoke / e2e | 敏捷 | S5-STORY-001~007 |
 | 2026-06-02 | Sprint 5 | 新增 DECISION-066；更新 product-backlog TECH-ARCH-024 | 敏捷 / 架构 | DECISION-066, TECH-ARCH-024 |
 | 2026-06-02 | Sprint 5 | Sprint 5 **未启动**；未创建 `sprint/s5-*` 分支；**等待用户确认启动 Sprint 5** | 敏捷 / Git | DECISION-066 |
+
+---
+
+## 2026-06-02 · S5-STORY-002 InputRequest 契约
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-02 | Sprint 5 | 实现 InputRequest / NormalizedInput 代码契约（parse / validate / normalize） | 代码 / 架构 | S5-STORY-002 |
+| 2026-06-02 | Sprint 5 | 新增 `src/core/generation/` 与单元测试；S5-STORY-002 Done | 代码 / 测试 | S5-STORY-002 |
+| 2026-06-02 | Sprint 5 | S5-STORY-003 仍 Planned；未实现 SSE / done.article / UI 主流程 | 敏捷 | S5-STORY-002 |

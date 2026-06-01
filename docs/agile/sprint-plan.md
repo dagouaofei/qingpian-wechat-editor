@@ -58,9 +58,10 @@
 | **Sprint 4-A** | **Closed**（2026-06-01；DECISION-061） |
 | **Sprint 4-B** | **Closed**（2026-06-01；DECISION-063） |
 | **Sprint 3-C** | **Closed**（2026-06-01；DECISION-065；audit Grade A；merged `release/1`） |
-| **Release 1 主干** | `release/1`（Sprint 3-C merged，DECISION-065） |
-| **Sprint 3-C 分支** | `sprint/s3c-style-assignment-validation`（已 merge 至 `release/1`） |
-| **下一步** | **等待用户确认启动 Sprint 5**；不自动启动 Sprint 5 / Sprint 6-A |
+| **Sprint 5** | **In Progress**（2026-06-02；DECISION-067；分支 `sprint/s5-generation-ui-main-flow`） |
+| **Release 1 主干** | `release/1` |
+| **Sprint 5 分支** | `sprint/s5-generation-ui-main-flow` |
+| **下一步** | S5-STORY-003 起；不 merge `main` |
 
 ---
 
@@ -177,6 +178,7 @@
 > **Sprint 4-A 状态：Closed**（2026-06-01；DECISION-061；contract audit **A**，P0=0；分支 `sprint/s4a-text-first-renderer` 已 merge 至 `release/1`）
 > **Sprint 4-B 状态：Closed**（2026-06-01；DECISION-063；contract audit **A**，P0=0；分支 `sprint/s4b-structured-block-renderer` 已 merge 至 `release/1`）
 > **Sprint 3-C 状态：Closed**（2026-06-01；DECISION-065；Style Assignment / Selection Validation + Orchestrator + VisualAssetRegistry）
+> **Sprint 5 状态：In Progress**（2026-06-02；DECISION-067；S5-STORY-001~002 Done）
 >
 > 业务功能实现必须在核心技术方案 + 实现前契约完成之后进入（DECISION-015、DECISION-029~045、DECISION-051）。
 
@@ -429,9 +431,11 @@
 | P2-S4B-001 | Style Gallery / 人工视觉验收入口仍缺失 | Sprint 6 / Release 2 |
 | P2-S4B-002 | cta / image_placeholder 真实 QR / link / image 能力仍未实现 | Release 2+ |
 
-### Sprint 5：Generation / Streaming + Release 1 真实 UI 主流程闭环 — **Planned**（未启动）
+### Sprint 5：Generation / Streaming + Release 1 真实 UI 主流程闭环 — **In Progress**（2026-06-02）
 
-> **状态：** Planned · **未启动** · **未创建** `sprint/s5-*` 分支 · **下一步：** **等待用户确认启动 Sprint 5**（DECISION-066）
+**分支：** `sprint/s5-generation-ui-main-flow`（DECISION-067） · **Release 1 主干：** `release/1`
+
+> **S5-STORY-001~002** Done · **S5-STORY-003~007** Planned · **不 merge `main`**
 
 **Sprint Goal：**
 
@@ -449,7 +453,17 @@
    - 复制内容来自 Copy Renderer / Clipboard payload；**不允许 DOM 抓取**
 8. **Sprint 5 结束时** — Release 1 主流程（输入 → 生成 → 预览 → 复制）必须在**真实页面**中可运行
 
-**Stories：** S5-STORY-001（启动）~ S5-STORY-007（smoke / e2e + 关闭准备）— 见 `sprint-backlog.md`
+**Stories：** S5-STORY-001（启动）~ S5-STORY-007 — 见 `sprint-backlog.md`
+
+**进度：** S5-STORY-002 InputRequest / NormalizedInput 代码契约 **Done**（`src/core/generation/`）
+
+**建议执行顺序：**
+
+```text
+S5-STORY-001 — Done
+S5-STORY-002 — Done
+S5-STORY-003 → S5-STORY-007 — Planned
+```
 
 **不做：**
 
