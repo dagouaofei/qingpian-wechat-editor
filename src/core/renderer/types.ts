@@ -45,6 +45,8 @@ export const RENDERER_ISSUE_CODES = [
   "invalid_renderer_input",
   "missing_component_protocol",
   "optional_slot_disabled",
+  "unsafe_inline_color",
+  "unsafe_link_href",
 ] as const;
 
 export type RendererIssueCode = (typeof RENDERER_ISSUE_CODES)[number];
@@ -110,11 +112,49 @@ export type TitleBlockCopyOutput = {
   copySafety?: CopySafety;
 };
 
+export type TextBlockCopyOutput = {
+  kind: "text_block_copy_html";
+  blockId: string;
+  blockType: "lead" | "paragraph";
+  variantId: string;
+  layout: import("./text-block-typography").TextBlockLayoutKind;
+  html: string;
+  copySafety?: CopySafety;
+};
+
+export type PreviewInlineMark = {
+  type: string;
+  color?: string;
+  href?: string;
+  resolvedColor?: string;
+  state: "active" | "fallback" | "stripped";
+  fallbackReason?: string;
+};
+
+export type PreviewInlineNode = {
+  text: string;
+  marks?: PreviewInlineMark[];
+};
+
+export type TextBlockLayoutKind = import("./text-block-typography").TextBlockLayoutKind;
+
+export type TextBlockPreviewOutput = {
+  kind: "text_block_preview";
+  blockId: string;
+  blockType: "lead" | "paragraph";
+  variantId: string;
+  layout: TextBlockLayoutKind;
+  nodes: PreviewInlineNode[];
+  copySafety?: CopySafety;
+};
+
 export type RendererOutputPlaceholder =
   | PreviewRendererOutputPlaceholder
   | CopyRendererOutputPlaceholder
   | TitleBlockPreviewOutput
-  | TitleBlockCopyOutput;
+  | TitleBlockCopyOutput
+  | TextBlockPreviewOutput
+  | TextBlockCopyOutput;
 
 export type RendererResult<TOutput = RendererOutputPlaceholder> = {
   ok: boolean;

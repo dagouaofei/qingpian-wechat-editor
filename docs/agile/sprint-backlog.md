@@ -1301,27 +1301,49 @@
 
 **用户故事：** 作为开发者，我需要 lead / paragraph 支持 InlineContent 的 Preview / Copy Renderer，以便 bold / italic / highlight / color / link 在预览与复制路径中有最小 copy-safe 映射。
 
-**优先级：** P0 · **状态：** Todo · **工作分支：** `feature/s4a-inline-content-renderer`（建议）
+**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s4a-inline-content-renderer`
 
-**纳入遗留：** P2-S3B-003 / P1-CODE-002（InlineMark color ↔ ColorTokenRef）
+**纳入遗留：** P2-S3B-003 / P1-CODE-002（Article semantic color token ↔ Style ColorTokenRef 完整 registry 校验仍待 Style 层收紧；本轮提供 alias 桥接 + fallback issue）
 
-**目标 variants（6）：** lead 3 + paragraph 3 first-wave required variants
+**目标 variants（6）：** `lead_plain_intro`、`lead_accent_band`、`lead_quote_intro`、`paragraph_plain_body`、`paragraph_accent_left`、`paragraph_soft_card`
+
+**实际产物：**
+
+| 路径 | 说明 |
+|------|------|
+| `src/core/renderer/inline-content-marks.ts` | InlineMark color / link 安全解析与 issue |
+| `src/core/renderer/inline-content-preview.ts` | InlineContent Preview 节点映射 |
+| `src/core/renderer/text-block-typography.ts` | lead / paragraph layout / typography |
+| `src/core/renderer/text-block-preview.ts` | lead / paragraph Preview Renderer |
+| `src/core/renderer/text-block-renderer.ts` | lead / paragraph 成对 render 入口 |
+| `src/core/renderer/text-block-registry.ts` | `createTextBlockRendererRegistry()` |
+| `src/core/copy/inline-content-html.ts` | InlineContent Copy inline HTML |
+| `src/core/copy/text-block-copy.ts` | lead / paragraph variant layout Copy HTML |
+| `src/core/copy/html-escape.ts` | 新增 `escapeHtmlAttribute` |
+| `tests/core/renderer/lead-paragraph-renderer.test.ts` | Preview / registry / fallback 测试 |
+| `tests/core/copy/inline-content-copy-renderer.test.ts` | marks / escape / color / link 测试 |
+| `tests/core/copy/lead-paragraph-copy-renderer.test.ts` | 6 variants Copy HTML 测试 |
+| `tests/fixtures/renderer/lead-paragraph-articles.ts` | lead / paragraph fixture |
 
 **明确不做：**
 
-- 不升级 quote / highlight / cta 至 InlineContent
 - 不实现 divider Renderer（S4A-STORY-005）
-- 不做完整 Paste QA（S4A-STORY-006）
+- 不实现 list / quote / highlight / info_card / cta / image_placeholder 等 structured blocks
+- 不新增业务页面 / Copy 按钮 / Clipboard API
+- 不做 Paste QA（S4A-STORY-006）
+- 不 merge 至 sprint / release / main（待用户审查）
 
 **验收标准：**
 
-- [ ] AC-1 lead / paragraph Preview Renderer 支持 `InlineContent`
-- [ ] AC-2 Copy Renderer 支持 bold / italic / highlight / color / link 最小 inline style 映射
-- [ ] AC-3 InlineMark `color` 与 Style `ColorTokenRef` 跨模块校验或 fallback 明确
-- [ ] AC-4 copy-safe CSS 符合 WeChatCompatibilityProfile；forbidden 属性不得 silent allow
-- [ ] AC-5 单元测试覆盖 marks 组合与非法 color token
-- [ ] AC-6 `corepack pnpm lint` / `test` / `build` 通过
-- [ ] AC-7 已生成 execution report
+- [x] AC-1 lead / paragraph Preview Renderer 支持 `InlineContent`（含 string normalize）
+- [x] AC-2 Copy Renderer 支持 bold / italic / highlight / color / link 最小 inline style 映射
+- [x] AC-3 InlineMark `color` 与 Style `ColorTokenRef` 最小 alias 桥接；不可解析时 fallback + `unsafe_inline_color` warning
+- [x] AC-4 copy-safe CSS 符合 WeChat 约束；Copy HTML 无 className / Tailwind / style tag；href 非法时 strip + `unsafe_link_href`
+- [x] AC-5 单元测试覆盖 marks 组合、6 variants、registry、escape、非法 color / href（24 cases 新增）
+- [x] AC-6 `corepack pnpm lint` / `test` / `build` 通过（348 tests）
+- [x] AC-7 已生成 execution report
+- [x] AC-8 未实现 divider / structured blocks / 业务页面 / Clipboard
+- [x] AC-9 未 merge 至 sprint / release / main
 
 ---
 

@@ -1,6 +1,6 @@
 # Renderer 模块
 
-> 状态：Sprint 4-A · S4A-STORY-002 基础契约 + S4A-STORY-003 titleBlock Preview / Copy
+> 状态：Sprint 4-A · S4A-STORY-002 基础契约 + S4A-STORY-003 titleBlock + S4A-STORY-004 lead / paragraph
 
 ## 职责
 
@@ -14,12 +14,15 @@
 - `src/core/renderer/registry.ts` — block renderer registry
 - `src/core/renderer/title-block-renderer.ts` — title / heading titleBlock Preview + Copy
 - `src/core/renderer/title-block-registry.ts` — `createTitleBlockRendererRegistry()`
+- `src/core/renderer/text-block-renderer.ts` — lead / paragraph InlineContent Preview + Copy
+- `src/core/renderer/text-block-registry.ts` — `createTextBlockRendererRegistry()`
+- `src/core/renderer/inline-content-marks.ts` — InlineMark color / link 安全解析
 
 ## 约束
 
 - 与 Copy Renderer 共享同一套 ResolvedStyle 输入
 - 不允许 previewArticle / mockArticle / streamArticle 等平行模型
-- 本轮未实现具体 block HTML / React 输出
+- 已实现 title / heading / lead / paragraph text-first Preview；未实现 divider / structured blocks
 
 ## 参考文档
 

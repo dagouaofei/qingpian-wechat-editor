@@ -10,13 +10,18 @@ export type {
   WeChatProfileDocField,
 } from "./wechat-profile-bridge";
 
-export { escapeHtml, assertCopySafeHtml } from "./html-escape";
+export { escapeHtml, escapeHtmlAttribute, assertCopySafeHtml } from "./html-escape";
 export { buildInlineStyle, wrapInlineElement } from "./inline-style";
 export type { InlineStyleRecord } from "./inline-style";
+export {
+  renderInlineContentToCopyHtml,
+} from "./inline-content-html";
+export type { RenderInlineContentCopyResult } from "./inline-content-html";
 export {
   copyHtmlUsesInlineStyleOnly,
   renderTitleBlockCopyHtml,
 } from "./title-block-copy";
+export { renderTextBlockCopyHtml } from "./text-block-copy";
 
 /** Copy 路径复用 Preview 共享 Renderer 契约；Copy 专属类型见本模块 */
 export type {

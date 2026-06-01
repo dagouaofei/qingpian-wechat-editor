@@ -1,6 +1,6 @@
 # Copy 模块
 
-> 状态：Sprint 4-A · S4A-STORY-002 基础契约已实现
+> 状态：Sprint 4-A · S4A-STORY-002 基础契约 + S4A-STORY-003 titleBlock + S4A-STORY-004 lead / paragraph
 
 ## 职责
 
@@ -9,13 +9,16 @@
 ## 入口
 
 - `src/core/copy/wechat-profile-bridge.ts` — 文档字段 ↔ 代码 WeChatCompatibilityProfile 映射
+- `src/core/copy/title-block-copy.ts` — title / heading Copy inline HTML
+- `src/core/copy/text-block-copy.ts` — lead / paragraph Copy inline HTML
+- `src/core/copy/inline-content-html.ts` — InlineContent marks Copy 映射
 - `src/core/copy/index.ts` — Copy 路径 re-export
 
 ## 约束
 
 - 复制到微信公众号编辑器是一级核心能力
 - 与 Preview Renderer 共享 ResolvedArticleStyle / ResolvedBlockStyle
-- 本轮已实现 title / heading 6 variants Copy inline HTML；未实现 Clipboard / Paste QA
+- 已实现 title / heading / lead / paragraph Copy inline HTML；未实现 Clipboard / Paste QA / divider
 
 ## 参考文档
 

@@ -22,6 +22,11 @@ export type {
   TextFirstRendererBlockType,
   TitleBlockCopyOutput,
   TitleBlockPreviewOutput,
+  TextBlockCopyOutput,
+  TextBlockLayoutKind,
+  TextBlockPreviewOutput,
+  PreviewInlineMark,
+  PreviewInlineNode,
 } from "./types";
 
 export {
@@ -61,6 +66,30 @@ export {
 export { renderArticleBlocks, renderBlock } from "./render-block";
 
 export {
+  resolveInlineMarkColor,
+  resolveInlineMarkLink,
+} from "./inline-content-marks";
+
+export { renderInlineContentPreviewNodes } from "./inline-content-preview";
+
+export {
+  TEXT_BLOCK_SUPPORTED_VARIANT_IDS,
+  createTextBlockRenderer,
+  renderTextBlock,
+  validateTextBlockRenderContext,
+} from "./text-block-renderer";
+
+export { createTextBlockRendererRegistry } from "./text-block-registry";
+
+export {
+  resolveTextBlockCopySafety,
+  resolveTextBlockLayout,
+  resolveTextBlockTypography,
+} from "./text-block-typography";
+
+export { renderTextBlockPreview } from "./text-block-preview";
+
+export {
   TITLE_BLOCK_SUPPORTED_VARIANT_IDS,
   createTitleBlockRenderer,
   renderTitleBlock,
@@ -70,11 +99,3 @@ export {
 export {
   createTitleBlockRendererRegistry,
 } from "./title-block-registry";
-
-export {
-  extractTitleBlockText,
-  resolveTitleBlockSlotContents,
-  resolveTitleBlockTypography,
-} from "./text-style";
-
-export { renderTitleBlockPreview } from "./title-block-preview";

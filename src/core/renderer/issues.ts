@@ -37,6 +37,8 @@ export function createRendererIssue(
 function defaultSeverityForCode(code: RendererIssueCode): RendererIssueSeverity {
   switch (code) {
     case "copy_safety_warning":
+    case "unsafe_inline_color":
+    case "unsafe_link_href":
       return "warning";
     case "optional_slot_disabled":
       return "info";
