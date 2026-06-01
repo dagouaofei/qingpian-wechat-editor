@@ -14,6 +14,15 @@ export { escapeHtml, escapeHtmlAttribute, assertCopySafeHtml } from "./html-esca
 export { buildInlineStyle, wrapInlineElement } from "./inline-style";
 export type { InlineStyleRecord } from "./inline-style";
 export {
+  assertCopySafeHtmlSnapshot,
+  collectCopySafeHtmlViolations,
+  isCopySafeHtmlSnapshot,
+} from "./copy-safe-html";
+export type {
+  CopySafeHtmlViolation,
+  CopySafeHtmlViolationCode,
+} from "./copy-safe-html";
+export {
   renderInlineContentToCopyHtml,
 } from "./inline-content-html";
 export type { RenderInlineContentCopyResult } from "./inline-content-html";
@@ -27,6 +36,28 @@ export {
   copyHtmlUsesInlineStyleOnly as dividerCopyHtmlUsesInlineStyleOnly,
   renderDividerCopyHtml,
 } from "./divider-copy";
+export {
+  createSprint4ATextFirstCopyRendererRegistry,
+  SPRINT4A_TEXT_FIRST_COPY_BLOCK_TYPES,
+} from "./text-first-copy-registry";
+export type { Sprint4ATextFirstCopyBlockType } from "./text-first-copy-registry";
+export { buildCopyHtmlSnapshot } from "./copy-html-snapshot";
+export type {
+  BuildCopyHtmlSnapshotOptions,
+  CopyHtmlSnapshot,
+  CopyHtmlSnapshotEntry,
+} from "./copy-html-snapshot";
+export { buildArticlePlainText, blockToPlainText, inlineTextInputToPlainText } from "./plain-text";
+export { buildClipboardPayload } from "./clipboard-payload";
+export type {
+  BuildClipboardPayloadOptions,
+  ClipboardPayload,
+} from "./clipboard-payload";
+export {
+  PASTE_QA_STATUSES,
+  SPRINT4A_TEXT_FIRST_PASTE_QA_SEED,
+} from "./paste-qa-seed";
+export type { PasteQaSeedRecord, PasteQaStatus } from "./paste-qa-seed";
 
 /** Copy 路径复用 Preview 共享 Renderer 契约；Copy 专属类型见本模块 */
 export type {

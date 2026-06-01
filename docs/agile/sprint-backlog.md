@@ -1395,24 +1395,46 @@
 
 **用户故事：** 作为产品团队，我需要 text-first blocks 的 Copy HTML snapshot 与 Clipboard 双格式策略及最小 Paste QA seed，以便复制一致性有可回归基础，但不阻塞 Sprint 4-A 关闭。
 
-**优先级：** P0 · **状态：** Todo · **工作分支：** `feature/s4a-copy-clipboard-paste-seed`（建议）
+**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s4a-copy-html-clipboard-paste-seed`
 
 **纳入遗留：** P1-S3B-002（balanced copySafety paste 验证）；P1-S3B-004（gallery 登记，不必本轮实现）
+
+**实际产物：**
+
+| 路径 | 说明 |
+|------|------|
+| `src/core/copy/copy-safe-html.ts` | Copy HTML snapshot 安全断言 |
+| `src/core/copy/text-first-copy-registry.ts` | Sprint 4-A text-first copy renderer registry |
+| `src/core/copy/copy-html-snapshot.ts` | 基于现有 Copy Renderer 的 snapshot seed builder |
+| `src/core/copy/clipboard-payload.ts` | `text/html` + `text/plain` payload builder（纯函数） |
+| `src/core/copy/plain-text.ts` | text/plain fallback builder |
+| `src/core/copy/paste-qa-seed.ts` | 最小 Paste QA seed 数据结构 |
+| `tests/fixtures/copy/text-first-copy-fixtures.ts` | 6 个代表 variants 的 Article + Style fixture |
+| `tests/core/copy/copy-html-snapshot.test.ts` | snapshot / copy-safe / missing renderer/style 测试 |
+| `tests/core/copy/clipboard-payload.test.ts` | Clipboard 双格式 payload 测试 |
+| `tests/core/copy/plain-text.test.ts` | text/plain fallback 测试 |
+| `tests/core/copy/paste-qa-seed.test.ts` | Paste QA seed 测试 |
+| `docs/agile/paste-qa/sprint4a-text-first-seed.md` | 最小 Paste QA seed 文档 |
 
 **明确不做：**
 
 - 不做完整 **33 variants** Paste QA（留 Sprint 4-B / 6-B）
-- 不实现 PasteTestRecord 全量 workflow（可 seed schema / checklist）
-- 不实现 style quality gallery UI
+- 不调用 `navigator.clipboard`，不实现浏览器 Clipboard 权限逻辑
+- 不新增业务页面 / Copy 按钮
+- 不实现 structured blocks Renderer
+- 不实现 Style Gallery / AI Style Selection / Generation / Streaming
+- 不 merge 至 sprint / release / main（待用户审查）
 
 **验收标准：**
 
-- [ ] AC-1 明确 `text/html` + `text/plain` 双格式 Clipboard 策略（对照 P1-006）
-- [ ] AC-2 建立 text-first blocks 最小 Copy HTML snapshot seed（fixture）
-- [ ] AC-3 建立最小 Paste QA seed（checklist / 记录模板，非全量 QA）
-- [ ] AC-4 balanced variants 至少 1 条人工 paste 验证路径文档化
-- [ ] AC-5 `corepack pnpm lint` / `test` / `build` 通过
-- [ ] AC-6 已生成 execution report
+- [x] AC-1 明确 `text/html` + `text/plain` 双格式 Clipboard payload（纯函数，不调用 Clipboard API）
+- [x] AC-2 建立 text-first blocks 最小 Copy HTML snapshot seed（fixture，来源为现有 Copy Renderer）
+- [x] AC-3 建立最小 Paste QA seed（TypeScript seed + markdown 记录，状态 Not Run）
+- [x] AC-4 balanced variants 至少 1 条人工 paste 验证路径文档化（`heading_numbered_section` / `lead_accent_band` / `paragraph_soft_card` / `divider_dotted_line`）
+- [x] AC-5 `corepack pnpm lint` / `test` / `build` 通过（378 tests）
+- [x] AC-6 已生成 execution report
+- [x] AC-7 未实现 structured blocks / 业务页面 / Clipboard API / 真实 Paste QA
+- [x] AC-8 未 merge 至 sprint / release / main
 
 ---
 
