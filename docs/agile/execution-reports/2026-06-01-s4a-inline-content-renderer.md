@@ -9,7 +9,7 @@
 - Sprint：Sprint 4-A（text-first Preview / Copy Renderer）
 - 关联 Story / Bug / Decision：S4A-STORY-004；P2-S3B-003 / P1-CODE-002（InlineMark color ↔ ColorTokenRef 最小桥接）
 - 执行者：Cursor
-- 状态：In Review
+- 状态：Done（已 merge 至 `sprint/s4a-text-first-renderer` @ `a50ea4c`）
 
 ## 2. 本轮目标
 
@@ -102,8 +102,8 @@
 ## 10. 未完成事项
 
 - Article semantic color token 与 Style ColorTokenRef 完整 cross-registry 校验（P2-S3B-003 / P1-CODE-002 遗留）
-- merge 至 `sprint/s4a-text-first-renderer`（待用户确认）
-- Story 关闭（待 ChatGPT / 用户审查）
+- merge 至 `sprint/s4a-text-first-renderer`（用户审查通过 @ 2026-06-01）
+- Story 关闭（用户确认审查通过）
 
 ## 11. 风险与阻塞
 
@@ -117,8 +117,7 @@
 
 ## 13. 建议下一步
 
-- 用户 / ChatGPT 审查通过后 merge `feature/s4a-inline-content-renderer` → `sprint/s4a-text-first-renderer`
-- 启动 S4A-STORY-005（divider Preview + Copy Renderer）
+- S4A-STORY-004 已 Done 并 merge 回 sprint；可启动 S4A-STORY-005（divider Preview + Copy Renderer）
 
 ## 14. Commit
 

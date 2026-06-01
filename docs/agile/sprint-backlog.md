@@ -1301,7 +1301,7 @@
 
 **用户故事：** 作为开发者，我需要 lead / paragraph 支持 InlineContent 的 Preview / Copy Renderer，以便 bold / italic / highlight / color / link 在预览与复制路径中有最小 copy-safe 映射。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s4a-inline-content-renderer`
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s4a-inline-content-renderer`（已 merge 至 `sprint/s4a-text-first-renderer` @ `a50ea4c`）
 
 **纳入遗留：** P2-S3B-003 / P1-CODE-002（Article semantic color token ↔ Style ColorTokenRef 完整 registry 校验仍待 Style 层收紧；本轮提供 alias 桥接 + fallback issue）
 
@@ -1331,7 +1331,7 @@
 - 不实现 list / quote / highlight / info_card / cta / image_placeholder 等 structured blocks
 - 不新增业务页面 / Copy 按钮 / Clipboard API
 - 不做 Paste QA（S4A-STORY-006）
-- 不 merge 至 sprint / release / main（待用户审查）
+- 不 merge 至 `release/1` 或 `main`
 
 **验收标准：**
 
@@ -1343,7 +1343,7 @@
 - [x] AC-6 `corepack pnpm lint` / `test` / `build` 通过（348 tests）
 - [x] AC-7 已生成 execution report
 - [x] AC-8 未实现 divider / structured blocks / 业务页面 / Clipboard
-- [x] AC-9 未 merge 至 sprint / release / main
+- [x] AC-9 已 merge 至 `sprint/s4a-text-first-renderer`；未 merge 至 release / main
 
 ---
 
