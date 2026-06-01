@@ -2177,7 +2177,7 @@ image_placeholder：
 
 **技术价值：** 实现 TECH-ARCH-010 / TECH-ARCH-007；VisualAssetRegistry **15~30** 系统内置 icon / shape / mark；校验 family / variant / slot / assetId 白名单。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s3c-visual-asset-protocol-validation`
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s3c-visual-asset-protocol-validation` · **已 merge 至 sprint**（`3faddb4`）
 
 **产物：**
 

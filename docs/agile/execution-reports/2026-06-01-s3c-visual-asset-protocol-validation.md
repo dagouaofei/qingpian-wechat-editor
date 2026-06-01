@@ -116,5 +116,5 @@
 
 ## 14. Git
 
-- commit hash：（见本轮 commit 后更新）
-- 是否已 merge：否（待用户确认）
+- commit hash：`3faddb409edb7c2e8ceb1e3a6dc5ec5d1e9d59b7`
+- 是否已 merge：是 · merge 至 `sprint/s3c-style-assignment-validation`（fast-forward `3faddb4`）
