@@ -247,6 +247,33 @@ export type HighlightCopyOutput = {
   copySafety?: CopySafety;
 };
 
+export type InfoCardLayoutKind = import("./info-card-layout").InfoCardLayoutKind;
+
+export type InfoCardPreviewOutput = {
+  kind: "info_card_preview";
+  blockId: string;
+  blockType: "info_card";
+  variantId: string;
+  layout: InfoCardLayoutKind;
+  title?: string;
+  titleState: SlotRenderState;
+  body: string;
+  bodyLines: string[];
+  icon?: string;
+  iconState: SlotRenderState;
+  copySafety?: CopySafety;
+};
+
+export type InfoCardCopyOutput = {
+  kind: "info_card_copy_html";
+  blockId: string;
+  blockType: "info_card";
+  variantId: string;
+  layout: InfoCardLayoutKind;
+  html: string;
+  copySafety?: CopySafety;
+};
+
 export type RendererOutputPlaceholder =
   | PreviewRendererOutputPlaceholder
   | CopyRendererOutputPlaceholder
@@ -261,7 +288,9 @@ export type RendererOutputPlaceholder =
   | QuotePreviewOutput
   | QuoteCopyOutput
   | HighlightPreviewOutput
-  | HighlightCopyOutput;
+  | HighlightCopyOutput
+  | InfoCardPreviewOutput
+  | InfoCardCopyOutput;
 
 export type RendererResult<TOutput = RendererOutputPlaceholder> = {
   ok: boolean;

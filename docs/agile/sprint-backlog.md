@@ -1721,7 +1721,7 @@ highlight：
 
 **用户故事：** 作为开发者，我需要 info_card 3 个 first-wave variants 的 Preview / Copy 成对 Renderer，并明确 optional 字段 fallback 行为。
 
-**优先级：** P0 · **状态：** Todo · **工作分支：** （待创建）
+**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s4b-info-card-renderer`
 
 **目标 variants：**
 
@@ -1741,6 +1741,60 @@ highlight：
 
 - 不实现 cta / image_placeholder
 - 不做真实 Paste QA
+- 不实现真实二维码、真实链接、小程序卡片、图片能力
+- 不新增业务页面 / Copy 按钮 / Clipboard API
+- 不 merge 至 `release/1` 或 `main`
+- 不关闭 Sprint 4-B
+- 不启动 S4B-STORY-005
+
+**实际产物：**
+
+| 路径 | 说明 |
+|------|------|
+| `src/core/renderer/info-card-layout.ts` | info_card variant layout / typography / content normalization / copySafety |
+| `src/core/renderer/info-card-preview.ts` | info_card Preview Renderer 输出 |
+| `src/core/renderer/info-card-renderer.ts` | info_card renderer validation、balanced warning、Preview/Copy 调度 |
+| `src/core/renderer/info-card-registry.ts` | info_card preview/copy registry |
+| `src/core/copy/info-card-copy.ts` | info_card Copy HTML renderer 与 copy-safe CSS assertion |
+| `tests/fixtures/renderer/info-card-articles.ts` | info_card renderer/copy fixtures |
+| `tests/core/renderer/info-card-renderer.test.ts` | info_card Preview / registry / fallback 测试 |
+| `tests/core/copy/info-card-copy-renderer.test.ts` | info_card Copy HTML / escape / copy-safe 测试 |
+
+**实现摘要：**
+
+- 3 个 variants 均已实现 Preview / Copy 成对 Renderer。
+- Preview / Copy 共享既有 `Article` + `ResolvedArticleStyle` / `ResolvedBlockStyle` 输入；未引入平行 info_card 模型。
+- 未修改 Article / Block Schema 主模型。
+- Copy HTML 使用 inline style；无 Tailwind class / `<style>` / CSS variables / absolute / transform / pseudo element / flex / grid。
+- `info_card_steps` 沿用当前 `content.body` 字段，以换行文本生成稳定编号结构，不新增 schema。
+- `content.body` 缺失/为空时返回 `invalid_renderer_input` error；`title` / `icon` 缺失时返回 `optional_slot_disabled` info。
+- 3 个 variants 均为 balanced copySafety，输出 `copy_safety_warning`，不阻塞渲染。
+
+**验收标准：**
+
+- [x] AC-1 已从 `sprint/s4b-structured-block-renderer` 创建 `feature/s4b-info-card-renderer`
+- [x] AC-2 info_card 3 个 first-wave variants Preview Renderer 已实现
+- [x] AC-3 info_card 3 个 first-wave variants Copy Renderer 已实现
+- [x] AC-4 Preview / Copy 共享既有 Article + ResolvedStyle 输入，不引入平行模型
+- [x] AC-5 renderer registry 已接入 info_card preview + copy renderer
+- [x] AC-6 Copy HTML 使用 inline style，无 Tailwind class / style tag / CSS variables
+- [x] AC-7 Copy HTML 不使用 absolute / transform / pseudo element
+- [x] AC-8 `content.title` / `content.body` / optional 字段有明确 disabled / fallback 行为
+- [x] AC-9 balanced variants 有明确 warning / issue 机制，但不阻塞代码路径
+- [x] AC-10 单元测试覆盖 3 variants Preview / Copy、registry、fallback、escape、copy-safe 约束
+- [x] AC-11 `corepack pnpm lint` 通过
+- [x] AC-12 `corepack pnpm test` 通过
+- [x] AC-13 `corepack pnpm build` 通过
+- [x] AC-14 `docs/agile/sprint-backlog.md` 已同步 S4B-STORY-004 状态与产物
+- [x] AC-15 `docs/agile/changelog.md` 已记录本轮变更
+- [x] AC-16 未实现 cta / image_placeholder
+- [x] AC-17 未执行真实 Paste QA
+- [x] AC-18 未新增业务页面 / Clipboard API
+- [x] AC-19 未修改 Article / Block Schema 主模型
+- [x] AC-20 未 merge 至 `release/1`
+- [x] AC-21 未 merge 至 `main`
+- [x] AC-22 未关闭 Sprint 4-B
+- [x] AC-23 未启动 S4B-STORY-005
 
 ---
 
