@@ -4,12 +4,14 @@ import {
 } from "./schemas";
 import {
   TITLE_BLOCK_COMPONENT_ID,
+  TITLE_BLOCK_FIRST_WAVE_ALLOWED_LAYOUT_MODES,
   TITLE_BLOCK_LAYOUT_MODES,
 } from "./types";
 import type {
   CopySafety,
   StyleValidationIssue,
   StyleValidationResult,
+  TitleBlockCatalogLayoutMapping,
   TitleBlockLayoutCompatibility,
   TitleBlockLayoutCompatibilityTable,
   TitleBlockLayoutMode,
@@ -397,4 +399,170 @@ export function assertTitleBlockLayoutTableComplete(): boolean {
   return TITLE_BLOCK_LAYOUT_MODES.every(
     (mode) => TITLE_BLOCK_LAYOUT_COMPATIBILITY_TABLE[mode] !== undefined,
   );
+}
+
+const CATALOG_LAYOUT_MODE_ALIASES: Record<string, TitleBlockLayoutMode> = {
+  "vertical-stack": "plain",
+  "line-top": "bottom_line",
+  "line-bottom": "bottom_line",
+  "badge-top": "top_badge",
+  "corner-label": "top_badge",
+  "offset-bg": "offset_background",
+  "magazine-left-bar": "magazine_left_bar",
+  "left-bar": "magazine_left_bar",
+  "icon-left": "icon_prefix",
+  "icon-right": "icon_prefix",
+  "inline-prefix": "icon_prefix",
+  "inline-badge": "top_badge",
+  "card-corner": "card",
+  "card-center": "card",
+  symmetric: "card",
+  "title-subtitle-line": "bottom_line",
+  stack: "card",
+};
+
+export const TITLE_BLOCK_CATALOG_LAYOUT_MODE_MAPPINGS: TitleBlockCatalogLayoutMapping[] =
+  [
+    {
+      catalogName: "vertical-stack",
+      canonicalLayoutMode: "plain",
+      allowedInRelease1Required: true,
+      note: "Icon/badge above title stack",
+    },
+    {
+      catalogName: "line-top",
+      canonicalLayoutMode: "bottom_line",
+      allowedInRelease1Required: true,
+      note: "Historical DSL name; maps to bottom_line decoration",
+    },
+    {
+      catalogName: "line-bottom",
+      canonicalLayoutMode: "bottom_line",
+      allowedInRelease1Required: true,
+    },
+    {
+      catalogName: "badge-top",
+      canonicalLayoutMode: "top_badge",
+      allowedInRelease1Required: true,
+    },
+    {
+      catalogName: "inline-badge",
+      canonicalLayoutMode: "top_badge",
+      allowedInRelease1Required: true,
+    },
+    {
+      catalogName: "corner-label",
+      canonicalLayoutMode: "top_badge",
+      allowedInRelease1Required: true,
+      note: "Card corner badge maps to top_badge presentation",
+    },
+    {
+      catalogName: "inline-prefix",
+      canonicalLayoutMode: "icon_prefix",
+      allowedInRelease1Required: true,
+    },
+    {
+      catalogName: "icon-left",
+      canonicalLayoutMode: "icon_prefix",
+      allowedInRelease1Required: true,
+    },
+    {
+      catalogName: "icon-right",
+      canonicalLayoutMode: "icon_prefix",
+      allowedInRelease1Required: true,
+    },
+    {
+      catalogName: "card-corner",
+      canonicalLayoutMode: "card",
+      allowedInRelease1Required: true,
+    },
+    {
+      catalogName: "card-center",
+      canonicalLayoutMode: "card",
+      allowedInRelease1Required: true,
+    },
+    {
+      catalogName: "symmetric",
+      canonicalLayoutMode: "card",
+      allowedInRelease1Required: true,
+    },
+    {
+      catalogName: "stack",
+      canonicalLayoutMode: "card",
+      allowedInRelease1Required: true,
+    },
+    {
+      catalogName: "title-subtitle-line",
+      canonicalLayoutMode: "bottom_line",
+      allowedInRelease1Required: true,
+    },
+    {
+      catalogName: "left-bar",
+      canonicalLayoutMode: "magazine_left_bar",
+      allowedInRelease1Required: false,
+      fallbackLayoutMode: "left_bar",
+      note: "Candidate-only magazine left bar",
+    },
+    {
+      catalogName: "magazine-left-bar",
+      canonicalLayoutMode: "magazine_left_bar",
+      allowedInRelease1Required: false,
+      fallbackLayoutMode: "left_bar",
+    },
+    {
+      catalogName: "offset-bg",
+      canonicalLayoutMode: "offset_background",
+      allowedInRelease1Required: false,
+      fallbackLayoutMode: "plain",
+    },
+  ];
+
+function normalizeLayoutModeInput(input: string): string {
+  return input.trim().toLowerCase();
+}
+
+function isCanonicalTitleBlockLayoutMode(
+  value: string,
+): value is TitleBlockLayoutMode {
+  return (TITLE_BLOCK_LAYOUT_MODES as readonly string[]).includes(value);
+}
+
+export function normalizeTitleBlockLayoutMode(
+  input: string,
+): TitleBlockLayoutMode | undefined {
+  const normalized = normalizeLayoutModeInput(input);
+  const snakeCase = normalized.replace(/-/g, "_");
+
+  if (isCanonicalTitleBlockLayoutMode(snakeCase)) {
+    return snakeCase;
+  }
+
+  return (
+    CATALOG_LAYOUT_MODE_ALIASES[normalized] ??
+    CATALOG_LAYOUT_MODE_ALIASES[snakeCase]
+  );
+}
+
+export function mapTitleBlockCatalogLayoutMode(
+  input: string,
+): TitleBlockLayoutMode | undefined {
+  const normalized = normalizeLayoutModeInput(input);
+  const snakeCase = normalized.replace(/-/g, "_");
+
+  if (isCanonicalTitleBlockLayoutMode(snakeCase)) {
+    return snakeCase;
+  }
+
+  return (
+    CATALOG_LAYOUT_MODE_ALIASES[normalized] ??
+    CATALOG_LAYOUT_MODE_ALIASES[snakeCase]
+  );
+}
+
+export function isTitleBlockFirstWaveLayoutMode(
+  layoutMode: TitleBlockLayoutMode,
+): boolean {
+  return (
+    TITLE_BLOCK_FIRST_WAVE_ALLOWED_LAYOUT_MODES as readonly TitleBlockLayoutMode[]
+  ).includes(layoutMode);
 }

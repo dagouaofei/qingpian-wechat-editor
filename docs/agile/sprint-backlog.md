@@ -936,13 +936,9 @@
 
 **用户故事：** 作为开发者，我需要在实现 33 variants 前收口 layoutMode 映射与 slot copySafety 规则，以免 registry 写错 layoutMode 或 copySafety。
 
-**优先级：** P0 · **状态：** Todo · **工作分支：** `feature/s3b-titleblock-mapping-slot-copysafety`（待创建）
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s3b-titleblock-mapping-slot-copysafety`
 
-**范围：**
-
-- 修正或补充 `style-system.md` §11.4 历史 layoutMode 命名 → 代码 snake_case enum 映射表（P1-S3A-001）
-- 将 P2-S3A-002 收口为 slot 级 copySafety 规则（文档 + 必要 schema / validation 最小补强）
-- 明确 first-wave variants 允许使用的 slot / layoutMode / copySafety 组合
+**P1-S3A-001 / P2-S3A-002：** ✅ 已收口（layoutMode mapping + slot copySafety schema/validation）
 
 **明确不做：**
 
@@ -951,12 +947,12 @@
 
 **验收标准：**
 
-- [ ] AC-1 layoutMode DSL catalog → code enum 映射表可执行且与 `title-layout.ts` 一致
-- [ ] AC-2 slot 级 copySafety 规则写入 style-system 或 validation 最小补强
-- [ ] AC-3 first-wave 允许的 slot / layoutMode / copySafety 组合文档化
-- [ ] AC-4 单元测试覆盖 mapping / copySafety 校验（如有代码补强）
-- [ ] AC-5 `corepack pnpm lint` / `test` / `build` 通过
-- [ ] AC-6 已生成 execution report
+- [x] AC-1 layoutMode DSL catalog → code enum 映射表可执行且与 `title-layout.ts` 一致
+- [x] AC-2 slot 级 copySafety 规则写入 style-system 与 validation
+- [x] AC-3 first-wave 允许的 slot / layoutMode / copySafety 组合文档化
+- [x] AC-4 单元测试覆盖 mapping / copySafety 校验
+- [x] AC-5 `corepack pnpm lint` / `test` / `build` 通过（241 tests）
+- [x] AC-6 已生成 execution report
 
 ---
 
