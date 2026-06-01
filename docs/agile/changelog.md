@@ -209,3 +209,4 @@
 | 2026-06-01 | Sprint 3-C | 明确 Sprint 3-C 不做 Renderer / Generation / Paste QA；expansion variants 仅规划不实现 registry | 架构 | DECISION-064 |
 | 2026-06-01 | Sprint 3-C | Sprint 3-A / 3-B / 4-A / 4-B 保持 Closed；不自动启动 Sprint 5 / Sprint 6-A | 敏捷 | DECISION-064 |
 | 2026-06-01 | Sprint 3-C | 实现 Style Assignment Contract（StyleSelectionRequest / StyleAssignmentPatch / ArticleStylePlan + patch merge helper）；17 新测试；lint / test（508）/ build PASS | 代码 / 架构 | S3C-STORY-002 |
+| 2026-06-01 | Sprint 3-C | 实现 StyleOrchestrator 最小规则 R1/R2/R8 与 Block→Variant fallback；21 新测试；lint / test（529）/ build PASS | 代码 / 架构 | S3C-STORY-003 |

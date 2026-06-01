@@ -818,6 +818,9 @@ AssetRegistry 属于 Style System，**不属于** Article 内容。
 
 ### 11.7 StyleOrchestrator / 文章级节奏
 
+> **S3C-STORY-003 已实现** — `src/core/styles/style-orchestrator.ts` · `style-orchestrator-rules.ts` · `style-orchestrator-selection.ts`  
+> 入口：`orchestrateArticleStyle(Article, StyleRegistry)` → `ArticleStylePlan` + `StyleValidationIssue[]`；在 StyleResolver **之前**调用；不 mutate `Article.blocks`。
+
 StyleOrchestrator 位于 StyleResolver **之前**，不修改 Article，只输出 ArticleStylePlan / blockOverrides。
 
 | 规则 | 内容 |
@@ -830,6 +833,8 @@ StyleOrchestrator 位于 StyleResolver **之前**，不修改 Article，只输�
 | R6 | badge 强调型不应每 section 都出现 |
 | R7 | 长文变体稳定；短文可提高变化 |
 | R8 | title 与首个 heading 避免同 family+variant |
+
+**R8 实现说明（代码）：** 比较 title 与首个 heading 的 `family` + `componentProtocol.layoutMode`；若相同则对首个 heading 应用 copy-safe `release1_required` fallback。
 
 Sprint 3 最小实现 R1、R2、R8。
 
