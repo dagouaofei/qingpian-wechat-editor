@@ -148,13 +148,36 @@ export type TextBlockPreviewOutput = {
   copySafety?: CopySafety;
 };
 
+export type DividerLayoutKind = import("./divider-layout").DividerLayoutKind;
+
+export type DividerPreviewOutput = {
+  kind: "divider_preview";
+  blockId: string;
+  blockType: "divider";
+  variantId: string;
+  layout: DividerLayoutKind;
+  copySafety?: CopySafety;
+};
+
+export type DividerCopyOutput = {
+  kind: "divider_copy_html";
+  blockId: string;
+  blockType: "divider";
+  variantId: string;
+  layout: DividerLayoutKind;
+  html: string;
+  copySafety?: CopySafety;
+};
+
 export type RendererOutputPlaceholder =
   | PreviewRendererOutputPlaceholder
   | CopyRendererOutputPlaceholder
   | TitleBlockPreviewOutput
   | TitleBlockCopyOutput
   | TextBlockPreviewOutput
-  | TextBlockCopyOutput;
+  | TextBlockCopyOutput
+  | DividerPreviewOutput
+  | DividerCopyOutput;
 
 export type RendererResult<TOutput = RendererOutputPlaceholder> = {
   ok: boolean;

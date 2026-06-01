@@ -25,6 +25,9 @@ export type {
   TextBlockCopyOutput,
   TextBlockLayoutKind,
   TextBlockPreviewOutput,
+  DividerCopyOutput,
+  DividerLayoutKind,
+  DividerPreviewOutput,
   PreviewInlineMark,
   PreviewInlineNode,
 } from "./types";
@@ -99,3 +102,20 @@ export {
 export {
   createTitleBlockRendererRegistry,
 } from "./title-block-registry";
+
+export {
+  DIVIDER_SUPPORTED_VARIANT_IDS,
+  createDividerRenderer,
+  renderDivider,
+  validateDividerRenderContext,
+} from "./divider-renderer";
+
+export { createDividerRendererRegistry } from "./divider-registry";
+
+export {
+  resolveDividerCopySafety,
+  resolveDividerLayout,
+  resolveDividerSpacing,
+} from "./divider-layout";
+
+export { renderDividerPreview } from "./divider-preview";

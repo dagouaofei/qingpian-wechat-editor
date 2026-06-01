@@ -22,6 +22,11 @@ export {
   renderTitleBlockCopyHtml,
 } from "./title-block-copy";
 export { renderTextBlockCopyHtml } from "./text-block-copy";
+export {
+  assertDividerCopySafeCss,
+  copyHtmlUsesInlineStyleOnly as dividerCopyHtmlUsesInlineStyleOnly,
+  renderDividerCopyHtml,
+} from "./divider-copy";
 
 /** Copy 路径复用 Preview 共享 Renderer 契约；Copy 专属类型见本模块 */
 export type {

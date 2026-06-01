@@ -1351,26 +1351,43 @@
 
 **用户故事：** 作为开发者，我需要 divider 3 个 first-wave variants 的 Preview / Copy 成对 Renderer，以便 section 分隔在微信复制中简单、安全、可复制。
 
-**优先级：** P0 · **状态：** Todo · **工作分支：** `feature/s4a-divider-renderer`（建议）
+**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s4a-divider-renderer`
 
 **纳入遗留：** P1-S3B-001（text-first 子集保真验证）
 
 **目标 variants（3）：** `divider_simple_line`、`divider_dotted_line`、`divider_section_space`
 
+**实际产物：**
+
+| 路径 | 说明 |
+|------|------|
+| `src/core/renderer/divider-layout.ts` | divider layout / spacing 映射 |
+| `src/core/renderer/divider-preview.ts` | divider Preview Renderer |
+| `src/core/renderer/divider-renderer.ts` | divider 成对 render 入口 |
+| `src/core/renderer/divider-registry.ts` | `createDividerRendererRegistry()` |
+| `src/core/copy/divider-copy.ts` | divider Copy inline HTML |
+| `tests/core/renderer/divider-renderer.test.ts` | Preview / registry / fallback 测试 |
+| `tests/core/copy/divider-copy-renderer.test.ts` | Copy HTML / copy-safe 测试 |
+| `tests/fixtures/renderer/divider-articles.ts` | divider fixture |
+
 **明确不做：**
 
-- 不实现 list / structured blocks
-- 不使用复杂 border / pseudo-element 等 high-risk CSS（除非 profile 明确允许且有 fallback）
+- 不实现 list / quote / highlight / info_card / cta / image_placeholder 等 structured blocks
+- 不新增业务页面 / Copy 按钮 / Clipboard API
+- 不做 Paste QA（S4A-STORY-006）
+- 不 merge 至 sprint / release / main（待用户审查）
 
 **验收标准：**
 
-- [ ] AC-1 divider 3 variants Preview Renderer 实现
-- [ ] AC-2 对应 Copy Renderer 成对实现
-- [ ] AC-3 `balanced` / `strict` copySafety 行为与 registry 定义一致
-- [ ] AC-4 输出 HTML 结构简单、微信粘贴安全
-- [ ] AC-5 单元测试覆盖 3 variants
-- [ ] AC-6 `corepack pnpm lint` / `test` / `build` 通过
-- [ ] AC-7 已生成 execution report
+- [x] AC-1 divider 3 variants Preview Renderer 实现
+- [x] AC-2 对应 Copy Renderer 成对实现；共享 ResolvedBlockStyle 输入
+- [x] AC-3 `balanced` / `strict` copySafety 行为与 registry 一致（`divider_dotted_line` balanced warning）
+- [x] AC-4 输出 HTML 结构简单、微信粘贴安全（inline style；无 class / style tag / absolute / transform / pseudo）
+- [x] AC-5 单元测试覆盖 3 variants Preview / Copy + registry / fallback（14 cases 新增）
+- [x] AC-6 `corepack pnpm lint` / `test` / `build` 通过（362 tests）
+- [x] AC-7 已生成 execution report
+- [x] AC-8 未实现 structured blocks / 业务页面 / Clipboard / Paste QA
+- [x] AC-9 未 merge 至 sprint / release / main
 
 ---
 

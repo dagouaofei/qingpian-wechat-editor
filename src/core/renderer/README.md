@@ -1,6 +1,6 @@
 # Renderer 模块
 
-> 状态：Sprint 4-A · S4A-STORY-002 基础契约 + S4A-STORY-003 titleBlock + S4A-STORY-004 lead / paragraph
+> 状态：Sprint 4-A · S4A-STORY-002 基础契约 + S4A-STORY-003 titleBlock + S4A-STORY-004 lead / paragraph + S4A-STORY-005 divider
 
 ## 职责
 
@@ -16,13 +16,14 @@
 - `src/core/renderer/title-block-registry.ts` — `createTitleBlockRendererRegistry()`
 - `src/core/renderer/text-block-renderer.ts` — lead / paragraph InlineContent Preview + Copy
 - `src/core/renderer/text-block-registry.ts` — `createTextBlockRendererRegistry()`
-- `src/core/renderer/inline-content-marks.ts` — InlineMark color / link 安全解析
+- `src/core/renderer/divider-renderer.ts` — divider Preview + Copy
+- `src/core/renderer/divider-registry.ts` — `createDividerRendererRegistry()`
 
 ## 约束
 
 - 与 Copy Renderer 共享同一套 ResolvedStyle 输入
 - 不允许 previewArticle / mockArticle / streamArticle 等平行模型
-- 已实现 title / heading / lead / paragraph text-first Preview；未实现 divider / structured blocks
+- 已实现 title / heading / lead / paragraph / divider text-first Preview；未实现 structured blocks
 
 ## 参考文档
 
