@@ -6,7 +6,7 @@
 > **Sprint 3-B：** First-wave Required Variant Registry · **Closed**（2026-06-01；DECISION-059）
 > **Sprint 4-A：** Preview / Copy Renderer for Text-first Blocks · **Closed**（2026-06-01；DECISION-061；audit Grade A；P0=0）
 > **Sprint 4-B：** Preview / Copy Renderer for Structured Blocks · **Closed**（2026-06-01；DECISION-063；audit Grade A；P0=0）
-> **Sprint 3-C：** Style Assignment / Selection Validation + Orchestrator + VisualAssetRegistry · **In Progress**（2026-06-01；DECISION-064）
+> **Sprint 3-C：** Style Assignment / Selection Validation + Orchestrator + VisualAssetRegistry · **In Review / Close Readiness**（2026-06-01；DECISION-064；audit Grade A；P0=0）
 > **Release 1 主干：** `release/1` · **Sprint 3-C 分支：** `sprint/s3c-style-assignment-validation`（从 `release/1` 切出，DECISION-064）
 
 ---
@@ -2013,7 +2013,7 @@ image_placeholder：
 
 > **Sprint 3-C 目标：** Style Assignment / Style Selection **validation 闭环** + StyleOrchestrator 最小规则 + VisualAssetRegistry 最小 assets + expansion variants **规划**（不实现 expansion registry / Renderer / Generation）
 > **Sprint 3-C 分支：** `sprint/s3c-style-assignment-validation`（从 `release/1` 切出，DECISION-064）
-> **Sprint 3-C 状态：** **In Progress**（2026-06-01）
+> **Sprint 3-C 状态：** **In Review / Close Readiness**（2026-06-01；S3C-STORY-002~006 Done；audit Grade A；**待用户确认关闭**）
 > **Story 拆分调整说明：** 在 `sprint-plan.md` 原定义（VisualAssetRegistry + AI Style Selection validation + Orchestrator）基础上，按 Style Assignment 契约递进拆分；S3C-STORY-003 纳入 StyleOrchestrator R1/R2/R8 与 Block→Variant fallback；S3C-STORY-004 纳入 VisualAssetRegistry 与 ComponentProtocol/BlockVisualProtocol 校验；S3C-STORY-006 纳入 expansion variants 规划文档，不要求 expansion registry 全量实现。
 > **Sprint 3-C 前置条件：** Sprint 3-A / 3-B Closed；Sprint 4-A / 4-B Closed 且 merge 至 `release/1`（first-wave 33 variants registry + Preview / Copy Renderer 最小闭环已完成，为 validation 提供 registry 与 renderer 参照；**Sprint 3-C 不修改 Renderer**）
 > **Sprint 3-C 不做：** Preview / Copy Renderer 新实现或大范围修改、真实 Paste QA、Generation / Streaming、AI 样式建议**生成**（生成归 Sprint 5）、Style Gallery / 业务 UI、样式市场、expansion variants 全量 registry 实现、merge 至 `main`
@@ -2274,7 +2274,13 @@ image_placeholder：
 
 **技术价值：** 确认 Style Assignment validation 闭环可支撑 Sprint 5；登记 P1/P2；输出 expansion variants 规划文档。
 
-**优先级：** P0 · **状态：** Todo · **工作分支：** `docs/s3c-style-system-contract-audit-close-readiness`（建议）
+**优先级：** P0 · **状态：** In Review · **工作分支：** `docs/s3c-style-system-contract-audit-close-readiness`
+
+**产物：**
+
+- `docs/architecture/audits/sprint3c-style-system-contract-audit.md` — Grade **A** · P0=0 · P1=5 · P2=4
+- `docs/architecture/style-system.md` §11.12 — expansion variants 规划引用
+- sprint-backlog / sprint-plan / product-backlog / changelog 同步
 
 **范围：**
 
@@ -2294,19 +2300,19 @@ image_placeholder：
 
 **验收标准：**
 
-- [ ] AC-1 已从 sprint 创建 `docs/s3c-style-system-contract-audit-close-readiness`
-- [ ] AC-2 已确认 S3C-STORY-005 merge 至 sprint
-- [ ] AC-3 已生成 audit 文档
-- [ ] AC-4 audit 覆盖 Style Assignment / Orchestrator / VisualAssetRegistry / Validation Pipeline
-- [ ] AC-5 audit 输出 P0 / P1 / P2 风险清单
-- [ ] AC-6 expansion variants 规划文档已写入 audit 或 style-system 附录
-- [ ] AC-7 audit 明确建议进入 Sprint 3-C Close Readiness（须用户确认关闭）
-- [ ] AC-8 `sprint-backlog.md` 已同步 Story 状态
-- [ ] AC-9 未实现新业务 Renderer / Generation 功能
-- [ ] AC-10 未关闭 Sprint 3-C
-- [ ] AC-11 未 merge 至 `release/1` 或 `main`
-- [ ] AC-12 `corepack pnpm lint` / `test` / `build` 通过
-- [ ] AC-13 已生成 execution report
+- [x] AC-1 已从 sprint 创建 `docs/s3c-style-system-contract-audit-close-readiness`
+- [x] AC-2 已确认 S3C-STORY-005 merge 至 sprint（`8473235` / `d3db85b`）
+- [x] AC-3 已生成 audit 文档
+- [x] AC-4 audit 覆盖 Style Assignment / Orchestrator / VisualAssetRegistry / Validation Pipeline
+- [x] AC-5 audit 输出 P0 / P1 / P2 风险清单（P0=0 · P1=5 · P2=4）
+- [x] AC-6 expansion variants 规划已写入 audit §12 + style-system §11.12 引用
+- [x] AC-7 audit 建议进入 Sprint 3-C Close Readiness（**待用户确认关闭**）
+- [x] AC-8 `sprint-backlog.md` 已同步 Story 状态
+- [x] AC-9 未实现新业务 Renderer / Generation 功能
+- [x] AC-10 未关闭 Sprint 3-C
+- [x] AC-11 未 merge 至 `release/1` 或 `main`
+- [x] AC-12 `corepack pnpm lint` / `test` / `build` 通过
+- [x] AC-13 已生成 execution report
 
 ---
 
