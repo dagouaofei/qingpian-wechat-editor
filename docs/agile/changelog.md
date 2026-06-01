@@ -189,3 +189,5 @@
 | 2026-06-01 | Sprint 4-B | 实现 quote / highlight Preview + Copy Renderer，覆盖 6 variants；lint / test（424）/ build PASS | Renderer / Copy / 测试 | S4B-STORY-003 |
 | 2026-06-01 | Sprint 4-B | S4B-STORY-003 审核通过；merge `feature/s4b-quote-highlight-renderer` → `sprint/s4b-structured-block-renderer`（`4d3967e`） | Git / 敏捷 | S4B-STORY-003 |
 | 2026-06-01 | Sprint 4-B | 实现 info_card Preview + Copy Renderer，覆盖 3 variants；lint / test（443）/ build PASS | Renderer / Copy / 测试 | S4B-STORY-004 |
+| 2026-06-01 | Sprint 4-B | S4B-STORY-004 审核通过；merge `feature/s4b-info-card-renderer` → `sprint/s4b-structured-block-renderer`（`02492ec`） | Git / 敏捷 | S4B-STORY-004 |
+| 2026-06-01 | Sprint 4-B | S4B-STORY-004 审核通过；merge `feature/s4b-info-card-renderer` → `sprint/s4b-structured-block-renderer`（`02492ec`） | Git / 敏捷 | S4B-STORY-004 |

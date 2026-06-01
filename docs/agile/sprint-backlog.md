@@ -1721,7 +1721,7 @@ highlight：
 
 **用户故事：** 作为开发者，我需要 info_card 3 个 first-wave variants 的 Preview / Copy 成对 Renderer，并明确 optional 字段 fallback 行为。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s4b-info-card-renderer`
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s4b-info-card-renderer`（已 merge 至 `sprint/s4b-structured-block-renderer` @ `02492ec`）
 
 **目标 variants：**
 
