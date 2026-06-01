@@ -170,7 +170,7 @@
 ## Sprint 2 ~ 6 计划（Release 1 代码实现）
 
 > **Sprint 3-A 状态：Closed**（2026-05-31；DECISION-057）
-> **Sprint 3-B 状态：In Progress**（2026-05-31；DECISION-058；分支 `sprint/s3b-first-wave-variant-registry`）
+> **Sprint 3-B 状态：In Review / Close Readiness**（S3B-STORY-007 contract audit，2026-06-01；分支 `sprint/s3b-first-wave-variant-registry`；**P0=0，grade A**；须用户确认关闭）
 >
 > 业务功能实现必须在核心技术方案 + 实现前契约完成之后进入（DECISION-015、DECISION-029~045、DECISION-051）。
 
@@ -213,7 +213,7 @@
 
 **不做：** 全部 **33** first-wave required variants registry；Preview / Copy Renderer；AI Style Selection 生成；VisualAssetRegistry 全量 assets
 
-### Sprint 3-B：First-wave Required Variant Registry — **In Progress**
+### Sprint 3-B：First-wave Required Variant Registry — **In Review / Close Readiness**
 
 **分支：** `sprint/s3b-first-wave-variant-registry`（从 `release/1` 切出，DECISION-058）
 
@@ -242,6 +242,25 @@
 - VisualAssetRegistry 全量 assets
 - StyleOrchestrator
 - Generation / Streaming
+
+**Close Readiness：**
+
+- Contract audit **A** 级；P0=0；P1=5 / P2=3 已登记
+- 33 first-wave variants coverage 完整（11 block × 3）
+- lint / test / build PASS（286 tests）
+- 未越界实现 Preview / Copy / Paste QA / AI / VisualAssetRegistry / StyleOrchestrator / Generation
+- **待用户确认关闭**；不自动 merge `release/1`
+
+### Sprint 3-B audit P1/P2 登记（不阻塞关闭）
+
+| ID | 问题 | 建议 Sprint |
+|----|------|-------------|
+| P1-S3B-001 | 33 variants 尚未经过 Preview / Copy Renderer 实际保真验证 | Sprint 4-A / 4-B |
+| P1-S3B-002 | `balanced` copySafety variants 需要 WeChat paste QA 验证 | Sprint 4 / 6-B |
+| P1-S3B-003 | cta / image_placeholder 仍为占位契约 | Sprint 4-B / Release 2+ |
+| P1-S3B-004 | 缺少 style quality gallery / 人工视觉验收入口 | Sprint 4 / 6 |
+| P1-S3B-005 | optional slot 字段需 Renderer 明确 disabled/fallback 行为 | Sprint 4-B |
+| P2-S3B-001 ~ P2-S3B-003 | 见 `sprint3b-contract-audit.md` §11 | Sprint 4~6 / Release 2 |
 
 ### Sprint 3-C：VisualAssetRegistry + AI Style Selection Validation + Orchestrator
 

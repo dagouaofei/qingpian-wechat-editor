@@ -1098,7 +1098,7 @@
 - [x] AC-6 registry helper 按 blockType / id 查询稳定
 - [x] AC-7 `corepack pnpm lint` / `test` / `build` 通过
 - [x] AC-8 已生成 execution report
-- [x] AC-9 未 merge 至 sprint（待用户审查）
+- [x] AC-9 已 merge 至 `sprint/s3b-first-wave-variant-registry`（`7837dce`，用户确认 2026-06-01）
 
 ---
 
@@ -1106,7 +1106,9 @@
 
 **用户故事：** 作为产品负责人，我需要在 Sprint 3-B 完成后做契约 audit，确认 33 variants registry 与 style-system.md 一致，并准备 Sprint 4-A 启动条件。
 
-**优先级：** P0 · **状态：** Todo · **工作分支：** `docs/s3b-contract-audit-close-readiness`（待创建）
+**优先级：** P0 · **状态：** In Review · **工作分支：** `docs/s3b-contract-audit-close-readiness`
+
+**Audit 结论：** Grade **A**；P0=0，P1=5，P2=3；建议进入 Close Readiness（须用户确认关闭）
 
 **明确不做：**
 
@@ -1115,12 +1117,13 @@
 
 **验收标准：**
 
-- [ ] AC-1 已生成 `docs/architecture/audits/sprint3b-contract-audit.md`
-- [ ] AC-2 audit 覆盖 33 variants 与 Sprint 3-B 全部 Story
-- [ ] AC-3 audit 输出 P0 / P1 / P2
-- [ ] AC-4 Sprint 3-B 范围未越界
-- [ ] AC-5 lint / test / build PASS
-- [ ] AC-6 已生成 execution report
-- [ ] AC-7 未自行关闭 Sprint 3-B
+- [x] AC-1 已生成 `docs/architecture/audits/sprint3b-contract-audit.md`
+- [x] AC-2 audit 覆盖 33 variants 与 Sprint 3-B 全部 Story
+- [x] AC-3 audit 输出 P0 / P1 / P2（P0=0，P1=5，P2=3）
+- [x] AC-4 Sprint 3-B 范围未越界
+- [x] AC-5 lint / test / build PASS（286 tests）
+- [x] AC-6 已生成 execution report
+- [x] AC-7 未自行关闭 Sprint 3-B
+- [x] AC-8 未 merge 至 `release/1` / `main`
 
 ---
