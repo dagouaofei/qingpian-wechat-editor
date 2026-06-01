@@ -2131,7 +2131,15 @@ image_placeholder：
 
 **技术价值：** 实现 `style-system.md` §11.7 R1 / R2 / R8；收口 P1-003 / TECH-ARCH-011；在 StyleResolver **之前**输出 `ArticleStylePlan` / blockOverrides，不 mutate Article 内容。
 
-**优先级：** P0 · **状态：** Todo · **工作分支：** `feature/s3c-style-orchestrator`（建议）
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s3c-style-orchestrator`
+
+**产物：**
+
+- `src/core/styles/style-orchestrator.ts` — `orchestrateArticleStyle`
+- `src/core/styles/style-orchestrator-rules.ts` — R1 / R2 / R8
+- `src/core/styles/style-orchestrator-selection.ts` — Block→Variant 优先级
+- `tests/core/styles/style-orchestrator.test.ts`（11 cases）
+- `tests/core/styles/style-orchestrator-rules.test.ts`（10 cases）
 
 **范围：**
 
@@ -2151,15 +2159,15 @@ image_placeholder：
 
 **验收标准：**
 
-- [ ] AC-1 已从 sprint 创建 `feature/s3c-style-orchestrator`
-- [ ] AC-2 `orchestrateArticleStyle`（或等价命名）输入 Article + StyleRegistry，输出 ArticleStylePlan / blockOverrides
-- [ ] AC-3 R1 / R2 / R8 已实现且有单元测试
-- [ ] AC-4 Orchestrator 不 mutate Article.blocks 内容
-- [ ] AC-5 Orchestrator 在 StyleResolver 之前调用；与 resolver fallback issue 结构兼容
-- [ ] AC-6 fallback 不 silent fail；不默认选择 experimental / candidate variant
-- [ ] AC-7 单元测试 ≥ 16 cases
-- [ ] AC-8 `corepack pnpm lint` / `test` / `build` 通过
-- [ ] AC-9 已生成 execution report
+- [x] AC-1 已从 sprint 创建 `feature/s3c-style-orchestrator`
+- [x] AC-2 `orchestrateArticleStyle` 输入 Article + StyleRegistry，输出 ArticleStylePlan / blockOverrides
+- [x] AC-3 R1 / R2 / R8 已实现且有单元测试
+- [x] AC-4 Orchestrator 不 mutate Article.blocks 内容
+- [x] AC-5 Orchestrator 在 StyleResolver 之前调用；与 StyleValidationIssue 结构兼容
+- [x] AC-6 fallback 不 silent fail；不默认选择 experimental / candidate variant
+- [x] AC-7 单元测试 ≥ 16 cases（21 cases；529 tests total）
+- [x] AC-8 `corepack pnpm lint` / `test` / `build` 通过
+- [x] AC-9 已生成 execution report
 
 ---
 

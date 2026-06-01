@@ -259,3 +259,34 @@ export {
   patchToArticleStylePlan,
   styleAssignmentToArticleStylePlan,
 } from "./style-assignment-patch";
+
+export type {
+  OrchestrateArticleStyleOptions,
+  OrchestrateArticleStyleResult,
+} from "./style-orchestrator";
+
+export { orchestrateArticleStyle } from "./style-orchestrator";
+
+export {
+  ORCHESTRATOR_RULE_R1,
+  ORCHESTRATOR_RULE_R2,
+  ORCHESTRATOR_RULE_R8,
+  applyOrchestratorRhythmRules,
+  applyOrchestratorRuleR1,
+  applyOrchestratorRuleR2,
+  applyOrchestratorRuleR8,
+} from "./style-orchestrator-rules";
+
+export type { OrchestratorRuleId } from "./style-orchestrator-rules";
+
+export {
+  isOrchestratorCopySafeRequiredVariant,
+  pickOrchestratorFallbackVariant,
+  resolveOrchestratorBlockVariant,
+  resolveOrchestratorPreset,
+} from "./style-orchestrator-selection";
+
+export type {
+  OrchestratorBlockOverrideInput,
+  OrchestratorBlockStyleState,
+} from "./style-orchestrator-selection";
