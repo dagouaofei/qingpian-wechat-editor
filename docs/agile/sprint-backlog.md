@@ -1208,7 +1208,7 @@
 
 **用户故事：** 作为开发者，我需要 Preview Renderer / Copy Renderer 的基础接口与共享输入契约，以便 text-first blocks 的成对实现有统一边界且与 StyleResolver 输出一致。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s4a-renderer-base-contract`
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s4a-renderer-base-contract`（已 merge 至 `sprint/s4a-text-first-renderer` @ `a0a5ed6`）
 
 **纳入遗留：** P2-S3B-002（WeChat profile 文档字段对齐）；P1-S3A-004（ResolvedBlockStyle componentProtocol 展开）
 

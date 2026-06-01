@@ -9,7 +9,7 @@
 - Sprint：Sprint 4-A
 - 关联 Story / Decision：S4A-STORY-002、DECISION-060
 - 执行者：Cursor
-- 状态：In Review
+- 状态：Done（已 merge 至 `sprint/s4a-text-first-renderer` @ `a0a5ed6`）
 
 ## 2. 本轮目标
 
