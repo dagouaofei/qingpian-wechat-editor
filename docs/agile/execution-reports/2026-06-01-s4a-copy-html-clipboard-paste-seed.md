@@ -9,7 +9,7 @@
 - Sprint：Sprint 4-A
 - 关联 Story / Bug / Decision：S4A-STORY-006；P1-S3B-002（balanced copySafety paste 验证）；P1-S3B-004（gallery 登记，不在本轮实现）
 - 执行者：Cursor
-- 状态：In Review
+- 状态：Done（已 merge 至 `sprint/s4a-text-first-renderer` @ `3b6d900`）
 
 ## 2. 本轮目标
 
@@ -107,7 +107,8 @@
 ## 10. 未完成事项
 
 - 真实微信公众号 Paste QA：Not Run，待后续执行。
-- merge 至 `sprint/s4a-text-first-renderer`：待用户审查确认。
+- merge 至 `sprint/s4a-text-first-renderer`（用户审查通过 @ 2026-06-01）。
+- Story 关闭（用户确认审查通过）。
 
 ## 11. 风险与阻塞
 
@@ -119,8 +120,7 @@
 
 ## 13. 建议下一步
 
-- 审查通过后 merge `feature/s4a-copy-html-clipboard-paste-seed` → `sprint/s4a-text-first-renderer`。
-- 启动 S4A-STORY-007（Sprint 4-A Renderer Contract Audit 与关闭准备）。
+- S4A-STORY-006 已 Done 并 merge 回 sprint；可启动 S4A-STORY-007（Sprint 4-A Renderer Contract Audit 与关闭准备）。
 
 ## 14. Commit
 

@@ -1395,7 +1395,7 @@
 
 **用户故事：** 作为产品团队，我需要 text-first blocks 的 Copy HTML snapshot 与 Clipboard 双格式策略及最小 Paste QA seed，以便复制一致性有可回归基础，但不阻塞 Sprint 4-A 关闭。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s4a-copy-html-clipboard-paste-seed`
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s4a-copy-html-clipboard-paste-seed`（已 merge 至 `sprint/s4a-text-first-renderer` @ `3b6d900`）
 
 **纳入遗留：** P1-S3B-002（balanced copySafety paste 验证）；P1-S3B-004（gallery 登记，不必本轮实现）
 
@@ -1423,7 +1423,7 @@
 - 不新增业务页面 / Copy 按钮
 - 不实现 structured blocks Renderer
 - 不实现 Style Gallery / AI Style Selection / Generation / Streaming
-- 不 merge 至 sprint / release / main（待用户审查）
+- 不 merge 至 `release/1` 或 `main`
 
 **验收标准：**
 
@@ -1434,7 +1434,7 @@
 - [x] AC-5 `corepack pnpm lint` / `test` / `build` 通过（378 tests）
 - [x] AC-6 已生成 execution report
 - [x] AC-7 未实现 structured blocks / 业务页面 / Clipboard API / 真实 Paste QA
-- [x] AC-8 未 merge 至 sprint / release / main
+- [x] AC-8 已 merge 至 `sprint/s4a-text-first-renderer`；未 merge 至 release / main
 
 ---
 
