@@ -9,7 +9,7 @@
 - Sprint：Sprint 4-B
 - 关联 Story / Decision：S4B-STORY-001~007、DECISION-063
 - 执行者：Cursor
-- 状态：In Progress（关闭文档已提交，merge 流程继续执行）
+- 状态：In Progress（关闭文档已 merge 回 sprint，release merge 继续执行）
 
 ## 2. 本轮目标
 
@@ -79,7 +79,7 @@
 | AC-4 sprint-plan Closed | PASS | 已同步 |
 | AC-5 product-backlog P1/P2 | PASS | 已登记 |
 | AC-6 changelog | PASS | 已记录关闭与 release merge 确认 |
-| AC-7 docs 分支 merge 回 sprint | 待执行 | — |
+| AC-7 docs 分支 merge 回 sprint | PASS | `78c4287` |
 | AC-8 sprint merge release/1 | 待执行 | — |
 | AC-9 lint | PASS | docs 分支 |
 | AC-10 test | PASS | 491 tests |
@@ -98,11 +98,12 @@
 | `git branch --contains HEAD --list 'release/1'` | PASS | 空输出，未 merge 至 `release/1` |
 | `git branch --contains HEAD --list 'main'` | PASS | 空输出，未 merge 至 `main` |
 | `git checkout -b docs/s4b-close-release-merge` | PASS | — |
-| `corepack pnpm lint && corepack pnpm test && corepack pnpm build` | PASS | 491 tests；build PASS |
+| `corepack pnpm lint && corepack pnpm test && corepack pnpm build` | PASS | docs 分支：491 tests；build PASS |
+| `git merge --no-ff docs/s4b-close-release-merge` | PASS | sprint merge commit `78c4287` |
+| `corepack pnpm lint && corepack pnpm test && corepack pnpm build` after docs merge | PASS | sprint 分支：491 tests；build PASS |
 
 ## 10. 未完成事项
 
-- 需继续将关闭文档分支 merge 回 sprint。
 - 需继续将 sprint merge 至 `release/1`。
 
 ## 11. 风险与阻塞
@@ -124,7 +125,7 @@
 ## 14. Commit Hash
 
 - 关闭文档 commit：`f2d025b`
-- docs 分支 merge commit：待执行
+- docs 分支 merge commit：`78c4287`
 - release merge commit：待执行
 
 ## 15. 分支状态
