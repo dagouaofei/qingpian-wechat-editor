@@ -61,6 +61,7 @@
 | DECISION-060 | 2026-06-01 | 正式启动 Sprint 4-A；Preview / Copy Renderer for Text-first Blocks；从 release/1 切 sprint/s4a-text-first-renderer | 已确认 |
 | DECISION-061 | 2026-06-01 | 关闭 Sprint 4-A；renderer contract audit A，P0=0；merge sprint/s4a-text-first-renderer → release/1 | 已确认 |
 | DECISION-062 | 2026-06-01 | 正式启动 Sprint 4-B；Preview / Copy Renderer for Structured Blocks；从 release/1 切 sprint/s4b-structured-block-renderer | 已确认 |
+| DECISION-063 | 2026-06-01 | 关闭 Sprint 4-B；renderer contract audit A，P0=0；merge sprint/s4b-structured-block-renderer → release/1 | 已确认 |
 
 ### DECISION-019 详情
 
@@ -329,6 +330,28 @@
   8. **不 merge 至 `main`**
   9. Sprint 关闭后 merge 至 `release/1` 须用户确认
 - **关联：** S4B-STORY-001、DECISION-043~045、rendering-pipeline.md、TECH-ARCH-021、TECH-ARCH-023
+- **状态：** 已确认
+
+### DECISION-063 详情（关闭 Sprint 4-B）
+
+- **日期：** 2026-06-01
+- **背景：**
+  - S4B-STORY-001~007 全部完成
+  - Sprint 4-B Renderer Contract Audit 完成
+  - audit 结论 Grade A，P0=0，P1=4，P2=2
+  - `corepack pnpm lint` / `test`（491 tests）/ `build` PASS
+  - structured blocks Preview / Copy Renderer 最小闭环完成
+  - structured snapshot seed 覆盖 18 variants
+  - first-wave 33 variants Paste QA plan 已建立
+  - 真实微信公众号 Paste QA 仍为 Not Run，归 Sprint 6-B
+- **决策：**
+  1. 用户接受 Sprint 4-B audit 结论
+  2. Sprint 4-B **正式关闭**
+  3. `sprint/s4b-structured-block-renderer` **merge 至 `release/1`**
+  4. P1/P2 登记至 Sprint 6-A / 6-B / Release 2+，不阻塞关闭
+  5. **不 merge 至 `main`**
+  6. **不自动启动 Sprint 5 / Sprint 3-C / Sprint 6-A**
+- **关联：** S4B-STORY-007、`sprint4b-renderer-contract-audit.md`、TECH-ARCH-021、TECH-ARCH-022、TECH-ARCH-023
 - **状态：** 已确认
 
 ## 决策模板
