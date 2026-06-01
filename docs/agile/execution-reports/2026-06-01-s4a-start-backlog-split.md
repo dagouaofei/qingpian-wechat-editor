@@ -10,7 +10,7 @@
 - Sprint：Sprint 4-A
 - 关联 Story / Decision：S4A-STORY-001、DECISION-060
 - 执行者：Cursor
-- 状态：In Review
+- 状态：Done（已 merge 至 `sprint/s4a-text-first-renderer`）
 
 ## 2. 本轮目标
 
@@ -128,4 +128,4 @@
 
 ## 16. Commit
 
-- Commit hash：未提交 / not committed
+- Commit hash：`bb5051d`（已 merge 至 `sprint/s4a-text-first-renderer`，fast-forward）

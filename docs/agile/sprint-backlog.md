@@ -1173,7 +1173,7 @@
 
 **用户故事：** 作为产品负责人，我需要正式启动 Sprint 4-A 并拆分 Backlog，以便团队在明确边界下按 Story 逐步实现 text-first Preview / Copy Renderer。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `docs/s4a-start-backlog-split`
+**优先级：** P0 · **状态：** Done · **工作分支：** `docs/s4a-start-backlog-split`（已 merge 至 `sprint/s4a-text-first-renderer` @ `bb5051d`）
 
 **明确不做：**
 
