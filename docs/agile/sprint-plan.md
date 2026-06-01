@@ -57,10 +57,10 @@
 | **Sprint 3-B** | **Closed**（2026-06-01；DECISION-059） |
 | **Sprint 4-A** | **Closed**（2026-06-01；DECISION-061） |
 | **Sprint 4-B** | **Closed**（2026-06-01；DECISION-063） |
-| **Sprint 3-C** | **In Review / Close Readiness**（2026-06-01；DECISION-064；audit Grade A） |
-| **Release 1 主干** | `release/1`（Sprint 4-A / 4-B 已 merge，DECISION-061、DECISION-063） |
-| **Sprint 3-C 分支** | `sprint/s3c-style-assignment-validation`（从 `release/1` 切出） |
-| **下一步** | **等待用户确认是否关闭 Sprint 3-C**；确认后可 merge sprint → `release/1` |
+| **Sprint 3-C** | **Closed**（2026-06-01；DECISION-065；audit Grade A；merged `release/1`） |
+| **Release 1 主干** | `release/1`（Sprint 3-C merged，DECISION-065） |
+| **Sprint 3-C 分支** | `sprint/s3c-style-assignment-validation`（已 merge 至 `release/1`） |
+| **下一步** | **等待用户确认启动 Sprint 5**；不自动启动 Sprint 5 / Sprint 6-A |
 
 ---
 
@@ -176,7 +176,7 @@
 > **Sprint 3-B 状态：Closed**（2026-06-01；DECISION-059；contract audit **A**，P0=0；分支 `sprint/s3b-first-wave-variant-registry` 已 merge 至 `release/1`）
 > **Sprint 4-A 状态：Closed**（2026-06-01；DECISION-061；contract audit **A**，P0=0；分支 `sprint/s4a-text-first-renderer` 已 merge 至 `release/1`）
 > **Sprint 4-B 状态：Closed**（2026-06-01；DECISION-063；contract audit **A**，P0=0；分支 `sprint/s4b-structured-block-renderer` 已 merge 至 `release/1`）
-> **Sprint 3-C 状态：In Progress**（2026-06-01；DECISION-064；Style Assignment / Selection Validation + Orchestrator + VisualAssetRegistry）
+> **Sprint 3-C 状态：Closed**（2026-06-01；DECISION-065；Style Assignment / Selection Validation + Orchestrator + VisualAssetRegistry）
 >
 > 业务功能实现必须在核心技术方案 + 实现前契约完成之后进入（DECISION-015、DECISION-029~045、DECISION-051）。
 
@@ -269,13 +269,13 @@
 | P1-S3B-005 | optional slot 字段需 Renderer 明确 disabled/fallback 行为 | Sprint 4-B |
 | P2-S3B-001 ~ P2-S3B-003 | 见 `sprint3b-contract-audit.md` §11 | Sprint 4~6 / Release 2 |
 
-### Sprint 3-C：Style Assignment / Selection Validation + Orchestrator + VisualAssetRegistry — **In Review / Close Readiness**（2026-06-01）
+### Sprint 3-C：Style Assignment / Selection Validation + Orchestrator + VisualAssetRegistry — **Closed**（2026-06-01）
 
-**分支：** `sprint/s3c-style-assignment-validation` @ `d3db85b`（S3C-STORY-002~005 merged）
+**分支：** `sprint/s3c-style-assignment-validation` · **已 merge 至 `release/1`**（DECISION-065）
 
-**Stories：** S3C-STORY-001~006 Done · audit `sprint3c-style-system-contract-audit.md` Grade **A** · P0=0
+**Stories：** S3C-STORY-001~006 **Done** · audit Grade **A** · P0=0 · P1=5 · P2=4 · 592 tests
 
-> **Close Readiness：** S3C-STORY-006 audit 完成；**须用户确认**后才可关闭 Sprint 3-C 或 merge 至 `release/1`；**不自动启动 Sprint 5 / Sprint 6-A**
+> **关闭结论（DECISION-065）：** 用户接受 Sprint 3-C contract audit；Style Assignment validation 闭环完成；`sprint/s3c-style-assignment-validation` merge 至 `release/1`；**不 merge main**；**不自动启动 Sprint 5**
 
 > **启动时机：** Sprint 4-A / 4-B 已 Closed 并 merge 至 `release/1`（DECISION-061、DECISION-063）；first-wave 33 variants registry 与 Preview / Copy Renderer 最小闭环已完成，Sprint 3-C 承接 Style System **分配与校验**闭环，为 Sprint 5 Generation 样式建议提供 validation pipeline。
 

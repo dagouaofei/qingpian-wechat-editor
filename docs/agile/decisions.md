@@ -63,6 +63,7 @@
 | DECISION-062 | 2026-06-01 | 正式启动 Sprint 4-B；Preview / Copy Renderer for Structured Blocks；从 release/1 切 sprint/s4b-structured-block-renderer | 已确认 |
 | DECISION-063 | 2026-06-01 | 关闭 Sprint 4-B；renderer contract audit A，P0=0；merge sprint/s4b-structured-block-renderer → release/1 | 已确认 |
 | DECISION-064 | 2026-06-01 | 正式启动 Sprint 3-C；Style Assignment / Selection Validation + Orchestrator + VisualAssetRegistry | 已确认 |
+| DECISION-065 | 2026-06-01 | 关闭 Sprint 3-C；contract audit A，P0=0；merge sprint/s3c-style-assignment-validation → release/1 | 已确认 |
 
 ### DECISION-019 详情
 
@@ -374,6 +375,27 @@
   7. **不自动启动 Sprint 5 / Sprint 6-A**
 - **Story 拆分：** S3C-STORY-001~006（见 `sprint-backlog.md`）
 - **关联：** S3C-STORY-001、TECH-ARCH-010~012、TECH-ARCH-017、TECH-ARCH-020、style-system.md §11.7~11.8
+- **状态：** 已确认
+
+### DECISION-065 详情（关闭 Sprint 3-C）
+
+- **日期：** 2026-06-01
+- **背景：**
+  - S3C-STORY-001~006 全部完成
+  - Sprint 3-C Style System Contract Audit 完成（`sprint3c-style-system-contract-audit.md`）
+  - audit 结论 Grade A，P0=0，P1=5，P2=4
+  - `corepack pnpm lint` / `test`（592 tests）/ `build` PASS
+  - Style Assignment Contract、StyleOrchestrator R1/R2/R8、VisualAssetRegistry（19 assets）、Validation Pipeline + fixtures 完成
+  - expansion variants 规划已输出（不实现 registry）
+- **决策：**
+  1. 用户接受 Sprint 3-C contract audit 结论
+  2. Sprint 3-C **正式关闭**
+  3. `sprint/s3c-style-assignment-validation` **merge 至 `release/1`**
+  4. P1/P2（P1-S3C-001~005 等）登记后续 Sprint，不阻塞关闭
+  5. **不 merge 至 `main`**
+  6. **不自动启动 Sprint 5 / Sprint 6-A**
+  7. Sprint 5 启动前须复用 `validateStyleSelectionPipeline`；须用户确认
+- **关联：** S3C-STORY-006、`sprint3c-style-system-contract-audit.md`、TECH-ARCH-010~012、TECH-ARCH-017、DECISION-064
 - **状态：** 已确认
 
 ## 决策模板
