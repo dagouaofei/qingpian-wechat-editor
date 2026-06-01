@@ -9,7 +9,7 @@
 - Sprint：Sprint 4-B
 - 关联 Story / Decision：S4B-STORY-001~007、DECISION-063
 - 执行者：Cursor
-- 状态：In Progress
+- 状态：In Progress（关闭文档已提交，merge 流程继续执行）
 
 ## 2. 本轮目标
 
@@ -123,7 +123,7 @@
 
 ## 14. Commit Hash
 
-- 关闭文档 commit：未提交 / not committed（本报告随本轮提交）
+- 关闭文档 commit：`f2d025b`
 - docs 分支 merge commit：待执行
 - release merge commit：待执行
 
