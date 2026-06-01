@@ -936,7 +936,7 @@
 
 **用户故事：** 作为开发者，我需要在实现 33 variants 前收口 layoutMode 映射与 slot copySafety 规则，以免 registry 写错 layoutMode 或 copySafety。
 
-**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s3b-titleblock-mapping-slot-copysafety`
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s3b-titleblock-mapping-slot-copysafety`（已 merge 至 sprint）
 
 **P1-S3A-001 / P2-S3A-002：** ✅ 已收口（layoutMode mapping + slot copySafety schema/validation）
 
@@ -960,22 +960,18 @@
 
 **用户故事：** 作为开发者，我需要为 title / heading block 各实现 3 个 release1_required variants，以便 Sprint 4 Renderer 有 copy-safe titleBlock 样式可用。
 
-**优先级：** P0 · **状态：** Todo · **工作分支：** `feature/s3b-title-heading-variants`（待创建）
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s3b-title-heading-variants`
 
-**目标：**
+**已实现 variants（6）：**
 
-- title block **3** 个 release1_required variants
-- heading block **3** 个 release1_required variants
-- 复用 titleBlock ComponentProtocol
-- 不含 `magazine_left_bar_title`
-
-**建议 variants 方向：** plain / minimal；left_bar 或 bottom_line；numbered / top_badge / card 中选择 copy-safe 组合
-
-**要求：**
-
-- 每个 variant 通过 StyleValidationResult
-- 每个 variant 有 copySafety、layoutMode、slot binding
-- 不使用 preview_only、overlay、offset_background、magazine_left_bar（required）
+| id | blockType | layoutMode |
+|----|-----------|------------|
+| `title_plain_minimal` | title | `plain` |
+| `title_left_bar_classic` | title | `left_bar` |
+| `title_bottom_line_editorial` | title | `bottom_line` |
+| `heading_plain_minimal` | heading | `plain` |
+| `heading_numbered_section` | heading | `numbered` |
+| `heading_top_badge_topic` | heading | `top_badge` |
 
 **明确不做：**
 
@@ -984,12 +980,13 @@
 
 **验收标准：**
 
-- [ ] AC-1 title 3 variants + heading 3 variants 注册至 StyleRegistry
-- [ ] AC-2 每个 variant `releaseTier = release1_required`
-- [ ] AC-3 全部通过 `validateVariantForWechatCopy` / StyleValidationResult
-- [ ] AC-4 单元测试覆盖 6 variants
-- [ ] AC-5 `corepack pnpm lint` / `test` / `build` 通过
-- [ ] AC-6 已 merge 至 `sprint/s3b-first-wave-variant-registry`
+- [x] AC-1 title 3 variants + heading 3 variants 注册至 StyleRegistry fixture
+- [x] AC-2 每个 variant `releaseTier = release1_required`（status）
+- [x] AC-3 全部通过 StyleValidationResult（无 error）
+- [x] AC-4 单元测试覆盖 6 variants（`title-heading-variants.test.ts`）
+- [x] AC-5 `corepack pnpm lint` / `test` / `build` 通过
+- [x] AC-6 已生成 execution report
+- [x] AC-7 未 merge 至 sprint（待用户审查）
 
 ---
 

@@ -643,6 +643,19 @@ heading block → componentId: titleBlock → family: simple|iconDecor|badgeTitl
 
 **First-wave titleBlock copy-safe 四件套（Sprint 3-B）：** `title_with_bottom_line`、`line_top_title_center`、`badge_left_title_inline`、`icon_inline_prefix_title`（均须为 first-wave required 子集）。
 
+#### 11.4.2 Sprint 3-B 已实现 title / heading variants（S3B-STORY-003）
+
+| variantId | blockType | layoutMode | family |
+|-----------|-----------|------------|--------|
+| `title_plain_minimal` | title | `plain` | simple |
+| `title_left_bar_classic` | title | `left_bar` | simple |
+| `title_bottom_line_editorial` | title | `bottom_line` | simple |
+| `heading_plain_minimal` | heading | `plain` | simple |
+| `heading_numbered_section` | heading | `numbered` | badgeTitle |
+| `heading_top_badge_topic` | heading | `top_badge` | badgeTitle |
+
+代码路径：`src/core/styles/variants/title-heading.ts`
+
 > **`magazine_left_bar_title` 为 release1CandidateVariants** — 不在 first wave；若未来实现须：真实 DOM left bar + text；禁止 absolute / pseudo / complex flex-grid；Copy 嵌套 ≤3；WeChatCompatibilityProfile + 单独 Paste QA。
 
 ### 11.5 titleBlock 专用 slot 规范
@@ -919,7 +932,7 @@ Preview / Copy 按 `componentId` 分发成对 renderer；**不得**因复杂 var
 | WeChat compatibility | `src/core/styles/compatibility.ts` | 3-A | WeChatCompatibilityProfile |
 | Style validation | `src/core/styles/validation.ts` | 3-A | StyleValidationResult / FallbackVariantPolicy |
 | Title layout compatibility | `src/core/styles/title-layout.ts` | 3-A | TitleBlockLayoutCompatibility |
-| Variant definitions（33） | `src/core/styles/` registry JSON/TS | 3-B | first-wave required variants |
+| Variant definitions（33） | `src/core/styles/` registry JSON/TS | 3-B | first-wave required variants · **title/heading 6 已实现**（`variants/title-heading.ts`） |
 | Protocol / Assets / Orchestrator / AI | 规划子模块 | 3-C | 见 §11 |
 | Copy adapter | 规划 | 4-A | ResolvedBlockStyle → inline HTML |
 

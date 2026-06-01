@@ -142,3 +142,5 @@
 | 2026-05-31 | Sprint 3-B | 新增 Sprint 3-B Backlog S3B-STORY-001~007 | 敏捷 | S3B-STORY-001 |
 | 2026-05-31 | Sprint 3-B | P1-S3A-001 / P2-S3A-002 纳入 Sprint 3-B planning（S3B-STORY-002 前置） | 架构 / 敏捷 | S3B-STORY-002 |
 | 2026-05-31 | Sprint 3-B | titleBlock catalog layoutMode mapping + slot copySafety 收口 | 代码 / 架构 | S3B-STORY-002 |
+| 2026-05-31 | Sprint 3-B | merge `feature/s3b-titleblock-mapping-slot-copysafety` → sprint | Git | S3B-STORY-002 |
+| 2026-05-31 | Sprint 3-B | 实现 title / heading first-wave 6 variants registry | 代码 / 架构 | S3B-STORY-003 |
