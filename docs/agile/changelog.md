@@ -186,3 +186,4 @@
 | 2026-06-01 | Sprint 4-B | Sprint 3-C 仍保持延后未取消 | 敏捷 | DECISION-062 |
 | 2026-06-01 | Sprint 4-B | 实现 list Preview / Copy Renderer，覆盖 `list_plain_bullets` / `list_numbered_steps` / `list_checklist_cards`；lint / test（397）/ build PASS | Renderer / Copy / 测试 | S4B-STORY-002 |
 | 2026-06-01 | Sprint 4-B | S4B-STORY-002 审核通过；merge `feature/s4b-list-renderer` → `sprint/s4b-structured-block-renderer`（`611a2a1`）；随 merge 纳入 S4A story branch cleanup report | Git / 敏捷 | S4B-STORY-002 |
+| 2026-06-01 | Sprint 4-B | 实现 quote / highlight Preview + Copy Renderer，覆盖 6 variants；lint / test（424）/ build PASS | Renderer / Copy / 测试 | S4B-STORY-003 |

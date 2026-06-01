@@ -199,6 +199,54 @@ export type ListCopyOutput = {
   copySafety?: CopySafety;
 };
 
+export type QuoteLayoutKind = import("./quote-layout").QuoteLayoutKind;
+
+export type QuotePreviewOutput = {
+  kind: "quote_preview";
+  blockId: string;
+  blockType: "quote";
+  variantId: string;
+  layout: QuoteLayoutKind;
+  text: string;
+  attribution?: string;
+  attributionState: SlotRenderState;
+  copySafety?: CopySafety;
+};
+
+export type QuoteCopyOutput = {
+  kind: "quote_copy_html";
+  blockId: string;
+  blockType: "quote";
+  variantId: string;
+  layout: QuoteLayoutKind;
+  html: string;
+  copySafety?: CopySafety;
+};
+
+export type HighlightLayoutKind = import("./highlight-layout").HighlightLayoutKind;
+
+export type HighlightPreviewOutput = {
+  kind: "highlight_preview";
+  blockId: string;
+  blockType: "highlight";
+  variantId: string;
+  layout: HighlightLayoutKind;
+  text: string;
+  label?: string;
+  labelState: SlotRenderState;
+  copySafety?: CopySafety;
+};
+
+export type HighlightCopyOutput = {
+  kind: "highlight_copy_html";
+  blockId: string;
+  blockType: "highlight";
+  variantId: string;
+  layout: HighlightLayoutKind;
+  html: string;
+  copySafety?: CopySafety;
+};
+
 export type RendererOutputPlaceholder =
   | PreviewRendererOutputPlaceholder
   | CopyRendererOutputPlaceholder
@@ -209,7 +257,11 @@ export type RendererOutputPlaceholder =
   | DividerPreviewOutput
   | DividerCopyOutput
   | ListPreviewOutput
-  | ListCopyOutput;
+  | ListCopyOutput
+  | QuotePreviewOutput
+  | QuoteCopyOutput
+  | HighlightPreviewOutput
+  | HighlightCopyOutput;
 
 export type RendererResult<TOutput = RendererOutputPlaceholder> = {
   ok: boolean;
