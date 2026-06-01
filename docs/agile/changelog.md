@@ -260,3 +260,13 @@
 | 2026-06-02 | Sprint 5 | 新增 S5-STORY-005 真实模型 Provider 对接（Volcengine / Doubao）；原 S5-STORY-005~007 顺延为 S5-STORY-006~008 | 敏捷 | S5-STORY-005~008 |
 | 2026-06-02 | Sprint 5 | Volcengine / Doubao provider 纳入 Sprint 5 P0；deterministic provider 仅 dev fallback / test provider | 架构 | TECH-ARCH-024, TECH-ARCH-025 |
 | 2026-06-02 | Sprint 5 | Sprint 5 UI 主流程验收不再允许只依赖 deterministic provider | 敏捷 / 产品 | DECISION-068, S5-STORY-007, S5-STORY-008 |
+
+---
+
+## 2026-06-02 · S5-STORY-004 done.article 归一
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-02 | Sprint 5 | 实现 `done.article` 事件序列校验与 `finalizeGenerationEvents` Article 归一链路 | 代码 / 架构 | S5-STORY-004 |
+| 2026-06-02 | Sprint 5 | 复用 `parseArticle` / `validateArticle` / `normalizeArticle`；新增 26 单元测试 | 代码 / 测试 | S5-STORY-004 |
+| 2026-06-02 | Sprint 5 | S5-STORY-004 Done；S5-STORY-005 仍 Planned；未接入真实模型 / UI 主流程 | 敏捷 | S5-STORY-004 |

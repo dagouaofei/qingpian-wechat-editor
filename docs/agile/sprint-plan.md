@@ -61,7 +61,7 @@
 | **Sprint 5** | **In Progress**（2026-06-02；DECISION-067；分支 `sprint/s5-generation-ui-main-flow`） |
 | **Release 1 主干** | `release/1` |
 | **Sprint 5 分支** | `sprint/s5-generation-ui-main-flow` |
-| **下一步** | S5-STORY-004 起；不 merge `main` |
+| **下一步** | S5-STORY-005 起；不 merge `main` |
 
 ---
 
@@ -178,7 +178,7 @@
 > **Sprint 4-A 状态：Closed**（2026-06-01；DECISION-061；contract audit **A**，P0=0；分支 `sprint/s4a-text-first-renderer` 已 merge 至 `release/1`）
 > **Sprint 4-B 状态：Closed**（2026-06-01；DECISION-063；contract audit **A**，P0=0；分支 `sprint/s4b-structured-block-renderer` 已 merge 至 `release/1`）
 > **Sprint 3-C 状态：Closed**（2026-06-01；DECISION-065；Style Assignment / Selection Validation + Orchestrator + VisualAssetRegistry）
-> **Sprint 5 状态：In Progress**（2026-06-02；DECISION-067；S5-STORY-001~003 Done）
+> **Sprint 5 状态：In Progress**（2026-06-02；DECISION-067；S5-STORY-001~004 Done）
 >
 > 业务功能实现必须在核心技术方案 + 实现前契约完成之后进入（DECISION-015、DECISION-029~045、DECISION-051）。
 
@@ -435,7 +435,7 @@
 
 **分支：** `sprint/s5-generation-ui-main-flow`（DECISION-067） · **Release 1 主干：** `release/1`
 
-> **S5-STORY-001~003** Done · **S5-STORY-004~008** Planned · **不 merge `main`**
+> **S5-STORY-001~004** Done · **S5-STORY-005~008** Planned · **不 merge `main`**
 
 **Sprint Goal：**
 
@@ -458,7 +458,7 @@
 
 1. 输入契约完成（S5-STORY-002）
 2. GenerationEvent / SSE runtime 完成（S5-STORY-003）
-3. `done.article` 可归一并通过 Article Schema 校验（S5-STORY-004）
+3. `done.article` 可归一并通过 Article Schema 校验（S5-STORY-004） — **Done**
 4. 真实模型 Provider 已接入，优先 Volcengine / Doubao（S5-STORY-005）
 5. deterministic provider 仅作为 dev fallback / test provider
 6. `/generate` 真实页面可选择或默认使用真实 provider（S5-STORY-007）
@@ -467,7 +467,7 @@
 
 **Stories：** S5-STORY-001（启动）~ S5-STORY-008 — 见 `sprint-backlog.md`
 
-**进度：** S5-STORY-001~003 **Done** · S5-STORY-004~008 **Planned**
+**进度：** S5-STORY-001~004 **Done** · S5-STORY-005~008 **Planned**
 
 **建议执行顺序：**
 
@@ -475,7 +475,8 @@
 S5-STORY-001 — Done
 S5-STORY-002 — Done
 S5-STORY-003 — Done
-S5-STORY-004 → S5-STORY-008 — Planned
+S5-STORY-004 — Done
+S5-STORY-005 → S5-STORY-008 — Planned
 ```
 
 **不做：**

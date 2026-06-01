@@ -49,6 +49,31 @@ export {
 } from "./stream";
 
 export {
+  ArticleFinalizationError,
+  assertFinalizedArticle,
+  finalizeDoneArticleEvent,
+  finalizeGenerationEvents,
+} from "./article-finalize";
+
+export type {
+  ArticleFinalizationIssue,
+  ArticleFinalizationResult,
+  FinalizedGeneratedArticle,
+} from "./article-finalize";
+
+export {
+  DoneArticleError,
+  extractDoneArticleEvent,
+  parseDoneArticleCandidate,
+  validateDoneArticleEventSequence,
+} from "./done-article";
+
+export type {
+  DoneArticleParseResult,
+  DoneArticleValidationIssue,
+} from "./done-article";
+
+export {
   createDeterministicGenerationEvents,
   deterministicGenerationStreamProvider,
 } from "./test-provider";

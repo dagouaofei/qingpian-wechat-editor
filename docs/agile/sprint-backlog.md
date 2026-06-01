@@ -2337,7 +2337,7 @@ S3C-STORY-001（启动）
 > **Sprint 5 分支：** `sprint/s5-generation-ui-main-flow`（从 `release/1` 切出，DECISION-067）
 > **Release 1 主干：** `release/1`
 > **UI 主流程入口：** **`/generate`**（真实业务页面；S5-STORY-007 实现）
-> **下一步：** S5-STORY-004（done.article 归一）→ S5-STORY-005（真实模型 Provider）；不 merge `main`
+> **下一步：** S5-STORY-005（真实模型 Provider）；不 merge `main`
 > **Sprint 5 不做：** 真实微信公众号 Paste QA 全量回归、不宣称复制到公众号最终保真通过、Style Gallery、真实 QR / 小程序 / 图片上传托管 / AI 生图、复杂编辑器 / block 级编辑、样式市场、merge 至 `main`
 > **保留原则：** 真实 Paste QA 归 Sprint 6-B；Fixture Triple / PasteTestRecord 归 Sprint 6-A / 6-B；Sprint 5 UI smoke test 不替代微信公众号 Paste QA
 
@@ -2347,7 +2347,7 @@ S3C-STORY-001（启动）
 S5-STORY-001 Sprint 5 启动与 Backlog 拆分 — Done
 S5-STORY-002 InputRequest / NormalizedInput 代码契约 — Done
 S5-STORY-003 GenerationEvent / SSE Streaming Runtime — Done
-S5-STORY-004 done.article 归一与 Article Schema 校验 — Planned
+S5-STORY-004 done.article 归一与 Article Schema 校验 — Done
 S5-STORY-005 真实模型 Provider 对接（Volcengine / Doubao）— Planned
 S5-STORY-006 受控 AI 样式选择生成与 validation pipeline 接入 — Planned
 S5-STORY-007 Release 1 主流程真实 UI 页面集成（/generate）— Planned
@@ -2465,17 +2465,33 @@ S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Planned
 
 **用户故事：** 作为开发者，我需要生成终态进入唯一 Article Schema 并可被 Preview / Copy 复用，以便全链路共享同一文章主模型。
 
-**优先级：** P0 · **状态：** Planned
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s5-done-article-normalize`
 
 **目标：** 确保生成终态进入唯一 Article Schema，并可被 Preview / Copy 复用。
 
-**验收标准（草案）：**
+**实际产物：**
 
-- [ ] AC-1 `done.article` 经 `parseArticle` / `normalizeArticle` 进入唯一 Article Schema
-- [ ] AC-2 禁止 `streamArticle` / `mockArticle` / parallel article model 作为主链路
-- [ ] AC-3 生成终态 Article 可被 Sprint 4-A / 4-B Preview / Copy Renderer 直接消费
-- [ ] AC-4 单元测试覆盖终态归一与 schema 拒绝
-- [ ] AC-5 `corepack pnpm lint` / `test` / `build` 通过
+| 路径 | 说明 |
+|------|------|
+| `src/core/generation/done-article.ts` | `validateDoneArticleEventSequence` / `extractDoneArticleEvent` |
+| `src/core/generation/article-finalize.ts` | `finalizeGenerationEvents` / `assertFinalizedArticle` |
+| `tests/core/generation/done-article.test.ts` | 事件序列校验测试 |
+| `tests/core/generation/article-finalize.test.ts` | Article 归一与 schema 拒绝测试 |
+
+**明确不做：**
+
+- 不实现真实模型 Provider（S5-STORY-005）
+- 不实现 AI Style Selection 生成（S5-STORY-006）
+- 不实现 `/generate` UI 页面（S5-STORY-007）
+- 不 merge 至 `release/1` 或 `main`
+
+**验收标准：**
+
+- [x] AC-1 `done.article` 经 `parseArticle` / `normalizeArticle` / `validateArticle` 进入唯一 Article Schema
+- [x] AC-2 禁止 `streamArticle` / `mockArticle` / parallel article model 作为主链路
+- [x] AC-3 生成终态 Article 可被 Sprint 4-A / 4-B Preview / Copy Renderer 直接消费（正式 `Article` 类型）
+- [x] AC-4 单元测试覆盖终态归一、事件序列拒绝与 schema 拒绝
+- [x] AC-5 `corepack pnpm lint` / `test` / `build` 通过
 
 ---
 

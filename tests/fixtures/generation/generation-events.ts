@@ -1,8 +1,12 @@
 import type { GenerationEvent } from "@/core/generation";
 
+import { minimalArticleFixture } from "../articles/minimal-article";
+import { normalizableArticleFixture } from "../articles/normalizable-article";
+
 export const REQUEST_ID = "33333333-3333-4333-8333-333333333333";
 export const TITLE_BLOCK_ID = "11111111-1111-4111-8111-000000000001";
 export const PARAGRAPH_BLOCK_ID = "11111111-1111-4111-8111-000000000002";
+export const LEAD_BLOCK_ID = "11111111-1111-4111-8111-000000000003";
 export const TIMESTAMP = "2026-06-02T00:00:00.000Z";
 
 export const blockStartFixture: GenerationEvent = {
@@ -33,6 +37,7 @@ export const blockCompleteFixture: GenerationEvent = {
   timestamp: TIMESTAMP,
 };
 
+/** 不完整 candidate，用于 schema 拒绝测试 */
 export const doneArticleFixture: GenerationEvent = {
   type: "done.article",
   requestId: REQUEST_ID,
@@ -42,6 +47,26 @@ export const doneArticleFixture: GenerationEvent = {
     version: 1,
     candidate: true,
   },
+  timestamp: TIMESTAMP,
+};
+
+export const validDoneArticleCandidate = minimalArticleFixture;
+
+export const normalizableDoneArticleCandidate = normalizableArticleFixture;
+
+export const validDoneArticleEvent: GenerationEvent = {
+  type: "done.article",
+  requestId: REQUEST_ID,
+  sequence: 4,
+  article: validDoneArticleCandidate,
+  timestamp: TIMESTAMP,
+};
+
+export const normalizableDoneArticleEvent: GenerationEvent = {
+  type: "done.article",
+  requestId: REQUEST_ID,
+  sequence: 7,
+  article: normalizableDoneArticleCandidate,
   timestamp: TIMESTAMP,
 };
 
@@ -68,3 +93,23 @@ export const validSequenceFixtures: GenerationEvent[] = [
   blockCompleteFixture,
   doneArticleFixture,
 ];
+
+export const validFinalizableSequenceFixtures: GenerationEvent[] = [
+  blockStartFixture,
+  blockDeltaFixture,
+  blockCompleteFixture,
+  validDoneArticleEvent,
+];
+
+export function buildDoneArticleEvent(
+  article: unknown,
+  sequence = 4,
+): GenerationEvent {
+  return {
+    type: "done.article",
+    requestId: REQUEST_ID,
+    sequence,
+    article,
+    timestamp: TIMESTAMP,
+  };
+}

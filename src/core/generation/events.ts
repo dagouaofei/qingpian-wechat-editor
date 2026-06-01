@@ -19,7 +19,7 @@ export const GENERATION_EVENT_TYPES = [
 
 export type GenerationEventType = (typeof GENERATION_EVENT_TYPES)[number];
 
-/** Article payload candidate; formal validation deferred to S5-STORY-004. */
+/** Article payload candidate; formal validation via finalizeGenerationEvents (S5-STORY-004). */
 export type ArticleCandidate = unknown;
 
 export type GenerationEventMeta = Record<string, unknown>;
