@@ -193,3 +193,4 @@
 | 2026-06-01 | Sprint 4-B | 实现 cta / image_placeholder Preview + Copy Renderer，覆盖 6 variants；明确 Release 1 占位契约边界（无真实 QR / 链接 / 小程序 / 图片能力）；lint / test（475）/ build PASS | Renderer / Copy / 测试 | S4B-STORY-005 |
 | 2026-06-01 | Sprint 4-B | 建立 structured blocks Copy HTML snapshot seed（18 variants）与 first-wave 33 variants 最小 Paste QA plan；Paste QA 状态全部 Not Run；lint / test（491）/ build PASS | Copy / QA Plan / 测试 | S4B-STORY-006 |
 | 2026-06-01 | Sprint 4-B | S4B-STORY-006 审核通过；merge `feature/s4b-structured-copy-snapshot-paste-plan` → `sprint/s4b-structured-block-renderer`（`c13f0e1`） | Git / 敏捷 | S4B-STORY-006 |
+| 2026-06-01 | Sprint 4-B | 完成 Renderer Contract Audit；Grade A，P0=0 / P1=4 / P2=2；Sprint 4-B 进入 Close Readiness，待用户确认关闭；lint / test（491）/ build PASS | Audit / 敏捷 / 架构 | S4B-STORY-007 |

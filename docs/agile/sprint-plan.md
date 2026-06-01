@@ -331,7 +331,7 @@
 | P1-S4A-004 | InlineMark color 与 Style registry 完整 cross-registry 校验仍未完成 | Sprint 6 / Release 1 hardening |
 | P2-S4A-001 | Style Gallery / 人工视觉验收入口仍缺失 | Sprint 6 / Release 2 |
 
-### Sprint 4-B：Preview / Copy Renderer for Structured Blocks — **In Progress**（DECISION-062）
+### Sprint 4-B：Preview / Copy Renderer for Structured Blocks — **Close Readiness**（DECISION-062；audit Grade A；P0=0）
 
 **分支：** `sprint/s4b-structured-block-renderer`（从 `release/1` 切出，DECISION-062）
 
@@ -364,6 +364,37 @@
 | P1-S4A-002 | balanced copySafety 粘贴细节验证 | S4B-STORY-006 / 6-B |
 | P1-S4A-003 | Copy HTML snapshot seed 覆盖不足 | S4B-STORY-006 |
 | P2-S4A-001 | Style Gallery / 人工视觉验收入口缺失 | 登记 · 不要求 Sprint 4-B 实现 |
+
+**Audit / Close Readiness 摘要（S4B-STORY-007）：**
+
+- Audit 文档：`docs/architecture/audits/sprint4b-renderer-contract-audit.md`
+- Grade：**A**
+- P0：0
+- P1：4
+- P2：2
+- S4B-STORY-001~006：全部 Done 且 merge 至 `sprint/s4b-structured-block-renderer`
+- 验证：`corepack pnpm lint` / `test`（491 tests）/ `build` PASS
+
+**Close Readiness 结论：**
+
+- structured blocks Preview / Copy Renderer **最小闭环完成**
+- list / quote / highlight / info_card / cta / image_placeholder 已覆盖 18 structured first-wave variants
+- structured Copy HTML snapshot seed 已建立
+- Release 1 first-wave 33 variants 最小 Paste QA plan 已建立
+- Paste QA 状态全部为 **Not Run**，不代表真实公众号粘贴通过
+- Sprint 4-B 已进入 Close Readiness；是否关闭 Sprint 4-B 需用户确认
+- 范围：未执行真实 Paste QA、未关闭 Sprint、未 merge 至 `release/1` / `main`、未启动 Sprint 5 / Sprint 3-C / Sprint 6-A
+
+### Sprint 4-B audit P1/P2 登记（不阻塞 Close Readiness）
+
+| ID | 问题 | 建议 Sprint / 归属 |
+|----|------|-------------------|
+| P1-S4B-001 | 33 variants 真实微信公众号 Paste QA 尚未执行 | Sprint 6-B |
+| P1-S4B-002 | `balanced` copySafety variants 仍需真实粘贴细节验证 | Sprint 6-B |
+| P1-S4B-003 | text-first snapshot 仍是 S4A 代表 seed，非全量 15 text-first variants snapshot | Sprint 6-A / 6-B |
+| P1-S4B-004 | PasteTestRecord / fixture triple 体系尚未建立 | Sprint 6-A / 6-B |
+| P2-S4B-001 | Style Gallery / 人工视觉验收入口仍缺失 | Sprint 6 / Release 2 |
+| P2-S4B-002 | cta / image_placeholder 真实 QR / link / image 能力仍未实现 | Release 2+ |
 
 ### Sprint 5：Generation / Streaming + 受控 AI 样式选择最小闭环
 

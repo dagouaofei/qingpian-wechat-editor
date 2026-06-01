@@ -5,7 +5,7 @@
 > **Sprint 3-A：** Style System Contract & Registry Infrastructure · **Closed**（2026-05-31；DECISION-057）
 > **Sprint 3-B：** First-wave Required Variant Registry · **Closed**（2026-06-01；DECISION-059）
 > **Sprint 4-A：** Preview / Copy Renderer for Text-first Blocks · **Closed**（2026-06-01；DECISION-061；audit Grade A；P0=0）
-> **Sprint 4-B：** Preview / Copy Renderer for Structured Blocks · **In Progress**（DECISION-062）
+> **Sprint 4-B：** Preview / Copy Renderer for Structured Blocks · **Close Readiness**（DECISION-062；audit Grade A；P0=0；待用户确认是否关闭）
 > **Release 1 主干：** `release/1` · **Sprint 4-B 分支：** `sprint/s4b-structured-block-renderer`（DECISION-062）
 
 ---
@@ -1501,7 +1501,7 @@
 # Sprint 4-B Backlog
 
 > **Sprint 4-B 目标：** Preview / Copy Renderer for **structured blocks**（list / quote / highlight / info_card / cta / image_placeholder）；使用 Sprint 3-B first-wave required variants；完成 first-wave 33 variants 最小 Paste QA **计划**（Not Run）
-> **Sprint 4-B 状态：** **In Progress**（DECISION-062）
+> **Sprint 4-B 状态：** **Close Readiness**（DECISION-062；audit Grade A；P0=0；待用户确认是否关闭）
 > **Sprint 4-B 分支：** `sprint/s4b-structured-block-renderer`（从 `release/1` 切出，DECISION-062）
 > **Sprint 4-B 前置遗留（须纳入 planning）：** P1-005、P1-S3B-003、P1-S3B-005、P1-S4A-002、P1-S4A-003、P2-S4A-001（见下方登记表）
 > **Sprint 4-B 不做：** AI Style Selection、Generation / Streaming、VisualAssetRegistry 全量 assets、StyleOrchestrator、真实微信公众号 Paste QA 全量执行、Style Gallery、业务页面、真实 QR / 外链 / 小程序 / 图片上传托管
@@ -1802,7 +1802,7 @@ highlight：
 
 **用户故事：** 作为开发者，我需要 cta / image_placeholder 各 3 个 first-wave variants 的 Release 1 占位型 Preview / Copy 成对 Renderer。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s4b-cta-image-placeholder-renderer`
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s4b-cta-image-placeholder-renderer`（已 merge 至 `sprint/s4b-structured-block-renderer` @ `e1914ed`）
 
 **目标 variants：**
 
@@ -1940,12 +1940,57 @@ image_placeholder：
 
 **用户故事：** 作为产品负责人，我需要在 Sprint 4-B 完成后做 Renderer 契约 audit，确认 structured blocks Preview / Copy Renderer 与 architecture / style-system / copy-to-wechat 一致，并准备是否关闭 Sprint 4-B。
 
-**优先级：** P0 · **状态：** Todo · **工作分支：** （待创建）
+**优先级：** P0 · **状态：** In Review · **工作分支：** `docs/s4b-renderer-contract-audit-close-readiness`
 
 **明确不做：**
 
 - 不在 audit 轮实现新业务 Renderer
 - 不自行关闭 Sprint 4-B（须用户确认）
 - 不 merge 至 `release/1`，除非用户确认
+
+**实际产物：**
+
+| 路径 | 说明 |
+|------|------|
+| `docs/architecture/audits/sprint4b-renderer-contract-audit.md` | Sprint 4-B Renderer Contract Audit 与 Close Readiness 建议 |
+| `docs/agile/sprint-backlog.md` | S4B-STORY-002~006 状态确认、S4B-STORY-007 audit 摘要 |
+| `docs/agile/sprint-plan.md` | Sprint 4-B 更新为 Close Readiness |
+| `docs/agile/product-backlog.md` | TECH-ARCH-021 / 022 / 023 状态同步 |
+| `docs/agile/changelog.md` | 记录 Sprint 4-B renderer contract audit |
+
+**Audit 摘要：**
+
+- Grade：**A**
+- P0：**0**
+- P1：**4**
+- P2：**2**
+- 建议：Sprint 4-B 进入 **Close Readiness**，但不由 Cursor 关闭；关闭需用户确认。
+- 真实微信公众号 Paste QA：**Not Run**，后续归 Sprint 6-B。
+
+**验收标准：**
+
+- [x] AC-1 已从 `sprint/s4b-structured-block-renderer` 创建 `docs/s4b-renderer-contract-audit-close-readiness`
+- [x] AC-2 已确认 S4B-STORY-006 merge 至 sprint
+- [x] AC-3 已生成 `docs/architecture/audits/sprint4b-renderer-contract-audit.md`
+- [x] AC-4 audit 覆盖 S4B-STORY-002~006 全部交付
+- [x] AC-5 audit 覆盖 list / quote / highlight / info_card / cta / image_placeholder
+- [x] AC-6 audit 覆盖 structured snapshot seed 与 first-wave 33 variants Paste QA plan
+- [x] AC-7 audit 对照 rendering-pipeline / style-system / copy-to-wechat-pipeline / wechat-copy-style-rules
+- [x] AC-8 audit 输出 P0 / P1 / P2 风险清单
+- [x] AC-9 audit 明确建议进入 Sprint 4-B Close Readiness
+- [x] AC-10 `docs/agile/sprint-backlog.md` 已同步 Sprint 4-B Story 状态与 audit 摘要
+- [x] AC-11 `docs/agile/sprint-plan.md` 已同步 Sprint 4-B Close Readiness
+- [x] AC-12 `docs/agile/product-backlog.md` 已同步 TECH-ARCH-021 / 022 / 023
+- [x] AC-13 `docs/agile/changelog.md` 已记录本轮 audit
+- [x] AC-14 未实现新的 Renderer 业务代码
+- [x] AC-15 未执行真实微信公众号 Paste QA
+- [x] AC-16 未把任何 Paste QA 标记为 Passed
+- [x] AC-17 未关闭 Sprint 4-B
+- [x] AC-18 未 merge 至 `release/1`
+- [x] AC-19 未 merge 至 `main`
+- [x] AC-20 未启动 Sprint 5 / Sprint 3-C / Sprint 6-A
+- [x] AC-21 `corepack pnpm lint` 通过
+- [x] AC-22 `corepack pnpm test` 通过（491 tests）
+- [x] AC-23 `corepack pnpm build` 通过
 
 ---
