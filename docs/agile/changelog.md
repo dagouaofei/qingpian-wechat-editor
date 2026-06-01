@@ -144,3 +144,5 @@
 | 2026-05-31 | Sprint 3-B | titleBlock catalog layoutMode mapping + slot copySafety 收口 | 代码 / 架构 | S3B-STORY-002 |
 | 2026-05-31 | Sprint 3-B | merge `feature/s3b-titleblock-mapping-slot-copysafety` → sprint | Git | S3B-STORY-002 |
 | 2026-05-31 | Sprint 3-B | 实现 title / heading first-wave 6 variants registry | 代码 / 架构 | S3B-STORY-003 |
+| 2026-06-01 | Sprint 3-B | merge `feature/s3b-title-heading-variants` → sprint（`ba062ae`） | Git | S3B-STORY-003 |
+| 2026-06-01 | Sprint 3-B | 实现 lead / paragraph / divider / list first-wave 12 variants registry | 代码 / 架构 | S3B-STORY-004 |

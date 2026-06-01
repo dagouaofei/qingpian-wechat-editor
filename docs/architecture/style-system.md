@@ -656,6 +656,25 @@ heading block → componentId: titleBlock → family: simple|iconDecor|badgeTitl
 
 代码路径：`src/core/styles/variants/title-heading.ts`
 
+#### 11.4.3 Sprint 3-B 已实现 text-first variants（S3B-STORY-004）
+
+| variantId | blockType | copySafety | 主要 slot binding |
+|-----------|-----------|------------|-------------------|
+| `lead_plain_intro` | lead | strict | body → `block.content.text` |
+| `lead_accent_band` | lead | balanced | body → `block.content.text`; decoration → `variant.presentation` |
+| `lead_quote_intro` | lead | balanced | body → `block.content.text`; decoration → `variant.presentation` |
+| `paragraph_plain_body` | paragraph | strict | body → `block.content.text` |
+| `paragraph_accent_left` | paragraph | balanced | body → `block.content.text`; decoration → `variant.presentation` |
+| `paragraph_soft_card` | paragraph | balanced | body → `block.content.text`; decoration → `variant.presentation` |
+| `divider_simple_line` | divider | strict | divider → `variant.presentation` |
+| `divider_dotted_line` | divider | balanced | divider → `variant.presentation` |
+| `divider_section_space` | divider | strict | divider → `variant.presentation` |
+| `list_plain_bullets` | list | strict | items → `block.content.items` |
+| `list_numbered_steps` | list | balanced | items → `block.content.items`; decoration → `variant.presentation` |
+| `list_checklist_cards` | list | balanced | items → `block.content.items`; icon → `variant.presentation` |
+
+代码路径：`src/core/styles/variants/text-first.ts`
+
 > **`magazine_left_bar_title` 为 release1CandidateVariants** — 不在 first wave；若未来实现须：真实 DOM left bar + text；禁止 absolute / pseudo / complex flex-grid；Copy 嵌套 ≤3；WeChatCompatibilityProfile + 单独 Paste QA。
 
 ### 11.5 titleBlock 专用 slot 规范
@@ -932,7 +951,7 @@ Preview / Copy 按 `componentId` 分发成对 renderer；**不得**因复杂 var
 | WeChat compatibility | `src/core/styles/compatibility.ts` | 3-A | WeChatCompatibilityProfile |
 | Style validation | `src/core/styles/validation.ts` | 3-A | StyleValidationResult / FallbackVariantPolicy |
 | Title layout compatibility | `src/core/styles/title-layout.ts` | 3-A | TitleBlockLayoutCompatibility |
-| Variant definitions（33） | `src/core/styles/` registry JSON/TS | 3-B | first-wave required variants · **title/heading 6 已实现**（`variants/title-heading.ts`） |
+| Variant definitions（33） | `src/core/styles/` registry JSON/TS | 3-B | first-wave required variants · **title/heading 6 + text-first 12 已实现**（`variants/`） |
 | Protocol / Assets / Orchestrator / AI | 规划子模块 | 3-C | 见 §11 |
 | Copy adapter | 规划 | 4-A | ResolvedBlockStyle → inline HTML |
 
