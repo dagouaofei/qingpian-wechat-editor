@@ -1008,6 +1008,15 @@ TitleBlockLayoutCompatibility
 
 Preview / Copy 按 `componentId` 分发成对 renderer；**不得**因复杂 variant 降级为 paragraph。
 
+### 11.12 Expansion Variants 规划（S3C-STORY-006 · 仅规划）
+
+> **不实现 registry** · **不阻塞 Sprint 3-C 关闭** · 完整批次表见 [`audits/sprint3c-style-system-contract-audit.md`](./audits/sprint3c-style-system-contract-audit.md) §12
+
+- Release 1 expansion 候选：11 block 各增第 4 / 第 5 variant（基于现有 catalog 命名）
+- Release 2 后置：`magazine_left_bar_title`、`cardTitle` 高风险 layout、overlay / offset_background
+- 约束：**不得**将 `magazine_left_bar_title` 升入 `release1_required`；**不得**将 candidate/experimental 放入 first-wave required path
+- 后续批次须配套 Preview / Copy Renderer 与 Paste QA
+
 ---
 
 ## 12. 后续扩展接入方式
