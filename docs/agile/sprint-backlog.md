@@ -1561,7 +1561,7 @@
 
 **用户故事：** 作为开发者，我需要 list 3 个 first-wave variants 的 Preview / Copy 成对 Renderer，以便 structured blocks 渲染从 list 起步。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s4b-list-renderer`
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s4b-list-renderer`（已 merge 至 `sprint/s4b-structured-block-renderer` @ `611a2a1`）
 
 **目标 variants：**
 
