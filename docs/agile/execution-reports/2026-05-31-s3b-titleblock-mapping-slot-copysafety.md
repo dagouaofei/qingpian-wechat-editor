@@ -72,7 +72,8 @@
 
 ## 9. Commit
 
-- Commit hash：`453452e`
+- Commit hash：`453452e`（feature 主 commit）；`835b0f9`（execution report hash 补充）
+- Sprint merge commit：`b48477d`（merge 至 `sprint/s3b-first-wave-variant-registry`）
 
 ## 10. 建议下一步
 

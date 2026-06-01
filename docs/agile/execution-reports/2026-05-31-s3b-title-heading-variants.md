@@ -60,7 +60,8 @@
 
 ## 7. Commit
 
-- Commit hash：（提交后更新）
+- Commit hash：`2ded17e`
+- S3B-STORY-002 sprint merge：`b48477d`（`feature/s3b-titleblock-mapping-slot-copysafety` → sprint）
 
 ## 8. 建议下一步
 
