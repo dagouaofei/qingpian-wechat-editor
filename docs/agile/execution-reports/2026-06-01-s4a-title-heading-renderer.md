@@ -55,4 +55,4 @@
 
 ## 8. Commit
 
-- Commit hash：未提交 / not committed
+- Commit hash：`56c8ed6`
