@@ -201,3 +201,61 @@ export {
   TITLE_FIRST_WAVE_VARIANTS,
   createFirstWaveRequiredVariantRegistry,
 } from "./variants";
+
+export type {
+  ArticleStylePlan,
+  ArticleStylePlanOrchestratorHints,
+  DecorationDensity,
+  MergeStyleAssignmentPatchOptions,
+  MergeStyleAssignmentPatchResult,
+  StyleAssignmentPatch,
+  StyleAssignmentPatchBlockOverride,
+  StyleAssignmentSource,
+  StyleAssignmentValidationMeta,
+  StyleAssignmentValidationStatus,
+  StyleSelectionArticleContext,
+  StyleSelectionBlockStyleHint,
+  StyleSelectionConstraints,
+  StyleSelectionRequest,
+} from "./style-assignment";
+
+export {
+  DECORATION_DENSITIES,
+  STYLE_ASSIGNMENT_SOURCES,
+  STYLE_ASSIGNMENT_VALIDATION_STATUSES,
+} from "./style-assignment";
+
+export {
+  articleStylePlanOrchestratorHintsSchema,
+  articleStylePlanSchema,
+  blockStyleOverridePlanSchema,
+  decorationDensitySchema,
+  parseArticleStylePlan,
+  parseStyleAssignmentPatch,
+  parseStyleSelectionRequest,
+  safeParseArticleStylePlan,
+  safeParseStyleAssignmentPatch,
+  safeParseStyleSelectionRequest,
+  styleAssignmentPatchBlockOverrideSchema,
+  styleAssignmentPatchSchema,
+  styleAssignmentSourceSchema,
+  styleAssignmentValidationMetaSchema,
+  styleAssignmentValidationStatusSchema,
+  styleSelectionArticleContextSchema,
+  styleSelectionBlockStyleHintSchema,
+  styleSelectionConstraintsSchema,
+  styleSelectionRequestSchema,
+} from "./style-assignment-schemas";
+
+export type {
+  ArticleStylePlanInput,
+  StyleAssignmentPatchInput,
+  StyleSelectionRequestInput,
+} from "./style-assignment-schemas";
+
+export {
+  applyStyleAssignmentPatch,
+  mergeStyleAssignmentPatch,
+  patchToArticleStylePlan,
+  styleAssignmentToArticleStylePlan,
+} from "./style-assignment-patch";
