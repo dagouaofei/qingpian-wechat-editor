@@ -170,7 +170,7 @@
 ## Sprint 2 ~ 6 计划（Release 1 代码实现）
 
 > **Sprint 3-A 状态：Closed**（2026-05-31；DECISION-057）
-> **Sprint 3-B 状态：In Review / Close Readiness**（S3B-STORY-007 contract audit，2026-06-01；分支 `sprint/s3b-first-wave-variant-registry`；**P0=0，grade A**；须用户确认关闭）
+> **Sprint 3-B 状态：Closed**（2026-06-01；DECISION-059；contract audit **A**，P0=0；分支 `sprint/s3b-first-wave-variant-registry` 已 merge 至 `release/1`）
 >
 > 业务功能实现必须在核心技术方案 + 实现前契约完成之后进入（DECISION-015、DECISION-029~045、DECISION-051）。
 
@@ -213,9 +213,9 @@
 
 **不做：** 全部 **33** first-wave required variants registry；Preview / Copy Renderer；AI Style Selection 生成；VisualAssetRegistry 全量 assets
 
-### Sprint 3-B：First-wave Required Variant Registry — **In Review / Close Readiness**
+### Sprint 3-B：First-wave Required Variant Registry — **Closed**（2026-06-01）
 
-**分支：** `sprint/s3b-first-wave-variant-registry`（从 `release/1` 切出，DECISION-058）
+**分支：** `sprint/s3b-first-wave-variant-registry`（从 `release/1` 切出，DECISION-058；已 merge 至 `release/1`，DECISION-059）
 
 **Stories：** S3B-STORY-001（启动）~ S3B-STORY-007（audit）— 见 `sprint-backlog.md`
 
@@ -243,13 +243,14 @@
 - StyleOrchestrator
 - Generation / Streaming
 
-**Close Readiness：**
+**关闭结论：**
 
 - Contract audit **A** 级；P0=0；P1=5 / P2=3 已登记
 - 33 first-wave variants coverage 完整（11 block × 3）
 - lint / test / build PASS（286 tests）
 - 未越界实现 Preview / Copy / Paste QA / AI / VisualAssetRegistry / StyleOrchestrator / Generation
-- **待用户确认关闭**；不自动 merge `release/1`
+- 用户已确认关闭 Sprint 3-B，并确认 merge sprint → `release/1`
+- **Sprint 4-A 未启动**
 
 ### Sprint 3-B audit P1/P2 登记（不阻塞关闭）
 
@@ -273,6 +274,8 @@
 - **expansion variants 规划**（不要求全部实现）
 
 ### Sprint 4-A：Preview / Copy Renderer for Text-first Blocks
+
+> **建议下一步（未启动）：** Sprint 4-A 聚焦 Preview / Copy Renderer for Text-first Blocks；启动需用户另行确认。
 
 **目标：**
 

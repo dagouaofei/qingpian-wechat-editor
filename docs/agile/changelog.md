@@ -152,3 +152,5 @@
 | 2026-06-01 | Sprint 3-B | 建立 first-wave 33 variants coverage 与 registry validation gate | 测试 / 架构 | S3B-STORY-006 |
 | 2026-06-01 | Sprint 3-B | merge `feature/s3b-first-wave-coverage` → sprint（`7837dce`） | Git | S3B-STORY-006 |
 | 2026-06-01 | Sprint 3-B | Sprint 3-B contract audit（grade A，P0=0）；Close Readiness | 架构 / 敏捷 | S3B-STORY-007 |
+| 2026-06-01 | Sprint 3-B | 用户确认接受 Sprint 3-B contract audit（grade A，P0=0，P1=5，P2=3）；33 variants coverage 完整 | 敏捷 / 架构 | S3B-STORY-007, DECISION-059 |
+| 2026-06-01 | Sprint 3-B | Sprint 3-B 正式关闭；merge `sprint/s3b-first-wave-variant-registry` → `release/1` | Git / 敏捷 | S3B-STORY-007, DECISION-059 |

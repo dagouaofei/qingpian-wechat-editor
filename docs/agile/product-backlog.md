@@ -119,10 +119,10 @@
 | ID | 问题 | 建议 Sprint |
 |----|------|-------------|
 | P1-S3B-001 | 33 variants 尚未经过 Preview / Copy Renderer 实际保真验证 | Sprint 4-A / 4-B |
-| P1-S3B-002 | `balanced` copySafety variants 需要 WeChat paste QA 验证 | Sprint 4 / 6-B |
-| P1-S3B-003 | cta / image_placeholder 仍为占位契约 | Sprint 4-B / Release 2+ |
-| P1-S3B-004 | 缺少 style quality gallery / 人工视觉验收入口 | Sprint 4 / 6 |
-| P1-S3B-005 | optional slot 字段需 Renderer 明确 disabled/fallback 行为 | Sprint 4-B |
+| P1-S3B-002 | `balanced` copySafety variants 可能在微信粘贴中出现边距、边框、badge 等细节差异 | Sprint 4-A / 4-B / 6-B |
+| P1-S3B-003 | cta / image_placeholder 当前为占位契约，不包含真实 QR、链接、小程序或图片能力 | Sprint 4-B / Release 2+ |
+| P1-S3B-004 | first-wave registry 缺少 style quality gallery / 人工视觉验收入口 | Sprint 4 / 6 |
+| P1-S3B-005 | `block.content.title` / `caption` 等 optional 字段需要 renderer 明确 disabled/fallback 行为 | Sprint 4-B |
 | P2-S3B-001 | 33 variants 视觉方向偏保守 | Sprint 6 / Release 2 |
 | P2-S3B-002 | WeChat profile 文档字段与代码结构仍有轻微命名差异 | Sprint 4-A 前 |
 | P2-S3B-003 | InlineMark color 与 Style ColorTokenRef 跨模块校验未打通 | Sprint 4-A / 6 |

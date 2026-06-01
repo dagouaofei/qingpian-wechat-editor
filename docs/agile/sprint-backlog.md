@@ -893,9 +893,11 @@
 # Sprint 3-B Backlog
 
 > **Sprint 3-B 目标：** First-wave **11 block × 3 = 33** release1_required variants registry；title / heading titleBlock ComponentProtocol；SlotContentBinding 规则落地
+> **Sprint 3-B 状态：** **Closed**（2026-06-01；用户确认接受 audit A / P0=0，并确认关闭 Sprint 3-B 与 merge sprint → `release/1`）
 > **Sprint 3-B 分支：** `sprint/s3b-first-wave-variant-registry`（从 `release/1` 切出，DECISION-058）
 > **Sprint 3-B 前置遗留（须纳入 planning）：** P1-S3A-001（§11.4 layoutMode 映射）、P2-S3A-002（slot 级 copySafety）
 > **Sprint 3-B 不做：** Preview / Copy Renderer、Paste QA、AI Style Selection 生成、VisualAssetRegistry 全量 assets、StyleOrchestrator、Generation / Streaming
+> **Sprint 3-B Close Readiness：** 用户已确认；S3B-STORY-001~007 全部 Done；不启动 Sprint 4-A
 
 ---
 
@@ -1106,9 +1108,9 @@
 
 **用户故事：** 作为产品负责人，我需要在 Sprint 3-B 完成后做契约 audit，确认 33 variants registry 与 style-system.md 一致，并准备 Sprint 4-A 启动条件。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `docs/s3b-contract-audit-close-readiness`
+**优先级：** P0 · **状态：** Done · **工作分支：** `docs/s3b-contract-audit-close-readiness`
 
-**Audit 结论：** Grade **A**；P0=0，P1=5，P2=3；建议进入 Close Readiness（须用户确认关闭）
+**Audit 结论：** Grade **A**；P0=0，P1=5，P2=3；用户已确认接受 audit、确认关闭 Sprint 3-B，并确认 merge `sprint/s3b-first-wave-variant-registry` → `release/1`。
 
 **明确不做：**
 
