@@ -238,4 +238,14 @@
 |------|--------|----------|----------|----------------------|
 | 2026-06-02 | Sprint 5 | 实现 InputRequest / NormalizedInput 代码契约（parse / validate / normalize） | 代码 / 架构 | S5-STORY-002 |
 | 2026-06-02 | Sprint 5 | 新增 `src/core/generation/` 与单元测试；S5-STORY-002 Done | 代码 / 测试 | S5-STORY-002 |
-| 2026-06-02 | Sprint 5 | S5-STORY-003 仍 Planned；未实现 SSE / done.article / UI 主流程 | 敏捷 | S5-STORY-002 |
+| 2026-06-02 | Sprint 5 | S5-STORY-003 启动前状态记录（后续已由 S5-STORY-003 完成覆盖） | 敏捷 | S5-STORY-002 |
+
+---
+
+## 2026-06-02 · S5-STORY-003 GenerationEvent / SSE Runtime
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-02 | Sprint 5 | 实现 GenerationEvent 契约与 Zod schema（block.start / block.delta / block.complete / done.article / error / heartbeat） | 代码 / 架构 | S5-STORY-003, DECISION-024 |
+| 2026-06-02 | Sprint 5 | 实现 SSE encode/decode 与 stream runtime + deterministic test provider | 代码 / 测试 | S5-STORY-003 |
+| 2026-06-02 | Sprint 5 | S5-STORY-003 Done；S5-STORY-004 仍 Planned；未实现 Article 归一 / UI 主流程 | 敏捷 | S5-STORY-003 |

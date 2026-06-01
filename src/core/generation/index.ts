@@ -1,4 +1,59 @@
 export type {
+  ArticleCandidate,
+  BlockCompleteEvent,
+  BlockDeltaEvent,
+  BlockStartEvent,
+  DoneArticleEvent,
+  GenerationErrorEvent,
+  GenerationEvent,
+  GenerationEventBase,
+  GenerationEventMeta,
+  GenerationEventType,
+  GenerationSequenceIssue,
+  GenerationSequenceValidationResult,
+  GenerationStream,
+  GenerationStreamContext,
+  GenerationStreamProvider,
+  HeartbeatEvent,
+} from "./events";
+
+export { GENERATION_EVENT_TYPES } from "./events";
+
+export {
+  blockCompleteEventSchema,
+  blockDeltaEventSchema,
+  blockStartEventSchema,
+  doneArticleEventSchema,
+  generationErrorEventSchema,
+  generationEventSchema,
+  generationEventTypeSchema,
+  GenerationEventError,
+  heartbeatEventSchema,
+  isGenerationEvent,
+  parseGenerationEvent,
+  safeGenerationDeltaSchema,
+} from "./event-schemas";
+
+export {
+  decodeGenerationEventFromSse,
+  decodeGenerationEventsFromSse,
+  encodeGenerationEventToSse,
+  encodeGenerationEventsToSse,
+} from "./sse";
+
+export {
+  collectGenerationStream,
+  createGenerationStream,
+  isNormalizedInput,
+  validateGenerationEventSequence,
+} from "./stream";
+
+export {
+  createDeterministicGenerationEvents,
+  deterministicGenerationStreamProvider,
+} from "./test-provider";
+
+export type {
   InputDensityHint,
   InputRequest,
   InputRequestMetadata,

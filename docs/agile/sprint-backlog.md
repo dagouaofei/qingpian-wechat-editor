@@ -2337,7 +2337,7 @@ S3C-STORY-001（启动）
 > **Sprint 5 分支：** `sprint/s5-generation-ui-main-flow`（从 `release/1` 切出，DECISION-067）
 > **Release 1 主干：** `release/1`
 > **UI 主流程入口：** **`/generate`**（真实业务页面；S5-STORY-006 实现）
-> **下一步：** S5-STORY-003（GenerationEvent / SSE）；不 merge `main`
+> **下一步：** S5-STORY-004（done.article 归一）；不 merge `main`
 > **Sprint 5 不做：** 真实微信公众号 Paste QA 全量回归、不宣称复制到公众号最终保真通过、Style Gallery、真实 QR / 小程序 / 图片上传托管 / AI 生图、复杂编辑器 / block 级编辑、样式市场、merge 至 `main`
 > **保留原则：** 真实 Paste QA 归 Sprint 6-B；Fixture Triple / PasteTestRecord 归 Sprint 6-A / 6-B；Sprint 5 UI smoke test 不替代微信公众号 Paste QA
 
@@ -2346,7 +2346,7 @@ S3C-STORY-001（启动）
 ```text
 S5-STORY-001 Sprint 5 启动与 Backlog 拆分 — Done
 S5-STORY-002 InputRequest / NormalizedInput 代码契约 — Done
-S5-STORY-003 GenerationEvent / SSE Streaming Runtime — Planned
+S5-STORY-003 GenerationEvent / SSE Streaming Runtime — Done
 S5-STORY-004 done.article 归一与 Article Schema 校验 — Planned
 S5-STORY-005 受控 AI 样式选择生成与 validation pipeline 接入 — Planned
 S5-STORY-006 Release 1 主流程真实 UI 页面集成（/generate）— Planned
@@ -2415,17 +2415,46 @@ S5-STORY-007 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Planned
 
 **用户故事：** 作为开发者，我需要 block.start / block.delta / block.complete / done.article 流式事件链路，以便生成过程可流式展示且终态归一 Article。
 
-**优先级：** P0 · **状态：** Planned
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s5-generation-event-sse-runtime`
 
-**目标：** 实现 block.start / block.delta / block.complete / done.article 流式事件链路。
+**目标：** 实现 GenerationEvent 契约、SSE encode/decode、stream runtime 与 deterministic test provider。
 
-**验收标准（草案）：**
+**实际产物：**
 
-- [ ] AC-1 GenerationEvent 类型与 SSE / JSONL 解析与 DECISION-024 一致
-- [ ] AC-2 支持 block.start / block.delta / block.complete / done.article 事件序列
-- [ ] AC-3 流式 partial 与 Article Schema 边界明确（见 P1-CODE-001）
-- [ ] AC-4 单元测试覆盖事件序列与非法事件
-- [ ] AC-5 `corepack pnpm lint` / `test` / `build` 通过
+| 路径 | 说明 |
+|------|------|
+| `src/core/generation/events.ts` | GenerationEvent 类型与 stream 抽象 |
+| `src/core/generation/event-schemas.ts` | Zod schema + `parseGenerationEvent` |
+| `src/core/generation/sse.ts` | SSE encode / decode helpers |
+| `src/core/generation/stream.ts` | `createGenerationStream` / `collectGenerationStream` / `validateGenerationEventSequence` |
+| `src/core/generation/test-provider.ts` | deterministic provider（NormalizedInput → 固定事件序列） |
+| `tests/fixtures/generation/generation-events.ts` | 事件 fixtures |
+| `tests/core/generation/generation-event.test.ts` | 事件 schema 测试 |
+| `tests/core/generation/generation-sse.test.ts` | SSE 编解码测试 |
+| `tests/core/generation/generation-stream.test.ts` | runtime / sequence 校验测试 |
+
+**明确不做：**
+
+- 不实现 `done.article` → Article Schema parse / normalize / validate（S5-STORY-004）
+- 不实现 AI Style Selection 生成（S5-STORY-005）
+- 不实现 `/generate` UI 页面（S5-STORY-006）
+- 不调用真实模型 API / web search
+- 不 merge 至 `release/1` 或 `main`
+
+**验收标准：**
+
+- [x] AC-1 GenerationEvent 类型与 Zod schema 对齐 DECISION-024（block.start / block.delta / block.complete / done.article / error / heartbeat）
+- [x] AC-2 SSE encode / decode helper（单事件 / 多事件 / 非法 data 明确失败）
+- [x] AC-3 stream runtime：`GenerationStreamProvider` / `createGenerationStream` / `collectGenerationStream` / `validateGenerationEventSequence`
+- [x] AC-4 deterministic test provider 基于 `NormalizedInput` 输出稳定事件序列
+- [x] AC-5 序列校验：单调 sequence、block.start 前禁止 delta、error / done 后禁止继续、done.article 必须为最后非 heartbeat 事件
+- [x] AC-6 禁止废弃事件名与 forbidden html/css/className/style 字段
+- [x] AC-7 `done.article` 仅透传 Article candidate；不归一 Article Schema
+- [x] AC-8 单元测试覆盖事件 / SSE / runtime（20 cases 新增）
+- [x] AC-9 `corepack pnpm lint` / `test` / `build` 通过
+- [x] AC-10 已生成 execution report
+- [x] AC-11 未 merge 至 sprint / release / main
+- [x] AC-12 未启动 S5-STORY-004
 
 ---
 

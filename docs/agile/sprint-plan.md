@@ -455,14 +455,15 @@
 
 **Stories：** S5-STORY-001（启动）~ S5-STORY-007 — 见 `sprint-backlog.md`
 
-**进度：** S5-STORY-002 InputRequest / NormalizedInput 代码契约 **Done**（`src/core/generation/`）
+**进度：** S5-STORY-002 InputRequest / NormalizedInput **Done** · S5-STORY-003 GenerationEvent / SSE Runtime **Done**（`src/core/generation/`）
 
 **建议执行顺序：**
 
 ```text
 S5-STORY-001 — Done
 S5-STORY-002 — Done
-S5-STORY-003 → S5-STORY-007 — Planned
+S5-STORY-003 — Done
+S5-STORY-004 → S5-STORY-007 — Planned
 ```
 
 **不做：**
