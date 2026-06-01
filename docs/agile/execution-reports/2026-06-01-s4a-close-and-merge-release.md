@@ -26,6 +26,7 @@
 
 - `docs/agile/sprint-backlog.md`
 - `docs/agile/sprint-plan.md`
+- `docs/agile/product-backlog.md`
 - `docs/agile/decisions.md`
 - `docs/agile/changelog.md`
 
@@ -41,18 +42,19 @@
 
 ## 7. 关键变更说明
 
-- 新增 DECISION-061：关闭 Sprint 4-A；确认 renderer contract audit A、P0=0；确认 sprint merge 至 `release/1`。
+- 新增 DECISION-061：关闭 Sprint 4-A；用户接受 audit A / P0=0；确认 sprint merge 至 `release/1`。
 - Sprint 4-A 全部 Story（S4A-STORY-001~007）标记 Done；Sprint 状态更新为 Closed。
-- P1/P2 已登记至 Sprint 4-B / 6-A / 6-B / Release 1 hardening，不阻塞关闭。
-- Sprint 4-B 仅作为建议下一步记录，未启动。
+- `product-backlog.md` 更新 TECH-ARCH-021 / TECH-ARCH-023 Sprint 4-A 已完成；登记 P1-S4A-001~004 / P2-S4A-001。
+- P1/P2 已登记至 Sprint 4-B / 6-A / 6-B / Release 2，不阻塞关闭。
+- Sprint 4-B 状态保持未启动。
 
 ## 8. 验收标准完成情况
 
 | AC | 结果 | 说明 |
 |----|------|------|
 | audit 分支并入 sprint | PASS | `c65a285` |
-| Sprint 4-A 关闭文档同步 | PASS | DECISION-061 |
-| sprint → release/1 merge | PASS | `b2efdb2` |
+| Sprint 4-A 关闭文档同步 | PASS | `861b524` + `7bd4840` |
+| sprint → release/1 merge | PASS | `b2efdb2`（主合并）；`c64617f`（关闭文档补同步） |
 | lint / test / build | PASS | 378 tests |
 | 未 merge main | PASS | — |
 | 未启动 Sprint 4-B | PASS | — |
@@ -61,6 +63,9 @@
 
 | 阶段 | 命令 | 结果 |
 |------|------|------|
+| sprint branch pre-close | `corepack pnpm lint` | PASS |
+| sprint branch pre-close | `corepack pnpm test` | PASS（378 tests） |
+| sprint branch pre-close | `corepack pnpm build` | PASS |
 | release branch after merge | `corepack pnpm lint` | PASS |
 | release branch after merge | `corepack pnpm test` | PASS（378 tests） |
 | release branch after merge | `corepack pnpm build` | PASS |
@@ -90,9 +95,11 @@
 ## 14. Commit Hash
 
 - audit → sprint merge commit：`c65a285`
-- Sprint 4-A 关闭文档 commit：`861b524`
-- sprint → `release/1` merge commit：`b2efdb2`
-- 本 execution report commit：`867c66d`
+- Sprint 4-A 关闭文档 commit（首轮）：`861b524`
+- Sprint 4-A 关闭文档 commit（补全）：`7bd4840`
+- sprint → `release/1` merge commit（主合并）：`b2efdb2`
+- sprint → `release/1` merge commit（关闭文档补同步）：`c64617f`
+- 本 execution report commit：`867c66d`（后续补记 hash 见最新 commit）
 
 ## 15. 分支状态
 
