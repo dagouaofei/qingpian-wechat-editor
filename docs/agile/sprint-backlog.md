@@ -6,7 +6,8 @@
 > **Sprint 3-B：** First-wave Required Variant Registry · **Closed**（2026-06-01；DECISION-059）
 > **Sprint 4-A：** Preview / Copy Renderer for Text-first Blocks · **Closed**（2026-06-01；DECISION-061；audit Grade A；P0=0）
 > **Sprint 4-B：** Preview / Copy Renderer for Structured Blocks · **Closed**（2026-06-01；DECISION-063；audit Grade A；P0=0）
-> **Release 1 主干：** `release/1` · **Sprint 4-B 分支：** `sprint/s4b-structured-block-renderer`（DECISION-063；已确认 merge 至 `release/1`）
+> **Sprint 3-C：** Style Assignment / Selection Validation + Orchestrator + VisualAssetRegistry · **Closed**（2026-06-01；DECISION-065；audit Grade A；P0=0 · P1=5 · P2=4；merged `release/1`）
+> **Release 1 主干：** `release/1` · **Sprint 3-C 分支：** `sprint/s3c-style-assignment-validation`（已 merge 至 `release/1`，DECISION-065）
 
 ---
 
@@ -2005,5 +2006,325 @@ image_placeholder：
 - [x] AC-21 `corepack pnpm lint` 通过
 - [x] AC-22 `corepack pnpm test` 通过（491 tests）
 - [x] AC-23 `corepack pnpm build` 通过
+
+---
+
+# Sprint 3-C Backlog
+
+> **Sprint 3-C 目标：** Style Assignment / Style Selection **validation 闭环** + StyleOrchestrator 最小规则 + VisualAssetRegistry 最小 assets + expansion variants **规划**（不实现 expansion registry / Renderer / Generation）
+> **Sprint 3-C 分支：** `sprint/s3c-style-assignment-validation`（从 `release/1` 切出，DECISION-064）
+> **Sprint 3-C 状态：** **Closed**（2026-06-01；DECISION-065；S3C-STORY-001~006 **Done**；audit Grade A · P0=0 · P1=5 · P2=4；Close Readiness **用户已确认**；merge `release/1`）
+> **Story 拆分调整说明：** 在 `sprint-plan.md` 原定义（VisualAssetRegistry + AI Style Selection validation + Orchestrator）基础上，按 Style Assignment 契约递进拆分；S3C-STORY-003 纳入 StyleOrchestrator R1/R2/R8 与 Block→Variant fallback；S3C-STORY-004 纳入 VisualAssetRegistry 与 ComponentProtocol/BlockVisualProtocol 校验；S3C-STORY-006 纳入 expansion variants 规划文档，不要求 expansion registry 全量实现。
+> **Sprint 3-C 前置条件：** Sprint 3-A / 3-B Closed；Sprint 4-A / 4-B Closed 且 merge 至 `release/1`（first-wave 33 variants registry + Preview / Copy Renderer 最小闭环已完成，为 validation 提供 registry 与 renderer 参照；**Sprint 3-C 不修改 Renderer**）
+> **Sprint 3-C 不做：** Preview / Copy Renderer 新实现或大范围修改、真实 Paste QA、Generation / Streaming、AI 样式建议**生成**（生成归 Sprint 5）、Style Gallery / 业务 UI、样式市场、expansion variants 全量 registry 实现、merge 至 `main`
+
+---
+
+## Sprint 3-C 前置遗留纳入 planning
+
+| ID | 问题 | 纳入 Story |
+|----|------|------------|
+| **P1-003** | StyleOrchestrator 文章级节奏代码未实现 | S3C-STORY-003 |
+| **TECH-ARCH-010** | VisualAssetRegistry / icon asset pool | S3C-STORY-004 |
+| **TECH-ARCH-011** | StyleOrchestrator / ArticleRhythmPolicy | S3C-STORY-003 |
+| **TECH-ARCH-012** | AI Style Selection Guardrails | S3C-STORY-002 / S3C-STORY-005 |
+| **TECH-ARCH-017** | StyleSelection Validation Pipeline | S3C-STORY-005 |
+| P1-S3B-004 | 缺少 style quality gallery / 人工视觉验收入口 | 登记 · S3C-STORY-006 audit；不要求 Sprint 3-C 实现 |
+
+---
+
+## S3C-STORY-001 Sprint 3-C 启动与 Backlog 拆分
+
+**用户故事：** 作为产品负责人，我需要正式启动 Sprint 3-C 并拆分 Backlog，以便团队在明确边界下按 Story 逐步实现 Style Assignment validation 与 Style System 分配闭环。
+
+**技术价值：** 在 Sprint 4 Renderer 完成后补齐 Style System 分配层，为 Sprint 5 受控 AI 样式选择提供 validation pipeline 前置。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `docs/s3c-start-backlog-split`
+
+**范围：**
+
+- 从 `release/1` 创建 sprint / docs 工作分支
+- 确认 Sprint 3-C Goal、范围边界、Story 拆分、AC 与执行顺序
+- 同步 sprint-backlog / sprint-plan / decisions / changelog / product-backlog
+- 轻量更新 architecture 文档边界说明
+
+**非范围：**
+
+- 不实现 Style Assignment 业务代码（S3C-STORY-002 起）
+- 不实现 Preview / Copy Renderer
+- 不 merge 至 sprint / release / main（本轮由用户审查后 merge docs 分支至 sprint）
+- 不关闭 Sprint 3-C
+- 不启动 S3C-STORY-002
+
+**依赖：** Sprint 3-A / 3-B Closed；Sprint 4-A / 4-B Closed 且 merge 至 `release/1`
+
+**验收标准：**
+
+- [x] AC-1 工作区干净；已切至 `release/1` 并确认与 origin 同步
+- [x] AC-2 已从 `release/1` 创建 `sprint/s3c-style-assignment-validation`
+- [x] AC-3 已从 sprint 分支创建 `docs/s3c-start-backlog-split`
+- [x] AC-4 `sprint-backlog.md` 已新增 Sprint 3-C Backlog（S3C-STORY-001~006）
+- [x] AC-5 `sprint-plan.md` 已将 Sprint 3-C 更新为 In Progress
+- [x] AC-6 `decisions.md` 已新增 DECISION-064
+- [x] AC-7 `changelog.md` 已记录 Sprint 3-C 启动
+- [x] AC-8 `product-backlog.md` 已将 TECH-ARCH-010~012 / TECH-ARCH-017 纳入 Sprint 3-C planning
+- [x] AC-9 每个 Story 含用户/技术价值、范围、非范围、AC、依赖、状态
+- [x] AC-10 Sprint 3-A / 3-B 保持 Closed / Done，未回改
+- [x] AC-11 架构文档已轻量补充 Sprint 3-C 边界（`architecture-overview.md` / `style-system.md` / `rendering-pipeline.md`）
+- [x] AC-12 `corepack pnpm lint` / `corepack pnpm test` / `corepack pnpm build` 通过
+- [x] AC-13 已生成 execution report
+- [x] AC-14 未 merge 到 sprint / release / main
+- [x] AC-15 未启动 S3C-STORY-002
+
+---
+
+## S3C-STORY-002 Style Assignment Contract / 样式分配输入输出契约
+
+**用户故事：** 作为开发者，我需要 Style Assignment 输入输出契约（含 AI 样式建议结构）的 TypeScript 类型与 Zod Schema，以便 Sprint 5 Generation 与 Style validation pipeline 共享同一契约。
+
+**技术价值：** 将 `style-system.md` §11.8 的 `StyleSelectionRequest` / `StyleAssignmentPatch` / `ArticleStylePlan` 代码化，并与现有 `Article.styleAssignment` 对齐。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s3c-style-assignment-contract`
+
+**产物：**
+
+- `src/core/styles/style-assignment.ts` — TS 类型
+- `src/core/styles/style-assignment-schemas.ts` — Zod schema + parse helpers
+- `src/core/styles/style-assignment-patch.ts` — patch merge / apply helpers
+- `tests/core/styles/style-assignment-contract.test.ts`（11 cases）
+- `tests/core/styles/style-assignment-patch.test.ts`（6 cases）
+
+**范围：**
+
+- `StyleSelectionRequest`、`StyleAssignmentPatch`、`ArticleStylePlan` TS 类型 + Zod schema
+- `Article.styleAssignment` 与 patch merge 规则（只写 `styleAssignment`，不 mutate blocks 内容）
+- validation meta 字段（`source`、`validationStatus` 等）
+- 单元测试覆盖 schema 拒绝未知字段与必填字段
+
+**非范围：**
+
+- 不实现 AI 样式建议生成（Sprint 5）
+- 不实现完整 validation pipeline（S3C-STORY-005）
+- 不实现 StyleOrchestrator（S3C-STORY-003）
+- 不修改 Preview / Copy Renderer
+
+**依赖：** S3C-STORY-001 Done；Sprint 3-A `StyleAssignment` 基础 schema
+
+**验收标准：**
+
+- [x] AC-1 已从 `sprint/s3c-style-assignment-validation` 创建 `feature/s3c-style-assignment-contract`
+- [x] AC-2 `StyleSelectionRequest` 类型与 schema 与 `style-system.md` §11.8.1 字段一致
+- [x] AC-3 `StyleAssignmentPatch` 类型与 schema 与 §11.8.2 一致
+- [x] AC-4 `ArticleStylePlan` 类型与 schema 定义 preset / blockOverrides / orchestrator hints 最小结构
+- [x] AC-5 patch merge helper：仅影响 `styleAssignment`；不修改 `blocks[]` 内容语义
+- [x] AC-6 schema 使用 `.strict()`；拒绝 html / css / className / style 字段
+- [x] AC-7 单元测试 ≥ 12 cases（17 cases；508 tests total）
+- [x] AC-8 未实现 Generation / Renderer / Orchestrator
+- [x] AC-9 `corepack pnpm lint` / `test` / `build` 通过
+- [x] AC-10 已生成 execution report
+
+---
+
+## S3C-STORY-003 Block → Variant 选择规则与 fallback 策略 + StyleOrchestrator 最小规则
+
+**用户故事：** 作为开发者，我需要 StyleOrchestrator 最小规则与明确的 Block→Variant 选择 / fallback 策略，以便文章级样式节奏可控且 Sprint 5 AI 建议可被 rhythm 规则拦截。
+
+**技术价值：** 实现 `style-system.md` §11.7 R1 / R2 / R8；收口 P1-003 / TECH-ARCH-011；在 StyleResolver **之前**输出 `ArticleStylePlan` / blockOverrides，不 mutate Article 内容。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s3c-style-orchestrator`
+
+**产物：**
+
+- `src/core/styles/style-orchestrator.ts` — `orchestrateArticleStyle`
+- `src/core/styles/style-orchestrator-rules.ts` — R1 / R2 / R8
+- `src/core/styles/style-orchestrator-selection.ts` — Block→Variant 优先级
+- `tests/core/styles/style-orchestrator.test.ts`（11 cases）
+- `tests/core/styles/style-orchestrator-rules.test.ts`（10 cases）
+
+**范围：**
+
+- StyleOrchestrator 最小实现：**R1** 相邻 heading 不得同 variant；**R2** 同一 assetId 默认最多 2 次；**R8** title 与首个 heading 避免同 family+variant
+- Block→Variant 选择优先级文档化并与代码一致：block-level assignment > preset default > registry fallback
+- rhythm 违规产生 `StyleValidationIssue`；提供 copy-safe fallback override
+- 单元测试覆盖 R1 / R2 / R8 正例与违规 fallback
+
+**非范围：**
+
+- 不实现 R3~R7 全量规则（登记后续 Sprint）
+- 不实现 AI 建议生成
+- 不修改 Renderer
+- 不实现 VisualAssetRegistry（S3C-STORY-004）
+
+**依赖：** S3C-STORY-002；Sprint 3-A StyleResolver；Sprint 3-B first-wave registry
+
+**验收标准：**
+
+- [x] AC-1 已从 sprint 创建 `feature/s3c-style-orchestrator`
+- [x] AC-2 `orchestrateArticleStyle` 输入 Article + StyleRegistry，输出 ArticleStylePlan / blockOverrides
+- [x] AC-3 R1 / R2 / R8 已实现且有单元测试
+- [x] AC-4 Orchestrator 不 mutate Article.blocks 内容
+- [x] AC-5 Orchestrator 在 StyleResolver 之前调用；与 StyleValidationIssue 结构兼容
+- [x] AC-6 fallback 不 silent fail；不默认选择 experimental / candidate variant
+- [x] AC-7 单元测试 ≥ 16 cases（21 cases；529 tests total）
+- [x] AC-8 `corepack pnpm lint` / `test` / `build` 通过
+- [x] AC-9 已生成 execution report
+
+---
+
+## S3C-STORY-004 Theme / Preset / Density / Slot 组合边界 + VisualAssetRegistry + Protocol 校验
+
+**用户故事：** 作为开发者，我需要 Theme / Preset / Density / Slot 与 variant 的组合边界，以及 VisualAssetRegistry 最小 assets 与 ComponentProtocol / BlockVisualProtocol 校验，以便非法组合在 Style 层被拦截。
+
+**技术价值：** 实现 TECH-ARCH-010 / TECH-ARCH-007；VisualAssetRegistry **15~30** 系统内置 icon / shape / mark；校验 family / variant / slot / assetId 白名单。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s3c-visual-asset-protocol-validation` · **已 merge 至 sprint**（`3faddb4`）
+
+**产物：**
+
+- `src/core/styles/visual-assets.ts` — VisualAssetDefinition / VisualAssetRegistry 类型
+- `src/core/styles/visual-asset-schemas.ts` — Zod schema（strict）
+- `src/core/styles/visual-asset-registry.ts` — Release 1 内置 **19** assets + parse / validate / lookup helpers
+- `src/core/styles/block-visual-protocol.ts` — BlockVisualProtocol / ComponentProtocol 构建
+- `src/core/styles/protocol-validation.ts` — ComponentProtocol / BlockVisualProtocol / slot / assetBindings 校验
+- `src/core/styles/style-combination-validation.ts` — Theme / Preset / Density / Slot 组合边界校验
+- `tests/core/styles/visual-asset-registry.test.ts`（11 cases）
+- `tests/core/styles/protocol-validation.test.ts`（14 cases）
+- `tests/core/styles/style-combination-validation.test.ts`（9 cases）
+
+**范围：**
+
+- VisualAssetRegistry 最小 **15~30** assets 注册（`copySafe` / `fallbackAssetId` 字段）
+- ComponentProtocol / BlockVisualProtocol 校验 helper（对照 Sprint 3-B first-wave registry）
+- Theme / Preset / Density / Slot 组合规则：非法 slot override、未知 density、未注册 assetId 须 error
+- assetId 白名单与复用上限（与 R2 衔接）
+- 单元测试覆盖 registry 校验与组合边界
+
+**非范围：**
+
+- 不实现完整 Style Selection pipeline 串联（S3C-STORY-005）
+- 不实现 StyleOrchestrator（S3C-STORY-003）
+- 不新增 Renderer slot 渲染逻辑
+- 不实现用户上传 / 外部 CDN assets
+
+**依赖：** S3C-STORY-002；Sprint 3-B first-wave registry；S3A WeChatCompatibility / TitleLayout
+
+**验收标准：**
+
+- [x] AC-1 已从 sprint 创建 `feature/s3c-visual-asset-protocol-validation`
+- [x] AC-2 VisualAssetRegistry 含 ≥ 15 且 ≤ 30 个 Release 1 系统内置 assets（19 assets：icon 9 / shape 5 / mark 4 / divider 1）
+- [x] AC-3 每个 asset 含 assetId / kind / copySafe / fallbackAssetId（如适用）
+- [x] AC-4 ComponentProtocol / BlockVisualProtocol 校验 helper 已实现
+- [x] AC-5 Theme / Preset / Density / Slot 组合违规产生明确 StyleValidationIssue
+- [x] AC-6 未注册 assetId / variantId / familyId 不得 silent allow
+- [x] AC-7 单元测试 ≥ 20 cases（34 新 cases；563 tests total）
+- [x] AC-8 未修改 Preview / Copy Renderer
+- [x] AC-9 `corepack pnpm lint` / `test` / `build` 通过
+- [x] AC-10 已生成 execution report
+
+---
+
+## S3C-STORY-005 Style Assignment fixture 与 validation snapshot seeds
+
+**用户故事：** 作为开发者，我需要 Style Assignment fixture 与 validation snapshot seeds，以便 Style Selection Validation Pipeline 可回归测试且 Sprint 5 可复用同一套 seeds。
+
+**技术价值：** 实现 TECH-ARCH-017 最小 fixture 集；覆盖 valid request、invalid registry 引用、orchestrator 违规、fallback_applied 等路径。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s3c-style-selection-validation-fixtures` · **已 merge 至 sprint**（`8473235`）
+
+**产物：**
+
+- `src/core/styles/style-selection-validation.ts` — `validateStyleSelectionPipeline` / merge guards
+- `tests/fixtures/styles/style-selection/index.ts` — 10 组 Style Assignment fixtures
+- `tests/fixtures/styles/style-selection-validation-seeds.ts` — validation snapshot seeds
+- `tests/core/styles/style-selection-validation-pipeline.test.ts`（29 cases）
+
+**范围：**
+
+- Style Selection Validation Pipeline 串联：`StyleSelectionRequest` / `StyleAssignmentPatch` → Protocol → Registry → Asset → Profile → Orchestrator → merge
+- fixture：≥ 3 篇代表 Article + StyleSelectionRequest + 期望 StyleValidationResult
+- snapshot seeds：validation result JSON（非 Copy HTML；Copy snapshot 归 Sprint 4 / 6）
+- 禁止未校验 patch 写入 `Article.styleAssignment`
+
+**非范围：**
+
+- 不实现 Generation 产出 StyleSelectionRequest
+- 不执行真实 Paste QA
+- 不建立 PasteTestRecord（Sprint 6-A）
+- 不新增 Copy HTML snapshot
+
+**依赖：** S3C-STORY-002~004
+
+**验收标准：**
+
+- [x] AC-1 已从 sprint 创建 `feature/s3c-style-selection-validation-fixtures`
+- [x] AC-2 validation pipeline 函数已实现并导出（`validateStyleSelectionPipeline` / `validateStyleSelection`）
+- [x] AC-3 ≥ 3 组 fixture 覆盖 valid / invalid / fallback_applied（10 fixtures）
+- [x] AC-4 snapshot seeds 位于 `tests/fixtures/styles/style-selection-validation-seeds.ts`
+- [x] AC-5 未经校验的 patch 不得 merge 至 Article.styleAssignment（`canMergeStyleSelectionResult` / `applyValidatedStyleSelection` 测试断言）
+- [x] AC-6 单元测试 ≥ 12 cases（29 pipeline cases；592 tests total）
+- [x] AC-7 未实现 Generation / Renderer / Paste QA
+- [x] AC-8 `corepack pnpm lint` / `test` / `build` 通过
+- [x] AC-9 已生成 execution report
+
+---
+
+## S3C-STORY-006 Style System Contract Audit 与 Sprint 3-C 关闭准备
+
+**用户故事：** 作为产品负责人，我需要在 Sprint 3-C 代码实现完成后做 Style System 分配层 contract audit，确认与 style-system.md §11.7~11.8 一致，并准备 Sprint 3-C 关闭条件。
+
+**技术价值：** 确认 Style Assignment validation 闭环可支撑 Sprint 5；登记 P1/P2；输出 expansion variants 规划文档。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `docs/s3c-style-system-contract-audit-close-readiness` · **已 merge 至 sprint**（用户确认关闭 · DECISION-065）
+
+**产物：**
+
+- `docs/architecture/audits/sprint3c-style-system-contract-audit.md` — Grade **A** · P0=0 · P1=5 · P2=4
+- `docs/architecture/style-system.md` §11.12 — expansion variants 规划引用
+- sprint-backlog / sprint-plan / product-backlog / changelog 同步
+
+**范围：**
+
+- 生成 `docs/architecture/audits/sprint3c-style-system-contract-audit.md`
+- audit 覆盖 S3C-STORY-002~005 全部交付
+- expansion variants **规划文档**（11 block × 第 4/5 variant 批次建议；不要求 registry 实现）
+- 同步 sprint-backlog / sprint-plan / product-backlog / changelog
+
+**非范围：**
+
+- 不在 audit 轮实现 expansion registry 或 Renderer
+- 不自行宣布 Sprint 3-C Done（须用户确认）
+- 不 merge sprint 至 `release/1`，除非用户确认
+- 不启动 Sprint 5 / Sprint 6-A
+
+**依赖：** S3C-STORY-002~005 Done
+
+**验收标准：**
+
+- [x] AC-1 已从 sprint 创建 `docs/s3c-style-system-contract-audit-close-readiness`
+- [x] AC-2 已确认 S3C-STORY-005 merge 至 sprint（`8473235` / `d3db85b`）
+- [x] AC-3 已生成 audit 文档
+- [x] AC-4 audit 覆盖 Style Assignment / Orchestrator / VisualAssetRegistry / Validation Pipeline
+- [x] AC-5 audit 输出 P0 / P1 / P2 风险清单（P0=0 · P1=5 · P2=4）
+- [x] AC-6 expansion variants 规划已写入 audit §12 + style-system §11.12 引用
+- [x] AC-7 audit 建议进入 Sprint 3-C Close Readiness（**用户已确认关闭** · DECISION-065）
+- [x] AC-8 `sprint-backlog.md` 已同步 Story 状态
+- [x] AC-9 未实现新业务 Renderer / Generation 功能
+- [x] AC-10 Sprint 3-C 已关闭（用户确认 · DECISION-065）
+- [x] AC-11 sprint 已 merge 至 `release/1`（DECISION-065）；未 merge `main`
+- [x] AC-12 `corepack pnpm lint` / `test` / `build` 通过
+- [x] AC-13 已生成 execution report
+
+---
+
+## Sprint 3-C 建议执行顺序
+
+```text
+S3C-STORY-001（启动）
+  → S3C-STORY-002（Style Assignment Contract）
+  → S3C-STORY-003（Orchestrator + Block→Variant fallback）  ╮
+  → S3C-STORY-004（VisualAssetRegistry + Protocol 校验）     ├─ 003 / 004 可并行，但 005 依赖二者
+  → S3C-STORY-005（Validation Pipeline + fixtures）
+  → S3C-STORY-006（audit + close readiness）
+```
 
 ---

@@ -98,7 +98,7 @@ Article 和 Block **永远不携带 CSS**。
 | **StyleVariant** | preset 内对某 block type 的 variant 引用 ID | preset 配置 | Style Assignment |
 | **VariantDefinition** | 某 `blockType` × `variantId` 的可注册样式定义（layout/spacing/typography/decoration/slots） | **registry** | StyleResolver（读取） |
 | **StyleDefinition** | 可持久化或可注册的样式定义**集合**概念；Release 1 以 system preset + registry 形式存在 | registry + theme | 架构层术语 |
-| **ArticleStylePlan** | 针对一篇 Article 的样式分配计划；来自 `Article.styleAssignment` + preset 解析 | 运行时中间结构 | StyleResolver 输入 |
+| **ArticleStylePlan** | 针对一篇 Article 的样式分配计划；来自 `Article.styleAssignment` + preset 解析 | 运行时中间结构 | StyleResolver 输入 · **S3C-STORY-002** `style-assignment.ts` |
 | **ResolvedBlockStyle** | **单个 block 实例**解析后的最终样式；含 tokens、slots、copySafety 等 | 运行时，不持久化 | **Preview / Copy Renderer 直接输入** |
 | **ResolvedArticleStyle** | 整篇 Article 的 resolved map：`Map<blockId, ResolvedBlockStyle>` | 运行时 | Preview / Copy 批量渲染 |
 
@@ -524,9 +524,10 @@ Experimental Variants：
 **Sprint 映射：**
 
 - **Sprint 3-B：** first-wave 33 variants registry（优先 title/heading titleBlock）
-- **Sprint 4-A / 4-B：** first-wave Preview / Copy 成对 renderer
+- **Sprint 3-C：** Style Assignment / Selection validation + Orchestrator R1/R2/R8 + VisualAssetRegistry 15~30 assets（**In Progress**，DECISION-064）
+- **Sprint 4-A / 4-B：** first-wave Preview / Copy 成对 renderer（**Closed**）
 - **Sprint 6-B：** first-wave 33 variants 全量 Paste QA
-- **expansion variants：** Sprint 3-C 规划 + 后续 expansion Sprint；不阻塞 3-A
+- **expansion variants：** Sprint 3-C **规划文档** + 后续 expansion Sprint registry 实现；不阻塞 3-A / 3-B / 4-A / 4-B
 - **candidate（含 `magazine_left_bar_title`）：** 不进入 first wave；实现须单独 Paste QA（DECISION-044）
 
 **VisualAssetRegistry（Release 1）：** Sprint 3-C 目标 **15~30** 系统内置 icon / shape / mark assets。
@@ -542,6 +543,9 @@ Experimental Variants：
 > 吸收秒篇 [titleBlock Component DSL v1](references/miaopian-title-component-dsl-v1.md)（原始 [docx](./references/秒篇成稿-标题控件DSL与布局骨架规范-v1.docx)）中经过验证的 family、variant、slot、asset pool、编排与 AI 约束思想；**不改变** Article / Block 主模型，不迁移旧实现代码（DECISION-036~038）。
 
 ### 11.1 ComponentProtocol / BlockVisualProtocol
+
+> **S3C-STORY-004 已实现（校验 helper）** — `block-visual-protocol.ts` · `protocol-validation.ts`  
+> Helpers：`validateComponentProtocol` · `validateBlockVisualProtocol` · `validateVariantProtocolCompatibility` · `validateSlotOverrideCompatibility` · `validateAssetBindingsCompatibility` · `validateBlockStyleProtocolBundle`
 
 **ComponentProtocol / BlockVisualProtocol** 是 Style System 中位于 **semantic block** 与 **VariantDefinition** 之间的**控件协议层**。
 
@@ -798,24 +802,37 @@ SlotContentBinding
 
 ### 11.6 VisualAssetRegistry
 
+> **S3C-STORY-004 已实现** — `src/core/styles/visual-assets.ts` · `visual-asset-schemas.ts` · `visual-asset-registry.ts`  
+> 常量：`RELEASE1_VISUAL_ASSET_REGISTRY`（**19** 系统内置 assets：icon 9 / shape 5 / mark 4 / divider 1）  
+> Helpers：`parseVisualAssetRegistry` · `validateVisualAssetRegistry` · `getVisualAssetById` · `isVisualAssetCopySafe` · `getFallbackVisualAsset` · `validateVisualAssetReference` · `validateAssetBindingReferences`
+
 ```text
 VisualAsset
-├── assetId, kind, category, style, density
-├── suitableFor, aspectRatio, defaultColors
+├── assetId, kind, name, label
+├── category?, style?, suitableFor?, aspectRatio?, defaultColors?
 ├── copySafe: boolean
 └── fallbackAssetId?
 ```
 
+**kind 枚举：** `icon` | `shape` | `mark` | `divider`（schema strict；禁止 html / css / className / style 字段）
+
 | 规则 | 说明 |
 |------|------|
-| 白名单 | 不得引用未注册 assetId |
-| 复用 | 同一 assetId 一篇文章默认最多 2 次 |
+| 白名单 | 不得引用未注册 assetId（`visual_asset_not_registered`） |
+| copy-safe | `copySafe=false` 不得进入默认 release1_required path（`visual_asset_not_copy_safe`） |
+| fallback | `fallbackAssetId` 不得指向自身；须指向已注册 asset |
+| 复用 | 同一 assetId 一篇文章默认最多 2 次（R2；结构性计数在 Orchestrator，asset 注册校验在本层补齐） |
 | 密度 | strong density 不得连续高频 |
 | Sprint 3 | **15~30** 系统内置 icon/shape/mark（Release 1 required assets） |
 
 AssetRegistry 属于 Style System，**不属于** Article 内容。
 
+**Protocol / 组合边界（S3C-STORY-004）：** `block-visual-protocol.ts` · `protocol-validation.ts` · `style-combination-validation.ts` — 供 S3C-STORY-005 Validation Pipeline 复用；对照 Sprint 3-B first-wave registry 与 `TitleBlockLayoutCompatibility`。
+
 ### 11.7 StyleOrchestrator / 文章级节奏
+
+> **S3C-STORY-003 已实现** — `src/core/styles/style-orchestrator.ts` · `style-orchestrator-rules.ts` · `style-orchestrator-selection.ts`  
+> 入口：`orchestrateArticleStyle(Article, StyleRegistry)` → `ArticleStylePlan` + `StyleValidationIssue[]`；在 StyleResolver **之前**调用；不 mutate `Article.blocks`。
 
 StyleOrchestrator 位于 StyleResolver **之前**，不修改 Article，只输出 ArticleStylePlan / blockOverrides。
 
@@ -829,6 +846,8 @@ StyleOrchestrator 位于 StyleResolver **之前**，不修改 Article，只输�
 | R6 | badge 强调型不应每 section 都出现 |
 | R7 | 长文变体稳定；短文可提高变化 |
 | R8 | title 与首个 heading 避免同 family+variant |
+
+**R8 实现说明（代码）：** 比较 title 与首个 heading 的 `family` + `componentProtocol.layoutMode`；若相同则对首个 heading 应用 copy-safe `release1_required` fallback。
 
 Sprint 3 最小实现 R1、R2、R8。
 
@@ -846,6 +865,8 @@ Sprint 3 最小实现 R1、R2、R8。
 8. 校验通过后只影响 `styleAssignment` / ArticleStylePlan，**不 mutate** blocks 内容
 
 #### 11.8.1 StyleSelectionRequest
+
+> **S3C-STORY-002 已实现** — `src/core/styles/style-assignment.ts` · `style-assignment-schemas.ts`
 
 ```text
 StyleSelectionRequest
@@ -869,6 +890,8 @@ StyleSelectionRequest
 
 #### 11.8.2 StyleAssignmentPatch
 
+> **S3C-STORY-002 已实现** — `src/core/styles/style-assignment.ts` · `style-assignment-schemas.ts` · merge helper `style-assignment-patch.ts`
+
 ```text
 StyleAssignmentPatch
 ├── presetId?: string
@@ -888,16 +911,39 @@ StyleAssignmentPatch
 
 #### 11.8.3 校验路径（StyleSelection Validation Pipeline）
 
+> **S3C-STORY-005 已实现** — `src/core/styles/style-selection-validation.ts`  
+> 入口：`validateStyleSelectionPipeline(Article, StyleRegistry, input)` / alias `validateStyleSelection`  
+> Merge guards：`canMergeStyleSelectionResult` · `applyValidatedStyleSelection`（仅 `valid` / `fallback_applied` 且无 error 时写入 `styleAssignment`）  
+> Fixtures / seeds：`tests/fixtures/styles/style-selection/` · `tests/fixtures/styles/style-selection-validation-seeds.ts`
+
+**Pipeline 顺序（代码）：**
+
+1. `input_schema` — parse / validate `StyleSelectionRequest` / `StyleAssignmentPatch` / `ArticleStylePlan`
+2. `plan_conversion` — 解析 preset / theme / density 目标
+3. `preset_theme_combination` — Theme / Preset / Density 组合边界
+4. `block_protocol` — ComponentProtocol / BlockVisualProtocol / VisualAssetRegistry / slot override
+5. `orchestrator` — StyleOrchestrator R1 / R2 / R8（复用 S3C-STORY-003，不重写）
+6. `post_orchestrator_validation` — 对 orchestrator 输出 blockOverrides 再次 protocol / combination 校验
+
+**R8 当前判定语义（登记）：** 比较 title 与首个 heading 的 `family` + `componentProtocol.layoutMode`（**非** strict `variantId` 相等）；validation snapshot seed `orchestrator-r8-title-heading-conflict` 覆盖此语义。
+
+**asset binding 等级（S3C-STORY-005 收口）：**
+
+| 场景 | 等级 |
+|------|------|
+| `release1_required` copy path · body-content slot（title/body/items）绑定 asset | **error** · `asset_binding_body_semantics_forbidden` |
+| `release1_required` copy path · slot binding source 与 asset 不兼容 | **error** · `asset_binding_slot_source_mismatch` |
+| badge/icon/decoration + `variant.presentation` 绑定已注册 asset | 允许 |
+| 非 required / draft path | `asset_binding_slot_source_mismatch` 可为 warning |
+
 ```text
-StyleSelectionRequest / StyleAssignmentPatch
-  → ComponentProtocol validation
-  → BlockVisualProtocol validation
-  → Style Registry validation
-  → VisualAssetRegistry validation
-  → WeChatCompatibilityProfile validation
-  → TitleBlockLayoutCompatibility validation（titleBlock variant）
-  → StyleOrchestrator rhythm validation
-  → StyleValidationResult
+StyleSelectionRequest / StyleAssignmentPatch / ArticleStylePlan
+  → input schema validation
+  → preset / theme / density combination validation
+  → block protocol + VisualAssetRegistry validation
+  → StyleOrchestrator rhythm validation (R1/R2/R8)
+  → post-orchestrator re-validation
+  → StyleValidationResult + snapshot seed
   → merge to ArticleStylePlan / styleAssignment（仅 valid 或 fallback_applied）
   → StyleResolver → ResolvedArticleStyle
 ```
@@ -961,6 +1007,15 @@ TitleBlockLayoutCompatibility
 | `assetBindings` | slot → assetId |
 
 Preview / Copy 按 `componentId` 分发成对 renderer；**不得**因复杂 variant 降级为 paragraph。
+
+### 11.12 Expansion Variants 规划（S3C-STORY-006 · 仅规划）
+
+> **不实现 registry** · **不阻塞 Sprint 3-C 关闭** · 完整批次表见 [`audits/sprint3c-style-system-contract-audit.md`](./audits/sprint3c-style-system-contract-audit.md) §12
+
+- Release 1 expansion 候选：11 block 各增第 4 / 第 5 variant（基于现有 catalog 命名）
+- Release 2 后置：`magazine_left_bar_title`、`cardTitle` 高风险 layout、overlay / offset_background
+- 约束：**不得**将 `magazine_left_bar_title` 升入 `release1_required`；**不得**将 candidate/experimental 放入 first-wave required path
+- 后续批次须配套 Preview / Copy Renderer 与 Paste QA
 
 ---
 

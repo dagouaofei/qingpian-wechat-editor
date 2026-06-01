@@ -201,3 +201,184 @@ export {
   TITLE_FIRST_WAVE_VARIANTS,
   createFirstWaveRequiredVariantRegistry,
 } from "./variants";
+
+export type {
+  ArticleStylePlan,
+  ArticleStylePlanOrchestratorHints,
+  DecorationDensity,
+  MergeStyleAssignmentPatchOptions,
+  MergeStyleAssignmentPatchResult,
+  StyleAssignmentPatch,
+  StyleAssignmentPatchBlockOverride,
+  StyleAssignmentSource,
+  StyleAssignmentValidationMeta,
+  StyleAssignmentValidationStatus,
+  StyleSelectionArticleContext,
+  StyleSelectionBlockStyleHint,
+  StyleSelectionConstraints,
+  StyleSelectionRequest,
+} from "./style-assignment";
+
+export {
+  DECORATION_DENSITIES,
+  STYLE_ASSIGNMENT_SOURCES,
+  STYLE_ASSIGNMENT_VALIDATION_STATUSES,
+} from "./style-assignment";
+
+export {
+  articleStylePlanOrchestratorHintsSchema,
+  articleStylePlanSchema,
+  blockStyleOverridePlanSchema,
+  decorationDensitySchema,
+  parseArticleStylePlan,
+  parseStyleAssignmentPatch,
+  parseStyleSelectionRequest,
+  safeParseArticleStylePlan,
+  safeParseStyleAssignmentPatch,
+  safeParseStyleSelectionRequest,
+  styleAssignmentPatchBlockOverrideSchema,
+  styleAssignmentPatchSchema,
+  styleAssignmentSourceSchema,
+  styleAssignmentValidationMetaSchema,
+  styleAssignmentValidationStatusSchema,
+  styleSelectionArticleContextSchema,
+  styleSelectionBlockStyleHintSchema,
+  styleSelectionConstraintsSchema,
+  styleSelectionRequestSchema,
+} from "./style-assignment-schemas";
+
+export type {
+  ArticleStylePlanInput,
+  StyleAssignmentPatchInput,
+  StyleSelectionRequestInput,
+} from "./style-assignment-schemas";
+
+export {
+  applyStyleAssignmentPatch,
+  mergeStyleAssignmentPatch,
+  patchToArticleStylePlan,
+  styleAssignmentToArticleStylePlan,
+} from "./style-assignment-patch";
+
+export type {
+  OrchestrateArticleStyleOptions,
+  OrchestrateArticleStyleResult,
+} from "./style-orchestrator";
+
+export { orchestrateArticleStyle } from "./style-orchestrator";
+
+export {
+  ORCHESTRATOR_RULE_R1,
+  ORCHESTRATOR_RULE_R2,
+  ORCHESTRATOR_RULE_R8,
+  applyOrchestratorRhythmRules,
+  applyOrchestratorRuleR1,
+  applyOrchestratorRuleR2,
+  applyOrchestratorRuleR8,
+} from "./style-orchestrator-rules";
+
+export type { OrchestratorRuleId } from "./style-orchestrator-rules";
+
+export {
+  isOrchestratorCopySafeRequiredVariant,
+  pickOrchestratorFallbackVariant,
+  resolveOrchestratorBlockVariant,
+  resolveOrchestratorPreset,
+} from "./style-orchestrator-selection";
+
+export type {
+  OrchestratorBlockOverrideInput,
+  OrchestratorBlockStyleState,
+} from "./style-orchestrator-selection";
+
+export type {
+  VisualAssetDefinition,
+  VisualAssetKind,
+  VisualAssetRegistry,
+  ValidateAssetBindingsOptions,
+  ValidateVisualAssetReferenceOptions,
+} from "./visual-assets";
+
+export { VISUAL_ASSET_KINDS } from "./visual-assets";
+
+export {
+  visualAssetDefinitionSchema,
+  visualAssetKindSchema,
+  visualAssetRegistrySchema,
+} from "./visual-asset-schemas";
+
+export type {
+  VisualAssetDefinitionInput,
+  VisualAssetRegistryInput,
+} from "./visual-asset-schemas";
+
+export {
+  RELEASE1_VISUAL_ASSET_COUNT,
+  RELEASE1_VISUAL_ASSET_REGISTRY,
+  countAssetBindingUsage,
+  getFallbackVisualAsset,
+  getVisualAssetById,
+  isVisualAssetCopySafe,
+  parseVisualAssetRegistry,
+  validateAssetBindingReferences,
+  validateVisualAssetReference,
+  validateVisualAssetRegistry,
+} from "./visual-asset-registry";
+
+export type {
+  BlockVisualProtocol,
+  ComponentProtocol,
+} from "./block-visual-protocol";
+
+export {
+  TITLE_BLOCK_COMPONENT_PROTOCOL,
+  buildBlockVisualProtocol,
+  buildComponentProtocolForBlockType,
+  getRegisteredFamilies,
+  isRegisteredFamilyInRegistry,
+  isRegisteredVariantInRegistry,
+} from "./block-visual-protocol";
+
+export type { ValidateProtocolContext } from "./protocol-validation";
+
+export {
+  validateAssetBindingsCompatibility,
+  validateBlockStyleProtocolBundle,
+  validateBlockVisualProtocol,
+  validateComponentProtocol,
+  validateSlotOverrideCompatibility,
+  validateVariantProtocolCompatibility,
+} from "./protocol-validation";
+
+export type {
+  StyleCombinationValidationContext,
+  ValidatePresetThemeInput,
+} from "./style-combination-validation";
+
+export {
+  resolveThemeForCombination,
+  validateDensityValue,
+  validatePresetDefinition,
+  validatePresetThemeCombination,
+  validateStyleAssignmentBlockOverride,
+  validateThemePresetDensitySlotCombination,
+} from "./style-combination-validation";
+
+export type {
+  StyleSelectionValidationInput,
+  StyleSelectionValidationInputKind,
+  StyleSelectionValidationResult,
+  StyleSelectionValidationSnapshot,
+  StyleSelectionValidationStage,
+  ValidateStyleSelectionOptions,
+} from "./style-selection-validation";
+
+export {
+  STYLE_SELECTION_VALIDATION_STAGES,
+  applyValidatedStyleSelection,
+  buildValidatedStyleAssignmentPatch,
+  canMergeStyleSelectionResult,
+  selectionRequestToPlanSeed,
+  validateStyleSelection,
+  validateStyleSelectionPipeline,
+} from "./style-selection-validation";

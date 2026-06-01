@@ -56,10 +56,11 @@
 | **Sprint 3-A** | **Closed**（2026-05-31；DECISION-057） |
 | **Sprint 3-B** | **Closed**（2026-06-01；DECISION-059） |
 | **Sprint 4-A** | **Closed**（2026-06-01；DECISION-061） |
-| **Sprint 4-B** | **In Progress**（DECISION-062） |
-| **Release 1 主干** | `release/1`（Sprint 4-A 已 merge，DECISION-061） |
-| **Sprint 4-B 分支** | `sprint/s4b-structured-block-renderer`（从 `release/1` 切出） |
-| **下一步** | S4B-STORY-002 list Preview + Copy Renderer |
+| **Sprint 4-B** | **Closed**（2026-06-01；DECISION-063） |
+| **Sprint 3-C** | **Closed**（2026-06-01；DECISION-065；audit Grade A；merged `release/1`） |
+| **Release 1 主干** | `release/1`（Sprint 3-C merged，DECISION-065） |
+| **Sprint 3-C 分支** | `sprint/s3c-style-assignment-validation`（已 merge 至 `release/1`） |
+| **下一步** | **等待用户确认启动 Sprint 5**；不自动启动 Sprint 5 / Sprint 6-A |
 
 ---
 
@@ -174,7 +175,8 @@
 > **Sprint 3-A 状态：Closed**（2026-05-31；DECISION-057）
 > **Sprint 3-B 状态：Closed**（2026-06-01；DECISION-059；contract audit **A**，P0=0；分支 `sprint/s3b-first-wave-variant-registry` 已 merge 至 `release/1`）
 > **Sprint 4-A 状态：Closed**（2026-06-01；DECISION-061；contract audit **A**，P0=0；分支 `sprint/s4a-text-first-renderer` 已 merge 至 `release/1`）
-> **Sprint 4-B 状态：In Progress**（DECISION-062；structured blocks Preview / Copy Renderer）
+> **Sprint 4-B 状态：Closed**（2026-06-01；DECISION-063；contract audit **A**，P0=0；分支 `sprint/s4b-structured-block-renderer` 已 merge 至 `release/1`）
+> **Sprint 3-C 状态：Closed**（2026-06-01；DECISION-065；Style Assignment / Selection Validation + Orchestrator + VisualAssetRegistry）
 >
 > 业务功能实现必须在核心技术方案 + 实现前契约完成之后进入（DECISION-015、DECISION-029~045、DECISION-051）。
 
@@ -267,17 +269,45 @@
 | P1-S3B-005 | optional slot 字段需 Renderer 明确 disabled/fallback 行为 | Sprint 4-B |
 | P2-S3B-001 ~ P2-S3B-003 | 见 `sprint3b-contract-audit.md` §11 | Sprint 4~6 / Release 2 |
 
-### Sprint 3-C：VisualAssetRegistry + AI Style Selection Validation + Orchestrator — **未取消 · 延后**
+### Sprint 3-C：Style Assignment / Selection Validation + Orchestrator + VisualAssetRegistry — **Closed**（2026-06-01）
 
-> **说明：** Sprint 3-C **未取消**，仅因 Sprint 4 Renderer 验收优先级后置。建议在 **Sprint 5 前**或 **Sprint 4-A / 4-B 完成后再启动**（DECISION-060）。
+**分支：** `sprint/s3c-style-assignment-validation` · **已 merge 至 `release/1`**（DECISION-065）
 
-**目标：**
+**Stories：** S3C-STORY-001~006 **Done** · audit Grade **A** · P0=0 · P1=5 · P2=4 · 592 tests
 
-- VisualAssetRegistry 最小 **15~30** assets
-- StyleSelectionRequest / StyleAssignmentPatch **validation 入口**
-- ComponentProtocol / BlockVisualProtocol 完整校验链
-- StyleOrchestrator 最小规则 R1 / R2 / R8
-- **expansion variants 规划**（不要求全部实现）
+> **关闭结论（DECISION-065）：** 用户接受 Sprint 3-C contract audit；Style Assignment validation 闭环完成；`sprint/s3c-style-assignment-validation` merge 至 `release/1`；**不 merge main**；**不自动启动 Sprint 5**
+
+> **启动时机：** Sprint 4-A / 4-B 已 Closed 并 merge 至 `release/1`（DECISION-061、DECISION-063）；first-wave 33 variants registry 与 Preview / Copy Renderer 最小闭环已完成，Sprint 3-C 承接 Style System **分配与校验**闭环，为 Sprint 5 Generation 样式建议提供 validation pipeline。
+
+**Sprint Goal：**
+
+- 完成 Style Assignment 输入输出契约代码化（`StyleSelectionRequest` / `StyleAssignmentPatch` / `ArticleStylePlan`）
+- StyleOrchestrator 最小规则 **R1 / R2 / R8** 实现
+- VisualAssetRegistry 最小 **15~30** 系统内置 assets 注册
+- ComponentProtocol / BlockVisualProtocol / Registry / Profile **完整校验链**（Style Selection Validation Pipeline）
+- Theme / Preset / Density / Slot 与 variant 组合边界落地
+- Style Assignment fixture 与 validation snapshot seeds
+- **expansion variants 规划文档**（不要求 expansion registry 全量实现）
+
+**不做：**
+
+- Preview / Copy Renderer 新实现或大范围修改
+- Generation / Streaming / AI 样式建议**生成**（生成归 Sprint 5；Sprint 3-C 只做 validation 入口）
+- 真实微信公众号 Paste QA、Style Gallery、业务 UI、样式市场
+- expansion variants 全量 registry 实现
+- merge 至 `main`
+
+**Story 拆分调整（相对 sprint-plan 原叙事）：**
+
+| 原 sprint-plan 项 | 纳入 Story |
+|-------------------|------------|
+| StyleSelectionRequest / Patch validation | S3C-STORY-002 / S3C-STORY-005 |
+| StyleOrchestrator R1/R2/R8 | S3C-STORY-003 |
+| VisualAssetRegistry 15~30 assets | S3C-STORY-004 |
+| ComponentProtocol / BlockVisualProtocol 校验链 | S3C-STORY-004 / S3C-STORY-005 |
+| expansion variants 规划 | S3C-STORY-006（规划文档，非 registry 实现） |
+
+**登记 P1/P2：** P1-003（已收口）、TECH-ARCH-010~012 / TECH-ARCH-017（Done）、P1-S3B-004、P1-S3C-001~005 — 见 `sprint3c-style-system-contract-audit.md` §11
 
 ### Sprint 4-A：Preview / Copy Renderer for Text-first Blocks — **Closed**（2026-06-01）
 
