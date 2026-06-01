@@ -84,7 +84,7 @@
 | TECH-ARCH-014 | SlotContentBinding | EPIC-004 | titleBlock slot 内容来源；禁止 Style 生成正文 |
 | TECH-ARCH-015 | TitleBlockLayoutCompatibility | EPIC-004 / EPIC-006 | layoutMode 微信 copy 可执行约束 |
 | TECH-ARCH-016 | AI Style Selection in Release 1 | EPIC-002 / EPIC-004 | Release 1 启用受控 AI 样式选择 |
-| TECH-ARCH-017 | StyleSelection Validation Pipeline | EPIC-004 | Protocol/Registry/Profile/Orchestrator 串联校验 · **Sprint 3-C 执行入口** |
+| TECH-ARCH-017 | StyleSelection Validation Pipeline | EPIC-004 | Protocol/Registry/Asset/Orchestrator 串联校验 · **S3C-STORY-005 最小闭环已实现（In Review）** |
 | TECH-ARCH-018 | First-wave Required Variant Registry | EPIC-004 | 11×3=33 first-wave required variants · **Sprint 3-B 执行入口** |
 | TECH-ARCH-019 | Expansion Variant Coverage | EPIC-004 | 每 block 第 4/5 variant；不阻塞 first-wave closure |
 | TECH-ARCH-020 | Sprint 3-A/B/C Style System Delivery Split | EPIC-004 | infrastructure / first-wave registry / **assignment validation** · 3-A Done · 3-B Done · **3-C In Progress** |
@@ -184,5 +184,5 @@
 | **TECH-ARCH-010** | VisualAssetRegistry / icon asset pool | Sprint 3-C | **已纳入** · S3C-STORY-004（15~30 assets） |
 | **TECH-ARCH-011** | StyleOrchestrator / ArticleRhythmPolicy | Sprint 3-C | **已纳入** · S3C-STORY-003 |
 | **TECH-ARCH-012** | AI Style Selection Guardrails | Sprint 3-C / Sprint 5 | **已纳入** · S3C-STORY-002 / S3C-STORY-005（validation 入口；生成归 Sprint 5） |
-| **TECH-ARCH-017** | StyleSelection Validation Pipeline | Sprint 3-C | **已纳入** · S3C-STORY-005 |
+| **TECH-ARCH-017** | StyleSelection Validation Pipeline | Sprint 3-C | **In Review** · S3C-STORY-005 最小 pipeline + fixtures + snapshot seeds |
 | P1-S3B-004 | Style Gallery / 人工视觉验收入口缺失 | Sprint 6 / Release 2 | 登记 · S3C-STORY-006 audit；不要求 Sprint 3-C 实现 |

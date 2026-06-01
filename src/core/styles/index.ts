@@ -363,3 +363,22 @@ export {
   validateStyleAssignmentBlockOverride,
   validateThemePresetDensitySlotCombination,
 } from "./style-combination-validation";
+
+export type {
+  StyleSelectionValidationInput,
+  StyleSelectionValidationInputKind,
+  StyleSelectionValidationResult,
+  StyleSelectionValidationSnapshot,
+  StyleSelectionValidationStage,
+  ValidateStyleSelectionOptions,
+} from "./style-selection-validation";
+
+export {
+  STYLE_SELECTION_VALIDATION_STAGES,
+  applyValidatedStyleSelection,
+  buildValidatedStyleAssignmentPatch,
+  canMergeStyleSelectionResult,
+  selectionRequestToPlanSeed,
+  validateStyleSelection,
+  validateStyleSelectionPipeline,
+} from "./style-selection-validation";

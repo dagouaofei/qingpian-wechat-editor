@@ -212,3 +212,4 @@
 | 2026-06-01 | Sprint 3-C | 实现 StyleOrchestrator 最小规则 R1/R2/R8 与 Block→Variant fallback；21 新测试；lint / test（529）/ build PASS | 代码 / 架构 | S3C-STORY-003 |
 | 2026-06-01 | Sprint 3-C | 实现 VisualAssetRegistry（19 内置 assets）+ ComponentProtocol / BlockVisualProtocol / Theme·Preset·Density·Slot 组合边界校验；34 新测试；lint / test（563）/ build PASS | 代码 / 架构 | S3C-STORY-004, TECH-ARCH-010 |
 | 2026-06-01 | Sprint 3-C | S3C-STORY-004 审核通过；merge `feature/s3c-visual-asset-protocol-validation` → `sprint/s3c-style-assignment-validation`（`3faddb4`） | Git / 敏捷 | S3C-STORY-004 |
+| 2026-06-01 | Sprint 3-C | 实现 Style Selection Validation Pipeline + 10 fixtures + validation snapshot seeds；29 新测试；lint / test（592）/ build PASS | 代码 / 架构 | S3C-STORY-005, TECH-ARCH-017 |

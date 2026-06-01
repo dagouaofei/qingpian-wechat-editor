@@ -458,17 +458,41 @@ export function validateAssetBindingsCompatibility(
     }
 
     const slot = variant.slots?.[slotKey];
+    if (!slot) {
+      continue;
+    }
+
+    if ((BODY_CONTENT_SLOT_ROLES as readonly string[]).includes(slot.role)) {
+      issues.push({
+        severity: "error",
+        code: "asset_binding_body_semantics_forbidden",
+        message: `Asset binding must not target body-content slot "${slotKey}" (${slot.role})`,
+        blockType: variant.blockType,
+        blockId: context.blockId,
+        variantId: variant.id,
+        path: ["assetBindings", slotKey],
+        property: slotKey,
+        value: assetId,
+      });
+      continue;
+    }
+
+    const presentationAssetRoles = new Set(["badge", "icon", "decoration"]);
     if (
-      slot &&
-      (slot.role === "icon" ||
-        slot.role === "decoration" ||
-        slot.role === "badge") &&
+      slot.binding.source === "variant.presentation" &&
+      presentationAssetRoles.has(slot.role)
+    ) {
+      continue;
+    }
+
+    if (
       slot.binding.source !== "assetRegistry" &&
-      slot.binding.source !== "variant.presentation" &&
       slot.binding.source !== "disabled"
     ) {
+      const severity =
+        context.requireRelease1RequiredPath === true ? "error" : "warning";
       issues.push({
-        severity: "warning",
+        severity,
         code: "asset_binding_slot_source_mismatch",
         message: `Asset binding on slot "${slotKey}" may not match slot binding source "${slot.binding.source}"`,
         blockType: variant.blockType,

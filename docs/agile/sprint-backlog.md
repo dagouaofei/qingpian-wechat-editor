@@ -2229,7 +2229,14 @@ image_placeholder：
 
 **技术价值：** 实现 TECH-ARCH-017 最小 fixture 集；覆盖 valid request、invalid registry 引用、orchestrator 违规、fallback_applied 等路径。
 
-**优先级：** P0 · **状态：** Todo · **工作分支：** `feature/s3c-style-assignment-fixtures`（建议）
+**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s3c-style-selection-validation-fixtures`
+
+**产物：**
+
+- `src/core/styles/style-selection-validation.ts` — `validateStyleSelectionPipeline` / merge guards
+- `tests/fixtures/styles/style-selection/index.ts` — 10 组 Style Assignment fixtures
+- `tests/fixtures/styles/style-selection-validation-seeds.ts` — validation snapshot seeds
+- `tests/core/styles/style-selection-validation-pipeline.test.ts`（29 cases）
 
 **范围：**
 
@@ -2249,15 +2256,15 @@ image_placeholder：
 
 **验收标准：**
 
-- [ ] AC-1 已从 sprint 创建 `feature/s3c-style-assignment-fixtures`
-- [ ] AC-2 validation pipeline 函数已实现并导出
-- [ ] AC-3 ≥ 3 组 fixture 覆盖 valid / invalid / fallback_applied
-- [ ] AC-4 snapshot seeds 位于 `tests/fixtures/styles/`（或项目约定目录）
-- [ ] AC-5 未经校验的 patch 不得 merge 至 Article.styleAssignment（测试断言）
-- [ ] AC-6 单元测试 ≥ 12 cases（含 snapshot 或结构化断言）
-- [ ] AC-7 未实现 Generation / Renderer / Paste QA
-- [ ] AC-8 `corepack pnpm lint` / `test` / `build` 通过
-- [ ] AC-9 已生成 execution report
+- [x] AC-1 已从 sprint 创建 `feature/s3c-style-selection-validation-fixtures`
+- [x] AC-2 validation pipeline 函数已实现并导出（`validateStyleSelectionPipeline` / `validateStyleSelection`）
+- [x] AC-3 ≥ 3 组 fixture 覆盖 valid / invalid / fallback_applied（10 fixtures）
+- [x] AC-4 snapshot seeds 位于 `tests/fixtures/styles/style-selection-validation-seeds.ts`
+- [x] AC-5 未经校验的 patch 不得 merge 至 Article.styleAssignment（`canMergeStyleSelectionResult` / `applyValidatedStyleSelection` 测试断言）
+- [x] AC-6 单元测试 ≥ 12 cases（29 pipeline cases；592 tests total）
+- [x] AC-7 未实现 Generation / Renderer / Paste QA
+- [x] AC-8 `corepack pnpm lint` / `test` / `build` 通过
+- [x] AC-9 已生成 execution report
 
 ---
 

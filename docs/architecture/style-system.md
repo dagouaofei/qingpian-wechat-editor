@@ -911,16 +911,39 @@ StyleAssignmentPatch
 
 #### 11.8.3 校验路径（StyleSelection Validation Pipeline）
 
+> **S3C-STORY-005 已实现** — `src/core/styles/style-selection-validation.ts`  
+> 入口：`validateStyleSelectionPipeline(Article, StyleRegistry, input)` / alias `validateStyleSelection`  
+> Merge guards：`canMergeStyleSelectionResult` · `applyValidatedStyleSelection`（仅 `valid` / `fallback_applied` 且无 error 时写入 `styleAssignment`）  
+> Fixtures / seeds：`tests/fixtures/styles/style-selection/` · `tests/fixtures/styles/style-selection-validation-seeds.ts`
+
+**Pipeline 顺序（代码）：**
+
+1. `input_schema` — parse / validate `StyleSelectionRequest` / `StyleAssignmentPatch` / `ArticleStylePlan`
+2. `plan_conversion` — 解析 preset / theme / density 目标
+3. `preset_theme_combination` — Theme / Preset / Density 组合边界
+4. `block_protocol` — ComponentProtocol / BlockVisualProtocol / VisualAssetRegistry / slot override
+5. `orchestrator` — StyleOrchestrator R1 / R2 / R8（复用 S3C-STORY-003，不重写）
+6. `post_orchestrator_validation` — 对 orchestrator 输出 blockOverrides 再次 protocol / combination 校验
+
+**R8 当前判定语义（登记）：** 比较 title 与首个 heading 的 `family` + `componentProtocol.layoutMode`（**非** strict `variantId` 相等）；validation snapshot seed `orchestrator-r8-title-heading-conflict` 覆盖此语义。
+
+**asset binding 等级（S3C-STORY-005 收口）：**
+
+| 场景 | 等级 |
+|------|------|
+| `release1_required` copy path · body-content slot（title/body/items）绑定 asset | **error** · `asset_binding_body_semantics_forbidden` |
+| `release1_required` copy path · slot binding source 与 asset 不兼容 | **error** · `asset_binding_slot_source_mismatch` |
+| badge/icon/decoration + `variant.presentation` 绑定已注册 asset | 允许 |
+| 非 required / draft path | `asset_binding_slot_source_mismatch` 可为 warning |
+
 ```text
-StyleSelectionRequest / StyleAssignmentPatch
-  → ComponentProtocol validation
-  → BlockVisualProtocol validation
-  → Style Registry validation
-  → VisualAssetRegistry validation
-  → WeChatCompatibilityProfile validation
-  → TitleBlockLayoutCompatibility validation（titleBlock variant）
-  → StyleOrchestrator rhythm validation
-  → StyleValidationResult
+StyleSelectionRequest / StyleAssignmentPatch / ArticleStylePlan
+  → input schema validation
+  → preset / theme / density combination validation
+  → block protocol + VisualAssetRegistry validation
+  → StyleOrchestrator rhythm validation (R1/R2/R8)
+  → post-orchestrator re-validation
+  → StyleValidationResult + snapshot seed
   → merge to ArticleStylePlan / styleAssignment（仅 valid 或 fallback_applied）
   → StyleResolver → ResolvedArticleStyle
 ```
