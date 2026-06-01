@@ -124,4 +124,4 @@
 
 ## 14. Commit
 
-- Commit hash：`0f4e6bc`
+- Commit hash：`3b6d900`（implementation commit）
