@@ -1168,7 +1168,7 @@
 | Renderer contract audit | ✅ A 级，P0=0，P1=4，P2=1（用户已接受） |
 | lint / test / build | PASS（378 tests） |
 | Sprint 4-A 关闭 | ✅ **已关闭**（2026-06-01） |
-| merge sprint → `release/1` | ✅ 用户已确认执行 |
+| merge sprint → `release/1` | ✅ 用户已确认执行（`b2efdb2`） |
 | 下一步 | Sprint 4-B 启动（待用户确认） |
 
 ---
