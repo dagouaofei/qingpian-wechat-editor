@@ -107,5 +107,5 @@
 
 ## 14. Git
 
-- commit hash：（提交后更新）
-- 是否已 merge：否
+- commit hash：`8473235ffa7799523cb42106aa5f5107bac3ad8c`
+- 是否已 merge：是 · merge 至 `sprint/s3c-style-assignment-validation`（fast-forward `8473235`）

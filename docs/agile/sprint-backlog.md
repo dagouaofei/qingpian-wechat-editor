@@ -2229,7 +2229,7 @@ image_placeholder：
 
 **技术价值：** 实现 TECH-ARCH-017 最小 fixture 集；覆盖 valid request、invalid registry 引用、orchestrator 违规、fallback_applied 等路径。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s3c-style-selection-validation-fixtures`
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s3c-style-selection-validation-fixtures` · **已 merge 至 sprint**（`8473235`）
 
 **产物：**
 
