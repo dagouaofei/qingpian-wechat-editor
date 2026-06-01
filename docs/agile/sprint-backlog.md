@@ -3,7 +3,8 @@
 > **Sprint 1：** 正式项目启动、核心技术方案定稿与工程治理 · Sprint 1-A / 1-B：**Closed**
 > **Sprint 2：** Article / Block Schema + InlineContent 代码契约 · **Closed**（2026-05-31；DECISION-054）
 > **Sprint 3-A：** Style System Contract & Registry Infrastructure · **Closed**（2026-05-31；DECISION-057）
-> **Release 1 主干：** `release/1`（Sprint 3-A 已 merge，DECISION-057） · **Sprint 3-A 分支：** `sprint/s3a-style-system-infra`（DECISION-055）
+> **Sprint 3-B：** First-wave Required Variant Registry · **In Progress**
+> **Release 1 主干：** `release/1` · **Sprint 3-B 分支：** `sprint/s3b-first-wave-variant-registry`（DECISION-058）
 
 ---
 
@@ -885,6 +886,222 @@
 | Sprint 3-A 范围未越界 | ✅ |
 | Sprint 3-A 关闭 | ✅ **已关闭**（2026-05-31） |
 | merge sprint → `release/1` | ✅ 用户已确认执行 |
-| 下一步 | Sprint 3-B：First-wave Required Variant Registry（**未启动**） |
+| 下一步 | Sprint 3-B：First-wave Required Variant Registry（**In Progress**，DECISION-058） |
+
+---
+
+# Sprint 3-B Backlog
+
+> **Sprint 3-B 目标：** First-wave **11 block × 3 = 33** release1_required variants registry；title / heading titleBlock ComponentProtocol；SlotContentBinding 规则落地
+> **Sprint 3-B 分支：** `sprint/s3b-first-wave-variant-registry`（从 `release/1` 切出，DECISION-058）
+> **Sprint 3-B 前置遗留（须纳入 planning）：** P1-S3A-001（§11.4 layoutMode 映射）、P2-S3A-002（slot 级 copySafety）
+> **Sprint 3-B 不做：** Preview / Copy Renderer、Paste QA、AI Style Selection 生成、VisualAssetRegistry 全量 assets、StyleOrchestrator、Generation / Streaming
+
+---
+
+## S3B-STORY-001 Sprint 3-B 启动与 Backlog 拆分
+
+**用户故事：** 作为产品负责人，我需要正式启动 Sprint 3-B 并拆分 Backlog，以便团队在明确边界下逐步实现 first-wave 33 variants registry。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `docs/s3b-start-backlog-split`
+
+**明确不做：**
+
+- 不实现 variant registry 代码（S3B-STORY-002 起）
+- 不实现 Preview / Copy Renderer
+- 不 merge 至 `release/1` 或 `main`（本轮由用户审查后 merge sprint 分支）
+- 不关闭 Sprint 3-B
+
+**验收标准：**
+
+- [x] AC-1 工作区启动前干净
+- [x] AC-2 已从 `release/1` 创建 `sprint/s3b-first-wave-variant-registry`
+- [x] AC-3 已从 sprint 分支创建 `docs/s3b-start-backlog-split`
+- [x] AC-4 `sprint-backlog.md` 已新增 Sprint 3-B Backlog（S3B-STORY-001~007）
+- [x] AC-5 `sprint-plan.md` 已将 Sprint 3-B 更新为 In Progress
+- [x] AC-6 `decisions.md` 已新增 DECISION-058
+- [x] AC-7 `changelog.md` 已记录 Sprint 3-B 启动
+- [x] AC-8 `product-backlog.md` 已将 P1-S3A-001 / P2-S3A-002 纳入 Sprint 3-B
+- [x] AC-9 Sprint 3-B 范围未越界（未实现 variants 代码 / renderer / copy）
+- [x] AC-10 `corepack pnpm lint` 通过
+- [x] AC-11 `corepack pnpm test` 通过
+- [x] AC-12 `corepack pnpm build` 通过
+- [x] AC-13 已生成 execution report
+- [x] AC-14 未 merge 到 sprint / release / main
+- [x] AC-15 未启动 S3B-STORY-002
+
+---
+
+## S3B-STORY-002 titleBlock catalog mapping 与 slot copySafety 收口
+
+**用户故事：** 作为开发者，我需要在实现 33 variants 前收口 layoutMode 映射与 slot copySafety 规则，以免 registry 写错 layoutMode 或 copySafety。
+
+**优先级：** P0 · **状态：** Todo · **工作分支：** `feature/s3b-titleblock-mapping-slot-copysafety`（待创建）
+
+**范围：**
+
+- 修正或补充 `style-system.md` §11.4 历史 layoutMode 命名 → 代码 snake_case enum 映射表（P1-S3A-001）
+- 将 P2-S3A-002 收口为 slot 级 copySafety 规则（文档 + 必要 schema / validation 最小补强）
+- 明确 first-wave variants 允许使用的 slot / layoutMode / copySafety 组合
+
+**明确不做：**
+
+- 不写 33 variants registry 定义
+- 不实现 Preview / Copy Renderer
+
+**验收标准：**
+
+- [ ] AC-1 layoutMode DSL catalog → code enum 映射表可执行且与 `title-layout.ts` 一致
+- [ ] AC-2 slot 级 copySafety 规则写入 style-system 或 validation 最小补强
+- [ ] AC-3 first-wave 允许的 slot / layoutMode / copySafety 组合文档化
+- [ ] AC-4 单元测试覆盖 mapping / copySafety 校验（如有代码补强）
+- [ ] AC-5 `corepack pnpm lint` / `test` / `build` 通过
+- [ ] AC-6 已生成 execution report
+
+---
+
+## S3B-STORY-003 title / heading titleBlock first-wave variants
+
+**用户故事：** 作为开发者，我需要为 title / heading block 各实现 3 个 release1_required variants，以便 Sprint 4 Renderer 有 copy-safe titleBlock 样式可用。
+
+**优先级：** P0 · **状态：** Todo · **工作分支：** `feature/s3b-title-heading-variants`（待创建）
+
+**目标：**
+
+- title block **3** 个 release1_required variants
+- heading block **3** 个 release1_required variants
+- 复用 titleBlock ComponentProtocol
+- 不含 `magazine_left_bar_title`
+
+**建议 variants 方向：** plain / minimal；left_bar 或 bottom_line；numbered / top_badge / card 中选择 copy-safe 组合
+
+**要求：**
+
+- 每个 variant 通过 StyleValidationResult
+- 每个 variant 有 copySafety、layoutMode、slot binding
+- 不使用 preview_only、overlay、offset_background、magazine_left_bar（required）
+
+**明确不做：**
+
+- 不实现 Preview / Copy Renderer
+- 不实现 magazine_left_bar_title candidate variant
+
+**验收标准：**
+
+- [ ] AC-1 title 3 variants + heading 3 variants 注册至 StyleRegistry
+- [ ] AC-2 每个 variant `releaseTier = release1_required`
+- [ ] AC-3 全部通过 `validateVariantForWechatCopy` / StyleValidationResult
+- [ ] AC-4 单元测试覆盖 6 variants
+- [ ] AC-5 `corepack pnpm lint` / `test` / `build` 通过
+- [ ] AC-6 已 merge 至 `sprint/s3b-first-wave-variant-registry`
+
+---
+
+## S3B-STORY-004 text-first block first-wave variants
+
+**用户故事：** 作为开发者，我需要为 lead / paragraph / divider / list 各实现 3 个 release1_required variants，以便 Sprint 4-A text-first Renderer 有样式可用。
+
+**优先级：** P0 · **状态：** Todo · **工作分支：** `feature/s3b-text-first-variants`（待创建）
+
+**目标：** lead、paragraph、divider、list 各 3 个 variants，共 **12** 个
+
+**要求：**
+
+- 每个 variant 通过 StyleValidationResult
+- 只写 registry definitions，不输出 HTML / CSS renderer
+- tokens / slots / compatibility 可供 Sprint 4 使用
+
+**明确不做：**
+
+- 不实现 Preview / Copy Renderer
+
+**验收标准：**
+
+- [ ] AC-1 4 block × 3 = 12 variants 注册完成
+- [ ] AC-2 全部 `releaseTier = release1_required`
+- [ ] AC-3 全部通过 StyleValidationResult
+- [ ] AC-4 单元测试覆盖
+- [ ] AC-5 `corepack pnpm lint` / `test` / `build` 通过
+- [ ] AC-6 已 merge 至 sprint 分支
+
+---
+
+## S3B-STORY-005 structured block first-wave variants
+
+**用户故事：** 作为开发者，我需要为 quote / highlight / info_card / cta / image_placeholder 各实现 3 个 release1_required variants，以便 Sprint 4-B structured Renderer 有样式可用。
+
+**优先级：** P0 · **状态：** Todo · **工作分支：** `feature/s3b-structured-block-variants`（待创建）
+
+**目标：** quote、highlight、info_card、cta、image_placeholder 各 3 个 variants，共 **15** 个
+
+**要求：**
+
+- 每个 variant 通过 StyleValidationResult
+- cta 不实现二维码 / 小程序 / 外链真实渲染，只定义 variant 契约
+- image_placeholder 只定义占位展示 variant，不实现配图
+
+**明确不做：**
+
+- 不实现 Copy Renderer
+- 不实现 VisualAssetRegistry 全量 assets
+
+**验收标准：**
+
+- [ ] AC-1 5 block × 3 = 15 variants 注册完成
+- [ ] AC-2 全部 `releaseTier = release1_required`
+- [ ] AC-3 全部通过 StyleValidationResult
+- [ ] AC-4 单元测试覆盖
+- [ ] AC-5 `corepack pnpm lint` / `test` / `build` 通过
+- [ ] AC-6 已 merge 至 sprint 分支
+
+---
+
+## S3B-STORY-006 first-wave registry validation 与 coverage 测试
+
+**用户故事：** 作为开发者，我需要验证 first-wave registry 覆盖 33 variants 且全部 copy-safe，以便 Sprint 3-B 关闭前有可验收的 coverage gate。
+
+**优先级：** P0 · **状态：** Todo · **工作分支：** `feature/s3b-first-wave-coverage-tests`（待创建）
+
+**目标：**
+
+- first-wave variants 总数 = **33**
+- 11 block 每个恰好 3 个 release1_required variants
+- 全部 required variants 通过 StyleValidationResult
+- 无 preview_only / experimental / candidate 混入 required
+- title / heading 不含 magazine_left_bar / overlay / offset_background
+- SlotContentBinding 完整
+
+**验收标准：**
+
+- [ ] AC-1 coverage 测试断言 33 variants
+- [ ] AC-2 11 block × 3 分布测试
+- [ ] AC-3 全量 StyleValidationResult PASS
+- [ ] AC-4 forbidden layoutMode / releaseTier 混入测试
+- [ ] AC-5 SlotContentBinding 完整性测试
+- [ ] AC-6 `corepack pnpm lint` / `test` / `build` 通过
+- [ ] AC-7 已 merge 至 sprint 分支
+
+---
+
+## S3B-STORY-007 Sprint 3-B contract audit 与关闭准备
+
+**用户故事：** 作为产品负责人，我需要在 Sprint 3-B 完成后做契约 audit，确认 33 variants registry 与 style-system.md 一致，并准备 Sprint 4-A 启动条件。
+
+**优先级：** P0 · **状态：** Todo · **工作分支：** `docs/s3b-contract-audit-close-readiness`（待创建）
+
+**明确不做：**
+
+- 不自行关闭 Sprint 3-B（须用户确认）
+- 不 merge 至 `release/1`，除非用户确认
+
+**验收标准：**
+
+- [ ] AC-1 已生成 `docs/architecture/audits/sprint3b-contract-audit.md`
+- [ ] AC-2 audit 覆盖 33 variants 与 Sprint 3-B 全部 Story
+- [ ] AC-3 audit 输出 P0 / P1 / P2
+- [ ] AC-4 Sprint 3-B 范围未越界
+- [ ] AC-5 lint / test / build PASS
+- [ ] AC-6 已生成 execution report
+- [ ] AC-7 未自行关闭 Sprint 3-B
 
 ---

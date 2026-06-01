@@ -54,9 +54,10 @@
 | **用户确认** | Checklist #10：已确认接受 B 级 final audit；Checklist #11：已确认可以关闭 Sprint 1-B |
 | **Sprint 2** | **Closed**（2026-05-31；DECISION-054） |
 | **Sprint 3-A** | **Closed**（2026-05-31；DECISION-057） |
+| **Sprint 3-B** | **In Progress**（2026-05-31；DECISION-058） |
 | **Release 1 主干** | `release/1`（Sprint 3-A 已 merge，DECISION-057） |
-| **Sprint 3-A 分支** | `sprint/s3a-style-system-infra`（已 merge 至 `release/1`） |
-| **下一步** | Sprint 3-B：First-wave Required Variant Registry（**未启动**） |
+| **Sprint 3-B 分支** | `sprint/s3b-first-wave-variant-registry`（从 `release/1` 切出） |
+| **下一步** | S3B-STORY-002：titleBlock mapping + slot copySafety 收口 |
 
 ---
 
@@ -168,8 +169,8 @@
 
 ## Sprint 2 ~ 6 计划（Release 1 代码实现）
 
-> **Sprint 2 状态：Closed**（2026-05-31；DECISION-054）
-> **Sprint 3-A 状态：Closed**（2026-05-31；DECISION-057；contract audit **A**，P0=0，P1=4，P2=3；`sprint/s3a-style-system-infra` 已 merge 至 `release/1`）
+> **Sprint 3-A 状态：Closed**（2026-05-31；DECISION-057）
+> **Sprint 3-B 状态：In Progress**（2026-05-31；DECISION-058；分支 `sprint/s3b-first-wave-variant-registry`）
 >
 > 业务功能实现必须在核心技术方案 + 实现前契约完成之后进入（DECISION-015、DECISION-029~045、DECISION-051）。
 
@@ -212,21 +213,35 @@
 
 **不做：** 全部 **33** first-wave required variants registry；Preview / Copy Renderer；AI Style Selection 生成；VisualAssetRegistry 全量 assets
 
-### Sprint 3-B：First-wave Required Variant Registry
+### Sprint 3-B：First-wave Required Variant Registry — **In Progress**
 
-> **启动前须带入（Sprint 3-A audit 遗留）：**
+**分支：** `sprint/s3b-first-wave-variant-registry`（从 `release/1` 切出，DECISION-058）
+
+**Stories：** S3B-STORY-001（启动）~ S3B-STORY-007（audit）— 见 `sprint-backlog.md`
+
+> **Sprint 3-A 遗留须纳入（DECISION-058）：**
 >
-> - **P1-S3A-001：** `style-system.md` §11.4 titleBlock catalog 历史 layoutMode 命名 → 代码 snake_case enum 映射
-> - **P2-S3A-002：** slot 级 copySafety 尚未在 schema 强制
+> - **P1-S3A-001（P0 前置）：** `style-system.md` §11.4 titleBlock catalog 历史 layoutMode → 代码 snake_case enum 映射（S3B-STORY-002）
+> - **P2-S3A-002（P0 前置）：** slot 级 copySafety 尚未在 schema / registry 强制（S3B-STORY-002）
+>
+> **同步登记（不阻塞 S3B-STORY-001）：** P1-S3A-002、P1-S3A-003、P2-S3A-003
 
 **目标：**
 
-- **11 block × 3 = 33** first-wave required variants registry definitions
+- **11 block × 3 = 33** first-wave release1_required variants registry definitions
 - title / heading titleBlock ComponentProtocol
 - titleBlock first-wave variants（不含 `magazine_left_bar_title` candidate）
 - SlotContentBinding 规则落地到 registry
+- first-wave registry validation / coverage 测试
 
-**不做：** VisualAssetRegistry 全量；AI 样式建议生成（Sprint 5）
+**不做：**
+
+- Preview / Copy Renderer
+- Paste QA
+- AI Style Selection 生成
+- VisualAssetRegistry 全量 assets
+- StyleOrchestrator
+- Generation / Streaming
 
 ### Sprint 3-C：VisualAssetRegistry + AI Style Selection Validation + Orchestrator
 

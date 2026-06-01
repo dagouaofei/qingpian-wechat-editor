@@ -130,3 +130,14 @@
 | 2026-05-31 | Sprint 3-A | 用户确认接受 contract audit（A，P0=0，P1=4，P2=3） | 敏捷 | S3A-STORY-007 |
 | 2026-05-31 | Sprint 3-A | **正式关闭 Sprint 3-A**；DECISION-057 | 敏捷 | S3A-STORY-007, DECISION-057 |
 | 2026-05-31 | Release 1 | `sprint/s3a-style-system-infra` merge 至 `release/1` | Git | DECISION-057 |
+
+---
+
+## 2026-05-31 · Sprint 3-B
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-05-31 | Sprint 3-B | **正式启动 Sprint 3-B**；范围 First-wave Required Variant Registry | 敏捷 / 架构 | S3B-STORY-001, DECISION-058 |
+| 2026-05-31 | Sprint 3-B | 从 `release/1` 建立 `sprint/s3b-first-wave-variant-registry` | Git | DECISION-058 |
+| 2026-05-31 | Sprint 3-B | 新增 Sprint 3-B Backlog S3B-STORY-001~007 | 敏捷 | S3B-STORY-001 |
+| 2026-05-31 | Sprint 3-B | P1-S3A-001 / P2-S3A-002 纳入 Sprint 3-B planning（S3B-STORY-002 前置） | 架构 / 敏捷 | S3B-STORY-002 |
