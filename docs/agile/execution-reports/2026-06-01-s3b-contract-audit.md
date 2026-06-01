@@ -74,7 +74,7 @@
 
 ## 8. Commit
 
-- Commit hash：（提交后更新）
+- Commit hash：`af4e316`
 
 ## 9. 建议下一步
 
