@@ -56,9 +56,10 @@
 | **Sprint 3-A** | **Closed**（2026-05-31；DECISION-057） |
 | **Sprint 3-B** | **Closed**（2026-06-01；DECISION-059） |
 | **Sprint 4-A** | **Closed**（2026-06-01；DECISION-061） |
+| **Sprint 4-B** | **In Progress**（DECISION-062） |
 | **Release 1 主干** | `release/1`（Sprint 4-A 已 merge，DECISION-061） |
-| **Sprint 4-A 分支** | `sprint/s4a-text-first-renderer`（已 merge 至 `release/1`） |
-| **下一步** | Sprint 4-B 未启动（待用户确认） |
+| **Sprint 4-B 分支** | `sprint/s4b-structured-block-renderer`（从 `release/1` 切出） |
+| **下一步** | S4B-STORY-002 list Preview + Copy Renderer |
 
 ---
 
@@ -173,6 +174,7 @@
 > **Sprint 3-A 状态：Closed**（2026-05-31；DECISION-057）
 > **Sprint 3-B 状态：Closed**（2026-06-01；DECISION-059；contract audit **A**，P0=0；分支 `sprint/s3b-first-wave-variant-registry` 已 merge 至 `release/1`）
 > **Sprint 4-A 状态：Closed**（2026-06-01；DECISION-061；contract audit **A**，P0=0；分支 `sprint/s4a-text-first-renderer` 已 merge 至 `release/1`）
+> **Sprint 4-B 状态：In Progress**（DECISION-062；structured blocks Preview / Copy Renderer）
 >
 > 业务功能实现必须在核心技术方案 + 实现前契约完成之后进入（DECISION-015、DECISION-029~045、DECISION-051）。
 
@@ -317,7 +319,7 @@
 - Paste QA seed 为 **Not Run**，不代表真实公众号粘贴通过
 - Sprint 4-A 已关闭；`sprint/s4a-text-first-renderer` 已 merge 至 `release/1`（`b2efdb2`）
 - 范围：未实现 structured blocks、业务页面、Clipboard API、真实 Paste QA、AI Style Selection、Generation / Streaming、Style Gallery
-- 下一步：Sprint 4-B **未启动**（待用户确认）
+- 下一步：Sprint 4-B 已启动（DECISION-062）；S4B-STORY-002 起实现 structured blocks Renderer
 
 ### Sprint 4-A audit P1/P2 登记（不阻塞 Close Readiness）
 
@@ -329,17 +331,39 @@
 | P1-S4A-004 | InlineMark color 与 Style registry 完整 cross-registry 校验仍未完成 | Sprint 6 / Release 1 hardening |
 | P2-S4A-001 | Style Gallery / 人工视觉验收入口仍缺失 | Sprint 6 / Release 2 |
 
-### Sprint 4-B：Preview / Copy Renderer for Structured Blocks — **Not Started / 未启动**
+### Sprint 4-B：Preview / Copy Renderer for Structured Blocks — **In Progress**（DECISION-062）
 
-**状态：** 未启动（Sprint 4-A 关闭后待用户确认启动；DECISION-061 不自动启动 Sprint 4-B）
+**分支：** `sprint/s4b-structured-block-renderer`（从 `release/1` 切出，DECISION-062）
+
+**Stories：** S4B-STORY-001（启动）~ S4B-STORY-007（audit）— 见 `sprint-backlog.md`
 
 **目标：**
 
 - list / quote / highlight / info_card / cta / image_placeholder 成对 Preview / Copy
-- first-wave required variants
-- 完成 first-wave **33 variants** 最小 Paste QA 计划
+- 使用 Sprint 3-B **first-wave** required variants（18 structured block variants）
+- 完成 first-wave **33 variants** 最小 Paste QA **计划**（S4B-STORY-006；状态 Not Run）
+- cta / image_placeholder 仅 Release 1 **占位契约**渲染，不实现真实 QR / 外链 / 小程序 / 图片上传
 
-**登记 P1/P2：** P1-002、P1-005、P1-006、P1-007
+**不做：**
+
+- AI Style Selection / Generation / Streaming
+- VisualAssetRegistry 全量 assets / StyleOrchestrator
+- 真实微信公众号 Paste QA 全量执行
+- 真实二维码生成、小程序卡片、图片上传 / 托管 / AI 生图
+- Style Gallery / 业务页面
+
+**登记 P1/P2：** P1-005、P1-S3B-003、P1-S3B-005、P1-S4A-002、P1-S4A-003、P2-S4A-001
+
+**Sprint 4-B 前置遗留纳入 planning（S4B-STORY-001）：**
+
+| ID | 问题 | 纳入 Story |
+|----|------|------------|
+| P1-005 | list / info_card copy 结构保真规则未细化 | S4B-STORY-002 / S4B-STORY-004 |
+| P1-S3B-003 | cta / image_placeholder 占位契约，无真实 QR / 链接 / 小程序 / 图片能力 | S4B-STORY-005 |
+| P1-S3B-005 | optional 字段需 renderer 明确 disabled / fallback 行为 | S4B-STORY-004 / S4B-STORY-005 |
+| P1-S4A-002 | balanced copySafety 粘贴细节验证 | S4B-STORY-006 / 6-B |
+| P1-S4A-003 | Copy HTML snapshot seed 覆盖不足 | S4B-STORY-006 |
+| P2-S4A-001 | Style Gallery / 人工视觉验收入口缺失 | 登记 · 不要求 Sprint 4-B 实现 |
 
 ### Sprint 5：Generation / Streaming + 受控 AI 样式选择最小闭环
 
