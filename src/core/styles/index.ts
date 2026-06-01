@@ -41,8 +41,14 @@ export type {
   VariantCompatibility,
   VariantComponentProtocol,
   VariantDefinition,
-  VariantSlotDefinition,
+  SlotContentBinding,
+  SlotContentBindingSource,
+  SlotCopySafety,
+  SlotDefinition,
+  SlotRole,
+  TitleBlockCatalogLayoutMapping,
   VariantStatus,
+  VariantSlotDefinition,
   VariantWeChatCompatibility,
   WeChatCompatibilityCheckResult,
   WeChatCompatibilityProfile,
@@ -59,7 +65,11 @@ export {
 } from "./tokens";
 
 export {
+  BODY_CONTENT_SLOT_ROLES,
+  SLOT_CONTENT_BINDING_SOURCES,
+  SLOT_ROLES,
   TITLE_BLOCK_COMPONENT_ID,
+  TITLE_BLOCK_FIRST_WAVE_ALLOWED_LAYOUT_MODES,
   TITLE_BLOCK_LAYOUT_MODES,
 } from "./types";
 
@@ -77,6 +87,11 @@ export {
   presetDefinitionSchema,
   riskyCssFallbackActionSchema,
   riskyCssPolicyActionSchema,
+  slotContentBindingSchema,
+  slotContentBindingSourceSchema,
+  slotCopySafetySchema,
+  slotDefinitionSchema,
+  slotRoleSchema,
   styleRegistrySchema,
   styleSchemaVersionSchema,
   styleValidationIssueSchema,
@@ -141,14 +156,19 @@ export {
   validateStyleRegistry,
   validateVariantDefinition,
   validateVariantForWechatCopy,
+  validateVariantSlots,
 } from "./validation";
 
 export {
+  TITLE_BLOCK_CATALOG_LAYOUT_MODE_MAPPINGS,
   TITLE_BLOCK_LAYOUT_COMPATIBILITY_TABLE,
   assertTitleBlockLayoutTableComplete,
   getFallbackTitleBlockLayoutMode,
   getTitleBlockLayoutCompatibility,
+  isTitleBlockFirstWaveLayoutMode,
   isTitleBlockLayoutAllowedForCopy,
   isTitleBlockVariant,
+  mapTitleBlockCatalogLayoutMode,
+  normalizeTitleBlockLayoutMode,
   validateTitleBlockLayoutCompatibility,
 } from "./title-layout";

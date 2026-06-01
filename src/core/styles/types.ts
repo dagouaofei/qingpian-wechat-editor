@@ -50,11 +50,6 @@ export type VariantStatus =
 
 export type CopySafety = "strict" | "balanced" | "preview_only";
 
-export type VariantSlotDefinition = {
-  id: string;
-  label?: string;
-};
-
 export const TITLE_BLOCK_LAYOUT_MODES = [
   "plain",
   "left_bar",
@@ -70,6 +65,85 @@ export const TITLE_BLOCK_LAYOUT_MODES = [
 ] as const;
 
 export type TitleBlockLayoutMode = (typeof TITLE_BLOCK_LAYOUT_MODES)[number];
+
+export const SLOT_ROLES = [
+  "title",
+  "subtitle",
+  "badge",
+  "icon",
+  "decoration",
+  "body",
+  "items",
+  "action",
+  "image",
+  "divider",
+] as const;
+
+export type SlotRole = (typeof SLOT_ROLES)[number];
+
+export const SLOT_CONTENT_BINDING_SOURCES = [
+  "block.content.text",
+  "block.content.items",
+  "block.content.summary",
+  "block.content.body",
+  "block.content.action",
+  "block.content.image",
+  "block.meta",
+  "variant.presentation",
+  "assetRegistry",
+  "disabled",
+] as const;
+
+export type SlotContentBindingSource =
+  (typeof SLOT_CONTENT_BINDING_SOURCES)[number];
+
+export type SlotContentBinding = {
+  source: SlotContentBindingSource;
+  required?: boolean;
+  fallback?: string;
+};
+
+export type SlotCopySafety = {
+  copySafety: CopySafety;
+  allowedInCopy: boolean;
+  fallbackSlotId?: string;
+  notes?: string;
+};
+
+export type SlotDefinition = {
+  id: string;
+  role: SlotRole;
+  label?: string;
+  binding: SlotContentBinding;
+  copySafety: SlotCopySafety;
+};
+
+/** Roles that carry primary block body semantics in copy path */
+export const BODY_CONTENT_SLOT_ROLES = ["title", "body", "items"] as const;
+
+export type BodyContentSlotRole = (typeof BODY_CONTENT_SLOT_ROLES)[number];
+
+export const TITLE_BLOCK_FIRST_WAVE_ALLOWED_LAYOUT_MODES = [
+  "plain",
+  "left_bar",
+  "bottom_line",
+  "top_badge",
+  "numbered",
+  "card",
+  "quote_mark",
+  "icon_prefix",
+] as const satisfies readonly TitleBlockLayoutMode[];
+
+export type TitleBlockCatalogLayoutMapping = {
+  catalogName: string;
+  canonicalLayoutMode: TitleBlockLayoutMode;
+  allowedInRelease1Required: boolean;
+  fallbackLayoutMode?: TitleBlockLayoutMode;
+  note?: string;
+};
+
+/** @deprecated Use SlotDefinition — kept for import compatibility */
+export type VariantSlotDefinition = SlotDefinition;
 
 export type TitleBlockLayoutRiskLevel =
   | "low"
@@ -126,7 +200,7 @@ export type VariantDefinition = {
   label: string;
   description?: string;
   status: VariantStatus;
-  slots?: Record<string, VariantSlotDefinition>;
+  slots?: Record<string, SlotDefinition>;
   /** variant 级 token override；value 为 token 名或字面量，不含 HTML/CSS selector */
   tokens?: Record<string, string>;
   compatibility?: VariantCompatibility;
@@ -298,7 +372,7 @@ export type ResolvedBlockStyle = {
   presetId: string;
   themeId: string;
   tokens: ResolvedStyleTokens;
-  slots?: Record<string, VariantSlotDefinition>;
+  slots?: Record<string, SlotDefinition>;
   compatibility?: VariantCompatibility;
   source: ResolvedStyleSource;
   fallbackReason?: string;

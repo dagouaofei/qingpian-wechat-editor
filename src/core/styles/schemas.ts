@@ -2,7 +2,12 @@ import { z } from "zod";
 
 import { blockTypeSchema } from "@/core/blocks/block.schema";
 
-import { TITLE_BLOCK_LAYOUT_MODES } from "./types";
+import {
+  BODY_CONTENT_SLOT_ROLES,
+  SLOT_CONTENT_BINDING_SOURCES,
+  SLOT_ROLES,
+  TITLE_BLOCK_LAYOUT_MODES,
+} from "./types";
 import {
   COLOR_TOKEN_REFS,
   STYLE_SCHEMA_VERSION,
@@ -107,12 +112,75 @@ export const presetDefinitionSchema = z
   })
   .strict();
 
-export const variantSlotDefinitionSchema = z
+export const slotRoleSchema = z.enum(SLOT_ROLES);
+
+export const slotContentBindingSourceSchema = z.enum(
+  SLOT_CONTENT_BINDING_SOURCES,
+);
+
+export const slotContentBindingSchema = z
   .object({
-    id: identifierSchema,
-    label: safeStyleStringSchema.optional(),
+    source: slotContentBindingSourceSchema,
+    required: z.boolean().optional(),
+    fallback: safeStyleStringSchema.optional(),
   })
   .strict();
+
+export const slotCopySafetySchema = z
+  .object({
+    copySafety: copySafetySchema,
+    allowedInCopy: z.boolean(),
+    fallbackSlotId: identifierSchema.optional(),
+    notes: safeStyleStringSchema.optional(),
+  })
+  .strict()
+  .superRefine((slotCopySafety, ctx) => {
+    if (
+      slotCopySafety.copySafety === "preview_only" &&
+      slotCopySafety.allowedInCopy
+    ) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message:
+          "preview_only slot copySafety must set allowedInCopy=false",
+        path: ["allowedInCopy"],
+      });
+    }
+  });
+
+export const slotDefinitionSchema = z
+  .object({
+    id: identifierSchema,
+    role: slotRoleSchema,
+    label: safeStyleStringSchema.optional(),
+    binding: slotContentBindingSchema,
+    copySafety: slotCopySafetySchema,
+  })
+  .strict()
+  .superRefine((slot, ctx) => {
+    if (slot.binding.source === "disabled" && slot.copySafety.allowedInCopy) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "disabled slot must set copySafety.allowedInCopy=false",
+        path: ["copySafety", "allowedInCopy"],
+      });
+    }
+
+    if (
+      (BODY_CONTENT_SLOT_ROLES as readonly string[]).includes(slot.role) &&
+      (slot.binding.source === "variant.presentation" ||
+        slot.binding.source === "assetRegistry")
+    ) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: `${slot.role} slot must not bind variant.presentation or assetRegistry as body content source`,
+        path: ["binding", "source"],
+      });
+    }
+  });
+
+/** @deprecated Use slotDefinitionSchema */
+export const variantSlotDefinitionSchema = slotDefinitionSchema;
 
 export const titleBlockLayoutModeSchema = z.enum(TITLE_BLOCK_LAYOUT_MODES);
 
@@ -246,7 +314,7 @@ export const variantDefinitionSchema = z
     label: safeStyleStringSchema,
     description: safeStyleStringSchema.optional(),
     status: variantStatusSchema,
-    slots: z.record(identifierSchema, variantSlotDefinitionSchema).optional(),
+    slots: z.record(identifierSchema, slotDefinitionSchema).optional(),
     tokens: z.record(tokenKeySchema, safeStyleStringSchema).optional(),
     compatibility: variantCompatibilitySchema.optional(),
     componentProtocol: variantComponentProtocolSchema.optional(),
@@ -276,6 +344,50 @@ export const variantDefinitionSchema = z
           "release1_required variant must not declare copySafety preview_only",
         path: ["compatibility", "copySafety"],
       });
+    }
+
+    if (variant.status === "release1_required" && variant.slots) {
+      for (const [slotKey, slot] of Object.entries(variant.slots)) {
+        if (slot.id !== slotKey) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: `slot id "${slot.id}" must match record key "${slotKey}"`,
+            path: ["slots", slotKey, "id"],
+          });
+        }
+
+        if (slot.copySafety.copySafety === "preview_only") {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message:
+              "release1_required variant slot must not use preview_only copySafety",
+            path: ["slots", slotKey, "copySafety", "copySafety"],
+          });
+        }
+
+        if (
+          !slot.copySafety.allowedInCopy &&
+          slot.binding.source !== "disabled"
+        ) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message:
+              "release1_required variant slot must allow copy unless binding source is disabled",
+            path: ["slots", slotKey, "copySafety", "allowedInCopy"],
+          });
+        }
+
+        if (
+          slot.binding.required &&
+          slot.copySafety.copySafety === "preview_only"
+        ) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: "required slot must not use preview_only copySafety",
+            path: ["slots", slotKey, "copySafety", "copySafety"],
+          });
+        }
+      }
     }
   });
 

@@ -9,7 +9,10 @@ import {
   getTitleBlockLayoutCompatibility,
   isTitleBlockLayoutAllowedForCopy,
   isTitleBlockVariant,
+  mapTitleBlockCatalogLayoutMode,
+  normalizeTitleBlockLayoutMode,
   titleBlockLayoutCompatibilityTableSchema,
+  titleBlockLayoutModeSchema,
   validateTitleBlockLayoutCompatibility,
   validateVariantDefinition,
   variantDefinitionSchema,
@@ -213,6 +216,32 @@ describe("title block layout compatibility", () => {
       );
       expect(typeof result.ok).toBe("boolean");
       expect(Array.isArray(result.issues)).toBe(true);
+    });
+  });
+
+  describe("titleBlock catalog layoutMode mapping", () => {
+    it("passes canonical enum through normalizeTitleBlockLayoutMode", () => {
+      expect(normalizeTitleBlockLayoutMode("plain")).toBe("plain");
+      expect(normalizeTitleBlockLayoutMode("bottom_line")).toBe("bottom_line");
+    });
+
+    it("maps historical catalog names to canonical enum", () => {
+      expect(normalizeTitleBlockLayoutMode("vertical-stack")).toBe("plain");
+      expect(normalizeTitleBlockLayoutMode("line-bottom")).toBe("bottom_line");
+      expect(normalizeTitleBlockLayoutMode("badge-top")).toBe("top_badge");
+      expect(normalizeTitleBlockLayoutMode("offset-bg")).toBe("offset_background");
+      expect(normalizeTitleBlockLayoutMode("magazine-left-bar")).toBe(
+        "magazine_left_bar",
+      );
+    });
+
+    it("returns undefined for unknown layoutMode", () => {
+      expect(normalizeTitleBlockLayoutMode("unknown-layout")).toBeUndefined();
+      expect(mapTitleBlockCatalogLayoutMode("unknown-layout")).toBeUndefined();
+    });
+
+    it("schema rejects historical names as primary model", () => {
+      expect(() => titleBlockLayoutModeSchema.parse("vertical-stack")).toThrow();
     });
   });
 });

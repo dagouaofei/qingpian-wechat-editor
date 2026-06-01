@@ -141,3 +141,4 @@
 | 2026-05-31 | Sprint 3-B | 从 `release/1` 建立 `sprint/s3b-first-wave-variant-registry` | Git | DECISION-058 |
 | 2026-05-31 | Sprint 3-B | 新增 Sprint 3-B Backlog S3B-STORY-001~007 | 敏捷 | S3B-STORY-001 |
 | 2026-05-31 | Sprint 3-B | P1-S3A-001 / P2-S3A-002 纳入 Sprint 3-B planning（S3B-STORY-002 前置） | 架构 / 敏捷 | S3B-STORY-002 |
+| 2026-05-31 | Sprint 3-B | titleBlock catalog layoutMode mapping + slot copySafety 收口 | 代码 / 架构 | S3B-STORY-002 |

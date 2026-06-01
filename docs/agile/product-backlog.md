@@ -102,10 +102,10 @@
 
 | ID | 问题 | 建议 Sprint | Sprint 3-B 处理 |
 |----|------|-------------|-----------------|
-| **P1-S3A-001** | `style-system.md` §11.4 titleBlock catalog 历史 layoutMode 命名映射 | Sprint 3-B | **S3B-STORY-002 前置（P0）** |
+| **P1-S3A-001** | `style-system.md` §11.4 titleBlock catalog 历史 layoutMode 命名映射 | Sprint 3-B | **已收口**（S3B-STORY-002） |
 | P1-S3A-002 | `wechat-copy-style-rules.md` profile 字段名与代码结构略有差异 | Sprint 3-B 或 4-A 前 | 登记 · 不阻塞 S3B-STORY-001 |
 | P1-S3A-003 | `validateStyleRegistrySchema` vs `validateStyleRegistry` 命名易混淆 | Sprint 3-B | 登记 · S3B-STORY-002 可选 |
 | P1-S3A-004 | ResolvedBlockStyle 未展开 componentProtocol | Sprint 4-A | 登记 |
 | P2-S3A-001 | Tailwind forbidden 检测有限 | Sprint 4-A / 6-B | 登记 |
-| **P2-S3A-002** | slot 级 copySafety 未强制 | Sprint 3-B | **S3B-STORY-002 前置（P0）** |
+| **P2-S3A-002** | slot 级 copySafety 未强制 | Sprint 3-B | **已收口**（S3B-STORY-002） |
 | P2-S3A-003 | InlineMark color 与 Style ColorTokenRef 跨模块校验未打通 | Sprint 3-B / 4-A | 登记 · 不阻塞 S3B-STORY-001 |
