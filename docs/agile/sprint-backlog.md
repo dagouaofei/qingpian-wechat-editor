@@ -1880,7 +1880,7 @@ image_placeholder：
 
 **用户故事：** 作为产品团队，我需要扩展 structured blocks Copy HTML snapshot seed，并汇总 text-first + structured blocks 形成 first-wave 33 variants 最小 Paste QA 计划。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s4b-structured-copy-snapshot-paste-plan`
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s4b-structured-copy-snapshot-paste-plan`（已 merge 至 `sprint/s4b-structured-block-renderer` @ `c13f0e1`）
 
 **纳入遗留：** P1-S4A-002、P1-S4A-003
 

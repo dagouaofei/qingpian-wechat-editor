@@ -90,9 +90,9 @@
 | TECH-ARCH-020 | Sprint 3-A/B/C Style System Delivery Split | EPIC-004 | infrastructure / first-wave registry / AI validation · **3-B = first-wave registry** |
 | TECH-ARCH-021 | Sprint 4-A/B Renderer Delivery Split | EPIC-004 / EPIC-006 | text-first vs structured blocks · **Sprint 4-A text-first 已完成**（DECISION-061）；**Sprint 4-B structured renderer 已实现至 snapshot / plan 阶段**（S4B-STORY-002~006；DECISION-062） |
 | TECH-ARCH-022 | Sprint 6-A/B Paste QA Regression Split | EPIC-010 | fixture 三联 vs first-wave 33 variants QA；**Release 1 33 variants 最小 Paste QA plan 已建立，真实 Paste QA 仍未执行** |
-| TECH-ARCH-023 | Release 1 Style Quality Gate | EPIC-004 / EPIC-006 | Style Quality Review / Gallery / 样式效果验收；Sprint 3-B registry Done；Sprint 4-A text-first renderer Done；Sprint 4-B structured snapshot / plan In Review；Paste QA / Style Gallery 仍为 Not Run |
+| TECH-ARCH-023 | Release 1 Style Quality Gate | EPIC-004 / EPIC-006 | Style Quality Review / Gallery / 样式效果验收；Sprint 3-B registry Done；Sprint 4-A text-first renderer Done；Sprint 4-B structured snapshot / plan 已 merge 至 sprint；Paste QA / Style Gallery 仍为 Not Run |
 
-状态：文档契约 S1-STORY-021~028；代码按 Sprint 2 + 3-A/B/C + 4-A/B + 5 + 6-A/B 拆分。**TECH-ARCH-023：** Sprint 4-A Done；Sprint 4-B structured Preview / Copy 已推进到 snapshot / 33 variants plan；真实 Paste QA / Style Gallery 待 Sprint 6 / Release 2。
+状态：文档契约 S1-STORY-021~028；代码按 Sprint 2 + 3-A/B/C + 4-A/B + 5 + 6-A/B 拆分。**TECH-ARCH-023：** Sprint 4-A Done；Sprint 4-B structured Preview / Copy 已推进到 snapshot / 33 variants plan 并 merge 至 sprint；真实 Paste QA / Style Gallery 待 Sprint 6 / Release 2。
 
 ---
 
