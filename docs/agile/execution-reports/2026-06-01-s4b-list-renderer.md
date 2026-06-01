@@ -138,7 +138,8 @@
 
 ## 14. Commit Hash
 
-待提交 / not committed
+- 实现 commit：`032fb8e`
+- report hash 记录 commit：待提交 / not committed
 
 ## 15. 分支状态
 
