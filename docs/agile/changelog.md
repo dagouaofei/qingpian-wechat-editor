@@ -216,3 +216,4 @@
 | 2026-06-01 | Sprint 3-C | S3C-STORY-005 审核通过；merge `feature/s3c-style-selection-validation-fixtures` → `sprint/s3c-style-assignment-validation`（`8473235`） | Git / 敏捷 | S3C-STORY-005 |
 | 2026-06-01 | Sprint 3-C | 完成 Style System Contract Audit（Grade A；P0=0/P1=5/P2=4）；expansion variants 规划；Sprint 3-C 进入 Close Readiness | Audit / 敏捷 | S3C-STORY-006 |
 | 2026-06-01 | Sprint 3-C | **正式关闭 Sprint 3-C**；用户确认 audit 结论；S3C-STORY-001~006 Done；DECISION-065 | 敏捷 | DECISION-065 |
+| 2026-06-01 | Sprint 3-C | merge `sprint/s3c-style-assignment-validation` → `release/1`（`8ce4eed`）；audit Grade A · P0=0 · P1=5 · P2=4；592 tests PASS | Git / 敏捷 | DECISION-065 |
