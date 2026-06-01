@@ -986,7 +986,7 @@
 - [x] AC-4 单元测试覆盖 6 variants（`title-heading-variants.test.ts`）
 - [x] AC-5 `corepack pnpm lint` / `test` / `build` 通过
 - [x] AC-6 已生成 execution report
-- [x] AC-7 未 merge 至 sprint（待用户审查）
+- [x] AC-7 已 merge 至 `sprint/s3b-first-wave-variant-registry`（`ba062ae`，用户确认 2026-06-01）
 
 ---
 
@@ -994,15 +994,24 @@
 
 **用户故事：** 作为开发者，我需要为 lead / paragraph / divider / list 各实现 3 个 release1_required variants，以便 Sprint 4-A text-first Renderer 有样式可用。
 
-**优先级：** P0 · **状态：** Todo · **工作分支：** `feature/s3b-text-first-variants`（待创建）
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s3b-text-first-variants`
 
-**目标：** lead、paragraph、divider、list 各 3 个 variants，共 **12** 个
+**已实现 variants（12）：**
 
-**要求：**
-
-- 每个 variant 通过 StyleValidationResult
-- 只写 registry definitions，不输出 HTML / CSS renderer
-- tokens / slots / compatibility 可供 Sprint 4 使用
+| id | blockType | copySafety |
+|----|-----------|------------|
+| `lead_plain_intro` | lead | strict |
+| `lead_accent_band` | lead | balanced |
+| `lead_quote_intro` | lead | balanced |
+| `paragraph_plain_body` | paragraph | strict |
+| `paragraph_accent_left` | paragraph | balanced |
+| `paragraph_soft_card` | paragraph | balanced |
+| `divider_simple_line` | divider | strict |
+| `divider_dotted_line` | divider | balanced |
+| `divider_section_space` | divider | strict |
+| `list_plain_bullets` | list | strict |
+| `list_numbered_steps` | list | balanced |
+| `list_checklist_cards` | list | balanced |
 
 **明确不做：**
 
@@ -1010,12 +1019,13 @@
 
 **验收标准：**
 
-- [ ] AC-1 4 block × 3 = 12 variants 注册完成
-- [ ] AC-2 全部 `releaseTier = release1_required`
-- [ ] AC-3 全部通过 StyleValidationResult
-- [ ] AC-4 单元测试覆盖
-- [ ] AC-5 `corepack pnpm lint` / `test` / `build` 通过
-- [ ] AC-6 已 merge 至 sprint 分支
+- [x] AC-1 4 block × 3 = 12 variants 注册完成
+- [x] AC-2 全部 `releaseTier = release1_required`（status）
+- [x] AC-3 全部通过 StyleValidationResult
+- [x] AC-4 单元测试覆盖（`text-first-variants.test.ts`）
+- [x] AC-5 `corepack pnpm lint` / `test` / `build` 通过
+- [x] AC-6 已生成 execution report
+- [x] AC-7 未 merge 至 sprint（待用户审查）
 
 ---
 
