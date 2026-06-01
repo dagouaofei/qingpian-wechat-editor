@@ -28,6 +28,10 @@ export type {
   DividerCopyOutput,
   DividerLayoutKind,
   DividerPreviewOutput,
+  ListCopyOutput,
+  ListLayoutKind,
+  ListPreviewItem,
+  ListPreviewOutput,
   PreviewInlineMark,
   PreviewInlineNode,
 } from "./types";
@@ -119,3 +123,21 @@ export {
 } from "./divider-layout";
 
 export { renderDividerPreview } from "./divider-preview";
+
+export {
+  normalizeListItemsForRenderer,
+  resolveListCopySafety,
+  resolveListLayout,
+  resolveListTypography,
+} from "./list-layout";
+
+export {
+  LIST_SUPPORTED_VARIANT_IDS,
+  createListRenderer,
+  renderList,
+  validateListRenderContext,
+} from "./list-renderer";
+
+export { createListRendererRegistry } from "./list-registry";
+
+export { renderListPreview } from "./list-preview";

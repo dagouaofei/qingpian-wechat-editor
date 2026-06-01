@@ -184,3 +184,4 @@
 | 2026-06-01 | Sprint 4-B | 同步 sprint-plan / product-backlog；Sprint 4-B 前置遗留纳入 planning | 敏捷 / 架构 | S4B-STORY-001 |
 | 2026-06-01 | Sprint 4-B | 明确 cta / image_placeholder 为 Release 1 占位契约；不实现真实 QR / 外链 / 图片能力 | 架构 / Renderer | DECISION-062 |
 | 2026-06-01 | Sprint 4-B | Sprint 3-C 仍保持延后未取消 | 敏捷 | DECISION-062 |
+| 2026-06-01 | Sprint 4-B | 实现 list Preview / Copy Renderer，覆盖 `list_plain_bullets` / `list_numbered_steps` / `list_checklist_cards`；lint / test（397）/ build PASS | Renderer / Copy / 测试 | S4B-STORY-002 |

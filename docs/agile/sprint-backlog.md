@@ -1561,7 +1561,7 @@
 
 **用户故事：** 作为开发者，我需要 list 3 个 first-wave variants 的 Preview / Copy 成对 Renderer，以便 structured blocks 渲染从 list 起步。
 
-**优先级：** P0 · **状态：** Todo · **工作分支：** （待创建）
+**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s4b-list-renderer`
 
 **目标 variants：**
 
@@ -1571,11 +1571,62 @@
 
 **纳入遗留：** P1-005（list copy 结构保真）
 
+**实际产物：**
+
+| 路径 | 说明 |
+|------|------|
+| `src/core/renderer/list-layout.ts` | list variant layout / typography / item normalization / copySafety |
+| `src/core/renderer/list-preview.ts` | list Preview Renderer 输出 |
+| `src/core/renderer/list-renderer.ts` | list renderer validation、balanced warning、Preview/Copy 调度 |
+| `src/core/renderer/list-registry.ts` | list preview/copy registry |
+| `src/core/copy/list-copy.ts` | list Copy HTML renderer 与 copy-safe CSS assertion |
+| `tests/fixtures/renderer/list-articles.ts` | list renderer/copy fixtures |
+| `tests/core/renderer/list-renderer.test.ts` | list Preview / registry / fallback 测试 |
+| `tests/core/copy/list-copy-renderer.test.ts` | list Copy HTML / escape / copy-safe 测试 |
+
+**实现摘要：**
+
+- 3 个 variants 均已实现 Preview / Copy 成对 Renderer。
+- Preview / Copy 共享既有 `Article` + `ResolvedArticleStyle` / `ResolvedBlockStyle` 输入；未引入平行 list 模型。
+- Copy HTML 使用 inline style；无 Tailwind class / `<style>` / CSS variables / absolute / transform / pseudo element。
+- `list_plain_bullets` 使用稳定 bullet 文本结构；`list_numbered_steps` 使用稳定编号文本结构；`list_checklist_cards` 使用轻量卡片结构。
+- `list_numbered_steps` / `list_checklist_cards` 为 balanced copySafety，输出 warning 但不阻塞渲染。
+- item 为空时返回明确 `invalid_renderer_input` warning 并跳过该 item；全部缺失/不可渲染时返回 error。
+
 **明确不做：**
 
 - 不实现 quote / highlight / info_card / cta / image_placeholder
 - 不做真实 Paste QA
 - 不新增业务页面
+- 不新增 Copy 按钮
+- 不调用 Clipboard API
+- 不 merge 至 `release/1` 或 `main`
+- 不启动 S4B-STORY-003
+
+**验收标准：**
+
+- [x] AC-1 已从 `sprint/s4b-structured-block-renderer` 创建 `feature/s4b-list-renderer`
+- [x] AC-2 list 3 个 first-wave variants Preview Renderer 已实现
+- [x] AC-3 list 3 个 first-wave variants Copy Renderer 已实现
+- [x] AC-4 Preview / Copy 共享既有 Article + ResolvedStyle 输入，不引入平行模型
+- [x] AC-5 renderer registry 已接入 list preview / copy renderer
+- [x] AC-6 Copy HTML 使用 inline style，无 Tailwind class / style tag / CSS variables
+- [x] AC-7 Copy HTML 不使用 absolute / transform / pseudo element
+- [x] AC-8 list item 顺序、bullet / number / checklist 语义在 Preview 与 Copy 中一致
+- [x] AC-9 balanced variants 有明确 warning / issue 机制，但不阻塞代码路径
+- [x] AC-10 单元测试覆盖 3 variants Preview / Copy、registry、fallback、escape、copy-safe 约束
+- [x] AC-11 `corepack pnpm lint` 通过
+- [x] AC-12 `corepack pnpm test` 通过
+- [x] AC-13 `corepack pnpm build` 通过
+- [x] AC-14 `docs/agile/sprint-backlog.md` 已同步 S4B-STORY-002 状态与产物
+- [x] AC-15 `docs/agile/changelog.md` 已记录本轮变更
+- [x] AC-16 未实现 quote / highlight / info_card / cta / image_placeholder
+- [x] AC-17 未执行真实 Paste QA
+- [x] AC-18 未新增业务页面 / Clipboard API
+- [x] AC-19 未 merge 至 `release/1`
+- [x] AC-20 未 merge 至 `main`
+- [x] AC-21 未关闭 Sprint 4-B
+- [x] AC-22 未启动 S4B-STORY-003
 
 ---
 
