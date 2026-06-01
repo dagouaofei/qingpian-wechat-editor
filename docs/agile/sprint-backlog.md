@@ -2501,7 +2501,7 @@ S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Planned
 
 **用户故事：** 作为产品负责人，我需要 Sprint 5 对接真实模型 API，使 Release 1 主流程不是只依赖 deterministic provider，而是可以通过真实模型生成结构化 Article candidate。
 
-**优先级：** P0 · **状态：** Done（Provider code + real API smoke passed；见 S5-STORY-005A / 005B） · **工作分支：** `feature/s5-volcengine-model-provider`
+**优先级：** P0 · **状态：** Done（Provider code + real API smoke passed；见 S5-STORY-005A / 005B） · **工作分支：** `feature/s5-volcengine-model-provider`（**已 merge 至 sprint** @ `7421089`）
 
 **目标：** 实现 Volcengine / Doubao 真实模型 Provider；输出进入 GenerationEvent stream runtime 与 `done.article` 归一链路。
 
@@ -2553,7 +2553,7 @@ S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Planned
 
 **用户故事：** 作为开发者，我需要在进入 S5-STORY-006 前通过 dev-only smoke 手动验证真实 Volcengine / Doubao API 是否可用。
 
-**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s5-volcengine-real-api-smoke`
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s5-volcengine-real-api-smoke`（**已 merge 至 sprint** @ `d77d3d0`）
 
 **目标：** 提供 dev-only 真实 API smoke 脚本，验证 provider → `done.article` → `finalizeGenerationEvents` 全链路。
 
@@ -2592,7 +2592,7 @@ S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Planned
 
 **用户故事：** 作为开发者，我需要在真实模型 JSON 进入 `done.article` 前通过 deterministic enrichment / repair 补齐机器字段，并重新跑通真实 API smoke 全链路。
 
-**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s5-model-article-candidate-enrichment`
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s5-model-article-candidate-enrichment`（**已 merge 至 sprint** @ `532f685`）
 
 **目标：** 新增 Model Article Candidate Enrichment 层；Volcengine provider 接入 enrichment；重跑 dev-only real API smoke 验证 Provider → GenerationEvent → `done.article` → `finalizeGenerationEvents` → Article。
 

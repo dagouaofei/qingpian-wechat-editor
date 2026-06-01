@@ -300,4 +300,4 @@
 | 2026-06-02 | Sprint 5 | 新增 `model-article-enrichment` 层：UUID / metadata / input / styleAssignment / block content deterministic repair | 代码 / 架构 | S5-STORY-005B |
 | 2026-06-02 | Sprint 5 | Volcengine provider 接入 enrichment；forbidden 字段剥离 + warning；smoke summary 增加 finalization / enrichment 字段 | 代码 / 工具 | S5-STORY-005B |
 | 2026-06-02 | Sprint 5 | 真实 API smoke **PASSED**（eventCount 7；finalizationStatus passed；enrichmentWarningCount 0） | 验收 | S5-STORY-005, S5-STORY-005A, S5-STORY-005B |
-| 2026-06-02 | Sprint 5 | S5-STORY-005 / 005A / 005B 标记 Done；下一步 S5-STORY-006 | 敏捷 | S5-STORY-005~005B |
+| 2026-06-02 | Sprint 5 | S5-STORY-005 / 005A / 005B 已 merge 至 `sprint/s5-generation-ui-main-flow`（`7421089` / `d77d3d0` / `532f685`） | 敏捷 | S5-STORY-005~005B |
