@@ -1634,7 +1634,7 @@
 
 **用户故事：** 作为开发者，我需要 quote / highlight 各 3 个 first-wave variants 的 Preview / Copy 成对 Renderer。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s4b-quote-highlight-renderer`
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s4b-quote-highlight-renderer`（已 merge 至 `sprint/s4b-structured-block-renderer` @ `4d3967e`）
 
 **目标 variants：**
 
