@@ -172,3 +172,11 @@ export {
   normalizeTitleBlockLayoutMode,
   validateTitleBlockLayoutCompatibility,
 } from "./title-layout";
+
+export {
+  FIRST_WAVE_TITLE_HEADING_VARIANT_REGISTRY,
+  HEADING_FIRST_WAVE_VARIANTS,
+  TITLE_BLOCK_FIRST_WAVE_VARIANTS,
+  TITLE_BLOCK_FIRST_WAVE_VARIANT_IDS,
+  TITLE_FIRST_WAVE_VARIANTS,
+} from "./variants";
