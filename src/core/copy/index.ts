@@ -37,10 +37,60 @@ export {
   renderDividerCopyHtml,
 } from "./divider-copy";
 export {
+  assertListCopySafeCss,
+  copyHtmlUsesInlineStyleOnly as listCopyHtmlUsesInlineStyleOnly,
+  renderListCopyHtml,
+} from "./list-copy";
+export {
+  assertQuoteCopySafeCss,
+  copyHtmlUsesInlineStyleOnly as quoteCopyHtmlUsesInlineStyleOnly,
+  renderQuoteCopyHtml,
+} from "./quote-copy";
+export {
+  assertHighlightCopySafeCss,
+  copyHtmlUsesInlineStyleOnly as highlightCopyHtmlUsesInlineStyleOnly,
+  renderHighlightCopyHtml,
+} from "./highlight-copy";
+export {
+  assertInfoCardCopySafeCss,
+  copyHtmlUsesInlineStyleOnly as infoCardCopyHtmlUsesInlineStyleOnly,
+  renderInfoCardCopyHtml,
+} from "./info-card-copy";
+export {
+  assertCtaCopySafeCss,
+  copyHtmlUsesInlineStyleOnly as ctaCopyHtmlUsesInlineStyleOnly,
+  renderCtaCopyHtml,
+} from "./cta-copy";
+export {
+  assertImagePlaceholderCopySafeCss,
+  copyHtmlUsesInlineStyleOnly as imagePlaceholderCopyHtmlUsesInlineStyleOnly,
+  renderImagePlaceholderCopyHtml,
+} from "./image-placeholder-copy";
+export {
   createSprint4ATextFirstCopyRendererRegistry,
   SPRINT4A_TEXT_FIRST_COPY_BLOCK_TYPES,
 } from "./text-first-copy-registry";
 export type { Sprint4ATextFirstCopyBlockType } from "./text-first-copy-registry";
+export {
+  createSprint4BStructuredCopyRendererRegistry,
+  SPRINT4B_STRUCTURED_COPY_BLOCK_TYPES,
+} from "./structured-copy-registry";
+export type { Sprint4BStructuredCopyBlockType } from "./structured-copy-registry";
+export {
+  createRelease1FirstWaveCopyRendererRegistry,
+  RELEASE1_FIRST_WAVE_COPY_BLOCK_TYPES,
+} from "./first-wave-copy-registry";
+export type { Release1FirstWaveCopyBlockType } from "./first-wave-copy-registry";
+export {
+  buildRelease1FirstWavePasteQaPlan,
+  RELEASE1_FIRST_WAVE_VARIANT_GROUPS,
+} from "./first-wave-paste-qa-plan";
+export type {
+  FirstWavePasteQaPlanEntry,
+  FirstWavePasteQaStatus,
+  PasteQaScope,
+  RendererCoverageStatus,
+} from "./first-wave-paste-qa-plan";
 export { buildCopyHtmlSnapshot } from "./copy-html-snapshot";
 export type {
   BuildCopyHtmlSnapshotOptions,

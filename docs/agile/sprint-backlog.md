@@ -5,7 +5,8 @@
 > **Sprint 3-A：** Style System Contract & Registry Infrastructure · **Closed**（2026-05-31；DECISION-057）
 > **Sprint 3-B：** First-wave Required Variant Registry · **Closed**（2026-06-01；DECISION-059）
 > **Sprint 4-A：** Preview / Copy Renderer for Text-first Blocks · **Closed**（2026-06-01；DECISION-061；audit Grade A；P0=0）
-> **Release 1 主干：** `release/1`（Sprint 4-A 已 merge，DECISION-061）· **Sprint 4-A 分支：** `sprint/s4a-text-first-renderer`（DECISION-060）· **下一步：** Sprint 4-B 未启动（待用户确认）
+> **Sprint 4-B：** Preview / Copy Renderer for Structured Blocks · **Closed**（2026-06-01；DECISION-063；audit Grade A；P0=0）
+> **Release 1 主干：** `release/1` · **Sprint 4-B 分支：** `sprint/s4b-structured-block-renderer`（DECISION-063；已确认 merge 至 `release/1`）
 
 ---
 
@@ -1494,5 +1495,515 @@
 - [x] AC-8 未自行关闭 Sprint 4-A
 - [x] AC-9 准备 Sprint 4-B 启动条件说明
 - [x] AC-10 已 merge 至 `sprint/s4a-text-first-renderer`；sprint 已 merge 至 `release/1`（DECISION-061）；未 merge 至 `main`
+
+---
+
+# Sprint 4-B Backlog
+
+> **Sprint 4-B 目标：** Preview / Copy Renderer for **structured blocks**（list / quote / highlight / info_card / cta / image_placeholder）；使用 Sprint 3-B first-wave required variants；完成 first-wave 33 variants 最小 Paste QA **计划**（Not Run）
+> **Sprint 4-B 状态：** **Closed**（2026-06-01；DECISION-063；audit Grade A；P0=0）
+> **Sprint 4-B 分支：** `sprint/s4b-structured-block-renderer`（从 `release/1` 切出，DECISION-062）
+> **Sprint 4-B 前置遗留（须纳入 planning）：** P1-005、P1-S3B-003、P1-S3B-005、P1-S4A-002、P1-S4A-003、P2-S4A-001（见下方登记表）
+> **Sprint 4-B 不做：** AI Style Selection、Generation / Streaming、VisualAssetRegistry 全量 assets、StyleOrchestrator、真实微信公众号 Paste QA 全量执行、Style Gallery、业务页面、真实 QR / 外链 / 小程序 / 图片上传托管
+
+**Sprint 4-B 关闭摘要（DECISION-063）：**
+
+| 项 | 状态 |
+|----|------|
+| S4B-STORY-001~007 | Done |
+| Renderer Contract Audit | Grade A，P0=0，P1=4，P2=2 |
+| lint / test / build | PASS（491 tests） |
+| Sprint 4-B 关闭 | ✅ 用户已确认 |
+| merge sprint → `release/1` | ✅ 用户已确认执行 |
+| 真实 Paste QA | Not Run，归 Sprint 6-B |
+| 下一步 | 待用户确认；不自动启动 Sprint 5 / Sprint 3-C / Sprint 6-A |
+
+---
+
+## Sprint 4-B 前置遗留登记（须纳入 planning）
+
+| ID | 问题 | 纳入 Story | 说明 |
+|----|------|------------|------|
+| **P1-005** | list / info_card copy 结构保真规则未细化 | S4B-STORY-002 / S4B-STORY-004 | Copy HTML 结构保真 |
+| **P1-S3B-003** | cta / image_placeholder 为占位契约，无真实 QR / 链接 / 小程序 / 图片能力 | S4B-STORY-005 | Release 1 占位 Renderer 边界 |
+| **P1-S3B-005** | optional 字段需 renderer 明确 disabled / fallback 行为 | S4B-STORY-004 / S4B-STORY-005 | info_card / cta / image_placeholder |
+| **P1-S4A-002** | `balanced` copySafety variants 仍需粘贴细节验证 | S4B-STORY-006 | 纳入 33 variants Paste QA plan |
+| **P1-S4A-003** | Copy HTML snapshot seed 覆盖不足 | S4B-STORY-006 | 扩展 structured blocks representative snapshot |
+| **P2-S4A-001** | Style Gallery / 人工视觉验收入口缺失 | 登记 · 后续 gallery / QA | 不要求 Sprint 4-B 实现 |
+
+---
+
+## S4B-STORY-001 Sprint 4-B 启动与 Backlog 拆分
+
+**用户故事：** 作为产品负责人，我需要正式启动 Sprint 4-B 并拆分 Backlog，以便团队在明确边界下按 Story 逐步实现 structured blocks Preview / Copy Renderer。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `docs/s4b-start-backlog-split`
+
+**明确不做：**
+
+- 不实现 Renderer 代码
+- 不实现 list / quote / highlight / info_card / cta / image_placeholder 渲染逻辑
+- 不新增业务页面
+- 不执行真实 Paste QA
+- 不 merge 至 `release/1` 或 `main`（本轮由用户审查后 merge sprint 分支）
+- 不关闭 Sprint 4-B
+
+**验收标准：**
+
+- [x] AC-1 工作区启动前干净
+- [x] AC-2 已从 `release/1` 创建 `sprint/s4b-structured-block-renderer`
+- [x] AC-3 已从 sprint 分支创建 `docs/s4b-start-backlog-split`
+- [x] AC-4 `sprint-backlog.md` 已新增 Sprint 4-B Backlog（S4B-STORY-001~007）
+- [x] AC-5 `sprint-plan.md` 已将 Sprint 4-B 更新为 In Progress
+- [x] AC-6 `product-backlog.md` 已同步 Sprint 4-B structured renderer 状态与相关遗留
+- [x] AC-7 `decisions.md` 已新增 DECISION-062
+- [x] AC-8 `changelog.md` 已记录 Sprint 4-B 启动
+- [x] AC-9 Sprint 4-B 前置遗留已登记至 planning
+- [x] AC-10 Sprint 4-B 范围未越界（未实现 Renderer 代码）
+- [x] AC-11 `corepack pnpm lint` 通过
+- [x] AC-12 `corepack pnpm test` 通过
+- [x] AC-13 `corepack pnpm build` 通过
+- [x] AC-14 已生成 execution report
+- [x] AC-15 未 merge 到 sprint / release / main
+- [x] AC-16 未启动 S4B-STORY-002
+
+---
+
+## S4B-STORY-002 list Preview + Copy Renderer
+
+**用户故事：** 作为开发者，我需要 list 3 个 first-wave variants 的 Preview / Copy 成对 Renderer，以便 structured blocks 渲染从 list 起步。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s4b-list-renderer`（已 merge 至 `sprint/s4b-structured-block-renderer` @ `611a2a1`）
+
+**目标 variants：**
+
+- `list_plain_bullets`
+- `list_numbered_steps`
+- `list_checklist_cards`
+
+**纳入遗留：** P1-005（list copy 结构保真）
+
+**实际产物：**
+
+| 路径 | 说明 |
+|------|------|
+| `src/core/renderer/list-layout.ts` | list variant layout / typography / item normalization / copySafety |
+| `src/core/renderer/list-preview.ts` | list Preview Renderer 输出 |
+| `src/core/renderer/list-renderer.ts` | list renderer validation、balanced warning、Preview/Copy 调度 |
+| `src/core/renderer/list-registry.ts` | list preview/copy registry |
+| `src/core/copy/list-copy.ts` | list Copy HTML renderer 与 copy-safe CSS assertion |
+| `tests/fixtures/renderer/list-articles.ts` | list renderer/copy fixtures |
+| `tests/core/renderer/list-renderer.test.ts` | list Preview / registry / fallback 测试 |
+| `tests/core/copy/list-copy-renderer.test.ts` | list Copy HTML / escape / copy-safe 测试 |
+
+**实现摘要：**
+
+- 3 个 variants 均已实现 Preview / Copy 成对 Renderer。
+- Preview / Copy 共享既有 `Article` + `ResolvedArticleStyle` / `ResolvedBlockStyle` 输入；未引入平行 list 模型。
+- Copy HTML 使用 inline style；无 Tailwind class / `<style>` / CSS variables / absolute / transform / pseudo element。
+- `list_plain_bullets` 使用稳定 bullet 文本结构；`list_numbered_steps` 使用稳定编号文本结构；`list_checklist_cards` 使用轻量卡片结构。
+- `list_numbered_steps` / `list_checklist_cards` 为 balanced copySafety，输出 warning 但不阻塞渲染。
+- item 为空时返回明确 `invalid_renderer_input` warning 并跳过该 item；全部缺失/不可渲染时返回 error。
+
+**明确不做：**
+
+- 不实现 quote / highlight / info_card / cta / image_placeholder
+- 不做真实 Paste QA
+- 不新增业务页面
+- 不新增 Copy 按钮
+- 不调用 Clipboard API
+- 不 merge 至 `release/1` 或 `main`
+- 不启动 S4B-STORY-003
+
+**验收标准：**
+
+- [x] AC-1 已从 `sprint/s4b-structured-block-renderer` 创建 `feature/s4b-list-renderer`
+- [x] AC-2 list 3 个 first-wave variants Preview Renderer 已实现
+- [x] AC-3 list 3 个 first-wave variants Copy Renderer 已实现
+- [x] AC-4 Preview / Copy 共享既有 Article + ResolvedStyle 输入，不引入平行模型
+- [x] AC-5 renderer registry 已接入 list preview / copy renderer
+- [x] AC-6 Copy HTML 使用 inline style，无 Tailwind class / style tag / CSS variables
+- [x] AC-7 Copy HTML 不使用 absolute / transform / pseudo element
+- [x] AC-8 list item 顺序、bullet / number / checklist 语义在 Preview 与 Copy 中一致
+- [x] AC-9 balanced variants 有明确 warning / issue 机制，但不阻塞代码路径
+- [x] AC-10 单元测试覆盖 3 variants Preview / Copy、registry、fallback、escape、copy-safe 约束
+- [x] AC-11 `corepack pnpm lint` 通过
+- [x] AC-12 `corepack pnpm test` 通过
+- [x] AC-13 `corepack pnpm build` 通过
+- [x] AC-14 `docs/agile/sprint-backlog.md` 已同步 S4B-STORY-002 状态与产物
+- [x] AC-15 `docs/agile/changelog.md` 已记录本轮变更
+- [x] AC-16 未实现 quote / highlight / info_card / cta / image_placeholder
+- [x] AC-17 未执行真实 Paste QA
+- [x] AC-18 未新增业务页面 / Clipboard API
+- [x] AC-19 未 merge 至 `release/1`
+- [x] AC-20 未 merge 至 `main`
+- [x] AC-21 未关闭 Sprint 4-B
+- [x] AC-22 未启动 S4B-STORY-003
+
+---
+
+## S4B-STORY-003 quote / highlight Preview + Copy Renderer
+
+**用户故事：** 作为开发者，我需要 quote / highlight 各 3 个 first-wave variants 的 Preview / Copy 成对 Renderer。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s4b-quote-highlight-renderer`（已 merge 至 `sprint/s4b-structured-block-renderer` @ `4d3967e`）
+
+**目标 variants：**
+
+quote：
+
+- `quote_plain`
+- `quote_left_bar`
+- `quote_card`
+
+highlight：
+
+- `highlight_inline_emphasis`
+- `highlight_accent_band`
+- `highlight_soft_card`
+
+**明确不做：**
+
+- 不升级 quote / highlight 到 InlineContent 主模型，沿用当前 Release 1 block schema
+- 不实现 info_card / cta / image_placeholder
+- 不做真实 Paste QA
+- 不新增业务页面 / Copy 按钮 / Clipboard API
+- 不 merge 至 `release/1` 或 `main`
+- 不关闭 Sprint 4-B
+- 不启动 S4B-STORY-004
+
+**实际产物：**
+
+| 路径 | 说明 |
+|------|------|
+| `src/core/renderer/quote-layout.ts` | quote variant layout / typography / content normalization / copySafety |
+| `src/core/renderer/quote-preview.ts` | quote Preview Renderer 输出 |
+| `src/core/renderer/quote-renderer.ts` | quote renderer validation、balanced warning、Preview/Copy 调度 |
+| `src/core/renderer/quote-registry.ts` | quote preview/copy registry |
+| `src/core/copy/quote-copy.ts` | quote Copy HTML renderer 与 copy-safe CSS assertion |
+| `src/core/renderer/highlight-layout.ts` | highlight variant layout / typography / content normalization / copySafety |
+| `src/core/renderer/highlight-preview.ts` | highlight Preview Renderer 输出 |
+| `src/core/renderer/highlight-renderer.ts` | highlight renderer validation、balanced warning、Preview/Copy 调度 |
+| `src/core/renderer/highlight-registry.ts` | highlight preview/copy registry |
+| `src/core/copy/highlight-copy.ts` | highlight Copy HTML renderer 与 copy-safe CSS assertion |
+| `tests/fixtures/renderer/quote-highlight-articles.ts` | quote/highlight renderer/copy fixtures |
+| `tests/core/renderer/quote-highlight-renderer.test.ts` | quote/highlight Preview / registry / fallback 测试 |
+| `tests/core/copy/quote-highlight-copy-renderer.test.ts` | quote/highlight Copy HTML / escape / copy-safe 测试 |
+
+**实现摘要：**
+
+- quote / highlight 各 3 个 variants 均已实现 Preview / Copy 成对 Renderer。
+- Preview / Copy 共享既有 `Article` + `ResolvedArticleStyle` / `ResolvedBlockStyle` 输入；未引入平行 quote / highlight 模型。
+- 未修改 Article / Block Schema 主模型，未升级 quote / highlight 到 InlineContent 主模型。
+- Copy HTML 使用 inline style；无 Tailwind class / `<style>` / CSS variables / absolute / transform / pseudo element。
+- `quote_left_bar` 使用真实 DOM `border-left`；`quote_card` / `highlight_soft_card` 使用轻量卡片结构；`highlight_inline_emphasis` 保持轻量强调结构。
+- quote attribution / highlight label 缺失时返回 `optional_slot_disabled` info，并在输出中标记 disabled。
+- balanced variants 输出 `copy_safety_warning`，不阻塞渲染。
+
+**验收标准：**
+
+- [x] AC-1 已从 `sprint/s4b-structured-block-renderer` 创建 `feature/s4b-quote-highlight-renderer`
+- [x] AC-2 quote 3 个 first-wave variants Preview Renderer 已实现
+- [x] AC-3 quote 3 个 first-wave variants Copy Renderer 已实现
+- [x] AC-4 highlight 3 个 first-wave variants Preview Renderer 已实现
+- [x] AC-5 highlight 3 个 first-wave variants Copy Renderer 已实现
+- [x] AC-6 Preview / Copy 共享既有 Article + ResolvedStyle 输入，不引入平行模型
+- [x] AC-7 renderer registry 已接入 quote / highlight preview + copy renderer
+- [x] AC-8 Copy HTML 使用 inline style，无 Tailwind class / style tag / CSS variables
+- [x] AC-9 Copy HTML 不使用 absolute / transform / pseudo element
+- [x] AC-10 quote / highlight 的 optional 字段有明确 disabled / fallback 行为
+- [x] AC-11 balanced variants 有明确 warning / issue 机制，但不阻塞代码路径
+- [x] AC-12 单元测试覆盖 6 variants Preview / Copy、registry、fallback、escape、copy-safe 约束
+- [x] AC-13 `corepack pnpm lint` 通过
+- [x] AC-14 `corepack pnpm test` 通过
+- [x] AC-15 `corepack pnpm build` 通过
+- [x] AC-16 `docs/agile/sprint-backlog.md` 已同步 S4B-STORY-003 状态与产物
+- [x] AC-17 `docs/agile/changelog.md` 已记录本轮变更
+- [x] AC-18 未实现 info_card / cta / image_placeholder
+- [x] AC-19 未执行真实 Paste QA
+- [x] AC-20 未新增业务页面 / Clipboard API
+- [x] AC-21 未 merge 至 `release/1`
+- [x] AC-22 未 merge 至 `main`
+- [x] AC-23 未关闭 Sprint 4-B
+- [x] AC-24 未启动 S4B-STORY-004
+
+---
+
+## S4B-STORY-004 info_card Preview + Copy Renderer
+
+**用户故事：** 作为开发者，我需要 info_card 3 个 first-wave variants 的 Preview / Copy 成对 Renderer，并明确 optional 字段 fallback 行为。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s4b-info-card-renderer`（已 merge 至 `sprint/s4b-structured-block-renderer` @ `02492ec`）
+
+**目标 variants：**
+
+- `info_card_key_takeaway`
+- `info_card_steps`
+- `info_card_warning_note`
+
+**纳入遗留：** P1-005（info_card copy 结构保真）；P1-S3B-005（optional 字段 disabled / fallback）
+
+**重点要求：**
+
+- 明确 `content.title` / `content.body` / optional 字段的 disabled / fallback 行为
+- 避免 Copy HTML 依赖复杂卡片 wrapper 继承 typography
+- Copy HTML 必须使用 inline style
+
+**明确不做：**
+
+- 不实现 cta / image_placeholder
+- 不做真实 Paste QA
+- 不实现真实二维码、真实链接、小程序卡片、图片能力
+- 不新增业务页面 / Copy 按钮 / Clipboard API
+- 不 merge 至 `release/1` 或 `main`
+- 不关闭 Sprint 4-B
+- 不启动 S4B-STORY-005
+
+**实际产物：**
+
+| 路径 | 说明 |
+|------|------|
+| `src/core/renderer/info-card-layout.ts` | info_card variant layout / typography / content normalization / copySafety |
+| `src/core/renderer/info-card-preview.ts` | info_card Preview Renderer 输出 |
+| `src/core/renderer/info-card-renderer.ts` | info_card renderer validation、balanced warning、Preview/Copy 调度 |
+| `src/core/renderer/info-card-registry.ts` | info_card preview/copy registry |
+| `src/core/copy/info-card-copy.ts` | info_card Copy HTML renderer 与 copy-safe CSS assertion |
+| `tests/fixtures/renderer/info-card-articles.ts` | info_card renderer/copy fixtures |
+| `tests/core/renderer/info-card-renderer.test.ts` | info_card Preview / registry / fallback 测试 |
+| `tests/core/copy/info-card-copy-renderer.test.ts` | info_card Copy HTML / escape / copy-safe 测试 |
+
+**实现摘要：**
+
+- 3 个 variants 均已实现 Preview / Copy 成对 Renderer。
+- Preview / Copy 共享既有 `Article` + `ResolvedArticleStyle` / `ResolvedBlockStyle` 输入；未引入平行 info_card 模型。
+- 未修改 Article / Block Schema 主模型。
+- Copy HTML 使用 inline style；无 Tailwind class / `<style>` / CSS variables / absolute / transform / pseudo element / flex / grid。
+- `info_card_steps` 沿用当前 `content.body` 字段，以换行文本生成稳定编号结构，不新增 schema。
+- `content.body` 缺失/为空时返回 `invalid_renderer_input` error；`title` / `icon` 缺失时返回 `optional_slot_disabled` info。
+- 3 个 variants 均为 balanced copySafety，输出 `copy_safety_warning`，不阻塞渲染。
+
+**验收标准：**
+
+- [x] AC-1 已从 `sprint/s4b-structured-block-renderer` 创建 `feature/s4b-info-card-renderer`
+- [x] AC-2 info_card 3 个 first-wave variants Preview Renderer 已实现
+- [x] AC-3 info_card 3 个 first-wave variants Copy Renderer 已实现
+- [x] AC-4 Preview / Copy 共享既有 Article + ResolvedStyle 输入，不引入平行模型
+- [x] AC-5 renderer registry 已接入 info_card preview + copy renderer
+- [x] AC-6 Copy HTML 使用 inline style，无 Tailwind class / style tag / CSS variables
+- [x] AC-7 Copy HTML 不使用 absolute / transform / pseudo element
+- [x] AC-8 `content.title` / `content.body` / optional 字段有明确 disabled / fallback 行为
+- [x] AC-9 balanced variants 有明确 warning / issue 机制，但不阻塞代码路径
+- [x] AC-10 单元测试覆盖 3 variants Preview / Copy、registry、fallback、escape、copy-safe 约束
+- [x] AC-11 `corepack pnpm lint` 通过
+- [x] AC-12 `corepack pnpm test` 通过
+- [x] AC-13 `corepack pnpm build` 通过
+- [x] AC-14 `docs/agile/sprint-backlog.md` 已同步 S4B-STORY-004 状态与产物
+- [x] AC-15 `docs/agile/changelog.md` 已记录本轮变更
+- [x] AC-16 未实现 cta / image_placeholder
+- [x] AC-17 未执行真实 Paste QA
+- [x] AC-18 未新增业务页面 / Clipboard API
+- [x] AC-19 未修改 Article / Block Schema 主模型
+- [x] AC-20 未 merge 至 `release/1`
+- [x] AC-21 未 merge 至 `main`
+- [x] AC-22 未关闭 Sprint 4-B
+- [x] AC-23 未启动 S4B-STORY-005
+
+---
+
+## S4B-STORY-005 cta / image_placeholder Preview + Copy Renderer
+
+**用户故事：** 作为开发者，我需要 cta / image_placeholder 各 3 个 first-wave variants 的 Release 1 占位型 Preview / Copy 成对 Renderer。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s4b-cta-image-placeholder-renderer`（已 merge 至 `sprint/s4b-structured-block-renderer` @ `e1914ed`）
+
+**目标 variants：**
+
+cta：
+
+- `cta_plain_text`
+- `cta_button_like`
+- `cta_qr_placeholder`
+
+image_placeholder：
+
+- `image_placeholder_simple`
+- `image_placeholder_caption`
+- `image_placeholder_card`
+
+**纳入遗留：** P1-S3B-003（占位契约）；P1-S3B-005（optional 字段 fallback）
+
+**明确边界：**
+
+- cta 不实现真实二维码生成
+- cta 不实现小程序卡片
+- cta 不实现真实外链跳转能力
+- image_placeholder 不实现图片上传、图片托管、AI 生图或图库
+- 本轮只保证占位契约、Preview / Copy 结构和 copy-safe HTML
+
+**实际产物：**
+
+| 路径 | 说明 |
+|------|------|
+| `src/core/renderer/cta-layout.ts` | cta layout / typography / copySafety / content normalization |
+| `src/core/renderer/cta-preview.ts` | cta Preview Renderer 输出契约 |
+| `src/core/renderer/cta-renderer.ts` | cta renderer validation、balanced warning 与 Preview / Copy 调度 |
+| `src/core/renderer/cta-registry.ts` | cta Preview / Copy registry |
+| `src/core/copy/cta-copy.ts` | cta copy-safe inline HTML，占位按钮 / QR placeholder 表达 |
+| `src/core/renderer/image-placeholder-layout.ts` | image_placeholder layout / typography / copySafety / placeholder normalization |
+| `src/core/renderer/image-placeholder-preview.ts` | image_placeholder Preview Renderer 输出契约 |
+| `src/core/renderer/image-placeholder-renderer.ts` | image_placeholder renderer validation、balanced warning 与 Preview / Copy 调度 |
+| `src/core/renderer/image-placeholder-registry.ts` | image_placeholder Preview / Copy registry |
+| `src/core/copy/image-placeholder-copy.ts` | image_placeholder copy-safe inline HTML，占位框表达且不输出真实 `<img>` |
+| `tests/fixtures/renderer/cta-image-placeholder-articles.ts` | cta / image_placeholder variant fixtures |
+| `tests/core/renderer/cta-image-placeholder-renderer.test.ts` | cta / image_placeholder Preview、registry、fallback、回归测试 |
+| `tests/core/copy/cta-image-placeholder-copy-renderer.test.ts` | cta / image_placeholder Copy HTML、escape、copy-safe、strict / balanced 测试 |
+
+**验收标准：**
+
+- [x] AC-1 已从 `sprint/s4b-structured-block-renderer` 创建 `feature/s4b-cta-image-placeholder-renderer`
+- [x] AC-2 cta 3 个 first-wave variants Preview Renderer 已实现：`cta_plain_text` / `cta_button_like` / `cta_qr_placeholder`
+- [x] AC-3 cta 3 个 first-wave variants Copy Renderer 已实现
+- [x] AC-4 image_placeholder 3 个 first-wave variants Preview Renderer 已实现：`image_placeholder_simple` / `image_placeholder_caption` / `image_placeholder_card`
+- [x] AC-5 image_placeholder 3 个 first-wave variants Copy Renderer 已实现
+- [x] AC-6 Preview / Copy 共享既有 Article + ResolvedStyle 输入，不引入平行模型
+- [x] AC-7 renderer registry 已接入 cta / image_placeholder preview + copy renderer
+- [x] AC-8 Copy HTML 使用 inline style，无 Tailwind class / style tag / CSS variables
+- [x] AC-9 Copy HTML 不使用 absolute / transform / pseudo element
+- [x] AC-10 Release 1 占位边界明确：无真实二维码、真实链接按钮、小程序卡片、图片上传、图片托管、AI 生图
+- [x] AC-11 optional 字段有明确 disabled / fallback 行为
+- [x] AC-12 strict / balanced variants 有明确 warning / issue 机制，但不阻塞代码路径
+- [x] AC-13 单元测试覆盖 6 variants Preview / Copy、registry、fallback、escape、copy-safe 约束
+- [x] AC-14 `corepack pnpm lint` 通过
+- [x] AC-15 `corepack pnpm test` 通过（475 tests）
+- [x] AC-16 `corepack pnpm build` 通过
+- [x] AC-17 `docs/agile/sprint-backlog.md` 已同步 S4B-STORY-005 状态与产物
+- [x] AC-18 `docs/agile/changelog.md` 已记录本轮变更
+- [x] AC-19 未执行真实 Paste QA
+- [x] AC-20 未新增业务页面 / Clipboard API
+- [x] AC-21 未修改 Article / Block Schema 主模型
+- [x] AC-22 未 merge 至 `release/1`
+- [x] AC-23 未 merge 至 `main`
+- [x] AC-24 未关闭 Sprint 4-B
+- [x] AC-25 未启动 S4B-STORY-006
+
+---
+
+## S4B-STORY-006 Structured blocks Copy HTML snapshot / 33 variants 最小 Paste QA plan
+
+**用户故事：** 作为产品团队，我需要扩展 structured blocks Copy HTML snapshot seed，并汇总 text-first + structured blocks 形成 first-wave 33 variants 最小 Paste QA 计划。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s4b-structured-copy-snapshot-paste-plan`（已 merge 至 `sprint/s4b-structured-block-renderer` @ `c13f0e1`）
+
+**纳入遗留：** P1-S4A-002、P1-S4A-003
+
+**明确不做：**
+
+- 不执行完整真实 Paste QA
+- 不实现浏览器 Clipboard API
+- 不新增业务页面 / Copy 按钮
+
+**实际产物：**
+
+| 路径 | 说明 |
+|------|------|
+| `src/core/copy/copy-html-snapshot.ts` | snapshot builder 支持传入 `supportedBlockTypes`，默认仍保持 S4A text-first 行为 |
+| `src/core/copy/copy-safe-html.ts` | copy-safe snapshot 断言补充 flex / grid 检查 |
+| `src/core/copy/structured-copy-registry.ts` | Sprint 4-B structured blocks Copy Renderer registry |
+| `src/core/copy/first-wave-copy-registry.ts` | Release 1 first-wave 11 block Copy Renderer registry |
+| `src/core/copy/first-wave-paste-qa-plan.ts` | first-wave 33 variants 最小 Paste QA plan 纯函数 |
+| `tests/fixtures/copy/structured-copy-fixtures.ts` | structured blocks 18 variants snapshot fixture |
+| `tests/core/copy/structured-copy-html-snapshot.test.ts` | structured snapshot seed、copy-safe、missing renderer/style、unsupported variant 测试 |
+| `tests/core/copy/first-wave-paste-qa-plan.test.ts` | 33 variants plan 分布、字段、Not Run、copySafety、placeholder scope 测试 |
+| `docs/agile/paste-qa/sprint4b-structured-seed.md` | Sprint 4-B structured snapshot seed 文档 |
+| `docs/agile/paste-qa/release1-first-wave-33-plan.md` | Release 1 first-wave 33 variants 最小 Paste QA plan |
+
+**验收标准：**
+
+- [x] AC-1 已从 `sprint/s4b-structured-block-renderer` 创建 `feature/s4b-structured-copy-snapshot-paste-plan`
+- [x] AC-2 structured blocks Copy HTML snapshot seed 已建立，覆盖 list / quote / highlight / info_card / cta / image_placeholder
+- [x] AC-3 structured snapshot 覆盖 18 个 variants
+- [x] AC-4 snapshot HTML 来自真实 Copy Renderer，不手写脱节 HTML
+- [x] AC-5 structured snapshot copy-safe assertion 覆盖并通过
+- [x] AC-6 first-wave 33 variants 最小 Paste QA plan 已建立
+- [x] AC-7 plan 总数 = 33，且 11 block × 3 分布正确
+- [x] AC-8 每个 plan entry 有 blockType / variantId / copySafety / rendererCoverage / pasteQaStatus
+- [x] AC-9 所有 pasteQaStatus 均为 Not Run / not_run，不冒充真实 QA 通过
+- [x] AC-10 balanced variants 标记需要真实微信公众号 Paste QA 验证
+- [x] AC-11 cta / image_placeholder 明确 Release 1 占位契约，不测试真实 QR / link / image 能力
+- [x] AC-12 新增 Paste QA markdown 文档
+- [x] AC-13 不调用浏览器 Clipboard API
+- [x] AC-14 未新增业务页面 / Copy 按钮
+- [x] AC-15 未修改 Article / Block Schema 主模型
+- [x] AC-16 单元测试覆盖 structured snapshot 与 33 variants plan
+- [x] AC-17 `corepack pnpm lint` 通过
+- [x] AC-18 `corepack pnpm test` 通过（491 tests）
+- [x] AC-19 `corepack pnpm build` 通过
+- [x] AC-20 `docs/agile/sprint-backlog.md` 已同步 S4B-STORY-006 状态与产物
+- [x] AC-21 `docs/agile/changelog.md` 已记录本轮变更
+- [x] AC-22 未执行真实 Paste QA
+- [x] AC-23 未 merge 至 `release/1`
+- [x] AC-24 未 merge 至 `main`
+- [x] AC-25 未关闭 Sprint 4-B
+- [x] AC-26 未启动 S4B-STORY-007
+
+---
+
+## S4B-STORY-007 Sprint 4-B Renderer Contract Audit 与关闭准备
+
+**用户故事：** 作为产品负责人，我需要在 Sprint 4-B 完成后做 Renderer 契约 audit，确认 structured blocks Preview / Copy Renderer 与 architecture / style-system / copy-to-wechat 一致，并准备是否关闭 Sprint 4-B。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `docs/s4b-renderer-contract-audit-close-readiness`（已 merge 至 `sprint/s4b-structured-block-renderer` @ `4622a9c`）
+
+**明确不做：**
+
+- 不在 audit 轮实现新业务 Renderer
+- 不自行关闭 Sprint 4-B（须用户确认）
+- 不 merge 至 `release/1`，除非用户确认
+
+**实际产物：**
+
+| 路径 | 说明 |
+|------|------|
+| `docs/architecture/audits/sprint4b-renderer-contract-audit.md` | Sprint 4-B Renderer Contract Audit 与 Close Readiness 建议 |
+| `docs/agile/sprint-backlog.md` | S4B-STORY-002~006 状态确认、S4B-STORY-007 audit 摘要 |
+| `docs/agile/sprint-plan.md` | Sprint 4-B 更新为 Close Readiness |
+| `docs/agile/product-backlog.md` | TECH-ARCH-021 / 022 / 023 状态同步 |
+| `docs/agile/changelog.md` | 记录 Sprint 4-B renderer contract audit |
+
+**Audit 摘要：**
+
+- Grade：**A**
+- P0：**0**
+- P1：**4**
+- P2：**2**
+- 建议：Sprint 4-B 进入 **Close Readiness**，但不由 Cursor 关闭；关闭需用户确认。
+- 真实微信公众号 Paste QA：**Not Run**，后续归 Sprint 6-B。
+- 关闭状态：用户已确认关闭 Sprint 4-B（DECISION-063）。
+
+**验收标准：**
+
+- [x] AC-1 已从 `sprint/s4b-structured-block-renderer` 创建 `docs/s4b-renderer-contract-audit-close-readiness`
+- [x] AC-2 已确认 S4B-STORY-006 merge 至 sprint
+- [x] AC-3 已生成 `docs/architecture/audits/sprint4b-renderer-contract-audit.md`
+- [x] AC-4 audit 覆盖 S4B-STORY-002~006 全部交付
+- [x] AC-5 audit 覆盖 list / quote / highlight / info_card / cta / image_placeholder
+- [x] AC-6 audit 覆盖 structured snapshot seed 与 first-wave 33 variants Paste QA plan
+- [x] AC-7 audit 对照 rendering-pipeline / style-system / copy-to-wechat-pipeline / wechat-copy-style-rules
+- [x] AC-8 audit 输出 P0 / P1 / P2 风险清单
+- [x] AC-9 audit 明确建议进入 Sprint 4-B Close Readiness
+- [x] AC-10 `docs/agile/sprint-backlog.md` 已同步 Sprint 4-B Story 状态与 audit 摘要
+- [x] AC-11 `docs/agile/sprint-plan.md` 已同步 Sprint 4-B Close Readiness
+- [x] AC-12 `docs/agile/product-backlog.md` 已同步 TECH-ARCH-021 / 022 / 023
+- [x] AC-13 `docs/agile/changelog.md` 已记录本轮 audit
+- [x] AC-14 未实现新的 Renderer 业务代码
+- [x] AC-15 未执行真实微信公众号 Paste QA
+- [x] AC-16 未把任何 Paste QA 标记为 Passed
+- [x] AC-17 未关闭 Sprint 4-B
+- [x] AC-18 未 merge 至 `release/1`
+- [x] AC-19 未 merge 至 `main`
+- [x] AC-20 未启动 Sprint 5 / Sprint 3-C / Sprint 6-A
+- [x] AC-21 `corepack pnpm lint` 通过
+- [x] AC-22 `corepack pnpm test` 通过（491 tests）
+- [x] AC-23 `corepack pnpm build` 通过
 
 ---

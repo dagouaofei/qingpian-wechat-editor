@@ -88,11 +88,11 @@
 | TECH-ARCH-018 | First-wave Required Variant Registry | EPIC-004 | 11×3=33 first-wave required variants · **Sprint 3-B 执行入口** |
 | TECH-ARCH-019 | Expansion Variant Coverage | EPIC-004 | 每 block 第 4/5 variant；不阻塞 first-wave closure |
 | TECH-ARCH-020 | Sprint 3-A/B/C Style System Delivery Split | EPIC-004 | infrastructure / first-wave registry / AI validation · **3-B = first-wave registry** |
-| TECH-ARCH-021 | Sprint 4-A/B Renderer Delivery Split | EPIC-004 / EPIC-006 | text-first vs structured blocks · **Sprint 4-A text-first 已完成**（DECISION-061）；Sprint 4-B structured blocks 未启动 |
-| TECH-ARCH-022 | Sprint 6-A/B Paste QA Regression Split | EPIC-010 | fixture 三联 vs first-wave 33 variants QA |
-| TECH-ARCH-023 | Release 1 Style Quality Gate | EPIC-004 / EPIC-006 | Style Quality Review / Gallery / 样式效果验收；Sprint 3-B **已完成** first-wave registry；**Sprint 4-A text-first Preview / Copy Renderer 验收已完成**（DECISION-061）；Paste QA seed 为 Not Run |
+| TECH-ARCH-021 | Sprint 4-A/B Renderer Delivery Split | EPIC-004 / EPIC-006 | **Done**：Sprint 4-A text-first renderer Done；Sprint 4-B structured renderer Done；Preview / Copy Renderer 代码闭环完成（DECISION-061、DECISION-063） |
+| TECH-ARCH-022 | Sprint 6-A/B Paste QA Regression Split | EPIC-010 | fixture 三联 vs first-wave 33 variants QA；**仍未执行**，Release 1 33 variants 最小 Paste QA plan 已建立，真实 Paste QA 归 Sprint 6-B |
+| TECH-ARCH-023 | Release 1 Style Quality Gate | EPIC-004 / EPIC-006 | Style Quality Review / Gallery / 样式效果验收；Sprint 3-B registry Done；Sprint 4-A text-first renderer Done；Sprint 4-B structured renderer Done；真实 Paste QA / Style Gallery 仍待后续 Sprint |
 
-状态：文档契约 S1-STORY-021~028；代码按 Sprint 2 + 3-A/B/C + 4-A/B + 5 + 6-A/B 拆分。**TECH-ARCH-023：** Sprint 3-B registry Done；Sprint 4-A text-first renderer Done；真实 Paste QA / Style Gallery 待后续 Sprint。
+状态：文档契约 S1-STORY-021~028；代码按 Sprint 2 + 3-A/B/C + 4-A/B + 5 + 6-A/B 拆分。**TECH-ARCH-023：** Sprint 4-A Done；Sprint 4-B Done；真实 Paste QA / Style Gallery 待 Sprint 6 / Release 2。
 
 ---
 
@@ -141,3 +141,33 @@
 | **P1-S4A-004** | InlineMark color 与 Style registry 完整 cross-registry 校验仍未完成 | Sprint 6 / Release 1 hardening | 当前已有安全 alias / fallback，不阻塞 Close Readiness |
 | **P2-S4A-001** | Style Gallery / 人工视觉验收入口仍缺失 | Sprint 6 / Release 2 | 支撑视觉评审效率，不阻塞 S4A |
 | Sprint 4-B Scope | structured blocks Renderer（list / quote / highlight / info_card / cta / image_placeholder） | Sprint 4-B | S4A 明确未覆盖，不计为 S4A 缺陷 |
+
+---
+
+## Sprint 4-B Planning 遗留（S4B-STORY-001 登记）
+
+> 来源：Sprint 1-B / Sprint 3-B / Sprint 4-A audit 遗留；纳入 Sprint 4-B planning，不要求 S4B-STORY-001 解决代码问题。
+
+| ID | 问题 | 建议 Sprint | Sprint 4-B planning |
+|----|------|-------------|---------------------|
+| **P1-005** | list / info_card copy 结构保真规则未细化 | Sprint 4-B | **已纳入** · S4B-STORY-002 / S4B-STORY-004 |
+| **P1-S3B-003** | cta / image_placeholder 当前为占位契约，不包含真实 QR、链接、小程序或图片能力 | Sprint 4-B / Release 2+ | **已纳入** · S4B-STORY-005（占位 Renderer 边界） |
+| **P1-S3B-005** | `block.content.title` / `caption` 等 optional 字段需要 renderer 明确 disabled / fallback 行为 | Sprint 4-B | **已纳入** · S4B-STORY-004 / S4B-STORY-005 |
+| **P1-S4A-002** | `balanced` copySafety variants 仍需粘贴细节验证 | Sprint 4-B / 6-B | **已纳入** · S4B-STORY-006（33 variants Paste QA plan；真实 QA 仍归 Sprint 6-B） |
+| **P1-S4A-003** | Copy HTML snapshot seed 覆盖不足 | Sprint 6-A / 6-B | **已纳入** · S4B-STORY-006（扩展 structured blocks snapshot；text-first 全量扩展仍归 Sprint 6-A/B） |
+| **P2-S4A-001** | Style Gallery / 人工视觉验收入口仍缺失 | Sprint 6 / Release 2 | **已纳入 planning** · 不要求 Sprint 4-B 实现 |
+
+---
+
+## Sprint 4-B Audit 遗留（S4B-STORY-007 / DECISION-063 登记）
+
+> 来源：`docs/architecture/audits/sprint4b-renderer-contract-audit.md` §11；不阻塞 Sprint 4-B 关闭。Sprint 4-B audit 结论：Grade A，P0=0，P1=4，P2=2。
+
+| ID | 问题 | 建议 Sprint / 归属 | 说明 |
+|----|------|-------------------|------|
+| **P1-S4B-001** | 33 variants 真实微信公众号 Paste QA 尚未执行 | Sprint 6-B | first-wave 33 variants plan 已建立；真实 QA 仍为 Not Run |
+| **P1-S4B-002** | `balanced` copySafety variants 仍需真实粘贴细节验证 | Sprint 6-B | 边距、边框、背景、badge、卡片感需微信编辑器验证 |
+| **P1-S4B-003** | text-first snapshot 仍是 S4A 代表 seed，非全量 15 text-first variants snapshot | Sprint 6-A / 6-B | structured snapshot 已覆盖 18 variants；text-first 全量三联仍待补齐 |
+| **P1-S4B-004** | PasteTestRecord / fixture triple 体系尚未建立 | Sprint 6-A / 6-B | 当前有 seed / plan，无正式人工测试记录结构与结果归档 |
+| **P2-S4B-001** | Style Gallery / 人工视觉验收入口仍缺失 | Sprint 6 / Release 2 | 支撑视觉评审效率，不阻塞 Sprint 4-B |
+| **P2-S4B-002** | cta / image_placeholder 真实 QR / link / image 能力仍未实现 | Release 2+ | Release 1 已明确为占位契约 |

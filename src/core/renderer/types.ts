@@ -169,6 +169,167 @@ export type DividerCopyOutput = {
   copySafety?: CopySafety;
 };
 
+export type ListLayoutKind = import("./list-layout").ListLayoutKind;
+
+export type ListPreviewItem = {
+  text: string;
+  subItems: string[];
+  sourceIndex: number;
+  marker: string;
+};
+
+export type ListPreviewOutput = {
+  kind: "list_preview";
+  blockId: string;
+  blockType: "list";
+  variantId: string;
+  layout: ListLayoutKind;
+  ordered: boolean;
+  items: ListPreviewItem[];
+  copySafety?: CopySafety;
+};
+
+export type ListCopyOutput = {
+  kind: "list_copy_html";
+  blockId: string;
+  blockType: "list";
+  variantId: string;
+  layout: ListLayoutKind;
+  html: string;
+  copySafety?: CopySafety;
+};
+
+export type QuoteLayoutKind = import("./quote-layout").QuoteLayoutKind;
+
+export type QuotePreviewOutput = {
+  kind: "quote_preview";
+  blockId: string;
+  blockType: "quote";
+  variantId: string;
+  layout: QuoteLayoutKind;
+  text: string;
+  attribution?: string;
+  attributionState: SlotRenderState;
+  copySafety?: CopySafety;
+};
+
+export type QuoteCopyOutput = {
+  kind: "quote_copy_html";
+  blockId: string;
+  blockType: "quote";
+  variantId: string;
+  layout: QuoteLayoutKind;
+  html: string;
+  copySafety?: CopySafety;
+};
+
+export type HighlightLayoutKind = import("./highlight-layout").HighlightLayoutKind;
+
+export type HighlightPreviewOutput = {
+  kind: "highlight_preview";
+  blockId: string;
+  blockType: "highlight";
+  variantId: string;
+  layout: HighlightLayoutKind;
+  text: string;
+  label?: string;
+  labelState: SlotRenderState;
+  copySafety?: CopySafety;
+};
+
+export type HighlightCopyOutput = {
+  kind: "highlight_copy_html";
+  blockId: string;
+  blockType: "highlight";
+  variantId: string;
+  layout: HighlightLayoutKind;
+  html: string;
+  copySafety?: CopySafety;
+};
+
+export type InfoCardLayoutKind = import("./info-card-layout").InfoCardLayoutKind;
+
+export type InfoCardPreviewOutput = {
+  kind: "info_card_preview";
+  blockId: string;
+  blockType: "info_card";
+  variantId: string;
+  layout: InfoCardLayoutKind;
+  title?: string;
+  titleState: SlotRenderState;
+  body: string;
+  bodyLines: string[];
+  icon?: string;
+  iconState: SlotRenderState;
+  copySafety?: CopySafety;
+};
+
+export type InfoCardCopyOutput = {
+  kind: "info_card_copy_html";
+  blockId: string;
+  blockType: "info_card";
+  variantId: string;
+  layout: InfoCardLayoutKind;
+  html: string;
+  copySafety?: CopySafety;
+};
+
+export type CtaLayoutKind = import("./cta-layout").CtaLayoutKind;
+
+export type CtaPreviewOutput = {
+  kind: "cta_preview";
+  blockId: string;
+  blockType: "cta";
+  variantId: string;
+  layout: CtaLayoutKind;
+  text: string;
+  action?: string;
+  actionState: SlotRenderState;
+  placeholderLabel: string;
+  copySafety?: CopySafety;
+};
+
+export type CtaCopyOutput = {
+  kind: "cta_copy_html";
+  blockId: string;
+  blockType: "cta";
+  variantId: string;
+  layout: CtaLayoutKind;
+  html: string;
+  copySafety?: CopySafety;
+  placeholderOnly: true;
+};
+
+export type ImagePlaceholderLayoutKind =
+  import("./image-placeholder-layout").ImagePlaceholderLayoutKind;
+
+export type ImagePlaceholderPreviewOutput = {
+  kind: "image_placeholder_preview";
+  blockId: string;
+  blockType: "image_placeholder";
+  variantId: string;
+  layout: ImagePlaceholderLayoutKind;
+  caption?: string;
+  captionState: SlotRenderState;
+  suggestion?: string;
+  suggestionState: SlotRenderState;
+  aspectRatio: string;
+  position: string;
+  placeholderLabel: string;
+  copySafety?: CopySafety;
+};
+
+export type ImagePlaceholderCopyOutput = {
+  kind: "image_placeholder_copy_html";
+  blockId: string;
+  blockType: "image_placeholder";
+  variantId: string;
+  layout: ImagePlaceholderLayoutKind;
+  html: string;
+  copySafety?: CopySafety;
+  placeholderOnly: true;
+};
+
 export type RendererOutputPlaceholder =
   | PreviewRendererOutputPlaceholder
   | CopyRendererOutputPlaceholder
@@ -177,7 +338,19 @@ export type RendererOutputPlaceholder =
   | TextBlockPreviewOutput
   | TextBlockCopyOutput
   | DividerPreviewOutput
-  | DividerCopyOutput;
+  | DividerCopyOutput
+  | ListPreviewOutput
+  | ListCopyOutput
+  | QuotePreviewOutput
+  | QuoteCopyOutput
+  | HighlightPreviewOutput
+  | HighlightCopyOutput
+  | InfoCardPreviewOutput
+  | InfoCardCopyOutput
+  | CtaPreviewOutput
+  | CtaCopyOutput
+  | ImagePlaceholderPreviewOutput
+  | ImagePlaceholderCopyOutput;
 
 export type RendererResult<TOutput = RendererOutputPlaceholder> = {
   ok: boolean;

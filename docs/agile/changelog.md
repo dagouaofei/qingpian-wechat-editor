@@ -171,3 +171,27 @@
 | 2026-06-01 | Sprint 4-A | 完成 Sprint 4-A Renderer Contract Audit；Grade A，P0=0，P1=4，P2=1；Sprint 4-A 进入 Close Readiness，待用户确认关闭 | 架构 / 敏捷 | S4A-STORY-007 |
 | 2026-06-01 | Sprint 4-A | 用户确认接受 Sprint 4-A renderer contract audit（grade A，P0=0，P1=4，P2=1） | 敏捷 / 架构 | S4A-STORY-007, DECISION-061 |
 | 2026-06-01 | Sprint 4-A | Sprint 4-A 正式关闭；merge `sprint/s4a-text-first-renderer` → `release/1`（`b2efdb2`） | Git / 敏捷 | S4A-STORY-007, DECISION-061 |
+
+---
+
+## 2026-06-01 · Sprint 4-B
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-01 | Sprint 4-B | **正式启动 Sprint 4-B**；范围 Preview / Copy Renderer for Structured Blocks | 敏捷 / 架构 | S4B-STORY-001, DECISION-062 |
+| 2026-06-01 | Sprint 4-B | 从 `release/1` 建立 `sprint/s4b-structured-block-renderer` | Git | DECISION-062 |
+| 2026-06-01 | Sprint 4-B | 新增 Sprint 4-B Backlog S4B-STORY-001~007 | 敏捷 | S4B-STORY-001 |
+| 2026-06-01 | Sprint 4-B | 同步 sprint-plan / product-backlog；Sprint 4-B 前置遗留纳入 planning | 敏捷 / 架构 | S4B-STORY-001 |
+| 2026-06-01 | Sprint 4-B | 明确 cta / image_placeholder 为 Release 1 占位契约；不实现真实 QR / 外链 / 图片能力 | 架构 / Renderer | DECISION-062 |
+| 2026-06-01 | Sprint 4-B | Sprint 3-C 仍保持延后未取消 | 敏捷 | DECISION-062 |
+| 2026-06-01 | Sprint 4-B | 实现 list Preview / Copy Renderer，覆盖 `list_plain_bullets` / `list_numbered_steps` / `list_checklist_cards`；lint / test（397）/ build PASS | Renderer / Copy / 测试 | S4B-STORY-002 |
+| 2026-06-01 | Sprint 4-B | S4B-STORY-002 审核通过；merge `feature/s4b-list-renderer` → `sprint/s4b-structured-block-renderer`（`611a2a1`）；随 merge 纳入 S4A story branch cleanup report | Git / 敏捷 | S4B-STORY-002 |
+| 2026-06-01 | Sprint 4-B | 实现 quote / highlight Preview + Copy Renderer，覆盖 6 variants；lint / test（424）/ build PASS | Renderer / Copy / 测试 | S4B-STORY-003 |
+| 2026-06-01 | Sprint 4-B | S4B-STORY-003 审核通过；merge `feature/s4b-quote-highlight-renderer` → `sprint/s4b-structured-block-renderer`（`4d3967e`） | Git / 敏捷 | S4B-STORY-003 |
+| 2026-06-01 | Sprint 4-B | 实现 info_card Preview + Copy Renderer，覆盖 3 variants；lint / test（443）/ build PASS | Renderer / Copy / 测试 | S4B-STORY-004 |
+| 2026-06-01 | Sprint 4-B | S4B-STORY-004 审核通过；merge `feature/s4b-info-card-renderer` → `sprint/s4b-structured-block-renderer`（`02492ec`） | Git / 敏捷 | S4B-STORY-004 |
+| 2026-06-01 | Sprint 4-B | 实现 cta / image_placeholder Preview + Copy Renderer，覆盖 6 variants；明确 Release 1 占位契约边界（无真实 QR / 链接 / 小程序 / 图片能力）；lint / test（475）/ build PASS | Renderer / Copy / 测试 | S4B-STORY-005 |
+| 2026-06-01 | Sprint 4-B | 建立 structured blocks Copy HTML snapshot seed（18 variants）与 first-wave 33 variants 最小 Paste QA plan；Paste QA 状态全部 Not Run；lint / test（491）/ build PASS | Copy / QA Plan / 测试 | S4B-STORY-006 |
+| 2026-06-01 | Sprint 4-B | S4B-STORY-006 审核通过；merge `feature/s4b-structured-copy-snapshot-paste-plan` → `sprint/s4b-structured-block-renderer`（`c13f0e1`） | Git / 敏捷 | S4B-STORY-006 |
+| 2026-06-01 | Sprint 4-B | 完成 Renderer Contract Audit；Grade A，P0=0 / P1=4 / P2=2；Sprint 4-B 进入 Close Readiness，待用户确认关闭；lint / test（491）/ build PASS | Audit / 敏捷 / 架构 | S4B-STORY-007 |
+| 2026-06-01 | Sprint 4-B | **正式关闭 Sprint 4-B**；S4B-STORY-001~007 Done；structured blocks 18 variants Preview / Copy Renderer、structured snapshot seed、first-wave 33 variants Paste QA plan 完成；Paste QA 全部 Not Run；确认 merge `sprint/s4b-structured-block-renderer` → `release/1`；未 merge main，未启动后续 Sprint | 敏捷 / Git / Release | DECISION-063 |
