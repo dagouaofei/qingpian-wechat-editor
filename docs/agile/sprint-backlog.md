@@ -1208,9 +1208,25 @@
 
 **用户故事：** 作为开发者，我需要 Preview Renderer / Copy Renderer 的基础接口与共享输入契约，以便 text-first blocks 的成对实现有统一边界且与 StyleResolver 输出一致。
 
-**优先级：** P0 · **状态：** Todo · **工作分支：** `feature/s4a-renderer-base-contract`（建议）
+**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s4a-renderer-base-contract`
 
 **纳入遗留：** P2-S3B-002（WeChat profile 文档字段对齐）；P1-S3A-004（ResolvedBlockStyle componentProtocol 展开）
+
+**实际产物：**
+
+| 路径 | 说明 |
+|------|------|
+| `src/core/renderer/types.ts` | RenderMode / RenderTarget / RendererResult / RendererIssue |
+| `src/core/renderer/context.ts` | Article + ResolvedArticleStyle 输入校验、BlockRenderContext |
+| `src/core/renderer/resolved-view.ts` | componentProtocol 展开、slot disabled/fallback 视图 |
+| `src/core/renderer/registry.ts` | block renderer registry 最小实现 |
+| `src/core/renderer/render-block.ts` | `renderBlock` / `renderArticleBlocks` 编排 |
+| `src/core/renderer/index.ts` | 模块导出 |
+| `src/core/copy/wechat-profile-bridge.ts` | WeChat profile 文档字段 ↔ 代码结构映射（P2-S3B-002） |
+| `src/core/copy/index.ts` | Copy 路径 re-export |
+| `tests/core/renderer/renderer-contract.test.ts` | 契约测试 |
+| `tests/core/renderer/renderer-registry.test.ts` | registry 测试 |
+| `tests/core/copy/wechat-profile-bridge.test.ts` | profile bridge 测试 |
 
 **明确不做：**
 
@@ -1221,14 +1237,16 @@
 
 **验收标准：**
 
-- [ ] AC-1 已定义 Preview Renderer / Copy Renderer 基础接口（`src/core/renderer/`、`src/core/copy/`）
-- [ ] AC-2 输入契约明确使用 `Article` + `ResolvedArticleStyle` / `ResolvedBlockStyle`
-- [ ] AC-3 `ResolvedBlockStyle` 已展开 renderer 所需 `componentProtocol` 最小字段（或等价 resolved 视图）
-- [ ] AC-4 WeChat profile 文档与代码结构命名差异已最小同步或登记 fallback
-- [ ] AC-5 禁止 html / className / React component 泄漏至 Style 层输出
-- [ ] AC-6 单元测试覆盖接口契约与非法输入
-- [ ] AC-7 `corepack pnpm lint` / `test` / `build` 通过
-- [ ] AC-8 已生成 execution report
+- [x] AC-1 已定义 Preview Renderer / Copy Renderer 基础接口（`src/core/renderer/`、`src/core/copy/`）
+- [x] AC-2 输入契约明确使用 `Article` + `ResolvedArticleStyle` / `ResolvedBlockStyle`
+- [x] AC-3 `ResolvedBlockStyle` 已展开 renderer 所需 `componentProtocol` 最小字段（`enrichResolvedBlockStyleForRenderer` / `ResolvedBlockStyleView`）
+- [x] AC-4 WeChat profile 文档与代码结构命名差异已登记 fallback（`WECHAT_PROFILE_DOC_FIELD_BRIDGE`）
+- [x] AC-5 Renderer 契约不输出 html / className / React component；Style 层未修改
+- [x] AC-6 单元测试覆盖接口契约与非法输入（17 cases）
+- [x] AC-7 `corepack pnpm lint` / `test` / `build` 通过（303 tests）
+- [x] AC-8 已生成 execution report
+- [x] AC-9 未实现具体 block renderer；未启动 S4A-STORY-003
+- [x] AC-10 未 merge 至 sprint / release / main
 
 ---
 
