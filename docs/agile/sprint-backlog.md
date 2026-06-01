@@ -2177,7 +2177,19 @@ image_placeholder：
 
 **技术价值：** 实现 TECH-ARCH-010 / TECH-ARCH-007；VisualAssetRegistry **15~30** 系统内置 icon / shape / mark；校验 family / variant / slot / assetId 白名单。
 
-**优先级：** P0 · **状态：** Todo · **工作分支：** `feature/s3c-visual-asset-protocol-validation`（建议）
+**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s3c-visual-asset-protocol-validation`
+
+**产物：**
+
+- `src/core/styles/visual-assets.ts` — VisualAssetDefinition / VisualAssetRegistry 类型
+- `src/core/styles/visual-asset-schemas.ts` — Zod schema（strict）
+- `src/core/styles/visual-asset-registry.ts` — Release 1 内置 **19** assets + parse / validate / lookup helpers
+- `src/core/styles/block-visual-protocol.ts` — BlockVisualProtocol / ComponentProtocol 构建
+- `src/core/styles/protocol-validation.ts` — ComponentProtocol / BlockVisualProtocol / slot / assetBindings 校验
+- `src/core/styles/style-combination-validation.ts` — Theme / Preset / Density / Slot 组合边界校验
+- `tests/core/styles/visual-asset-registry.test.ts`（11 cases）
+- `tests/core/styles/protocol-validation.test.ts`（14 cases）
+- `tests/core/styles/style-combination-validation.test.ts`（9 cases）
 
 **范围：**
 
@@ -2198,16 +2210,16 @@ image_placeholder：
 
 **验收标准：**
 
-- [ ] AC-1 已从 sprint 创建 `feature/s3c-visual-asset-protocol-validation`
-- [ ] AC-2 VisualAssetRegistry 含 ≥ 15 且 ≤ 30 个 Release 1 系统内置 assets
-- [ ] AC-3 每个 asset 含 assetId / kind / copySafe / fallbackAssetId（如适用）
-- [ ] AC-4 ComponentProtocol / BlockVisualProtocol 校验 helper 已实现
-- [ ] AC-5 Theme / Preset / Density / Slot 组合违规产生明确 StyleValidationIssue
-- [ ] AC-6 未注册 assetId / variantId / familyId 不得 silent allow
-- [ ] AC-7 单元测试 ≥ 20 cases
-- [ ] AC-8 未修改 Preview / Copy Renderer
-- [ ] AC-9 `corepack pnpm lint` / `test` / `build` 通过
-- [ ] AC-10 已生成 execution report
+- [x] AC-1 已从 sprint 创建 `feature/s3c-visual-asset-protocol-validation`
+- [x] AC-2 VisualAssetRegistry 含 ≥ 15 且 ≤ 30 个 Release 1 系统内置 assets（19 assets：icon 9 / shape 5 / mark 4 / divider 1）
+- [x] AC-3 每个 asset 含 assetId / kind / copySafe / fallbackAssetId（如适用）
+- [x] AC-4 ComponentProtocol / BlockVisualProtocol 校验 helper 已实现
+- [x] AC-5 Theme / Preset / Density / Slot 组合违规产生明确 StyleValidationIssue
+- [x] AC-6 未注册 assetId / variantId / familyId 不得 silent allow
+- [x] AC-7 单元测试 ≥ 20 cases（34 新 cases；563 tests total）
+- [x] AC-8 未修改 Preview / Copy Renderer
+- [x] AC-9 `corepack pnpm lint` / `test` / `build` 通过
+- [x] AC-10 已生成 execution report
 
 ---
 

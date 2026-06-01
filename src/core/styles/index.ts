@@ -290,3 +290,76 @@ export type {
   OrchestratorBlockOverrideInput,
   OrchestratorBlockStyleState,
 } from "./style-orchestrator-selection";
+
+export type {
+  VisualAssetDefinition,
+  VisualAssetKind,
+  VisualAssetRegistry,
+  ValidateAssetBindingsOptions,
+  ValidateVisualAssetReferenceOptions,
+} from "./visual-assets";
+
+export { VISUAL_ASSET_KINDS } from "./visual-assets";
+
+export {
+  visualAssetDefinitionSchema,
+  visualAssetKindSchema,
+  visualAssetRegistrySchema,
+} from "./visual-asset-schemas";
+
+export type {
+  VisualAssetDefinitionInput,
+  VisualAssetRegistryInput,
+} from "./visual-asset-schemas";
+
+export {
+  RELEASE1_VISUAL_ASSET_COUNT,
+  RELEASE1_VISUAL_ASSET_REGISTRY,
+  countAssetBindingUsage,
+  getFallbackVisualAsset,
+  getVisualAssetById,
+  isVisualAssetCopySafe,
+  parseVisualAssetRegistry,
+  validateAssetBindingReferences,
+  validateVisualAssetReference,
+  validateVisualAssetRegistry,
+} from "./visual-asset-registry";
+
+export type {
+  BlockVisualProtocol,
+  ComponentProtocol,
+} from "./block-visual-protocol";
+
+export {
+  TITLE_BLOCK_COMPONENT_PROTOCOL,
+  buildBlockVisualProtocol,
+  buildComponentProtocolForBlockType,
+  getRegisteredFamilies,
+  isRegisteredFamilyInRegistry,
+  isRegisteredVariantInRegistry,
+} from "./block-visual-protocol";
+
+export type { ValidateProtocolContext } from "./protocol-validation";
+
+export {
+  validateAssetBindingsCompatibility,
+  validateBlockStyleProtocolBundle,
+  validateBlockVisualProtocol,
+  validateComponentProtocol,
+  validateSlotOverrideCompatibility,
+  validateVariantProtocolCompatibility,
+} from "./protocol-validation";
+
+export type {
+  StyleCombinationValidationContext,
+  ValidatePresetThemeInput,
+} from "./style-combination-validation";
+
+export {
+  resolveThemeForCombination,
+  validateDensityValue,
+  validatePresetDefinition,
+  validatePresetThemeCombination,
+  validateStyleAssignmentBlockOverride,
+  validateThemePresetDensitySlotCombination,
+} from "./style-combination-validation";

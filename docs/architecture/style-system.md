@@ -544,6 +544,9 @@ Experimental Variants：
 
 ### 11.1 ComponentProtocol / BlockVisualProtocol
 
+> **S3C-STORY-004 已实现（校验 helper）** — `block-visual-protocol.ts` · `protocol-validation.ts`  
+> Helpers：`validateComponentProtocol` · `validateBlockVisualProtocol` · `validateVariantProtocolCompatibility` · `validateSlotOverrideCompatibility` · `validateAssetBindingsCompatibility` · `validateBlockStyleProtocolBundle`
+
 **ComponentProtocol / BlockVisualProtocol** 是 Style System 中位于 **semantic block** 与 **VariantDefinition** 之间的**控件协议层**。
 
 ```text
@@ -799,22 +802,32 @@ SlotContentBinding
 
 ### 11.6 VisualAssetRegistry
 
+> **S3C-STORY-004 已实现** — `src/core/styles/visual-assets.ts` · `visual-asset-schemas.ts` · `visual-asset-registry.ts`  
+> 常量：`RELEASE1_VISUAL_ASSET_REGISTRY`（**19** 系统内置 assets：icon 9 / shape 5 / mark 4 / divider 1）  
+> Helpers：`parseVisualAssetRegistry` · `validateVisualAssetRegistry` · `getVisualAssetById` · `isVisualAssetCopySafe` · `getFallbackVisualAsset` · `validateVisualAssetReference` · `validateAssetBindingReferences`
+
 ```text
 VisualAsset
-├── assetId, kind, category, style, density
-├── suitableFor, aspectRatio, defaultColors
+├── assetId, kind, name, label
+├── category?, style?, suitableFor?, aspectRatio?, defaultColors?
 ├── copySafe: boolean
 └── fallbackAssetId?
 ```
 
+**kind 枚举：** `icon` | `shape` | `mark` | `divider`（schema strict；禁止 html / css / className / style 字段）
+
 | 规则 | 说明 |
 |------|------|
-| 白名单 | 不得引用未注册 assetId |
-| 复用 | 同一 assetId 一篇文章默认最多 2 次 |
+| 白名单 | 不得引用未注册 assetId（`visual_asset_not_registered`） |
+| copy-safe | `copySafe=false` 不得进入默认 release1_required path（`visual_asset_not_copy_safe`） |
+| fallback | `fallbackAssetId` 不得指向自身；须指向已注册 asset |
+| 复用 | 同一 assetId 一篇文章默认最多 2 次（R2；结构性计数在 Orchestrator，asset 注册校验在本层补齐） |
 | 密度 | strong density 不得连续高频 |
 | Sprint 3 | **15~30** 系统内置 icon/shape/mark（Release 1 required assets） |
 
 AssetRegistry 属于 Style System，**不属于** Article 内容。
+
+**Protocol / 组合边界（S3C-STORY-004）：** `block-visual-protocol.ts` · `protocol-validation.ts` · `style-combination-validation.ts` — 供 S3C-STORY-005 Validation Pipeline 复用；对照 Sprint 3-B first-wave registry 与 `TitleBlockLayoutCompatibility`。
 
 ### 11.7 StyleOrchestrator / 文章级节奏
 
