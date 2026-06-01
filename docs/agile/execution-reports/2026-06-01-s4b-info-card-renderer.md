@@ -133,7 +133,7 @@
 
 ## 14. Commit Hash
 
-待提交 / not committed
+- 实现 commit：`8ff409c`
 
 ## 15. 分支状态
 
