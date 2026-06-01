@@ -5,7 +5,7 @@
 > **Sprint 3-A：** Style System Contract & Registry Infrastructure · **Closed**（2026-05-31；DECISION-057）
 > **Sprint 3-B：** First-wave Required Variant Registry · **Closed**（2026-06-01；DECISION-059）
 > **Sprint 4-A：** Preview / Copy Renderer for Text-first Blocks · **Closed**（2026-06-01；DECISION-061；audit Grade A；P0=0）
-> **Release 1 主干：** `release/1` · **Sprint 4-A 分支：** `sprint/s4a-text-first-renderer`（DECISION-060）· **下一步：** 用户确认 audit 后关闭 Sprint 4-A
+> **Release 1 主干：** `release/1`（Sprint 4-A 已 merge，DECISION-061）· **Sprint 4-A 分支：** `sprint/s4a-text-first-renderer`（DECISION-060）· **下一步：** Sprint 4-B 未启动（待用户确认）
 
 ---
 
@@ -1168,8 +1168,8 @@
 | Renderer contract audit | ✅ A 级，P0=0，P1=4，P2=1（用户已接受） |
 | lint / test / build | PASS（378 tests） |
 | Sprint 4-A 关闭 | ✅ **已关闭**（2026-06-01） |
-| merge sprint → `release/1` | ✅ 用户已确认执行 |
-| 下一步 | Sprint 4-B 启动（待用户确认） |
+| merge sprint → `release/1` | ✅ 用户已确认执行（`b2efdb2`） |
+| 下一步 | Sprint 4-B 未启动（待用户确认） |
 
 ---
 

@@ -296,14 +296,15 @@
 
 - **日期：** 2026-06-01
 - **背景：**
-  - Sprint 4-A 已完成 S4A-STORY-001~007（text-first Preview / Copy Renderer + contract audit）
-  - Renderer contract audit Grade A，P0=0，P1=4，P2=1
-  - 用户确认关闭 Sprint 4-A 并 merge sprint → `release/1`
+  - S4A-STORY-001~007 全部完成
+  - Sprint 4-A Renderer Contract Audit 完成
+  - audit 结论 Grade A，P0=0，P1=4，P2=1
+  - `corepack pnpm lint` / `test`（378 tests）/ `build` PASS
 - **决策：**
-  1. Sprint 4-A **正式关闭**，状态 **Closed**
-  2. 确认 renderer contract audit **A 级**，P0=0
+  1. 用户接受 Sprint 4-A audit 结论
+  2. Sprint 4-A **正式关闭**
   3. `sprint/s4a-text-first-renderer` **merge 至 `release/1`**
-  4. P1/P2 登记至 Sprint 4-B / 6-A / 6-B / Release 1 hardening，不阻塞关闭
+  4. P1/P2 登记至 Sprint 4-B / 6-A / 6-B / Release 2，不阻塞关闭
   5. **不 merge 至 `main`**
   6. **不自动启动 Sprint 4-B**
 - **关联：** S4A-STORY-007、`sprint4a-renderer-contract-audit.md`
