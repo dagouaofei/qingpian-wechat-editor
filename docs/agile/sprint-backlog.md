@@ -1254,7 +1254,7 @@
 
 **用户故事：** 作为开发者，我需要 title / heading 的 titleBlock Preview / Copy 成对 Renderer，以便 first-wave 6 variants 可在页面预览与微信复制路径中一致呈现。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s4a-title-heading-renderer`
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s4a-title-heading-renderer`（已 merge 至 `sprint/s4a-text-first-renderer` @ `cdeb611`）
 
 **纳入遗留：** P1-S3B-001（text-first 子集保真验证）；P1-S3A-004（componentProtocol 消费）
 
