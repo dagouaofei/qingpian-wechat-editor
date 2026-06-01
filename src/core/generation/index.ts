@@ -221,3 +221,26 @@ export {
   normalizeInputRequest,
   parseAndNormalizeInputRequest,
 } from "./input.normalize";
+
+export type { ApplyValidatedStyleAssignmentPatchResult } from "./style-selection-apply";
+export type {
+  StyleSelectionGenerationInput,
+  StyleSelectionGenerationResult,
+  StyleSelectionProviderMode,
+  StyleSelectionVariantSummary,
+} from "./style-selection";
+
+export {
+  SAFE_STYLE_PRESET_ID,
+  SAFE_STYLE_THEME_ID,
+  applyValidatedStyleAssignmentPatch,
+  applyValidatedStyleSelectionRequest,
+  buildSafeFallbackStyleAssignmentPatch,
+  buildStyleSelectionRequestFromArticle,
+  generateAndApplyStyleSelection,
+  generateDeterministicStyleSelection,
+  generateStyleAssignmentPatch,
+  generateStyleSelectionRequest,
+  validateStyleIntentForGeneration,
+  verifyArticleStyleResolvable,
+} from "./style-selection";

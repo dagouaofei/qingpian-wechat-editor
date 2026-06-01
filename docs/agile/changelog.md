@@ -301,3 +301,13 @@
 | 2026-06-02 | Sprint 5 | Volcengine provider 接入 enrichment；forbidden 字段剥离 + warning；smoke summary 增加 finalization / enrichment 字段 | 代码 / 工具 | S5-STORY-005B |
 | 2026-06-02 | Sprint 5 | 真实 API smoke **PASSED**（eventCount 7；finalizationStatus passed；enrichmentWarningCount 0） | 验收 | S5-STORY-005, S5-STORY-005A, S5-STORY-005B |
 | 2026-06-02 | Sprint 5 | S5-STORY-005 / 005A / 005B 已 merge 至 `sprint/s5-generation-ui-main-flow`（`7421089` / `d77d3d0` / `532f685`） | 敏捷 | S5-STORY-005~005B |
+
+---
+
+## 2026-06-02 · S5-STORY-006 AI Style Selection Pipeline
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-02 | Sprint 5 | 新增 generation style selection 链路：StyleSelectionRequest / StyleAssignmentPatch → Sprint 3-C validation → Article.styleAssignment | 代码 / 架构 | S5-STORY-006 |
+| 2026-06-02 | Sprint 5 | deterministic + model_assisted 模式；非法 variant / forbidden 字段 / invalid model output → safe preset fallback | 代码 / 测试 | S5-STORY-006 |
+| 2026-06-02 | Sprint 5 | S5-STORY-006 In Review；S5-STORY-007~008 仍 Planned；未实现 `/generate` UI | 敏捷 | S5-STORY-006 |

@@ -2337,7 +2337,7 @@ S3C-STORY-001（启动）
 > **Sprint 5 分支：** `sprint/s5-generation-ui-main-flow`（从 `release/1` 切出，DECISION-067）
 > **Release 1 主干：** `release/1`
 > **UI 主流程入口：** **`/generate`**（真实业务页面；S5-STORY-007 实现）
-> **下一步：** S5-STORY-006 受控 AI 样式选择 → S5-STORY-007 `/generate` UI；不 merge `main`
+> **下一步：** S5-STORY-006 审查 / merge → S5-STORY-007 `/generate` UI；不 merge `main`
 > **Sprint 5 不做：** 真实微信公众号 Paste QA 全量回归、不宣称复制到公众号最终保真通过、Style Gallery、真实 QR / 小程序 / 图片上传托管 / AI 生图、复杂编辑器 / block 级编辑、样式市场、merge 至 `main`
 > **保留原则：** 真实 Paste QA 归 Sprint 6-B；Fixture Triple / PasteTestRecord 归 Sprint 6-A / 6-B；Sprint 5 UI smoke test 不替代微信公众号 Paste QA
 
@@ -2351,7 +2351,7 @@ S5-STORY-004 done.article 归一与 Article Schema 校验 — Done
 S5-STORY-005 真实模型 Provider 对接（Volcengine / Doubao）— Done
 S5-STORY-005A Volcengine / Doubao Provider Dev-only Real API Smoke — Done
 S5-STORY-005B Model Article Candidate Enrichment + Real API Smoke Re-run — Done
-S5-STORY-006 受控 AI 样式选择生成与 validation pipeline 接入 — Planned
+S5-STORY-006 受控 AI 样式选择生成与 validation pipeline 接入 — In Review
 S5-STORY-007 Release 1 主流程真实 UI 页面集成（/generate）— Planned
 S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Planned
 ```
@@ -2630,18 +2630,34 @@ S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Planned
 
 **用户故事：** 作为开发者，我需要在 Generation 链路中生成 StyleSelectionRequest / StyleAssignmentPatch，并通过 Sprint 3-C validation pipeline 后写入 Article.styleAssignment。
 
-**优先级：** P0 · **状态：** Planned
+**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s5-ai-style-selection`
 
-**目标：** 生成 StyleSelectionRequest / StyleAssignmentPatch，并通过 Sprint 3-C validation pipeline 后写入 `Article.styleAssignment`。
+**目标：** 生成 StyleSelectionRequest / StyleAssignmentPatch，并通过 Sprint 3-C validation pipeline 后写入 `Article.styleAssignment`；不实现 `/generate` UI。
 
-**验收标准（草案）：**
+**实际产物：**
 
-- [ ] AC-1 Generation 产出 StyleSelectionRequest / StyleAssignmentPatch
-- [ ] AC-2 所有样式建议必须经 `validateStyleSelectionPipeline`；不得绕过 Style System
-- [ ] AC-3 校验通过后 patch 写入 `Article.styleAssignment`；不 mutate blocks 内容语义
-- [ ] AC-4 校验失败有明确 issue / fallback 路径
-- [ ] AC-5 单元测试覆盖 valid / invalid / fallback 路径
-- [ ] AC-6 `corepack pnpm lint` / `test` / `build` 通过
+| 路径 | 说明 |
+|------|------|
+| `src/core/generation/style-selection.ts` | 样式选择主入口 |
+| `src/core/generation/style-selection-prompt.ts` | styleIntent heuristics / forbidden 字段检查 |
+| `src/core/generation/style-selection-apply.ts` | validation pipeline + StyleResolver 接入 |
+| `tests/core/generation/style-selection.test.ts` | 14 cases |
+| `tests/fixtures/generation/style-selection.ts` | fixtures |
+
+**明确不做：**
+
+- 不实现 `/generate` UI（S5-STORY-007）
+- 不修改 Article / Block Schema 主契约
+- 不让模型直接输出 HTML / CSS / 未注册 variant
+
+**验收标准：**
+
+- [x] AC-1 Generation 产出 StyleSelectionRequest / StyleAssignmentPatch
+- [x] AC-2 所有样式建议经 `validateStyleSelectionPipeline`；不 bypass Style System
+- [x] AC-3 校验通过后 patch 写入 `Article.styleAssignment`；不 mutate block.content
+- [x] AC-4 校验失败有明确 issue / safe preset fallback
+- [x] AC-5 单元测试覆盖 valid / invalid / fallback（14 cases）
+- [x] AC-6 `corepack pnpm lint` / `test` / `build` 通过（723 tests）
 
 ---
 

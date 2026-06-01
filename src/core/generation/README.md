@@ -1,6 +1,6 @@
 # Generation 模块
 
-> 状态：Sprint 5 进行中 · S5-STORY-002 ~ S5-STORY-005B Done · S5-STORY-006~008 Planned
+> 状态：Sprint 5 进行中 · S5-STORY-002 ~ S5-STORY-006 In Review · S5-STORY-007~008 Planned
 
 ## 职责
 
@@ -68,6 +68,18 @@ corepack pnpm smoke:volcengine-provider
 ```
 
 详见 `docs/agile/smoke/s5-volcengine-provider-smoke.md`。不接入 `pnpm test` / CI。
+
+### S5-STORY-006 — 受控 AI 样式选择 + Validation Pipeline 接入
+
+| 路径 | 说明 |
+|------|------|
+| `style-selection.ts` | `generateStyleSelectionRequest` / `generateStyleAssignmentPatch` / `generateAndApplyStyleSelection` |
+| `style-selection-prompt.ts` | styleIntent → first-wave variant heuristics（deterministic / model_assisted 输入） |
+| `style-selection-apply.ts` | `applyValidatedStyleAssignmentPatch` → Sprint 3-C `validateStyleSelectionPipeline` + `StyleResolver` 校验 |
+
+**链路：** finalized `Article` + `NormalizedInput` → StyleSelectionRequest / StyleAssignmentPatch → `validateStyleSelectionPipeline` → `Article.styleAssignment` → `resolveArticleStyle`
+
+**Fallback：** 非法 model patch / 未注册 variant / preview_only → safe preset（`classic-news` + orchestrator 默认），仍走同一 validation pipeline。
 
 **旧项目经验：** 当前仓库仅保留 SSE + `done.article` 归一经验（见 `docs/agile/migration-reference.md`）；旧一键成稿 Volcengine / `mapArkJsonToArticle` 源码不可访问，本轮按轻篇 Article Schema 实现 provider 契约，不复用旧 parallel 模型。
 
