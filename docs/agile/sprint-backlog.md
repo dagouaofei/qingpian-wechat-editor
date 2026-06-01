@@ -5,8 +5,8 @@
 > **Sprint 3-A：** Style System Contract & Registry Infrastructure · **Closed**（2026-05-31；DECISION-057）
 > **Sprint 3-B：** First-wave Required Variant Registry · **Closed**（2026-06-01；DECISION-059）
 > **Sprint 4-A：** Preview / Copy Renderer for Text-first Blocks · **Closed**（2026-06-01；DECISION-061；audit Grade A；P0=0）
-> **Sprint 4-B：** Preview / Copy Renderer for Structured Blocks · **Close Readiness**（DECISION-062；audit Grade A；P0=0；待用户确认是否关闭）
-> **Release 1 主干：** `release/1` · **Sprint 4-B 分支：** `sprint/s4b-structured-block-renderer`（DECISION-062）
+> **Sprint 4-B：** Preview / Copy Renderer for Structured Blocks · **Closed**（2026-06-01；DECISION-063；audit Grade A；P0=0）
+> **Release 1 主干：** `release/1` · **Sprint 4-B 分支：** `sprint/s4b-structured-block-renderer`（DECISION-063；已确认 merge 至 `release/1`）
 
 ---
 
@@ -1501,10 +1501,22 @@
 # Sprint 4-B Backlog
 
 > **Sprint 4-B 目标：** Preview / Copy Renderer for **structured blocks**（list / quote / highlight / info_card / cta / image_placeholder）；使用 Sprint 3-B first-wave required variants；完成 first-wave 33 variants 最小 Paste QA **计划**（Not Run）
-> **Sprint 4-B 状态：** **Close Readiness**（DECISION-062；audit Grade A；P0=0；待用户确认是否关闭）
+> **Sprint 4-B 状态：** **Closed**（2026-06-01；DECISION-063；audit Grade A；P0=0）
 > **Sprint 4-B 分支：** `sprint/s4b-structured-block-renderer`（从 `release/1` 切出，DECISION-062）
 > **Sprint 4-B 前置遗留（须纳入 planning）：** P1-005、P1-S3B-003、P1-S3B-005、P1-S4A-002、P1-S4A-003、P2-S4A-001（见下方登记表）
 > **Sprint 4-B 不做：** AI Style Selection、Generation / Streaming、VisualAssetRegistry 全量 assets、StyleOrchestrator、真实微信公众号 Paste QA 全量执行、Style Gallery、业务页面、真实 QR / 外链 / 小程序 / 图片上传托管
+
+**Sprint 4-B 关闭摘要（DECISION-063）：**
+
+| 项 | 状态 |
+|----|------|
+| S4B-STORY-001~007 | Done |
+| Renderer Contract Audit | Grade A，P0=0，P1=4，P2=2 |
+| lint / test / build | PASS（491 tests） |
+| Sprint 4-B 关闭 | ✅ 用户已确认 |
+| merge sprint → `release/1` | ✅ 用户已确认执行 |
+| 真实 Paste QA | Not Run，归 Sprint 6-B |
+| 下一步 | 待用户确认；不自动启动 Sprint 5 / Sprint 3-C / Sprint 6-A |
 
 ---
 
@@ -1940,7 +1952,7 @@ image_placeholder：
 
 **用户故事：** 作为产品负责人，我需要在 Sprint 4-B 完成后做 Renderer 契约 audit，确认 structured blocks Preview / Copy Renderer 与 architecture / style-system / copy-to-wechat 一致，并准备是否关闭 Sprint 4-B。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `docs/s4b-renderer-contract-audit-close-readiness`
+**优先级：** P0 · **状态：** Done · **工作分支：** `docs/s4b-renderer-contract-audit-close-readiness`（已 merge 至 `sprint/s4b-structured-block-renderer` @ `4622a9c`）
 
 **明确不做：**
 
@@ -1966,6 +1978,7 @@ image_placeholder：
 - P2：**2**
 - 建议：Sprint 4-B 进入 **Close Readiness**，但不由 Cursor 关闭；关闭需用户确认。
 - 真实微信公众号 Paste QA：**Not Run**，后续归 Sprint 6-B。
+- 关闭状态：用户已确认关闭 Sprint 4-B（DECISION-063）。
 
 **验收标准：**
 

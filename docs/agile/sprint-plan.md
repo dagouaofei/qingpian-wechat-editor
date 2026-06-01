@@ -331,7 +331,7 @@
 | P1-S4A-004 | InlineMark color 与 Style registry 完整 cross-registry 校验仍未完成 | Sprint 6 / Release 1 hardening |
 | P2-S4A-001 | Style Gallery / 人工视觉验收入口仍缺失 | Sprint 6 / Release 2 |
 
-### Sprint 4-B：Preview / Copy Renderer for Structured Blocks — **Close Readiness**（DECISION-062；audit Grade A；P0=0）
+### Sprint 4-B：Preview / Copy Renderer for Structured Blocks — **Closed**（2026-06-01；DECISION-063；audit Grade A；P0=0）
 
 **分支：** `sprint/s4b-structured-block-renderer`（从 `release/1` 切出，DECISION-062）
 
@@ -375,15 +375,18 @@
 - S4B-STORY-001~006：全部 Done 且 merge 至 `sprint/s4b-structured-block-renderer`
 - 验证：`corepack pnpm lint` / `test`（491 tests）/ `build` PASS
 
-**Close Readiness 结论：**
+**关闭结论（DECISION-063）：**
 
 - structured blocks Preview / Copy Renderer **最小闭环完成**
 - list / quote / highlight / info_card / cta / image_placeholder 已覆盖 18 structured first-wave variants
 - structured Copy HTML snapshot seed 已建立
 - Release 1 first-wave 33 variants 最小 Paste QA plan 已建立
 - Paste QA 状态全部为 **Not Run**，不代表真实公众号粘贴通过
-- Sprint 4-B 已进入 Close Readiness；是否关闭 Sprint 4-B 需用户确认
-- 范围：未执行真实 Paste QA、未关闭 Sprint、未 merge 至 `release/1` / `main`、未启动 Sprint 5 / Sprint 3-C / Sprint 6-A
+- Sprint 4-B 已关闭；`sprint/s4b-structured-block-renderer` 已由用户确认 merge 至 `release/1`
+- 范围：未执行真实 Paste QA、未 merge 至 `main`、未启动 Sprint 5 / Sprint 3-C / Sprint 6-A
+- Sprint 6-A / 6-B 仍负责 fixture triple / first-wave Paste QA regression
+- Sprint 3-C 仍未取消，但不在本轮自动启动
+- Sprint 5 不在本轮自动启动
 
 ### Sprint 4-B audit P1/P2 登记（不阻塞 Close Readiness）
 
