@@ -54,10 +54,11 @@
 | **用户确认** | Checklist #10：已确认接受 B 级 final audit；Checklist #11：已确认可以关闭 Sprint 1-B |
 | **Sprint 2** | **Closed**（2026-05-31；DECISION-054） |
 | **Sprint 3-A** | **Closed**（2026-05-31；DECISION-057） |
-| **Sprint 3-B** | **In Progress**（2026-05-31；DECISION-058） |
-| **Release 1 主干** | `release/1`（Sprint 3-A 已 merge，DECISION-057） |
-| **Sprint 3-B 分支** | `sprint/s3b-first-wave-variant-registry`（从 `release/1` 切出） |
-| **下一步** | S3B-STORY-002：titleBlock mapping + slot copySafety 收口 |
+| **Sprint 3-B** | **Closed**（2026-06-01；DECISION-059） |
+| **Sprint 4-A** | **Closed**（2026-06-01；DECISION-061） |
+| **Release 1 主干** | `release/1`（Sprint 4-A 已 merge，DECISION-061） |
+| **Sprint 4-A 分支** | `sprint/s4a-text-first-renderer`（已 merge 至 `release/1`） |
+| **下一步** | 启动 Sprint 4-B（待用户确认） |
 
 ---
 
@@ -171,6 +172,7 @@
 
 > **Sprint 3-A 状态：Closed**（2026-05-31；DECISION-057）
 > **Sprint 3-B 状态：Closed**（2026-06-01；DECISION-059；contract audit **A**，P0=0；分支 `sprint/s3b-first-wave-variant-registry` 已 merge 至 `release/1`）
+> **Sprint 4-A 状态：Closed**（2026-06-01；DECISION-061；contract audit **A**，P0=0；分支 `sprint/s4a-text-first-renderer` 已 merge 至 `release/1`）
 >
 > 业务功能实现必须在核心技术方案 + 实现前契约完成之后进入（DECISION-015、DECISION-029~045、DECISION-051）。
 
@@ -250,7 +252,7 @@
 - lint / test / build PASS（286 tests）
 - 未越界实现 Preview / Copy / Paste QA / AI / VisualAssetRegistry / StyleOrchestrator / Generation
 - 用户已确认关闭 Sprint 3-B，并确认 merge sprint → `release/1`
-- **Sprint 4-A 未启动**
+- **Sprint 4-A 已启动**（DECISION-060）
 
 ### Sprint 3-B audit P1/P2 登记（不阻塞关闭）
 
@@ -263,7 +265,9 @@
 | P1-S3B-005 | optional slot 字段需 Renderer 明确 disabled/fallback 行为 | Sprint 4-B |
 | P2-S3B-001 ~ P2-S3B-003 | 见 `sprint3b-contract-audit.md` §11 | Sprint 4~6 / Release 2 |
 
-### Sprint 3-C：VisualAssetRegistry + AI Style Selection Validation + Orchestrator
+### Sprint 3-C：VisualAssetRegistry + AI Style Selection Validation + Orchestrator — **未取消 · 延后**
+
+> **说明：** Sprint 3-C **未取消**，仅因 Sprint 4 Renderer 验收优先级后置。建议在 **Sprint 5 前**或 **Sprint 4-A / 4-B 完成后再启动**（DECISION-060）。
 
 **目标：**
 
@@ -273,15 +277,50 @@
 - StyleOrchestrator 最小规则 R1 / R2 / R8
 - **expansion variants 规划**（不要求全部实现）
 
-### Sprint 4-A：Preview / Copy Renderer for Text-first Blocks
+### Sprint 4-A：Preview / Copy Renderer for Text-first Blocks — **Closed**（2026-06-01）
 
-> **建议下一步（未启动）：** Sprint 4-A 聚焦 Preview / Copy Renderer for Text-first Blocks；启动需用户另行确认。
+**分支：** `sprint/s4a-text-first-renderer`（从 `release/1` 切出，DECISION-060；已 merge 至 `release/1`，DECISION-061）
+
+**Stories：** S4A-STORY-001（启动）~ S4A-STORY-007（audit）— 见 `sprint-backlog.md`
 
 **目标：**
 
 - title / lead / heading / paragraph / divider 成对 Preview / Copy
-- 使用 **first-wave** required variants
-- 启动最小 Paste QA
+- 使用 Sprint 3-B **first-wave** required variants
+- 建立 Preview / Copy 成对 Renderer 实现边界
+- 启动最小 Paste QA seed（非完整 33 variants QA）
+
+**不做：**
+
+- structured blocks（list / quote / highlight / info_card / cta / image_placeholder）
+- AI Style Selection / Generation / Streaming
+- VisualAssetRegistry 全量 assets / StyleOrchestrator
+- 完整 33 variants Paste QA
+
+**登记 P1/P2：** P1-S3B-001~002、P1-S3B-004、P2-S3B-002~003、P1-S3A-004、P1-CODE-002
+
+**Audit / Close Readiness 摘要（S4A-STORY-007）：**
+
+- Audit 文档：`docs/architecture/audits/sprint4a-renderer-contract-audit.md`
+- Grade：**A**
+- P0：0
+- P1：4
+- P2：1
+- S4A-STORY-002~006：全部 Done 且 merge 至 `sprint/s4a-text-first-renderer`
+- 验证：`corepack pnpm lint` / `test`（378 tests）/ `build` PASS
+- 范围：未实现 structured blocks、业务页面、Clipboard API、真实 Paste QA、AI Style Selection、Generation / Streaming、Style Gallery
+- Sprint 4-A 已关闭（DECISION-061）；`sprint/s4a-text-first-renderer` 已 merge 至 `release/1`
+- 下一步建议：启动 Sprint 4-B（待用户确认）
+
+### Sprint 4-A audit P1/P2 登记（不阻塞 Close Readiness）
+
+| ID | 问题 | 建议 Sprint / 归属 |
+|----|------|-------------------|
+| P1-S4A-001 | 尚未执行真实微信公众号 Paste QA | Sprint 6-B / Paste QA 回归 |
+| P1-S4A-002 | `balanced` copySafety variants 仍需粘贴细节验证 | Sprint 4-B / 6-B |
+| P1-S4A-003 | Copy HTML snapshot seed 仅覆盖 6 个代表 variants，未覆盖全部 15 个已实现 text-first variants | Sprint 6-A / 6-B |
+| P1-S4A-004 | InlineMark color 与 Style registry 完整 cross-registry 校验仍未完成 | Sprint 6 / Release 1 hardening |
+| P2-S4A-001 | Style Gallery / 人工视觉验收入口仍缺失 | Sprint 6 / Release 2 |
 
 ### Sprint 4-B：Preview / Copy Renderer for Structured Blocks
 

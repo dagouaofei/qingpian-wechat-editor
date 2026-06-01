@@ -154,3 +154,20 @@
 | 2026-06-01 | Sprint 3-B | Sprint 3-B contract audit（grade A，P0=0）；Close Readiness | 架构 / 敏捷 | S3B-STORY-007 |
 | 2026-06-01 | Sprint 3-B | 用户确认接受 Sprint 3-B contract audit（grade A，P0=0，P1=5，P2=3）；33 variants coverage 完整 | 敏捷 / 架构 | S3B-STORY-007, DECISION-059 |
 | 2026-06-01 | Sprint 3-B | Sprint 3-B 正式关闭；merge `sprint/s3b-first-wave-variant-registry` → `release/1`（`9040ef9`） | Git / 敏捷 | S3B-STORY-007, DECISION-059 |
+
+---
+
+## 2026-06-01 · Sprint 4-A
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-01 | Sprint 4-A | **正式启动 Sprint 4-A**；范围 Preview / Copy Renderer for Text-first Blocks | 敏捷 / 架构 | S4A-STORY-001, DECISION-060 |
+| 2026-06-01 | Sprint 4-A | 从 `release/1` 建立 `sprint/s4a-text-first-renderer` | Git | DECISION-060 |
+| 2026-06-01 | Sprint 4-A | 新增 Sprint 4-A Backlog S4A-STORY-001~007 | 敏捷 | S4A-STORY-001 |
+| 2026-06-01 | Sprint 4-A | 修正 Sprint 3-B 状态漂移；同步 sprint-plan / product-backlog | 敏捷 | S4A-STORY-001 |
+| 2026-06-01 | Sprint 4-A | Sprint 3-B audit 遗留中与 4-A 相关项纳入 Sprint 4-A planning | 架构 / 敏捷 | DECISION-060 |
+| 2026-06-01 | Sprint 4-A | 明确 Sprint 3-C 未取消、仅延后（建议在 Sprint 5 前或 4-A/4-B 后启动） | 敏捷 | DECISION-060 |
+| 2026-06-01 | Sprint 4-A | 完成 text-first Preview / Copy Renderer 系列交付（S4A-STORY-002~006）并合并至 sprint 分支 | Renderer / Copy / 测试 | S4A-STORY-002~006 |
+| 2026-06-01 | Sprint 4-A | 完成 Sprint 4-A Renderer Contract Audit；Grade A，P0=0，P1=4，P2=1；Sprint 4-A 进入 Close Readiness，待用户确认关闭 | 架构 / 敏捷 | S4A-STORY-007 |
+| 2026-06-01 | Sprint 4-A | 用户确认接受 Sprint 4-A renderer contract audit（grade A，P0=0，P1=4，P2=1） | 敏捷 / 架构 | S4A-STORY-007, DECISION-061 |
+| 2026-06-01 | Sprint 4-A | Sprint 4-A 正式关闭；merge `sprint/s4a-text-first-renderer` → `release/1` | Git / 敏捷 | S4A-STORY-007, DECISION-061 |

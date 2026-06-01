@@ -1,0 +1,195 @@
+import type { HeadingBlock, TitleBlock } from "@/core/blocks";
+
+import { assertCopySafeHtml, escapeHtml } from "./html-escape";
+import { wrapInlineElement } from "./inline-style";
+import type { TitleBlockCopyOutput } from "@/core/renderer/types";
+import {
+  extractTitleBlockText,
+  getSlotContent,
+  resolveCopySafety,
+  resolveLayoutMode,
+  resolveTitleBlockSlotContents,
+  resolveTitleBlockTypography,
+} from "@/core/renderer/text-style";
+import type { BlockRenderContext } from "@/core/renderer/types";
+
+function titleParagraphHtml(text: string, typography: ReturnType<typeof resolveTitleBlockTypography>): string {
+  return wrapInlineElement(
+    "p",
+    {
+      margin: "0",
+      color: typography.color,
+      fontSize: typography.fontSize,
+      fontWeight: typography.fontWeight,
+      lineHeight: typography.lineHeight,
+    },
+    escapeHtml(text),
+  );
+}
+
+function renderPlainCopy(
+  text: string,
+  typography: ReturnType<typeof resolveTitleBlockTypography>,
+  align: "left" | "center",
+): string {
+  return wrapInlineElement(
+    "section",
+    {
+      margin: `${typography.marginBlock} 0`,
+      textAlign: align,
+    },
+    titleParagraphHtml(text, { ...typography, textAlign: align }),
+  );
+}
+
+function renderLeftBarCopy(
+  text: string,
+  typography: ReturnType<typeof resolveTitleBlockTypography>,
+): string {
+  return wrapInlineElement(
+    "section",
+    {
+      margin: `${typography.marginBlock} 0`,
+      borderLeft: "4px solid #333333",
+      paddingLeft: "12px",
+    },
+    titleParagraphHtml(text, { ...typography, textAlign: "left" }),
+  );
+}
+
+function renderBottomLineCopy(
+  text: string,
+  typography: ReturnType<typeof resolveTitleBlockTypography>,
+): string {
+  return wrapInlineElement(
+    "section",
+    {
+      margin: `${typography.marginBlock} 0`,
+      textAlign: "center",
+      paddingBottom: "8px",
+      borderBottom: "1px solid #cccccc",
+    },
+    titleParagraphHtml(text, typography),
+  );
+}
+
+function renderNumberedCopy(
+  text: string,
+  typography: ReturnType<typeof resolveTitleBlockTypography>,
+  indexLabel: string | undefined,
+): string {
+  const prefix = indexLabel ? `${escapeHtml(indexLabel)} ` : "";
+  return wrapInlineElement(
+    "section",
+    {
+      margin: `${typography.marginBlock} 0`,
+    },
+    wrapInlineElement(
+      "p",
+      {
+        margin: "0",
+        color: typography.color,
+        fontSize: typography.fontSize,
+        fontWeight: typography.fontWeight,
+        lineHeight: typography.lineHeight,
+      },
+      `${prefix}${escapeHtml(text)}`,
+    ),
+  );
+}
+
+function renderTopBadgeCopy(
+  text: string,
+  typography: ReturnType<typeof resolveTitleBlockTypography>,
+  badgeText: string | undefined,
+): string {
+  const badgeHtml =
+    badgeText != null && badgeText.length > 0
+      ? wrapInlineElement(
+          "p",
+          {
+            margin: "0 0 4px 0",
+            color: "#666666",
+            fontSize: "12px",
+            lineHeight: "1.4",
+            textAlign: "center",
+          },
+          escapeHtml(badgeText),
+        )
+      : "";
+
+  return wrapInlineElement(
+    "section",
+    {
+      margin: `${typography.marginBlock} 0`,
+      textAlign: "center",
+    },
+    `${badgeHtml}${titleParagraphHtml(text, typography)}`,
+  );
+}
+
+export function renderTitleBlockCopyHtml(
+  context: BlockRenderContext,
+): TitleBlockCopyOutput {
+  const block = context.block as TitleBlock | HeadingBlock;
+  const layoutMode = resolveLayoutMode(context.resolvedBlockStyle);
+
+  if (layoutMode == null) {
+    throw new Error("layoutMode is required for titleBlock copy");
+  }
+
+  const typography = resolveTitleBlockTypography(
+    context.resolvedBlockStyle,
+    block.type,
+  );
+  const slots = resolveTitleBlockSlotContents(
+    block,
+    context.resolvedBlockStyle,
+    context.slotStates,
+  );
+  const text = extractTitleBlockText(block);
+  const badge = getSlotContent(slots, "badge");
+
+  let html: string;
+
+  switch (layoutMode) {
+    case "plain":
+      html = renderPlainCopy(
+        text,
+        typography,
+        block.type === "title" ? "center" : "left",
+      );
+      break;
+    case "left_bar":
+      html = renderLeftBarCopy(text, typography);
+      break;
+    case "bottom_line":
+      html = renderBottomLineCopy(text, typography);
+      break;
+    case "numbered":
+      html = renderNumberedCopy(text, typography, badge?.content);
+      break;
+    case "top_badge":
+      html = renderTopBadgeCopy(text, typography, badge?.content);
+      break;
+    default:
+      throw new Error(`unsupported titleBlock layoutMode for copy: ${layoutMode}`);
+  }
+
+  assertCopySafeHtml(html);
+
+  return {
+    kind: "title_block_copy_html",
+    blockId: block.id,
+    blockType: block.type,
+    variantId: context.resolvedBlockStyle.variantId,
+    layoutMode,
+    html,
+    copySafety: resolveCopySafety(context.resolvedBlockStyle),
+  };
+}
+
+export function copyHtmlUsesInlineStyleOnly(html: string): boolean {
+  assertCopySafeHtml(html);
+  return html.includes("style=") && !html.includes('class="');
+}

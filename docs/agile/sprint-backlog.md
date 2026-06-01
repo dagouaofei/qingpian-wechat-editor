@@ -3,8 +3,9 @@
 > **Sprint 1：** 正式项目启动、核心技术方案定稿与工程治理 · Sprint 1-A / 1-B：**Closed**
 > **Sprint 2：** Article / Block Schema + InlineContent 代码契约 · **Closed**（2026-05-31；DECISION-054）
 > **Sprint 3-A：** Style System Contract & Registry Infrastructure · **Closed**（2026-05-31；DECISION-057）
-> **Sprint 3-B：** First-wave Required Variant Registry · **In Progress**
-> **Release 1 主干：** `release/1` · **Sprint 3-B 分支：** `sprint/s3b-first-wave-variant-registry`（DECISION-058）
+> **Sprint 3-B：** First-wave Required Variant Registry · **Closed**（2026-06-01；DECISION-059）
+> **Sprint 4-A：** Preview / Copy Renderer for Text-first Blocks · **Closed**（2026-06-01；DECISION-061；audit Grade A；P0=0）
+> **Release 1 主干：** `release/1` · **Sprint 4-A 分支：** `sprint/s4a-text-first-renderer`（DECISION-060）· **下一步：** 用户确认 audit 后关闭 Sprint 4-A
 
 ---
 
@@ -886,7 +887,7 @@
 | Sprint 3-A 范围未越界 | ✅ |
 | Sprint 3-A 关闭 | ✅ **已关闭**（2026-05-31） |
 | merge sprint → `release/1` | ✅ 用户已确认执行 |
-| 下一步 | Sprint 3-B：First-wave Required Variant Registry（**In Progress**，DECISION-058） |
+| 下一步 | Sprint 4-A：Preview / Copy Renderer for Text-first Blocks（**In Progress**，DECISION-060） |
 
 ---
 
@@ -897,7 +898,22 @@
 > **Sprint 3-B 分支：** `sprint/s3b-first-wave-variant-registry`（从 `release/1` 切出，DECISION-058）
 > **Sprint 3-B 前置遗留（须纳入 planning）：** P1-S3A-001（§11.4 layoutMode 映射）、P2-S3A-002（slot 级 copySafety）
 > **Sprint 3-B 不做：** Preview / Copy Renderer、Paste QA、AI Style Selection 生成、VisualAssetRegistry 全量 assets、StyleOrchestrator、Generation / Streaming
-> **Sprint 3-B Close Readiness：** 用户已确认；S3B-STORY-001~007 全部 Done；不启动 Sprint 4-A
+> **Sprint 3-B Close Readiness：** 用户已确认；S3B-STORY-001~007 全部 Done；`sprint/s3b-first-wave-variant-registry` 已 merge 至 `release/1`（DECISION-059）
+
+---
+
+## Sprint 3-B Close Readiness
+
+> **状态：已关闭**（2026-06-01；用户确认；DECISION-059）
+
+| 项 | 状态 |
+|----|------|
+| S3B-STORY-001~007 | Done |
+| Contract audit | ✅ A 级，P0=0，P1=5，P2=3（用户已接受） |
+| lint / test / build | PASS（286 tests） |
+| Sprint 3-B 关闭 | ✅ **已关闭**（2026-06-01） |
+| merge sprint → `release/1` | ✅ 用户已确认执行（`9040ef9`） |
+| 下一步 | Sprint 4-A 启动（DECISION-060） |
 
 ---
 
@@ -1127,5 +1143,356 @@
 - [x] AC-6 已生成 execution report
 - [x] AC-7 未自行关闭 Sprint 3-B
 - [x] AC-8 未 merge 至 `release/1` / `main`
+
+---
+
+# Sprint 4-A Backlog
+
+> **Sprint 4-A 目标：** Preview / Copy Renderer for **text-first blocks**（title / lead / heading / paragraph / divider）；使用 Sprint 3-B first-wave required variants；建立 Preview / Copy 成对 Renderer 实现边界；启动最小 Paste QA seed
+> **Sprint 4-A 状态：** **Closed**（2026-06-01；用户确认；DECISION-061）
+> **Sprint 4-A 分支：** `sprint/s4a-text-first-renderer`（从 `release/1` 切出，DECISION-060；已 merge 至 `release/1`）
+> **Sprint 4-A 前置遗留（须纳入 planning）：** P1-S3B-001、P1-S3B-002、P1-S3B-004、P2-S3B-002、P2-S3B-003 / P1-CODE-002、P1-S3A-004（见下方登记表）
+> **Sprint 4-A 不做：** structured blocks（list / quote / highlight / info_card / cta / image_placeholder）、AI Style Selection、Generation / Streaming、完整 33 variants Paste QA、VisualAssetRegistry 全量 assets、StyleOrchestrator
+
+> **Sprint 4-A Close Readiness：** 用户已确认；S4A-STORY-001~007 全部 Done；`sprint/s4a-text-first-renderer` 已 merge 至 `release/1`（DECISION-061）
+
+---
+
+## Sprint 4-A Close Readiness
+
+> **状态：已关闭**（2026-06-01；用户确认；DECISION-061）
+
+| 项 | 状态 |
+|----|------|
+| S4A-STORY-001~007 | Done |
+| Renderer contract audit | ✅ A 级，P0=0，P1=4，P2=1（用户已接受） |
+| lint / test / build | PASS（378 tests） |
+| Sprint 4-A 关闭 | ✅ **已关闭**（2026-06-01） |
+| merge sprint → `release/1` | ✅ 用户已确认执行 |
+| 下一步 | Sprint 4-B 启动（待用户确认） |
+
+---
+
+## Sprint 4-A 前置遗留登记（须纳入 planning）
+
+| ID | 问题 | 纳入 Story | 说明 |
+|----|------|------------|------|
+| **P1-S3B-001** | 33 variants 尚未经过 Preview / Copy Renderer 实际保真验证 | S4A-STORY-003~006 | Sprint 4-A 先验证 text-first blocks |
+| **P1-S3B-002** | `balanced` copySafety variants 可能在微信粘贴中出现细节差异 | S4A-STORY-006 | 启动最小 Paste QA seed |
+| **P1-S3B-004** | 缺少 style quality gallery / 人工视觉验收入口 | 登记 · 后续 gallery / QA 支撑 | 不必 Sprint 4-A 实现 |
+| **P2-S3B-002** | WeChat profile 文档字段与代码结构仍有轻微命名差异 | S4A-STORY-002 | Sprint 4-A 前置处理 |
+| **P2-S3B-003 / P1-CODE-002** | InlineMark color 与 Style ColorTokenRef 跨模块校验未打通 | S4A-STORY-004 | copy-safe CSS 映射前置 |
+| **P1-S3A-004** | ResolvedBlockStyle 未展开 componentProtocol | S4A-STORY-002 / S4A-STORY-003 | Renderer 输入契约 |
+
+---
+
+## S4A-STORY-001 Sprint 4-A 启动与 Backlog 拆分
+
+**用户故事：** 作为产品负责人，我需要正式启动 Sprint 4-A 并拆分 Backlog，以便团队在明确边界下按 Story 逐步实现 text-first Preview / Copy Renderer。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `docs/s4a-start-backlog-split`（已 merge 至 `sprint/s4a-text-first-renderer` @ `bb5051d`）
+
+**明确不做：**
+
+- 不实现 Preview / Copy Renderer 代码（S4A-STORY-002 起）
+- 不实现 title / heading / paragraph / divider 渲染逻辑
+- 不新增业务页面
+- 不 merge 至 `release/1` 或 `main`（本轮由用户审查后 merge sprint 分支）
+- 不关闭 Sprint 4-A
+
+**验收标准：**
+
+- [x] AC-1 工作区启动前干净
+- [x] AC-2 已从 `release/1` 创建 `sprint/s4a-text-first-renderer`
+- [x] AC-3 已从 sprint 分支创建 `docs/s4a-start-backlog-split`
+- [x] AC-4 `sprint-backlog.md` 已修正 Sprint 3-B 状态漂移；已新增 Sprint 4-A Backlog（S4A-STORY-001~007）
+- [x] AC-5 `sprint-plan.md` 已修正 Sprint 3-B 状态漂移；Sprint 4-A 已更新为 In Progress
+- [x] AC-6 `product-backlog.md` 已同步 3-B → 4-A renderer 验收状态
+- [x] AC-7 `decisions.md` 已新增 DECISION-060
+- [x] AC-8 `changelog.md` 已记录 Sprint 4-A 启动
+- [x] AC-9 Sprint 4-A 前置遗留已登记至 planning
+- [x] AC-10 Sprint 4-A 范围未越界（未实现 Renderer 代码）
+- [x] AC-11 `corepack pnpm lint` 通过
+- [x] AC-12 `corepack pnpm test` 通过
+- [x] AC-13 `corepack pnpm build` 通过
+- [x] AC-14 已生成 execution report
+- [x] AC-15 未 merge 到 sprint / release / main
+- [x] AC-16 未启动 S4A-STORY-002
+
+---
+
+## S4A-STORY-002 Preview / Copy Renderer 基础接口与共享输入契约
+
+**用户故事：** 作为开发者，我需要 Preview Renderer / Copy Renderer 的基础接口与共享输入契约，以便 text-first blocks 的成对实现有统一边界且与 StyleResolver 输出一致。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s4a-renderer-base-contract`（已 merge 至 `sprint/s4a-text-first-renderer` @ `a0a5ed6`）
+
+**纳入遗留：** P2-S3B-002（WeChat profile 文档字段对齐）；P1-S3A-004（ResolvedBlockStyle componentProtocol 展开）
+
+**实际产物：**
+
+| 路径 | 说明 |
+|------|------|
+| `src/core/renderer/types.ts` | RenderMode / RenderTarget / RendererResult / RendererIssue |
+| `src/core/renderer/context.ts` | Article + ResolvedArticleStyle 输入校验、BlockRenderContext |
+| `src/core/renderer/resolved-view.ts` | componentProtocol 展开、slot disabled/fallback 视图 |
+| `src/core/renderer/registry.ts` | block renderer registry 最小实现 |
+| `src/core/renderer/render-block.ts` | `renderBlock` / `renderArticleBlocks` 编排 |
+| `src/core/renderer/index.ts` | 模块导出 |
+| `src/core/copy/wechat-profile-bridge.ts` | WeChat profile 文档字段 ↔ 代码结构映射（P2-S3B-002） |
+| `src/core/copy/index.ts` | Copy 路径 re-export |
+| `tests/core/renderer/renderer-contract.test.ts` | 契约测试 |
+| `tests/core/renderer/renderer-registry.test.ts` | registry 测试 |
+| `tests/core/copy/wechat-profile-bridge.test.ts` | profile bridge 测试 |
+
+**明确不做：**
+
+- 不引入 `mockArticle` / `streamArticle` / parallel render model
+- 不输出业务页面或 UI 路由
+- 不实现具体 block 渲染逻辑（S4A-STORY-003 起）
+- 不实现 structured blocks Renderer
+
+**验收标准：**
+
+- [x] AC-1 已定义 Preview Renderer / Copy Renderer 基础接口（`src/core/renderer/`、`src/core/copy/`）
+- [x] AC-2 输入契约明确使用 `Article` + `ResolvedArticleStyle` / `ResolvedBlockStyle`
+- [x] AC-3 `ResolvedBlockStyle` 已展开 renderer 所需 `componentProtocol` 最小字段（`enrichResolvedBlockStyleForRenderer` / `ResolvedBlockStyleView`）
+- [x] AC-4 WeChat profile 文档与代码结构命名差异已登记 fallback（`WECHAT_PROFILE_DOC_FIELD_BRIDGE`）
+- [x] AC-5 Renderer 契约不输出 html / className / React component；Style 层未修改
+- [x] AC-6 单元测试覆盖接口契约与非法输入（17 cases）
+- [x] AC-7 `corepack pnpm lint` / `test` / `build` 通过（303 tests）
+- [x] AC-8 已生成 execution report
+- [x] AC-9 未实现具体 block renderer；未启动 S4A-STORY-003
+- [x] AC-10 未 merge 至 sprint / release / main
+
+---
+
+## S4A-STORY-003 title / heading titleBlock Preview + Copy Renderer
+
+**用户故事：** 作为开发者，我需要 title / heading 的 titleBlock Preview / Copy 成对 Renderer，以便 first-wave 6 variants 可在页面预览与微信复制路径中一致呈现。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s4a-title-heading-renderer`（已 merge 至 `sprint/s4a-text-first-renderer` @ `cdeb611`）
+
+**纳入遗留：** P1-S3B-001（text-first 子集保真验证）；P1-S3A-004（componentProtocol 消费）
+
+**目标 variants（6）：** `title_plain_minimal`、`title_left_bar_classic`、`title_bottom_line_editorial`、`heading_plain_minimal`、`heading_numbered_section`、`heading_top_badge_topic`
+
+**实际产物：**
+
+| 路径 | 说明 |
+|------|------|
+| `src/core/renderer/title-block-renderer.ts` | titleBlock Preview / Copy 渲染与校验 |
+| `src/core/renderer/title-block-preview.ts` | Preview 结构化输出 |
+| `src/core/renderer/title-block-registry.ts` | 4 路 registry 注册（title/heading × preview/copy） |
+| `src/core/renderer/text-style.ts` | typography / slot 内容解析 |
+| `src/core/copy/title-block-copy.ts` | Copy inline HTML（5 layoutMode） |
+| `src/core/copy/html-escape.ts` | HTML 转义 |
+| `src/core/copy/inline-style.ts` | inline style 构建 |
+| `tests/core/renderer/title-heading-renderer.test.ts` | Preview / registry / fallback 测试 |
+| `tests/core/copy/title-heading-copy-renderer.test.ts` | Copy HTML / escape 测试 |
+| `tests/fixtures/renderer/title-heading-articles.ts` | 测试 fixture helper |
+
+**明确不做：**
+
+- 不实现 `magazine_left_bar_title` candidate variant
+- 不实现 lead / paragraph / divider Renderer（S4A-STORY-004 / 005）
+- 不实现业务页面 / Clipboard / Paste QA
+- 不实现 VisualAssetRegistry 全量 assets
+
+**验收标准：**
+
+- [x] AC-1 title / heading 各 3 variants Preview Renderer 实现
+- [x] AC-2 对应 Copy Renderer 成对实现；共享 ResolvedBlockStyle 输入
+- [x] AC-3 optional slot（badge / decoration 等）disabled / fallback 行为明确（`resolveTitleBlockSlotContents` + warnings）
+- [x] AC-4 layoutMode copy-safe 规则与 Sprint 3-A/B 契约一致（禁止 magazine_left_bar / overlay / offset_background）
+- [x] AC-5 单元测试覆盖 6 variants Preview / Copy + registry / escape / fallback（21 cases）
+- [x] AC-6 `corepack pnpm lint` / `test` / `build` 通过（324 tests）
+- [x] AC-7 已生成 execution report
+- [x] AC-8 未实现 lead / paragraph / divider / structured blocks
+- [x] AC-9 未 merge 至 sprint / release / main
+- [x] AC-10 未启动 S4A-STORY-004
+
+---
+
+## S4A-STORY-004 lead / paragraph InlineContent Preview + Copy Renderer
+
+**用户故事：** 作为开发者，我需要 lead / paragraph 支持 InlineContent 的 Preview / Copy Renderer，以便 bold / italic / highlight / color / link 在预览与复制路径中有最小 copy-safe 映射。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s4a-inline-content-renderer`（已 merge 至 `sprint/s4a-text-first-renderer` @ `a50ea4c`）
+
+**纳入遗留：** P2-S3B-003 / P1-CODE-002（Article semantic color token ↔ Style ColorTokenRef 完整 registry 校验仍待 Style 层收紧；本轮提供 alias 桥接 + fallback issue）
+
+**目标 variants（6）：** `lead_plain_intro`、`lead_accent_band`、`lead_quote_intro`、`paragraph_plain_body`、`paragraph_accent_left`、`paragraph_soft_card`
+
+**实际产物：**
+
+| 路径 | 说明 |
+|------|------|
+| `src/core/renderer/inline-content-marks.ts` | InlineMark color / link 安全解析与 issue |
+| `src/core/renderer/inline-content-preview.ts` | InlineContent Preview 节点映射 |
+| `src/core/renderer/text-block-typography.ts` | lead / paragraph layout / typography |
+| `src/core/renderer/text-block-preview.ts` | lead / paragraph Preview Renderer |
+| `src/core/renderer/text-block-renderer.ts` | lead / paragraph 成对 render 入口 |
+| `src/core/renderer/text-block-registry.ts` | `createTextBlockRendererRegistry()` |
+| `src/core/copy/inline-content-html.ts` | InlineContent Copy inline HTML |
+| `src/core/copy/text-block-copy.ts` | lead / paragraph variant layout Copy HTML |
+| `src/core/copy/html-escape.ts` | 新增 `escapeHtmlAttribute` |
+| `tests/core/renderer/lead-paragraph-renderer.test.ts` | Preview / registry / fallback 测试 |
+| `tests/core/copy/inline-content-copy-renderer.test.ts` | marks / escape / color / link 测试 |
+| `tests/core/copy/lead-paragraph-copy-renderer.test.ts` | 6 variants Copy HTML 测试 |
+| `tests/fixtures/renderer/lead-paragraph-articles.ts` | lead / paragraph fixture |
+
+**明确不做：**
+
+- 不实现 divider Renderer（S4A-STORY-005）
+- 不实现 list / quote / highlight / info_card / cta / image_placeholder 等 structured blocks
+- 不新增业务页面 / Copy 按钮 / Clipboard API
+- 不做 Paste QA（S4A-STORY-006）
+- 不 merge 至 `release/1` 或 `main`
+
+**验收标准：**
+
+- [x] AC-1 lead / paragraph Preview Renderer 支持 `InlineContent`（含 string normalize）
+- [x] AC-2 Copy Renderer 支持 bold / italic / highlight / color / link 最小 inline style 映射
+- [x] AC-3 InlineMark `color` 与 Style `ColorTokenRef` 最小 alias 桥接；不可解析时 fallback + `unsafe_inline_color` warning
+- [x] AC-4 copy-safe CSS 符合 WeChat 约束；Copy HTML 无 className / Tailwind / style tag；href 非法时 strip + `unsafe_link_href`
+- [x] AC-5 单元测试覆盖 marks 组合、6 variants、registry、escape、非法 color / href（24 cases 新增）
+- [x] AC-6 `corepack pnpm lint` / `test` / `build` 通过（348 tests）
+- [x] AC-7 已生成 execution report
+- [x] AC-8 未实现 divider / structured blocks / 业务页面 / Clipboard
+- [x] AC-9 已 merge 至 `sprint/s4a-text-first-renderer`；未 merge 至 release / main
+
+---
+
+## S4A-STORY-005 divider Preview + Copy Renderer
+
+**用户故事：** 作为开发者，我需要 divider 3 个 first-wave variants 的 Preview / Copy 成对 Renderer，以便 section 分隔在微信复制中简单、安全、可复制。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s4a-divider-renderer`（已 merge 至 `sprint/s4a-text-first-renderer` @ `eed8ffd`）
+
+**纳入遗留：** P1-S3B-001（text-first 子集保真验证）
+
+**目标 variants（3）：** `divider_simple_line`、`divider_dotted_line`、`divider_section_space`
+
+**实际产物：**
+
+| 路径 | 说明 |
+|------|------|
+| `src/core/renderer/divider-layout.ts` | divider layout / spacing 映射 |
+| `src/core/renderer/divider-preview.ts` | divider Preview Renderer |
+| `src/core/renderer/divider-renderer.ts` | divider 成对 render 入口 |
+| `src/core/renderer/divider-registry.ts` | `createDividerRendererRegistry()` |
+| `src/core/copy/divider-copy.ts` | divider Copy inline HTML |
+| `tests/core/renderer/divider-renderer.test.ts` | Preview / registry / fallback 测试 |
+| `tests/core/copy/divider-copy-renderer.test.ts` | Copy HTML / copy-safe 测试 |
+| `tests/fixtures/renderer/divider-articles.ts` | divider fixture |
+
+**明确不做：**
+
+- 不实现 list / quote / highlight / info_card / cta / image_placeholder 等 structured blocks
+- 不新增业务页面 / Copy 按钮 / Clipboard API
+- 不做 Paste QA（S4A-STORY-006）
+- 不 merge 至 `release/1` 或 `main`
+
+**验收标准：**
+
+- [x] AC-1 divider 3 variants Preview Renderer 实现
+- [x] AC-2 对应 Copy Renderer 成对实现；共享 ResolvedBlockStyle 输入
+- [x] AC-3 `balanced` / `strict` copySafety 行为与 registry 一致（`divider_dotted_line` balanced warning）
+- [x] AC-4 输出 HTML 结构简单、微信粘贴安全（inline style；无 class / style tag / absolute / transform / pseudo）
+- [x] AC-5 单元测试覆盖 3 variants Preview / Copy + registry / fallback（14 cases 新增）
+- [x] AC-6 `corepack pnpm lint` / `test` / `build` 通过（362 tests）
+- [x] AC-7 已生成 execution report
+- [x] AC-8 未实现 structured blocks / 业务页面 / Clipboard / Paste QA
+- [x] AC-9 已 merge 至 `sprint/s4a-text-first-renderer`；未 merge 至 release / main
+
+---
+
+## S4A-STORY-006 Text-first Copy HTML / Clipboard 双格式 / 最小 Paste QA seed
+
+**用户故事：** 作为产品团队，我需要 text-first blocks 的 Copy HTML snapshot 与 Clipboard 双格式策略及最小 Paste QA seed，以便复制一致性有可回归基础，但不阻塞 Sprint 4-A 关闭。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s4a-copy-html-clipboard-paste-seed`（已 merge 至 `sprint/s4a-text-first-renderer` @ `3b6d900`）
+
+**纳入遗留：** P1-S3B-002（balanced copySafety paste 验证）；P1-S3B-004（gallery 登记，不必本轮实现）
+
+**实际产物：**
+
+| 路径 | 说明 |
+|------|------|
+| `src/core/copy/copy-safe-html.ts` | Copy HTML snapshot 安全断言 |
+| `src/core/copy/text-first-copy-registry.ts` | Sprint 4-A text-first copy renderer registry |
+| `src/core/copy/copy-html-snapshot.ts` | 基于现有 Copy Renderer 的 snapshot seed builder |
+| `src/core/copy/clipboard-payload.ts` | `text/html` + `text/plain` payload builder（纯函数） |
+| `src/core/copy/plain-text.ts` | text/plain fallback builder |
+| `src/core/copy/paste-qa-seed.ts` | 最小 Paste QA seed 数据结构 |
+| `tests/fixtures/copy/text-first-copy-fixtures.ts` | 6 个代表 variants 的 Article + Style fixture |
+| `tests/core/copy/copy-html-snapshot.test.ts` | snapshot / copy-safe / missing renderer/style 测试 |
+| `tests/core/copy/clipboard-payload.test.ts` | Clipboard 双格式 payload 测试 |
+| `tests/core/copy/plain-text.test.ts` | text/plain fallback 测试 |
+| `tests/core/copy/paste-qa-seed.test.ts` | Paste QA seed 测试 |
+| `docs/agile/paste-qa/sprint4a-text-first-seed.md` | 最小 Paste QA seed 文档 |
+
+**明确不做：**
+
+- 不做完整 **33 variants** Paste QA（留 Sprint 4-B / 6-B）
+- 不调用 `navigator.clipboard`，不实现浏览器 Clipboard 权限逻辑
+- 不新增业务页面 / Copy 按钮
+- 不实现 structured blocks Renderer
+- 不实现 Style Gallery / AI Style Selection / Generation / Streaming
+- 不 merge 至 `release/1` 或 `main`
+
+**验收标准：**
+
+- [x] AC-1 明确 `text/html` + `text/plain` 双格式 Clipboard payload（纯函数，不调用 Clipboard API）
+- [x] AC-2 建立 text-first blocks 最小 Copy HTML snapshot seed（fixture，来源为现有 Copy Renderer）
+- [x] AC-3 建立最小 Paste QA seed（TypeScript seed + markdown 记录，状态 Not Run）
+- [x] AC-4 balanced variants 至少 1 条人工 paste 验证路径文档化（`heading_numbered_section` / `lead_accent_band` / `paragraph_soft_card` / `divider_dotted_line`）
+- [x] AC-5 `corepack pnpm lint` / `test` / `build` 通过（378 tests）
+- [x] AC-6 已生成 execution report
+- [x] AC-7 未实现 structured blocks / 业务页面 / Clipboard API / 真实 Paste QA
+- [x] AC-8 已 merge 至 `sprint/s4a-text-first-renderer`；未 merge 至 release / main
+
+---
+
+## S4A-STORY-007 Sprint 4-A Renderer Contract Audit 与关闭准备
+
+**用户故事：** 作为产品负责人，我需要在 Sprint 4-A 完成后做 Renderer 契约 audit，确认 text-first Preview / Copy Renderer 与 architecture / style-system / copy-to-wechat 一致，并准备是否进入 Sprint 4-B。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `docs/s4a-renderer-contract-audit-close-readiness`（已 merge 至 `sprint/s4a-text-first-renderer` @ `c65a285`）
+
+**实际产物：**
+
+| 路径 | 说明 |
+|------|------|
+| `docs/architecture/audits/sprint4a-renderer-contract-audit.md` | Sprint 4-A Renderer Contract Audit（Grade A；P0=0；P1=4；P2=1） |
+| `docs/agile/execution-reports/2026-06-01-s4a-renderer-contract-audit-close-readiness.md` | 本轮 execution report |
+
+**Close Readiness 摘要：**
+
+- S4A-STORY-002~006 均为 Done，且已 merge 至 `sprint/s4a-text-first-renderer`
+- Contract audit：Grade A；P0=0；P1=4；P2=1
+- Sprint 4-A 范围未越界：未实现 structured blocks / AI / Generation / Style Gallery
+- Copy HTML / Clipboard / Paste QA seed 边界清晰：未调用 Clipboard API；Paste QA seed 为 Not Run
+- 建议进入 Close Readiness；是否关闭 Sprint 4-A 需用户确认
+
+**明确不做：**
+
+- 不在 audit 轮实现 structured blocks Renderer
+- 不自行关闭 Sprint 4-A（须用户确认）
+- 不 merge 至 `release/1`，除非用户确认
+
+**验收标准：**
+
+- [x] AC-1 已生成 `docs/architecture/audits/sprint4a-renderer-contract-audit.md`
+- [x] AC-2 audit 覆盖 S4A-STORY-002~006 全部交付
+- [x] AC-3 audit 对照 `rendering-pipeline.md`、`style-system.md`、`copy-to-wechat-pipeline.md`、`wechat-copy-style-rules.md`
+- [x] AC-4 audit 输出 P0 / P1 / P2（P0=0；P1=4；P2=1）
+- [x] AC-5 Sprint 4-A 范围未越界（无 structured blocks / AI / Generation）
+- [x] AC-6 lint / test / build PASS（378 tests）
+- [x] AC-7 已生成 execution report
+- [x] AC-8 未自行关闭 Sprint 4-A
+- [x] AC-9 准备 Sprint 4-B 启动条件说明
+- [x] AC-10 已 merge 至 `sprint/s4a-text-first-renderer`；sprint 已 merge 至 `release/1`（DECISION-061）；未 merge 至 `main`
 
 ---
