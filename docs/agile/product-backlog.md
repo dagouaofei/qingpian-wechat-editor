@@ -90,9 +90,9 @@
 | TECH-ARCH-020 | Sprint 3-A/B/C Style System Delivery Split | EPIC-004 | infrastructure / first-wave registry / AI validation · **3-B = first-wave registry** |
 | TECH-ARCH-021 | Sprint 4-A/B Renderer Delivery Split | EPIC-004 / EPIC-006 | text-first vs structured blocks |
 | TECH-ARCH-022 | Sprint 6-A/B Paste QA Regression Split | EPIC-010 | fixture 三联 vs first-wave 33 variants QA |
-| TECH-ARCH-023 | Release 1 Style Quality Gate | EPIC-004 / EPIC-006 | Style Quality Review / Gallery / 样式效果验收；Sprint 3/4/6 分阶段 · **3-B 后进入 4-A renderer 验收** |
+| TECH-ARCH-023 | Release 1 Style Quality Gate | EPIC-004 / EPIC-006 | Style Quality Review / Gallery / 样式效果验收；Sprint 3-B **已完成** first-wave registry；**Sprint 4-A 进入 text-first Preview / Copy Renderer 验收** |
 
-状态：文档契约 S1-STORY-021~028；代码按 Sprint 2 + 3-A/B/C + 4-A/B + 5 + 6-A/B 拆分。
+状态：文档契约 S1-STORY-021~028；代码按 Sprint 2 + 3-A/B/C + 4-A/B + 5 + 6-A/B 拆分。**TECH-ARCH-023：** Sprint 3-B registry 阶段 Done；renderer 验收自 Sprint 4-A 起。
 
 ---
 
@@ -105,7 +105,7 @@
 | **P1-S3A-001** | `style-system.md` §11.4 titleBlock catalog 历史 layoutMode 命名映射 | Sprint 3-B | **已收口**（S3B-STORY-002） |
 | P1-S3A-002 | `wechat-copy-style-rules.md` profile 字段名与代码结构略有差异 | Sprint 3-B 或 4-A 前 | 登记 · 不阻塞 S3B-STORY-001 |
 | P1-S3A-003 | `validateStyleRegistrySchema` vs `validateStyleRegistry` 命名易混淆 | Sprint 3-B | 登记 · S3B-STORY-002 可选 |
-| P1-S3A-004 | ResolvedBlockStyle 未展开 componentProtocol | Sprint 4-A | 登记 |
+| P1-S3A-004 | ResolvedBlockStyle 未展开 componentProtocol | Sprint 4-A | **已纳入** · S4A-STORY-002 / S4A-STORY-003 |
 | P2-S3A-001 | Tailwind forbidden 检测有限 | Sprint 4-A / 6-B | 登记 |
 | **P2-S3A-002** | slot 级 copySafety 未强制 | Sprint 3-B | **已收口**（S3B-STORY-002） |
 | P2-S3A-003 | InlineMark color 与 Style ColorTokenRef 跨模块校验未打通 | Sprint 3-B / 4-A | 登记 · 不阻塞 S3B-STORY-001 |
@@ -114,15 +114,15 @@
 
 ## Sprint 3-B Audit 遗留（S3B-STORY-007 登记）
 
-> 来源：`docs/architecture/audits/sprint3b-contract-audit.md` §11；不阻塞 Sprint 3-B Close Readiness。
+> 来源：`docs/architecture/audits/sprint3b-contract-audit.md` §11；不阻塞 Sprint 3-B Close Readiness。**与 Sprint 4-A 相关项已纳入 Sprint 4-A planning**（DECISION-060；见 `sprint-backlog.md` Sprint 4-A 前置遗留登记表）。
 
-| ID | 问题 | 建议 Sprint |
-|----|------|-------------|
-| P1-S3B-001 | 33 variants 尚未经过 Preview / Copy Renderer 实际保真验证 | Sprint 4-A / 4-B |
-| P1-S3B-002 | `balanced` copySafety variants 可能在微信粘贴中出现边距、边框、badge 等细节差异 | Sprint 4-A / 4-B / 6-B |
-| P1-S3B-003 | cta / image_placeholder 当前为占位契约，不包含真实 QR、链接、小程序或图片能力 | Sprint 4-B / Release 2+ |
-| P1-S3B-004 | first-wave registry 缺少 style quality gallery / 人工视觉验收入口 | Sprint 4 / 6 |
-| P1-S3B-005 | `block.content.title` / `caption` 等 optional 字段需要 renderer 明确 disabled/fallback 行为 | Sprint 4-B |
-| P2-S3B-001 | 33 variants 视觉方向偏保守 | Sprint 6 / Release 2 |
-| P2-S3B-002 | WeChat profile 文档字段与代码结构仍有轻微命名差异 | Sprint 4-A 前 |
-| P2-S3B-003 | InlineMark color 与 Style ColorTokenRef 跨模块校验未打通 | Sprint 4-A / 6 |
+| ID | 问题 | 建议 Sprint | Sprint 4-A planning |
+|----|------|-------------|---------------------|
+| **P1-S3B-001** | 33 variants 尚未经过 Preview / Copy Renderer 实际保真验证 | Sprint 4-A / 4-B | **已纳入** · S4A-STORY-003~006（text-first 优先） |
+| **P1-S3B-002** | `balanced` copySafety variants 可能在微信粘贴中出现边距、边框、badge 等细节差异 | Sprint 4-A / 4-B / 6-B | **已纳入** · S4A-STORY-006（最小 Paste QA seed） |
+| P1-S3B-003 | cta / image_placeholder 当前为占位契约，不包含真实 QR、链接、小程序或图片能力 | Sprint 4-B / Release 2+ | 登记 · Sprint 4-B |
+| **P1-S3B-004** | first-wave registry 缺少 style quality gallery / 人工视觉验收入口 | Sprint 4 / 6 | **已纳入 planning** · 后续 gallery / QA 支撑，不必 Sprint 4-A 实现 |
+| P1-S3B-005 | `block.content.title` / `caption` 等 optional 字段需要 renderer 明确 disabled/fallback 行为 | Sprint 4-B | 登记 · Sprint 4-B |
+| P2-S3B-001 | 33 variants 视觉方向偏保守 | Sprint 6 / Release 2 | 登记 |
+| **P2-S3B-002** | WeChat profile 文档字段与代码结构仍有轻微命名差异 | Sprint 4-A 前 | **已纳入** · S4A-STORY-002 |
+| **P2-S3B-003** | InlineMark color 与 Style ColorTokenRef 跨模块校验未打通 | Sprint 4-A / 6 | **已纳入** · S4A-STORY-004（同 P1-CODE-002） |

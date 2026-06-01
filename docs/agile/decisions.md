@@ -58,6 +58,7 @@
 | DECISION-057 | 2026-05-31 | 关闭 Sprint 3-A；contract audit A，P0=0；merge sprint/s3a-style-system-infra → release/1 | 已确认 |
 | DECISION-058 | 2026-05-31 | 正式启动 Sprint 3-B；First-wave Required Variant Registry；从 release/1 切 sprint/s3b-first-wave-variant-registry | 已确认 |
 | DECISION-059 | 2026-06-01 | 关闭 Sprint 3-B；contract audit A，P0=0；merge sprint/s3b-first-wave-variant-registry → release/1 | 已确认 |
+| DECISION-060 | 2026-06-01 | 正式启动 Sprint 4-A；Preview / Copy Renderer for Text-first Blocks；从 release/1 切 sprint/s4a-text-first-renderer | 已确认 |
 
 ### DECISION-019 详情
 
@@ -269,6 +270,25 @@
   5. **不 merge 至 `main`**
   6. **不自动启动 Sprint 4-A**
 - **关联：** S3B-STORY-007、`sprint3b-contract-audit.md`
+- **状态：** 已确认
+
+### DECISION-060 详情（正式启动 Sprint 4-A）
+
+- **日期：** 2026-06-01
+- **背景：**
+  - Sprint 3-B 已关闭并 merge 至 `release/1`（DECISION-059）
+  - First-wave 33 variants registry 已完成（11 block × 3）
+  - 用户确认启动 Sprint 4-A
+- **决策：**
+  1. Sprint 4-A **正式启动**，状态 **In Progress**
+  2. 范围：**Preview / Copy Renderer for Text-first Blocks**（title / lead / heading / paragraph / divider）
+  3. 从 `release/1` 创建 **`sprint/s4a-text-first-renderer`**
+  4. 使用 Sprint 3-B 已完成的 first-wave required variants
+  5. 建立 Preview / Copy 成对 Renderer 实现边界；启动最小 Paste QA seed
+  6. Sprint 4-A **不做：** structured blocks（list / quote / highlight / info_card / cta / image_placeholder）、AI Style Selection、Generation / Streaming、完整 33 variants Paste QA、VisualAssetRegistry 全量 assets、StyleOrchestrator
+  7. **Sprint 3-C 未取消**，仅延后；建议在 Sprint 5 前或 Sprint 4-A/4-B 后再启动
+  8. **不 merge 至 `main`**；Sprint 关闭后 merge 至 `release/1` 须用户确认
+- **关联：** S4A-STORY-001、DECISION-043~045、rendering-pipeline.md、TECH-ARCH-021、TECH-ARCH-023
 - **状态：** 已确认
 
 ## 决策模板
