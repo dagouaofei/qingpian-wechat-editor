@@ -429,16 +429,44 @@
 | P2-S4B-001 | Style Gallery / 人工视觉验收入口仍缺失 | Sprint 6 / Release 2 |
 | P2-S4B-002 | cta / image_placeholder 真实 QR / link / image 能力仍未实现 | Release 2+ |
 
-### Sprint 5：Generation / Streaming + 受控 AI 样式选择最小闭环
+### Sprint 5：Generation / Streaming + Release 1 真实 UI 主流程闭环 — **Planned**（未启动）
 
-**目标：**
+> **状态：** Planned · **未启动** · **未创建** `sprint/s5-*` 分支 · **下一步：** **等待用户确认启动 Sprint 5**（DECISION-066）
 
-- InputRequest / NormalizedInput、GenerationEvent、`done.article`
-- **StyleSelectionRequest / StyleAssignmentPatch 生成**
-- 所有样式建议必须走 Sprint 3-C validation pipeline
-- 禁止 streamArticle；禁止绕过 Style System
+**Sprint Goal：**
 
-**不变** — 与 S1-STORY-025 一致。
+1. **InputRequest / NormalizedInput** — 主题、资料、草稿三类输入的标准化入口
+2. **GenerationEvent / SSE Streaming Runtime** — `block.start` / `block.delta` / `block.complete` / `done.article` 流式事件链路
+3. **`done.article` 归一** — 终态必须进入**唯一 Article Schema**；禁止 `streamArticle` / `mockArticle` / parallel article model
+4. **StyleSelectionRequest / StyleAssignmentPatch 生成** — 受控 AI 样式建议
+5. **Style System validation pipeline** — 所有样式建议必须复用 Sprint 3-C `validateStyleSelectionPipeline`；不得绕过 Style System
+6. **Preview / Copy Renderer 接入** — 复用 Sprint 4-A / 4-B 已完成的 Preview / Copy Renderer
+7. **Release 1 真实业务 UI 页面** — 新增或完善真实业务页面，使用户可手动跑通：
+   - 输入主题 / 资料 / 草稿
+   - 点击生成
+   - 看到生成中状态与最终 Article 预览
+   - 点击复制
+   - 复制内容来自 Copy Renderer / Clipboard payload；**不允许 DOM 抓取**
+8. **Sprint 5 结束时** — Release 1 主流程（输入 → 生成 → 预览 → 复制）必须在**真实页面**中可运行
+
+**Stories：** S5-STORY-001（启动）~ S5-STORY-007（smoke / e2e + 关闭准备）— 见 `sprint-backlog.md`
+
+**不做：**
+
+- 不执行真实微信公众号 Paste QA 全量回归
+- 不宣称复制到公众号已最终保真通过
+- 不实现 Style Gallery
+- 不实现真实 QR / 小程序 / 图片上传托管 / AI 生图
+- 不实现复杂编辑器或 block 级编辑
+- 不实现样式市场
+- 不 merge 至 `main`
+
+**保留原则：**
+
+- 真实 Paste QA 仍归 **Sprint 6-B**
+- Fixture Triple / PasteTestRecord 仍归 **Sprint 6-A / 6-B**
+- Sprint 5 的 UI 主流程 smoke test 只证明页面链路可跑通，**不替代**微信公众号粘贴 QA
+- 允许本地 deterministic provider 或 mock provider 作为 dev fallback，但必须走同一 GenerationService / Article / Renderer / Copy 主链路；**不得**用静态 `mockArticle` 直接渲染页面假装主流程跑通
 
 ### Sprint 6-A：Fixture Triple Infrastructure
 
@@ -457,9 +485,9 @@
 - PasteTestRecord 记录
 - expansion variants 进入后续批次
 
-**原则（DECISION-045）：**
+**原则（DECISION-045、DECISION-066）：**
 
-- Sprint 2 / Sprint 5 **不变**
+- Sprint 2 范围不变；Sprint 5 已调整为 Generation / Streaming + Release 1 真实 UI 主流程闭环（DECISION-066）
 - 拆分保证可执行性，**不降低** Release 1 样式丰富度目标（最终 up to 11×5）
 - First wave 先 11×3，expansion 分后续子 Sprint
 

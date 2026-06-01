@@ -64,6 +64,7 @@
 | DECISION-063 | 2026-06-01 | 关闭 Sprint 4-B；renderer contract audit A，P0=0；merge sprint/s4b-structured-block-renderer → release/1 | 已确认 |
 | DECISION-064 | 2026-06-01 | 正式启动 Sprint 3-C；Style Assignment / Selection Validation + Orchestrator + VisualAssetRegistry | 已确认 |
 | DECISION-065 | 2026-06-01 | 关闭 Sprint 3-C；contract audit A，P0=0；merge sprint/s3c-style-assignment-validation → release/1 | 已确认 |
+| DECISION-066 | 2026-06-02 | Sprint 5 范围调整为 Generation / Streaming + Release 1 真实 UI 主流程闭环 | 已确认 |
 
 ### DECISION-019 详情
 
@@ -396,6 +397,24 @@
   6. **不自动启动 Sprint 5 / Sprint 6-A**
   7. Sprint 5 启动前须复用 `validateStyleSelectionPipeline`；须用户确认
 - **关联：** S3C-STORY-006、`sprint3c-style-system-contract-audit.md`、TECH-ARCH-010~012、TECH-ARCH-017、DECISION-064
+- **状态：** 已确认
+
+### DECISION-066 详情（Sprint 5 计划变更）
+
+- **日期：** 2026-06-02
+- **背景：**
+  - Release 1 目标要求跑通正式主链路：输入 → 生成 → 预览 → 复制
+  - Sprint 4-A / 4-B 已完成 Preview / Copy Renderer，但明确未做业务页面
+  - Sprint 3-C 已完成 Style Assignment validation，可供 Sprint 5 复用
+  - 原 Sprint 5 规划偏向 core Generation / Streaming + 受控 AI 样式选择，不足以在 Sprint 5 结束时交付 Release 1 可手动验收的主流程
+- **决策：**
+  1. Sprint 5 **不再只是** core generation sprint
+  2. Sprint 5 **必须新增**真实 UI 主流程集成 Story（S5-STORY-006）
+  3. Sprint 5 结束后必须可在**真实页面**手动跑通输入 → 生成 → 预览 → 复制
+  4. UI 必须复用 Article Schema、StyleResolver、StyleSelection validation pipeline、Preview Renderer、Copy Renderer
+  5. **不允许**用静态 `mockArticle` 假装主流程跑通
+  6. 真实微信公众号 Paste QA 仍归 **Sprint 6-B**
+- **影响范围：** `sprint-plan.md`、`sprint-backlog.md`、`product-backlog.md`（TECH-ARCH-024）、S5-STORY-001~007
 - **状态：** 已确认
 
 ## 决策模板

@@ -7,6 +7,7 @@
 > **Sprint 4-A：** Preview / Copy Renderer for Text-first Blocks · **Closed**（2026-06-01；DECISION-061；audit Grade A；P0=0）
 > **Sprint 4-B：** Preview / Copy Renderer for Structured Blocks · **Closed**（2026-06-01；DECISION-063；audit Grade A；P0=0）
 > **Sprint 3-C：** Style Assignment / Selection Validation + Orchestrator + VisualAssetRegistry · **Closed**（2026-06-01；DECISION-065；audit Grade A；P0=0 · P1=5 · P2=4；merged `release/1`）
+> **Sprint 5：** Generation / Streaming + Release 1 真实 UI 主流程闭环 · **Planned**（未启动；DECISION-066；**等待用户确认启动 Sprint 5**）
 > **Release 1 主干：** `release/1` · **Sprint 3-C 分支：** `sprint/s3c-style-assignment-validation`（已 merge 至 `release/1`，DECISION-065）
 
 ---
@@ -2326,5 +2327,161 @@ S3C-STORY-001（启动）
   → S3C-STORY-005（Validation Pipeline + fixtures）
   → S3C-STORY-006（audit + close readiness）
 ```
+
+---
+
+# Sprint 5 Backlog
+
+> **Sprint 5 目标：** Generation / Streaming + **Release 1 真实 UI 主流程闭环**（输入 → 生成 → 预览 → 复制）
+> **Sprint 5 状态：** **Planned**（未启动；DECISION-066）
+> **Sprint 5 分支：** 待启动时从 `release/1` 创建 `sprint/s5-*`（本轮未创建）
+> **下一步：** **等待用户确认启动 Sprint 5**；不自动启动 Sprint 5 / Sprint 6-A
+> **Sprint 5 不做：** 真实微信公众号 Paste QA 全量回归、Style Gallery、真实 QR / 小程序 / 图片上传托管 / AI 生图、复杂编辑器 / block 级编辑、样式市场、merge 至 `main`
+> **保留原则：** 真实 Paste QA 归 Sprint 6-B；Fixture Triple / PasteTestRecord 归 Sprint 6-A / 6-B；Sprint 5 UI smoke test 不替代微信公众号 Paste QA
+
+---
+
+## S5-STORY-001 Sprint 5 启动与 Backlog 拆分
+
+**用户故事：** 作为产品负责人，我需要在正式启动 Sprint 5 时建立 sprint 分支并细化 Backlog，以便团队在明确边界下按 Story 逐步实现 Generation / Streaming 与真实 UI 主流程集成。
+
+**优先级：** P0 · **状态：** Planned · **工作分支：** 待启动（建议 `docs/s5-start-backlog-split`）
+
+**目标：** 正式启动 Sprint 5 时建立 sprint 分支与细化 Backlog。
+
+**明确不做（本轮 docs 变更）：**
+
+- 不启动 Sprint 5（本轮仅计划变更）
+- 不创建 `sprint/s5-*` 分支
+- 不 merge 至 `release/1` 或 `main`
+
+**验收标准（启动 Sprint 5 时执行）：**
+
+- [ ] AC-1 工作区干净；已从 `release/1` 创建 `sprint/s5-*` sprint 分支
+- [ ] AC-2 `sprint-backlog.md` Sprint 5 Story 状态与 AC 已细化
+- [ ] AC-3 `sprint-plan.md` Sprint 5 状态已更新为 In Progress
+- [ ] AC-4 `changelog.md` 已记录 Sprint 5 启动
+- [ ] AC-5 `decisions.md` 已记录 Sprint 5 启动决策（如需要）
+- [ ] AC-6 `corepack pnpm lint` / `test` / `build` 通过
+- [ ] AC-7 已生成 execution report
+
+---
+
+## S5-STORY-002 InputRequest / NormalizedInput 代码契约
+
+**用户故事：** 作为开发者，我需要主题、资料、草稿三类输入的标准化入口契约，以便 Generation 与 UI 共享同一输入模型。
+
+**优先级：** P0 · **状态：** Planned
+
+**目标：** 实现主题、资料、草稿三类输入的标准化入口。
+
+**验收标准（草案）：**
+
+- [ ] AC-1 InputRequest / NormalizedInput TypeScript 类型与 Zod Schema 与 `generation-pipeline.md` 一致
+- [ ] AC-2 三类输入（主题 / 资料 / 草稿）均可 normalize 为统一结构
+- [ ] AC-3 单元测试覆盖合法 / 非法输入
+- [ ] AC-4 `corepack pnpm lint` / `test` / `build` 通过
+
+---
+
+## S5-STORY-003 GenerationEvent / SSE Streaming Runtime
+
+**用户故事：** 作为开发者，我需要 block.start / block.delta / block.complete / done.article 流式事件链路，以便生成过程可流式展示且终态归一 Article。
+
+**优先级：** P0 · **状态：** Planned
+
+**目标：** 实现 block.start / block.delta / block.complete / done.article 流式事件链路。
+
+**验收标准（草案）：**
+
+- [ ] AC-1 GenerationEvent 类型与 SSE / JSONL 解析与 DECISION-024 一致
+- [ ] AC-2 支持 block.start / block.delta / block.complete / done.article 事件序列
+- [ ] AC-3 流式 partial 与 Article Schema 边界明确（见 P1-CODE-001）
+- [ ] AC-4 单元测试覆盖事件序列与非法事件
+- [ ] AC-5 `corepack pnpm lint` / `test` / `build` 通过
+
+---
+
+## S5-STORY-004 done.article 归一与 Article Schema 校验
+
+**用户故事：** 作为开发者，我需要生成终态进入唯一 Article Schema 并可被 Preview / Copy 复用，以便全链路共享同一文章主模型。
+
+**优先级：** P0 · **状态：** Planned
+
+**目标：** 确保生成终态进入唯一 Article Schema，并可被 Preview / Copy 复用。
+
+**验收标准（草案）：**
+
+- [ ] AC-1 `done.article` 经 `parseArticle` / `normalizeArticle` 进入唯一 Article Schema
+- [ ] AC-2 禁止 `streamArticle` / `mockArticle` / parallel article model 作为主链路
+- [ ] AC-3 生成终态 Article 可被 Sprint 4-A / 4-B Preview / Copy Renderer 直接消费
+- [ ] AC-4 单元测试覆盖终态归一与 schema 拒绝
+- [ ] AC-5 `corepack pnpm lint` / `test` / `build` 通过
+
+---
+
+## S5-STORY-005 受控 AI 样式选择生成与 validation pipeline 接入
+
+**用户故事：** 作为开发者，我需要在 Generation 链路中生成 StyleSelectionRequest / StyleAssignmentPatch，并通过 Sprint 3-C validation pipeline 后写入 Article.styleAssignment。
+
+**优先级：** P0 · **状态：** Planned
+
+**目标：** 生成 StyleSelectionRequest / StyleAssignmentPatch，并通过 Sprint 3-C validation pipeline 后写入 `Article.styleAssignment`。
+
+**验收标准（草案）：**
+
+- [ ] AC-1 Generation 产出 StyleSelectionRequest / StyleAssignmentPatch
+- [ ] AC-2 所有样式建议必须经 `validateStyleSelectionPipeline`；不得绕过 Style System
+- [ ] AC-3 校验通过后 patch 写入 `Article.styleAssignment`；不 mutate blocks 内容语义
+- [ ] AC-4 校验失败有明确 issue / fallback 路径
+- [ ] AC-5 单元测试覆盖 valid / invalid / fallback 路径
+- [ ] AC-6 `corepack pnpm lint` / `test` / `build` 通过
+
+---
+
+## S5-STORY-006 Release 1 主流程真实 UI 页面集成
+
+**用户故事：** 作为用户，我需要在真实业务页面中完成输入 → 生成 → 预览 → 复制，以便 Release 1 主链路可手动验收。
+
+**优先级：** P0 · **状态：** Planned
+
+**目标：** 新增或完善真实业务页面，跑通输入 → 生成 → 预览 → 复制。
+
+**验收标准：**
+
+- [ ] AC-1 页面不是测试 fixture 页面，不是 Storybook，不是纯 gallery
+- [ ] AC-2 用户可输入主题；资料 / 草稿可选
+- [ ] AC-3 点击生成后触发统一 GenerationService / API / SSE 路径
+- [ ] AC-4 页面显示生成中状态
+- [ ] AC-5 `done.article` 返回后，预览区使用 Sprint 4-A / 4-B Preview Renderer
+- [ ] AC-6 复制按钮使用 Copy Renderer + Clipboard payload
+- [ ] AC-7 Clipboard payload 包含 `text/html` + `text/plain`
+- [ ] AC-8 不允许从 DOM 抓取 HTML
+- [ ] AC-9 不允许绕过 Article / StyleResolver / Renderer / Copy pipeline
+- [ ] AC-10 支持本地 deterministic provider 或 mock provider 作为 dev fallback，但必须走同一 GenerationService / Article / Renderer / Copy 主链路；不得用静态 `mockArticle` 直接渲染页面
+- [ ] AC-11 `corepack pnpm lint` / `test` / `build` 通过
+
+---
+
+## S5-STORY-007 Sprint 5 主链路 Smoke / E2E 与关闭准备
+
+**用户故事：** 作为产品负责人，我需要为真实 UI 主流程建立最小 smoke / e2e 验证，并做 Sprint 5 close readiness，以便确认 Release 1 主流程已在真实页面跑通。
+
+**优先级：** P0 · **状态：** Planned
+
+**目标：** 为真实 UI 主流程建立最小 smoke / e2e 验证，并做 Sprint 5 close readiness。
+
+**验收标准：**
+
+- [ ] AC-1 Playwright 或等价 smoke test 可打开真实页面
+- [ ] AC-2 可填写输入
+- [ ] AC-3 可触发生成
+- [ ] AC-4 可等待预览出现
+- [ ] AC-5 可触发复制动作或验证 Clipboard payload 生成
+- [ ] AC-6 lint / test / build PASS
+- [ ] AC-7 audit 明确 Sprint 5 是否达到「真实 UI 页面跑通 Release 1 主流程」
+- [ ] AC-8 audit 明确真实微信公众号 Paste QA 仍未执行，归 Sprint 6-B
+- [ ] AC-9 已生成 execution report
+- [ ] AC-10 不自行关闭 Sprint 5（须用户确认）
 
 ---

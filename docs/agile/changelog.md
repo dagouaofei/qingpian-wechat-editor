@@ -217,3 +217,15 @@
 | 2026-06-01 | Sprint 3-C | 完成 Style System Contract Audit（Grade A；P0=0/P1=5/P2=4）；expansion variants 规划；Sprint 3-C 进入 Close Readiness | Audit / 敏捷 | S3C-STORY-006 |
 | 2026-06-01 | Sprint 3-C | **正式关闭 Sprint 3-C**；用户确认 audit 结论；S3C-STORY-001~006 Done；DECISION-065 | 敏捷 | DECISION-065 |
 | 2026-06-01 | Sprint 3-C | merge `sprint/s3c-style-assignment-validation` → `release/1`（`8ce4eed`）；audit Grade A · P0=0 · P1=5 · P2=4；592 tests PASS | Git / 敏捷 | DECISION-065 |
+
+---
+
+## 2026-06-02 · Sprint 5 计划变更
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-02 | Sprint 5 | **Sprint 5 计划变更**：由「Generation / Streaming + 受控 AI 样式选择最小闭环」调整为「Generation / Streaming + Release 1 真实 UI 主流程闭环」 | 敏捷 / 架构 | DECISION-066 |
+| 2026-06-02 | Sprint 5 | 新增 Release 1 真实 UI 主流程闭环要求：Sprint 5 结束时必须在真实页面手动跑通输入 → 生成 → 预览 → 复制 | 敏捷 / 产品 | DECISION-066, TECH-ARCH-024 |
+| 2026-06-02 | Sprint 5 | 新增 Sprint 5 Backlog 草案 S5-STORY-001~007（Planned）；含 S5-STORY-006 真实 UI 页面集成、S5-STORY-007 smoke / e2e | 敏捷 | S5-STORY-001~007 |
+| 2026-06-02 | Sprint 5 | 新增 DECISION-066；更新 product-backlog TECH-ARCH-024 | 敏捷 / 架构 | DECISION-066, TECH-ARCH-024 |
+| 2026-06-02 | Sprint 5 | Sprint 5 **未启动**；未创建 `sprint/s5-*` 分支；**等待用户确认启动 Sprint 5** | 敏捷 / Git | DECISION-066 |
