@@ -167,7 +167,7 @@
 | 2026-06-01 | Sprint 4-A | 修正 Sprint 3-B 状态漂移；同步 sprint-plan / product-backlog | 敏捷 | S4A-STORY-001 |
 | 2026-06-01 | Sprint 4-A | Sprint 3-B audit 遗留中与 4-A 相关项纳入 Sprint 4-A planning | 架构 / 敏捷 | DECISION-060 |
 | 2026-06-01 | Sprint 4-A | 明确 Sprint 3-C 未取消、仅延后（建议在 Sprint 5 前或 4-A/4-B 后启动） | 敏捷 | DECISION-060 |
-| 2026-06-01 | Sprint 4-A | 完成 text-first Preview / Copy Renderer 系列交付（S4A-STORY-002~006）并合并至 sprint 分支 | Renderer / Copy / 测试 | S4A-STORY-002~006 |
+| 2026-06-01 | Sprint 4-A | 完成 text-first Preview / Copy Renderer 最小闭环（title / heading / lead / paragraph / divider）；Copy HTML snapshot / Clipboard payload / Paste QA seed 已建立 | Renderer / Copy / 测试 | S4A-STORY-002~006 |
 | 2026-06-01 | Sprint 4-A | 完成 Sprint 4-A Renderer Contract Audit；Grade A，P0=0，P1=4，P2=1；Sprint 4-A 进入 Close Readiness，待用户确认关闭 | 架构 / 敏捷 | S4A-STORY-007 |
 | 2026-06-01 | Sprint 4-A | 用户确认接受 Sprint 4-A renderer contract audit（grade A，P0=0，P1=4，P2=1） | 敏捷 / 架构 | S4A-STORY-007, DECISION-061 |
 | 2026-06-01 | Sprint 4-A | Sprint 4-A 正式关闭；merge `sprint/s4a-text-first-renderer` → `release/1`（`b2efdb2`） | Git / 敏捷 | S4A-STORY-007, DECISION-061 |

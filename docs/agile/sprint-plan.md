@@ -58,7 +58,7 @@
 | **Sprint 4-A** | **Closed**（2026-06-01；DECISION-061） |
 | **Release 1 主干** | `release/1`（Sprint 4-A 已 merge，DECISION-061） |
 | **Sprint 4-A 分支** | `sprint/s4a-text-first-renderer`（已 merge 至 `release/1`） |
-| **下一步** | 启动 Sprint 4-B（待用户确认） |
+| **下一步** | Sprint 4-B 未启动（待用户确认） |
 
 ---
 
@@ -306,11 +306,18 @@
 - P0：0
 - P1：4
 - P2：1
-- S4A-STORY-002~006：全部 Done 且 merge 至 `sprint/s4a-text-first-renderer`
+- S4A-STORY-001~007：全部 Done 且 merge 至 `sprint/s4a-text-first-renderer`
 - 验证：`corepack pnpm lint` / `test`（378 tests）/ `build` PASS
+
+**关闭结论（DECISION-061）：**
+
+- text-first Preview / Copy Renderer **最小闭环完成**
+- title / heading / lead / paragraph / divider 已覆盖
+- Copy HTML snapshot / Clipboard payload / Paste QA seed 已建立
+- Paste QA seed 为 **Not Run**，不代表真实公众号粘贴通过
+- Sprint 4-A 已关闭；`sprint/s4a-text-first-renderer` 已 merge 至 `release/1`（`b2efdb2`）
 - 范围：未实现 structured blocks、业务页面、Clipboard API、真实 Paste QA、AI Style Selection、Generation / Streaming、Style Gallery
-- Sprint 4-A 已关闭（DECISION-061）；`sprint/s4a-text-first-renderer` 已 merge 至 `release/1`
-- 下一步建议：启动 Sprint 4-B（待用户确认）
+- 下一步：Sprint 4-B **未启动**（待用户确认）
 
 ### Sprint 4-A audit P1/P2 登记（不阻塞 Close Readiness）
 
@@ -322,7 +329,9 @@
 | P1-S4A-004 | InlineMark color 与 Style registry 完整 cross-registry 校验仍未完成 | Sprint 6 / Release 1 hardening |
 | P2-S4A-001 | Style Gallery / 人工视觉验收入口仍缺失 | Sprint 6 / Release 2 |
 
-### Sprint 4-B：Preview / Copy Renderer for Structured Blocks
+### Sprint 4-B：Preview / Copy Renderer for Structured Blocks — **Not Started / 未启动**
+
+**状态：** 未启动（Sprint 4-A 关闭后待用户确认启动；DECISION-061 不自动启动 Sprint 4-B）
 
 **目标：**
 
