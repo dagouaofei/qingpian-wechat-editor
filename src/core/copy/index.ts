@@ -42,6 +42,16 @@ export {
   renderListCopyHtml,
 } from "./list-copy";
 export {
+  assertQuoteCopySafeCss,
+  copyHtmlUsesInlineStyleOnly as quoteCopyHtmlUsesInlineStyleOnly,
+  renderQuoteCopyHtml,
+} from "./quote-copy";
+export {
+  assertHighlightCopySafeCss,
+  copyHtmlUsesInlineStyleOnly as highlightCopyHtmlUsesInlineStyleOnly,
+  renderHighlightCopyHtml,
+} from "./highlight-copy";
+export {
   createSprint4ATextFirstCopyRendererRegistry,
   SPRINT4A_TEXT_FIRST_COPY_BLOCK_TYPES,
 } from "./text-first-copy-registry";

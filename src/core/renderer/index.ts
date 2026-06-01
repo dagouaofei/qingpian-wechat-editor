@@ -32,6 +32,12 @@ export type {
   ListLayoutKind,
   ListPreviewItem,
   ListPreviewOutput,
+  QuoteCopyOutput,
+  QuoteLayoutKind,
+  QuotePreviewOutput,
+  HighlightCopyOutput,
+  HighlightLayoutKind,
+  HighlightPreviewOutput,
   PreviewInlineMark,
   PreviewInlineNode,
 } from "./types";
@@ -141,3 +147,39 @@ export {
 export { createListRendererRegistry } from "./list-registry";
 
 export { renderListPreview } from "./list-preview";
+
+export {
+  normalizeQuoteContentForRenderer,
+  resolveQuoteCopySafety,
+  resolveQuoteLayout,
+  resolveQuoteTypography,
+} from "./quote-layout";
+
+export {
+  QUOTE_SUPPORTED_VARIANT_IDS,
+  createQuoteRenderer,
+  renderQuote,
+  validateQuoteRenderContext,
+} from "./quote-renderer";
+
+export { createQuoteRendererRegistry } from "./quote-registry";
+
+export { renderQuotePreview } from "./quote-preview";
+
+export {
+  normalizeHighlightContentForRenderer,
+  resolveHighlightCopySafety,
+  resolveHighlightLayout,
+  resolveHighlightTypography,
+} from "./highlight-layout";
+
+export {
+  HIGHLIGHT_SUPPORTED_VARIANT_IDS,
+  createHighlightRenderer,
+  renderHighlight,
+  validateHighlightRenderContext,
+} from "./highlight-renderer";
+
+export { createHighlightRendererRegistry } from "./highlight-registry";
+
+export { renderHighlightPreview } from "./highlight-preview";

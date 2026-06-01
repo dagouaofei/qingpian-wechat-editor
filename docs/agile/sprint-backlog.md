@@ -1634,7 +1634,7 @@
 
 **用户故事：** 作为开发者，我需要 quote / highlight 各 3 个 first-wave variants 的 Preview / Copy 成对 Renderer。
 
-**优先级：** P0 · **状态：** Todo · **工作分支：** （待创建）
+**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s4b-quote-highlight-renderer`
 
 **目标 variants：**
 
@@ -1655,6 +1655,65 @@ highlight：
 - 不升级 quote / highlight 到 InlineContent 主模型，沿用当前 Release 1 block schema
 - 不实现 info_card / cta / image_placeholder
 - 不做真实 Paste QA
+- 不新增业务页面 / Copy 按钮 / Clipboard API
+- 不 merge 至 `release/1` 或 `main`
+- 不关闭 Sprint 4-B
+- 不启动 S4B-STORY-004
+
+**实际产物：**
+
+| 路径 | 说明 |
+|------|------|
+| `src/core/renderer/quote-layout.ts` | quote variant layout / typography / content normalization / copySafety |
+| `src/core/renderer/quote-preview.ts` | quote Preview Renderer 输出 |
+| `src/core/renderer/quote-renderer.ts` | quote renderer validation、balanced warning、Preview/Copy 调度 |
+| `src/core/renderer/quote-registry.ts` | quote preview/copy registry |
+| `src/core/copy/quote-copy.ts` | quote Copy HTML renderer 与 copy-safe CSS assertion |
+| `src/core/renderer/highlight-layout.ts` | highlight variant layout / typography / content normalization / copySafety |
+| `src/core/renderer/highlight-preview.ts` | highlight Preview Renderer 输出 |
+| `src/core/renderer/highlight-renderer.ts` | highlight renderer validation、balanced warning、Preview/Copy 调度 |
+| `src/core/renderer/highlight-registry.ts` | highlight preview/copy registry |
+| `src/core/copy/highlight-copy.ts` | highlight Copy HTML renderer 与 copy-safe CSS assertion |
+| `tests/fixtures/renderer/quote-highlight-articles.ts` | quote/highlight renderer/copy fixtures |
+| `tests/core/renderer/quote-highlight-renderer.test.ts` | quote/highlight Preview / registry / fallback 测试 |
+| `tests/core/copy/quote-highlight-copy-renderer.test.ts` | quote/highlight Copy HTML / escape / copy-safe 测试 |
+
+**实现摘要：**
+
+- quote / highlight 各 3 个 variants 均已实现 Preview / Copy 成对 Renderer。
+- Preview / Copy 共享既有 `Article` + `ResolvedArticleStyle` / `ResolvedBlockStyle` 输入；未引入平行 quote / highlight 模型。
+- 未修改 Article / Block Schema 主模型，未升级 quote / highlight 到 InlineContent 主模型。
+- Copy HTML 使用 inline style；无 Tailwind class / `<style>` / CSS variables / absolute / transform / pseudo element。
+- `quote_left_bar` 使用真实 DOM `border-left`；`quote_card` / `highlight_soft_card` 使用轻量卡片结构；`highlight_inline_emphasis` 保持轻量强调结构。
+- quote attribution / highlight label 缺失时返回 `optional_slot_disabled` info，并在输出中标记 disabled。
+- balanced variants 输出 `copy_safety_warning`，不阻塞渲染。
+
+**验收标准：**
+
+- [x] AC-1 已从 `sprint/s4b-structured-block-renderer` 创建 `feature/s4b-quote-highlight-renderer`
+- [x] AC-2 quote 3 个 first-wave variants Preview Renderer 已实现
+- [x] AC-3 quote 3 个 first-wave variants Copy Renderer 已实现
+- [x] AC-4 highlight 3 个 first-wave variants Preview Renderer 已实现
+- [x] AC-5 highlight 3 个 first-wave variants Copy Renderer 已实现
+- [x] AC-6 Preview / Copy 共享既有 Article + ResolvedStyle 输入，不引入平行模型
+- [x] AC-7 renderer registry 已接入 quote / highlight preview + copy renderer
+- [x] AC-8 Copy HTML 使用 inline style，无 Tailwind class / style tag / CSS variables
+- [x] AC-9 Copy HTML 不使用 absolute / transform / pseudo element
+- [x] AC-10 quote / highlight 的 optional 字段有明确 disabled / fallback 行为
+- [x] AC-11 balanced variants 有明确 warning / issue 机制，但不阻塞代码路径
+- [x] AC-12 单元测试覆盖 6 variants Preview / Copy、registry、fallback、escape、copy-safe 约束
+- [x] AC-13 `corepack pnpm lint` 通过
+- [x] AC-14 `corepack pnpm test` 通过
+- [x] AC-15 `corepack pnpm build` 通过
+- [x] AC-16 `docs/agile/sprint-backlog.md` 已同步 S4B-STORY-003 状态与产物
+- [x] AC-17 `docs/agile/changelog.md` 已记录本轮变更
+- [x] AC-18 未实现 info_card / cta / image_placeholder
+- [x] AC-19 未执行真实 Paste QA
+- [x] AC-20 未新增业务页面 / Clipboard API
+- [x] AC-21 未 merge 至 `release/1`
+- [x] AC-22 未 merge 至 `main`
+- [x] AC-23 未关闭 Sprint 4-B
+- [x] AC-24 未启动 S4B-STORY-004
 
 ---
 
