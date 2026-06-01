@@ -135,6 +135,25 @@ export {
   resolveGenerationModelProvider,
 } from "./volcengine-provider";
 
+export {
+  classifyVolcengineSmokeFailure,
+  formatVolcengineSmokeSummary,
+  runVolcengineProviderSmoke,
+  sanitizeSmokeMessage,
+  VOLCENGINE_SMOKE_INPUT,
+} from "./volcengine-provider-smoke";
+
+export type {
+  VolcengineSmokeFailureCategory,
+  VolcengineSmokeSummary,
+} from "./volcengine-provider-smoke";
+
+export {
+  loadDevEnvFiles,
+  parseSmokeEnvLine,
+  printVolcengineSmokeSetupHelp,
+} from "./smoke-env";
+
 export type {
   InputDensityHint,
   InputRequest,

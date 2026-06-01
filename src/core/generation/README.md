@@ -1,6 +1,6 @@
 # Generation 模块
 
-> 状态：Sprint 5 进行中 · S5-STORY-002 ~ S5-STORY-005 Done
+> 状态：Sprint 5 进行中 · S5-STORY-002 ~ S5-STORY-005 In Review · S5-STORY-005A In Review
 
 ## 职责
 
@@ -45,6 +45,20 @@
 **统一终态入口：** Provider 输出 `GenerationEvent` stream → `finalizeGenerationEvents(events)` → 正式 `Article`。
 
 **环境变量：** 见仓库根目录 `.env.example`（`VOLCENGINE_*`）。
+
+### S5-STORY-005A — Dev-only Real API Smoke
+
+| 路径 | 说明 |
+|------|------|
+| `scripts/smoke/volcengine-provider-smoke.ts` | dev-only CLI |
+| `volcengine-provider-smoke.ts` | smoke runner |
+| `smoke-env.ts` | `.env.local` loader |
+
+```bash
+corepack pnpm smoke:volcengine-provider
+```
+
+详见 `docs/agile/smoke/s5-volcengine-provider-smoke.md`。不接入 `pnpm test` / CI。
 
 **旧项目经验：** 当前仓库仅保留 SSE + `done.article` 归一经验（见 `docs/agile/migration-reference.md`）；旧一键成稿 Volcengine / `mapArkJsonToArticle` 源码不可访问，本轮按轻篇 Article Schema 实现 provider 契约，不复用旧 parallel 模型。
 

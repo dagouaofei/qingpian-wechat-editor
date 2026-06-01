@@ -2337,7 +2337,7 @@ S3C-STORY-001（启动）
 > **Sprint 5 分支：** `sprint/s5-generation-ui-main-flow`（从 `release/1` 切出，DECISION-067）
 > **Release 1 主干：** `release/1`
 > **UI 主流程入口：** **`/generate`**（真实业务页面；S5-STORY-007 实现）
-> **下一步：** S5-STORY-006（AI 样式选择）；不 merge `main`
+> **下一步：** S5-STORY-005A 真实 API smoke → S5-STORY-006；不 merge `main`
 > **Sprint 5 不做：** 真实微信公众号 Paste QA 全量回归、不宣称复制到公众号最终保真通过、Style Gallery、真实 QR / 小程序 / 图片上传托管 / AI 生图、复杂编辑器 / block 级编辑、样式市场、merge 至 `main`
 > **保留原则：** 真实 Paste QA 归 Sprint 6-B；Fixture Triple / PasteTestRecord 归 Sprint 6-A / 6-B；Sprint 5 UI smoke test 不替代微信公众号 Paste QA
 
@@ -2348,7 +2348,8 @@ S5-STORY-001 Sprint 5 启动与 Backlog 拆分 — Done
 S5-STORY-002 InputRequest / NormalizedInput 代码契约 — Done
 S5-STORY-003 GenerationEvent / SSE Streaming Runtime — Done
 S5-STORY-004 done.article 归一与 Article Schema 校验 — Done
-S5-STORY-005 真实模型 Provider 对接（Volcengine / Doubao）— Done
+S5-STORY-005 真实模型 Provider 对接（Volcengine / Doubao）— In Review
+S5-STORY-005A Volcengine / Doubao Provider Dev-only Real API Smoke — In Review
 S5-STORY-006 受控 AI 样式选择生成与 validation pipeline 接入 — Planned
 S5-STORY-007 Release 1 主流程真实 UI 页面集成（/generate）— Planned
 S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Planned
@@ -2499,7 +2500,7 @@ S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Planned
 
 **用户故事：** 作为产品负责人，我需要 Sprint 5 对接真实模型 API，使 Release 1 主流程不是只依赖 deterministic provider，而是可以通过真实模型生成结构化 Article candidate。
 
-**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s5-volcengine-model-provider`
+**优先级：** P0 · **状态：** In Review（Provider code Done；真实 API smoke 见 S5-STORY-005A） · **工作分支：** `feature/s5-volcengine-model-provider`
 
 **目标：** 实现 Volcengine / Doubao 真实模型 Provider；输出进入 GenerationEvent stream runtime 与 `done.article` 归一链路。
 
@@ -2544,6 +2545,45 @@ S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Planned
 - [x] AC-12 单元测试覆盖 config、错误映射、mock transport、deterministic fallback（29 cases 新增）
 - [x] AC-13 无真实 API key 时 test / build 不失败
 - [x] AC-14 `corepack pnpm lint` / `test` / `build` 通过
+
+---
+
+## S5-STORY-005A Volcengine / Doubao Provider Dev-only Real API Smoke
+
+**用户故事：** 作为开发者，我需要在进入 S5-STORY-006 前通过 dev-only smoke 手动验证真实 Volcengine / Doubao API 是否可用。
+
+**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s5-volcengine-real-api-smoke`
+
+**目标：** 提供 dev-only 真实 API smoke 脚本，验证 provider → `done.article` → `finalizeGenerationEvents` 全链路。
+
+**实际产物：**
+
+| 路径 | 说明 |
+|------|------|
+| `scripts/smoke/volcengine-provider-smoke.ts` | dev-only CLI 入口 |
+| `src/core/generation/volcengine-provider-smoke.ts` | smoke runner + 结果摘要 |
+| `src/core/generation/smoke-env.ts` | `.env.local` / `.env` loader |
+| `docs/agile/smoke/s5-volcengine-provider-smoke.md` | 运行说明 |
+| `package.json` | `smoke:volcengine-provider` |
+
+**明确不做：**
+
+- 不实现 `/generate` UI（S5-STORY-007）
+- 不实现 AI Style Selection（S5-STORY-006）
+- 不把真实 API smoke 接入 `pnpm test` / CI
+- 不泄露 API key
+
+**验收标准：**
+
+- [x] AC-1 提供 `corepack pnpm smoke:volcengine-provider` dev-only 脚本
+- [x] AC-2 读取 `VOLCENGINE_*` env（支持 `.env.local`）
+- [x] AC-3 使用真实 transport 调用 Volcengine / Doubao API
+- [x] AC-4 收集 `GenerationEvent[]` 并 `finalizeGenerationEvents`
+- [x] AC-5 成功时输出最小摘要（provider / model / eventCount / article title 等）
+- [x] AC-6 失败时输出稳定 error code / failureCategory；不泄露 key
+- [x] AC-7 无 API key 时 `pnpm test` / `build` 仍 PASS；smoke 缺 key 时明确失败并提示配置
+- [x] AC-8 单元测试覆盖 smoke helper 纯函数（不依赖真实网络）
+- [ ] AC-9 至少一次真实 API smoke 手动运行并通过 — **已运行；FAILED（`article_schema`：Invalid UUID）**；API 网络层已通
 
 ---
 

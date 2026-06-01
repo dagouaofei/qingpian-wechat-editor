@@ -280,3 +280,13 @@
 | 2026-06-02 | Sprint 5 | 实现 Volcengine / Doubao model provider 契约、transport、prompt 与 GenerationEvent 输出 | 代码 / 架构 | S5-STORY-005, TECH-ARCH-025, DECISION-068 |
 | 2026-06-02 | Sprint 5 | 新增 `.env.example`（`VOLCENGINE_*`）；mock transport 单测，无真实网络依赖 | 配置 / 测试 | S5-STORY-005 |
 | 2026-06-02 | Sprint 5 | S5-STORY-005 Done；S5-STORY-006~008 仍 Planned；未实现 `/generate` UI / Sprint 5 主流程关闭 | 敏捷 | S5-STORY-005 |
+
+---
+
+## 2026-06-02 · S5-STORY-005A Volcengine Real API Smoke
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-02 | Sprint 5 | 新增 dev-only `smoke:volcengine-provider` 真实 API smoke 脚本 | 工具 / 架构 | S5-STORY-005A |
+| 2026-06-02 | Sprint 5 | S5-STORY-005 调整为 In Review；005A smoke script ready；真实 API 手动运行 pending | 敏捷 | S5-STORY-005, S5-STORY-005A |
+| 2026-06-02 | Sprint 5 | 新增 `docs/agile/smoke/s5-volcengine-provider-smoke.md` | 文档 | S5-STORY-005A |
