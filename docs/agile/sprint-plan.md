@@ -55,10 +55,10 @@
 | **Sprint 2** | **Closed**（2026-05-31；DECISION-054） |
 | **Sprint 3-A** | **Closed**（2026-05-31；DECISION-057） |
 | **Sprint 3-B** | **Closed**（2026-06-01；DECISION-059） |
-| **Sprint 4-A** | **In Review / Close Readiness**（2026-06-01；S4A-STORY-007 audit Grade A；P0=0；待用户确认关闭） |
-| **Release 1 主干** | `release/1`（Sprint 3-B 已 merge，DECISION-059） |
-| **Sprint 4-A 分支** | `sprint/s4a-text-first-renderer`（从 `release/1` 切出） |
-| **下一步** | 用户确认 Sprint 4-A audit 后关闭 Sprint 4-A；再确认 merge sprint → `release/1`；随后启动 Sprint 4-B |
+| **Sprint 4-A** | **Closed**（2026-06-01；DECISION-061） |
+| **Release 1 主干** | `release/1`（Sprint 4-A 已 merge，DECISION-061） |
+| **Sprint 4-A 分支** | `sprint/s4a-text-first-renderer`（已 merge 至 `release/1`） |
+| **下一步** | 启动 Sprint 4-B（待用户确认） |
 
 ---
 
@@ -172,7 +172,7 @@
 
 > **Sprint 3-A 状态：Closed**（2026-05-31；DECISION-057）
 > **Sprint 3-B 状态：Closed**（2026-06-01；DECISION-059；contract audit **A**，P0=0；分支 `sprint/s3b-first-wave-variant-registry` 已 merge 至 `release/1`）
-> **Sprint 4-A 状态：In Review / Close Readiness**（2026-06-01；S4A-STORY-007 audit Grade A；P0=0；待用户确认关闭）
+> **Sprint 4-A 状态：Closed**（2026-06-01；DECISION-061；contract audit **A**，P0=0；分支 `sprint/s4a-text-first-renderer` 已 merge 至 `release/1`）
 >
 > 业务功能实现必须在核心技术方案 + 实现前契约完成之后进入（DECISION-015、DECISION-029~045、DECISION-051）。
 
@@ -277,9 +277,9 @@
 - StyleOrchestrator 最小规则 R1 / R2 / R8
 - **expansion variants 规划**（不要求全部实现）
 
-### Sprint 4-A：Preview / Copy Renderer for Text-first Blocks — **In Review / Close Readiness**（2026-06-01）
+### Sprint 4-A：Preview / Copy Renderer for Text-first Blocks — **Closed**（2026-06-01）
 
-**分支：** `sprint/s4a-text-first-renderer`（从 `release/1` 切出，DECISION-060）
+**分支：** `sprint/s4a-text-first-renderer`（从 `release/1` 切出，DECISION-060；已 merge 至 `release/1`，DECISION-061）
 
 **Stories：** S4A-STORY-001（启动）~ S4A-STORY-007（audit）— 见 `sprint-backlog.md`
 
@@ -309,8 +309,8 @@
 - S4A-STORY-002~006：全部 Done 且 merge 至 `sprint/s4a-text-first-renderer`
 - 验证：`corepack pnpm lint` / `test`（378 tests）/ `build` PASS
 - 范围：未实现 structured blocks、业务页面、Clipboard API、真实 Paste QA、AI Style Selection、Generation / Streaming、Style Gallery
-- 下一步建议：用户确认 audit 后关闭 Sprint 4-A；再由用户确认 merge `sprint/s4a-text-first-renderer` → `release/1`；随后再启动 Sprint 4-B
-- 本文档状态不代表 Sprint 4-A 已关闭；关闭需用户确认
+- Sprint 4-A 已关闭（DECISION-061）；`sprint/s4a-text-first-renderer` 已 merge 至 `release/1`
+- 下一步建议：启动 Sprint 4-B（待用户确认）
 
 ### Sprint 4-A audit P1/P2 登记（不阻塞 Close Readiness）
 

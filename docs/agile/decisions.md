@@ -59,6 +59,7 @@
 | DECISION-058 | 2026-05-31 | 正式启动 Sprint 3-B；First-wave Required Variant Registry；从 release/1 切 sprint/s3b-first-wave-variant-registry | 已确认 |
 | DECISION-059 | 2026-06-01 | 关闭 Sprint 3-B；contract audit A，P0=0；merge sprint/s3b-first-wave-variant-registry → release/1 | 已确认 |
 | DECISION-060 | 2026-06-01 | 正式启动 Sprint 4-A；Preview / Copy Renderer for Text-first Blocks；从 release/1 切 sprint/s4a-text-first-renderer | 已确认 |
+| DECISION-061 | 2026-06-01 | 关闭 Sprint 4-A；renderer contract audit A，P0=0；merge sprint/s4a-text-first-renderer → release/1 | 已确认 |
 
 ### DECISION-019 详情
 
@@ -289,6 +290,23 @@
   7. **Sprint 3-C 未取消**，仅延后；建议在 Sprint 5 前或 Sprint 4-A/4-B 后再启动
   8. **不 merge 至 `main`**；Sprint 关闭后 merge 至 `release/1` 须用户确认
 - **关联：** S4A-STORY-001、DECISION-043~045、rendering-pipeline.md、TECH-ARCH-021、TECH-ARCH-023
+- **状态：** 已确认
+
+### DECISION-061 详情（关闭 Sprint 4-A）
+
+- **日期：** 2026-06-01
+- **背景：**
+  - Sprint 4-A 已完成 S4A-STORY-001~007（text-first Preview / Copy Renderer + contract audit）
+  - Renderer contract audit Grade A，P0=0，P1=4，P2=1
+  - 用户确认关闭 Sprint 4-A 并 merge sprint → `release/1`
+- **决策：**
+  1. Sprint 4-A **正式关闭**，状态 **Closed**
+  2. 确认 renderer contract audit **A 级**，P0=0
+  3. `sprint/s4a-text-first-renderer` **merge 至 `release/1`**
+  4. P1/P2 登记至 Sprint 4-B / 6-A / 6-B / Release 1 hardening，不阻塞关闭
+  5. **不 merge 至 `main`**
+  6. **不自动启动 Sprint 4-B**
+- **关联：** S4A-STORY-007、`sprint4a-renderer-contract-audit.md`
 - **状态：** 已确认
 
 ## 决策模板
