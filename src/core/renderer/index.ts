@@ -41,6 +41,12 @@ export type {
   InfoCardCopyOutput,
   InfoCardLayoutKind,
   InfoCardPreviewOutput,
+  CtaCopyOutput,
+  CtaLayoutKind,
+  CtaPreviewOutput,
+  ImagePlaceholderCopyOutput,
+  ImagePlaceholderLayoutKind,
+  ImagePlaceholderPreviewOutput,
   PreviewInlineMark,
   PreviewInlineNode,
 } from "./types";
@@ -204,3 +210,39 @@ export {
 export { createInfoCardRendererRegistry } from "./info-card-registry";
 
 export { renderInfoCardPreview } from "./info-card-preview";
+
+export {
+  normalizeCtaContentForRenderer,
+  resolveCtaCopySafety,
+  resolveCtaLayout,
+  resolveCtaTypography,
+} from "./cta-layout";
+
+export {
+  CTA_SUPPORTED_VARIANT_IDS,
+  createCtaRenderer,
+  renderCta,
+  validateCtaRenderContext,
+} from "./cta-renderer";
+
+export { createCtaRendererRegistry } from "./cta-registry";
+
+export { renderCtaPreview } from "./cta-preview";
+
+export {
+  normalizeImagePlaceholderContentForRenderer,
+  resolveImagePlaceholderCopySafety,
+  resolveImagePlaceholderLayout,
+  resolveImagePlaceholderTypography,
+} from "./image-placeholder-layout";
+
+export {
+  IMAGE_PLACEHOLDER_SUPPORTED_VARIANT_IDS,
+  createImagePlaceholderRenderer,
+  renderImagePlaceholder,
+  validateImagePlaceholderRenderContext,
+} from "./image-placeholder-renderer";
+
+export { createImagePlaceholderRendererRegistry } from "./image-placeholder-registry";
+
+export { renderImagePlaceholderPreview } from "./image-placeholder-preview";

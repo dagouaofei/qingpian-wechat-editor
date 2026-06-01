@@ -1802,7 +1802,7 @@ highlight：
 
 **用户故事：** 作为开发者，我需要 cta / image_placeholder 各 3 个 first-wave variants 的 Release 1 占位型 Preview / Copy 成对 Renderer。
 
-**优先级：** P0 · **状态：** Todo · **工作分支：** （待创建）
+**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s4b-cta-image-placeholder-renderer`
 
 **目标 variants：**
 
@@ -1827,6 +1827,52 @@ image_placeholder：
 - cta 不实现真实外链跳转能力
 - image_placeholder 不实现图片上传、图片托管、AI 生图或图库
 - 本轮只保证占位契约、Preview / Copy 结构和 copy-safe HTML
+
+**实际产物：**
+
+| 路径 | 说明 |
+|------|------|
+| `src/core/renderer/cta-layout.ts` | cta layout / typography / copySafety / content normalization |
+| `src/core/renderer/cta-preview.ts` | cta Preview Renderer 输出契约 |
+| `src/core/renderer/cta-renderer.ts` | cta renderer validation、balanced warning 与 Preview / Copy 调度 |
+| `src/core/renderer/cta-registry.ts` | cta Preview / Copy registry |
+| `src/core/copy/cta-copy.ts` | cta copy-safe inline HTML，占位按钮 / QR placeholder 表达 |
+| `src/core/renderer/image-placeholder-layout.ts` | image_placeholder layout / typography / copySafety / placeholder normalization |
+| `src/core/renderer/image-placeholder-preview.ts` | image_placeholder Preview Renderer 输出契约 |
+| `src/core/renderer/image-placeholder-renderer.ts` | image_placeholder renderer validation、balanced warning 与 Preview / Copy 调度 |
+| `src/core/renderer/image-placeholder-registry.ts` | image_placeholder Preview / Copy registry |
+| `src/core/copy/image-placeholder-copy.ts` | image_placeholder copy-safe inline HTML，占位框表达且不输出真实 `<img>` |
+| `tests/fixtures/renderer/cta-image-placeholder-articles.ts` | cta / image_placeholder variant fixtures |
+| `tests/core/renderer/cta-image-placeholder-renderer.test.ts` | cta / image_placeholder Preview、registry、fallback、回归测试 |
+| `tests/core/copy/cta-image-placeholder-copy-renderer.test.ts` | cta / image_placeholder Copy HTML、escape、copy-safe、strict / balanced 测试 |
+
+**验收标准：**
+
+- [x] AC-1 已从 `sprint/s4b-structured-block-renderer` 创建 `feature/s4b-cta-image-placeholder-renderer`
+- [x] AC-2 cta 3 个 first-wave variants Preview Renderer 已实现：`cta_plain_text` / `cta_button_like` / `cta_qr_placeholder`
+- [x] AC-3 cta 3 个 first-wave variants Copy Renderer 已实现
+- [x] AC-4 image_placeholder 3 个 first-wave variants Preview Renderer 已实现：`image_placeholder_simple` / `image_placeholder_caption` / `image_placeholder_card`
+- [x] AC-5 image_placeholder 3 个 first-wave variants Copy Renderer 已实现
+- [x] AC-6 Preview / Copy 共享既有 Article + ResolvedStyle 输入，不引入平行模型
+- [x] AC-7 renderer registry 已接入 cta / image_placeholder preview + copy renderer
+- [x] AC-8 Copy HTML 使用 inline style，无 Tailwind class / style tag / CSS variables
+- [x] AC-9 Copy HTML 不使用 absolute / transform / pseudo element
+- [x] AC-10 Release 1 占位边界明确：无真实二维码、真实链接按钮、小程序卡片、图片上传、图片托管、AI 生图
+- [x] AC-11 optional 字段有明确 disabled / fallback 行为
+- [x] AC-12 strict / balanced variants 有明确 warning / issue 机制，但不阻塞代码路径
+- [x] AC-13 单元测试覆盖 6 variants Preview / Copy、registry、fallback、escape、copy-safe 约束
+- [x] AC-14 `corepack pnpm lint` 通过
+- [x] AC-15 `corepack pnpm test` 通过（475 tests）
+- [x] AC-16 `corepack pnpm build` 通过
+- [x] AC-17 `docs/agile/sprint-backlog.md` 已同步 S4B-STORY-005 状态与产物
+- [x] AC-18 `docs/agile/changelog.md` 已记录本轮变更
+- [x] AC-19 未执行真实 Paste QA
+- [x] AC-20 未新增业务页面 / Clipboard API
+- [x] AC-21 未修改 Article / Block Schema 主模型
+- [x] AC-22 未 merge 至 `release/1`
+- [x] AC-23 未 merge 至 `main`
+- [x] AC-24 未关闭 Sprint 4-B
+- [x] AC-25 未启动 S4B-STORY-006
 
 ---
 
