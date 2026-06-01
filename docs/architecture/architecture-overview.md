@@ -621,7 +621,7 @@ Release 1 **不实现**完整导入；StyleDefinition 已通过 `sourceType` / `
 | **Sprint 2** | Article / Block Schema + **InlineContent** 代码契约（Zod/TS/fixture/单测；不含 Renderer/Style/Generation） |
 | **Sprint 3-A** | Style System contract & registry infrastructure |
 | **Sprint 3-B** | First-wave 11×3 variant registry + titleBlock ComponentProtocol |
-| **Sprint 3-C** | VisualAssetRegistry + AI Style Selection validation + Orchestrator |
+| **Sprint 3-C** | VisualAssetRegistry + Style Selection validation + Orchestrator · **In Progress**（DECISION-064） |
 | **Sprint 4-A** | Preview/Copy text-first blocks（first-wave） |
 | **Sprint 4-B** | Preview/Copy structured blocks + first-wave 最小 Paste QA |
 | **Sprint 5** | Generation/Streaming + StyleSelectionRequest 生成（须 validation） |

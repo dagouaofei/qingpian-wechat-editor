@@ -102,11 +102,13 @@ Preview Renderer 和 Copy Renderer 可以分离；
 
 ## 6. 数据流
 
+> **Sprint 3-C 边界（DECISION-064）：** StyleOrchestrator 与 Style Selection validation pipeline 位于 StyleResolver **之前**，输出校验后的 `styleAssignment` / `ArticleStylePlan`；**不 mutate** `blocks[]` 内容语义。Preview / Copy Renderer **仍只消费** `ResolvedBlockStyle`；Sprint 3-C **不修改** Renderer 实现。详见 [style-system.md](style-system.md) §11.7~11.8。
+
 ```text
 Article
   │
   ├── blocks[] ──────────────────────────────┐
-  └── styleAssignment ──→ Style Resolver     │
+  └── styleAssignment ──→ [3-C] Orchestrator / validation → Style Resolver
                               │                │
                               ▼                │
                     ResolvedArticleStyle       │

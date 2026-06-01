@@ -195,3 +195,16 @@
 | 2026-06-01 | Sprint 4-B | S4B-STORY-006 审核通过；merge `feature/s4b-structured-copy-snapshot-paste-plan` → `sprint/s4b-structured-block-renderer`（`c13f0e1`） | Git / 敏捷 | S4B-STORY-006 |
 | 2026-06-01 | Sprint 4-B | 完成 Renderer Contract Audit；Grade A，P0=0 / P1=4 / P2=2；Sprint 4-B 进入 Close Readiness，待用户确认关闭；lint / test（491）/ build PASS | Audit / 敏捷 / 架构 | S4B-STORY-007 |
 | 2026-06-01 | Sprint 4-B | **正式关闭 Sprint 4-B**；S4B-STORY-001~007 Done；structured blocks 18 variants Preview / Copy Renderer、structured snapshot seed、first-wave 33 variants Paste QA plan 完成；Paste QA 全部 Not Run；确认 merge `sprint/s4b-structured-block-renderer` → `release/1`；未 merge main，未启动后续 Sprint | 敏捷 / Git / Release | DECISION-063 |
+
+---
+
+## 2026-06-01 · Sprint 3-C
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-01 | Sprint 3-C | **正式启动 Sprint 3-C**；范围 Style Assignment / Selection Validation + Orchestrator + VisualAssetRegistry | 敏捷 / 架构 | S3C-STORY-001, DECISION-064 |
+| 2026-06-01 | Sprint 3-C | 从 `release/1` 建立 `sprint/s3c-style-assignment-validation` | Git | DECISION-064 |
+| 2026-06-01 | Sprint 3-C | 新增 Sprint 3-C Backlog S3C-STORY-001~006 | 敏捷 | S3C-STORY-001 |
+| 2026-06-01 | Sprint 3-C | 同步 sprint-plan / product-backlog / decisions；P1-003 与 TECH-ARCH-010~012 / TECH-ARCH-017 纳入 Sprint 3-C planning | 敏捷 / 架构 | S3C-STORY-001 |
+| 2026-06-01 | Sprint 3-C | 明确 Sprint 3-C 不做 Renderer / Generation / Paste QA；expansion variants 仅规划不实现 registry | 架构 | DECISION-064 |
+| 2026-06-01 | Sprint 3-C | Sprint 3-A / 3-B / 4-A / 4-B 保持 Closed；不自动启动 Sprint 5 / Sprint 6-A | 敏捷 | DECISION-064 |

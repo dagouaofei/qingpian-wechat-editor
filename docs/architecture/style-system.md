@@ -524,9 +524,10 @@ Experimental Variants：
 **Sprint 映射：**
 
 - **Sprint 3-B：** first-wave 33 variants registry（优先 title/heading titleBlock）
-- **Sprint 4-A / 4-B：** first-wave Preview / Copy 成对 renderer
+- **Sprint 3-C：** Style Assignment / Selection validation + Orchestrator R1/R2/R8 + VisualAssetRegistry 15~30 assets（**In Progress**，DECISION-064）
+- **Sprint 4-A / 4-B：** first-wave Preview / Copy 成对 renderer（**Closed**）
 - **Sprint 6-B：** first-wave 33 variants 全量 Paste QA
-- **expansion variants：** Sprint 3-C 规划 + 后续 expansion Sprint；不阻塞 3-A
+- **expansion variants：** Sprint 3-C **规划文档** + 后续 expansion Sprint registry 实现；不阻塞 3-A / 3-B / 4-A / 4-B
 - **candidate（含 `magazine_left_bar_title`）：** 不进入 first wave；实现须单独 Paste QA（DECISION-044）
 
 **VisualAssetRegistry（Release 1）：** Sprint 3-C 目标 **15~30** 系统内置 icon / shape / mark assets。
