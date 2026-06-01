@@ -675,6 +675,30 @@ heading block → componentId: titleBlock → family: simple|iconDecor|badgeTitl
 
 代码路径：`src/core/styles/variants/text-first.ts`
 
+#### 11.4.4 Sprint 3-B 已实现 structured variants（S3B-STORY-005）
+
+| variantId | blockType | copySafety | 主要 slot binding |
+|-----------|-----------|------------|-------------------|
+| `quote_plain` | quote | strict | body → `block.content.text` |
+| `quote_left_bar` | quote | balanced | body → `block.content.text`; decoration → `variant.presentation` |
+| `quote_card` | quote | balanced | body → `block.content.text`; decoration → `variant.presentation` |
+| `highlight_inline_emphasis` | highlight | strict | body → `block.content.text` |
+| `highlight_accent_band` | highlight | balanced | body → `block.content.text`; decoration → `variant.presentation` |
+| `highlight_soft_card` | highlight | balanced | body → `block.content.text`; decoration → `variant.presentation` |
+| `info_card_key_takeaway` | info_card | balanced | title → `block.content.title`; body → `block.content.body` |
+| `info_card_steps` | info_card | balanced | body → `block.content.body`; badge → `variant.presentation` |
+| `info_card_warning_note` | info_card | balanced | body → `block.content.body`; icon → `variant.presentation` |
+| `cta_plain_text` | cta | strict | body → `block.content.text`; action → `block.content.action` |
+| `cta_button_like` | cta | balanced | body → `block.content.text`; action → `block.content.action`; decoration → `variant.presentation` |
+| `cta_qr_placeholder` | cta | balanced | body → `block.content.text`; action → `block.content.action`; icon → `variant.presentation` |
+| `image_placeholder_simple` | image_placeholder | strict | image → `disabled` |
+| `image_placeholder_caption` | image_placeholder | balanced | image → `disabled`; caption → `block.content.caption` |
+| `image_placeholder_card` | image_placeholder | balanced | image → `disabled`; decoration → `variant.presentation` |
+
+代码路径：`src/core/styles/variants/structured.ts`
+
+**First-wave required variants 聚合：** `FIRST_WAVE_REQUIRED_VARIANTS` = title / heading 6 + text-first 12 + structured 15 = **33**。完整 coverage gate 留给 S3B-STORY-006。
+
 > **`magazine_left_bar_title` 为 release1CandidateVariants** — 不在 first wave；若未来实现须：真实 DOM left bar + text；禁止 absolute / pseudo / complex flex-grid；Copy 嵌套 ≤3；WeChatCompatibilityProfile + 单独 Paste QA。
 
 ### 11.5 titleBlock 专用 slot 规范
@@ -951,7 +975,7 @@ Preview / Copy 按 `componentId` 分发成对 renderer；**不得**因复杂 var
 | WeChat compatibility | `src/core/styles/compatibility.ts` | 3-A | WeChatCompatibilityProfile |
 | Style validation | `src/core/styles/validation.ts` | 3-A | StyleValidationResult / FallbackVariantPolicy |
 | Title layout compatibility | `src/core/styles/title-layout.ts` | 3-A | TitleBlockLayoutCompatibility |
-| Variant definitions（33） | `src/core/styles/` registry JSON/TS | 3-B | first-wave required variants · **title/heading 6 + text-first 12 已实现**（`variants/`） |
+| Variant definitions（33） | `src/core/styles/` registry JSON/TS | 3-B | first-wave required variants · **33 已实现**（`variants/`）；coverage gate 留 S3B-STORY-006 |
 | Protocol / Assets / Orchestrator / AI | 规划子模块 | 3-C | 见 §11 |
 | Copy adapter | 规划 | 4-A | ResolvedBlockStyle → inline HTML |
 
