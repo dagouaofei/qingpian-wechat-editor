@@ -4,8 +4,8 @@
 > **Sprint 2：** Article / Block Schema + InlineContent 代码契约 · **Closed**（2026-05-31；DECISION-054）
 > **Sprint 3-A：** Style System Contract & Registry Infrastructure · **Closed**（2026-05-31；DECISION-057）
 > **Sprint 3-B：** First-wave Required Variant Registry · **Closed**（2026-06-01；DECISION-059）
-> **Sprint 4-A：** Preview / Copy Renderer for Text-first Blocks · **In Progress**（2026-06-01；DECISION-060）
-> **Release 1 主干：** `release/1` · **Sprint 4-A 分支：** `sprint/s4a-text-first-renderer`（DECISION-060）· **下一步：** Sprint 4-A 实现（S4A-STORY-002 起）
+> **Sprint 4-A：** Preview / Copy Renderer for Text-first Blocks · **In Review / Close Readiness**（2026-06-01；audit Grade A；P0=0）
+> **Release 1 主干：** `release/1` · **Sprint 4-A 分支：** `sprint/s4a-text-first-renderer`（DECISION-060）· **下一步：** 用户确认 audit 后关闭 Sprint 4-A
 
 ---
 
@@ -1149,10 +1149,12 @@
 # Sprint 4-A Backlog
 
 > **Sprint 4-A 目标：** Preview / Copy Renderer for **text-first blocks**（title / lead / heading / paragraph / divider）；使用 Sprint 3-B first-wave required variants；建立 Preview / Copy 成对 Renderer 实现边界；启动最小 Paste QA seed
-> **Sprint 4-A 状态：** **In Progress**（2026-06-01；DECISION-060）
+> **Sprint 4-A 状态：** **In Review / Close Readiness**（2026-06-01；S4A-STORY-007 audit Grade A；P0=0；待用户确认关闭）
 > **Sprint 4-A 分支：** `sprint/s4a-text-first-renderer`（从 `release/1` 切出，DECISION-060）
 > **Sprint 4-A 前置遗留（须纳入 planning）：** P1-S3B-001、P1-S3B-002、P1-S3B-004、P2-S3B-002、P2-S3B-003 / P1-CODE-002、P1-S3A-004（见下方登记表）
 > **Sprint 4-A 不做：** structured blocks（list / quote / highlight / info_card / cta / image_placeholder）、AI Style Selection、Generation / Streaming、完整 33 variants Paste QA、VisualAssetRegistry 全量 assets、StyleOrchestrator
+
+> **Sprint 4-A Close Readiness 摘要：** S4A-STORY-002~006 均 Done 且 merge 至 sprint；`docs/architecture/audits/sprint4a-renderer-contract-audit.md` 已完成；P0=0；lint/test/build PASS；Paste QA seed 为 Not Run，未冒充真实粘贴通过；Sprint 4-A 尚未关闭，需用户确认。
 
 ---
 
@@ -1442,7 +1444,22 @@
 
 **用户故事：** 作为产品负责人，我需要在 Sprint 4-A 完成后做 Renderer 契约 audit，确认 text-first Preview / Copy Renderer 与 architecture / style-system / copy-to-wechat 一致，并准备是否进入 Sprint 4-B。
 
-**优先级：** P0 · **状态：** Todo · **工作分支：** `docs/s4a-renderer-contract-audit`（建议）
+**优先级：** P0 · **状态：** In Review · **工作分支：** `docs/s4a-renderer-contract-audit-close-readiness`
+
+**实际产物：**
+
+| 路径 | 说明 |
+|------|------|
+| `docs/architecture/audits/sprint4a-renderer-contract-audit.md` | Sprint 4-A Renderer Contract Audit（Grade A；P0=0；P1=4；P2=1） |
+| `docs/agile/execution-reports/2026-06-01-s4a-renderer-contract-audit-close-readiness.md` | 本轮 execution report |
+
+**Close Readiness 摘要：**
+
+- S4A-STORY-002~006 均为 Done，且已 merge 至 `sprint/s4a-text-first-renderer`
+- Contract audit：Grade A；P0=0；P1=4；P2=1
+- Sprint 4-A 范围未越界：未实现 structured blocks / AI / Generation / Style Gallery
+- Copy HTML / Clipboard / Paste QA seed 边界清晰：未调用 Clipboard API；Paste QA seed 为 Not Run
+- 建议进入 Close Readiness；是否关闭 Sprint 4-A 需用户确认
 
 **明确不做：**
 
@@ -1452,14 +1469,15 @@
 
 **验收标准：**
 
-- [ ] AC-1 已生成 `docs/architecture/audits/sprint4a-renderer-contract-audit.md`
-- [ ] AC-2 audit 覆盖 S4A-STORY-002~006 全部交付
-- [ ] AC-3 audit 对照 `rendering-pipeline.md`、`style-system.md`、`copy-to-wechat-pipeline.md`、`wechat-copy-style-rules.md`
-- [ ] AC-4 audit 输出 P0 / P1 / P2
-- [ ] AC-5 Sprint 4-A 范围未越界（无 structured blocks / AI / Generation）
-- [ ] AC-6 lint / test / build PASS
-- [ ] AC-7 已生成 execution report
-- [ ] AC-8 未自行关闭 Sprint 4-A
-- [ ] AC-9 准备 Sprint 4-B 启动条件说明
+- [x] AC-1 已生成 `docs/architecture/audits/sprint4a-renderer-contract-audit.md`
+- [x] AC-2 audit 覆盖 S4A-STORY-002~006 全部交付
+- [x] AC-3 audit 对照 `rendering-pipeline.md`、`style-system.md`、`copy-to-wechat-pipeline.md`、`wechat-copy-style-rules.md`
+- [x] AC-4 audit 输出 P0 / P1 / P2（P0=0；P1=4；P2=1）
+- [x] AC-5 Sprint 4-A 范围未越界（无 structured blocks / AI / Generation）
+- [x] AC-6 lint / test / build PASS（378 tests）
+- [x] AC-7 已生成 execution report
+- [x] AC-8 未自行关闭 Sprint 4-A
+- [x] AC-9 准备 Sprint 4-B 启动条件说明
+- [x] AC-10 未 merge 至 sprint / release / main
 
 ---

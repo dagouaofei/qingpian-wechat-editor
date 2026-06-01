@@ -126,3 +126,18 @@
 | P2-S3B-001 | 33 variants 视觉方向偏保守 | Sprint 6 / Release 2 | 登记 |
 | **P2-S3B-002** | WeChat profile 文档字段与代码结构仍有轻微命名差异 | Sprint 4-A 前 | **已纳入** · S4A-STORY-002 |
 | **P2-S3B-003** | InlineMark color 与 Style ColorTokenRef 跨模块校验未打通 | Sprint 4-A / 6 | **已纳入** · S4A-STORY-004（同 P1-CODE-002） |
+
+---
+
+## Sprint 4-A Renderer Contract Audit 遗留（S4A-STORY-007 登记）
+
+> 来源：`docs/architecture/audits/sprint4a-renderer-contract-audit.md` §9；不阻塞 Sprint 4-A Close Readiness。Sprint 4-A audit 结论：Grade A，P0=0，P1=4，P2=1。
+
+| ID | 问题 | 建议 Sprint / 归属 | 说明 |
+|----|------|-------------------|------|
+| **P1-S4A-001** | 尚未执行真实微信公众号 Paste QA | Sprint 6-B / Paste QA 回归 | S4A 仅建立 Not Run seed，不冒充人工 QA 通过 |
+| **P1-S4A-002** | `balanced` copySafety variants 仍需粘贴细节验证 | Sprint 4-B / 6-B | heading / lead / paragraph / divider balanced variants 需微信编辑器验证 |
+| **P1-S4A-003** | Copy HTML snapshot seed 仅覆盖 6 个代表 variants，未覆盖全部 15 个已实现 text-first variants | Sprint 6-A / 6-B | 不阻塞 S4A 最小 seed，建议后续扩展为完整 text-first snapshot set |
+| **P1-S4A-004** | InlineMark color 与 Style registry 完整 cross-registry 校验仍未完成 | Sprint 6 / Release 1 hardening | 当前已有安全 alias / fallback，不阻塞 Close Readiness |
+| **P2-S4A-001** | Style Gallery / 人工视觉验收入口仍缺失 | Sprint 6 / Release 2 | 支撑视觉评审效率，不阻塞 S4A |
+| Sprint 4-B Scope | structured blocks Renderer（list / quote / highlight / info_card / cta / image_placeholder） | Sprint 4-B | S4A 明确未覆盖，不计为 S4A 缺陷 |
