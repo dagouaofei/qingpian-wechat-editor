@@ -2084,7 +2084,15 @@ image_placeholder：
 
 **技术价值：** 将 `style-system.md` §11.8 的 `StyleSelectionRequest` / `StyleAssignmentPatch` / `ArticleStylePlan` 代码化，并与现有 `Article.styleAssignment` 对齐。
 
-**优先级：** P0 · **状态：** Todo · **工作分支：** `feature/s3c-style-assignment-contract`（建议）
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s3c-style-assignment-contract`
+
+**产物：**
+
+- `src/core/styles/style-assignment.ts` — TS 类型
+- `src/core/styles/style-assignment-schemas.ts` — Zod schema + parse helpers
+- `src/core/styles/style-assignment-patch.ts` — patch merge / apply helpers
+- `tests/core/styles/style-assignment-contract.test.ts`（11 cases）
+- `tests/core/styles/style-assignment-patch.test.ts`（6 cases）
 
 **范围：**
 
@@ -2104,16 +2112,16 @@ image_placeholder：
 
 **验收标准：**
 
-- [ ] AC-1 已从 `sprint/s3c-style-assignment-validation` 创建 `feature/s3c-style-assignment-contract`
-- [ ] AC-2 `StyleSelectionRequest` 类型与 schema 与 `style-system.md` §11.8.1 字段一致
-- [ ] AC-3 `StyleAssignmentPatch` 类型与 schema 与 §11.8.2 一致
-- [ ] AC-4 `ArticleStylePlan` 类型与 schema 定义 preset / blockOverrides / orchestrator hints 最小结构
-- [ ] AC-5 patch merge helper：仅影响 `styleAssignment`；不修改 `blocks[]` 内容语义
-- [ ] AC-6 schema 使用 `.strict()`；拒绝 html / css / className / style 字段
-- [ ] AC-7 单元测试 ≥ 12 cases
-- [ ] AC-8 未实现 Generation / Renderer / Orchestrator
-- [ ] AC-9 `corepack pnpm lint` / `test` / `build` 通过
-- [ ] AC-10 已生成 execution report
+- [x] AC-1 已从 `sprint/s3c-style-assignment-validation` 创建 `feature/s3c-style-assignment-contract`
+- [x] AC-2 `StyleSelectionRequest` 类型与 schema 与 `style-system.md` §11.8.1 字段一致
+- [x] AC-3 `StyleAssignmentPatch` 类型与 schema 与 §11.8.2 一致
+- [x] AC-4 `ArticleStylePlan` 类型与 schema 定义 preset / blockOverrides / orchestrator hints 最小结构
+- [x] AC-5 patch merge helper：仅影响 `styleAssignment`；不修改 `blocks[]` 内容语义
+- [x] AC-6 schema 使用 `.strict()`；拒绝 html / css / className / style 字段
+- [x] AC-7 单元测试 ≥ 12 cases（17 cases；508 tests total）
+- [x] AC-8 未实现 Generation / Renderer / Orchestrator
+- [x] AC-9 `corepack pnpm lint` / `test` / `build` 通过
+- [x] AC-10 已生成 execution report
 
 ---
 

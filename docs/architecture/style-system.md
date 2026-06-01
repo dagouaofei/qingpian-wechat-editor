@@ -98,7 +98,7 @@ Article 和 Block **永远不携带 CSS**。
 | **StyleVariant** | preset 内对某 block type 的 variant 引用 ID | preset 配置 | Style Assignment |
 | **VariantDefinition** | 某 `blockType` × `variantId` 的可注册样式定义（layout/spacing/typography/decoration/slots） | **registry** | StyleResolver（读取） |
 | **StyleDefinition** | 可持久化或可注册的样式定义**集合**概念；Release 1 以 system preset + registry 形式存在 | registry + theme | 架构层术语 |
-| **ArticleStylePlan** | 针对一篇 Article 的样式分配计划；来自 `Article.styleAssignment` + preset 解析 | 运行时中间结构 | StyleResolver 输入 |
+| **ArticleStylePlan** | 针对一篇 Article 的样式分配计划；来自 `Article.styleAssignment` + preset 解析 | 运行时中间结构 | StyleResolver 输入 · **S3C-STORY-002** `style-assignment.ts` |
 | **ResolvedBlockStyle** | **单个 block 实例**解析后的最终样式；含 tokens、slots、copySafety 等 | 运行时，不持久化 | **Preview / Copy Renderer 直接输入** |
 | **ResolvedArticleStyle** | 整篇 Article 的 resolved map：`Map<blockId, ResolvedBlockStyle>` | 运行时 | Preview / Copy 批量渲染 |
 
@@ -848,6 +848,8 @@ Sprint 3 最小实现 R1、R2、R8。
 
 #### 11.8.1 StyleSelectionRequest
 
+> **S3C-STORY-002 已实现** — `src/core/styles/style-assignment.ts` · `style-assignment-schemas.ts`
+
 ```text
 StyleSelectionRequest
 ├── articleId: string
@@ -869,6 +871,8 @@ StyleSelectionRequest
 ```
 
 #### 11.8.2 StyleAssignmentPatch
+
+> **S3C-STORY-002 已实现** — `src/core/styles/style-assignment.ts` · `style-assignment-schemas.ts` · merge helper `style-assignment-patch.ts`
 
 ```text
 StyleAssignmentPatch
