@@ -171,3 +171,16 @@
 | 2026-06-01 | Sprint 4-A | 完成 Sprint 4-A Renderer Contract Audit；Grade A，P0=0，P1=4，P2=1；Sprint 4-A 进入 Close Readiness，待用户确认关闭 | 架构 / 敏捷 | S4A-STORY-007 |
 | 2026-06-01 | Sprint 4-A | 用户确认接受 Sprint 4-A renderer contract audit（grade A，P0=0，P1=4，P2=1） | 敏捷 / 架构 | S4A-STORY-007, DECISION-061 |
 | 2026-06-01 | Sprint 4-A | Sprint 4-A 正式关闭；merge `sprint/s4a-text-first-renderer` → `release/1`（`b2efdb2`） | Git / 敏捷 | S4A-STORY-007, DECISION-061 |
+
+---
+
+## 2026-06-01 · Sprint 4-B
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-01 | Sprint 4-B | **正式启动 Sprint 4-B**；范围 Preview / Copy Renderer for Structured Blocks | 敏捷 / 架构 | S4B-STORY-001, DECISION-062 |
+| 2026-06-01 | Sprint 4-B | 从 `release/1` 建立 `sprint/s4b-structured-block-renderer` | Git | DECISION-062 |
+| 2026-06-01 | Sprint 4-B | 新增 Sprint 4-B Backlog S4B-STORY-001~007 | 敏捷 | S4B-STORY-001 |
+| 2026-06-01 | Sprint 4-B | 同步 sprint-plan / product-backlog；Sprint 4-B 前置遗留纳入 planning | 敏捷 / 架构 | S4B-STORY-001 |
+| 2026-06-01 | Sprint 4-B | 明确 cta / image_placeholder 为 Release 1 占位契约；不实现真实 QR / 外链 / 图片能力 | 架构 / Renderer | DECISION-062 |
+| 2026-06-01 | Sprint 4-B | Sprint 3-C 仍保持延后未取消 | 敏捷 | DECISION-062 |

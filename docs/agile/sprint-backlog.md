@@ -5,7 +5,8 @@
 > **Sprint 3-A：** Style System Contract & Registry Infrastructure · **Closed**（2026-05-31；DECISION-057）
 > **Sprint 3-B：** First-wave Required Variant Registry · **Closed**（2026-06-01；DECISION-059）
 > **Sprint 4-A：** Preview / Copy Renderer for Text-first Blocks · **Closed**（2026-06-01；DECISION-061；audit Grade A；P0=0）
-> **Release 1 主干：** `release/1`（Sprint 4-A 已 merge，DECISION-061）· **Sprint 4-A 分支：** `sprint/s4a-text-first-renderer`（DECISION-060）· **下一步：** Sprint 4-B 未启动（待用户确认）
+> **Sprint 4-B：** Preview / Copy Renderer for Structured Blocks · **In Progress**（DECISION-062）
+> **Release 1 主干：** `release/1` · **Sprint 4-B 分支：** `sprint/s4b-structured-block-renderer`（DECISION-062）
 
 ---
 
@@ -1494,5 +1495,203 @@
 - [x] AC-8 未自行关闭 Sprint 4-A
 - [x] AC-9 准备 Sprint 4-B 启动条件说明
 - [x] AC-10 已 merge 至 `sprint/s4a-text-first-renderer`；sprint 已 merge 至 `release/1`（DECISION-061）；未 merge 至 `main`
+
+---
+
+# Sprint 4-B Backlog
+
+> **Sprint 4-B 目标：** Preview / Copy Renderer for **structured blocks**（list / quote / highlight / info_card / cta / image_placeholder）；使用 Sprint 3-B first-wave required variants；完成 first-wave 33 variants 最小 Paste QA **计划**（Not Run）
+> **Sprint 4-B 状态：** **In Progress**（DECISION-062）
+> **Sprint 4-B 分支：** `sprint/s4b-structured-block-renderer`（从 `release/1` 切出，DECISION-062）
+> **Sprint 4-B 前置遗留（须纳入 planning）：** P1-005、P1-S3B-003、P1-S3B-005、P1-S4A-002、P1-S4A-003、P2-S4A-001（见下方登记表）
+> **Sprint 4-B 不做：** AI Style Selection、Generation / Streaming、VisualAssetRegistry 全量 assets、StyleOrchestrator、真实微信公众号 Paste QA 全量执行、Style Gallery、业务页面、真实 QR / 外链 / 小程序 / 图片上传托管
+
+---
+
+## Sprint 4-B 前置遗留登记（须纳入 planning）
+
+| ID | 问题 | 纳入 Story | 说明 |
+|----|------|------------|------|
+| **P1-005** | list / info_card copy 结构保真规则未细化 | S4B-STORY-002 / S4B-STORY-004 | Copy HTML 结构保真 |
+| **P1-S3B-003** | cta / image_placeholder 为占位契约，无真实 QR / 链接 / 小程序 / 图片能力 | S4B-STORY-005 | Release 1 占位 Renderer 边界 |
+| **P1-S3B-005** | optional 字段需 renderer 明确 disabled / fallback 行为 | S4B-STORY-004 / S4B-STORY-005 | info_card / cta / image_placeholder |
+| **P1-S4A-002** | `balanced` copySafety variants 仍需粘贴细节验证 | S4B-STORY-006 | 纳入 33 variants Paste QA plan |
+| **P1-S4A-003** | Copy HTML snapshot seed 覆盖不足 | S4B-STORY-006 | 扩展 structured blocks representative snapshot |
+| **P2-S4A-001** | Style Gallery / 人工视觉验收入口缺失 | 登记 · 后续 gallery / QA | 不要求 Sprint 4-B 实现 |
+
+---
+
+## S4B-STORY-001 Sprint 4-B 启动与 Backlog 拆分
+
+**用户故事：** 作为产品负责人，我需要正式启动 Sprint 4-B 并拆分 Backlog，以便团队在明确边界下按 Story 逐步实现 structured blocks Preview / Copy Renderer。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `docs/s4b-start-backlog-split`
+
+**明确不做：**
+
+- 不实现 Renderer 代码
+- 不实现 list / quote / highlight / info_card / cta / image_placeholder 渲染逻辑
+- 不新增业务页面
+- 不执行真实 Paste QA
+- 不 merge 至 `release/1` 或 `main`（本轮由用户审查后 merge sprint 分支）
+- 不关闭 Sprint 4-B
+
+**验收标准：**
+
+- [x] AC-1 工作区启动前干净
+- [x] AC-2 已从 `release/1` 创建 `sprint/s4b-structured-block-renderer`
+- [x] AC-3 已从 sprint 分支创建 `docs/s4b-start-backlog-split`
+- [x] AC-4 `sprint-backlog.md` 已新增 Sprint 4-B Backlog（S4B-STORY-001~007）
+- [x] AC-5 `sprint-plan.md` 已将 Sprint 4-B 更新为 In Progress
+- [x] AC-6 `product-backlog.md` 已同步 Sprint 4-B structured renderer 状态与相关遗留
+- [x] AC-7 `decisions.md` 已新增 DECISION-062
+- [x] AC-8 `changelog.md` 已记录 Sprint 4-B 启动
+- [x] AC-9 Sprint 4-B 前置遗留已登记至 planning
+- [x] AC-10 Sprint 4-B 范围未越界（未实现 Renderer 代码）
+- [x] AC-11 `corepack pnpm lint` 通过
+- [x] AC-12 `corepack pnpm test` 通过
+- [x] AC-13 `corepack pnpm build` 通过
+- [x] AC-14 已生成 execution report
+- [x] AC-15 未 merge 到 sprint / release / main
+- [x] AC-16 未启动 S4B-STORY-002
+
+---
+
+## S4B-STORY-002 list Preview + Copy Renderer
+
+**用户故事：** 作为开发者，我需要 list 3 个 first-wave variants 的 Preview / Copy 成对 Renderer，以便 structured blocks 渲染从 list 起步。
+
+**优先级：** P0 · **状态：** Todo · **工作分支：** （待创建）
+
+**目标 variants：**
+
+- `list_plain_bullets`
+- `list_numbered_steps`
+- `list_checklist_cards`
+
+**纳入遗留：** P1-005（list copy 结构保真）
+
+**明确不做：**
+
+- 不实现 quote / highlight / info_card / cta / image_placeholder
+- 不做真实 Paste QA
+- 不新增业务页面
+
+---
+
+## S4B-STORY-003 quote / highlight Preview + Copy Renderer
+
+**用户故事：** 作为开发者，我需要 quote / highlight 各 3 个 first-wave variants 的 Preview / Copy 成对 Renderer。
+
+**优先级：** P0 · **状态：** Todo · **工作分支：** （待创建）
+
+**目标 variants：**
+
+quote：
+
+- `quote_plain`
+- `quote_left_bar`
+- `quote_card`
+
+highlight：
+
+- `highlight_inline_emphasis`
+- `highlight_accent_band`
+- `highlight_soft_card`
+
+**明确不做：**
+
+- 不升级 quote / highlight 到 InlineContent 主模型，沿用当前 Release 1 block schema
+- 不实现 info_card / cta / image_placeholder
+- 不做真实 Paste QA
+
+---
+
+## S4B-STORY-004 info_card Preview + Copy Renderer
+
+**用户故事：** 作为开发者，我需要 info_card 3 个 first-wave variants 的 Preview / Copy 成对 Renderer，并明确 optional 字段 fallback 行为。
+
+**优先级：** P0 · **状态：** Todo · **工作分支：** （待创建）
+
+**目标 variants：**
+
+- `info_card_key_takeaway`
+- `info_card_steps`
+- `info_card_warning_note`
+
+**纳入遗留：** P1-005（info_card copy 结构保真）；P1-S3B-005（optional 字段 disabled / fallback）
+
+**重点要求：**
+
+- 明确 `content.title` / `content.body` / optional 字段的 disabled / fallback 行为
+- 避免 Copy HTML 依赖复杂卡片 wrapper 继承 typography
+- Copy HTML 必须使用 inline style
+
+**明确不做：**
+
+- 不实现 cta / image_placeholder
+- 不做真实 Paste QA
+
+---
+
+## S4B-STORY-005 cta / image_placeholder Preview + Copy Renderer
+
+**用户故事：** 作为开发者，我需要 cta / image_placeholder 各 3 个 first-wave variants 的 Release 1 占位型 Preview / Copy 成对 Renderer。
+
+**优先级：** P0 · **状态：** Todo · **工作分支：** （待创建）
+
+**目标 variants：**
+
+cta：
+
+- `cta_plain_text`
+- `cta_button_like`
+- `cta_qr_placeholder`
+
+image_placeholder：
+
+- `image_placeholder_simple`
+- `image_placeholder_caption`
+- `image_placeholder_card`
+
+**纳入遗留：** P1-S3B-003（占位契约）；P1-S3B-005（optional 字段 fallback）
+
+**明确边界：**
+
+- cta 不实现真实二维码生成
+- cta 不实现小程序卡片
+- cta 不实现真实外链跳转能力
+- image_placeholder 不实现图片上传、图片托管、AI 生图或图库
+- 本轮只保证占位契约、Preview / Copy 结构和 copy-safe HTML
+
+---
+
+## S4B-STORY-006 Structured blocks Copy HTML snapshot / 33 variants 最小 Paste QA plan
+
+**用户故事：** 作为产品团队，我需要扩展 structured blocks Copy HTML snapshot seed，并汇总 text-first + structured blocks 形成 first-wave 33 variants 最小 Paste QA 计划。
+
+**优先级：** P0 · **状态：** Todo · **工作分支：** （待创建）
+
+**纳入遗留：** P1-S4A-002、P1-S4A-003
+
+**明确不做：**
+
+- 不执行完整真实 Paste QA
+- 不实现浏览器 Clipboard API
+- 不新增业务页面 / Copy 按钮
+
+---
+
+## S4B-STORY-007 Sprint 4-B Renderer Contract Audit 与关闭准备
+
+**用户故事：** 作为产品负责人，我需要在 Sprint 4-B 完成后做 Renderer 契约 audit，确认 structured blocks Preview / Copy Renderer 与 architecture / style-system / copy-to-wechat 一致，并准备是否关闭 Sprint 4-B。
+
+**优先级：** P0 · **状态：** Todo · **工作分支：** （待创建）
+
+**明确不做：**
+
+- 不在 audit 轮实现新业务 Renderer
+- 不自行关闭 Sprint 4-B（须用户确认）
+- 不 merge 至 `release/1`，除非用户确认
 
 ---

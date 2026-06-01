@@ -60,6 +60,7 @@
 | DECISION-059 | 2026-06-01 | 关闭 Sprint 3-B；contract audit A，P0=0；merge sprint/s3b-first-wave-variant-registry → release/1 | 已确认 |
 | DECISION-060 | 2026-06-01 | 正式启动 Sprint 4-A；Preview / Copy Renderer for Text-first Blocks；从 release/1 切 sprint/s4a-text-first-renderer | 已确认 |
 | DECISION-061 | 2026-06-01 | 关闭 Sprint 4-A；renderer contract audit A，P0=0；merge sprint/s4a-text-first-renderer → release/1 | 已确认 |
+| DECISION-062 | 2026-06-01 | 正式启动 Sprint 4-B；Preview / Copy Renderer for Structured Blocks；从 release/1 切 sprint/s4b-structured-block-renderer | 已确认 |
 
 ### DECISION-019 详情
 
@@ -308,6 +309,26 @@
   5. **不 merge 至 `main`**
   6. **不自动启动 Sprint 4-B**
 - **关联：** S4A-STORY-007、`sprint4a-renderer-contract-audit.md`
+- **状态：** 已确认
+
+### DECISION-062 详情（正式启动 Sprint 4-B）
+
+- **日期：** 2026-06-01
+- **背景：**
+  - Sprint 4-A 已关闭并 merge 至 `release/1`（DECISION-061）
+  - text-first Preview / Copy Renderer 最小闭环已完成
+  - 用户确认启动 Sprint 4-B
+- **决策：**
+  1. Sprint 4-B **正式启动**，状态 **In Progress**
+  2. 从 `release/1` 创建 **`sprint/s4b-structured-block-renderer`**
+  3. 范围：**Preview / Copy Renderer for Structured Blocks**
+  4. 覆盖 block：**list / quote / highlight / info_card / cta / image_placeholder**
+  5. 使用 Sprint 3-B **first-wave required variants**
+  6. Sprint 4-B **不做：** AI Style Selection、Generation / Streaming、VisualAssetRegistry 全量 assets、StyleOrchestrator、真实微信公众号 Paste QA 全量执行
+  7. **cta / image_placeholder** 在本 Sprint 仅实现 Release 1 **占位契约**渲染；不实现真实二维码生成、真实链接按钮、小程序卡片、图片上传或图片托管
+  8. **不 merge 至 `main`**
+  9. Sprint 关闭后 merge 至 `release/1` 须用户确认
+- **关联：** S4B-STORY-001、DECISION-043~045、rendering-pipeline.md、TECH-ARCH-021、TECH-ARCH-023
 - **状态：** 已确认
 
 ## 决策模板
