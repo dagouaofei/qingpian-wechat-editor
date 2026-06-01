@@ -38,6 +38,9 @@ export type {
   HighlightCopyOutput,
   HighlightLayoutKind,
   HighlightPreviewOutput,
+  InfoCardCopyOutput,
+  InfoCardLayoutKind,
+  InfoCardPreviewOutput,
   PreviewInlineMark,
   PreviewInlineNode,
 } from "./types";
@@ -183,3 +186,21 @@ export {
 export { createHighlightRendererRegistry } from "./highlight-registry";
 
 export { renderHighlightPreview } from "./highlight-preview";
+
+export {
+  normalizeInfoCardContentForRenderer,
+  resolveInfoCardCopySafety,
+  resolveInfoCardLayout,
+  resolveInfoCardTypography,
+} from "./info-card-layout";
+
+export {
+  INFO_CARD_SUPPORTED_VARIANT_IDS,
+  createInfoCardRenderer,
+  renderInfoCard,
+  validateInfoCardRenderContext,
+} from "./info-card-renderer";
+
+export { createInfoCardRendererRegistry } from "./info-card-registry";
+
+export { renderInfoCardPreview } from "./info-card-preview";
