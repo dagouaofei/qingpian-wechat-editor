@@ -64,6 +64,24 @@ describe("volcengine provider smoke helpers", () => {
     expect(formatted).not.toContain("sk-secret-token");
   });
 
+  it("formats passed smoke summary with finalization and enrichment fields", () => {
+    const formatted = formatVolcengineSmokeSummary({
+      ok: true,
+      providerName: "volcengine",
+      model: "doubao-pro-32k",
+      eventCount: 7,
+      blockCount: 3,
+      articleId: "22222222-2222-4222-8222-222222222222",
+      articleTitle: "测试标题",
+      finalizationStatus: "passed",
+      enrichmentWarningCount: 4,
+    });
+
+    expect(formatted).toContain("PASSED");
+    expect(formatted).toContain("finalizationStatus: passed");
+    expect(formatted).toContain("enrichmentWarningCount: 4");
+  });
+
   it("parses env lines for dev smoke loader", () => {
     expect(parseSmokeEnvLine('VOLCENGINE_API_KEY="abc123"')).toEqual([
       "VOLCENGINE_API_KEY",

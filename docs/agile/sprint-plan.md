@@ -61,7 +61,7 @@
 | **Sprint 5** | **In Progress**（2026-06-02；DECISION-067；分支 `sprint/s5-generation-ui-main-flow`） |
 | **Release 1 主干** | `release/1` |
 | **Sprint 5 分支** | `sprint/s5-generation-ui-main-flow` |
-| **下一步** | S5-STORY-005A 真实 API smoke 本地确认 → S5-STORY-006 起；不 merge `main` |
+| **下一步** | S5-STORY-006 受控 AI 样式选择 → S5-STORY-007 `/generate` UI；不 merge `main` |
 
 ---
 
@@ -435,7 +435,7 @@
 
 **分支：** `sprint/s5-generation-ui-main-flow`（DECISION-067） · **Release 1 主干：** `release/1`
 
-> **S5-STORY-001~004** Done · **S5-STORY-005 / 005A** In Review · **S5-STORY-006~008** Planned · **不 merge `main`**
+> **S5-STORY-001~004** Done · **S5-STORY-005 / 005A / 005B** Done · **S5-STORY-006~008** Planned · **不 merge `main`**
 
 **Sprint Goal：**
 
@@ -459,7 +459,7 @@
 1. 输入契约完成（S5-STORY-002）
 2. GenerationEvent / SSE runtime 完成（S5-STORY-003）
 3. `done.article` 可归一并通过 Article Schema 校验（S5-STORY-004） — **Done**
-4. 真实模型 Provider 已接入，优先 Volcengine / Doubao（S5-STORY-005 + **S5-STORY-005A dev smoke**） — **In Review（代码 Done；真实 API smoke 待本地手动通过）**
+4. 真实模型 Provider 已接入，优先 Volcengine / Doubao（S5-STORY-005 + **S5-STORY-005A / 005B dev smoke**） — **Done（2026-06-02 真实 API smoke PASSED）**
 5. deterministic provider 仅作为 dev fallback / test provider
 6. `/generate` 真实页面可选择或默认使用真实 provider（S5-STORY-007）
 7. 主链路可跑通：输入 → 真实模型生成 → `done.article` → Article 校验 → 样式选择 → 预览 → 复制
@@ -467,7 +467,7 @@
 
 **Stories：** S5-STORY-001（启动）~ S5-STORY-008 — 见 `sprint-backlog.md`
 
-**进度：** S5-STORY-001~004 **Done** · S5-STORY-005 / **005A** **In Review** · S5-STORY-006~008 **Planned**
+**进度：** S5-STORY-001~004 **Done** · S5-STORY-005 / **005A / 005B** **Done** · S5-STORY-006~008 **Planned**
 
 **建议执行顺序：**
 
@@ -476,7 +476,7 @@ S5-STORY-001 — Done
 S5-STORY-002 — Done
 S5-STORY-003 — Done
 S5-STORY-004 — Done
-S5-STORY-005 / 005A — In Review
+S5-STORY-005 / 005A / 005B — Done
 S5-STORY-006 → S5-STORY-008 — Planned
 ```
 

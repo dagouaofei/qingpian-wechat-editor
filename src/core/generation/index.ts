@@ -124,6 +124,24 @@ export {
   parseModelJsonContent,
 } from "./model-prompt";
 
+export type {
+  ModelArticleEnrichmentFailure,
+  ModelArticleEnrichmentInput,
+  ModelArticleEnrichmentIssue,
+  ModelArticleEnrichmentResult,
+  ModelArticleEnrichmentSuccess,
+  StripForbiddenFieldsResult,
+} from "./model-article-candidate";
+
+export {
+  createArticleCandidateFromModelOutput,
+  enrichModelArticleCandidate,
+  isValidUuid,
+  repairModelArticleCandidate,
+  resolveEnrichmentUuid,
+  stripForbiddenFieldsFromCandidate,
+} from "./model-article-enrichment";
+
 export { createVolcengineTransport } from "./volcengine-transport";
 
 export {
@@ -134,6 +152,8 @@ export {
   generateVolcengineProviderEvents,
   resolveGenerationModelProvider,
 } from "./volcengine-provider";
+
+export type { BuildGenerationEventsOptions } from "./volcengine-provider";
 
 export {
   classifyVolcengineSmokeFailure,

@@ -7,16 +7,16 @@ const FORBIDDEN_OUTPUT_FIELDS = ["html", "css", "className", "style"] as const;
 export function buildVolcengineSystemPrompt(): string {
   return [
     "You are a structured article generator for the Qingpian WeChat editor.",
-    "Return ONLY one JSON object that matches the Release 1 Article candidate schema.",
-    "Do not return HTML, Markdown, CSS, className, inline style, or renderer fields.",
+    "Return ONLY one JSON object (Article candidate). Do not wrap output in Markdown code fences.",
+    "Do not return HTML, CSS, className, inline style, renderer fields, or copy-ready HTML.",
     "Required top-level fields: id, version, metadata, input, styleAssignment, blocks.",
     "version must be 1.",
     "metadata must include title, createdAt, updatedAt, locale.",
     "input must include type, raw, capturedAt.",
-    "styleAssignment must include themeId and presetId only; do not invent renderer fields.",
-    `blocks must use only these block types: ${BLOCK_TYPES.join(", ")}.`,
+    "styleAssignment may use themeId=default and presetId=classic-news; system can fill safe defaults.",
+    `blocks must use only these Release 1 block types: ${BLOCK_TYPES.join(", ")}.`,
+    "Include UUID strings for article id and block ids when possible; system will repair missing or invalid UUIDs.",
     "paragraph and lead content.text may be plain string or InlineContent array.",
-    "Do not wrap the JSON in markdown fences unless unavoidable.",
     `Never include forbidden fields: ${FORBIDDEN_OUTPUT_FIELDS.join(", ")}.`,
   ].join("\n");
 }
@@ -54,9 +54,11 @@ export function buildVolcengineUserPrompt(input: NormalizedInput): string {
   };
 
   return [
-    "Generate one WeChat article Article candidate JSON from the normalized input below.",
+    "Generate one WeChat article Article candidate JSON object from the normalized input below.",
+    "Output JSON only — no Markdown fences, no HTML/CSS/className/style fields, no copy HTML.",
     "Use safe default styleAssignment unless styleIntent clearly suggests another preset.",
-    "Include at least one title block and one paragraph or lead block.",
+    "Include at least one title block and one paragraph or lead block with Release 1 block types.",
+    "Prefer valid UUIDs for id fields; missing machine fields may be repaired by the provider.",
     JSON.stringify(payload, null, 2),
   ].join("\n\n");
 }

@@ -149,7 +149,7 @@ describe("Volcengine model provider", () => {
     expect(events[0].code).toBe("invalid_article_candidate");
   });
 
-  it("rejects forbidden html field in model output", async () => {
+  it("strips forbidden html field and still finalizes", async () => {
     const provider = createVolcengineModelProvider({
       config: enabledConfig,
       transport: createMockVolcengineTransport(
@@ -160,11 +160,58 @@ describe("Volcengine model provider", () => {
       ),
     });
     const events = await collectGenerationStream(provider.generate(normalizedInput));
+    expect(events.at(-1)?.type).toBe("done.article");
+    const result = finalizeGenerationEvents(events);
+    expect(result.ok).toBe(true);
+  });
+
+  it("finalizes mock transport output with invalid UUIDs after enrichment", async () => {
+    const provider = createVolcengineModelProvider({
+      config: enabledConfig,
+      transport: createMockVolcengineTransport(
+        JSON.stringify({
+          id: "not-a-valid-uuid",
+          version: 1,
+          metadata: { title: "Enriched Title" },
+          blocks: [
+            {
+              id: "also-not-valid",
+              type: "title",
+              content: { text: "标题" },
+            },
+            {
+              type: "paragraph",
+              content: { text: "正文段落" },
+            },
+          ],
+        }),
+      ),
+    });
+    const events = await collectGenerationStream(provider.generate(normalizedInput));
+    const result = finalizeGenerationEvents(events);
+    expect(result.ok).toBe(true);
+    if (!result.ok) {
+      return;
+    }
+    expect(result.data.article.metadata.title).toBe("Enriched Title");
+  });
+
+  it("converts unrecoverable invalid block type into error events", async () => {
+    const provider = createVolcengineModelProvider({
+      config: enabledConfig,
+      transport: createMockVolcengineTransport(
+        JSON.stringify({
+          ...validDoneArticleCandidate,
+          blocks: [{ id: validDoneArticleCandidate.blocks[0]!.id, type: "html_block" }],
+        }),
+      ),
+    });
+    const events = await collectGenerationStream(provider.generate(normalizedInput));
     expect(events[0]?.type).toBe("error");
     if (events[0]?.type !== "error") {
       return;
     }
-    expect(events[0].code).toBe("forbidden_output_field");
+    expect(events[0].code).toBe("invalid_article_candidate");
   });
 
   it("maps transport auth failures to error events", async () => {

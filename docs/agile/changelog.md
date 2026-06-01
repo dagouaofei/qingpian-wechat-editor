@@ -290,3 +290,14 @@
 | 2026-06-02 | Sprint 5 | 新增 dev-only `smoke:volcengine-provider` 真实 API smoke 脚本 | 工具 / 架构 | S5-STORY-005A |
 | 2026-06-02 | Sprint 5 | S5-STORY-005 调整为 In Review；005A smoke script ready；真实 API 手动运行 pending | 敏捷 | S5-STORY-005, S5-STORY-005A |
 | 2026-06-02 | Sprint 5 | 新增 `docs/agile/smoke/s5-volcengine-provider-smoke.md` | 文档 | S5-STORY-005A |
+
+---
+
+## 2026-06-02 · S5-STORY-005B Model Article Candidate Enrichment
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-02 | Sprint 5 | 新增 `model-article-enrichment` 层：UUID / metadata / input / styleAssignment / block content deterministic repair | 代码 / 架构 | S5-STORY-005B |
+| 2026-06-02 | Sprint 5 | Volcengine provider 接入 enrichment；forbidden 字段剥离 + warning；smoke summary 增加 finalization / enrichment 字段 | 代码 / 工具 | S5-STORY-005B |
+| 2026-06-02 | Sprint 5 | 真实 API smoke **PASSED**（eventCount 7；finalizationStatus passed；enrichmentWarningCount 0） | 验收 | S5-STORY-005, S5-STORY-005A, S5-STORY-005B |
+| 2026-06-02 | Sprint 5 | S5-STORY-005 / 005A / 005B 标记 Done；下一步 S5-STORY-006 | 敏捷 | S5-STORY-005~005B |

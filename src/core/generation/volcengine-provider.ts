@@ -6,12 +6,14 @@ import type { NormalizedInput } from "./input";
 import type {
   GenerationErrorEvent,
   GenerationEvent,
+  GenerationEventMeta,
   GenerationStreamContext,
 } from "./events";
 import {
   GenerationModelProviderError,
   type GenerationModelProviderErrorCode,
 } from "./model-provider-errors";
+import { enrichModelArticleCandidate } from "./model-article-enrichment";
 import {
   assertVolcengineProviderConfig,
   DEFAULT_VOLCENGINE_BASE_URL,
@@ -25,18 +27,9 @@ import type {
   GenerationModelProviderResult,
   GenerationModelTransport,
 } from "./model-provider";
-import {
-  buildVolcenginePromptMessages,
-  findForbiddenArticleFields,
-  parseModelJsonContent,
-} from "./model-prompt";
+import { buildVolcenginePromptMessages, parseModelJsonContent } from "./model-prompt";
 import { isNormalizedInput } from "./stream";
 import { createVolcengineTransport } from "./volcengine-transport";
-
-const DEFAULT_STYLE_ASSIGNMENT = {
-  themeId: "default",
-  presetId: "classic-news",
-} as const;
 
 function isPlainObject(value: unknown): value is Record<string, unknown> {
   return value !== null && typeof value === "object" && !Array.isArray(value);
@@ -57,87 +50,27 @@ function resolveStreamContext(
   };
 }
 
-function resolveInputSnapshot(
-  input: NormalizedInput,
-  capturedAt: string,
-): Record<string, unknown> {
-  const type =
-    input.primaryIntent === "draft"
-      ? "draft"
-      : input.primaryIntent === "material" || input.primaryIntent === "mixed"
-        ? "material"
-        : "topic";
-
-  return {
-    type,
-    raw: input.inputSummary,
-    normalized: input.inputSummary,
-    capturedAt,
-  };
-}
-
+/** @deprecated Use enrichModelArticleCandidate from model-article-enrichment */
 export function enrichArticleCandidate(
   candidate: Record<string, unknown>,
   input: NormalizedInput,
   startedAt: string,
   modelId?: string,
 ): Record<string, unknown> {
-  const metadata =
-    isPlainObject(candidate.metadata) ? { ...candidate.metadata } : {};
-  const titleFromBlocks = Array.isArray(candidate.blocks)
-    ? candidate.blocks.find(
-        (block) =>
-          isPlainObject(block) &&
-          block.type === "title" &&
-          isPlainObject(block.content) &&
-          typeof block.content.text === "string",
-      )
-    : undefined;
+  const result = enrichModelArticleCandidate({
+    rawCandidate: candidate,
+    normalizedInput: input,
+    requestId: input.metadata?.requestId ?? input.id ?? "volcengine-generation",
+    providerName: "volcengine",
+    modelName: modelId,
+    timestamp: startedAt,
+  });
 
-  const resolvedTitle =
-    typeof metadata.title === "string"
-      ? metadata.title
-      : titleFromBlocks &&
-          isPlainObject(titleFromBlocks.content) &&
-          typeof titleFromBlocks.content.text === "string"
-        ? titleFromBlocks.content.text
-        : input.topic ?? input.inputSummary.slice(0, 40) ?? "轻篇生成文章";
+  if (!result.ok) {
+    throw new Error(result.errors[0]?.message ?? "Model article enrichment failed");
+  }
 
-  return {
-    ...candidate,
-    id: typeof candidate.id === "string" ? candidate.id : randomUUID(),
-    version: 1,
-    metadata: {
-      ...metadata,
-      title:
-        typeof metadata.title === "string" && metadata.title.length > 0
-          ? metadata.title
-          : resolvedTitle,
-      createdAt:
-        typeof metadata.createdAt === "string" ? metadata.createdAt : startedAt,
-      updatedAt:
-        typeof metadata.updatedAt === "string" ? metadata.updatedAt : startedAt,
-      locale:
-        typeof metadata.locale === "string"
-          ? metadata.locale
-          : input.metadata?.locale ?? "zh-CN",
-    },
-    input: isPlainObject(candidate.input)
-      ? candidate.input
-      : resolveInputSnapshot(input, startedAt),
-    styleAssignment: isPlainObject(candidate.styleAssignment)
-      ? candidate.styleAssignment
-      : DEFAULT_STYLE_ASSIGNMENT,
-    generation: isPlainObject(candidate.generation)
-      ? candidate.generation
-      : {
-          status: "completed",
-          mode: "stream",
-          modelId,
-          startedAt,
-          completedAt: startedAt,
-        },
-  };
+  return result.candidate;
 }
 
 function extractBlockPreviewText(block: Block): string {
@@ -164,9 +97,14 @@ function extractBlockPreviewText(block: Block): string {
   return "";
 }
 
+export type BuildGenerationEventsOptions = {
+  meta?: GenerationEventMeta;
+};
+
 export function buildGenerationEventsFromArticleCandidate(
   article: Record<string, unknown>,
   context: GenerationStreamContext,
+  options: BuildGenerationEventsOptions = {},
 ): GenerationEvent[] {
   const events: GenerationEvent[] = [];
   let sequence = 1;
@@ -226,6 +164,7 @@ export function buildGenerationEventsFromArticleCandidate(
     sequence,
     article,
     timestamp,
+    meta: options.meta,
   });
 
   return events;
@@ -325,28 +264,42 @@ export async function generateVolcengineProviderEvents(
     };
   }
 
-  const forbiddenField = findForbiddenArticleFields(parsed);
-  if (forbiddenField) {
+  const enrichment = enrichModelArticleCandidate({
+    rawCandidate: parsed,
+    normalizedInput: input,
+    requestId: streamContext.requestId,
+    providerName: "volcengine",
+    modelName: resolvedConfig.model,
+    timestamp: streamContext.startedAt,
+  });
+
+  if (!enrichment.ok) {
+    const primary = enrichment.errors[0]!;
     return {
       events: [
         createProviderErrorEvent(
           streamContext,
-          "forbidden_output_field",
-          `Volcengine model response must not include forbidden field "${forbiddenField}"`,
+          "invalid_article_candidate",
+          primary.message,
         ),
       ],
+      enrichmentWarnings: enrichment.warnings,
     };
   }
 
-  const article = enrichArticleCandidate(
-    parsed,
-    input,
-    streamContext.startedAt,
-    resolvedConfig.model,
-  );
-
   return {
-    events: buildGenerationEventsFromArticleCandidate(article, streamContext),
+    events: buildGenerationEventsFromArticleCandidate(
+      enrichment.candidate,
+      streamContext,
+      {
+        meta: {
+          enrichmentWarningCount: enrichment.warnings.length,
+          provider: "volcengine",
+          model: resolvedConfig.model,
+        },
+      },
+    ),
+    enrichmentWarnings: enrichment.warnings,
   };
 }
 

@@ -1,6 +1,6 @@
 # Generation 模块
 
-> 状态：Sprint 5 进行中 · S5-STORY-002 ~ S5-STORY-005 In Review · S5-STORY-005A In Review
+> 状态：Sprint 5 进行中 · S5-STORY-002 ~ S5-STORY-005B Done · S5-STORY-006~008 Planned
 
 ## 职责
 
@@ -41,6 +41,15 @@
 | `model-prompt.ts` | Article JSON prompt builder |
 | `volcengine-transport.ts` | Ark chat completions transport（可 mock） |
 | `volcengine-provider.ts` | 真实 model provider → GenerationEvent stream |
+
+**Model Article Enrichment（S5-STORY-005B）：**
+
+| 路径 | 说明 |
+|------|------|
+| `model-article-candidate.ts` | enrichment 输入 / 输出类型 |
+| `model-article-enrichment.ts` | deterministic UUID / metadata / block content repair |
+
+Provider 解析模型 JSON 后调用 `enrichModelArticleCandidate`，再输出 enriched `done.article`；禁止绕过 `finalizeGenerationEvents`。
 
 **统一终态入口：** Provider 输出 `GenerationEvent` stream → `finalizeGenerationEvents(events)` → 正式 `Article`。
 

@@ -2337,7 +2337,7 @@ S3C-STORY-001（启动）
 > **Sprint 5 分支：** `sprint/s5-generation-ui-main-flow`（从 `release/1` 切出，DECISION-067）
 > **Release 1 主干：** `release/1`
 > **UI 主流程入口：** **`/generate`**（真实业务页面；S5-STORY-007 实现）
-> **下一步：** S5-STORY-005A 真实 API smoke → S5-STORY-006；不 merge `main`
+> **下一步：** S5-STORY-006 受控 AI 样式选择 → S5-STORY-007 `/generate` UI；不 merge `main`
 > **Sprint 5 不做：** 真实微信公众号 Paste QA 全量回归、不宣称复制到公众号最终保真通过、Style Gallery、真实 QR / 小程序 / 图片上传托管 / AI 生图、复杂编辑器 / block 级编辑、样式市场、merge 至 `main`
 > **保留原则：** 真实 Paste QA 归 Sprint 6-B；Fixture Triple / PasteTestRecord 归 Sprint 6-A / 6-B；Sprint 5 UI smoke test 不替代微信公众号 Paste QA
 
@@ -2348,8 +2348,9 @@ S5-STORY-001 Sprint 5 启动与 Backlog 拆分 — Done
 S5-STORY-002 InputRequest / NormalizedInput 代码契约 — Done
 S5-STORY-003 GenerationEvent / SSE Streaming Runtime — Done
 S5-STORY-004 done.article 归一与 Article Schema 校验 — Done
-S5-STORY-005 真实模型 Provider 对接（Volcengine / Doubao）— In Review
-S5-STORY-005A Volcengine / Doubao Provider Dev-only Real API Smoke — In Review
+S5-STORY-005 真实模型 Provider 对接（Volcengine / Doubao）— Done
+S5-STORY-005A Volcengine / Doubao Provider Dev-only Real API Smoke — Done
+S5-STORY-005B Model Article Candidate Enrichment + Real API Smoke Re-run — Done
 S5-STORY-006 受控 AI 样式选择生成与 validation pipeline 接入 — Planned
 S5-STORY-007 Release 1 主流程真实 UI 页面集成（/generate）— Planned
 S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Planned
@@ -2500,7 +2501,7 @@ S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Planned
 
 **用户故事：** 作为产品负责人，我需要 Sprint 5 对接真实模型 API，使 Release 1 主流程不是只依赖 deterministic provider，而是可以通过真实模型生成结构化 Article candidate。
 
-**优先级：** P0 · **状态：** In Review（Provider code Done；真实 API smoke 见 S5-STORY-005A） · **工作分支：** `feature/s5-volcengine-model-provider`
+**优先级：** P0 · **状态：** Done（Provider code + real API smoke passed；见 S5-STORY-005A / 005B） · **工作分支：** `feature/s5-volcengine-model-provider`
 
 **目标：** 实现 Volcengine / Doubao 真实模型 Provider；输出进入 GenerationEvent stream runtime 与 `done.article` 归一链路。
 
@@ -2552,7 +2553,7 @@ S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Planned
 
 **用户故事：** 作为开发者，我需要在进入 S5-STORY-006 前通过 dev-only smoke 手动验证真实 Volcengine / Doubao API 是否可用。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s5-volcengine-real-api-smoke`
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s5-volcengine-real-api-smoke`
 
 **目标：** 提供 dev-only 真实 API smoke 脚本，验证 provider → `done.article` → `finalizeGenerationEvents` 全链路。
 
@@ -2583,7 +2584,45 @@ S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Planned
 - [x] AC-6 失败时输出稳定 error code / failureCategory；不泄露 key
 - [x] AC-7 无 API key 时 `pnpm test` / `build` 仍 PASS；smoke 缺 key 时明确失败并提示配置
 - [x] AC-8 单元测试覆盖 smoke helper 纯函数（不依赖真实网络）
-- [ ] AC-9 至少一次真实 API smoke 手动运行并通过 — **已运行；FAILED（`article_schema`：Invalid UUID）**；API 网络层已通
+- [x] AC-9 至少一次真实 API smoke 手动运行并通过 — **2026-06-02 PASSED**（`finalizeGenerationEvents` passed；`enrichmentWarningCount: 0`）
+
+---
+
+## S5-STORY-005B Model Article Candidate Enrichment + Real API Smoke Re-run
+
+**用户故事：** 作为开发者，我需要在真实模型 JSON 进入 `done.article` 前通过 deterministic enrichment / repair 补齐机器字段，并重新跑通真实 API smoke 全链路。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s5-model-article-candidate-enrichment`
+
+**目标：** 新增 Model Article Candidate Enrichment 层；Volcengine provider 接入 enrichment；重跑 dev-only real API smoke 验证 Provider → GenerationEvent → `done.article` → `finalizeGenerationEvents` → Article。
+
+**实际产物：**
+
+| 路径 | 说明 |
+|------|------|
+| `src/core/generation/model-article-candidate.ts` | enrichment 输入 / 输出类型 |
+| `src/core/generation/model-article-enrichment.ts` | `enrichModelArticleCandidate` / UUID / metadata / block content repair |
+| `src/core/generation/volcengine-provider.ts` | provider 接入 enrichment；`done.article` meta 含 `enrichmentWarningCount` |
+| `src/core/generation/model-prompt.ts` | prompt 强化（JSON / UUID / 禁止 HTML） |
+| `src/core/generation/volcengine-provider-smoke.ts` | smoke summary 增加 `finalizationStatus` / `enrichmentWarningCount` |
+| `tests/core/generation/model-article-enrichment.test.ts` | enrichment 单测（18 cases） |
+
+**明确不做：**
+
+- 不创建 parallel Article 模型
+- 不绕过 `finalizeGenerationEvents` / Article Schema
+- 不实现 S5-STORY-006 AI Style Selection / `/generate` UI
+
+**验收标准：**
+
+- [x] AC-1 实现 `enrichModelArticleCandidate`（UUID / version / metadata / input / styleAssignment / block content）
+- [x] AC-2 非法 block type / 非 object raw output 返回 unrecoverable error → provider `error` event
+- [x] AC-3 forbidden html/css/className/style 安全剥离并记录 warning
+- [x] AC-4 Volcengine provider 使用 enriched candidate 输出 `done.article`
+- [x] AC-5 mock transport 缺 UUID JSON 可通过 `finalizeGenerationEvents`
+- [x] AC-6 真实 API smoke **PASSED**（2026-06-02；eventCount 7；finalizationStatus passed）
+- [x] AC-7 `corepack pnpm lint` / `test` / `build` 通过（709 tests）
+- [x] AC-8 无真实 API key 时 test / build 不失败
 
 ---
 

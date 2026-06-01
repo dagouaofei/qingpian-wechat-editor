@@ -10,6 +10,7 @@ export type GenerateArticleCandidateInput = {
 
 export type GenerationModelProviderResult = {
   events: GenerationEvent[];
+  enrichmentWarnings?: import("./model-article-candidate").ModelArticleEnrichmentIssue[];
 };
 
 export type GenerationModelTransportRequest = {

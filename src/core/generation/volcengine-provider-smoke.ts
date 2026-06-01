@@ -40,6 +40,8 @@ export type VolcengineSmokeSummary = {
   blockCount?: number;
   articleId?: string;
   articleTitle?: string;
+  finalizationStatus?: "passed" | "failed";
+  enrichmentWarningCount?: number;
   failureCategory?: VolcengineSmokeFailureCategory;
   errorCode?: string;
   errorMessage?: string;
@@ -123,6 +125,12 @@ export function formatVolcengineSmokeSummary(summary: VolcengineSmokeSummary): s
   }
   if (summary.articleTitle) {
     lines.push(`articleTitle: ${summary.articleTitle}`);
+  }
+  if (summary.finalizationStatus) {
+    lines.push(`finalizationStatus: ${summary.finalizationStatus}`);
+  }
+  if (summary.enrichmentWarningCount != null) {
+    lines.push(`enrichmentWarningCount: ${summary.enrichmentWarningCount}`);
   }
 
   if (!summary.ok) {
@@ -227,12 +235,20 @@ export async function runVolcengineProviderSmoke(
   const finalization = finalizeGenerationEvents(events);
   if (!finalization.ok) {
     const primary = finalization.issues[0];
+    const doneEvent = events.find((event) => event.type === "done.article");
+    const enrichmentWarningCount =
+      doneEvent?.type === "done.article" &&
+      typeof doneEvent.meta?.enrichmentWarningCount === "number"
+        ? doneEvent.meta.enrichmentWarningCount
+        : undefined;
     return {
       ok: false,
       providerName: provider.name,
       model: config.model,
       baseUrl: config.baseUrl,
       eventCount: events.length,
+      finalizationStatus: "failed",
+      enrichmentWarningCount,
       failureCategory: classifyVolcengineSmokeFailure({
         errorCode: primary?.code,
         finalizationIssues: finalization.issues,
@@ -244,6 +260,12 @@ export async function runVolcengineProviderSmoke(
   }
 
   const article = finalization.data.article;
+  const doneEvent = events.find((event) => event.type === "done.article");
+  const enrichmentWarningCount =
+    doneEvent?.type === "done.article" &&
+    typeof doneEvent.meta?.enrichmentWarningCount === "number"
+      ? doneEvent.meta.enrichmentWarningCount
+      : 0;
   if (article.blocks.length < 1) {
     return {
       ok: false,
@@ -269,5 +291,7 @@ export async function runVolcengineProviderSmoke(
     blockCount: article.blocks.length,
     articleId: article.id,
     articleTitle: article.metadata.title,
+    finalizationStatus: "passed",
+    enrichmentWarningCount,
   };
 }

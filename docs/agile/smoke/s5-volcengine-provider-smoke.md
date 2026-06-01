@@ -47,6 +47,8 @@ corepack pnpm smoke:volcengine-provider
 - `finalizeGenerationEvents` 成功
 - `blockCount >= 1`
 - 输出 `articleId` / `articleTitle`
+- 输出 `finalizationStatus: passed`
+- 输出 `enrichmentWarningCount`（可为 0）
 
 ## 失败分类
 
@@ -65,7 +67,8 @@ corepack pnpm smoke:volcengine-provider
 
 | 日期 | 执行者 | 结果 | failureCategory | 备注 |
 |------|--------|------|-----------------|------|
-| 2026-06-02 | Cursor dev run | **FAILED** | `article_schema` | 真实 API 已返回 7 个事件；`finalizeGenerationEvents` 失败（`invalid_format: Invalid UUID` 等）。需修正模型 JSON / prompt 或 enrich 逻辑后再跑 smoke |
+| 2026-06-02 | Cursor dev run | **FAILED** | `article_schema` | 真实 API 已返回 7 个事件；`finalizeGenerationEvents` 失败（`invalid_format: Invalid UUID` 等）。已通过 S5-STORY-005B enrichment 修复 |
+| 2026-06-02 | Cursor dev run（005B 后） | **PASSED** | — | eventCount 7；blockCount 2；finalizationStatus passed；enrichmentWarningCount 0 |
 
 ## 边界
 
