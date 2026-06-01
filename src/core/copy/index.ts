@@ -57,6 +57,16 @@ export {
   renderInfoCardCopyHtml,
 } from "./info-card-copy";
 export {
+  assertCtaCopySafeCss,
+  copyHtmlUsesInlineStyleOnly as ctaCopyHtmlUsesInlineStyleOnly,
+  renderCtaCopyHtml,
+} from "./cta-copy";
+export {
+  assertImagePlaceholderCopySafeCss,
+  copyHtmlUsesInlineStyleOnly as imagePlaceholderCopyHtmlUsesInlineStyleOnly,
+  renderImagePlaceholderCopyHtml,
+} from "./image-placeholder-copy";
+export {
   createSprint4ATextFirstCopyRendererRegistry,
   SPRINT4A_TEXT_FIRST_COPY_BLOCK_TYPES,
 } from "./text-first-copy-registry";

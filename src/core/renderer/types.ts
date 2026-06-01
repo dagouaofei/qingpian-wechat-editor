@@ -274,6 +274,62 @@ export type InfoCardCopyOutput = {
   copySafety?: CopySafety;
 };
 
+export type CtaLayoutKind = import("./cta-layout").CtaLayoutKind;
+
+export type CtaPreviewOutput = {
+  kind: "cta_preview";
+  blockId: string;
+  blockType: "cta";
+  variantId: string;
+  layout: CtaLayoutKind;
+  text: string;
+  action?: string;
+  actionState: SlotRenderState;
+  placeholderLabel: string;
+  copySafety?: CopySafety;
+};
+
+export type CtaCopyOutput = {
+  kind: "cta_copy_html";
+  blockId: string;
+  blockType: "cta";
+  variantId: string;
+  layout: CtaLayoutKind;
+  html: string;
+  copySafety?: CopySafety;
+  placeholderOnly: true;
+};
+
+export type ImagePlaceholderLayoutKind =
+  import("./image-placeholder-layout").ImagePlaceholderLayoutKind;
+
+export type ImagePlaceholderPreviewOutput = {
+  kind: "image_placeholder_preview";
+  blockId: string;
+  blockType: "image_placeholder";
+  variantId: string;
+  layout: ImagePlaceholderLayoutKind;
+  caption?: string;
+  captionState: SlotRenderState;
+  suggestion?: string;
+  suggestionState: SlotRenderState;
+  aspectRatio: string;
+  position: string;
+  placeholderLabel: string;
+  copySafety?: CopySafety;
+};
+
+export type ImagePlaceholderCopyOutput = {
+  kind: "image_placeholder_copy_html";
+  blockId: string;
+  blockType: "image_placeholder";
+  variantId: string;
+  layout: ImagePlaceholderLayoutKind;
+  html: string;
+  copySafety?: CopySafety;
+  placeholderOnly: true;
+};
+
 export type RendererOutputPlaceholder =
   | PreviewRendererOutputPlaceholder
   | CopyRendererOutputPlaceholder
@@ -290,7 +346,11 @@ export type RendererOutputPlaceholder =
   | HighlightPreviewOutput
   | HighlightCopyOutput
   | InfoCardPreviewOutput
-  | InfoCardCopyOutput;
+  | InfoCardCopyOutput
+  | CtaPreviewOutput
+  | CtaCopyOutput
+  | ImagePlaceholderPreviewOutput
+  | ImagePlaceholderCopyOutput;
 
 export type RendererResult<TOutput = RendererOutputPlaceholder> = {
   ok: boolean;
