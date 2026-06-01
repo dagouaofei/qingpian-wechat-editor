@@ -169,6 +169,36 @@ export type DividerCopyOutput = {
   copySafety?: CopySafety;
 };
 
+export type ListLayoutKind = import("./list-layout").ListLayoutKind;
+
+export type ListPreviewItem = {
+  text: string;
+  subItems: string[];
+  sourceIndex: number;
+  marker: string;
+};
+
+export type ListPreviewOutput = {
+  kind: "list_preview";
+  blockId: string;
+  blockType: "list";
+  variantId: string;
+  layout: ListLayoutKind;
+  ordered: boolean;
+  items: ListPreviewItem[];
+  copySafety?: CopySafety;
+};
+
+export type ListCopyOutput = {
+  kind: "list_copy_html";
+  blockId: string;
+  blockType: "list";
+  variantId: string;
+  layout: ListLayoutKind;
+  html: string;
+  copySafety?: CopySafety;
+};
+
 export type RendererOutputPlaceholder =
   | PreviewRendererOutputPlaceholder
   | CopyRendererOutputPlaceholder
@@ -177,7 +207,9 @@ export type RendererOutputPlaceholder =
   | TextBlockPreviewOutput
   | TextBlockCopyOutput
   | DividerPreviewOutput
-  | DividerCopyOutput;
+  | DividerCopyOutput
+  | ListPreviewOutput
+  | ListCopyOutput;
 
 export type RendererResult<TOutput = RendererOutputPlaceholder> = {
   ok: boolean;
