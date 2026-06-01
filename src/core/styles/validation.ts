@@ -3,7 +3,7 @@ import {
   validateVariantWechatCompatibility,
 } from "./compatibility";
 import { getVariantById, validateStyleRegistrySchema } from "./registry";
-import { validateTitleBlockLayoutCompatibility } from "./title-layout";
+import { validateTitleBlockLayoutCompatibility, isTitleBlockVariant } from "./title-layout";
 import {
   fallbackVariantPolicySchema,
   styleValidationIssueSchema,
@@ -26,6 +26,7 @@ import type {
   ValidateVariantDefinitionContext,
   VariantDefinition,
   WeChatCompatibilityProfile,
+  SlotDefinition,
 } from "./types";
 
 const MAGAZINE_LEFT_BAR_TITLE_ID = "magazine_left_bar_title";
@@ -126,6 +127,143 @@ function isAutomaticFallbackCandidate(variant: VariantDefinition): boolean {
     return false;
   }
   return true;
+}
+
+const BODY_CONTENT_SLOT_ROLES_SET = new Set(["title", "body", "items"]);
+
+function validateSingleSlotDefinition(
+  variant: VariantDefinition,
+  slotKey: string,
+  slot: SlotDefinition,
+  slotIds: Set<string>,
+  issues: StyleValidationIssue[],
+): void {
+  if (slot.id !== slotKey) {
+    pushIssue(issues, {
+      severity: "error",
+      code: "slot_id_key_mismatch",
+      message: `Slot id "${slot.id}" must match record key "${slotKey}"`,
+      variantId: variant.id,
+      blockType: variant.blockType,
+      path: ["slots", slotKey, "id"],
+    });
+  }
+
+  if (slot.copySafety.fallbackSlotId) {
+    if (slot.copySafety.fallbackSlotId === slot.id) {
+      pushIssue(issues, {
+        severity: "error",
+        code: "slot_fallback_self_reference",
+        message: `Slot "${slot.id}" fallbackSlotId must not reference itself`,
+        variantId: variant.id,
+        blockType: variant.blockType,
+        path: ["slots", slotKey, "copySafety", "fallbackSlotId"],
+      });
+    } else if (!slotIds.has(slot.copySafety.fallbackSlotId)) {
+      pushIssue(issues, {
+        severity: "error",
+        code: "slot_fallback_not_found",
+        message: `Slot "${slot.id}" fallbackSlotId "${slot.copySafety.fallbackSlotId}" not found in variant slots`,
+        variantId: variant.id,
+        blockType: variant.blockType,
+        path: ["slots", slotKey, "copySafety", "fallbackSlotId"],
+      });
+    }
+  }
+
+  if (slot.binding.source === "disabled") {
+    return;
+  }
+
+  if (
+    BODY_CONTENT_SLOT_ROLES_SET.has(slot.role) &&
+    (slot.binding.source === "variant.presentation" ||
+      slot.binding.source === "assetRegistry")
+  ) {
+    pushIssue(issues, {
+      severity: "error",
+      code: "slot_body_source_forbidden",
+      message: `${slot.role} slot must not bind variant.presentation or assetRegistry as body content source`,
+      variantId: variant.id,
+      blockType: variant.blockType,
+      path: ["slots", slotKey, "binding", "source"],
+    });
+  }
+
+  if (
+    isTitleBlockVariant(variant) &&
+    variant.status === "release1_required" &&
+    slot.role === "title" &&
+    slot.binding.source !== "block.content.text"
+  ) {
+    pushIssue(issues, {
+      severity: "error",
+      code: "title_slot_binding_required",
+      message:
+        'titleBlock release1_required title slot must bind block.content.text',
+      variantId: variant.id,
+      blockType: variant.blockType,
+      path: ["slots", slotKey, "binding", "source"],
+    });
+  }
+
+  if (variant.status === "release1_required") {
+    if (slot.copySafety.copySafety === "preview_only") {
+      pushIssue(issues, {
+        severity: "error",
+        code: "slot_preview_only_on_required_variant",
+        message:
+          "release1_required variant slot must not use preview_only copySafety",
+        variantId: variant.id,
+        blockType: variant.blockType,
+        path: ["slots", slotKey, "copySafety", "copySafety"],
+      });
+    }
+
+    if (!slot.copySafety.allowedInCopy) {
+      pushIssue(issues, {
+        severity: "error",
+        code: "slot_not_allowed_in_copy",
+        message:
+          "release1_required variant slot must set copySafety.allowedInCopy=true unless binding source is disabled",
+        variantId: variant.id,
+        blockType: variant.blockType,
+        path: ["slots", slotKey, "copySafety", "allowedInCopy"],
+      });
+    }
+
+    if (
+      slot.binding.required &&
+      slot.copySafety.copySafety === "preview_only"
+    ) {
+      pushIssue(issues, {
+        severity: "error",
+        code: "required_slot_preview_only",
+        message: "required slot must not use preview_only copySafety",
+        variantId: variant.id,
+        blockType: variant.blockType,
+        path: ["slots", slotKey, "copySafety", "copySafety"],
+      });
+    }
+  }
+}
+
+export function validateVariantSlots(
+  variant: VariantDefinition,
+): StyleValidationResult {
+  const issues: StyleValidationIssue[] = [];
+
+  if (!variant.slots || Object.keys(variant.slots).length === 0) {
+    return buildStyleValidationResult(issues);
+  }
+
+  const slotIds = new Set(Object.keys(variant.slots));
+
+  for (const [slotKey, slot] of Object.entries(variant.slots)) {
+    validateSingleSlotDefinition(variant, slotKey, slot, slotIds, issues);
+  }
+
+  return buildStyleValidationResult(issues);
 }
 
 function validateVariantStatusRules(
@@ -284,6 +422,9 @@ export function validateVariantDefinition(
 
   const layoutValidation = validateTitleBlockLayoutCompatibility(parsed.data);
   issues.push(...layoutValidation.issues);
+
+  const slotValidation = validateVariantSlots(parsed.data);
+  issues.push(...slotValidation.issues);
 
   return buildStyleValidationResult(issues);
 }

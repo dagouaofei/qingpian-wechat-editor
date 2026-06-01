@@ -597,36 +597,158 @@ heading block → componentId: titleBlock → family: simple|iconDecor|badgeTitl
 
 ### 11.4 titleBlock variant catalog（15 候选）
 
-> 不要求 Release 1 全部实现；纳入 catalog 避免重新发明。
+> 不要求 Release 1 全部实现；纳入 catalog 避免重新发明。  
+> **S3B-STORY-002：** 历史 DSL `layoutMode` 名称须映射至代码 canonical enum（`src/core/styles/title-layout.ts`）；schema 主模型**只接受** canonical enum。
 
-| variantId | family | layoutMode | 核心 slots | copy-safe | Sprint 3 |
-|-----------|--------|------------|------------|-----------|----------|
-| `icon_top_title_bottom` | iconDecor | vertical-stack | icon, title | 中 | 后置 |
-| `icon_left_top_title_center` | iconDecor | icon-left | icon, title | 中 | 后置 |
-| `title_left_icon_right` | iconDecor | icon-right | title, icon | 中 | 后置 |
-| `double_icon_symmetric` | iconDecor | symmetric | icon, title, icon | 高 | 后置 |
-| `badge_top_title_bottom` | badgeTitle | vertical-stack | badge, title | 中 | 可选 |
-| `badge_left_title_inline` | badgeTitle | inline-badge | badge, title | 低~中 | **建议做** |
-| `line_top_title_center` | simple | line-top | decorationLine, title | **低** | **建议做** |
-| `title_with_bottom_line` | simple | line-bottom | title, decorationLine | **低** | **必做** |
-| `card_bg_icon_corner` | cardTitle | card-corner | bgShape, icon, title | 高 | 后置 |
-| `card_center_title_badge_top` | cardTitle | card-center | badge, title, bgShape | 高 | 后置 |
-| `magazine_left_bar_title` | magazine | left-bar | decorationLine, title | 中 | **candidate**（DECISION-044；非 first wave） |
-| `magazine_offset_icon_bg` | magazine | offset-bg | bgShape, icon, title | 高 | 后置 |
-| `icon_inline_prefix_title` | iconDecor | inline-prefix | icon, title | 低~中 | **建议做** |
-| `title_top_subtitle_bottom_line` | simple | title-subtitle-line | title, subtitle, decorationLine | 中 | 可选 |
-| `badge_icon_title_stack` | badgeTitle | stack | badge, icon, title | 中 | 可选 |
+| variantId | family | catalog layoutMode | canonical layoutMode | 核心 slots | copy-safe | Sprint 3 |
+|-----------|--------|--------------------|----------------------|------------|-----------|----------|
+| `icon_top_title_bottom` | iconDecor | vertical-stack | `plain` | icon, title | 中 | 后置 |
+| `icon_left_top_title_center` | iconDecor | icon-left | `icon_prefix` | icon, title | 中 | 后置 |
+| `title_left_icon_right` | iconDecor | icon-right | `icon_prefix` | title, icon | 中 | 后置 |
+| `double_icon_symmetric` | iconDecor | symmetric | `card` | icon, title, icon | 高 | 后置 |
+| `badge_top_title_bottom` | badgeTitle | vertical-stack | `plain` | badge, title | 中 | 可选 |
+| `badge_left_title_inline` | badgeTitle | inline-badge | `top_badge` | badge, title | 低~中 | **建议做** |
+| `line_top_title_center` | simple | line-top | `bottom_line` | decoration, title | **低** | **建议做** |
+| `title_with_bottom_line` | simple | line-bottom | `bottom_line` | title, decoration | **低** | **必做** |
+| `card_bg_icon_corner` | cardTitle | card-corner | `card` | bgShape, icon, title | 高 | 后置 |
+| `card_center_title_badge_top` | cardTitle | card-center | `card` | badge, title, bgShape | 高 | 后置 |
+| `magazine_left_bar_title` | magazine | left-bar | `magazine_left_bar` | decoration, title | 中 | **candidate**（非 first wave） |
+| `magazine_offset_icon_bg` | magazine | offset-bg | `offset_background` | bgShape, icon, title | 高 | 后置 |
+| `icon_inline_prefix_title` | iconDecor | inline-prefix | `icon_prefix` | icon, title | 低~中 | **建议做** |
+| `title_top_subtitle_bottom_line` | simple | title-subtitle-line | `bottom_line` | title, subtitle, decoration | 中 | 可选 |
+| `badge_icon_title_stack` | badgeTitle | stack | `card` | badge, icon, title | 中 | 可选 |
+
+#### 11.4.1 catalog layoutMode → canonical enum 映射表
+
+| catalog / historical name | canonical `layoutMode` | allowedInRelease1Required | fallbackLayoutMode | note |
+|---------------------------|------------------------|---------------------------|--------------------|------|
+| `vertical-stack` | `plain` | ✅ | — | 垂直堆叠 icon/badge + title |
+| `line-top` | `bottom_line` | ✅ | — | 历史 DSL 名；装饰线语义 |
+| `line-bottom` | `bottom_line` | ✅ | — | first-wave 必做 |
+| `badge-top` | `top_badge` | ✅ | — | |
+| `inline-badge` | `top_badge` | ✅ | — | |
+| `corner-label` | `top_badge` | ✅ | — | 卡片角标 |
+| `inline-prefix` | `icon_prefix` | ✅ | — | first-wave 建议 |
+| `icon-left` / `icon-right` | `icon_prefix` | ✅ | — | |
+| `card-corner` / `card-center` / `stack` / `symmetric` | `card` | ✅ | — | |
+| `title-subtitle-line` | `bottom_line` | ✅ | — | |
+| `left-bar` / `magazine-left-bar` | `magazine_left_bar` | ❌ | `left_bar` | candidate only |
+| `offset-bg` | `offset_background` | ❌ | `plain` | forbidden for required |
+
+**代码 helper：** `normalizeTitleBlockLayoutMode` / `mapTitleBlockCatalogLayoutMode`（`title-layout.ts`）；`TITLE_BLOCK_CATALOG_LAYOUT_MODE_MAPPINGS` 为机器可读表。
+
+**First-wave titleBlock allowed layoutModes（S3B-STORY-002）：** `plain`、`left_bar`、`bottom_line`、`top_badge`、`numbered`、`card`、`quote_mark`、`icon_prefix`
+
+**First-wave forbidden layoutModes：** `magazine_left_bar`、`overlay`、`offset_background`
 
 **First-wave titleBlock copy-safe 四件套（Sprint 3-B）：** `title_with_bottom_line`、`line_top_title_center`、`badge_left_title_inline`、`icon_inline_prefix_title`（均须为 first-wave required 子集）。
 
-> **S3A-STORY-006 代码 enum（机器可读）：** Release 1 实现采用 snake_case `TitleBlockLayoutMode`（`plain`、`left_bar`、`bottom_line`、`top_badge`、`numbered`、`card`、`quote_mark`、`icon_prefix`、`magazine_left_bar`、`overlay`、`offset_background`），见 `src/core/styles/title-layout.ts`。上表 catalog 保留秒篇 DSL 历史命名；Sprint 3-B registry 须映射到代码 enum（例：`line-bottom` → `bottom_line`，`inline-prefix` → `icon_prefix`，`left-bar` → `left_bar`）。
+#### 11.4.2 Sprint 3-B 已实现 title / heading variants（S3B-STORY-003）
+
+| variantId | blockType | layoutMode | family |
+|-----------|-----------|------------|--------|
+| `title_plain_minimal` | title | `plain` | simple |
+| `title_left_bar_classic` | title | `left_bar` | simple |
+| `title_bottom_line_editorial` | title | `bottom_line` | simple |
+| `heading_plain_minimal` | heading | `plain` | simple |
+| `heading_numbered_section` | heading | `numbered` | badgeTitle |
+| `heading_top_badge_topic` | heading | `top_badge` | badgeTitle |
+
+代码路径：`src/core/styles/variants/title-heading.ts`
+
+#### 11.4.3 Sprint 3-B 已实现 text-first variants（S3B-STORY-004）
+
+| variantId | blockType | copySafety | 主要 slot binding |
+|-----------|-----------|------------|-------------------|
+| `lead_plain_intro` | lead | strict | body → `block.content.text` |
+| `lead_accent_band` | lead | balanced | body → `block.content.text`; decoration → `variant.presentation` |
+| `lead_quote_intro` | lead | balanced | body → `block.content.text`; decoration → `variant.presentation` |
+| `paragraph_plain_body` | paragraph | strict | body → `block.content.text` |
+| `paragraph_accent_left` | paragraph | balanced | body → `block.content.text`; decoration → `variant.presentation` |
+| `paragraph_soft_card` | paragraph | balanced | body → `block.content.text`; decoration → `variant.presentation` |
+| `divider_simple_line` | divider | strict | divider → `variant.presentation` |
+| `divider_dotted_line` | divider | balanced | divider → `variant.presentation` |
+| `divider_section_space` | divider | strict | divider → `variant.presentation` |
+| `list_plain_bullets` | list | strict | items → `block.content.items` |
+| `list_numbered_steps` | list | balanced | items → `block.content.items`; decoration → `variant.presentation` |
+| `list_checklist_cards` | list | balanced | items → `block.content.items`; icon → `variant.presentation` |
+
+代码路径：`src/core/styles/variants/text-first.ts`
+
+#### 11.4.4 Sprint 3-B 已实现 structured variants（S3B-STORY-005）
+
+| variantId | blockType | copySafety | 主要 slot binding |
+|-----------|-----------|------------|-------------------|
+| `quote_plain` | quote | strict | body → `block.content.text` |
+| `quote_left_bar` | quote | balanced | body → `block.content.text`; decoration → `variant.presentation` |
+| `quote_card` | quote | balanced | body → `block.content.text`; decoration → `variant.presentation` |
+| `highlight_inline_emphasis` | highlight | strict | body → `block.content.text` |
+| `highlight_accent_band` | highlight | balanced | body → `block.content.text`; decoration → `variant.presentation` |
+| `highlight_soft_card` | highlight | balanced | body → `block.content.text`; decoration → `variant.presentation` |
+| `info_card_key_takeaway` | info_card | balanced | title → `block.content.title`; body → `block.content.body` |
+| `info_card_steps` | info_card | balanced | body → `block.content.body`; badge → `variant.presentation` |
+| `info_card_warning_note` | info_card | balanced | body → `block.content.body`; icon → `variant.presentation` |
+| `cta_plain_text` | cta | strict | body → `block.content.text`; action → `block.content.action` |
+| `cta_button_like` | cta | balanced | body → `block.content.text`; action → `block.content.action`; decoration → `variant.presentation` |
+| `cta_qr_placeholder` | cta | balanced | body → `block.content.text`; action → `block.content.action`; icon → `variant.presentation` |
+| `image_placeholder_simple` | image_placeholder | strict | image → `disabled` |
+| `image_placeholder_caption` | image_placeholder | balanced | image → `disabled`; caption → `block.content.caption` |
+| `image_placeholder_card` | image_placeholder | balanced | image → `disabled`; decoration → `variant.presentation` |
+
+代码路径：`src/core/styles/variants/structured.ts`
+
+**First-wave required variants 聚合：** `FIRST_WAVE_REQUIRED_VARIANTS` = title / heading 6 + text-first 12 + structured 15 = **33**。完整 coverage gate 留给 S3B-STORY-006。
+
+#### 11.4.5 First-wave coverage gate（S3B-STORY-006）
+
+> **S3B-STORY-006 已实现** — `tests/core/styles/first-wave-variant-coverage.test.ts`
+
+| gate | 约束 |
+|------|------|
+| 总量 | `FIRST_WAVE_REQUIRED_VARIANTS.length === 33` |
+| block 覆盖 | 11 个 Release 1 block，每个恰好 3 个 `release1_required` variants |
+| registry | `createFirstWaveRequiredVariantRegistry()` 可通过 `validateStyleRegistry` |
+| validation | 每个 variant 通过 `variantDefinitionSchema`、`validateVariantDefinition`、`validateVariantForWechatCopy`、`validateVariantSlots` |
+| titleBlock layout | title / heading 不使用 `magazine_left_bar`、`overlay`、`offset_background` |
+| copy path | 无 `preview_only`、无 candidate / experimental 混入、active slots `allowedInCopy=true` |
 
 > **`magazine_left_bar_title` 为 release1CandidateVariants** — 不在 first wave；若未来实现须：真实 DOM left bar + text；禁止 absolute / pseudo / complex flex-grid；Copy 嵌套 ≤3；WeChatCompatibilityProfile + 单独 Paste QA。
 
 ### 11.5 titleBlock 专用 slot 规范
 
+> **S3B-STORY-002 已实现** — `SlotDefinition` / `SlotContentBinding` / `SlotCopySafety`（`src/core/styles/types.ts` · `schemas.ts` · `validation.ts`）
+
 ```text
-TitleBlockSlotDefinition
+SlotDefinition
+├── id: string
+├── role: "title"|"subtitle"|"badge"|"icon"|"decoration"|"body"|"items"|"action"|"image"|"divider"
+├── label?: string
+├── binding: SlotContentBinding
+│   ├── source: "block.content.text"|"block.content.items"|…|"variant.presentation"|"assetRegistry"|"disabled"
+│   ├── required?: boolean
+│   └── fallback?: string
+└── copySafety: SlotCopySafety
+    ├── copySafety: "strict"|"balanced"|"preview_only"
+    ├── allowedInCopy: boolean
+    ├── fallbackSlotId?: string
+    └── notes?: string
+```
+
+**Slot copySafety 规则（Release 1 first-wave）：**
+
+| 规则 | 说明 |
+|------|------|
+| title slot | **必须** `binding.source = block.content.text`（titleBlock release1_required） |
+| subtitle slot | Release 1 first-wave 默认 `disabled`；若启用仅可 `block.meta` |
+| badge / icon / decoration | 仅可 `variant.presentation` 或 `assetRegistry`；**不得**作为 title/body/items 正文来源 |
+| disabled slot | `allowedInCopy=false`；不参与 copy |
+| release1_required | 所有 active slot 必须 `copySafety != preview_only` 且 `allowedInCopy=true`（disabled 除外） |
+| fallbackSlotId | 不得指向自身；必须引用同 variant 内存在的 slot |
+
+**校验入口：** `validateVariantSlots` → `validateVariantDefinition` / `validateStyleRegistry`
+
+```text
+TitleBlockSlotDefinition (legacy catalog reference)
 ├── slotName: "icon"|"badge"|"title"|"subtitle"|"decorationLine"|"bgShape"|"extraMark"
 ├── slotType: "text"|"shape"|"icon"|"image"|"line"|"bgShape"|"mark"
 ├── required: boolean
@@ -866,7 +988,7 @@ Preview / Copy 按 `componentId` 分发成对 renderer；**不得**因复杂 var
 | WeChat compatibility | `src/core/styles/compatibility.ts` | 3-A | WeChatCompatibilityProfile |
 | Style validation | `src/core/styles/validation.ts` | 3-A | StyleValidationResult / FallbackVariantPolicy |
 | Title layout compatibility | `src/core/styles/title-layout.ts` | 3-A | TitleBlockLayoutCompatibility |
-| Variant definitions（33） | `src/core/styles/` registry JSON/TS | 3-B | first-wave required variants |
+| Variant definitions（33） | `src/core/styles/` registry JSON/TS | 3-B | first-wave required variants · **33 已实现**（`variants/`）；coverage gate 已实现 |
 | Protocol / Assets / Orchestrator / AI | 规划子模块 | 3-C | 见 §11 |
 | Copy adapter | 规划 | 4-A | ResolvedBlockStyle → inline HTML |
 

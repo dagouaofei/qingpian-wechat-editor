@@ -56,6 +56,8 @@
 | DECISION-055 | 2026-05-31 | 正式启动 Sprint 3-A；Style System Contract & Registry Infrastructure；从 release/1 切 sprint/s3a-style-system-infra | 已确认 |
 | DECISION-056 | 2026-05-31 | StyleResolver：explicit variant 失败但 preset default 成功时 source=preset_default 并记录 variant_not_found issue；S3A-STORY-002 Done；merge feature/s3a-style-resolver → sprint | 已确认 |
 | DECISION-057 | 2026-05-31 | 关闭 Sprint 3-A；contract audit A，P0=0；merge sprint/s3a-style-system-infra → release/1 | 已确认 |
+| DECISION-058 | 2026-05-31 | 正式启动 Sprint 3-B；First-wave Required Variant Registry；从 release/1 切 sprint/s3b-first-wave-variant-registry | 已确认 |
+| DECISION-059 | 2026-06-01 | 关闭 Sprint 3-B；contract audit A，P0=0；merge sprint/s3b-first-wave-variant-registry → release/1 | 已确认 |
 
 ### DECISION-019 详情
 
@@ -233,6 +235,40 @@
   5. **不 merge 至 `main`**
   6. **不自动启动 Sprint 3-B**
 - **关联：** S3A-STORY-007、`sprint3a-contract-audit.md`
+- **状态：** 已确认
+
+### DECISION-058 详情（正式启动 Sprint 3-B）
+
+- **背景：**
+  - Sprint 3-A 已关闭并 merge 至 `release/1`（DECISION-057）
+  - Style System Contract & Registry Infrastructure 已完成
+  - 用户确认启动 Sprint 3-B
+- **决策：**
+  1. Sprint 3-B **正式启动**，状态 **In Progress**
+  2. 范围：**First-wave Required Variant Registry**（11 block × 3 = 33 release1_required variants）
+  3. 从 `release/1` 创建 **`sprint/s3b-first-wave-variant-registry`**
+  4. **P1-S3A-001** / **P2-S3A-002** 必须在 Sprint 3-B 前置处理（S3B-STORY-002）
+  5. Sprint 3-B **不做** Preview / Copy Renderer / Paste QA / AI Style Selection / VisualAssetRegistry 全量 / StyleOrchestrator
+  6. **不 merge 至 `main`**；Sprint 关闭后 merge 至 `release/1` 须用户确认
+- **关联：** S3B-STORY-001、DECISION-043~045、style-system.md、TECH-ARCH-018
+- **状态：** 已确认
+
+### DECISION-059 详情（关闭 Sprint 3-B）
+
+- **日期：** 2026-06-01
+- **背景：**
+  - S3B-STORY-001~006 已完成并 merge 至 `sprint/s3b-first-wave-variant-registry`
+  - S3B-STORY-007 contract audit 已完成（`docs/architecture/audits/sprint3b-contract-audit.md`）
+  - audit 结论 **A** 级，**P0=0**，P1=5，P2=3
+  - first-wave 33 variants coverage 完整（11 block × 3）
+- **决策：**
+  1. 用户确认接受 Sprint 3-B contract audit
+  2. Sprint 3-B **正式关闭**
+  3. `sprint/s3b-first-wave-variant-registry` **merge 至 `release/1`**
+  4. P1/P2 登记至 Sprint 4-A / 4-B / 6-B / Release 2，不阻塞关闭
+  5. **不 merge 至 `main`**
+  6. **不自动启动 Sprint 4-A**
+- **关联：** S3B-STORY-007、`sprint3b-contract-audit.md`
 - **状态：** 已确认
 
 ## 决策模板

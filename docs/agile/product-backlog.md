@@ -85,12 +85,12 @@
 | TECH-ARCH-015 | TitleBlockLayoutCompatibility | EPIC-004 / EPIC-006 | layoutMode 微信 copy 可执行约束 |
 | TECH-ARCH-016 | AI Style Selection in Release 1 | EPIC-002 / EPIC-004 | Release 1 启用受控 AI 样式选择 |
 | TECH-ARCH-017 | StyleSelection Validation Pipeline | EPIC-004 | Protocol/Registry/Profile/Orchestrator 串联校验 |
-| TECH-ARCH-018 | First-wave Required Variant Registry | EPIC-004 | 11×3=33 first-wave required variants |
+| TECH-ARCH-018 | First-wave Required Variant Registry | EPIC-004 | 11×3=33 first-wave required variants · **Sprint 3-B 执行入口** |
 | TECH-ARCH-019 | Expansion Variant Coverage | EPIC-004 | 每 block 第 4/5 variant；不阻塞 first-wave closure |
-| TECH-ARCH-020 | Sprint 3-A/B/C Style System Delivery Split | EPIC-004 | infrastructure / first-wave registry / AI validation |
+| TECH-ARCH-020 | Sprint 3-A/B/C Style System Delivery Split | EPIC-004 | infrastructure / first-wave registry / AI validation · **3-B = first-wave registry** |
 | TECH-ARCH-021 | Sprint 4-A/B Renderer Delivery Split | EPIC-004 / EPIC-006 | text-first vs structured blocks |
 | TECH-ARCH-022 | Sprint 6-A/B Paste QA Regression Split | EPIC-010 | fixture 三联 vs first-wave 33 variants QA |
-| TECH-ARCH-023 | Release 1 Style Quality Gate | EPIC-004 / EPIC-006 | Style Quality Review / Gallery / 样式效果验收；Sprint 3/4/6 分阶段 |
+| TECH-ARCH-023 | Release 1 Style Quality Gate | EPIC-004 / EPIC-006 | Style Quality Review / Gallery / 样式效果验收；Sprint 3/4/6 分阶段 · **3-B 后进入 4-A renderer 验收** |
 
 状态：文档契约 S1-STORY-021~028；代码按 Sprint 2 + 3-A/B/C + 4-A/B + 5 + 6-A/B 拆分。
 
@@ -98,14 +98,31 @@
 
 ## Sprint 3-A Audit 遗留（DECISION-057 登记）
 
-> 来源：`docs/architecture/audits/sprint3a-contract-audit.md` §10；不阻塞 Sprint 3-A 关闭。
+> 来源：`docs/architecture/audits/sprint3a-contract-audit.md` §10；Sprint 3-B 启动时纳入 planning（DECISION-058）。
+
+| ID | 问题 | 建议 Sprint | Sprint 3-B 处理 |
+|----|------|-------------|-----------------|
+| **P1-S3A-001** | `style-system.md` §11.4 titleBlock catalog 历史 layoutMode 命名映射 | Sprint 3-B | **已收口**（S3B-STORY-002） |
+| P1-S3A-002 | `wechat-copy-style-rules.md` profile 字段名与代码结构略有差异 | Sprint 3-B 或 4-A 前 | 登记 · 不阻塞 S3B-STORY-001 |
+| P1-S3A-003 | `validateStyleRegistrySchema` vs `validateStyleRegistry` 命名易混淆 | Sprint 3-B | 登记 · S3B-STORY-002 可选 |
+| P1-S3A-004 | ResolvedBlockStyle 未展开 componentProtocol | Sprint 4-A | 登记 |
+| P2-S3A-001 | Tailwind forbidden 检测有限 | Sprint 4-A / 6-B | 登记 |
+| **P2-S3A-002** | slot 级 copySafety 未强制 | Sprint 3-B | **已收口**（S3B-STORY-002） |
+| P2-S3A-003 | InlineMark color 与 Style ColorTokenRef 跨模块校验未打通 | Sprint 3-B / 4-A | 登记 · 不阻塞 S3B-STORY-001 |
+
+---
+
+## Sprint 3-B Audit 遗留（S3B-STORY-007 登记）
+
+> 来源：`docs/architecture/audits/sprint3b-contract-audit.md` §11；不阻塞 Sprint 3-B Close Readiness。
 
 | ID | 问题 | 建议 Sprint |
 |----|------|-------------|
-| P1-S3A-001 | `style-system.md` §11.4 titleBlock catalog 历史 layoutMode 命名映射 | Sprint 3-B |
-| P1-S3A-002 | `wechat-copy-style-rules.md` profile 字段名与代码结构略有差异 | Sprint 3-B 或 4-A 前 |
-| P1-S3A-003 | `validateStyleRegistrySchema` vs `validateStyleRegistry` 命名易混淆 | Sprint 3-B |
-| P1-S3A-004 | ResolvedBlockStyle 未展开 componentProtocol | Sprint 4-A |
-| P2-S3A-001 | Tailwind forbidden 检测有限 | Sprint 4-A / 6-B |
-| P2-S3A-002 | slot 级 copySafety 未强制 | Sprint 3-B |
-| P2-S3A-003 | InlineMark color 与 Style ColorTokenRef 跨模块校验未打通 | Sprint 3-B / 4-A |
+| P1-S3B-001 | 33 variants 尚未经过 Preview / Copy Renderer 实际保真验证 | Sprint 4-A / 4-B |
+| P1-S3B-002 | `balanced` copySafety variants 可能在微信粘贴中出现边距、边框、badge 等细节差异 | Sprint 4-A / 4-B / 6-B |
+| P1-S3B-003 | cta / image_placeholder 当前为占位契约，不包含真实 QR、链接、小程序或图片能力 | Sprint 4-B / Release 2+ |
+| P1-S3B-004 | first-wave registry 缺少 style quality gallery / 人工视觉验收入口 | Sprint 4 / 6 |
+| P1-S3B-005 | `block.content.title` / `caption` 等 optional 字段需要 renderer 明确 disabled/fallback 行为 | Sprint 4-B |
+| P2-S3B-001 | 33 variants 视觉方向偏保守 | Sprint 6 / Release 2 |
+| P2-S3B-002 | WeChat profile 文档字段与代码结构仍有轻微命名差异 | Sprint 4-A 前 |
+| P2-S3B-003 | InlineMark color 与 Style ColorTokenRef 跨模块校验未打通 | Sprint 4-A / 6 |

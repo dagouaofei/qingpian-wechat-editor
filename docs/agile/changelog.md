@@ -130,3 +130,27 @@
 | 2026-05-31 | Sprint 3-A | 用户确认接受 contract audit（A，P0=0，P1=4，P2=3） | 敏捷 | S3A-STORY-007 |
 | 2026-05-31 | Sprint 3-A | **正式关闭 Sprint 3-A**；DECISION-057 | 敏捷 | S3A-STORY-007, DECISION-057 |
 | 2026-05-31 | Release 1 | `sprint/s3a-style-system-infra` merge 至 `release/1` | Git | DECISION-057 |
+
+---
+
+## 2026-05-31 · Sprint 3-B
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-05-31 | Sprint 3-B | **正式启动 Sprint 3-B**；范围 First-wave Required Variant Registry | 敏捷 / 架构 | S3B-STORY-001, DECISION-058 |
+| 2026-05-31 | Sprint 3-B | 从 `release/1` 建立 `sprint/s3b-first-wave-variant-registry` | Git | DECISION-058 |
+| 2026-05-31 | Sprint 3-B | 新增 Sprint 3-B Backlog S3B-STORY-001~007 | 敏捷 | S3B-STORY-001 |
+| 2026-05-31 | Sprint 3-B | P1-S3A-001 / P2-S3A-002 纳入 Sprint 3-B planning（S3B-STORY-002 前置） | 架构 / 敏捷 | S3B-STORY-002 |
+| 2026-05-31 | Sprint 3-B | titleBlock catalog layoutMode mapping + slot copySafety 收口 | 代码 / 架构 | S3B-STORY-002 |
+| 2026-05-31 | Sprint 3-B | merge `feature/s3b-titleblock-mapping-slot-copysafety` → sprint | Git | S3B-STORY-002 |
+| 2026-05-31 | Sprint 3-B | 实现 title / heading first-wave 6 variants registry | 代码 / 架构 | S3B-STORY-003 |
+| 2026-06-01 | Sprint 3-B | merge `feature/s3b-title-heading-variants` → sprint（`ba062ae`） | Git | S3B-STORY-003 |
+| 2026-06-01 | Sprint 3-B | 实现 lead / paragraph / divider / list first-wave 12 variants registry | 代码 / 架构 | S3B-STORY-004 |
+| 2026-06-01 | Sprint 3-B | merge `feature/s3b-text-first-variants` → sprint（`3350777`） | Git | S3B-STORY-004 |
+| 2026-06-01 | Sprint 3-B | 实现 quote / highlight / info_card / cta / image_placeholder first-wave 15 variants registry；形成 33 variants 聚合 | 代码 / 架构 | S3B-STORY-005 |
+| 2026-06-01 | Sprint 3-B | merge `feature/s3b-structured-block-variants` → sprint（`f5771eb`） | Git | S3B-STORY-005 |
+| 2026-06-01 | Sprint 3-B | 建立 first-wave 33 variants coverage 与 registry validation gate | 测试 / 架构 | S3B-STORY-006 |
+| 2026-06-01 | Sprint 3-B | merge `feature/s3b-first-wave-coverage` → sprint（`7837dce`） | Git | S3B-STORY-006 |
+| 2026-06-01 | Sprint 3-B | Sprint 3-B contract audit（grade A，P0=0）；Close Readiness | 架构 / 敏捷 | S3B-STORY-007 |
+| 2026-06-01 | Sprint 3-B | 用户确认接受 Sprint 3-B contract audit（grade A，P0=0，P1=5，P2=3）；33 variants coverage 完整 | 敏捷 / 架构 | S3B-STORY-007, DECISION-059 |
+| 2026-06-01 | Sprint 3-B | Sprint 3-B 正式关闭；merge `sprint/s3b-first-wave-variant-registry` → `release/1` | Git / 敏捷 | S3B-STORY-007, DECISION-059 |
