@@ -1351,7 +1351,7 @@
 
 **用户故事：** 作为开发者，我需要 divider 3 个 first-wave variants 的 Preview / Copy 成对 Renderer，以便 section 分隔在微信复制中简单、安全、可复制。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s4a-divider-renderer`
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s4a-divider-renderer`（已 merge 至 `sprint/s4a-text-first-renderer` @ `eed8ffd`）
 
 **纳入遗留：** P1-S3B-001（text-first 子集保真验证）
 
@@ -1375,7 +1375,7 @@
 - 不实现 list / quote / highlight / info_card / cta / image_placeholder 等 structured blocks
 - 不新增业务页面 / Copy 按钮 / Clipboard API
 - 不做 Paste QA（S4A-STORY-006）
-- 不 merge 至 sprint / release / main（待用户审查）
+- 不 merge 至 `release/1` 或 `main`
 
 **验收标准：**
 
@@ -1387,7 +1387,7 @@
 - [x] AC-6 `corepack pnpm lint` / `test` / `build` 通过（362 tests）
 - [x] AC-7 已生成 execution report
 - [x] AC-8 未实现 structured blocks / 业务页面 / Clipboard / Paste QA
-- [x] AC-9 未 merge 至 sprint / release / main
+- [x] AC-9 已 merge 至 `sprint/s4a-text-first-renderer`；未 merge 至 release / main
 
 ---
 

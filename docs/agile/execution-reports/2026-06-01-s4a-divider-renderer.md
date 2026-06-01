@@ -9,7 +9,7 @@
 - Sprint：Sprint 4-A
 - 关联 Story：S4A-STORY-005；P1-S3B-001（text-first 子集保真验证遗留）
 - 执行者：Cursor
-- 状态：In Review
+- 状态：Done（已 merge 至 `sprint/s4a-text-first-renderer` @ `eed8ffd`）
 
 ## 2. 本轮目标
 
@@ -92,8 +92,8 @@
 
 ## 10. 未完成事项
 
-- merge 至 `sprint/s4a-text-first-renderer`（待用户确认）
-- Story 关闭（待 ChatGPT / 用户审查）
+- merge 至 `sprint/s4a-text-first-renderer`（用户审查通过 @ 2026-06-01）
+- Story 关闭（用户确认审查通过）
 
 ## 11. 风险与阻塞
 
@@ -106,8 +106,7 @@
 
 ## 13. 建议下一步
 
-- 用户审查通过后 merge `feature/s4a-divider-renderer` → `sprint/s4a-text-first-renderer`
-- 启动 S4A-STORY-006（Copy HTML snapshot / Clipboard 双格式 / Paste QA seed）
+- S4A-STORY-005 已 Done 并 merge 回 sprint；可启动 S4A-STORY-006
 
 ## 14. Commit
 
