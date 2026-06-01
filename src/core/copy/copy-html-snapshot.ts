@@ -1,4 +1,5 @@
 import type { Article } from "@/core/article";
+import type { BlockType } from "@/core/blocks";
 import type { CopySafety, ResolvedArticleStyle } from "@/core/styles";
 import {
   createRendererIssue,
@@ -43,6 +44,7 @@ export type BuildCopyHtmlSnapshotOptions = {
   article: Article;
   resolvedArticleStyle: ResolvedArticleStyle;
   registry?: BlockRendererRegistry;
+  supportedBlockTypes?: readonly BlockType[];
 };
 
 type CopyHtmlRendererOutput = Extract<
@@ -67,6 +69,8 @@ export function buildCopyHtmlSnapshot(
 ): CopyHtmlSnapshot {
   const registry =
     options.registry ?? createSprint4ATextFirstCopyRendererRegistry();
+  const supportedBlockTypes =
+    options.supportedBlockTypes ?? SPRINT4A_TEXT_FIRST_COPY_BLOCK_TYPES;
   const entries: CopyHtmlSnapshotEntry[] = [];
   const issues: RendererIssue[] = [];
   const warnings: RendererIssue[] = [];
@@ -81,7 +85,7 @@ export function buildCopyHtmlSnapshot(
         target: renderTargetForMode("copy"),
       },
       registry,
-      supportedBlockTypes: SPRINT4A_TEXT_FIRST_COPY_BLOCK_TYPES,
+      supportedBlockTypes,
     });
 
     warnings.push(...result.warnings);

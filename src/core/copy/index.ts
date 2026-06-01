@@ -71,6 +71,26 @@ export {
   SPRINT4A_TEXT_FIRST_COPY_BLOCK_TYPES,
 } from "./text-first-copy-registry";
 export type { Sprint4ATextFirstCopyBlockType } from "./text-first-copy-registry";
+export {
+  createSprint4BStructuredCopyRendererRegistry,
+  SPRINT4B_STRUCTURED_COPY_BLOCK_TYPES,
+} from "./structured-copy-registry";
+export type { Sprint4BStructuredCopyBlockType } from "./structured-copy-registry";
+export {
+  createRelease1FirstWaveCopyRendererRegistry,
+  RELEASE1_FIRST_WAVE_COPY_BLOCK_TYPES,
+} from "./first-wave-copy-registry";
+export type { Release1FirstWaveCopyBlockType } from "./first-wave-copy-registry";
+export {
+  buildRelease1FirstWavePasteQaPlan,
+  RELEASE1_FIRST_WAVE_VARIANT_GROUPS,
+} from "./first-wave-paste-qa-plan";
+export type {
+  FirstWavePasteQaPlanEntry,
+  FirstWavePasteQaStatus,
+  PasteQaScope,
+  RendererCoverageStatus,
+} from "./first-wave-paste-qa-plan";
 export { buildCopyHtmlSnapshot } from "./copy-html-snapshot";
 export type {
   BuildCopyHtmlSnapshotOptions,
