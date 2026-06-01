@@ -2336,8 +2336,8 @@ S3C-STORY-001（启动）
 > **Sprint 5 状态：** **In Progress**（2026-06-02；DECISION-067）
 > **Sprint 5 分支：** `sprint/s5-generation-ui-main-flow`（从 `release/1` 切出，DECISION-067）
 > **Release 1 主干：** `release/1`
-> **UI 主流程入口：** **`/generate`**（真实业务页面；S5-STORY-006 实现）
-> **下一步：** S5-STORY-004（done.article 归一）；不 merge `main`
+> **UI 主流程入口：** **`/generate`**（真实业务页面；S5-STORY-007 实现）
+> **下一步：** S5-STORY-004（done.article 归一）→ S5-STORY-005（真实模型 Provider）；不 merge `main`
 > **Sprint 5 不做：** 真实微信公众号 Paste QA 全量回归、不宣称复制到公众号最终保真通过、Style Gallery、真实 QR / 小程序 / 图片上传托管 / AI 生图、复杂编辑器 / block 级编辑、样式市场、merge 至 `main`
 > **保留原则：** 真实 Paste QA 归 Sprint 6-B；Fixture Triple / PasteTestRecord 归 Sprint 6-A / 6-B；Sprint 5 UI smoke test 不替代微信公众号 Paste QA
 
@@ -2348,9 +2348,10 @@ S5-STORY-001 Sprint 5 启动与 Backlog 拆分 — Done
 S5-STORY-002 InputRequest / NormalizedInput 代码契约 — Done
 S5-STORY-003 GenerationEvent / SSE Streaming Runtime — Done
 S5-STORY-004 done.article 归一与 Article Schema 校验 — Planned
-S5-STORY-005 受控 AI 样式选择生成与 validation pipeline 接入 — Planned
-S5-STORY-006 Release 1 主流程真实 UI 页面集成（/generate）— Planned
-S5-STORY-007 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Planned
+S5-STORY-005 真实模型 Provider 对接（Volcengine / Doubao）— Planned
+S5-STORY-006 受控 AI 样式选择生成与 validation pipeline 接入 — Planned
+S5-STORY-007 Release 1 主流程真实 UI 页面集成（/generate）— Planned
+S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Planned
 ```
 
 ---
@@ -2393,8 +2394,9 @@ S5-STORY-007 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Planned
 
 - 不实现 GenerationEvent / SSE（S5-STORY-003）
 - 不实现 done.article 归一（S5-STORY-004）
-- 不实现 AI Style Selection 生成（S5-STORY-005）
-- 不实现 `/generate` UI 页面（S5-STORY-006）
+- 不实现 AI Style Selection 生成（S5-STORY-006）
+- 不实现真实模型 Provider（S5-STORY-005）
+- 不实现 `/generate` UI 页面（S5-STORY-007）
 - 不 merge 至 `release/1` 或 `main`
 
 **验收标准：**
@@ -2436,8 +2438,9 @@ S5-STORY-007 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Planned
 **明确不做：**
 
 - 不实现 `done.article` → Article Schema parse / normalize / validate（S5-STORY-004）
-- 不实现 AI Style Selection 生成（S5-STORY-005）
-- 不实现 `/generate` UI 页面（S5-STORY-006）
+- 不实现真实模型 Provider（S5-STORY-005；仅提供 deterministic test provider）
+- 不实现 AI Style Selection 生成（S5-STORY-006）
+- 不实现 `/generate` UI 页面（S5-STORY-007）
 - 不调用真实模型 API / web search
 - 不 merge 至 `release/1` 或 `main`
 
@@ -2476,7 +2479,44 @@ S5-STORY-007 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Planned
 
 ---
 
-## S5-STORY-005 受控 AI 样式选择生成与 validation pipeline 接入
+## S5-STORY-005 真实模型 Provider 对接（Volcengine / Doubao）
+
+**用户故事：** 作为产品负责人，我需要 Sprint 5 对接真实模型 API，使 Release 1 主流程不是只依赖 deterministic provider，而是可以通过真实模型生成结构化 Article candidate。
+
+**优先级：** P0 · **状态：** Planned · **建议工作分支：** `feature/s5-volcengine-model-provider`
+
+**目标：** 实现 Volcengine / Doubao 真实模型 Provider，优先参照旧一键成稿项目的火山模型对接方式；输出进入 GenerationEvent stream runtime 与 `done.article` 归一链路。
+
+**明确不做：**
+
+- 不在本 Story 实现 `/generate` UI 页面（S5-STORY-007）
+- 不执行真实微信公众号 Paste QA（Sprint 6-B）
+- 不实现文件上传 / URL 抓取 / 知识库 / web search
+- 不实现图片生成
+- 不硬编码任何密钥
+- 不把真实 API 调用写入普通单元测试强依赖
+- 不 merge 至 `release/1` 或 `main`
+
+**验收标准：**
+
+- [ ] AC-1 定义 `GenerationModelProvider` / `ModelProviderConfig` / `ModelProviderResult` 等最小 provider 契约
+- [ ] AC-2 实现 Volcengine / Doubao provider，优先参照旧一键成稿项目的火山模型对接方式
+- [ ] AC-3 API key / endpoint / model name 通过环境变量配置，不得硬编码密钥
+- [ ] AC-4 提供 `.env.example` 或现有 env 文档更新，说明所需变量
+- [ ] AC-5 provider 输入使用 S5-STORY-002 的 `NormalizedInput`
+- [ ] AC-6 provider 输出必须进入 S5-STORY-003 的 GenerationEvent stream runtime
+- [ ] AC-7 provider 最终必须产出 `done.article` candidate，供 S5-STORY-004 的 Article Schema 校验链路消费
+- [ ] AC-8 真实 provider 与 deterministic provider 共用同一 runtime 接口；deterministic provider 仅作为 dev fallback / test provider
+- [ ] AC-9 不允许 provider 直接绕过 Article Schema、Style System、Renderer 或 Copy pipeline
+- [ ] AC-10 不允许模型直接输出 HTML / CSS / className / inline style 作为主链路结果
+- [ ] AC-11 网络错误、鉴权错误、模型返回格式错误必须转换为稳定 `error` GenerationEvent
+- [ ] AC-12 单元测试覆盖 provider config、错误映射、mock transport、deterministic fallback
+- [ ] AC-13 如测试环境无真实 API key，不应导致 test / build 失败
+- [ ] AC-14 `corepack pnpm lint` / `test` / `build` 通过
+
+---
+
+## S5-STORY-006 受控 AI 样式选择生成与 validation pipeline 接入
 
 **用户故事：** 作为开发者，我需要在 Generation 链路中生成 StyleSelectionRequest / StyleAssignmentPatch，并通过 Sprint 3-C validation pipeline 后写入 Article.styleAssignment。
 
@@ -2495,7 +2535,7 @@ S5-STORY-007 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Planned
 
 ---
 
-## S5-STORY-006 Release 1 主流程真实 UI 页面集成
+## S5-STORY-007 Release 1 主流程真实 UI 页面集成
 
 **用户故事：** 作为用户，我需要在真实业务页面中完成输入 → 生成 → 预览 → 复制，以便 Release 1 主链路可手动验收。
 
@@ -2514,12 +2554,12 @@ S5-STORY-007 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Planned
 - [ ] AC-7 Clipboard payload 包含 `text/html` + `text/plain`
 - [ ] AC-8 不允许从 DOM 抓取 HTML
 - [ ] AC-9 不允许绕过 Article / StyleResolver / Renderer / Copy pipeline
-- [ ] AC-10 支持本地 deterministic provider 或 mock provider 作为 dev fallback，但必须走同一 GenerationService / Article / Renderer / Copy 主链路；不得用静态 `mockArticle` 直接渲染页面
+- [ ] AC-10 `/generate` 页面可选择或默认使用 S5-STORY-005 真实模型 Provider；deterministic provider 仅作为 dev fallback / test provider，但必须走同一 GenerationService / Article / Renderer / Copy 主链路；不得用静态 `mockArticle` 直接渲染页面
 - [ ] AC-11 `corepack pnpm lint` / `test` / `build` 通过
 
 ---
 
-## S5-STORY-007 Sprint 5 主链路 Smoke / E2E 与关闭准备
+## S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备
 
 **用户故事：** 作为产品负责人，我需要为真实 UI 主流程建立最小 smoke / e2e 验证，并做 Sprint 5 close readiness，以便确认 Release 1 主流程已在真实页面跑通。
 
@@ -2535,7 +2575,7 @@ S5-STORY-007 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Planned
 - [ ] AC-4 可等待预览出现
 - [ ] AC-5 可触发复制动作或验证 Clipboard payload 生成
 - [ ] AC-6 lint / test / build PASS
-- [ ] AC-7 audit 明确 Sprint 5 是否达到「真实 UI 页面跑通 Release 1 主流程」
+- [ ] AC-7 audit 明确 Sprint 5 是否达到「真实 UI 页面跑通 Release 1 主流程」（含 S5-STORY-005 真实模型 Provider 已接入；无 API key 时 CI 可用 deterministic provider 稳定，但不等于 Sprint 5 真实 API 对接验收通过）
 - [ ] AC-8 audit 明确真实微信公众号 Paste QA 仍未执行，归 Sprint 6-B
 - [ ] AC-9 已生成 execution report
 - [ ] AC-10 不自行关闭 Sprint 5（须用户确认）

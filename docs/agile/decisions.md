@@ -65,6 +65,7 @@
 | DECISION-064 | 2026-06-01 | 正式启动 Sprint 3-C；Style Assignment / Selection Validation + Orchestrator + VisualAssetRegistry | 已确认 |
 | DECISION-065 | 2026-06-01 | 关闭 Sprint 3-C；contract audit A，P0=0；merge sprint/s3c-style-assignment-validation → release/1 | 已确认 |
 | DECISION-066 | 2026-06-02 | Sprint 5 范围调整为 Generation / Streaming + Release 1 真实 UI 主流程闭环 | 已确认 |
+| DECISION-068 | 2026-06-02 | Sprint 5 必须纳入真实模型 API Provider 对接（Volcengine / Doubao） | 已确认 |
 
 ### DECISION-019 详情
 
@@ -415,6 +416,23 @@
   5. **不允许**用静态 `mockArticle` 假装主流程跑通
   6. 真实微信公众号 Paste QA 仍归 **Sprint 6-B**
 - **影响范围：** `sprint-plan.md`、`sprint-backlog.md`、`product-backlog.md`（TECH-ARCH-024）、S5-STORY-001~007
+- **状态：** 已确认
+
+### DECISION-068 详情（Sprint 5 真实模型 Provider 对接）
+
+- **日期：** 2026-06-02
+- **背景：**
+  - S5-STORY-003 已完成 GenerationEvent / SSE streaming runtime，但明确未调用真实模型 API
+  - 用户确认 Sprint 5 关闭前必须可通过真实 API 跑通 Release 1 主流程
+  - deterministic test provider 仅适用于 dev / CI fallback，不能作为 Release 1 主链路验收替代
+- **决策：**
+  1. Volcengine / Doubao provider 纳入 Sprint 5 P0（S5-STORY-005）
+  2. 优先参照旧一键成稿项目火山模型对接经验（DECISION-009：经验来源，非代码来源）
+  3. deterministic provider 仅作为 dev fallback / test provider
+  4. 真实 API 输出必须进入 GenerationEvent / `done.article` / Article Schema 校验链路
+  5. 不允许模型输出绕过 Style System / Renderer / Copy pipeline
+  6. API key / endpoint / model name 必须走环境变量，不得硬编码
+- **影响范围：** `sprint-plan.md`、`sprint-backlog.md`、`product-backlog.md`（TECH-ARCH-024、TECH-ARCH-025）、S5-STORY-005~008
 - **状态：** 已确认
 
 ## 决策模板

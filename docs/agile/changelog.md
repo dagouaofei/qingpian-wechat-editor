@@ -249,3 +249,14 @@
 | 2026-06-02 | Sprint 5 | 实现 GenerationEvent 契约与 Zod schema（block.start / block.delta / block.complete / done.article / error / heartbeat） | 代码 / 架构 | S5-STORY-003, DECISION-024 |
 | 2026-06-02 | Sprint 5 | 实现 SSE encode/decode 与 stream runtime + deterministic test provider | 代码 / 测试 | S5-STORY-003 |
 | 2026-06-02 | Sprint 5 | S5-STORY-003 Done；S5-STORY-004 仍 Planned；未实现 Article 归一 / UI 主流程 | 敏捷 | S5-STORY-003 |
+
+---
+
+## 2026-06-02 · Sprint 5 真实模型 Provider 计划调整
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-02 | Sprint 5 | Sprint 5 后续计划调整：Sprint 5 关闭前必须接入真实模型 API | 敏捷 / 架构 | DECISION-068 |
+| 2026-06-02 | Sprint 5 | 新增 S5-STORY-005 真实模型 Provider 对接（Volcengine / Doubao）；原 S5-STORY-005~007 顺延为 S5-STORY-006~008 | 敏捷 | S5-STORY-005~008 |
+| 2026-06-02 | Sprint 5 | Volcengine / Doubao provider 纳入 Sprint 5 P0；deterministic provider 仅 dev fallback / test provider | 架构 | TECH-ARCH-024, TECH-ARCH-025 |
+| 2026-06-02 | Sprint 5 | Sprint 5 UI 主流程验收不再允许只依赖 deterministic provider | 敏捷 / 产品 | DECISION-068, S5-STORY-007, S5-STORY-008 |

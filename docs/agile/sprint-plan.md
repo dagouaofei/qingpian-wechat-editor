@@ -61,7 +61,7 @@
 | **Sprint 5** | **In Progress**（2026-06-02；DECISION-067；分支 `sprint/s5-generation-ui-main-flow`） |
 | **Release 1 主干** | `release/1` |
 | **Sprint 5 分支** | `sprint/s5-generation-ui-main-flow` |
-| **下一步** | S5-STORY-003 起；不 merge `main` |
+| **下一步** | S5-STORY-004 起；不 merge `main` |
 
 ---
 
@@ -178,7 +178,7 @@
 > **Sprint 4-A 状态：Closed**（2026-06-01；DECISION-061；contract audit **A**，P0=0；分支 `sprint/s4a-text-first-renderer` 已 merge 至 `release/1`）
 > **Sprint 4-B 状态：Closed**（2026-06-01；DECISION-063；contract audit **A**，P0=0；分支 `sprint/s4b-structured-block-renderer` 已 merge 至 `release/1`）
 > **Sprint 3-C 状态：Closed**（2026-06-01；DECISION-065；Style Assignment / Selection Validation + Orchestrator + VisualAssetRegistry）
-> **Sprint 5 状态：In Progress**（2026-06-02；DECISION-067；S5-STORY-001~002 Done）
+> **Sprint 5 状态：In Progress**（2026-06-02；DECISION-067；S5-STORY-001~003 Done）
 >
 > 业务功能实现必须在核心技术方案 + 实现前契约完成之后进入（DECISION-015、DECISION-029~045、DECISION-051）。
 
@@ -435,27 +435,39 @@
 
 **分支：** `sprint/s5-generation-ui-main-flow`（DECISION-067） · **Release 1 主干：** `release/1`
 
-> **S5-STORY-001~002** Done · **S5-STORY-003~007** Planned · **不 merge `main`**
+> **S5-STORY-001~003** Done · **S5-STORY-004~008** Planned · **不 merge `main`**
 
 **Sprint Goal：**
 
 1. **InputRequest / NormalizedInput** — 主题、资料、草稿三类输入的标准化入口
 2. **GenerationEvent / SSE Streaming Runtime** — `block.start` / `block.delta` / `block.complete` / `done.article` 流式事件链路
 3. **`done.article` 归一** — 终态必须进入**唯一 Article Schema**；禁止 `streamArticle` / `mockArticle` / parallel article model
-4. **StyleSelectionRequest / StyleAssignmentPatch 生成** — 受控 AI 样式建议
-5. **Style System validation pipeline** — 所有样式建议必须复用 Sprint 3-C `validateStyleSelectionPipeline`；不得绕过 Style System
-6. **Preview / Copy Renderer 接入** — 复用 Sprint 4-A / 4-B 已完成的 Preview / Copy Renderer
-7. **Release 1 真实业务 UI 页面** — 新增或完善真实业务页面，使用户可手动跑通：
+4. **真实模型 Provider 对接** — Volcengine / Doubao provider 纳入 Sprint 5 P0；优先参照旧一键成稿项目火山模型对接经验
+5. **StyleSelectionRequest / StyleAssignmentPatch 生成** — 受控 AI 样式建议
+6. **Style System validation pipeline** — 所有样式建议必须复用 Sprint 3-C `validateStyleSelectionPipeline`；不得绕过 Style System
+7. **Preview / Copy Renderer 接入** — 复用 Sprint 4-A / 4-B 已完成的 Preview / Copy Renderer
+8. **Release 1 真实业务 UI 页面** — 新增或完善真实业务页面（`/generate`），使用户可手动跑通：
    - 输入主题 / 资料 / 草稿
-   - 点击生成
+   - 点击生成（可选择或默认使用真实模型 Provider）
    - 看到生成中状态与最终 Article 预览
    - 点击复制
    - 复制内容来自 Copy Renderer / Clipboard payload；**不允许 DOM 抓取**
-8. **Sprint 5 结束时** — Release 1 主流程（输入 → 生成 → 预览 → 复制）必须在**真实页面**中可运行
+9. **Sprint 5 结束时** — Release 1 主流程（输入 → **真实模型生成** → 预览 → 复制）必须在**真实页面**中可运行
 
-**Stories：** S5-STORY-001（启动）~ S5-STORY-007 — 见 `sprint-backlog.md`
+**Sprint 5 关闭前必须满足：**
 
-**进度：** S5-STORY-002 InputRequest / NormalizedInput **Done** · S5-STORY-003 GenerationEvent / SSE Runtime **Done**（`src/core/generation/`）
+1. 输入契约完成（S5-STORY-002）
+2. GenerationEvent / SSE runtime 完成（S5-STORY-003）
+3. `done.article` 可归一并通过 Article Schema 校验（S5-STORY-004）
+4. 真实模型 Provider 已接入，优先 Volcengine / Doubao（S5-STORY-005）
+5. deterministic provider 仅作为 dev fallback / test provider
+6. `/generate` 真实页面可选择或默认使用真实 provider（S5-STORY-007）
+7. 主链路可跑通：输入 → 真实模型生成 → `done.article` → Article 校验 → 样式选择 → 预览 → 复制
+8. 无 API key 时，测试可用 deterministic provider 保持 CI 稳定，**但这不等于验收真实 API 对接**
+
+**Stories：** S5-STORY-001（启动）~ S5-STORY-008 — 见 `sprint-backlog.md`
+
+**进度：** S5-STORY-001~003 **Done** · S5-STORY-004~008 **Planned**
 
 **建议执行顺序：**
 
@@ -463,7 +475,7 @@
 S5-STORY-001 — Done
 S5-STORY-002 — Done
 S5-STORY-003 — Done
-S5-STORY-004 → S5-STORY-007 — Planned
+S5-STORY-004 → S5-STORY-008 — Planned
 ```
 
 **不做：**
@@ -481,7 +493,8 @@ S5-STORY-004 → S5-STORY-007 — Planned
 - 真实 Paste QA 仍归 **Sprint 6-B**
 - Fixture Triple / PasteTestRecord 仍归 **Sprint 6-A / 6-B**
 - Sprint 5 的 UI 主流程 smoke test 只证明页面链路可跑通，**不替代**微信公众号粘贴 QA
-- 允许本地 deterministic provider 或 mock provider 作为 dev fallback，但必须走同一 GenerationService / Article / Renderer / Copy 主链路；**不得**用静态 `mockArticle` 直接渲染页面假装主流程跑通
+- 允许本地 deterministic provider 作为 dev fallback / test provider，但必须走同一 GenerationService / Article / Renderer / Copy 主链路；**不得**用静态 `mockArticle` 直接渲染页面假装主流程跑通
+- **Sprint 5 关闭验收**须包含 S5-STORY-005 真实模型 Provider 对接；deterministic provider **不能**作为 Release 1 主链路验收替代
 
 ### Sprint 6-A：Fixture Triple Infrastructure
 
