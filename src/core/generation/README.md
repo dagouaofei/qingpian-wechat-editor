@@ -1,6 +1,6 @@
 # Generation 模块
 
-> 状态：Sprint 5 进行中 · S5-STORY-002 / S5-STORY-003 / S5-STORY-004 Done
+> 状态：Sprint 5 进行中 · S5-STORY-002 ~ S5-STORY-005 Done
 
 ## 职责
 
@@ -31,7 +31,22 @@
 | `done-article.ts` | `done.article` 事件序列校验与提取 |
 | `article-finalize.ts` | `finalizeGenerationEvents` → 正式 `Article` |
 
-**统一终态入口：** Provider / UI 应通过 `finalizeGenerationEvents(events)` 获取 `FinalizedGeneratedArticle.article`，不得绕过 Article Schema。
+### S5-STORY-005 — Volcengine / Doubao Model Provider
+
+| 路径 | 说明 |
+|------|------|
+| `model-provider.ts` | Provider / transport 契约 |
+| `model-provider-config.ts` | 环境变量 config loader |
+| `model-provider-errors.ts` | 稳定 error code 与 HTTP / network 映射 |
+| `model-prompt.ts` | Article JSON prompt builder |
+| `volcengine-transport.ts` | Ark chat completions transport（可 mock） |
+| `volcengine-provider.ts` | 真实 model provider → GenerationEvent stream |
+
+**统一终态入口：** Provider 输出 `GenerationEvent` stream → `finalizeGenerationEvents(events)` → 正式 `Article`。
+
+**环境变量：** 见仓库根目录 `.env.example`（`VOLCENGINE_*`）。
+
+**旧项目经验：** 当前仓库仅保留 SSE + `done.article` 归一经验（见 `docs/agile/migration-reference.md`）；旧一键成稿 Volcengine / `mapArkJsonToArticle` 源码不可访问，本轮按轻篇 Article Schema 实现 provider 契约，不复用旧 parallel 模型。
 
 ## 约束
 
@@ -39,7 +54,8 @@
 - 流式事件：`block.start` / `block.delta` / `block.complete` / `done.article` / `error` / `heartbeat`
 - 生成结果必须进入统一 Article Schema（`parseArticle` / `normalizeArticle` / `validateArticle`）
 - 不允许 `streamArticle` / `mockArticle` 成为独立文章结构
-- deterministic provider 与后续真实 model provider 共用同一 finalization helper
+- deterministic provider 仅 dev fallback / test provider；真实 API 验收须启用 Volcengine provider
+- 不得硬编码 API key；不得让缺少 key 导致 test / build 失败
 
 ## 参考文档
 

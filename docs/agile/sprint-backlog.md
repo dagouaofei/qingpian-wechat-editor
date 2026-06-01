@@ -2337,7 +2337,7 @@ S3C-STORY-001（启动）
 > **Sprint 5 分支：** `sprint/s5-generation-ui-main-flow`（从 `release/1` 切出，DECISION-067）
 > **Release 1 主干：** `release/1`
 > **UI 主流程入口：** **`/generate`**（真实业务页面；S5-STORY-007 实现）
-> **下一步：** S5-STORY-005（真实模型 Provider）；不 merge `main`
+> **下一步：** S5-STORY-006（AI 样式选择）；不 merge `main`
 > **Sprint 5 不做：** 真实微信公众号 Paste QA 全量回归、不宣称复制到公众号最终保真通过、Style Gallery、真实 QR / 小程序 / 图片上传托管 / AI 生图、复杂编辑器 / block 级编辑、样式市场、merge 至 `main`
 > **保留原则：** 真实 Paste QA 归 Sprint 6-B；Fixture Triple / PasteTestRecord 归 Sprint 6-A / 6-B；Sprint 5 UI smoke test 不替代微信公众号 Paste QA
 
@@ -2348,7 +2348,7 @@ S5-STORY-001 Sprint 5 启动与 Backlog 拆分 — Done
 S5-STORY-002 InputRequest / NormalizedInput 代码契约 — Done
 S5-STORY-003 GenerationEvent / SSE Streaming Runtime — Done
 S5-STORY-004 done.article 归一与 Article Schema 校验 — Done
-S5-STORY-005 真实模型 Provider 对接（Volcengine / Doubao）— Planned
+S5-STORY-005 真实模型 Provider 对接（Volcengine / Doubao）— Done
 S5-STORY-006 受控 AI 样式选择生成与 validation pipeline 接入 — Planned
 S5-STORY-007 Release 1 主流程真实 UI 页面集成（/generate）— Planned
 S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Planned
@@ -2499,9 +2499,24 @@ S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Planned
 
 **用户故事：** 作为产品负责人，我需要 Sprint 5 对接真实模型 API，使 Release 1 主流程不是只依赖 deterministic provider，而是可以通过真实模型生成结构化 Article candidate。
 
-**优先级：** P0 · **状态：** Planned · **建议工作分支：** `feature/s5-volcengine-model-provider`
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s5-volcengine-model-provider`
 
-**目标：** 实现 Volcengine / Doubao 真实模型 Provider，优先参照旧一键成稿项目的火山模型对接方式；输出进入 GenerationEvent stream runtime 与 `done.article` 归一链路。
+**目标：** 实现 Volcengine / Doubao 真实模型 Provider；输出进入 GenerationEvent stream runtime 与 `done.article` 归一链路。
+
+**旧项目经验：** 当前仓库不可访问旧一键成稿 Volcengine 源码；仅参考 `migration-reference.md` SSE + `done.article` 经验，以及 `prototype-style-system-technical-lessons.md` 中 `mapArkJsonToArticle` 命名线索；按轻篇 Article Schema 实现 provider，未复制旧 parallel 模型。
+
+**实际产物：**
+
+| 路径 | 说明 |
+|------|------|
+| `src/core/generation/model-provider.ts` | Provider / transport 契约 |
+| `src/core/generation/model-provider-config.ts` | `VOLCENGINE_*` env config loader |
+| `src/core/generation/model-provider-errors.ts` | 稳定 error code 与 HTTP / network 映射 |
+| `src/core/generation/model-prompt.ts` | Article JSON prompt builder |
+| `src/core/generation/volcengine-transport.ts` | Ark chat completions transport |
+| `src/core/generation/volcengine-provider.ts` | Volcengine provider → GenerationEvent stream |
+| `.env.example` | Volcengine 环境变量说明 |
+| `tests/core/generation/model-provider*.test.ts` | config / provider / volcengine 测试 |
 
 **明确不做：**
 
@@ -2515,20 +2530,20 @@ S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Planned
 
 **验收标准：**
 
-- [ ] AC-1 定义 `GenerationModelProvider` / `ModelProviderConfig` / `ModelProviderResult` 等最小 provider 契约
-- [ ] AC-2 实现 Volcengine / Doubao provider，优先参照旧一键成稿项目的火山模型对接方式
-- [ ] AC-3 API key / endpoint / model name 通过环境变量配置，不得硬编码密钥
-- [ ] AC-4 提供 `.env.example` 或现有 env 文档更新，说明所需变量
-- [ ] AC-5 provider 输入使用 S5-STORY-002 的 `NormalizedInput`
-- [ ] AC-6 provider 输出必须进入 S5-STORY-003 的 GenerationEvent stream runtime
-- [ ] AC-7 provider 最终必须产出 `done.article` candidate，供 S5-STORY-004 的 Article Schema 校验链路消费
-- [ ] AC-8 真实 provider 与 deterministic provider 共用同一 runtime 接口；deterministic provider 仅作为 dev fallback / test provider
-- [ ] AC-9 不允许 provider 直接绕过 Article Schema、Style System、Renderer 或 Copy pipeline
-- [ ] AC-10 不允许模型直接输出 HTML / CSS / className / inline style 作为主链路结果
-- [ ] AC-11 网络错误、鉴权错误、模型返回格式错误必须转换为稳定 `error` GenerationEvent
-- [ ] AC-12 单元测试覆盖 provider config、错误映射、mock transport、deterministic fallback
-- [ ] AC-13 如测试环境无真实 API key，不应导致 test / build 失败
-- [ ] AC-14 `corepack pnpm lint` / `test` / `build` 通过
+- [x] AC-1 定义 `GenerationModelProvider` / `GenerationModelProviderConfig` / `GenerationModelProviderResult` 等最小 provider 契约
+- [x] AC-2 实现 Volcengine / Doubao provider（Ark chat completions + Article JSON prompt）
+- [x] AC-3 API key / endpoint / model name 通过环境变量配置，不得硬编码密钥
+- [x] AC-4 提供 `.env.example`，说明 `VOLCENGINE_*` 变量
+- [x] AC-5 provider 输入使用 S5-STORY-002 的 `NormalizedInput`
+- [x] AC-6 provider 输出进入 S5-STORY-003 的 GenerationEvent stream runtime
+- [x] AC-7 provider 最终产出 `done.article` candidate，供 S5-STORY-004 finalization 消费
+- [x] AC-8 真实 provider 与 deterministic provider 共用 `GenerationStreamProvider`；deterministic 仅 dev fallback / test
+- [x] AC-9 不允许 provider 绕过 Article Schema / Style System / Renderer / Copy pipeline
+- [x] AC-10 不允许模型输出 HTML / CSS / className / inline style 作为主链路字段
+- [x] AC-11 网络 / 鉴权 / 格式错误转换为稳定 `error` GenerationEvent
+- [x] AC-12 单元测试覆盖 config、错误映射、mock transport、deterministic fallback（29 cases 新增）
+- [x] AC-13 无真实 API key 时 test / build 不失败
+- [x] AC-14 `corepack pnpm lint` / `test` / `build` 通过
 
 ---
 

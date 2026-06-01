@@ -270,3 +270,13 @@
 | 2026-06-02 | Sprint 5 | 实现 `done.article` 事件序列校验与 `finalizeGenerationEvents` Article 归一链路 | 代码 / 架构 | S5-STORY-004 |
 | 2026-06-02 | Sprint 5 | 复用 `parseArticle` / `validateArticle` / `normalizeArticle`；新增 26 单元测试 | 代码 / 测试 | S5-STORY-004 |
 | 2026-06-02 | Sprint 5 | S5-STORY-004 Done；S5-STORY-005 仍 Planned；未接入真实模型 / UI 主流程 | 敏捷 | S5-STORY-004 |
+
+---
+
+## 2026-06-02 · S5-STORY-005 Volcengine Model Provider
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-02 | Sprint 5 | 实现 Volcengine / Doubao model provider 契约、transport、prompt 与 GenerationEvent 输出 | 代码 / 架构 | S5-STORY-005, TECH-ARCH-025, DECISION-068 |
+| 2026-06-02 | Sprint 5 | 新增 `.env.example`（`VOLCENGINE_*`）；mock transport 单测，无真实网络依赖 | 配置 / 测试 | S5-STORY-005 |
+| 2026-06-02 | Sprint 5 | S5-STORY-005 Done；S5-STORY-006~008 仍 Planned；未实现 `/generate` UI / Sprint 5 主流程关闭 | 敏捷 | S5-STORY-005 |

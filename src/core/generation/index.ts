@@ -79,6 +79,63 @@ export {
 } from "./test-provider";
 
 export type {
+  CreateVolcengineModelProviderOptions,
+  GenerateArticleCandidateInput,
+  GenerationModelProvider,
+  GenerationModelProviderResult,
+  GenerationModelTransport,
+  GenerationModelTransportFailure,
+  GenerationModelTransportRequest,
+  GenerationModelTransportResponse,
+  GenerationModelTransportSuccess,
+  ResolveGenerationModelProviderOptions,
+} from "./model-provider";
+
+export {
+  DEFAULT_VOLCENGINE_BASE_URL,
+  DEFAULT_VOLCENGINE_TIMEOUT_MS,
+  assertVolcengineProviderConfig,
+  loadVolcengineProviderConfig,
+  VOLCENGINE_ENV_KEYS,
+} from "./model-provider-config";
+
+export type {
+  GenerationModelProviderConfig,
+  GenerationModelProviderConfigIssue,
+  GenerationModelProviderConfigResult,
+  GenerationModelProviderName,
+} from "./model-provider-config";
+
+export {
+  GENERATION_MODEL_PROVIDER_ERROR_CODES,
+  GenerationModelProviderError,
+  mapHttpStatusToProviderError,
+  mapTransportFailure,
+  sanitizeProviderErrorMessage,
+} from "./model-provider-errors";
+
+export type { GenerationModelProviderErrorCode } from "./model-provider-errors";
+
+export {
+  buildVolcenginePromptMessages,
+  buildVolcengineSystemPrompt,
+  buildVolcengineUserPrompt,
+  findForbiddenArticleFields,
+  parseModelJsonContent,
+} from "./model-prompt";
+
+export { createVolcengineTransport } from "./volcengine-transport";
+
+export {
+  buildGenerationEventsFromArticleCandidate,
+  createProviderErrorEvent,
+  createVolcengineModelProvider,
+  enrichArticleCandidate,
+  generateVolcengineProviderEvents,
+  resolveGenerationModelProvider,
+} from "./volcengine-provider";
+
+export type {
   InputDensityHint,
   InputRequest,
   InputRequestMetadata,
