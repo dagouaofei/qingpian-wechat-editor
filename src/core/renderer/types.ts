@@ -39,6 +39,7 @@ export type TextFirstRendererBlockType =
 export const RENDERER_ISSUE_CODES = [
   "missing_resolved_style",
   "unsupported_block_type",
+  "unsupported_variant",
   "renderer_not_registered",
   "copy_safety_warning",
   "invalid_renderer_input",
@@ -70,7 +71,7 @@ export type RendererFallbackInfo = {
   fallbackSlotId?: string;
 };
 
-/** 本轮占位输出；S4A-STORY-003+ 替换为真实 Preview / Copy 结构 */
+/** 本轮占位输出；具体 block renderer 使用专用 output 类型 */
 export type PreviewRendererOutputPlaceholder = {
   kind: "preview_placeholder";
   blockId: string;
@@ -81,9 +82,39 @@ export type CopyRendererOutputPlaceholder = {
   blockId: string;
 };
 
+export type TitleBlockPreviewOutput = {
+  kind: "title_block_preview";
+  blockId: string;
+  blockType: "title" | "heading";
+  variantId: string;
+  layoutMode: TitleBlockLayoutMode;
+  text: string;
+  headingLevel?: 1 | 2 | 3;
+  slots: Record<
+    string,
+    {
+      state: SlotRenderState;
+      content?: string;
+      fallbackReason?: string;
+    }
+  >;
+};
+
+export type TitleBlockCopyOutput = {
+  kind: "title_block_copy_html";
+  blockId: string;
+  blockType: "title" | "heading";
+  variantId: string;
+  layoutMode: TitleBlockLayoutMode;
+  html: string;
+  copySafety?: CopySafety;
+};
+
 export type RendererOutputPlaceholder =
   | PreviewRendererOutputPlaceholder
-  | CopyRendererOutputPlaceholder;
+  | CopyRendererOutputPlaceholder
+  | TitleBlockPreviewOutput
+  | TitleBlockCopyOutput;
 
 export type RendererResult<TOutput = RendererOutputPlaceholder> = {
   ok: boolean;

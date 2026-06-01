@@ -20,6 +20,8 @@ export type {
   ResolvedSlotRenderInfo,
   SlotRenderState,
   TextFirstRendererBlockType,
+  TitleBlockCopyOutput,
+  TitleBlockPreviewOutput,
 } from "./types";
 
 export {
@@ -57,3 +59,22 @@ export {
 } from "./registry";
 
 export { renderArticleBlocks, renderBlock } from "./render-block";
+
+export {
+  TITLE_BLOCK_SUPPORTED_VARIANT_IDS,
+  createTitleBlockRenderer,
+  renderTitleBlock,
+  validateTitleBlockRenderContext,
+} from "./title-block-renderer";
+
+export {
+  createTitleBlockRendererRegistry,
+} from "./title-block-registry";
+
+export {
+  extractTitleBlockText,
+  resolveTitleBlockSlotContents,
+  resolveTitleBlockTypography,
+} from "./text-style";
+
+export { renderTitleBlockPreview } from "./title-block-preview";

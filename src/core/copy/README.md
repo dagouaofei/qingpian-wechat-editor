@@ -15,7 +15,7 @@
 
 - 复制到微信公众号编辑器是一级核心能力
 - 与 Preview Renderer 共享 ResolvedArticleStyle / ResolvedBlockStyle
-- 本轮未生成真实微信 HTML / Clipboard 输出
+- 本轮已实现 title / heading 6 variants Copy inline HTML；未实现 Clipboard / Paste QA
 
 ## 参考文档
 

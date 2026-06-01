@@ -1,6 +1,6 @@
 # Renderer 模块
 
-> 状态：Sprint 4-A · S4A-STORY-002 基础契约已实现
+> 状态：Sprint 4-A · S4A-STORY-002 基础契约 + S4A-STORY-003 titleBlock Preview / Copy
 
 ## 职责
 
@@ -12,7 +12,8 @@
 - `src/core/renderer/context.ts` — Article + ResolvedArticleStyle 输入校验与 BlockRenderContext
 - `src/core/renderer/resolved-view.ts` — componentProtocol / slot fallback 视图
 - `src/core/renderer/registry.ts` — block renderer registry
-- `src/core/renderer/render-block.ts` — renderBlock / renderArticleBlocks 编排
+- `src/core/renderer/title-block-renderer.ts` — title / heading titleBlock Preview + Copy
+- `src/core/renderer/title-block-registry.ts` — `createTitleBlockRendererRegistry()`
 
 ## 约束
 

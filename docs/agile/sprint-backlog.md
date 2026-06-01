@@ -1254,27 +1254,46 @@
 
 **用户故事：** 作为开发者，我需要 title / heading 的 titleBlock Preview / Copy 成对 Renderer，以便 first-wave 6 variants 可在页面预览与微信复制路径中一致呈现。
 
-**优先级：** P0 · **状态：** Todo · **工作分支：** `feature/s4a-title-heading-renderer`（建议）
+**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s4a-title-heading-renderer`
 
 **纳入遗留：** P1-S3B-001（text-first 子集保真验证）；P1-S3A-004（componentProtocol 消费）
 
 **目标 variants（6）：** `title_plain_minimal`、`title_left_bar_classic`、`title_bottom_line_editorial`、`heading_plain_minimal`、`heading_numbered_section`、`heading_top_badge_topic`
 
+**实际产物：**
+
+| 路径 | 说明 |
+|------|------|
+| `src/core/renderer/title-block-renderer.ts` | titleBlock Preview / Copy 渲染与校验 |
+| `src/core/renderer/title-block-preview.ts` | Preview 结构化输出 |
+| `src/core/renderer/title-block-registry.ts` | 4 路 registry 注册（title/heading × preview/copy） |
+| `src/core/renderer/text-style.ts` | typography / slot 内容解析 |
+| `src/core/copy/title-block-copy.ts` | Copy inline HTML（5 layoutMode） |
+| `src/core/copy/html-escape.ts` | HTML 转义 |
+| `src/core/copy/inline-style.ts` | inline style 构建 |
+| `tests/core/renderer/title-heading-renderer.test.ts` | Preview / registry / fallback 测试 |
+| `tests/core/copy/title-heading-copy-renderer.test.ts` | Copy HTML / escape 测试 |
+| `tests/fixtures/renderer/title-heading-articles.ts` | 测试 fixture helper |
+
 **明确不做：**
 
 - 不实现 `magazine_left_bar_title` candidate variant
 - 不实现 lead / paragraph / divider Renderer（S4A-STORY-004 / 005）
+- 不实现业务页面 / Clipboard / Paste QA
 - 不实现 VisualAssetRegistry 全量 assets
 
 **验收标准：**
 
-- [ ] AC-1 title / heading 各 3 variants Preview Renderer 实现
-- [ ] AC-2 对应 Copy Renderer 成对实现；共享 ResolvedBlockStyle 输入
-- [ ] AC-3 optional slot（badge / subtitle 等）disabled / fallback 行为明确且一致
-- [ ] AC-4 layoutMode copy-safe 规则与 Sprint 3-A/B 契约一致
-- [ ] AC-5 单元测试覆盖 6 variants 最小 snapshot / structure
-- [ ] AC-6 `corepack pnpm lint` / `test` / `build` 通过
-- [ ] AC-7 已生成 execution report
+- [x] AC-1 title / heading 各 3 variants Preview Renderer 实现
+- [x] AC-2 对应 Copy Renderer 成对实现；共享 ResolvedBlockStyle 输入
+- [x] AC-3 optional slot（badge / decoration 等）disabled / fallback 行为明确（`resolveTitleBlockSlotContents` + warnings）
+- [x] AC-4 layoutMode copy-safe 规则与 Sprint 3-A/B 契约一致（禁止 magazine_left_bar / overlay / offset_background）
+- [x] AC-5 单元测试覆盖 6 variants Preview / Copy + registry / escape / fallback（21 cases）
+- [x] AC-6 `corepack pnpm lint` / `test` / `build` 通过（324 tests）
+- [x] AC-7 已生成 execution report
+- [x] AC-8 未实现 lead / paragraph / divider / structured blocks
+- [x] AC-9 未 merge 至 sprint / release / main
+- [x] AC-10 未启动 S4A-STORY-004
 
 ---
 
