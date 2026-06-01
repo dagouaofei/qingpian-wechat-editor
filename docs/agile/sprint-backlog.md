@@ -1069,7 +1069,7 @@
 - [x] AC-5 `corepack pnpm lint` / `test` / `build` 通过
 - [x] AC-6 已形成 33 variants 聚合（coverage 细测留 S3B-STORY-006）
 - [x] AC-7 已生成 execution report
-- [x] AC-8 未 merge 至 sprint（待用户审查）
+- [x] AC-8 已 merge 至 `sprint/s3b-first-wave-variant-registry`（`f5771eb`，用户确认 2026-06-01）
 
 ---
 
@@ -1077,7 +1077,7 @@
 
 **用户故事：** 作为开发者，我需要验证 first-wave registry 覆盖 33 variants 且全部 copy-safe，以便 Sprint 3-B 关闭前有可验收的 coverage gate。
 
-**优先级：** P0 · **状态：** Todo · **工作分支：** `feature/s3b-first-wave-coverage-tests`（待创建）
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s3b-first-wave-coverage`
 
 **目标：**
 
@@ -1090,13 +1090,15 @@
 
 **验收标准：**
 
-- [ ] AC-1 coverage 测试断言 33 variants
-- [ ] AC-2 11 block × 3 分布测试
-- [ ] AC-3 全量 StyleValidationResult PASS
-- [ ] AC-4 forbidden layoutMode / releaseTier 混入测试
-- [ ] AC-5 SlotContentBinding 完整性测试
-- [ ] AC-6 `corepack pnpm lint` / `test` / `build` 通过
-- [ ] AC-7 已 merge 至 sprint 分支
+- [x] AC-1 coverage 测试断言 33 variants
+- [x] AC-2 11 block × 3 分布测试
+- [x] AC-3 全量 StyleValidationResult PASS
+- [x] AC-4 forbidden layoutMode / releaseTier 混入测试
+- [x] AC-5 SlotContentBinding 完整性测试
+- [x] AC-6 registry helper 按 blockType / id 查询稳定
+- [x] AC-7 `corepack pnpm lint` / `test` / `build` 通过
+- [x] AC-8 已生成 execution report
+- [x] AC-9 未 merge 至 sprint（待用户审查）
 
 ---
 

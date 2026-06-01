@@ -699,6 +699,19 @@ heading block → componentId: titleBlock → family: simple|iconDecor|badgeTitl
 
 **First-wave required variants 聚合：** `FIRST_WAVE_REQUIRED_VARIANTS` = title / heading 6 + text-first 12 + structured 15 = **33**。完整 coverage gate 留给 S3B-STORY-006。
 
+#### 11.4.5 First-wave coverage gate（S3B-STORY-006）
+
+> **S3B-STORY-006 已实现** — `tests/core/styles/first-wave-variant-coverage.test.ts`
+
+| gate | 约束 |
+|------|------|
+| 总量 | `FIRST_WAVE_REQUIRED_VARIANTS.length === 33` |
+| block 覆盖 | 11 个 Release 1 block，每个恰好 3 个 `release1_required` variants |
+| registry | `createFirstWaveRequiredVariantRegistry()` 可通过 `validateStyleRegistry` |
+| validation | 每个 variant 通过 `variantDefinitionSchema`、`validateVariantDefinition`、`validateVariantForWechatCopy`、`validateVariantSlots` |
+| titleBlock layout | title / heading 不使用 `magazine_left_bar`、`overlay`、`offset_background` |
+| copy path | 无 `preview_only`、无 candidate / experimental 混入、active slots `allowedInCopy=true` |
+
 > **`magazine_left_bar_title` 为 release1CandidateVariants** — 不在 first wave；若未来实现须：真实 DOM left bar + text；禁止 absolute / pseudo / complex flex-grid；Copy 嵌套 ≤3；WeChatCompatibilityProfile + 单独 Paste QA。
 
 ### 11.5 titleBlock 专用 slot 规范
@@ -975,7 +988,7 @@ Preview / Copy 按 `componentId` 分发成对 renderer；**不得**因复杂 var
 | WeChat compatibility | `src/core/styles/compatibility.ts` | 3-A | WeChatCompatibilityProfile |
 | Style validation | `src/core/styles/validation.ts` | 3-A | StyleValidationResult / FallbackVariantPolicy |
 | Title layout compatibility | `src/core/styles/title-layout.ts` | 3-A | TitleBlockLayoutCompatibility |
-| Variant definitions（33） | `src/core/styles/` registry JSON/TS | 3-B | first-wave required variants · **33 已实现**（`variants/`）；coverage gate 留 S3B-STORY-006 |
+| Variant definitions（33） | `src/core/styles/` registry JSON/TS | 3-B | first-wave required variants · **33 已实现**（`variants/`）；coverage gate 已实现 |
 | Protocol / Assets / Orchestrator / AI | 规划子模块 | 3-C | 见 §11 |
 | Copy adapter | 规划 | 4-A | ResolvedBlockStyle → inline HTML |
 
