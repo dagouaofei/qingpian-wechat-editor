@@ -9,6 +9,7 @@ export const COPY_SAFE_HTML_VIOLATION_CODES = [
   "absolute_position",
   "transform",
   "pseudo_element",
+  "flex_or_grid_layout",
 ] as const;
 
 export type CopySafeHtmlViolationCode =
@@ -63,6 +64,11 @@ const COPY_SAFE_HTML_PATTERNS: Array<{
     code: "pseudo_element",
     pattern: /::|:before|:after/i,
     message: "Copy HTML must not rely on pseudo elements",
+  },
+  {
+    code: "flex_or_grid_layout",
+    pattern: /\bdisplay\s*:\s*(flex|grid)/i,
+    message: "Copy HTML must not depend on flex/grid layout",
   },
 ];
 

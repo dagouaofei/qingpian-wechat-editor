@@ -1880,7 +1880,7 @@ image_placeholder：
 
 **用户故事：** 作为产品团队，我需要扩展 structured blocks Copy HTML snapshot seed，并汇总 text-first + structured blocks 形成 first-wave 33 variants 最小 Paste QA 计划。
 
-**优先级：** P0 · **状态：** Todo · **工作分支：** （待创建）
+**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s4b-structured-copy-snapshot-paste-plan`
 
 **纳入遗留：** P1-S4A-002、P1-S4A-003
 
@@ -1889,6 +1889,50 @@ image_placeholder：
 - 不执行完整真实 Paste QA
 - 不实现浏览器 Clipboard API
 - 不新增业务页面 / Copy 按钮
+
+**实际产物：**
+
+| 路径 | 说明 |
+|------|------|
+| `src/core/copy/copy-html-snapshot.ts` | snapshot builder 支持传入 `supportedBlockTypes`，默认仍保持 S4A text-first 行为 |
+| `src/core/copy/copy-safe-html.ts` | copy-safe snapshot 断言补充 flex / grid 检查 |
+| `src/core/copy/structured-copy-registry.ts` | Sprint 4-B structured blocks Copy Renderer registry |
+| `src/core/copy/first-wave-copy-registry.ts` | Release 1 first-wave 11 block Copy Renderer registry |
+| `src/core/copy/first-wave-paste-qa-plan.ts` | first-wave 33 variants 最小 Paste QA plan 纯函数 |
+| `tests/fixtures/copy/structured-copy-fixtures.ts` | structured blocks 18 variants snapshot fixture |
+| `tests/core/copy/structured-copy-html-snapshot.test.ts` | structured snapshot seed、copy-safe、missing renderer/style、unsupported variant 测试 |
+| `tests/core/copy/first-wave-paste-qa-plan.test.ts` | 33 variants plan 分布、字段、Not Run、copySafety、placeholder scope 测试 |
+| `docs/agile/paste-qa/sprint4b-structured-seed.md` | Sprint 4-B structured snapshot seed 文档 |
+| `docs/agile/paste-qa/release1-first-wave-33-plan.md` | Release 1 first-wave 33 variants 最小 Paste QA plan |
+
+**验收标准：**
+
+- [x] AC-1 已从 `sprint/s4b-structured-block-renderer` 创建 `feature/s4b-structured-copy-snapshot-paste-plan`
+- [x] AC-2 structured blocks Copy HTML snapshot seed 已建立，覆盖 list / quote / highlight / info_card / cta / image_placeholder
+- [x] AC-3 structured snapshot 覆盖 18 个 variants
+- [x] AC-4 snapshot HTML 来自真实 Copy Renderer，不手写脱节 HTML
+- [x] AC-5 structured snapshot copy-safe assertion 覆盖并通过
+- [x] AC-6 first-wave 33 variants 最小 Paste QA plan 已建立
+- [x] AC-7 plan 总数 = 33，且 11 block × 3 分布正确
+- [x] AC-8 每个 plan entry 有 blockType / variantId / copySafety / rendererCoverage / pasteQaStatus
+- [x] AC-9 所有 pasteQaStatus 均为 Not Run / not_run，不冒充真实 QA 通过
+- [x] AC-10 balanced variants 标记需要真实微信公众号 Paste QA 验证
+- [x] AC-11 cta / image_placeholder 明确 Release 1 占位契约，不测试真实 QR / link / image 能力
+- [x] AC-12 新增 Paste QA markdown 文档
+- [x] AC-13 不调用浏览器 Clipboard API
+- [x] AC-14 未新增业务页面 / Copy 按钮
+- [x] AC-15 未修改 Article / Block Schema 主模型
+- [x] AC-16 单元测试覆盖 structured snapshot 与 33 variants plan
+- [x] AC-17 `corepack pnpm lint` 通过
+- [x] AC-18 `corepack pnpm test` 通过（491 tests）
+- [x] AC-19 `corepack pnpm build` 通过
+- [x] AC-20 `docs/agile/sprint-backlog.md` 已同步 S4B-STORY-006 状态与产物
+- [x] AC-21 `docs/agile/changelog.md` 已记录本轮变更
+- [x] AC-22 未执行真实 Paste QA
+- [x] AC-23 未 merge 至 `release/1`
+- [x] AC-24 未 merge 至 `main`
+- [x] AC-25 未关闭 Sprint 4-B
+- [x] AC-26 未启动 S4B-STORY-007
 
 ---
 
