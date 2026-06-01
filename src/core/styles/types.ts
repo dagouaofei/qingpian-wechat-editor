@@ -83,11 +83,14 @@ export type SlotRole = (typeof SLOT_ROLES)[number];
 
 export const SLOT_CONTENT_BINDING_SOURCES = [
   "block.content.text",
+  "block.content.title",
   "block.content.items",
   "block.content.summary",
   "block.content.body",
   "block.content.action",
   "block.content.image",
+  "block.content.caption",
+  "block.content.suggestion",
   "block.meta",
   "variant.presentation",
   "assetRegistry",

@@ -146,3 +146,5 @@
 | 2026-05-31 | Sprint 3-B | 实现 title / heading first-wave 6 variants registry | 代码 / 架构 | S3B-STORY-003 |
 | 2026-06-01 | Sprint 3-B | merge `feature/s3b-title-heading-variants` → sprint（`ba062ae`） | Git | S3B-STORY-003 |
 | 2026-06-01 | Sprint 3-B | 实现 lead / paragraph / divider / list first-wave 12 variants registry | 代码 / 架构 | S3B-STORY-004 |
+| 2026-06-01 | Sprint 3-B | merge `feature/s3b-text-first-variants` → sprint（`3350777`） | Git | S3B-STORY-004 |
+| 2026-06-01 | Sprint 3-B | 实现 quote / highlight / info_card / cta / image_placeholder first-wave 15 variants registry；形成 33 variants 聚合 | 代码 / 架构 | S3B-STORY-005 |

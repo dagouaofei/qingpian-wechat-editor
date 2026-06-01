@@ -1025,7 +1025,7 @@
 - [x] AC-4 单元测试覆盖（`text-first-variants.test.ts`）
 - [x] AC-5 `corepack pnpm lint` / `test` / `build` 通过
 - [x] AC-6 已生成 execution report
-- [x] AC-7 未 merge 至 sprint（待用户审查）
+- [x] AC-7 已 merge 至 `sprint/s3b-first-wave-variant-registry`（`3350777`，用户确认 2026-06-01）
 
 ---
 
@@ -1033,15 +1033,27 @@
 
 **用户故事：** 作为开发者，我需要为 quote / highlight / info_card / cta / image_placeholder 各实现 3 个 release1_required variants，以便 Sprint 4-B structured Renderer 有样式可用。
 
-**优先级：** P0 · **状态：** Todo · **工作分支：** `feature/s3b-structured-block-variants`（待创建）
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s3b-structured-block-variants`
 
-**目标：** quote、highlight、info_card、cta、image_placeholder 各 3 个 variants，共 **15** 个
+**已实现 variants（15）：**
 
-**要求：**
-
-- 每个 variant 通过 StyleValidationResult
-- cta 不实现二维码 / 小程序 / 外链真实渲染，只定义 variant 契约
-- image_placeholder 只定义占位展示 variant，不实现配图
+| id | blockType | copySafety |
+|----|-----------|------------|
+| `quote_plain` | quote | strict |
+| `quote_left_bar` | quote | balanced |
+| `quote_card` | quote | balanced |
+| `highlight_inline_emphasis` | highlight | strict |
+| `highlight_accent_band` | highlight | balanced |
+| `highlight_soft_card` | highlight | balanced |
+| `info_card_key_takeaway` | info_card | balanced |
+| `info_card_steps` | info_card | balanced |
+| `info_card_warning_note` | info_card | balanced |
+| `cta_plain_text` | cta | strict |
+| `cta_button_like` | cta | balanced |
+| `cta_qr_placeholder` | cta | balanced |
+| `image_placeholder_simple` | image_placeholder | strict |
+| `image_placeholder_caption` | image_placeholder | balanced |
+| `image_placeholder_card` | image_placeholder | balanced |
 
 **明确不做：**
 
@@ -1050,12 +1062,14 @@
 
 **验收标准：**
 
-- [ ] AC-1 5 block × 3 = 15 variants 注册完成
-- [ ] AC-2 全部 `releaseTier = release1_required`
-- [ ] AC-3 全部通过 StyleValidationResult
-- [ ] AC-4 单元测试覆盖
-- [ ] AC-5 `corepack pnpm lint` / `test` / `build` 通过
-- [ ] AC-6 已 merge 至 sprint 分支
+- [x] AC-1 5 block × 3 = 15 variants 注册完成
+- [x] AC-2 全部 `releaseTier = release1_required`（status）
+- [x] AC-3 全部通过 StyleValidationResult
+- [x] AC-4 单元测试覆盖（`structured-variants.test.ts`）
+- [x] AC-5 `corepack pnpm lint` / `test` / `build` 通过
+- [x] AC-6 已形成 33 variants 聚合（coverage 细测留 S3B-STORY-006）
+- [x] AC-7 已生成 execution report
+- [x] AC-8 未 merge 至 sprint（待用户审查）
 
 ---
 
