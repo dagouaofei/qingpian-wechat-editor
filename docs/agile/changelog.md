@@ -376,5 +376,5 @@
 | 2026-06-02 | Sprint 6 | **S6-STORY-006A Done**：miaopian 风格 UI Shell；预览页复制 | 代码 / UI | S6-STORY-006A, DECISION-075 |
 | 2026-06-02 | Sprint 6 | DECISION-076 标记 **已废弃**（由 DECISION-077 取代） | 敏捷 | DECISION-076, DECISION-077 |
 | 2026-06-02 | Sprint 6 | 流式预览接入 `generateDeterministicStyleSelection`；list structured block 就绪校验 | 代码 | S6-STORY-005 |
-| 2026-06-02 | Sprint 6 | PO 验收通过（2026-06-02）；`feature/s6-generation-feedback-typewriter` merge 至 sprint（见 sprint-backlog merge hash） | 敏捷 / Git | S6-STORY-005, S6-STORY-006A |
+| 2026-06-02 | Sprint 6 | PO 验收通过；`feature/s6-generation-feedback-typewriter` merge 至 `sprint/s6-visible-ai-main-flow` @ `ce967b1` | 敏捷 / Git | S6-STORY-005, S6-STORY-006A |
 | 2026-06-02 | Sprint 6 | **S6-STORY-006** 仍为 **To Do**（风格 / 配色切换 + Paste QA 专项） | 敏捷 | S6-STORY-006 |

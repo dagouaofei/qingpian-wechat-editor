@@ -2987,6 +2987,8 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — To Do
 
 **用户验收：** 2026-06-02 PO 确认通过（流式 Style 控件样式 + list 渲染 + 滚动跟随）
 
+**Merge：** `feature/s6-generation-feedback-typewriter` → `sprint/s6-visible-ai-main-flow` @ `ce967b1`（2026-06-02）
+
 ---
 
 ## S6-STORY-006 风格 / 配色基础切换与复制到公众号
@@ -3041,6 +3043,8 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — To Do
 - [x] AC-5 不动 Article Schema；不复制 miaopian-demo 代码
 
 **用户验收：** 2026-06-02 PO 确认通过（随 S6-STORY-005 一并验收）
+
+**Merge：** 已随 `feature/s6-generation-feedback-typewriter` @ `ce967b1` 进入 sprint
 
 ---
 
