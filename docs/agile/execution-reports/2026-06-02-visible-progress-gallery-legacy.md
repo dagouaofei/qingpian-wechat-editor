@@ -43,8 +43,8 @@
 
 ## 6. Commit / Merge
 
-- 工作分支 commit：（见下方 hash，merge 后回填）
-- Merge 至 `sprint/s7-wechat-article-experience`：（见下方 hash）
+- 工作分支 commit：`a5704d6`（`chore/visible-progress-gallery-legacy`）
+- Merge 至 `sprint/s7-wechat-article-experience`：`a5704d6`（fast-forward）
 - 未 merge 至 `release/1` / `main`
 
 ## 7. 建议下一步

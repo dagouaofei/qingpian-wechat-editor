@@ -412,4 +412,4 @@
 | 2026-06-02 | Sprint 7 | **Sprint 7 Paused**（DECISION-080）；Visible-first Cursor 轮次规则 | 敏捷 | DECISION-080 |
 | 2026-06-02 | Chore | `/gallery` fixture Preview 展台；删除 `/generate` 页面与 e2e | 应用 / 导航 | CHORE-VIS-001, CHORE-VIS-002 |
 | 2026-06-02 | Chore | 删除 batch `POST /api/generate` 与 `run-generate-main-flow` | 代码 / API | CHORE-VIS-001 |
-| 2026-06-02 | Chore | **CHORE-VIS-001/002 Done**；`chore/visible-progress-gallery-legacy` merge → sprint | 敏捷 / Git | DECISION-080 |
+| 2026-06-02 | Chore | **CHORE-VIS-001/002 Done**；`chore/visible-progress-gallery-legacy` merge → sprint @ `a5704d6` | 敏捷 / Git | DECISION-080 |
