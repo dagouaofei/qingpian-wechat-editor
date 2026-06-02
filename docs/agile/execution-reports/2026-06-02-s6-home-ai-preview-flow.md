@@ -3,9 +3,9 @@
 ## 1. 基本信息
 
 - 日期：2026-06-02
-- 当前分支：`feature/s6-home-ai-preview-flow`
-- 来源分支：`sprint/s6-visible-ai-main-flow`
-- 目标合并分支：`sprint/s6-visible-ai-main-flow`
+- 当前分支：`sprint/s6-visible-ai-main-flow`
+- 来源分支：`feature/s6-home-ai-preview-flow`
+- 目标合并分支：`sprint/s6-visible-ai-main-flow`（**已 merge · fast-forward**）
 - Sprint：Sprint 6 — Release 1 Visible AI Main Flow
 - 关联 Story / Bug / Decision：S6-STORY-002、S6-STORY-003、S6-STORY-004、DECISION-072
 - 执行者：Cursor
@@ -93,4 +93,6 @@
 
 ## 14. Commit
 
-- Commit hash：未提交 / not committed
+- Feature commit：`f38130a` — `feat(s6): home and preview real AI flow (S6-STORY-002~004)`
+- Merge：`feature/s6-home-ai-preview-flow` → `sprint/s6-visible-ai-main-flow`（fast-forward @ `f38130a`）
+- Sprint 分支：未 merge `release/1` / `main`

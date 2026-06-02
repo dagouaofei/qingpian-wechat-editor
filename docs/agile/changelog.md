@@ -366,4 +366,4 @@
 | 2026-06-02 | Sprint 6 | 增强 Volcengine prompt：公众号长文结构与必需 block 类型 | 代码 | S6-STORY-003 |
 | 2026-06-02 | Sprint 6 | S6-STORY-005~006 仍为 **To Do**（打字机 / 风格切换 / 复制专项） | 敏捷 | — |
 | 2026-06-02 | Sprint 6 | 工作分支 `feature/s6-home-ai-preview-flow`；**不 merge release/1** | Git | S6-STORY-002~004 |
-| 2026-06-02 | Sprint 6 | `feature/s6-home-ai-preview-flow` merge 至 `sprint/s6-visible-ai-main-flow`；S6-STORY-002~004 **Done** | Git / 敏捷 | DECISION-072 |
+| 2026-06-02 | Sprint 6 | `feature/s6-home-ai-preview-flow` merge 至 `sprint/s6-visible-ai-main-flow` @ `f38130a`；S6-STORY-002~004 **Done** | Git / 敏捷 | DECISION-072 |
