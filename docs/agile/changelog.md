@@ -340,3 +340,17 @@
 | 2026-06-02 | Release 1 | 原 Sprint 6-A/B 尾声计划在 Release 1 剩余阶段由方案 B 取代 | 敏捷 | DECISION-045, DECISION-070 |
 | 2026-06-02 | Release 1 | 更新 `user-story-map.md` 主路径与 Sprint 6/7/8 分工 | 产品 | DECISION-070 |
 | 2026-06-02 | Release 1 | `docs/release1-replan-visible-main-flow` merge 至 `release/1` @ `14dc27b` | Git / 敏捷 | DECISION-070 |
+
+---
+
+## 2026-06-02 · Sprint 6 启动
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-02 | Sprint 6 | **开启 Sprint 6：** Release 1 Visible AI Main Flow；分支 `sprint/s6-visible-ai-main-flow` | 敏捷 / Git | DECISION-071, S6-STORY-001 |
+| 2026-06-02 | Sprint 6 | 从 Product Backlog 选择 **PB-R1-01 ~ PB-R1-08** 作为 Sprint 6 主要范围来源 | 产品 / 敏捷 | DECISION-071 |
+| 2026-06-02 | Sprint 6 | Sprint Backlog 设置为 **S6-STORY-001 ~ S6-STORY-006**；S6-STORY-001 Done；002~006 To Do | 敏捷 | S6-STORY-001 |
+| 2026-06-02 | Sprint 6 | 明确 Sprint 6 目标为**真实 AI 用户侧最小闭环**；**不是** mock demo，**不是**纯技术验证 | 产品 / 敏捷 | DECISION-071 |
+| 2026-06-02 | Sprint 6 | 更新 `user-story-map.md` 8 步闭环路径与 Sprint 6 排除范围 | 产品 | S6-STORY-001 |
+| 2026-06-02 | Sprint 6 | 在 sprint-backlog 登记 Sprint 6 技术 / 产品 / 内容 / 样式 DoD | 敏捷 | S6-STORY-001 |
+| 2026-06-02 | Sprint 6 | 新增 **DECISION-071**；Sprint 6 状态 **In Progress**；**不关闭 Sprint 6**；**不 merge main / release/1** | 敏捷 | DECISION-071 |

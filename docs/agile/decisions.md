@@ -68,6 +68,7 @@
 | DECISION-068 | 2026-06-02 | Sprint 5 必须纳入真实模型 API Provider 对接（Volcengine / Doubao） | 已确认 |
 | DECISION-069 | 2026-06-02 | 关闭 Sprint 5；main-flow audit A-，P0=0；merge sprint/s5-generation-ui-main-flow → release/1 | 已确认 |
 | DECISION-070 | 2026-06-02 | Release 1 尾声方案 B：Sprint 6 Visible Main Flow · Sprint 7 样式体验 · Sprint 8 复制保真与关闭 | 已确认 |
+| DECISION-071 | 2026-06-02 | 正式启动 Sprint 6：Release 1 Visible AI Main Flow；PB-R1-01~08；真实 AI 用户侧最小闭环 | 已确认 |
 
 ### DECISION-019 详情
 
@@ -479,6 +480,29 @@
   6. 原 Sprint 6-A/B 在 Release 1 **剩余阶段**由方案 B 取代（Fixture / Paste 能力分 Sprint 6/7/8 交付）
 - **影响范围：** `release-plan.md`、`product-backlog.md`、`sprint-plan.md`、`sprint-backlog.md`、`user-story-map.md`、TECH-ARCH-022~026
 - **关联：** DECISION-045（历史）、DECISION-069、S5-STORY-008
+- **状态：** 已确认
+
+### DECISION-071 详情（正式启动 Sprint 6 · Visible AI Main Flow）
+
+- **日期：** 2026-06-02
+- **背景：**
+  - Story 5 已关闭（DECISION-069）；Sprint 5 交付 Generation 技术框架与 `/generate` 初版
+  - Release 1 尾声已按方案 B 重排（DECISION-070），但 Sprint 6 尚未按敏捷 Sprint Planning 从 Product Backlog 选取 Story 正式启动
+  - 建立敏捷项目管理和文档体系的目的，是增加确定性，避免 AI 对话想到哪做到哪
+- **决策：**
+  1. Sprint 6 按敏捷 Sprint Planning 方式开启，从 Product Backlog 中选择能够完成**用户侧最小闭环**的 Story 放入 Sprint Backlog
+  2. Sprint 6 名称：**Release 1 Visible AI Main Flow**
+  3. Sprint 6 分支：`sprint/s6-visible-ai-main-flow`（从 `release/1` 切出）
+  4. Sprint 6 目标：首页输入 → **真实 AI** 生成 → 预览带样式公众号文章 → 基础生成反馈 → 风格 / 配色切换 → 复制到公众号编辑器
+  5. Product Backlog **PB-R1-01 ~ PB-R1-08** 为 Sprint 6 主要范围来源；committed stories：**S6-STORY-001 ~ S6-STORY-006**
+  6. Sprint 6 **不是** mock-only 主流程，**不是**纯技术 demo
+- **约束：**
+  - Sprint 6 的 Story 必须关联 Product Backlog item 与 User Story Map 阶段
+  - Sprint 6 不做：完整富文本编辑器、样式市场、图片生成、用户登录、历史文章管理等 Release 1 之外能力
+  - 每个后续 Story 启动前，须先确认其在 Sprint Backlog 中的状态与对应用户价值
+  - **不关闭 Sprint 6**（本轮）；**不 merge `main` / `release/1`**（本轮）；**不启动 S6-STORY-002**（本轮）
+- **影响范围：** `product-backlog.md`、`sprint-backlog.md`、`sprint-plan.md`、`release-plan.md`、`user-story-map.md`、`changelog.md`
+- **关联：** DECISION-070、DECISION-069、S6-STORY-001、PB-R1-01~08
 - **状态：** 已确认
 
 ## 决策模板

@@ -8,25 +8,56 @@
 准备内容 → 发起生成 → 生成文章 → 自动排版 → 预览检查 → 调整优化 → 复制到公众号 → 发布前检查
 ```
 
-## Release 1 · 用户可见主路径（方案 B · DECISION-070）
+## Release 1 · Sprint 6 用户闭环路径（DECISION-071）
 
-> Sprint 5 已交付 Generation 技术框架（DECISION-069）。Release 1 尾声按 **可见主链路 → 样式体验 → 复制保真** 顺序验收。
+> Sprint 6 覆盖以下 **8 步**用户路径；Sprint 5 已交付 Generation 技术框架（DECISION-069）。Sprint 6 验收以**真实 AI + 可手测页面**为准。
+
+| 步骤 | 用户行为 | 负责 Sprint | Story Map 阶段 | 状态 |
+|------|----------|-------------|----------------|------|
+| 1 | **进入工具：** 用户打开首页 | **Sprint 6** | 进入工具 | In Progress |
+| 2 | **输入需求：** 主题、场景、目标读者、风格等 | **Sprint 6** | 输入需求 | Planned（S6-STORY-002） |
+| 3 | **触发生成：** 用户点击开始生成 | **Sprint 6** | 触发生成 | Planned（S6-STORY-002） |
+| 4 | **等待生成：** 用户看到生成中状态 | **Sprint 6** | 等待生成 | Planned（S6-STORY-005） |
+| 5 | **查看结果：** 完整带样式公众号文章 | **Sprint 6** | 查看结果 | Planned（S6-STORY-004） |
+| 6 | **调整观感：** 切换基础风格和配色 | **Sprint 6** | 调整观感 | Planned（S6-STORY-006） |
+| 7 | **复制使用：** 复制到公众号编辑器 | **Sprint 6** | 复制使用 | Planned（S6-STORY-006） |
+| 8 | **粘贴验证：** 公众号 / 135 编辑器最小粘贴验证 | **Sprint 6**（最小 QA）· **Sprint 8**（全量保真） | 粘贴验证 | Planned（S6-STORY-006 记录 · S8 全量） |
+
+```text
+打开首页 → 输入需求 → 触发生成 → 等待生成 → 查看结果 → 调整观感 → 复制使用 → 粘贴验证
+     │         │          │           │           │           │           │           │
+  Sprint 6   Sprint 6   Sprint 6    Sprint 6    Sprint 6    Sprint 6    Sprint 6   S6 最小 / S8 全量
+```
+
+**对应 Product Backlog：** PB-R1-01 ~ PB-R1-08
+
+---
+
+## Sprint 6 明确不做
+
+以下能力**不属于 Sprint 6**（Release 1 之外或归后续 Sprint）：
+
+- 完整富文本编辑器
+- 块级拖拽
+- 图片生成
+- 图片上传
+- 样式市场
+- 用户登录
+- 历史文章管理
+- 多文章项目管理
+- 复杂模板商城
+- 完整真流式 block-aware token streaming
+- Style Gallery / 整篇样式丰富度大改（**Sprint 7**）
+- 全量 Paste QA 归档与 Release 1 关闭（**Sprint 8**）
+
+---
+
+## Release 1 · 方案 B 扩展路径（Sprint 7 / 8）
 
 | 步骤 | 用户行为 | 负责 Sprint | 状态 |
 |------|----------|-------------|------|
-| 1 | **输入主题**（资料 / 草稿可扩展） | **Sprint 6** Visible Main Flow | Planned |
-| 2 | **触发生成** | **Sprint 6** | Planned |
-| 3 | **观察生成过程**（流式 / 进度 / 状态反馈） | **Sprint 6** | Planned |
-| 4 | **查看完整公众号文章预览** | **Sprint 6**（基础）· **Sprint 7**（体验增强） | Planned |
-| 5 | **评审样式**（Gallery / 样例 / 整篇观感） | **Sprint 7** WeChat Article Experience | Planned |
-| 6 | **复制到公众号** | **Sprint 6**（按钮 / payload）· **Sprint 8**（保真验证） | Planned |
-| 7 | **粘贴验证**（135 编辑器 · 公众号后台） | **Sprint 8** Copy Fidelity & Closure | Planned |
-
-```text
-输入主题 → 触发生成 → 观察生成过程 → 查看完整预览 → 评审样式 → 复制 → 粘贴验证
-   │           │              │                │            │         │         │
- Sprint 6    Sprint 6       Sprint 6      Sprint 6/7     Sprint 7   Sprint 6  Sprint 8
-```
+| 评审样式 | Style Gallery / 样例 / 整篇观感 | **Sprint 7** | Planned |
+| 粘贴保真 | 135 + 公众号后台全量 QA | **Sprint 8** | Planned |
 
 ---
 
@@ -36,7 +67,7 @@
 
 | ID | 用户故事 | 优先级 | Sprint |
 |----|----------|--------|--------|
-| US-R1-001 | 用户可以输入主题并发起生成 | P0 | Sprint 6 |
+| US-R1-001 | 用户可以输入主题并发起生成 | P0 | Sprint 6（S6-STORY-002） |
 | US-R1-002 | 用户可以粘贴资料并发起生成 | P0 | Sprint 6+ |
 | US-R1-003 | 用户可以粘贴草稿并发起优化排版 | P0 | Sprint 6+ |
 
@@ -44,15 +75,15 @@
 
 | ID | 用户故事 | 优先级 | Sprint |
 |----|----------|--------|--------|
-| US-R1-004 | 用户可以看到生成进度（流式 / 打字机式展示） | P0 | Sprint 6（可见反馈）· Sprint 5 技术已具备 |
-| US-R1-005 | 用户可以获得包含标题、导语、小标题、正文、重点内容、列表、信息卡片、总结和 CTA 的完整文章 | P0 | Sprint 6 / 7 |
+| US-R1-004 | 用户可以看到生成进度（流式 / 打字机式展示） | P0 | Sprint 6（S6-STORY-005）· Sprint 5 技术已具备 |
+| US-R1-005 | 用户可以获得包含标题、导语、小标题、正文、重点内容、列表、信息卡片、总结和 CTA 的完整文章 | P0 | Sprint 6（S6-STORY-003 / 004） |
 | US-R1-006 | 系统生成结果必须进入统一 Article Schema | P0 | Sprint 5 Done |
 
 ### 排版 & 预览
 
 | ID | 用户故事 | 优先级 | Sprint |
 |----|----------|--------|--------|
-| US-R1-007 | 用户可以看到自动排版后的文章预览 | P0 | Sprint 6 |
+| US-R1-007 | 用户可以看到自动排版后的文章预览 | P0 | Sprint 6（S6-STORY-004） |
 | US-R1-008 | 用户可以看到配图位置建议（image_placeholder） | P0 | Sprint 6 / 7 |
 | US-R1-012 | 用户可以在 Style Gallery 中浏览样式样例 | P0 | **Sprint 7** |
 | US-R1-013 | 整篇文章视觉上接近公众号文章（非过度卡片化） | P0 | **Sprint 7** |
@@ -61,8 +92,8 @@
 
 | ID | 用户故事 | 优先级 | Sprint |
 |----|----------|--------|--------|
-| US-R1-009 | 用户可以一键复制微信兼容 HTML | P0 | Sprint 6 |
-| US-R1-010 | 粘贴到微信公众号编辑器后基础样式基本一致 | P0 | **Sprint 8** |
+| US-R1-009 | 用户可以一键复制微信兼容 HTML | P0 | Sprint 6（S6-STORY-006） |
+| US-R1-010 | 粘贴到微信公众号编辑器后基础样式基本一致 | P0 | Sprint 6 最小 QA · **Sprint 8** 全量 |
 | US-R1-011 | 产品团队可以通过固定 fixture 和人工粘贴测试验证复制效果 | P0 | **Sprint 8** |
 
 ---
@@ -78,5 +109,6 @@
 
 - [Release 1 范围](release-1-scope.md)
 - [Release Plan](../agile/release-plan.md)
-- [Product Backlog](../agile/product-backlog.md)
+- [Product Backlog](../agile/product-backlog.md) — PB-R1-01 ~ PB-R1-08
 - [Sprint Plan](../agile/sprint-plan.md)
+- [Sprint Backlog](../agile/sprint-backlog.md)

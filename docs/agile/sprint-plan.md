@@ -59,8 +59,9 @@
 | **Sprint 4-B** | **Closed**（2026-06-01；DECISION-063） |
 | **Sprint 3-C** | **Closed**（2026-06-01；DECISION-065；audit Grade A；merged `release/1`） |
 | **Sprint 5** | **Closed**（2026-06-02；DECISION-069；S5-STORY-001~008 Done；audit Grade A- · P0=0；merged `release/1`） |
+| **Sprint 6** | **In Progress**（2026-06-02；DECISION-071；S6-STORY-001 Done；`sprint/s6-visible-ai-main-flow`） |
 | **Release 1 主干** | `release/1` |
-| **下一步** | 启动 **Sprint 6：Visible Main Flow**（DECISION-070）；Sprint 7/8 已规划 · 未启动；不 merge `main` |
+| **下一步** | **S6-STORY-002** 首页输入与生成入口；Sprint 7/8 Planned · 未启动；不 merge `main` |
 
 ---
 
@@ -499,40 +500,54 @@ Sprint 5 Closed — DECISION-069 · merged `release/1`
 
 ---
 
-### Sprint 6：Release 1 Visible Main Flow — **Planned（下一步 · 最高优先级）**
+### Sprint 6：Release 1 Visible AI Main Flow — **In Progress**（2026-06-02）
 
-**分支（启动时）：** `sprint/s6-visible-main-flow`（从 `release/1` 切出 · DECISION-070）
+**分支：** `sprint/s6-visible-ai-main-flow`（从 `release/1` 切出 · DECISION-071）
 
-> **核心目标：** 用户可见主链路 — **不是**继续底层抽象。Sprint 5 技术成果可复用/对齐，但 Release 1 验收须以**可手测页面**为准。
+> **核心目标：** 用户侧**真实 AI**最小可用闭环 — **不是** mock demo，**不是**纯技术验证。Sprint 5 技术框架（Generation、Volcengine provider、Renderer）可复用，Sprint 6 验收以**可手测完整闭环**为准（DECISION-070、DECISION-071）。
 
 **Sprint Goal：**
 
-1. 把当前技术框架接入**用户可见页面**
-2. 用户完成：输入主题 → 点击生成 → **看到生成过程** → 预览完整文章 → 复制 HTML
-3. 可先使用 **mock Article / fixture**，不要求 Sprint 6 必须接入真实模型
-4. 必须有**可手动测试页面**（每 Sprint 至少一个可视化/手测入口 · DECISION-070）
-5. 生成状态 / 基础错误态 / 最小用户反馈
+让用户真实完成一次公众号文章生成与使用闭环：
 
-**Stories：** S6-STORY-001 ~ S6-STORY-007 — 见 `sprint-backlog.md`
+```text
+打开首页 → 输入需求 → 真实 AI 生成文章 → 进入预览页 → 查看带样式公众号文章
+  → 切换基础风格 / 配色 → 复制到公众号编辑器 → 可实际粘贴使用
+```
+
+**Sprint 6 定位：**
+
+- 有真实用户页面
+- 接入真实 AI
+- 生成结构化 Article
+- 展示带样式公众号文章
+- 有基础生成反馈
+- 可切换基础风格与配色
+- 可复制到公众号编辑器
+- 可做最小粘贴 QA
+
+**Stories：** S6-STORY-001 ~ S6-STORY-006 — 见 `sprint-backlog.md`（含 Sprint 6 DoD）
 
 **建议执行顺序：**
 
 ```text
-S6-STORY-001 Sprint 6 启动与 Release 1 后续计划同步
-S6-STORY-002 输入主题与生成入口页面
-S6-STORY-003 mock Article 生成主链路接入
-S6-STORY-004 Preview 页面集成完整 Article 渲染
-S6-STORY-005 Clipboard Copy 按钮与 payload 接入
-S6-STORY-006 生成状态 / 基础错误态 / 最小用户反馈
-S6-STORY-007 Sprint 6 手动 QA 与关闭准备
+S6-STORY-001 Sprint 6 Planning 与 Backlog / Story Map 对齐 — Done
+S6-STORY-002 首页输入与生成入口 — To Do
+S6-STORY-003 真实 AI 生成结构化 Article — To Do
+S6-STORY-004 预览页与带样式文章渲染 — To Do
+S6-STORY-005 基础生成反馈与轻量打字机体验 — To Do
+S6-STORY-006 风格 / 配色基础切换与复制到公众号 — To Do
 ```
+
+**Product Backlog 来源：** PB-R1-01 ~ PB-R1-08
 
 **不做：**
 
-- 不执行 Sprint 7 Style Gallery / 样式丰富度大改
-- 不执行 Sprint 8 真实 Paste QA 全量回归
-- 不关闭 Release 1
-- 不 merge 至 `main`
+- 完整富文本编辑器、块级拖拽、图片生成 / 上传、样式市场、用户登录、历史文章管理、多文章项目管理、复杂模板商城
+- 完整真流式 block-aware token streaming
+- Sprint 7 Style Gallery / 样式丰富度大改
+- Sprint 8 真实 Paste QA 全量回归与 Release 1 关闭
+- 不关闭 Sprint 6（须用户确认）、不关闭 Release 1、不 merge 至 `main` / `release/1`（本轮）
 
 ---
 

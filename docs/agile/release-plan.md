@@ -9,7 +9,7 @@
 | **Release** | Release 1 — **进行中（未关闭）** |
 | **主干分支** | `release/1` |
 | **已完成 Sprint** | Sprint 1-A/B · Sprint 2 · Sprint 3-A/B/C · Sprint 4-A/B · Sprint 5 |
-| **下一步 Sprint** | **Sprint 6：Visible Main Flow**（最高优先级 · 未启动） |
+| **当前 Sprint** | **Sprint 6：Release 1 Visible AI Main Flow**（**In Progress** · `sprint/s6-visible-ai-main-flow`） |
 | **后续 Sprint** | Sprint 7 · Sprint 8（已规划 · 未启动） |
 | **merge `main`** | **未执行** — Release 1 整体验收通过后才 merge |
 
@@ -38,13 +38,13 @@
 
 | Sprint | 名称 | 核心目标 | 状态 |
 |--------|------|----------|------|
-| **Sprint 6** | **Visible Main Flow** | 用户可见主链路：输入 → 生成过程 → 完整预览 → 复制；可先 mock/fixture；必须有可手测页面 | **下一步 · Planned** |
+| **Sprint 6** | **Release 1 Visible AI Main Flow** | 真实 AI 用户侧最小闭环：首页 → 真实 AI 生成 → 带样式预览 → 风格 / 配色 → 复制 → 最小粘贴 QA | **In Progress** |
 | **Sprint 7** | **WeChat Article Experience & Style Richness** | 整篇文章像公众号文章；Style Gallery；样式丰富度；修正过度卡片化；2–3 套完整视觉样例 | **后续 · Planned** |
 | **Sprint 8** | **Copy Fidelity & Release 1 Closure** | Preview / Copy / 粘贴一致性；135 + 公众号后台 Paste QA；fallback 与遗留问题；Release 1 关闭准备 | **后续 · Planned** |
 
 **Sprint 分支（启动时从 `release/1` 切出）：**
 
-- Sprint 6：`sprint/s6-visible-main-flow`
+- Sprint 6：`sprint/s6-visible-ai-main-flow`
 - Sprint 7：`sprint/s7-wechat-article-experience`（名称可在 Sprint 7 启动 Story 中最终确认）
 - Sprint 8：`sprint/s8-copy-fidelity-closure`（名称可在 Sprint 8 启动 Story 中最终确认）
 
@@ -83,7 +83,7 @@ Release 1 **不再**仅以 `lint` / `test` / `build` / renderer snapshot 作为�
 
 详见 [`sprint-backlog.md`](sprint-backlog.md)：
 
-- **Sprint 6：** S6-STORY-001 ~ S6-STORY-007
+- **Sprint 6：** S6-STORY-001 ~ S6-STORY-006
 - **Sprint 7：** S7-STORY-001 ~ S7-STORY-007
 - **Sprint 8：** S8-STORY-001 ~ S8-STORY-007
 
