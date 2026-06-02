@@ -310,4 +310,5 @@
 |------|--------|----------|----------|----------------------|
 | 2026-06-02 | Sprint 5 | 新增 generation style selection 链路：StyleSelectionRequest / StyleAssignmentPatch → Sprint 3-C validation → Article.styleAssignment | 代码 / 架构 | S5-STORY-006 |
 | 2026-06-02 | Sprint 5 | deterministic + model_assisted 模式；非法 variant / forbidden 字段 / invalid model output → safe preset fallback | 代码 / 测试 | S5-STORY-006 |
-| 2026-06-02 | Sprint 5 | S5-STORY-006 In Review；S5-STORY-007~008 仍 Planned；未实现 `/generate` UI | 敏捷 | S5-STORY-006 |
+| 2026-06-02 | Sprint 5 | 新增 `/generate` 页面与 `/api/generate` 统一主链路 UI 集成 | 代码 / UI | S5-STORY-007 |
+| 2026-06-02 | Sprint 5 | 补全 `/generate` Preview 视觉层（layout → inline style，对齐 Copy 默认 token） | 代码 / UI | S5-STORY-007 |

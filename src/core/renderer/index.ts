@@ -88,6 +88,11 @@ export {
 export { renderArticleBlocks, renderBlock } from "./render-block";
 
 export {
+  RELEASE1_FIRST_WAVE_PREVIEW_BLOCK_TYPES,
+  createRelease1FirstWavePreviewRendererRegistry,
+} from "./first-wave-preview-registry";
+
+export {
   resolveInlineMarkColor,
   resolveInlineMarkLink,
 } from "./inline-content-marks";
@@ -246,3 +251,17 @@ export {
 export { createImagePlaceholderRendererRegistry } from "./image-placeholder-registry";
 
 export { renderImagePlaceholderPreview } from "./image-placeholder-preview";
+
+export {
+  PREVIEW_THEME,
+  previewArticleContainerStyle,
+  previewCtaContainerStyle,
+  previewDividerStyle,
+  previewHighlightContainerStyle,
+  previewInfoCardContainerStyle,
+  previewQuoteContainerStyle,
+  previewTextBlockContainerStyle,
+  previewTextBlockTypography,
+  previewTitleContainerStyle,
+  previewTitleTextStyle,
+} from "./preview-visual-styles";

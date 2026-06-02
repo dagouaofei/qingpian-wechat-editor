@@ -1,6 +1,6 @@
 # Generation 模块
 
-> 状态：Sprint 5 进行中 · S5-STORY-002 ~ S5-STORY-006 In Review · S5-STORY-007~008 Planned
+> 状态：Sprint 5 进行中 · S5-STORY-002 ~ S5-STORY-006 Done · S5-STORY-007 In Review · S5-STORY-008 Planned
 
 ## 职责
 
@@ -80,6 +80,17 @@ corepack pnpm smoke:volcengine-provider
 **链路：** finalized `Article` + `NormalizedInput` → StyleSelectionRequest / StyleAssignmentPatch → `validateStyleSelectionPipeline` → `Article.styleAssignment` → `resolveArticleStyle`
 
 **Fallback：** 非法 model patch / 未注册 variant / preview_only → safe preset（`classic-news` + orchestrator 默认），仍走同一 validation pipeline。
+
+**Article-aware 多样性（S5-STORY-007 follow-up）：** deterministic 模式下 `style-selection-diversity.ts` 按 block 在文内序号轮换 Release 1 装饰性 variant（accent band / soft card / quote bar 等）；`styleIntent.densityHint=light` 时保持 plain；`strong` 时优先装饰 variant。仅当 tone/density 显式命中时才走 heuristics，不再 silent fallback 到 preset plain。
+
+### S5-STORY-007 — Release 1 `/generate` 主流程 UI
+
+| 路径 | 说明 |
+|------|------|
+| `src/app/generate/page.tsx` | 真实业务页面 `/generate` |
+| `src/app/generate/generate-page-client.tsx` | 输入 / 状态 / 预览 / 复制 UI |
+| `src/app/api/generate/route.ts` | Server API：provider → finalization → style → preview → clipboard |
+**Preview 视觉层（S5-STORY-007 follow-up）：** `preview-visual-styles.ts` 将 Preview Renderer 输出的 `layout` / `layoutMode` 映射为页面 inline style（与 Copy Renderer 默认 token 对齐）；`/generate` 的 `preview-block-view.tsx` 消费该映射，不再使用统一 Tailwind 卡片样式。
 
 **旧项目经验：** 当前仓库仅保留 SSE + `done.article` 归一经验（见 `docs/agile/migration-reference.md`）；旧一键成稿 Volcengine / `mapArkJsonToArticle` 源码不可访问，本轮按轻篇 Article Schema 实现 provider 契约，不复用旧 parallel 模型。
 

@@ -140,6 +140,21 @@ describe("generation style selection", () => {
     }
   });
 
+  it("assigns article-aware diverse variants for full block article", () => {
+    const result = generateDeterministicStyleSelection({
+      article: styleSelectionArticleFixture,
+      normalizedInput: styleSelectionNormalizedInput,
+      registry,
+      timestamp: STYLE_SELECTION_TIMESTAMP,
+    });
+
+    const variantIds =
+      result.patch.blockOverrides?.map((override) => override.variantId) ?? [];
+    expect(new Set(variantIds).size).toBeGreaterThan(5);
+    expect(variantIds).toContain("title_bottom_line_editorial");
+    expect(variantIds).toContain("lead_accent_band");
+  });
+
   it("falls back when patch references unknown variant", () => {
     const result = generateAndApplyStyleSelection({
       article: styleSelectionArticleFixture,

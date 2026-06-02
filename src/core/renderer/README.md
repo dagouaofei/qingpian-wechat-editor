@@ -22,6 +22,7 @@
 ## 约束
 
 - 与 Copy Renderer 共享同一套 ResolvedStyle 输入
+- Preview UI 适配层：`preview-visual-styles.ts` 将 layout / layoutMode 映射为页面样式（与 Copy 默认 token 对齐）
 - 不允许 previewArticle / mockArticle / streamArticle 等平行模型
 - 已实现 title / heading / lead / paragraph / divider text-first Preview；未实现 structured blocks
 

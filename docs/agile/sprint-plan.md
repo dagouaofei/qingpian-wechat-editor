@@ -61,7 +61,7 @@
 | **Sprint 5** | **In Progress**（2026-06-02；DECISION-067；分支 `sprint/s5-generation-ui-main-flow`） |
 | **Release 1 主干** | `release/1` |
 | **Sprint 5 分支** | `sprint/s5-generation-ui-main-flow` |
-| **下一步** | S5-STORY-006 审查 / merge → S5-STORY-007 `/generate` UI；不 merge `main` |
+| **下一步** | S5-STORY-007 审查 / merge → S5-STORY-008；不 merge `main` |
 
 ---
 
@@ -435,7 +435,7 @@
 
 **分支：** `sprint/s5-generation-ui-main-flow`（DECISION-067） · **Release 1 主干：** `release/1`
 
-> **S5-STORY-001~005B** Done · **S5-STORY-006** In Review · **S5-STORY-007~008** Planned · **不 merge `main`**
+> **S5-STORY-001~006** Done · **S5-STORY-007** In Review · **S5-STORY-008** Planned · **不 merge `main`**
 
 **Sprint Goal：**
 
@@ -467,7 +467,7 @@
 
 **Stories：** S5-STORY-001（启动）~ S5-STORY-008 — 见 `sprint-backlog.md`
 
-**进度：** S5-STORY-001~005B **Done** · S5-STORY-006 **In Review** · S5-STORY-007~008 **Planned**
+**进度：** S5-STORY-001~006 **Done** · S5-STORY-007 **In Review** · S5-STORY-008 **Planned**
 
 **建议执行顺序：**
 
@@ -477,8 +477,8 @@ S5-STORY-002 — Done
 S5-STORY-003 — Done
 S5-STORY-004 — Done
 S5-STORY-005 / 005A / 005B — Done
-S5-STORY-006 — In Review
-S5-STORY-007 → S5-STORY-008 — Planned
+S5-STORY-007 — In Review
+S5-STORY-008 — Planned
 ```
 
 **不做：**

@@ -37,7 +37,7 @@ export type StyleSelectionVariantSummary = {
   blockId: string;
   blockType: BlockType;
   variantId: string;
-  source: "style_intent" | "preset_default" | "model_assisted" | "fallback";
+  source: "style_intent" | "article_diversity" | "preset_default" | "model_assisted" | "fallback";
 };
 
 export type StyleSelectionGenerationResult = {

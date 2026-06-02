@@ -73,18 +73,123 @@ export function buildVolcenginePromptMessages(input: NormalizedInput): Array<{
   ];
 }
 
-export function parseModelJsonContent(content: string): unknown {
-  const trimmed = content.trim();
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
+}
 
-  try {
-    return JSON.parse(trimmed);
-  } catch {
-    const fenced = trimmed.match(/```(?:json)?\s*([\s\S]*?)```/i);
-    if (fenced?.[1]) {
-      return JSON.parse(fenced[1].trim());
-    }
-    throw new Error("model response is not valid JSON");
+function looksLikeArticleCandidate(value: unknown): boolean {
+  return isPlainObject(value) && Array.isArray(value.blocks);
+}
+
+export function extractBalancedJsonObject(content: string): string | undefined {
+  const start = content.indexOf("{");
+  if (start < 0) {
+    return undefined;
   }
+
+  let depth = 0;
+  let inString = false;
+  let escaped = false;
+
+  for (let index = start; index < content.length; index += 1) {
+    const char = content[index]!;
+
+    if (inString) {
+      if (escaped) {
+        escaped = false;
+        continue;
+      }
+      if (char === "\\") {
+        escaped = true;
+        continue;
+      }
+      if (char === '"') {
+        inString = false;
+      }
+      continue;
+    }
+
+    if (char === '"') {
+      inString = true;
+      continue;
+    }
+    if (char === "{") {
+      depth += 1;
+    } else if (char === "}") {
+      depth -= 1;
+      if (depth === 0) {
+        return content.slice(start, index + 1);
+      }
+    }
+  }
+
+  return undefined;
+}
+
+function removeTrailingCommas(json: string): string {
+  return json.replace(/,\s*([}\]])/g, "$1");
+}
+
+function stripReasoningPrefix(content: string): string {
+  return content.replace(/^[\s\S]*?<\/think>\s*/i, "").trim();
+}
+
+export function normalizeModelArticleRoot(parsed: unknown): unknown {
+  if (looksLikeArticleCandidate(parsed)) {
+    return parsed;
+  }
+
+  if (!isPlainObject(parsed)) {
+    return parsed;
+  }
+
+  for (const key of ["article", "data", "result", "output"] as const) {
+    const nested = parsed[key];
+    if (looksLikeArticleCandidate(nested)) {
+      return nested;
+    }
+  }
+
+  return parsed;
+}
+
+function collectModelJsonCandidates(content: string): string[] {
+  const trimmed = content.replace(/^\uFEFF/, "").trim();
+  const withoutReasoning = stripReasoningPrefix(trimmed);
+  const candidates = new Set<string>([trimmed, withoutReasoning]);
+
+  const fencedMatches = trimmed.matchAll(/```(?:json)?\s*([\s\S]*?)```/gi);
+  for (const match of fencedMatches) {
+    if (match[1]?.trim()) {
+      candidates.add(match[1].trim());
+    }
+  }
+
+  for (const source of [trimmed, withoutReasoning]) {
+    const balanced = extractBalancedJsonObject(source);
+    if (balanced) {
+      candidates.add(balanced);
+    }
+  }
+
+  return [...candidates];
+}
+
+export function parseModelJsonContent(content: string): unknown {
+  const candidates = collectModelJsonCandidates(content);
+  let lastError: Error | undefined;
+
+  for (const candidate of candidates) {
+    for (const jsonText of [candidate, removeTrailingCommas(candidate)]) {
+      try {
+        return normalizeModelArticleRoot(JSON.parse(jsonText));
+      } catch (error) {
+        lastError = error instanceof Error ? error : new Error(String(error));
+      }
+    }
+  }
+
+  throw lastError ?? new Error("model response is not valid JSON");
 }
 
 export function findForbiddenArticleFields(

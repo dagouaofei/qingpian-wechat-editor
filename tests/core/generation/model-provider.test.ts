@@ -38,6 +38,41 @@ describe("Generation model provider contracts", () => {
     });
   });
 
+  it("parses JSON wrapped in prose and unwraps article root", () => {
+    const parsed = parseModelJsonContent(
+      [
+        "以下是文章 JSON：",
+        "{",
+        '  "article": {',
+        '    "version": 1,',
+        '    "blocks": [',
+        '      { "type": "title", "content": { "text": "标题" } }',
+        "    ]",
+        "  }",
+        "}",
+      ].join("\n"),
+    ) as { version: number; blocks: unknown[] };
+
+    expect(parsed.version).toBe(1);
+    expect(parsed.blocks).toHaveLength(1);
+  });
+
+  it("parses JSON after reasoning tags", () => {
+    const parsed = parseModelJsonContent(
+      `\n{"version":1,"blocks":[{"type":"paragraph","content":{"text":"正文"}}]}`,
+    ) as { blocks: unknown[] };
+
+    expect(parsed.blocks).toHaveLength(1);
+  });
+
+  it("parses JSON with trailing commas inside balanced object", () => {
+    const parsed = parseModelJsonContent(
+      '{"version":1,"blocks":[{"type":"title","content":{"text":"标题"},},],}',
+    ) as { blocks: unknown[] };
+
+    expect(parsed.blocks).toHaveLength(1);
+  });
+
   it("exposes volcengine provider with injectable transport", () => {
     const provider = createVolcengineModelProvider({
       config: loadConfigFromFixture(),

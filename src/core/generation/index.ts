@@ -120,7 +120,9 @@ export {
   buildVolcenginePromptMessages,
   buildVolcengineSystemPrompt,
   buildVolcengineUserPrompt,
+  extractBalancedJsonObject,
   findForbiddenArticleFields,
+  normalizeModelArticleRoot,
   parseModelJsonContent,
 } from "./model-prompt";
 

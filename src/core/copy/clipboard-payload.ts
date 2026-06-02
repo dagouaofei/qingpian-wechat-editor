@@ -1,4 +1,5 @@
 import type { Article } from "@/core/article";
+import type { BlockType } from "@/core/blocks";
 import type { ResolvedArticleStyle } from "@/core/styles";
 import type { BlockRendererRegistry, RendererIssue } from "@/core/renderer";
 
@@ -27,6 +28,7 @@ export type BuildClipboardPayloadOptions = {
   article: Article;
   resolvedArticleStyle: ResolvedArticleStyle;
   registry?: BlockRendererRegistry;
+  supportedBlockTypes?: readonly BlockType[];
 };
 
 function joinSnapshotHtml(entries: CopyHtmlSnapshotEntry[]): string {

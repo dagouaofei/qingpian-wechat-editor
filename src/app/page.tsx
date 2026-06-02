@@ -7,9 +7,11 @@ export default function Home() {
           轻篇公众号排版
         </h1>
         <p className="mt-4 text-base leading-7 text-zinc-600">
-          正式项目已初始化。当前处于 Sprint 1
-          完成阶段：工程地基、Cursor 规则与文档体系已就绪，业务功能将在后续
-          Sprint 实现。
+          Release 1 主流程页面已接入真实生成链路。进入{" "}
+          <a href="/generate" className="font-medium text-emerald-700 underline">
+            /generate
+          </a>{" "}
+          可手动验收：输入 → 生成 → 预览 → 复制。
         </p>
         <dl className="mt-8 grid gap-4 text-sm text-zinc-700 sm:grid-cols-2">
           <div>

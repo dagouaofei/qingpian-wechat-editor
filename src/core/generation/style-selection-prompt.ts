@@ -17,6 +17,10 @@ import type {
 } from "@/core/styles/style-assignment";
 
 import type { InputStyleIntent } from "./input";
+import {
+  resolveArticleAwareVariantId,
+  type ArticleVariantPickSource,
+} from "./style-selection-diversity";
 
 export const SAFE_STYLE_PRESET_ID = "classic-news";
 export const SAFE_STYLE_THEME_ID = "default";
@@ -222,7 +226,7 @@ function resolveHeuristicVariantId(
     return heuristics.button;
   }
 
-  return heuristics.default;
+  return undefined;
 }
 
 function resolvePresetDefaultVariantId(
@@ -238,7 +242,8 @@ export function pickRegisteredVariantForBlock(
   blockType: BlockType,
   styleIntent: InputStyleIntent | undefined,
   warnings: StyleValidationIssue[],
-): { variantId: string; source: "style_intent" | "preset_default" } {
+  blockIndexWithinType = 0,
+): { variantId: string; source: ArticleVariantPickSource } {
   const heuristicId = resolveHeuristicVariantId(blockType, styleIntent);
   if (heuristicId) {
     const heuristicVariant = getVariantById(registry, heuristicId);
@@ -250,6 +255,24 @@ export function pickRegisteredVariantForBlock(
       "style_variant_hint_rejected",
       `Heuristic variant "${heuristicId}" is not allowed on Release 1 required path`,
       ["styleIntent"],
+    );
+  }
+
+  const diverseId = resolveArticleAwareVariantId(
+    blockType,
+    blockIndexWithinType,
+    styleIntent,
+  );
+  if (diverseId) {
+    const diverseVariant = getVariantById(registry, diverseId);
+    if (isRelease1RequiredCopySafeVariant(diverseVariant)) {
+      return { variantId: diverseVariant.id, source: "article_diversity" };
+    }
+    pushWarning(
+      warnings,
+      "style_variant_diversity_rejected",
+      `Article-aware variant "${diverseId}" is not allowed on Release 1 required path`,
+      ["blocks"],
     );
   }
 
@@ -301,13 +324,19 @@ export function buildStyleSelectionBlockHints(
     );
   }
 
+  const typeCounters: Partial<Record<BlockType, number>> = {};
+
   return article.blocks.map((block) => {
+    const indexWithinType = typeCounters[block.type] ?? 0;
+    typeCounters[block.type] = indexWithinType + 1;
+
     const picked = pickRegisteredVariantForBlock(
       registry,
       preset,
       block.type,
       styleIntent,
       warnings,
+      indexWithinType,
     );
     return {
       blockId: block.id,
@@ -316,7 +345,9 @@ export function buildStyleSelectionBlockHints(
       reason:
         picked.source === "style_intent"
           ? "Derived from styleIntent heuristics"
-          : "Derived from preset default variant",
+          : picked.source === "article_diversity"
+            ? "Derived from article-aware variant rotation"
+            : "Derived from preset default variant",
     };
   });
 }

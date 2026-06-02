@@ -2337,7 +2337,7 @@ S3C-STORY-001（启动）
 > **Sprint 5 分支：** `sprint/s5-generation-ui-main-flow`（从 `release/1` 切出，DECISION-067）
 > **Release 1 主干：** `release/1`
 > **UI 主流程入口：** **`/generate`**（真实业务页面；S5-STORY-007 实现）
-> **下一步：** S5-STORY-006 审查 / merge → S5-STORY-007 `/generate` UI；不 merge `main`
+> **下一步：** S5-STORY-007 审查 / merge → S5-STORY-008 E2E close readiness；不 merge `main`
 > **Sprint 5 不做：** 真实微信公众号 Paste QA 全量回归、不宣称复制到公众号最终保真通过、Style Gallery、真实 QR / 小程序 / 图片上传托管 / AI 生图、复杂编辑器 / block 级编辑、样式市场、merge 至 `main`
 > **保留原则：** 真实 Paste QA 归 Sprint 6-B；Fixture Triple / PasteTestRecord 归 Sprint 6-A / 6-B；Sprint 5 UI smoke test 不替代微信公众号 Paste QA
 
@@ -2351,8 +2351,8 @@ S5-STORY-004 done.article 归一与 Article Schema 校验 — Done
 S5-STORY-005 真实模型 Provider 对接（Volcengine / Doubao）— Done
 S5-STORY-005A Volcengine / Doubao Provider Dev-only Real API Smoke — Done
 S5-STORY-005B Model Article Candidate Enrichment + Real API Smoke Re-run — Done
-S5-STORY-006 受控 AI 样式选择生成与 validation pipeline 接入 — In Review
-S5-STORY-007 Release 1 主流程真实 UI 页面集成（/generate）— Planned
+S5-STORY-006 受控 AI 样式选择生成与 validation pipeline 接入 — Done
+S5-STORY-007 Release 1 主流程真实 UI 页面集成（/generate）— In Review
 S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Planned
 ```
 
@@ -2630,7 +2630,7 @@ S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Planned
 
 **用户故事：** 作为开发者，我需要在 Generation 链路中生成 StyleSelectionRequest / StyleAssignmentPatch，并通过 Sprint 3-C validation pipeline 后写入 Article.styleAssignment。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s5-ai-style-selection`
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s5-ai-style-selection`（**已 merge 至 sprint** @ sprint tip）
 
 **目标：** 生成 StyleSelectionRequest / StyleAssignmentPatch，并通过 Sprint 3-C validation pipeline 后写入 `Article.styleAssignment`；不实现 `/generate` UI。
 
@@ -2665,23 +2665,41 @@ S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Planned
 
 **用户故事：** 作为用户，我需要在真实业务页面中完成输入 → 生成 → 预览 → 复制，以便 Release 1 主链路可手动验收。
 
-**优先级：** P0 · **状态：** Planned
+**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s5-generate-ui-main-flow`
 
-**目标：** 新增或完善真实业务页面，跑通输入 → 生成 → 预览 → 复制。
+**目标：** 新增真实业务页面 `/generate`，跑通输入 → 生成 → 预览 → 复制；不执行微信公众号 Paste QA。
+
+**实际产物：**
+
+| 路径 | 说明 |
+|------|------|
+| `src/app/generate/page.tsx` | `/generate` 页面入口 |
+| `src/app/generate/generate-page-client.tsx` | 输入 / 状态 / 预览 / 复制 UI |
+| `src/app/api/generate/route.ts` | Server API（provider 在服务端） |
+| `src/server/generation/run-generate-main-flow.ts` | 统一主链路 orchestration |
+| `src/core/renderer/first-wave-preview-registry.ts` | Release 1 preview registry |
+| `tests/server/generation/run-generate-main-flow.test.ts` | server flow 单测 |
+| `tests/e2e/generate-page.spec.ts` | Playwright `/generate` smoke |
+
+**明确不做：**
+
+- 不执行真实微信公众号 Paste QA（Sprint 6-B）
+- 不实现 Style Gallery / 复杂编辑器
+- 不宣称 Sprint 5 已关闭
 
 **验收标准：**
 
-- [ ] AC-1 页面不是测试 fixture 页面，不是 Storybook，不是纯 gallery
-- [ ] AC-2 用户可输入主题；资料 / 草稿可选
-- [ ] AC-3 点击生成后触发统一 GenerationService / API / SSE 路径
-- [ ] AC-4 页面显示生成中状态
-- [ ] AC-5 `done.article` 返回后，预览区使用 Sprint 4-A / 4-B Preview Renderer
-- [ ] AC-6 复制按钮使用 Copy Renderer + Clipboard payload
-- [ ] AC-7 Clipboard payload 包含 `text/html` + `text/plain`
-- [ ] AC-8 不允许从 DOM 抓取 HTML
-- [ ] AC-9 不允许绕过 Article / StyleResolver / Renderer / Copy pipeline
-- [ ] AC-10 `/generate` 页面可选择或默认使用 S5-STORY-005 真实模型 Provider；deterministic provider 仅作为 dev fallback / test provider，但必须走同一 GenerationService / Article / Renderer / Copy 主链路；不得用静态 `mockArticle` 直接渲染页面
-- [ ] AC-11 `corepack pnpm lint` / `test` / `build` 通过
+- [x] AC-1 `/generate` 为真实业务页面，非 Storybook / gallery
+- [x] AC-2 支持 topic / materials / draft / styleIntent 输入
+- [x] AC-3 点击生成走统一 API → InputRequest → provider → finalization → style → preview → copy
+- [x] AC-4 页面展示 idle / normalizing / generating / finalizing / styling / rendering / ready / error
+- [x] AC-5 预览区使用 Preview Renderer 输出（非手写 block UI）
+- [x] AC-6 复制使用 Copy Renderer + Clipboard payload
+- [x] AC-7 payload 含 `text/html` + `text/plain`
+- [x] AC-8 不从 DOM 抓取 HTML
+- [x] AC-9 不 bypass Article / StyleResolver / Renderer / Copy pipeline
+- [x] AC-10 优先 Volcengine provider；无配置时 deterministic fallback 且 UI 明示
+- [x] AC-11 `corepack pnpm lint` / `test` / `build` 通过
 
 ---
 

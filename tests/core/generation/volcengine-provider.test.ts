@@ -107,6 +107,18 @@ describe("Volcengine model provider", () => {
     expect(validateGenerationEventSequence(events).ok).toBe(true);
   });
 
+  it("accepts prose-wrapped Article JSON from mock transport", async () => {
+    const provider = createVolcengineModelProvider({
+      config: enabledConfig,
+      transport: createMockVolcengineTransport(
+        `说明：以下是 Article JSON\n\`\`\`json\n${mockVolcengineArticleJson}\n\`\`\``,
+      ),
+    });
+
+    const events = await collectGenerationStream(provider.generate(normalizedInput));
+    expect(events.at(-1)?.type).toBe("done.article");
+  });
+
   it("finalizes mock Volcengine provider output into a formal Article", async () => {
     const provider = createVolcengineModelProvider({
       config: enabledConfig,
