@@ -10,7 +10,8 @@
 > **Sprint 5：** Generation / Streaming + Release 1 真实 UI 主流程闭环 · **Closed**（2026-06-02；DECISION-069；audit Grade A- · P0=0 · P1=4 · P2=3；`sprint/s5-generation-ui-main-flow` 已 merge 至 `release/1`）
 > **Sprint 6：** Release 1 Visible AI Main Flow · **Closed**（2026-06-02；DECISION-078；audit Grade A- · P0=0 · P1=5 · P2=4；`sprint/s6-visible-ai-main-flow` 已 merge 至 `release/1`）
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
-> **当前 Sprint：** **Sprint 7 WeChat Article Experience & Style Richness**（**In Progress** · DECISION-079 · S7-STORY-001 启动中）
+> **当前 Sprint：** **Sprint 7 WeChat Article Experience & Style Richness**（**Paused** · DECISION-080 · S7-STORY-002+ 暂缓）
+> **当前 Chore：** **Visible Progress & Legacy Convergence** — **Done**（DECISION-080 · 用户验收 2026-06-02 · merge 待写入 hash）
 > **Sprint 7 分支：** `sprint/s7-wechat-article-experience`（从 `release/1` 切出）
 > **miaopian 对齐：** [`docs/agile/miaopian-alignment/s7-workflow-and-ux-gap.md`](miaopian-alignment/s7-workflow-and-ux-gap.md)
 > **Release 1 主干：** `release/1`
@@ -3063,10 +3064,45 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 ---
 
+# Visible Progress Chore（DECISION-080 · Sprint 7 Paused）
+
+> **状态：** Done（2026-06-02 用户验收）· **工作分支：** `chore/visible-progress-gallery-legacy` → `sprint/s7-wechat-article-experience`
+> **目标：** 肉眼可见进展 + 入口澄清；不调用 AI；不全量测试每轮
+
+## CHORE-VIS-001 `/generate` legacy 收敛与导航澄清
+
+**优先级：** P2 · **状态：** Done · **工作分支：** `chore/visible-progress-gallery-legacy`
+
+**用户故事：** 作为协作者，我需要清楚用户主路径是 `/` → `/preview`，而不是 `/generate` dev 页。
+
+**验收标准：**
+
+- [x] AC-1 导航主链：`/` CTA + `/gallery`「样式进展」
+- [x] AC-2 **`/generate` 页面已删除**（2026-06-02 用户确认无作用）
+- [x] AC-3 batch `POST /api/generate` 已删除；仅保留 `POST /api/generate/stream` SSE 主路径
+
+---
+
+## CHORE-VIS-002 `/gallery` 进展可视化最小版（S7-STORY-003 pull-forward）
+
+**优先级：** P1 · **状态：** Done · **工作分支：** `chore/visible-progress-gallery-legacy`
+
+**用户故事：** 作为 PO / 开发者，我需要在不调用 AI 的情况下，用 fixture Article 即时查看 Renderer / Style 改动进展。
+
+**验收标准：**
+
+- [x] AC-1 `/gallery` 可访问，fixture 驱动 Preview（`full-blocks` + `minimal-title`）
+- [x] AC-2 复用 PreviewStyleControls + ArticlePreviewPanel；展示 variant id 列表
+- [x] AC-3 不替代 S7-STORY-003 完整 Gallery（无多主题样例墙 / 无 Copy 侧栏）；后续 Sprint 7 恢复时扩展
+
+**关联：** S7-STORY-003（Planned · 完整版待 Sprint 7 恢复）
+
+---
+
 # Sprint 7 Backlog · WeChat Article Experience & Style Richness
 
 > **Sprint 7 目标：** 整篇文章像公众号文章；Style Gallery；样式丰富度；修正过度卡片化；**miaopian 协作/体验对齐见 alignment 文档**
-> **Sprint 7 状态：** **In Progress**（2026-06-02 启动 · DECISION-079）
+> **Sprint 7 状态：** **Paused**（2026-06-02 启动 · DECISION-079；2026-06-02 暂停 · DECISION-080 · 先交付可见进展）
 > **Sprint 7 分支：** `sprint/s7-wechat-article-experience`（从 `release/1` 切出）
 > **对齐文档：** [`docs/agile/miaopian-alignment/s7-workflow-and-ux-gap.md`](miaopian-alignment/s7-workflow-and-ux-gap.md)
 > **Sprint 7 不做：** Sprint 8 Paste QA、关闭 Release 1、merge `main`
@@ -3135,6 +3171,8 @@ S7-STORY-007 Sprint 7 手动视觉 QA 与关闭准备 — Planned
 **优先级：** P0 · **状态：** Planned · **工作分支：** `feature/s7-style-gallery`
 
 **目标：** 可浏览 variant / 样式样例的 Gallery 页面（TECH-ARCH-023 主交付入口）。
+
+**备注：** **CHORE-VIS-002** 已交付 `/gallery` 最小 fixture Preview 展台（DECISION-080）；完整 Gallery（多样例墙、Copy 对照等）待 Sprint 7 恢复后继续。
 
 **验收标准：** AC-1 Gallery 可手测 · AC-2 展示 first-wave variants 代表样例 · AC-3 不替代 Paste QA
 

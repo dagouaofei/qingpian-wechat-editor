@@ -143,7 +143,7 @@
 | Sprint | 名称 | Story | 优先级 |
 |--------|------|-------|--------|
 | **Sprint 6** | Release 1 Visible AI Main Flow | S6-STORY-001 ~ S6-STORY-006 | **P0 · Closed**（DECISION-078） |
-| **Sprint 7** | WeChat Article Experience & Style Richness | S7-STORY-001 ~ S7-STORY-007 | **P0 · In Progress**（DECISION-079） |
+| **Sprint 7** | WeChat Article Experience & Style Richness | S7-STORY-001 ~ S7-STORY-007 | **P0 · Paused**（DECISION-080 · CHORE-VIS-001/002） |
 | Sprint 8 | Copy Fidelity & Release 1 Closure | S8-STORY-001 ~ S8-STORY-007 | P0 · 后续 |
 
 Story 详情见 [`sprint-backlog.md`](sprint-backlog.md)。**不要把 Sprint 7/8 Story 放入当前执行中。**

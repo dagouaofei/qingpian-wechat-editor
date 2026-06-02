@@ -64,8 +64,8 @@ Sprint 6 已交付用户可见真实 AI 主链路（DECISION-071~077）。Sprint
 
 | ID | 描述 | 优先级 | 建议归属 |
 |----|------|--------|----------|
-| S7-UX-POLISH-01 | `/generate` 遗留页与主路径关系说明或收敛 | P2 | Chore · 非阻塞 |
-| S7-UX-POLISH-02 | Playwright `generate-page` e2e 与 batch 路径对齐或标记 legacy | P2 | Chore |
+| S7-UX-POLISH-01 | `/generate` 遗留页删除 · 主路径澄清 | P2 | **Done** · CHORE-VIS-001 |
+| S7-UX-POLISH-02 | Playwright `generate-page` e2e 删除 | P2 | **Done** · 随 `/generate` 移除 |
 | S7-UX-POLISH-03 | 135 编辑器粘贴手测 | P1 | **Sprint 8**（非 S7） |
 
 **结论：** 交互流（1）**无 P0 gap**；Sprint 7 **不**单列「miaopian 交互流对齐」Epic，仅在 PO 提出具体差异时开小型 `feature/s7-ux-polish-*`。

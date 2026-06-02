@@ -75,6 +75,7 @@
 | DECISION-077 | 2026-06-02 | S6-STORY-005 真实 SSE block-aware stream + phase 事件 + 即时预览 UI | 已确认 |
 | DECISION-078 | 2026-06-02 | 关闭 Sprint 6；visible main-flow audit A-，P0=0；merge sprint/s6-visible-ai-main-flow → release/1 | 已确认 |
 | DECISION-079 | 2026-06-02 | 正式启动 Sprint 7；S7-STORY-001 含 miaopian 协作对齐 + UX gap 文档；样式/Gallery 归 S7-STORY-002~006 | 已确认 |
+| DECISION-080 | 2026-06-02 | 暂停 Sprint 7 功能线；Visible-first Cursor 轮次规则；先行 `/gallery` 进展展台；`/generate` 页面已删除 | 已确认 |
 
 ### DECISION-019 详情
 
@@ -616,6 +617,28 @@
   7. Sprint 8 Paste QA / Release 1 关闭 **不在 Sprint 7 启动**
 - **影响范围：** `sprint-backlog.md`、`sprint-plan.md`、`release-plan.md`、`product-backlog.md`、`changelog.md`
 - **关联：** DECISION-070、DECISION-078、DECISION-075、DECISION-077、TECH-ARCH-023
+- **状态：** 已确认
+
+### DECISION-080 详情（暂停 Sprint 7 · Visible-first Cursor 轮次规则）
+
+- **日期：** 2026-06-02
+- **背景：**
+  - Sprint 7 已启动（DECISION-079），但用户反馈 Cursor 轮次「文档 / 全量测试多、可见页面进展少」，与 miaopian-demo「Landing 即产品展台」体验差距大
+  - 用户主路径已是 `/` → `/preview`（DECISION-075 / DECISION-077）；`/generate` 仍易让人误以为仍在 dev 页打转
+  - S7-STORY-003 Style Gallery 可 partial pull-forward 为最小 fixture Preview 展台，无需等 Sprint 7 全套
+- **决策：**
+  1. **暂停 Sprint 7 功能 Story 线**（S7-STORY-002~007 暂缓；S7-STORY-001 保持 In Review）
+  2. 开 **Chore 小目标**（不必称 Sprint 7 继续推进）：
+     - **CHORE-VIS-001**（P2）：删除 `/generate` 页面与 batch `POST /api/generate`；主路径 `/` · `/preview` · `/gallery` + SSE stream
+     - **CHORE-VIS-002**（P1）：`/gallery` fixture 驱动 Preview 展台（S7-STORY-003 最小版；不调用 AI）
+  3. **Visible-first Cursor 轮次规则：**
+     - 每轮优先交付**肉眼可见**的页面 / Renderer / Style 进展（Gallery、Preview、Copy 可视差异）
+     - **禁止**每轮默认跑全量自动化测试（`npm test` / 全 e2e）；仅跑与改动相关的 targeted test + `pnpm build`（或 lint）
+     - 全量测试保留给：Sprint close readiness、merge 至 `release/1` 前、用户明确要求
+     - execution report 仍必填，但应突出「本轮肉眼可见变化」与 Gallery 验收路径
+  4. Sprint 7 分支 **`sprint/s7-wechat-article-experience` 保留**；Chore 从 sprint 分支切 `chore/visible-progress-gallery-legacy`
+- **影响范围：** `sprint-backlog.md`、`sprint-plan.md`、`release-plan.md`、`changelog.md`、导航与 `/gallery` 页面
+- **关联：** DECISION-079、S7-STORY-003（最小版 pull-forward）、miaopian alignment
 - **状态：** 已确认
 
 ### DECISION-XXX：[标题]

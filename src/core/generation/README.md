@@ -83,14 +83,15 @@ corepack pnpm smoke:volcengine-provider
 
 **Article-aware 多样性（S5-STORY-007 follow-up）：** deterministic 模式下 `style-selection-diversity.ts` 按 block 在文内序号轮换 Release 1 装饰性 variant（accent band / soft card / quote bar 等）；`styleIntent.densityHint=light` 时保持 plain；`strong` 时优先装饰 variant。仅当 tone/density 显式命中时才走 heuristics，不再 silent fallback 到 preset plain。
 
-### S5-STORY-007 — Release 1 `/generate` 主流程 UI
+### S5-STORY-007 — Release 1 主流程 UI（历史）
+
+> **2026-06-02 更新：** `/generate` 页面已删除；用户主路径为 `/` → `/preview`（SSE）。Preview 视觉层组件已迁至 `src/components/preview/article-preview-panel.tsx`。
 
 | 路径 | 说明 |
 |------|------|
-| `src/app/generate/page.tsx` | 真实业务页面 `/generate` |
-| `src/app/generate/generate-page-client.tsx` | 输入 / 状态 / 预览 / 复制 UI |
-| `src/app/api/generate/route.ts` | Server API：provider → finalization → style → preview → clipboard |
-**Preview 视觉层（S5-STORY-007 follow-up）：** `preview-visual-styles.ts` 将 Preview Renderer 输出的 `layout` / `layoutMode` 映射为页面 inline style（与 Copy Renderer 默认 token 对齐）；`/generate` 的 `preview-block-view.tsx` 消费该映射，不再使用统一 Tailwind 卡片样式。
+| `src/app/api/generate/stream/route.ts` | SSE 主路径 API |
+| `src/server/generation/run-generate-stream-flow.ts` | SSE 主链路 orchestration |
+| `src/components/preview/article-preview-panel.tsx` | Preview 视觉层 UI |
 
 **旧项目经验：** 当前仓库仅保留 SSE + `done.article` 归一经验（见 `docs/agile/migration-reference.md`）；旧一键成稿 Volcengine / `mapArkJsonToArticle` 源码不可访问，本轮按轻篇 Article Schema 实现 provider 契约，不复用旧 parallel 模型。
 

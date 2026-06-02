@@ -15,7 +15,7 @@ import {
 } from "@/core/styles";
 
 import type { StreamingPreviewBlock } from "@/app/preview/streaming-preview-panel";
-import type { SerializedPreviewBlock } from "@/app/generate/types";
+import type { SerializedPreviewBlock } from "@/server/generation/generate-flow-types";
 
 const STREAM_PREVIEW_ARTICLE_ID = "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa";
 const STREAM_PREVIEW_TIMESTAMP = "2026-06-02T00:00:00.000Z";

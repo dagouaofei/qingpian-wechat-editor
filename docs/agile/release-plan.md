@@ -9,7 +9,7 @@
 | **Release** | Release 1 — **进行中（未关闭）** |
 | **主干分支** | `release/1` |
 | **已完成 Sprint** | Sprint 1-A/B · Sprint 2 · Sprint 3-A/B/C · Sprint 4-A/B · Sprint 5 · **Sprint 6** |
-| **当前 Sprint** | **Sprint 7：WeChat Article Experience & Style Richness**（**In Progress** · `sprint/s7-wechat-article-experience` · DECISION-079） |
+| **当前 Sprint** | **Sprint 7：WeChat Article Experience & Style Richness**（**Paused** · `sprint/s7-wechat-article-experience` · DECISION-080 · Chore visible progress） |
 | **后续 Sprint** | Sprint 8（已规划 · 未启动） |
 | **merge `main`** | **未执行** — Release 1 整体验收通过后才 merge |
 
@@ -39,7 +39,7 @@
 | Sprint | 名称 | 核心目标 | 状态 |
 |--------|------|----------|------|
 | **Sprint 6** | **Release 1 Visible AI Main Flow** | 真实 AI 用户侧最小闭环：首页 → 真实 AI 生成 → 带样式预览 → 风格 / 配色 → 复制 → 最小粘贴 QA | **Closed**（DECISION-078） |
-| **Sprint 7** | **WeChat Article Experience & Style Richness** | 整篇文章像公众号文章；Style Gallery；样式丰富度；miaopian 协作对齐；2–3 套完整视觉样例 | **In Progress**（DECISION-079） |
+| **Sprint 7** | **WeChat Article Experience & Style Richness** | 整篇文章像公众号文章；Style Gallery；样式丰富度；miaopian 协作对齐；2–3 套完整视觉样例 | **Paused**（DECISION-080 · `/gallery` 最小版已 Chore 交付） |
 | **Sprint 8** | **Copy Fidelity & Release 1 Closure** | Preview / Copy / 粘贴一致性；135 + 公众号后台 Paste QA；fallback 与遗留问题；Release 1 关闭准备 | **后续 · Planned** |
 
 **Sprint 分支（启动时从 `release/1` 切出）：**

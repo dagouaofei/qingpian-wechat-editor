@@ -4,11 +4,8 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import { ArticlePreviewPanel } from "@/app/generate/preview-block-view";
-import {
-  GENERATE_ERROR_LABELS,
-  type GenerateApiResponse,
-} from "@/app/generate/types";
+import { ArticlePreviewPanel } from "@/components/preview/article-preview-panel";
+import { GENERATE_ERROR_LABELS, type GenerateApiResponse } from "@/lib/generate-api-types";
 import { GenerationAnalysisPanel } from "@/components/preview/generation-analysis-panel";
 import { PreviewGeneratingStatus } from "@/components/preview/preview-generating-status";
 import { PreviewStyleControls } from "@/components/preview/preview-style-controls";

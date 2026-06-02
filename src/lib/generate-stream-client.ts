@@ -1,4 +1,4 @@
-import type { GenerateApiResponse } from "@/app/generate/types";
+import type { GenerateApiResponse } from "@/lib/generate-api-types";
 import type { GenerationEvent } from "@/core/generation/events";
 import { decodeGenerationEventFromSse } from "@/core/generation/sse";
 

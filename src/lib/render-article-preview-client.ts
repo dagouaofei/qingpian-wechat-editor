@@ -18,7 +18,7 @@ import {
   resolveArticleStyle,
 } from "@/core/styles";
 
-import type { SerializedPreviewBlock } from "@/app/generate/types";
+import type { SerializedPreviewBlock } from "@/server/generation/generate-flow-types";
 
 import {
   applyPreviewThemeToArticle,

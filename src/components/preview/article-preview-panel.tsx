@@ -40,11 +40,9 @@ import type {
   RendererIssue,
   RendererOutputPlaceholder,
 } from "@/core/renderer";
-
+import type { SerializedPreviewBlock } from "@/server/generation/generate-flow-types";
 import type { PreviewColorPaletteId } from "@/lib/preview-color-palette";
 import { previewPaletteCssVariables } from "@/lib/preview-color-palette";
-
-import type { SerializedPreviewBlock } from "./types";
 
 function renderInlineNodes(nodes: PreviewInlineNode[]) {
   return nodes.map((node, index) => {
