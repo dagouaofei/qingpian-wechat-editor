@@ -2337,7 +2337,7 @@ S3C-STORY-001（启动）
 > **Sprint 5 分支：** `sprint/s5-generation-ui-main-flow`（从 `release/1` 切出，DECISION-067）
 > **Release 1 主干：** `release/1`
 > **UI 主流程入口：** **`/generate`**（真实业务页面；S5-STORY-007 实现）
-> **下一步：** S5-STORY-007 审查 / merge → S5-STORY-008 E2E close readiness；不 merge `main`
+> **下一步：** S5-STORY-007 审查 / 关闭 → S5-STORY-008 E2E close readiness；不 merge `main`
 > **Sprint 5 不做：** 真实微信公众号 Paste QA 全量回归、不宣称复制到公众号最终保真通过、Style Gallery、真实 QR / 小程序 / 图片上传托管 / AI 生图、复杂编辑器 / block 级编辑、样式市场、merge 至 `main`
 > **保留原则：** 真实 Paste QA 归 Sprint 6-B；Fixture Triple / PasteTestRecord 归 Sprint 6-A / 6-B；Sprint 5 UI smoke test 不替代微信公众号 Paste QA
 
@@ -2665,7 +2665,7 @@ S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Planned
 
 **用户故事：** 作为用户，我需要在真实业务页面中完成输入 → 生成 → 预览 → 复制，以便 Release 1 主链路可手动验收。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s5-generate-ui-main-flow`
+**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s5-generate-ui-main-flow`（**已 merge 至 sprint** @ `01318c4`）
 
 **目标：** 新增真实业务页面 `/generate`，跑通输入 → 生成 → 预览 → 复制；不执行微信公众号 Paste QA。
 
