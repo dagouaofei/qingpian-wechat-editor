@@ -15,6 +15,8 @@ import type {
 
 import { assertCopySafeHtml, escapeHtml } from "./html-escape";
 import { wrapInlineElement } from "./inline-style";
+import type { ThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
+import { resolveThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
 
 function titleHtml(
   title: string | undefined,
@@ -99,6 +101,7 @@ function wrapInfoCardLayoutHtml(
   layout: InfoCardLayoutKind,
   content: NormalizedInfoCardContent,
   typography: ReturnType<typeof resolveInfoCardTypography>,
+  palette: ThemePaletteTokens,
 ): string {
   switch (layout) {
     case "key_takeaway":
@@ -107,7 +110,7 @@ function wrapInfoCardLayoutHtml(
         {
           margin: `${typography.marginBlock} 0`,
           padding: "12px 16px",
-          backgroundColor: "#f9f9f9",
+          backgroundColor: palette.bgSoft,
           border: `1px solid ${typography.accentColor}`,
           borderRadius: "8px",
         },
@@ -120,8 +123,8 @@ function wrapInfoCardLayoutHtml(
         {
           margin: `${typography.marginBlock} 0`,
           padding: "12px 16px",
-          backgroundColor: "#f8fafc",
-          border: "1px solid #eeeeee",
+          backgroundColor: palette.bgSteps,
+          border: `1px solid ${palette.borderSoft}`,
           borderRadius: "8px",
         },
         stepsBodyHtml(content, typography),
@@ -132,13 +135,13 @@ function wrapInfoCardLayoutHtml(
         {
           margin: `${typography.marginBlock} 0`,
           padding: "12px 16px",
-          backgroundColor: "#fff8e6",
+          backgroundColor: palette.bgWarning,
           borderLeft: `4px solid ${typography.warningColor}`,
         },
         iconHtml(content.icon, typography) +
           titleHtml(content.title, typography) +
           bodyParagraphHtml(content.body, typography, {
-            color: "#5f3b00",
+            color: palette.warningText,
           }),
       );
     default:
@@ -172,7 +175,8 @@ export function renderInfoCardCopyHtml(
   }
 
   const typography = resolveInfoCardTypography(context.resolvedBlockStyle);
-  const html = wrapInfoCardLayoutHtml(layout, normalized.content, typography);
+  const palette = resolveThemePaletteTokens(context.resolvedBlockStyle.tokens.theme);
+  const html = wrapInfoCardLayoutHtml(layout, normalized.content, typography, palette);
   assertInfoCardCopySafeCss(html);
 
   return {

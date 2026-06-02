@@ -13,17 +13,24 @@ import {
   type NormalizedListItem,
 } from "@/core/renderer/list-layout";
 
+import type { ThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
+import { resolveThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
+
 import { assertCopySafeHtml, escapeHtml } from "./html-escape";
 import { wrapInlineElement } from "./inline-style";
 
-function subItemsHtml(items: string[], marker: string): string {
+function subItemsHtml(
+  items: string[],
+  marker: string,
+  typography: ReturnType<typeof resolveListTypography>,
+): string {
   return items
     .map((item) =>
       wrapInlineElement(
         "p",
         {
           margin: "2px 0 0 20px",
-          color: "#666666",
+          color: typography.mutedColor,
           fontSize: "15px",
           lineHeight: "1.65",
         },
@@ -47,7 +54,7 @@ function plainBulletItemHtml(
         lineHeight: typography.lineHeight,
       },
       `• ${escapeHtml(item.text)}`,
-    ) + subItemsHtml(item.subItems, "◦")
+    ) + subItemsHtml(item.subItems, "◦", typography)
   );
 }
 
@@ -66,13 +73,14 @@ function numberedStepItemHtml(
         lineHeight: typography.lineHeight,
       },
       `${index + 1}. ${escapeHtml(item.text)}`,
-    ) + subItemsHtml(item.subItems, "·")
+    ) + subItemsHtml(item.subItems, "·", typography)
   );
 }
 
 function checklistCardItemHtml(
   item: NormalizedListItem,
   typography: ReturnType<typeof resolveListTypography>,
+  palette: ThemePaletteTokens,
 ): string {
   const bodyHtml =
     wrapInlineElement(
@@ -84,16 +92,16 @@ function checklistCardItemHtml(
         lineHeight: typography.lineHeight,
       },
       `✓ ${escapeHtml(item.text)}`,
-    ) + subItemsHtml(item.subItems, "·");
+    ) + subItemsHtml(item.subItems, "·", typography);
 
   return wrapInlineElement(
     "section",
     {
       margin: `0 0 ${typography.itemGap} 0`,
       padding: "10px 12px",
-      border: "1px solid #eeeeee",
+      border: `1px solid ${palette.borderSoft}`,
       borderRadius: "8px",
-      backgroundColor: "#f9f9f9",
+      backgroundColor: palette.bgSoft,
     },
     bodyHtml,
   );
@@ -103,6 +111,7 @@ function buildListItemsHtml(
   layout: ListLayoutKind,
   items: NormalizedListItem[],
   typography: ReturnType<typeof resolveListTypography>,
+  palette: ThemePaletteTokens,
 ): string {
   switch (layout) {
     case "plain_bullets":
@@ -112,7 +121,7 @@ function buildListItemsHtml(
         .map((item, index) => numberedStepItemHtml(item, index, typography))
         .join("");
     case "checklist_cards":
-      return items.map((item) => checklistCardItemHtml(item, typography)).join("");
+      return items.map((item) => checklistCardItemHtml(item, typography, palette)).join("");
     default:
       throw new Error(`unsupported list layout: ${layout satisfies never}`);
   }
@@ -134,7 +143,8 @@ export function renderListCopyHtml(
       ? normalizeListItemsForRenderer(block, context.resolvedBlockStyle.variantId)
       : { items: normalizedItems, issues: [] };
   const typography = resolveListTypography(context.resolvedBlockStyle);
-  const innerHtml = buildListItemsHtml(layout, normalized.items, typography);
+  const palette = resolveThemePaletteTokens(context.resolvedBlockStyle.tokens.theme);
+  const innerHtml = buildListItemsHtml(layout, normalized.items, typography, palette);
   const html = wrapInlineElement(
     "section",
     {

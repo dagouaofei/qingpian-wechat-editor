@@ -11,6 +11,8 @@ import type { BlockRenderContext, CtaCopyOutput, RendererIssue } from "@/core/re
 
 import { assertCopySafeHtml, escapeHtml } from "./html-escape";
 import { wrapInlineElement } from "./inline-style";
+import type { ThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
+import { resolveThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
 
 function actionHtml(
   action: string | undefined,
@@ -52,14 +54,15 @@ function ctaTextHtml(
 function qrPlaceholderHtml(
   content: NormalizedCtaContent,
   typography: ReturnType<typeof resolveCtaTypography>,
+  palette: ThemePaletteTokens,
 ): string {
   return wrapInlineElement(
     "section",
     {
       margin: "10px 0 0",
       padding: "12px",
-      border: "1px dashed #cccccc",
-      backgroundColor: "#f9f9f9",
+      border: `1px dashed ${palette.borderLight}`,
+      backgroundColor: palette.bgSoft,
       color: typography.mutedColor,
       fontSize: "14px",
       lineHeight: "1.6",
@@ -73,6 +76,7 @@ function wrapCtaLayoutHtml(
   layout: CtaLayoutKind,
   content: NormalizedCtaContent,
   typography: ReturnType<typeof resolveCtaTypography>,
+  palette: ThemePaletteTokens,
 ): string {
   switch (layout) {
     case "plain_text":
@@ -90,7 +94,7 @@ function wrapCtaLayoutHtml(
           padding: "12px 16px",
           border: `1px solid ${typography.accentColor}`,
           borderRadius: "8px",
-          backgroundColor: "#f9f9f9",
+          backgroundColor: palette.bgSoft,
         },
         ctaTextHtml(content.text, typography) +
           wrapInlineElement(
@@ -115,13 +119,13 @@ function wrapCtaLayoutHtml(
         {
           margin: `${typography.marginBlock} 0`,
           padding: "12px 16px",
-          border: "1px solid #eeeeee",
+          border: `1px solid ${palette.borderSoft}`,
           borderRadius: "8px",
-          backgroundColor: "#f9f9f9",
+          backgroundColor: palette.bgSoft,
         },
         ctaTextHtml(content.text, typography) +
           actionHtml(content.action, typography) +
-          qrPlaceholderHtml(content, typography),
+          qrPlaceholderHtml(content, typography, palette),
       );
     default:
       throw new Error(`unsupported cta layout: ${layout satisfies never}`);
@@ -149,7 +153,8 @@ export function renderCtaCopyHtml(
   }
 
   const typography = resolveCtaTypography(context.resolvedBlockStyle);
-  const html = wrapCtaLayoutHtml(layout, normalized.content, typography);
+  const palette = resolveThemePaletteTokens(context.resolvedBlockStyle.tokens.theme);
+  const html = wrapCtaLayoutHtml(layout, normalized.content, typography, palette);
   assertCtaCopySafeCss(html);
 
   return {

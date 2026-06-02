@@ -26,6 +26,22 @@ export const PREVIEW_THEME = {
   warningText: "#5f3b00",
 } as const;
 
+/** CSS-variable aware preview tokens (palette can override via container vars). */
+const PV = {
+  textDefault: "var(--preview-text-default, #333333)",
+  textMuted: "var(--preview-text-muted, #666666)",
+  textAccent: "var(--preview-text-accent, #576b95)",
+  borderLight: "var(--preview-border-light, #cccccc)",
+  borderSoft: "var(--preview-border-soft, #eeeeee)",
+  bgSoft: "var(--preview-bg-soft, #f9f9f9)",
+  bgBand: "var(--preview-bg-band, #f5f5f5)",
+  bgBandBlue: "var(--preview-bg-band-blue, #f5f7fb)",
+  bgSteps: "var(--preview-bg-steps, #f8fafc)",
+  bgWarning: "var(--preview-bg-warning, #fff8e6)",
+  warningColor: "var(--preview-warning-color, #b36b00)",
+  warningText: "var(--preview-warning-text, #5f3b00)",
+} as const;
+
 export function previewArticleContainerStyle(): CSSProperties {
   return {
     maxWidth: "677px",
@@ -33,7 +49,7 @@ export function previewArticleContainerStyle(): CSSProperties {
     padding: "16px 20px 24px",
     backgroundColor: "#ffffff",
     fontFamily: '"PingFang SC", "Microsoft YaHei", sans-serif',
-    color: PREVIEW_THEME.textDefault,
+    color: PV.textDefault,
   };
 }
 
@@ -53,7 +69,7 @@ export function previewTitleContainerStyle(
     case "left_bar":
       return {
         ...base,
-        borderLeft: `4px solid ${PREVIEW_THEME.textDefault}`,
+        borderLeft: `4px solid ${PV.textDefault}`,
         paddingLeft: "12px",
       };
     case "bottom_line":
@@ -61,7 +77,7 @@ export function previewTitleContainerStyle(
         ...base,
         textAlign: "center",
         paddingBottom: "8px",
-        borderBottom: `1px solid ${PREVIEW_THEME.borderLight}`,
+        borderBottom: `1px solid ${PV.borderLight}`,
       };
     case "numbered":
       return base;
@@ -78,7 +94,7 @@ export function previewTitleContainerStyle(
 export function previewTitleTextStyle(blockType: "title" | "heading"): CSSProperties {
   return {
     margin: 0,
-    color: PREVIEW_THEME.textDefault,
+    color: PV.textDefault,
     fontSize: blockType === "title" ? "22px" : "18px",
     fontWeight: 600,
     lineHeight: 1.4,
@@ -88,7 +104,7 @@ export function previewTitleTextStyle(blockType: "title" | "heading"): CSSProper
 export function previewTitleBadgeStyle(): CSSProperties {
   return {
     margin: "0 0 4px",
-    color: PREVIEW_THEME.textMuted,
+    color: PV.textMuted,
     fontSize: "12px",
     lineHeight: 1.4,
     textAlign: "center",
@@ -109,27 +125,27 @@ export function previewTextBlockContainerStyle(
       return {
         ...base,
         padding: "12px 16px",
-        backgroundColor: PREVIEW_THEME.bgBand,
-        borderLeft: `4px solid ${PREVIEW_THEME.textAccent}`,
+        backgroundColor: PV.bgBand,
+        borderLeft: `4px solid ${PV.textAccent}`,
       };
     case "quote_intro":
       return {
         ...base,
         paddingLeft: "12px",
-        borderLeft: `3px solid ${PREVIEW_THEME.borderLight}`,
+        borderLeft: `3px solid ${PV.borderLight}`,
       };
     case "accent_left":
       return {
         ...base,
         paddingLeft: "12px",
-        borderLeft: `3px solid ${PREVIEW_THEME.textAccent}`,
+        borderLeft: `3px solid ${PV.textAccent}`,
       };
     case "soft_card":
       return {
         ...base,
         padding: "12px 16px",
-        backgroundColor: PREVIEW_THEME.bgSoft,
-        border: `1px solid ${PREVIEW_THEME.borderSoft}`,
+        backgroundColor: PV.bgSoft,
+        border: `1px solid ${PV.borderSoft}`,
         borderRadius: "8px",
       };
     default:
@@ -143,7 +159,7 @@ export function previewTextBlockTypography(
 ): CSSProperties {
   return {
     margin: 0,
-    color: PREVIEW_THEME.textDefault,
+    color: PV.textDefault,
     fontSize: blockType === "lead" ? "17px" : "16px",
     fontWeight: 400,
     lineHeight: blockType === "lead" ? 1.6 : 1.75,
@@ -156,13 +172,13 @@ export function previewDividerStyle(layout: DividerLayoutKind): CSSProperties {
     case "simple_line":
       return {
         margin: "24px 0",
-        borderTop: `1px solid ${PREVIEW_THEME.borderLight}`,
+        borderTop: `1px solid ${PV.borderLight}`,
         height: 0,
       };
     case "dotted_line":
       return {
         margin: "24px 0",
-        borderTop: `1px dashed ${PREVIEW_THEME.borderLight}`,
+        borderTop: `1px dashed ${PV.borderLight}`,
         height: 0,
       };
     case "section_space":
@@ -178,7 +194,7 @@ export function previewDividerStyle(layout: DividerLayoutKind): CSSProperties {
 export function previewListContainerStyle(): CSSProperties {
   return {
     margin: "16px 0",
-    color: PREVIEW_THEME.textDefault,
+    color: PV.textDefault,
     fontSize: "16px",
     lineHeight: 1.75,
   };
@@ -187,7 +203,7 @@ export function previewListContainerStyle(): CSSProperties {
 export function previewListItemStyle(): CSSProperties {
   return {
     margin: "0 0 8px",
-    color: PREVIEW_THEME.textDefault,
+    color: PV.textDefault,
     fontSize: "16px",
     lineHeight: 1.75,
   };
@@ -197,16 +213,16 @@ export function previewListChecklistItemStyle(): CSSProperties {
   return {
     margin: "0 0 8px",
     padding: "10px 12px",
-    border: `1px solid ${PREVIEW_THEME.borderSoft}`,
+    border: `1px solid ${PV.borderSoft}`,
     borderRadius: "8px",
-    backgroundColor: PREVIEW_THEME.bgSoft,
+    backgroundColor: PV.bgSoft,
   };
 }
 
 export function previewListSubItemStyle(): CSSProperties {
   return {
     margin: "2px 0 0 20px",
-    color: PREVIEW_THEME.textMuted,
+    color: PV.textMuted,
     fontSize: "15px",
     lineHeight: 1.65,
   };
@@ -222,14 +238,14 @@ export function previewQuoteContainerStyle(layout: QuoteLayoutKind): CSSProperti
       return {
         ...base,
         paddingLeft: "12px",
-        borderLeft: `3px solid ${PREVIEW_THEME.textAccent}`,
+        borderLeft: `3px solid ${PV.textAccent}`,
       };
     case "card":
       return {
         ...base,
         padding: "12px 16px",
-        backgroundColor: PREVIEW_THEME.bgSoft,
-        border: `1px solid ${PREVIEW_THEME.borderSoft}`,
+        backgroundColor: PV.bgSoft,
+        border: `1px solid ${PV.borderSoft}`,
         borderRadius: "8px",
       };
     default:
@@ -240,7 +256,7 @@ export function previewQuoteContainerStyle(layout: QuoteLayoutKind): CSSProperti
 export function previewQuoteTextStyle(): CSSProperties {
   return {
     margin: 0,
-    color: PREVIEW_THEME.textDefault,
+    color: PV.textDefault,
     fontSize: "16px",
     lineHeight: 1.75,
   };
@@ -249,7 +265,7 @@ export function previewQuoteTextStyle(): CSSProperties {
 export function previewQuoteAttributionStyle(): CSSProperties {
   return {
     margin: "8px 0 0",
-    color: PREVIEW_THEME.textMuted,
+    color: PV.textMuted,
     fontSize: "14px",
     lineHeight: 1.6,
     textAlign: "right",
@@ -266,21 +282,21 @@ export function previewHighlightContainerStyle(
       return {
         ...base,
         paddingLeft: "8px",
-        borderLeft: `2px solid ${PREVIEW_THEME.textAccent}`,
+        borderLeft: `2px solid ${PV.textAccent}`,
       };
     case "accent_band":
       return {
         ...base,
         padding: "10px 14px",
-        backgroundColor: PREVIEW_THEME.bgBandBlue,
-        borderLeft: `4px solid ${PREVIEW_THEME.textAccent}`,
+        backgroundColor: PV.bgBandBlue,
+        borderLeft: `4px solid ${PV.textAccent}`,
       };
     case "soft_card":
       return {
         ...base,
         padding: "12px 16px",
-        backgroundColor: PREVIEW_THEME.bgSoft,
-        border: `1px solid ${PREVIEW_THEME.borderSoft}`,
+        backgroundColor: PV.bgSoft,
+        border: `1px solid ${PV.borderSoft}`,
         borderRadius: "8px",
       };
     default:
@@ -291,7 +307,7 @@ export function previewHighlightContainerStyle(
 export function previewHighlightLabelStyle(): CSSProperties {
   return {
     margin: "0 0 6px",
-    color: PREVIEW_THEME.textAccent,
+    color: PV.textAccent,
     fontSize: "13px",
     lineHeight: 1.5,
     fontWeight: 600,
@@ -301,7 +317,7 @@ export function previewHighlightLabelStyle(): CSSProperties {
 export function previewHighlightTextStyle(): CSSProperties {
   return {
     margin: 0,
-    color: PREVIEW_THEME.textDefault,
+    color: PV.textDefault,
     fontSize: "16px",
     lineHeight: 1.75,
   };
@@ -316,22 +332,22 @@ export function previewInfoCardContainerStyle(
     case "key_takeaway":
       return {
         ...base,
-        backgroundColor: PREVIEW_THEME.bgSoft,
-        border: `1px solid ${PREVIEW_THEME.textAccent}`,
+        backgroundColor: PV.bgSoft,
+        border: `1px solid ${PV.textAccent}`,
         borderRadius: "8px",
       };
     case "steps":
       return {
         ...base,
-        backgroundColor: PREVIEW_THEME.bgSteps,
-        border: `1px solid ${PREVIEW_THEME.borderSoft}`,
+        backgroundColor: PV.bgSteps,
+        border: `1px solid ${PV.borderSoft}`,
         borderRadius: "8px",
       };
     case "warning_note":
       return {
         ...base,
-        backgroundColor: PREVIEW_THEME.bgWarning,
-        borderLeft: `4px solid ${PREVIEW_THEME.warningColor}`,
+        backgroundColor: PV.bgWarning,
+        borderLeft: `4px solid ${PV.warningColor}`,
       };
     default:
       return base;
@@ -342,7 +358,7 @@ export function previewInfoCardTitleStyle(layout: InfoCardLayoutKind): CSSProper
   return {
     margin: "0 0 8px",
     color:
-      layout === "warning_note" ? PREVIEW_THEME.warningColor : PREVIEW_THEME.textAccent,
+      layout === "warning_note" ? PV.warningColor : PV.textAccent,
     fontSize: "16px",
     fontWeight: 600,
     lineHeight: 1.6,
@@ -352,7 +368,7 @@ export function previewInfoCardTitleStyle(layout: InfoCardLayoutKind): CSSProper
 export function previewInfoCardIconStyle(): CSSProperties {
   return {
     margin: "0 0 6px",
-    color: PREVIEW_THEME.textMuted,
+    color: PV.textMuted,
     fontSize: "13px",
     lineHeight: 1.5,
   };
@@ -361,7 +377,7 @@ export function previewInfoCardIconStyle(): CSSProperties {
 export function previewInfoCardBodyStyle(layout: InfoCardLayoutKind): CSSProperties {
   return {
     margin: 0,
-    color: layout === "warning_note" ? PREVIEW_THEME.warningText : PREVIEW_THEME.textDefault,
+    color: layout === "warning_note" ? PV.warningText : PV.textDefault,
     fontSize: "16px",
     lineHeight: 1.75,
     whiteSpace: "pre-line",
@@ -378,17 +394,17 @@ export function previewCtaContainerStyle(layout: CtaLayoutKind): CSSProperties {
       return {
         ...base,
         padding: "12px 16px",
-        border: `1px solid ${PREVIEW_THEME.textAccent}`,
+        border: `1px solid ${PV.textAccent}`,
         borderRadius: "8px",
-        backgroundColor: PREVIEW_THEME.bgSoft,
+        backgroundColor: PV.bgSoft,
       };
     case "qr_placeholder":
       return {
         ...base,
         padding: "12px 16px",
-        border: `1px solid ${PREVIEW_THEME.borderSoft}`,
+        border: `1px solid ${PV.borderSoft}`,
         borderRadius: "8px",
-        backgroundColor: PREVIEW_THEME.bgSoft,
+        backgroundColor: PV.bgSoft,
       };
     default:
       return base;
@@ -398,7 +414,7 @@ export function previewCtaContainerStyle(layout: CtaLayoutKind): CSSProperties {
 export function previewCtaTextStyle(): CSSProperties {
   return {
     margin: 0,
-    color: PREVIEW_THEME.textDefault,
+    color: PV.textDefault,
     fontSize: "16px",
     lineHeight: 1.75,
   };
@@ -407,7 +423,7 @@ export function previewCtaTextStyle(): CSSProperties {
 export function previewCtaActionStyle(): CSSProperties {
   return {
     margin: "8px 0 0",
-    color: PREVIEW_THEME.textAccent,
+    color: PV.textAccent,
     fontSize: "15px",
     lineHeight: 1.6,
     fontWeight: 600,
@@ -418,12 +434,12 @@ export function previewCtaButtonStyle(): CSSProperties {
   return {
     margin: "10px 0 0",
     padding: "6px 12px",
-    color: PREVIEW_THEME.textAccent,
+    color: PV.textAccent,
     fontSize: "15px",
     lineHeight: 1.5,
     fontWeight: 600,
     textAlign: "center",
-    border: `1px solid ${PREVIEW_THEME.textAccent}`,
+    border: `1px solid ${PV.textAccent}`,
     borderRadius: "16px",
   };
 }
@@ -432,9 +448,9 @@ export function previewCtaQrPlaceholderStyle(): CSSProperties {
   return {
     margin: "10px 0 0",
     padding: "12px",
-    border: `1px dashed ${PREVIEW_THEME.borderLight}`,
-    backgroundColor: PREVIEW_THEME.bgSoft,
-    color: PREVIEW_THEME.textMuted,
+    border: `1px dashed ${PV.borderLight}`,
+    backgroundColor: PV.bgSoft,
+    color: PV.textMuted,
     fontSize: "14px",
     lineHeight: 1.6,
     textAlign: "center",
@@ -455,7 +471,7 @@ export function previewImagePlaceholderContainerStyle(
       return {
         ...base,
         padding: "12px",
-        border: `1px solid ${PREVIEW_THEME.borderSoft}`,
+        border: `1px solid ${PV.borderSoft}`,
         borderRadius: "8px",
         backgroundColor: "#ffffff",
       };
@@ -468,9 +484,9 @@ export function previewImagePlaceholderBoxStyle(): CSSProperties {
   return {
     margin: 0,
     padding: "22px 12px",
-    border: `1px dashed ${PREVIEW_THEME.borderLight}`,
-    backgroundColor: PREVIEW_THEME.bgSoft,
-    color: PREVIEW_THEME.textMuted,
+    border: `1px dashed ${PV.borderLight}`,
+    backgroundColor: PV.bgSoft,
+    color: PV.textMuted,
     fontSize: "13px",
     lineHeight: 1.6,
     textAlign: "center",
@@ -480,7 +496,7 @@ export function previewImagePlaceholderBoxStyle(): CSSProperties {
 export function previewImageCaptionStyle(): CSSProperties {
   return {
     margin: "8px 0 0",
-    color: PREVIEW_THEME.textDefault,
+    color: PV.textDefault,
     fontSize: "16px",
     lineHeight: 1.75,
     textAlign: "center",
@@ -490,7 +506,7 @@ export function previewImageCaptionStyle(): CSSProperties {
 export function previewImageSuggestionStyle(): CSSProperties {
   return {
     margin: "6px 0 0",
-    color: PREVIEW_THEME.textMuted,
+    color: PV.textMuted,
     fontSize: "13px",
     lineHeight: 1.6,
     textAlign: "center",

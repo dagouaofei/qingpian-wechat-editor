@@ -2,6 +2,8 @@ import type { HeadingBlock, TitleBlock } from "@/core/blocks";
 
 import { assertCopySafeHtml, escapeHtml } from "./html-escape";
 import { wrapInlineElement } from "./inline-style";
+import type { ThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
+import { resolveThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
 import type { TitleBlockCopyOutput } from "@/core/renderer/types";
 import {
   extractTitleBlockText,
@@ -45,12 +47,13 @@ function renderPlainCopy(
 function renderLeftBarCopy(
   text: string,
   typography: ReturnType<typeof resolveTitleBlockTypography>,
+  palette: ThemePaletteTokens,
 ): string {
   return wrapInlineElement(
     "section",
     {
       margin: `${typography.marginBlock} 0`,
-      borderLeft: "4px solid #333333",
+      borderLeft: `4px solid ${palette.textDefault}`,
       paddingLeft: "12px",
     },
     titleParagraphHtml(text, { ...typography, textAlign: "left" }),
@@ -60,6 +63,7 @@ function renderLeftBarCopy(
 function renderBottomLineCopy(
   text: string,
   typography: ReturnType<typeof resolveTitleBlockTypography>,
+  palette: ThemePaletteTokens,
 ): string {
   return wrapInlineElement(
     "section",
@@ -67,7 +71,7 @@ function renderBottomLineCopy(
       margin: `${typography.marginBlock} 0`,
       textAlign: "center",
       paddingBottom: "8px",
-      borderBottom: "1px solid #cccccc",
+      borderBottom: `1px solid ${palette.borderLight}`,
     },
     titleParagraphHtml(text, typography),
   );
@@ -102,6 +106,7 @@ function renderTopBadgeCopy(
   text: string,
   typography: ReturnType<typeof resolveTitleBlockTypography>,
   badgeText: string | undefined,
+  palette: ThemePaletteTokens,
 ): string {
   const badgeHtml =
     badgeText != null && badgeText.length > 0
@@ -109,7 +114,7 @@ function renderTopBadgeCopy(
           "p",
           {
             margin: "0 0 4px 0",
-            color: "#666666",
+            color: palette.textMuted,
             fontSize: "12px",
             lineHeight: "1.4",
             textAlign: "center",
@@ -142,6 +147,7 @@ export function renderTitleBlockCopyHtml(
     context.resolvedBlockStyle,
     block.type,
   );
+  const palette = resolveThemePaletteTokens(context.resolvedBlockStyle.tokens.theme);
   const slots = resolveTitleBlockSlotContents(
     block,
     context.resolvedBlockStyle,
@@ -161,16 +167,16 @@ export function renderTitleBlockCopyHtml(
       );
       break;
     case "left_bar":
-      html = renderLeftBarCopy(text, typography);
+      html = renderLeftBarCopy(text, typography, palette);
       break;
     case "bottom_line":
-      html = renderBottomLineCopy(text, typography);
+      html = renderBottomLineCopy(text, typography, palette);
       break;
     case "numbered":
       html = renderNumberedCopy(text, typography, badge?.content);
       break;
     case "top_badge":
-      html = renderTopBadgeCopy(text, typography, badge?.content);
+      html = renderTopBadgeCopy(text, typography, badge?.content, palette);
       break;
     default:
       throw new Error(`unsupported titleBlock layoutMode for copy: ${layoutMode}`);

@@ -1,5 +1,6 @@
 import type { ImagePlaceholderBlock } from "@/core/blocks";
 import type { CopySafety } from "@/core/styles";
+import { resolveThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
 
 import { createRendererIssue } from "./issues";
 import type { RendererIssue, ResolvedBlockStyleView } from "./types";
@@ -39,18 +40,14 @@ export function resolveImagePlaceholderLayout(
 export function resolveImagePlaceholderTypography(
   resolved: ResolvedBlockStyleView,
 ): ImagePlaceholderTypography {
-  const themeColor = resolved.tokens.theme.color?.["text.default"] ?? "#333333";
-  const accentColor =
-    resolved.tokens.theme.color?.["text.accent"] ??
-    resolved.tokens.theme.color?.["brand.primary"] ??
-    "#576b95";
+  const palette = resolveThemePaletteTokens(resolved.tokens.theme);
   const bodyFontSize = resolved.tokens.theme.fontSize?.body ?? "16px";
   const variantSpacing = resolved.tokens.variant?.["spacing.block"];
 
   return {
-    color: themeColor,
-    mutedColor: "#666666",
-    accentColor,
+    color: palette.textDefault,
+    mutedColor: palette.textMuted,
+    accentColor: palette.textAccent,
     fontSize: bodyFontSize,
     auxFontSize: "14px",
     lineHeight: "1.7",

@@ -1,4 +1,5 @@
 import type { CopySafety } from "@/core/styles";
+import { resolveThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
 
 import type { ResolvedBlockStyleView } from "@/core/renderer/types";
 
@@ -34,13 +35,13 @@ export function resolveTextBlockTypography(
   resolved: ResolvedBlockStyleView,
   blockType: "lead" | "paragraph",
 ): TextBlockTypography {
-  const themeColor = resolved.tokens.theme.color?.["text.default"] ?? "#333333";
+  const palette = resolveThemePaletteTokens(resolved.tokens.theme);
   const variantWeight = resolved.tokens.variant?.["typography.weight"];
   const variantSpacing = resolved.tokens.variant?.["spacing.block"];
   const bodyFontSize = resolved.tokens.theme.fontSize?.body ?? "16px";
 
   return {
-    color: themeColor,
+    color: palette.textDefault,
     fontSize: blockType === "lead" ? "17px" : bodyFontSize,
     fontWeight: variantWeight === "regular" ? "400" : "400",
     lineHeight: blockType === "lead" ? "1.6" : "1.75",

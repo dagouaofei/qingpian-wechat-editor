@@ -1,5 +1,6 @@
 import type { InlineContent, InlineMark } from "@/core/article";
 import type { ThemeTokens } from "@/core/styles";
+import { resolveThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
 
 import {
   resolveInlineMarkColor,
@@ -100,7 +101,8 @@ function wrapMark(
       if (resolved.state === "stripped" || resolved.href == null) {
         return innerHtml;
       }
-      return `<a href="${escapeHtmlAttribute(resolved.href)}" style="color:#576b95;text-decoration:underline">${innerHtml}</a>`;
+      const linkColor = resolveThemePaletteTokens(options.themeTokens).textAccent;
+      return `<a href="${escapeHtmlAttribute(resolved.href)}" style="color:${linkColor};text-decoration:underline">${innerHtml}</a>`;
     }
     default:
       return innerHtml;

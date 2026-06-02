@@ -15,8 +15,13 @@ import type {
 
 import { assertCopySafeHtml, escapeHtml } from "./html-escape";
 import { wrapInlineElement } from "./inline-style";
+import type { ThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
+import { resolveThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
 
-function attributionHtml(attribution: string | undefined): string {
+function attributionHtml(
+  attribution: string | undefined,
+  typography: ReturnType<typeof resolveQuoteTypography>,
+): string {
   if (attribution == null) {
     return "";
   }
@@ -25,7 +30,7 @@ function attributionHtml(attribution: string | undefined): string {
     "p",
     {
       margin: "8px 0 0",
-      color: "#666666",
+      color: typography.mutedColor,
       fontSize: "14px",
       lineHeight: "1.6",
       textAlign: "right",
@@ -48,7 +53,7 @@ function quoteBodyHtml(
         lineHeight: typography.lineHeight,
       },
       escapeHtml(content.text),
-    ) + attributionHtml(content.attribution)
+    ) + attributionHtml(content.attribution, typography)
   );
 }
 
@@ -56,6 +61,7 @@ function wrapQuoteLayoutHtml(
   layout: QuoteLayoutKind,
   content: NormalizedQuoteContent,
   typography: ReturnType<typeof resolveQuoteTypography>,
+  palette: ThemePaletteTokens,
 ): string {
   const bodyHtml = quoteBodyHtml(content, typography);
 
@@ -82,8 +88,8 @@ function wrapQuoteLayoutHtml(
         {
           margin: `${typography.marginBlock} 0`,
           padding: "12px 16px",
-          backgroundColor: "#f9f9f9",
-          border: "1px solid #eeeeee",
+          backgroundColor: palette.bgSoft,
+          border: `1px solid ${palette.borderSoft}`,
           borderRadius: "8px",
         },
         bodyHtml,
@@ -114,7 +120,8 @@ export function renderQuoteCopyHtml(
   }
 
   const typography = resolveQuoteTypography(context.resolvedBlockStyle);
-  const html = wrapQuoteLayoutHtml(layout, normalized.content, typography);
+  const palette = resolveThemePaletteTokens(context.resolvedBlockStyle.tokens.theme);
+  const html = wrapQuoteLayoutHtml(layout, normalized.content, typography, palette);
   assertQuoteCopySafeCss(html);
 
   return {

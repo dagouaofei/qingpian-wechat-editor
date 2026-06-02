@@ -1,5 +1,6 @@
 import type { ListBlock } from "@/core/blocks";
 import type { CopySafety } from "@/core/styles";
+import { resolveThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
 
 import { createRendererIssue } from "./issues";
 import type { RendererIssue, ResolvedBlockStyleView } from "./types";
@@ -36,18 +37,14 @@ export function resolveListLayout(variantId: string): ListLayoutKind | undefined
 export function resolveListTypography(
   resolved: ResolvedBlockStyleView,
 ): ListTypography {
-  const themeColor = resolved.tokens.theme.color?.["text.default"] ?? "#333333";
-  const accentColor =
-    resolved.tokens.theme.color?.["text.accent"] ??
-    resolved.tokens.theme.color?.["brand.primary"] ??
-    "#576b95";
+  const palette = resolveThemePaletteTokens(resolved.tokens.theme);
   const bodyFontSize = resolved.tokens.theme.fontSize?.body ?? "16px";
   const variantSpacing = resolved.tokens.variant?.["spacing.block"];
 
   return {
-    color: themeColor,
-    mutedColor: "#666666",
-    markerColor: accentColor,
+    color: palette.textDefault,
+    mutedColor: palette.textMuted,
+    markerColor: palette.textAccent,
     fontSize: bodyFontSize,
     subItemFontSize: "15px",
     lineHeight: "1.75",

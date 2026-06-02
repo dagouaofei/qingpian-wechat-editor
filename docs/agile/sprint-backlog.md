@@ -9,7 +9,7 @@
 > **Sprint 3-C：** Style Assignment / Selection Validation + Orchestrator + VisualAssetRegistry · **Closed**（2026-06-01；DECISION-065；audit Grade A；P0=0 · P1=5 · P2=4；merged `release/1`）
 > **Sprint 5：** Generation / Streaming + Release 1 真实 UI 主流程闭环 · **Closed**（2026-06-02；DECISION-069；audit Grade A- · P0=0 · P1=4 · P2=3；`sprint/s5-generation-ui-main-flow` 已 merge 至 `release/1`）
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
-> **当前 Sprint：** **Sprint 6 Release 1 Visible AI Main Flow**（**In Progress** · S6-STORY-001~005 Done · S6-STORY-006A Done · S6-STORY-006 To Do）
+> **当前 Sprint：** **Sprint 6 Release 1 Visible AI Main Flow**（**In Progress** · S6-STORY-001~006 **Done** · S6-STORY-006A Done · **待 Sprint 6 整体验收**）
 > **Sprint 6 分支：** `sprint/s6-visible-ai-main-flow`（从 `release/1` 切出 · DECISION-071）
 > **Release 1 主干：** `release/1`
 
@@ -2341,7 +2341,7 @@ S3C-STORY-001（启动）
 > **Release 1 主干：** `release/1`
 > **UI 主流程入口：** **`/generate`**（S5-STORY-007 Done @ `01318c4`）
 > **Close Readiness Audit：** [`docs/architecture/audits/sprint5-main-flow-close-readiness-audit.md`](../architecture/audits/sprint5-main-flow-close-readiness-audit.md)
-> **下一步：** **S6-STORY-006** 风格 / 配色切换与粘贴 QA；Sprint 7/8 Planned · 未启动；**不 merge `main`**
+> **下一步：** Sprint 6 整体验收 / Close Readiness；Sprint 7/8 Planned · 未启动；**不 merge `main`**
 > **Sprint 5 不做：** 真实微信公众号 Paste QA 全量回归、不宣称复制到公众号最终保真通过、Style Gallery、真实 QR / 小程序 / 图片上传托管 / AI 生图、复杂编辑器 / block 级编辑、样式市场、merge 至 `main`
 > **保留原则：** 真实 Paste QA 归 **Sprint 8**；Style Gallery / 样式丰富度归 **Sprint 7**；Sprint 5 技术 smoke **不替代** Release 1 用户可见验收与 Paste QA
 
@@ -2835,7 +2835,7 @@ S6-STORY-003 真实 AI 生成结构化 Article — Done
 S6-STORY-004 预览页与带样式文章渲染 — Done
 S6-STORY-005 基础生成反馈与轻量打字机体验 — Done
 S6-STORY-006A 首页 / 预览 UI Shell 对齐 miaopian-demo — Done
-S6-STORY-006 风格 / 配色基础切换与复制到公众号 — To Do
+S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 ```
 
 ---
@@ -2995,7 +2995,7 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — To Do
 
 **用户故事：** 作为用户，我可以切换基础风格和配色，复制文章到公众号编辑器，并做最小粘贴验证。
 
-**优先级：** P0 · **状态：** To Do · **工作分支：** `feature/s6-style-palette-copy-paste-qa`（启动时创建）
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s6-style-palette-copy-paste-qa`（**已 merge 至 sprint** · PO 2026-06-02）
 
 **对应 Product Backlog：** PB-R1-05、PB-R1-07、PB-R1-08
 
@@ -3003,13 +3003,25 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — To Do
 
 **目标：** 基础风格与配色切换；Copy Renderer + Clipboard；最小手动粘贴 QA 记录。
 
+**实际产物：**
+
+| 路径 | 说明 |
+|------|------|
+| `src/components/preview/preview-style-controls.tsx` | 预览侧栏风格 / 配色切换 UI |
+| `src/lib/preview-style-controls.ts` | 风格控制状态与 styleIntent 映射 |
+| `src/lib/preview-color-palette.ts` | 配色 palette + CSS 变量 |
+| `src/lib/render-article-preview-client.ts` | 客户端重跑 Style Selection + Preview/Copy |
+| `src/core/styles/variants/index.ts` | 新增 `warm-editorial` theme |
+| `src/core/styles/theme-palette-tokens.ts` | Copy / Preview 共享 theme palette 解析 |
+| `docs/agile/paste-qa/s6-minimal-paste-qa.md` | 最小粘贴 QA 手测记录（PO 2026-06-02 通过） |
+
 **验收标准：**
 
-- [ ] AC-1 用户可切换基础文章风格，整篇视觉有差异
-- [ ] AC-2 用户可切换配色，整篇视觉有差异
-- [ ] AC-3 Copy 按钮；payload 来自 Copy Renderer（`text/html` + `text/plain`）
-- [ ] AC-4 最小粘贴 QA：公众号编辑器 + 135 编辑器；记录已知问题 backlog
-- [ ] AC-5 不宣称 Sprint 8 全量 Paste QA / Release 1 关闭已通过
+- [x] AC-1 用户可切换基础文章风格，整篇视觉有差异（经典资讯 vs 经典简约 → variant 差异）
+- [x] AC-2 用户可切换配色，整篇视觉有差异（默认 vs 暖色编辑 → theme + CSS palette）
+- [x] AC-3 Copy 按钮；payload 来自 Copy Renderer（切换后客户端重渲染 clipboard）
+- [x] AC-4 最小粘贴 QA 已完成（`docs/agile/paste-qa/s6-minimal-paste-qa.md`；PO 2026-06-02；含暖色复制公众号验证）
+- [x] AC-5 不宣称 Sprint 8 全量 Paste QA / Release 1 关闭已通过
 
 ---
 

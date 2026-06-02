@@ -41,6 +41,9 @@ import type {
   RendererOutputPlaceholder,
 } from "@/core/renderer";
 
+import type { PreviewColorPaletteId } from "@/lib/preview-color-palette";
+import { previewPaletteCssVariables } from "@/lib/preview-color-palette";
+
 import type { SerializedPreviewBlock } from "./types";
 
 function renderInlineNodes(nodes: PreviewInlineNode[]) {
@@ -63,7 +66,7 @@ function renderInlineNodes(nodes: PreviewInlineNode[]) {
               <a
                 key={markIndex}
                 href={mark.href}
-                style={{ color: PREVIEW_THEME.textAccent, textDecoration: "underline" }}
+                style={{ color: "var(--preview-text-accent, #576b95)", textDecoration: "underline" }}
               >
                 {child}
               </a>
@@ -132,7 +135,7 @@ function StreamingCaret() {
         height: "1em",
         marginLeft: "2px",
         verticalAlign: "text-bottom",
-        backgroundColor: PREVIEW_THEME.textAccent,
+        backgroundColor: "var(--preview-text-accent, #576b95)",
         animation: "preview-caret-blink 1s step-end infinite",
       }}
     />
@@ -378,15 +381,20 @@ export function ArticlePreviewPanel({
   activeBlockId,
   showStreamingCaret,
   disableBlockRevealAnimation = false,
+  colorPalette = "default",
 }: {
   blocks: SerializedPreviewBlock[];
   activeBlockId?: string | null;
   showStreamingCaret?: boolean;
   disableBlockRevealAnimation?: boolean;
+  colorPalette?: PreviewColorPaletteId;
 }) {
   return (
     <div
-      style={previewArticleContainerStyle()}
+      style={{
+        ...previewArticleContainerStyle(),
+        ...previewPaletteCssVariables(colorPalette),
+      }}
       data-testid="article-preview-panel"
     >
       <style>{`

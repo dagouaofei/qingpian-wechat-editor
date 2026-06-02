@@ -59,9 +59,9 @@
 | **Sprint 4-B** | **Closed**（2026-06-01；DECISION-063） |
 | **Sprint 3-C** | **Closed**（2026-06-01；DECISION-065；audit Grade A；merged `release/1`） |
 | **Sprint 5** | **Closed**（2026-06-02；DECISION-069；S5-STORY-001~008 Done；audit Grade A- · P0=0；merged `release/1`） |
-| **Sprint 6** | **In Progress**（2026-06-02；DECISION-071、072；S6-STORY-001~004 Done；`feature/s6-home-ai-preview-flow` 已 merge 至 sprint） |
+| **Sprint 6** | **In Progress**（2026-06-02；S6-STORY-001~006 Done；待整体验收） |
 | **Release 1 主干** | `release/1` |
-| **下一步** | **S6-STORY-005** 基础生成反馈与轻量打字机；S6-STORY-006 待启动；不 merge `main` |
+| **下一步** | Sprint 6 整体验收 / Close Readiness；不 merge `main` |
 
 ---
 
@@ -535,8 +535,8 @@ S6-STORY-001 Sprint 6 Planning 与 Backlog / Story Map 对齐 — Done
 S6-STORY-002 首页输入与生成入口 — Done
 S6-STORY-003 真实 AI 生成结构化 Article — Done
 S6-STORY-004 预览页与带样式文章渲染 — Done
-S6-STORY-005 基础生成反馈与轻量打字机体验 — To Do
-S6-STORY-006 风格 / 配色基础切换与复制到公众号 — To Do
+S6-STORY-005 基础生成反馈与轻量打字机体验 — Done
+S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 ```
 
 **Product Backlog 来源：** PB-R1-01 ~ PB-R1-08

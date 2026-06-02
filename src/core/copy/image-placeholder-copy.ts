@@ -15,6 +15,8 @@ import type {
 
 import { assertCopySafeHtml, escapeHtml } from "./html-escape";
 import { wrapInlineElement } from "./inline-style";
+import type { ThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
+import { resolveThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
 
 function captionHtml(
   caption: string | undefined,
@@ -61,14 +63,15 @@ function suggestionHtml(
 function placeholderBoxHtml(
   content: NormalizedImagePlaceholderContent,
   typography: ReturnType<typeof resolveImagePlaceholderTypography>,
+  palette: ThemePaletteTokens,
 ): string {
   return wrapInlineElement(
     "section",
     {
       margin: "0",
       padding: "22px 12px",
-      border: "1px dashed #cccccc",
-      backgroundColor: "#f9f9f9",
+      border: `1px dashed ${palette.borderLight}`,
+      backgroundColor: palette.bgSoft,
       color: typography.mutedColor,
       fontSize: typography.auxFontSize,
       lineHeight: "1.6",
@@ -84,9 +87,10 @@ function wrapImagePlaceholderHtml(
   layout: ImagePlaceholderLayoutKind,
   content: NormalizedImagePlaceholderContent,
   typography: ReturnType<typeof resolveImagePlaceholderTypography>,
+  palette: ThemePaletteTokens,
 ): string {
   const body =
-    placeholderBoxHtml(content, typography) +
+    placeholderBoxHtml(content, typography, palette) +
     captionHtml(content.caption, typography) +
     suggestionHtml(content.suggestion, typography);
 
@@ -95,7 +99,7 @@ function wrapImagePlaceholderHtml(
       return wrapInlineElement(
         "section",
         { margin: `${typography.marginBlock} 0` },
-        placeholderBoxHtml(content, typography),
+        placeholderBoxHtml(content, typography, palette),
       );
     case "caption":
       return wrapInlineElement(
@@ -109,7 +113,7 @@ function wrapImagePlaceholderHtml(
         {
           margin: `${typography.marginBlock} 0`,
           padding: "12px",
-          border: "1px solid #eeeeee",
+          border: `1px solid ${palette.borderSoft}`,
           borderRadius: "8px",
           backgroundColor: "#ffffff",
         },
@@ -142,7 +146,8 @@ export function renderImagePlaceholderCopyHtml(
       : { content: normalizedContent, issues: [] };
 
   const typography = resolveImagePlaceholderTypography(context.resolvedBlockStyle);
-  const html = wrapImagePlaceholderHtml(layout, normalized.content, typography);
+  const palette = resolveThemePaletteTokens(context.resolvedBlockStyle.tokens.theme);
+  const html = wrapImagePlaceholderHtml(layout, normalized.content, typography, palette);
   assertImagePlaceholderCopySafeCss(html);
 
   return {

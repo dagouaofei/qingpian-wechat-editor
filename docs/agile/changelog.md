@@ -378,3 +378,12 @@
 | 2026-06-02 | Sprint 6 | 流式预览接入 `generateDeterministicStyleSelection`；list structured block 就绪校验 | 代码 | S6-STORY-005 |
 | 2026-06-02 | Sprint 6 | PO 验收通过；`feature/s6-generation-feedback-typewriter` merge 至 `sprint/s6-visible-ai-main-flow` @ `ce967b1` | 敏捷 / Git | S6-STORY-005, S6-STORY-006A |
 | 2026-06-02 | Sprint 6 | **S6-STORY-006** 仍为 **To Do**（风格 / 配色切换 + Paste QA 专项） | 敏捷 | S6-STORY-006 |
+
+## 2026-06-02 · S6-STORY-006 风格 / 配色切换与复制（In Review）
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-02 | Sprint 6 | **S6-STORY-006 In Review**：预览侧栏风格 / 配色切换；客户端重渲染 Preview + Copy；最小粘贴 QA 清单 | 代码 / UI / 文档 | S6-STORY-006, PB-R1-05, PB-R1-07, PB-R1-08 |
+| 2026-06-02 | Sprint 6 | 新增 `warm-editorial` theme、`renderArticlePreviewClient()`、`docs/agile/paste-qa/s6-minimal-paste-qa.md` | 代码 / Style | S6-STORY-006 |
+| 2026-06-02 | Sprint 6 | **Bugfix**：Copy Renderer 接入 theme palette tokens；暖色复制写入 inline hex（非 CSS 变量） | 代码 / Copy | S6-STORY-006 |
+| 2026-06-02 | Sprint 6 | **S6-STORY-006 Done**：PO 手测通过（含暖色复制公众号）；待 merge sprint | 敏捷 | S6-STORY-006 |

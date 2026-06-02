@@ -15,8 +15,13 @@ import type {
 
 import { assertCopySafeHtml, escapeHtml } from "./html-escape";
 import { wrapInlineElement } from "./inline-style";
+import type { ThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
+import { resolveThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
 
-function labelHtml(label: string | undefined): string {
+function labelHtml(
+  label: string | undefined,
+  palette: ThemePaletteTokens,
+): string {
   if (label == null) {
     return "";
   }
@@ -25,7 +30,7 @@ function labelHtml(label: string | undefined): string {
     "p",
     {
       margin: "0 0 6px",
-      color: "#576b95",
+      color: palette.textAccent,
       fontSize: "13px",
       lineHeight: "1.5",
       fontWeight: "600",
@@ -37,9 +42,10 @@ function labelHtml(label: string | undefined): string {
 function bodyHtml(
   content: NormalizedHighlightContent,
   typography: ReturnType<typeof resolveHighlightTypography>,
+  palette: ThemePaletteTokens,
 ): string {
   return (
-    labelHtml(content.label) +
+    labelHtml(content.label, palette) +
     wrapInlineElement(
       "p",
       {
@@ -57,8 +63,9 @@ function wrapHighlightLayoutHtml(
   layout: HighlightLayoutKind,
   content: NormalizedHighlightContent,
   typography: ReturnType<typeof resolveHighlightTypography>,
+  palette: ThemePaletteTokens,
 ): string {
-  const innerHtml = bodyHtml(content, typography);
+  const innerHtml = bodyHtml(content, typography, palette);
 
   switch (layout) {
     case "inline_emphasis":
@@ -77,7 +84,7 @@ function wrapHighlightLayoutHtml(
         {
           margin: `${typography.marginBlock} 0`,
           padding: "10px 14px",
-          backgroundColor: "#f5f7fb",
+          backgroundColor: palette.bgBandBlue,
           borderLeft: `4px solid ${typography.accentColor}`,
         },
         innerHtml,
@@ -88,8 +95,8 @@ function wrapHighlightLayoutHtml(
         {
           margin: `${typography.marginBlock} 0`,
           padding: "12px 16px",
-          backgroundColor: "#f9f9f9",
-          border: "1px solid #eeeeee",
+          backgroundColor: palette.bgSoft,
+          border: `1px solid ${palette.borderSoft}`,
           borderRadius: "8px",
         },
         innerHtml,
@@ -125,7 +132,8 @@ export function renderHighlightCopyHtml(
   }
 
   const typography = resolveHighlightTypography(context.resolvedBlockStyle);
-  const html = wrapHighlightLayoutHtml(layout, normalized.content, typography);
+  const palette = resolveThemePaletteTokens(context.resolvedBlockStyle.tokens.theme);
+  const html = wrapHighlightLayoutHtml(layout, normalized.content, typography, palette);
   assertHighlightCopySafeCss(html);
 
   return {

@@ -11,6 +11,7 @@ import {
 } from "@/app/generate/types";
 import { GenerationAnalysisPanel } from "@/components/preview/generation-analysis-panel";
 import { PreviewGeneratingStatus } from "@/components/preview/preview-generating-status";
+import { PreviewStyleControls } from "@/components/preview/preview-style-controls";
 import { ArrowLeftIcon, CopyIcon, SparklesIcon } from "@/components/ui-shell/icons";
 import { PageShell } from "@/components/ui-shell/page-shell";
 import {
@@ -37,6 +38,11 @@ import {
   computeStreamingPreviewContentRevision,
   renderStreamingPreviewBlocks,
 } from "@/lib/render-streaming-preview";
+import { renderArticlePreviewClient } from "@/lib/render-article-preview-client";
+import {
+  resolveInitialPreviewStyleControl,
+  type PreviewStyleControlState,
+} from "@/lib/preview-style-controls";
 import { usePreviewStreamScroll } from "@/lib/use-preview-stream-scroll";
 
 import type { StreamingPreviewBlock } from "./streaming-preview-panel";
@@ -95,6 +101,9 @@ export function PreviewPageClient() {
   const [activeBlockId, setActiveBlockId] = useState<string | null>(null);
   const [result, setResult] = useState<Extract<GenerateApiResponse, { ok: true }> | null>(
     null,
+  );
+  const [styleControl, setStyleControl] = useState<PreviewStyleControlState>(() =>
+    resolveInitialPreviewStyleControl(form),
   );
 
   const topic = form.topic || "未命名主题";
@@ -167,6 +176,7 @@ export function PreviewPageClient() {
     setResult(null);
     setStreamingBlocks([]);
     setActiveBlockId(null);
+    setStyleControl(resolveInitialPreviewStyleControl(form));
 
     const inputRequest = buildHomeInputRequest(form);
 
@@ -252,6 +262,23 @@ export function PreviewPageClient() {
     ? GENERATE_ERROR_LABELS.input_validation
     : errorCategory;
 
+  const styledPreview = useMemo(() => {
+    if (displayState !== "done" || !result) {
+      return null;
+    }
+
+    const rendered = renderArticlePreviewClient(
+      result.data.article,
+      streamingStyleInput,
+      styleControl,
+    );
+
+    return {
+      previewBlocks: rendered.previewBlocks,
+      clipboard: rendered.clipboard,
+    };
+  }, [displayState, result, streamingStyleInput, styleControl]);
+
   const analysisSteps = buildAnalysisSteps(analysisStepIndex);
   const analysisDetail =
     phaseMessage ??
@@ -260,8 +287,13 @@ export function PreviewPageClient() {
       : "正在理解主题并组织文章结构…");
 
   const livePreviewBlocks = useMemo(() => {
-    if (displayState === "done" && result) {
-      return result.data.previewBlocks;
+    if (displayState === "done") {
+      if (styledPreview) {
+        return styledPreview.previewBlocks;
+      }
+      if (result) {
+        return result.data.previewBlocks;
+      }
     }
     if (streamingBlocks.length > 0) {
       return renderStreamingPreviewBlocks(streamingBlocks, topic, {
@@ -270,21 +302,34 @@ export function PreviewPageClient() {
       });
     }
     return [];
-  }, [displayState, form.basicStyle, result, streamingBlocks, streamingStyleInput, topic]);
+  }, [
+    displayState,
+    form.basicStyle,
+    result,
+    streamingBlocks,
+    streamingStyleInput,
+    styledPreview,
+    topic,
+  ]);
+
+  const activeClipboard =
+    displayState === "done" && styledPreview
+      ? styledPreview.clipboard
+      : result?.data.clipboard;
 
   const showPreviewShell =
     displayState !== "error" &&
     (isLiveGeneration || livePreviewBlocks.length > 0 || displayState === "done");
 
-  const canCopy = displayState === "done" && Boolean(result?.data.clipboard);
+  const canCopy = displayState === "done" && Boolean(activeClipboard);
   const showStreamingPreviewPanel =
     livePreviewBlocks.length > 0 || (isLiveGeneration && streamingBlocks.length > 0);
 
   async function handleCopy() {
-    if (!result?.data.clipboard) {
+    if (!activeClipboard) {
       return;
     }
-    const copyResult = await copyClipboardPayload(result.data.clipboard);
+    const copyResult = await copyClipboardPayload(activeClipboard);
     setCopyMessage(copyResult.message);
   }
 
@@ -342,9 +387,15 @@ export function PreviewPageClient() {
                     )}
                   </div>
                 ) : (
-                  <div className="rounded-xl border border-slate-200 bg-slate-50/80 p-3 text-sm text-slate-600">
-                    生成完成，可在右侧预览并复制到公众号。
-                  </div>
+                  <>
+                    <div className="rounded-xl border border-slate-200 bg-slate-50/80 p-3 text-sm text-slate-600">
+                      生成完成，可在右侧预览并复制到公众号。
+                    </div>
+                    <PreviewStyleControls
+                      value={styleControl}
+                      onChange={setStyleControl}
+                    />
+                  </>
                 )}
 
                 <div className="flex flex-col gap-2">
@@ -473,6 +524,7 @@ export function PreviewPageClient() {
                           displayState === "streaming" || displayState === "finalizing"
                         }
                         disableBlockRevealAnimation={isLiveGeneration}
+                        colorPalette={styleControl.colorPalette}
                       />
                     ) : (
                       <div

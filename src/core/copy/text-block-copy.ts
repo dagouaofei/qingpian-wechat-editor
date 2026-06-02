@@ -15,6 +15,8 @@ import {
   resolveTextBlockLayout,
   resolveTextBlockTypography,
 } from "@/core/renderer/text-block-typography";
+import type { ThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
+import { resolveThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
 
 function paragraphShell(
   innerHtml: string,
@@ -39,6 +41,7 @@ function wrapLayoutHtml(
   layout: TextBlockLayoutKind,
   innerHtml: string,
   typography: TextBlockTypography,
+  palette: ThemePaletteTokens,
 ): string {
   const margin = typography.marginBlock;
 
@@ -55,8 +58,8 @@ function wrapLayoutHtml(
         {
           margin: `${margin} 0`,
           padding: "12px 16px",
-          backgroundColor: "#f5f5f5",
-          borderLeft: "4px solid #576b95",
+          backgroundColor: palette.bgBand,
+          borderLeft: `4px solid ${palette.textAccent}`,
         },
         paragraphShell(innerHtml, typography),
       );
@@ -66,7 +69,7 @@ function wrapLayoutHtml(
         {
           margin: `${margin} 0`,
           paddingLeft: "12px",
-          borderLeft: "3px solid #cccccc",
+          borderLeft: `3px solid ${palette.borderLight}`,
         },
         paragraphShell(innerHtml, typography, { fontStyle: "italic" }),
       );
@@ -76,7 +79,7 @@ function wrapLayoutHtml(
         {
           margin: `${margin} 0`,
           paddingLeft: "12px",
-          borderLeft: "3px solid #576b95",
+          borderLeft: `3px solid ${palette.textAccent}`,
         },
         paragraphShell(innerHtml, typography),
       );
@@ -86,8 +89,8 @@ function wrapLayoutHtml(
         {
           margin: `${margin} 0`,
           padding: "12px 16px",
-          backgroundColor: "#f9f9f9",
-          border: "1px solid #eeeeee",
+          backgroundColor: palette.bgSoft,
+          border: `1px solid ${palette.borderSoft}`,
           borderRadius: "8px",
         },
         paragraphShell(innerHtml, typography),
@@ -111,6 +114,7 @@ export function renderTextBlockCopyHtml(
     context.resolvedBlockStyle,
     block.type,
   );
+  const palette = resolveThemePaletteTokens(context.resolvedBlockStyle.tokens.theme);
   const inlineContent = normalizeInlineContent(block.content.text);
   const { html: inlineHtml, warnings } = renderInlineContentToCopyHtml({
     content: inlineContent,
@@ -121,7 +125,7 @@ export function renderTextBlockCopyHtml(
     variantId: context.resolvedBlockStyle.variantId,
   });
 
-  const html = wrapLayoutHtml(layout, inlineHtml, typography);
+  const html = wrapLayoutHtml(layout, inlineHtml, typography, palette);
   assertCopySafeHtml(html);
 
   return {
