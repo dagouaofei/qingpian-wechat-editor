@@ -26,7 +26,16 @@ PO 手测通过后，commit 工作分支并 merge 至 sprint；同步 Story / Pa
 - **下一步：** Sprint 6 整体验收 / Close Readiness
 - **未做：** merge `release/1` / `main`
 
-## 5. Commit
+## 5. Git
 
-- Feature branch commit：（见下方 hash，merge 后填写）
-- Sprint merge commit：（见下方 hash，merge 后填写）
+| 项 | 值 |
+|----|-----|
+| Feature commit | `e7391e5` |
+| Merge 至 sprint | `sprint/s6-visible-ai-main-flow` @ `e7391e5`（fast-forward） |
+| merge `release/1` | 未执行 |
+| merge `main` | 未执行 |
+
+## 6. 建议下一步
+
+1. Sprint 6 Close Readiness 审查（001~006 均已 Done）
+2. 用户确认后 merge `sprint/s6-visible-ai-main-flow` → `release/1`

@@ -2995,7 +2995,7 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 **用户故事：** 作为用户，我可以切换基础风格和配色，复制文章到公众号编辑器，并做最小粘贴验证。
 
-**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s6-style-palette-copy-paste-qa`（**已 merge 至 sprint** · PO 2026-06-02）
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s6-style-palette-copy-paste-qa`（**已 merge 至 sprint** @ `e7391e5` · PO 2026-06-02）
 
 **对应 Product Backlog：** PB-R1-05、PB-R1-07、PB-R1-08
 
