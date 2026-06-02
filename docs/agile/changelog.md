@@ -419,3 +419,9 @@
 | 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
 |------|--------|----------|----------|----------------------|
 | 2026-06-02 | Sprint 7 | **S7-STORY-002** 8 套 fixture + Gallery；merge @ `429ce30` | 代码 / Fixture | S7-STORY-002, DECISION-081 |
+
+## 2026-06-02 · S7-STORY-003/004 合并 · Gallery + title/heading
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-02 | Sprint 7 | **DECISION-082**：S7-STORY-003 与 004 合并；Gallery Copy/聚焦/variant + title/heading polish | 代码 / Docs / `/gallery` | S7-STORY-003, DECISION-082 |

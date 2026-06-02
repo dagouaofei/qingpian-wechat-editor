@@ -49,12 +49,14 @@ function renderLeftBarCopy(
   typography: ReturnType<typeof resolveTitleBlockTypography>,
   palette: ThemePaletteTokens,
 ): string {
+  const isTitle = typography.marginBlock === "28px";
   return wrapInlineElement(
     "section",
     {
       margin: `${typography.marginBlock} 0`,
-      borderLeft: `4px solid ${palette.textDefault}`,
-      paddingLeft: "12px",
+      borderLeft: `${isTitle ? 5 : 3}px solid ${palette.textAccent}`,
+      paddingLeft: isTitle ? "14px" : "12px",
+      ...(isTitle ? { backgroundColor: palette.bgSoft } : {}),
     },
     titleParagraphHtml(text, { ...typography, textAlign: "left" }),
   );
@@ -70,8 +72,8 @@ function renderBottomLineCopy(
     {
       margin: `${typography.marginBlock} 0`,
       textAlign: "center",
-      paddingBottom: "8px",
-      borderBottom: `1px solid ${palette.borderLight}`,
+      paddingBottom: "10px",
+      borderBottom: `2px solid ${palette.textAccent}`,
     },
     titleParagraphHtml(text, typography),
   );
@@ -113,11 +115,13 @@ function renderTopBadgeCopy(
       ? wrapInlineElement(
           "p",
           {
-            margin: "0 0 4px 0",
-            color: palette.textMuted,
-            fontSize: "12px",
+            margin: "0 0 6px 0",
+            color: palette.textAccent,
+            fontSize: "11px",
+            fontWeight: "600",
             lineHeight: "1.4",
             textAlign: "center",
+            letterSpacing: "0.08em",
           },
           escapeHtml(badgeText),
         )
@@ -128,6 +132,9 @@ function renderTopBadgeCopy(
     {
       margin: `${typography.marginBlock} 0`,
       textAlign: "center",
+      padding: "12px 16px 8px",
+      backgroundColor: palette.bgBandBlue,
+      borderRadius: "8px",
     },
     `${badgeHtml}${titleParagraphHtml(text, typography)}`,
   );

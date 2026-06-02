@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
+import { GalleryCopyPreviewPanel } from "@/components/gallery/gallery-copy-preview-panel";
+import { GalleryTitleHeadingControls } from "@/components/gallery/gallery-title-heading-controls";
 import { ArticlePreviewPanel } from "@/components/preview/article-preview-panel";
 import { PreviewStyleControls } from "@/components/preview/preview-style-controls";
 import { PageShell } from "@/components/ui-shell/page-shell";
@@ -19,15 +21,15 @@ import {
   type GallerySampleId,
 } from "@/fixtures/gallery-articles";
 import {
-  DEFAULT_PREVIEW_STYLE_CONTROL,
-  type PreviewStyleControlState,
-} from "@/lib/preview-style-controls";
+  DEFAULT_GALLERY_STYLE_CONTROL,
+  type GalleryStyleControlState,
+} from "@/lib/gallery-style-controls";
 import { renderGalleryPreview } from "@/lib/render-gallery-preview";
 
 export function GalleryPageClient() {
   const [sampleId, setSampleId] = useState<GallerySampleId>("sample-knowledge");
-  const [styleControl, setStyleControl] = useState<PreviewStyleControlState>(
-    DEFAULT_PREVIEW_STYLE_CONTROL,
+  const [styleControl, setStyleControl] = useState<GalleryStyleControlState>(
+    DEFAULT_GALLERY_STYLE_CONTROL,
   );
 
   const preview = useMemo(
@@ -46,7 +48,7 @@ export function GalleryPageClient() {
             样式进展展台
           </h1>
           <p className="max-w-2xl text-slate-600">
-            用 fixture Article 即时渲染 Preview，不调用 AI。每轮 Renderer / Style 改动应在此页肉眼可见。
+            用 fixture Article 即时渲染 Preview / Copy，不调用 AI。Title / Heading variant 与聚焦模式便于层级评审。
           </p>
           <p className="text-sm text-slate-500">
             用户主路径：
@@ -91,6 +93,13 @@ export function GalleryPageClient() {
             <ShellCard>
               <PreviewStyleControls
                 value={styleControl}
+                onChange={(next) => setStyleControl({ ...styleControl, ...next })}
+              />
+            </ShellCard>
+
+            <ShellCard>
+              <GalleryTitleHeadingControls
+                value={styleControl}
                 onChange={setStyleControl}
               />
             </ShellCard>
@@ -109,16 +118,32 @@ export function GalleryPageClient() {
             ) : null}
           </aside>
 
-          <ShellCard className="min-h-[480px]">
-            <div className="mb-4 flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-4">
-              <h2 className="text-lg font-semibold text-slate-900">Preview 渲染</h2>
-              <ShellBadge>fixture · 无 AI</ShellBadge>
-            </div>
-            <ArticlePreviewPanel
-              blocks={preview.previewBlocks}
-              colorPalette={styleControl.colorPalette}
+          <div className="space-y-6">
+            <ShellCard className="min-h-[480px]">
+              <div className="mb-4 flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-4">
+                <h2 className="text-lg font-semibold text-slate-900">
+                  Preview 渲染
+                  {styleControl.focusTitleHeading ? (
+                    <span className="ml-2 text-sm font-normal text-indigo-600">
+                      · title / heading 聚焦
+                    </span>
+                  ) : null}
+                </h2>
+                <ShellBadge>fixture · 无 AI</ShellBadge>
+              </div>
+              <ArticlePreviewPanel
+                blocks={preview.displayBlocks}
+                colorPalette={styleControl.colorPalette}
+              />
+            </ShellCard>
+
+            <GalleryCopyPreviewPanel
+              textHtml={preview.clipboard.textHtml}
+              textPlain={preview.clipboard.textPlain}
+              issueCount={preview.clipboard.issueCount}
+              warningCount={preview.clipboard.warningCount}
             />
-          </ShellCard>
+          </div>
         </div>
 
         <div className="mt-8 flex flex-wrap gap-3">

@@ -58,6 +58,9 @@ export function renderArticlePreviewClient(
   article: Article,
   normalizedInput: NormalizedInput,
   control: PreviewStyleControlState,
+  options?: {
+    postStyleSelectionPatch?: (article: Article) => Article;
+  },
 ): RenderArticlePreviewClientResult {
   const registry = createFirstWaveRequiredVariantRegistry();
   const themedArticle = applyPreviewThemeToArticle(article, control.colorPalette);
@@ -69,9 +72,13 @@ export function renderArticlePreviewClient(
     registry,
   });
 
-  const styledArticle = styleResult.applied
+  const styledArticleBase = styleResult.applied
     ? applyPreviewThemeToArticle(styleResult.article, control.colorPalette)
     : themedArticle;
+
+  const styledArticle = options?.postStyleSelectionPatch
+    ? options.postStyleSelectionPatch(styledArticleBase)
+    : styledArticleBase;
 
   const resolvedArticleStyle = resolveArticleStyle(styledArticle, registry);
   const previewRegistry = createRelease1FirstWavePreviewRendererRegistry();

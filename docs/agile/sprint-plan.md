@@ -568,6 +568,8 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 **Stories：** S7-STORY-001 ~ S7-STORY-007 — 见 `sprint-backlog.md`
 
+**下一步：** **S7-STORY-003**（合并版 Gallery + title/heading · DECISION-082）→ S7-STORY-005
+
 **不做：**
 
 - 不替代 Sprint 8 Paste QA

@@ -57,7 +57,7 @@ export function previewTitleContainerStyle(
   layoutMode: TitleBlockLayoutMode,
   blockType: "title" | "heading",
 ): CSSProperties {
-  const marginBlock = blockType === "title" ? "24px" : "20px";
+  const marginBlock = blockType === "title" ? "28px" : "22px";
   const base: CSSProperties = { margin: `${marginBlock} 0` };
 
   switch (layoutMode) {
@@ -65,26 +65,34 @@ export function previewTitleContainerStyle(
       return {
         ...base,
         textAlign: blockType === "title" ? "center" : "left",
+        padding: blockType === "title" ? "0 12px" : undefined,
       };
     case "left_bar":
       return {
         ...base,
-        borderLeft: `4px solid ${PV.textDefault}`,
-        paddingLeft: "12px",
+        borderLeft: `${blockType === "title" ? 5 : 3}px solid ${PV.textAccent}`,
+        paddingLeft: blockType === "title" ? "14px" : "12px",
+        backgroundColor: blockType === "title" ? PV.bgSoft : undefined,
       };
     case "bottom_line":
       return {
         ...base,
         textAlign: "center",
-        paddingBottom: "8px",
-        borderBottom: `1px solid ${PV.borderLight}`,
+        paddingBottom: "10px",
+        borderBottom: `2px solid ${PV.textAccent}`,
       };
     case "numbered":
-      return base;
+      return {
+        ...base,
+        paddingLeft: "4px",
+      };
     case "top_badge":
       return {
         ...base,
         textAlign: "center",
+        padding: "12px 16px 8px",
+        backgroundColor: PV.bgBandBlue,
+        borderRadius: "8px",
       };
     default:
       return base;
@@ -95,19 +103,23 @@ export function previewTitleTextStyle(blockType: "title" | "heading"): CSSProper
   return {
     margin: 0,
     color: PV.textDefault,
-    fontSize: blockType === "title" ? "22px" : "18px",
-    fontWeight: 600,
-    lineHeight: 1.4,
+    fontSize: blockType === "title" ? "24px" : "17px",
+    fontWeight: blockType === "title" ? 700 : 600,
+    lineHeight: blockType === "title" ? 1.35 : 1.45,
+    letterSpacing: blockType === "title" ? "0.02em" : undefined,
   };
 }
 
 export function previewTitleBadgeStyle(): CSSProperties {
   return {
-    margin: "0 0 4px",
-    color: PV.textMuted,
-    fontSize: "12px",
+    margin: "0 0 6px",
+    color: PV.textAccent,
+    fontSize: "11px",
+    fontWeight: 600,
     lineHeight: 1.4,
     textAlign: "center",
+    letterSpacing: "0.08em",
+    textTransform: "uppercase",
   };
 }
 

@@ -17,15 +17,14 @@ export function resolveTitleBlockTypography(
   blockType: "title" | "heading",
 ): TitleBlockTypography {
   const themeColor = resolved.tokens.theme.color?.["text.default"] ?? "#333333";
-  const variantWeight = resolved.tokens.variant?.["typography.weight"];
   const variantSpacing = resolved.tokens.variant?.["spacing.block"];
 
   return {
     color: themeColor,
-    fontSize: blockType === "title" ? "22px" : "18px",
-    fontWeight: variantWeight === "bold" ? "bold" : "600",
-    lineHeight: "1.4",
-    marginBlock: variantSpacing ?? (blockType === "title" ? "24px" : "20px"),
+    fontSize: blockType === "title" ? "24px" : "17px",
+    fontWeight: blockType === "title" ? "700" : "600",
+    lineHeight: blockType === "title" ? "1.35" : "1.45",
+    marginBlock: variantSpacing ?? (blockType === "title" ? "28px" : "22px"),
     textAlign: blockType === "title" ? "center" : "left",
   };
 }

@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { IMPLEMENTED_FIRST_WAVE_VARIANT_IDS } from "@/core/styles/variants";
+import { DEFAULT_GALLERY_STYLE_CONTROL } from "@/lib/gallery-style-controls";
 import { renderGalleryPreview } from "@/lib/render-gallery-preview";
 
 describe("renderGalleryPreview", () => {
@@ -24,10 +25,12 @@ describe("renderGalleryPreview", () => {
 
   it("reacts to style control changes", () => {
     const decorative = renderGalleryPreview("sample-knowledge", {
+      ...DEFAULT_GALLERY_STYLE_CONTROL,
       articleStyle: "classic-news",
       colorPalette: "default",
     });
     const plain = renderGalleryPreview("sample-knowledge", {
+      ...DEFAULT_GALLERY_STYLE_CONTROL,
       articleStyle: "classic",
       colorPalette: "default",
     });

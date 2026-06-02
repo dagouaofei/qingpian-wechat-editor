@@ -77,6 +77,7 @@
 | DECISION-079 | 2026-06-02 | 正式启动 Sprint 7；S7-STORY-001 含 miaopian 协作对齐 + UX gap 文档；样式/Gallery 归 S7-STORY-002~006 | 已确认 |
 | DECISION-080 | 2026-06-02 | 暂停 Sprint 7 功能线；Visible-first Cursor 轮次规则；先行 `/gallery` 进展展台；`/generate` 页面已删除 | 已确认 |
 | DECISION-081 | 2026-06-02 | 恢复 Sprint 7；S7-STORY-002 样例集扩至 **8 套**常见公众号文章类型 | 已确认 |
+| DECISION-082 | 2026-06-02 | 合并 S7-STORY-003 与 S7-STORY-004 为单一 Story 003（Gallery UX + title/heading 丰富度）；004 标 Merged | 已确认 |
 
 ### DECISION-019 详情
 
@@ -657,6 +658,23 @@
   5. 不启动 Sprint 8；不关闭 Release 1
 - **影响范围：** `src/fixtures/article-samples/`、`/gallery`、sprint-backlog、execution report
 - **关联：** DECISION-079、DECISION-080、TECH-ARCH-023、S7-STORY-003
+- **状态：** 已确认
+
+### DECISION-082 详情（合并 S7-STORY-003 与 S7-STORY-004）
+
+- **日期：** 2026-06-02
+- **背景：**
+  - 原 S7-STORY-003（Style Gallery UX）与 S7-STORY-004（title/heading variant 丰富度）共享同一验收入口（`/gallery` + 8 套 fixture）
+  - 单独交付 Gallery 无 title/heading 视觉改进时仍显「全都一样」；单独交付 variant 丰富度无 Gallery 对照 UI 时 PO 难以系统验收
+  - 符合 DECISION-080 visible-first 与 TECH-ARCH-023 Style Quality Gate
+- **决策：**
+  1. **扩写 S7-STORY-003** 为合并版：Gallery Copy 对照区 + title/heading 聚焦模式 + variant 切换 + 6 个 first-wave title/heading variant 视觉 polish + 8 套样例 assignment
+  2. **S7-STORY-004 标 Merged → S7-STORY-003**；不再单独开 `feature/s7-heading-variant-richness`
+  3. **S7-STORY-005~007 编号不变**
+  4. 工作分支：`feature/s7-gallery-heading-variants`（从 `sprint/s7-wechat-article-experience` 切出）
+  5. 分批交付：Batch A（Gallery Copy + 聚焦 + 2 套样例视觉差）→ Batch B（6 variant polish + 8 套 assignment + 单测）
+- **影响范围：** `/gallery`、`preview-visual-styles.ts`、copy title/heading、`gallery-title-heading.ts`、sprint-backlog、alignment
+- **关联：** DECISION-080、DECISION-081、TECH-ARCH-023、S7-STORY-002
 - **状态：** 已确认
 
 ### DECISION-XXX：[标题]

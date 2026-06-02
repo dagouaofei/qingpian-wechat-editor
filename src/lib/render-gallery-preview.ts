@@ -6,6 +6,13 @@ import {
   articleSampleRawForId,
   type ArticleSampleId,
 } from "@/fixtures/article-samples";
+import type { GalleryStyleControlState } from "@/lib/gallery-style-controls";
+import {
+  applyBlockOverridesToArticle,
+  galleryTitleHeadingOverridesForArticle,
+  type GalleryHeadingVariantId,
+  type GalleryTitleVariantId,
+} from "@/lib/gallery-title-heading";
 import {
   DEFAULT_PREVIEW_STYLE_CONTROL,
   type PreviewStyleControlState,
@@ -26,26 +33,71 @@ const GALLERY_NORMALIZED_INPUT: NormalizedInput = parseAndNormalizeInputRequest(
 export type GalleryPreviewResult = {
   sampleId: ArticleSampleId;
   previewBlocks: SerializedPreviewBlock[];
+  displayBlocks: SerializedPreviewBlock[];
   variantIds: string[];
+  clipboard: {
+    textHtml: string;
+    textPlain: string;
+    issueCount: number;
+    warningCount: number;
+  };
 };
+
+function resolveTitleHeadingOverrideIds(control: GalleryStyleControlState): {
+  titleVariantId?: GalleryTitleVariantId;
+  headingVariantId?: GalleryHeadingVariantId;
+} {
+  return {
+    titleVariantId: control.titleVariantId || undefined,
+    headingVariantId: control.headingVariantId || undefined,
+  };
+}
 
 export function renderGalleryPreview(
   sampleId: ArticleSampleId,
-  control: PreviewStyleControlState = DEFAULT_PREVIEW_STYLE_CONTROL,
+  control: GalleryStyleControlState = {
+    ...DEFAULT_PREVIEW_STYLE_CONTROL,
+    titleVariantId: "",
+    headingVariantId: "",
+    focusTitleHeading: false,
+  },
 ): GalleryPreviewResult {
   const article = parseArticle(articleSampleRawForId(sampleId));
+  const overrideIds = resolveTitleHeadingOverrideIds(control);
+
   const rendered = renderArticlePreviewClient(
     article,
-    GALLERY_NORMALIZED_INPUT,
+    galleryNormalizedInputForControl(control),
     control,
+    {
+      postStyleSelectionPatch: (styledArticle) =>
+        applyBlockOverridesToArticle(
+          styledArticle,
+          galleryTitleHeadingOverridesForArticle(
+            styledArticle,
+            sampleId,
+            overrideIds.titleVariantId,
+            overrideIds.headingVariantId,
+          ),
+        ),
+    },
   );
+
+  const previewBlocks = rendered.previewBlocks;
+  const displayBlocks = control.focusTitleHeading
+    ? previewBlocks.filter(
+        (block) => block.blockType === "title" || block.blockType === "heading",
+      )
+    : previewBlocks;
 
   return {
     sampleId,
-    previewBlocks: rendered.previewBlocks,
-    variantIds: rendered.previewBlocks
+    previewBlocks,
+    displayBlocks,
+    variantIds: previewBlocks
       .map((block) => block.variantId)
       .filter((id): id is string => Boolean(id)),
+    clipboard: rendered.clipboard,
   };
 }
 
