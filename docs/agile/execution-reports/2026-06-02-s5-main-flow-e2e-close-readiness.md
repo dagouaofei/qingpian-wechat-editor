@@ -91,7 +91,7 @@
 
 ## 11. Commit / Merge
 
-- S5-STORY-008 commit：见下方 hash（关闭轮）
-- Merge `docs/s5-main-flow-e2e-close-readiness` → `sprint/s5-generation-ui-main-flow`：关闭轮
-- Merge `sprint/s5-generation-ui-main-flow` → `release/1`：关闭轮
+- S5-STORY-008 commit：`848e483`
+- Merge `docs/s5-main-flow-e2e-close-readiness` → `sprint/s5-generation-ui-main-flow`：fast-forward @ `848e483`
+- Merge `sprint/s5-generation-ui-main-flow` → `release/1`：fast-forward @ `848e483`（DECISION-069）
 - **未 merge `main`**
