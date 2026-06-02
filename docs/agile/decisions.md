@@ -66,6 +66,7 @@
 | DECISION-065 | 2026-06-01 | 关闭 Sprint 3-C；contract audit A，P0=0；merge sprint/s3c-style-assignment-validation → release/1 | 已确认 |
 | DECISION-066 | 2026-06-02 | Sprint 5 范围调整为 Generation / Streaming + Release 1 真实 UI 主流程闭环 | 已确认 |
 | DECISION-068 | 2026-06-02 | Sprint 5 必须纳入真实模型 API Provider 对接（Volcengine / Doubao） | 已确认 |
+| DECISION-069 | 2026-06-02 | 关闭 Sprint 5；main-flow audit A-，P0=0；merge sprint/s5-generation-ui-main-flow → release/1 | 已确认 |
 
 ### DECISION-019 详情
 
@@ -433,6 +434,28 @@
   5. 不允许模型输出绕过 Style System / Renderer / Copy pipeline
   6. API key / endpoint / model name 必须走环境变量，不得硬编码
 - **影响范围：** `sprint-plan.md`、`sprint-backlog.md`、`product-backlog.md`（TECH-ARCH-024、TECH-ARCH-025）、S5-STORY-005~008
+- **状态：** 已确认
+
+### DECISION-069 详情（关闭 Sprint 5）
+
+- **日期：** 2026-06-02
+- **背景：**
+  - S5-STORY-001~008 全部 Done
+  - Sprint 5 Main Flow Close Readiness Audit 完成（`sprint5-main-flow-close-readiness-audit.md`）
+  - audit 结论 Grade A-，P0=0，P1=4，P2=3
+  - `corepack pnpm lint` / `test`（743 tests）/ `build` / e2e（3 tests）PASS
+  - `/generate` 主链路（输入 → 真实模型生成 → 预览 → 复制）已在真实页面跑通
+  - 真实 Volcengine provider dev smoke PASSED（S5-STORY-005A / 005B）
+  - **Paste QA 未执行**（归 Sprint 6-B）；**不宣称** Release 1 完成
+- **决策：**
+  1. 用户接受 Sprint 5 close readiness audit 结论
+  2. Sprint 5 **正式关闭**
+  3. `sprint/s5-generation-ui-main-flow` **merge 至 `release/1`**
+  4. P1/P2 登记后续 Sprint（Sprint 6-A / 6-B），不阻塞关闭
+  5. **不 merge 至 `main`**
+  6. **不自动启动 Sprint 6-A / 6-B**
+  7. Sprint 6 启动前须用户确认
+- **关联：** S5-STORY-008、`sprint5-main-flow-close-readiness-audit.md`、TECH-ARCH-024、TECH-ARCH-025、DECISION-066、DECISION-068
 - **状态：** 已确认
 
 ## 决策模板

@@ -312,3 +312,16 @@
 | 2026-06-02 | Sprint 5 | deterministic + model_assisted 模式；非法 variant / forbidden 字段 / invalid model output → safe preset fallback | 代码 / 测试 | S5-STORY-006 |
 | 2026-06-02 | Sprint 5 | 新增 `/generate` 页面与 `/api/generate` 统一主链路 UI 集成 | 代码 / UI | S5-STORY-007 |
 | 2026-06-02 | Sprint 5 | `feature/s5-generate-ui-main-flow` merge 至 `sprint/s5-generation-ui-main-flow` @ `01318c4`（S5-STORY-007） | 敏捷 | S5-STORY-007 |
+| 2026-06-02 | Sprint 5 | S5-STORY-007 用户确认关闭为 Done；记录 follow-up 测试 / provider / 样式 / Paste QA 留后续 | 敏捷 | S5-STORY-007 |
+| 2026-06-02 | Sprint 5 | S5-STORY-008 Done；新增 Sprint 5 close readiness audit（P0=0）；Sprint 5 进入 Close Readiness | 敏捷 / 架构 | S5-STORY-008 |
+
+---
+
+## 2026-06-02 · Sprint 5 关闭
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-02 | Sprint 5 | **关闭 Sprint 5**；用户确认 close readiness audit（Grade A- · P0=0）；DECISION-069 | 敏捷 | S5-STORY-008, DECISION-069 |
+| 2026-06-02 | Sprint 5 | `docs/s5-main-flow-e2e-close-readiness` merge 至 `sprint/s5-generation-ui-main-flow`（S5-STORY-008） | Git / 敏捷 | S5-STORY-008 |
+| 2026-06-02 | Sprint 5 | `sprint/s5-generation-ui-main-flow` merge 至 `release/1` | Git / Release 1 | DECISION-069 |
+| 2026-06-02 | Sprint 5 | Paste QA 仍 **Not Run**（归 Sprint 6-B）；**不宣称** Release 1 完成；**不 merge `main`** | 敏捷 / 架构 | DECISION-069 |

@@ -21,5 +21,10 @@ export default defineConfig({
     command: "corepack pnpm dev",
     url: "http://localhost:3000",
     reuseExistingServer: !process.env.CI,
+    env: {
+      ...process.env,
+      VOLCENGINE_ENABLE_REAL_PROVIDER:
+        process.env.VOLCENGINE_ENABLE_REAL_PROVIDER ?? "false",
+    },
   },
 });

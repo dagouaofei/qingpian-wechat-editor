@@ -91,10 +91,10 @@
 | TECH-ARCH-021 | Sprint 4-A/B Renderer Delivery Split | EPIC-004 / EPIC-006 | **Done**：Sprint 4-A text-first renderer Done；Sprint 4-B structured renderer Done；Preview / Copy Renderer 代码闭环完成（DECISION-061、DECISION-063） |
 | TECH-ARCH-022 | Sprint 6-A/B Paste QA Regression Split | EPIC-010 | fixture 三联 vs first-wave 33 variants QA；**仍未执行**，Release 1 33 variants 最小 Paste QA plan 已建立，真实 Paste QA 归 Sprint 6-B |
 | TECH-ARCH-023 | Release 1 Style Quality Gate | EPIC-004 / EPIC-006 | Style Quality Review / Gallery / 样式效果验收；Sprint 3-B registry Done；Sprint 4-A text-first renderer Done；Sprint 4-B structured renderer Done；Style Gallery 仍待 Sprint 6 / Release 2 |
-| TECH-ARCH-024 | Release 1 Real UI Main Flow | EPIC-001 / EPIC-002 / EPIC-005 / EPIC-006 / EPIC-007 | **Sprint 5 负责**：将已完成的 Schema、Style System、Renderer、Copy、Generation 串到真实 UI 页面；**含 S5-STORY-005 真实模型 Provider（Volcengine / Doubao，P0）**；Sprint 5 结束后主链路可手动跑通（输入 → **真实模型生成** → 预览 → 复制）；deterministic provider 仅 dev fallback / test provider；**不替代** Sprint 6-B 真实微信公众号 Paste QA |
-| TECH-ARCH-025 | Real Model Provider Integration | EPIC-002 / EPIC-007 | **Sprint 5 P0**：复用旧一键成稿火山 / Doubao 模型对接经验，完成真实模型 API Provider；输入 `NormalizedInput`（S5-STORY-002）；输出进入 GenerationEvent runtime（S5-STORY-003）与 `done.article` 归一链路（S5-STORY-004）；不得绕过 Article Schema / Style System / Renderer / Copy pipeline |
+| TECH-ARCH-024 | Release 1 Real UI Main Flow | EPIC-001 / EPIC-002 / EPIC-005 / EPIC-006 / EPIC-007 | **Sprint 5 Closed（DECISION-069）**：`/generate` 主链路可手动跑通；真实 Volcengine provider 已接入；audit P0=0；**Paste QA 未执行**（Sprint 6-B）；**不宣称** Release 1 完成 |
+| TECH-ARCH-025 | Real Model Provider Integration | EPIC-002 / EPIC-007 | **Sprint 5 Closed**：Volcengine / Doubao provider + dev smoke PASSED；稳定性与输出质量 **后续继续观察** |
 
-状态：文档契约 S1-STORY-021~028；代码按 Sprint 2 + 3-A/B/C + 4-A/B + 5 + 6-A/B 拆分。**Sprint 3-C Closed**（DECISION-065；Style Assignment validation Done）。**真实 UI 主流程 + 真实模型 Provider：Sprint 5 In Progress**（DECISION-066、DECISION-068；TECH-ARCH-024、TECH-ARCH-025）；**Fixture Triple：Sprint 6-A**；**真实 Paste QA：Sprint 6-B**；**Style Gallery：Sprint 6 / Release 2**（根据后续规划决定）。
+状态：文档契约 S1-STORY-021~028；代码按 Sprint 2 + 3-A/B/C + 4-A/B + 5 + 6-A/B 拆分。**Sprint 3-C Closed**（DECISION-065）。**Sprint 5 Closed**（2026-06-02；DECISION-069；TECH-ARCH-024、TECH-ARCH-025 Done；audit [`sprint5-main-flow-close-readiness-audit.md`](../architecture/audits/sprint5-main-flow-close-readiness-audit.md)；merged `release/1`）；**Fixture Triple：Sprint 6-A**；**真实 Paste QA：Sprint 6-B**；**Style Gallery：Sprint 6 / Release 2**。
 
 ---
 

@@ -58,10 +58,9 @@
 | **Sprint 4-A** | **Closed**（2026-06-01；DECISION-061） |
 | **Sprint 4-B** | **Closed**（2026-06-01；DECISION-063） |
 | **Sprint 3-C** | **Closed**（2026-06-01；DECISION-065；audit Grade A；merged `release/1`） |
-| **Sprint 5** | **In Progress**（2026-06-02；DECISION-067；分支 `sprint/s5-generation-ui-main-flow`） |
+| **Sprint 5** | **Closed**（2026-06-02；DECISION-069；S5-STORY-001~008 Done；audit Grade A- · P0=0；merged `release/1`） |
 | **Release 1 主干** | `release/1` |
-| **Sprint 5 分支** | `sprint/s5-generation-ui-main-flow` |
-| **下一步** | S5-STORY-007 审查 / merge → S5-STORY-008；不 merge `main` |
+| **下一步** | 规划 Sprint 6-A / 6-B（Fixture Triple · Paste QA）；不 merge `main` |
 
 ---
 
@@ -178,7 +177,7 @@
 > **Sprint 4-A 状态：Closed**（2026-06-01；DECISION-061；contract audit **A**，P0=0；分支 `sprint/s4a-text-first-renderer` 已 merge 至 `release/1`）
 > **Sprint 4-B 状态：Closed**（2026-06-01；DECISION-063；contract audit **A**，P0=0；分支 `sprint/s4b-structured-block-renderer` 已 merge 至 `release/1`）
 > **Sprint 3-C 状态：Closed**（2026-06-01；DECISION-065；Style Assignment / Selection Validation + Orchestrator + VisualAssetRegistry）
-> **Sprint 5 状态：In Progress**（2026-06-02；DECISION-067；S5-STORY-001~004 Done；005/005A In Review）
+> **Sprint 5 状态：Closed**（2026-06-02；DECISION-069；S5-STORY-001~008 Done；audit Grade A- · P0=0；merged `release/1`）
 >
 > 业务功能实现必须在核心技术方案 + 实现前契约完成之后进入（DECISION-015、DECISION-029~045、DECISION-051）。
 
@@ -431,11 +430,11 @@
 | P2-S4B-001 | Style Gallery / 人工视觉验收入口仍缺失 | Sprint 6 / Release 2 |
 | P2-S4B-002 | cta / image_placeholder 真实 QR / link / image 能力仍未实现 | Release 2+ |
 
-### Sprint 5：Generation / Streaming + Release 1 真实 UI 主流程闭环 — **In Progress**（2026-06-02）
+### Sprint 5：Generation / Streaming + Release 1 真实 UI 主流程闭环 — **Closed**（2026-06-02）
 
-**分支：** `sprint/s5-generation-ui-main-flow`（DECISION-067） · **Release 1 主干：** `release/1`
+**分支：** `sprint/s5-generation-ui-main-flow`（DECISION-067；已 merge 至 `release/1`，DECISION-069） · **Release 1 主干：** `release/1`
 
-> **S5-STORY-001~006** Done · **S5-STORY-007** In Review · **S5-STORY-008** Planned · **不 merge `main`**
+> **S5-STORY-001~008** Done · **Close Readiness Audit** [`sprint5-main-flow-close-readiness-audit.md`](../architecture/audits/sprint5-main-flow-close-readiness-audit.md) · **Grade A- · P0=0 · P1=4 · P2=3** · **用户已确认关闭** · **不 merge `main`**
 
 **Sprint Goal：**
 
@@ -467,7 +466,7 @@
 
 **Stories：** S5-STORY-001（启动）~ S5-STORY-008 — 见 `sprint-backlog.md`
 
-**进度：** S5-STORY-001~006 **Done** · S5-STORY-007 **In Review** · S5-STORY-008 **Planned**
+**进度：** S5-STORY-001~008 **Done** · Sprint 5 **Closed**（DECISION-069；merged `release/1`）
 
 **建议执行顺序：**
 
@@ -477,8 +476,10 @@ S5-STORY-002 — Done
 S5-STORY-003 — Done
 S5-STORY-004 — Done
 S5-STORY-005 / 005A / 005B — Done
-S5-STORY-007 — In Review
-S5-STORY-008 — Planned
+S5-STORY-006 — Done
+S5-STORY-007 — Done
+S5-STORY-008 — Done
+Sprint 5 Closed — DECISION-069 · merged `release/1`
 ```
 
 **不做：**

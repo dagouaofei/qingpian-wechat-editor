@@ -7,8 +7,8 @@
 > **Sprint 4-A：** Preview / Copy Renderer for Text-first Blocks · **Closed**（2026-06-01；DECISION-061；audit Grade A；P0=0）
 > **Sprint 4-B：** Preview / Copy Renderer for Structured Blocks · **Closed**（2026-06-01；DECISION-063；audit Grade A；P0=0）
 > **Sprint 3-C：** Style Assignment / Selection Validation + Orchestrator + VisualAssetRegistry · **Closed**（2026-06-01；DECISION-065；audit Grade A；P0=0 · P1=5 · P2=4；merged `release/1`）
-> **Sprint 5：** Generation / Streaming + Release 1 真实 UI 主流程闭环 · **In Progress**（2026-06-02；DECISION-067；分支 `sprint/s5-generation-ui-main-flow`）
-> **Release 1 主干：** `release/1` · **Sprint 5 分支：** `sprint/s5-generation-ui-main-flow`（从 `release/1` 切出，DECISION-067）
+> **Sprint 5：** Generation / Streaming + Release 1 真实 UI 主流程闭环 · **Closed**（2026-06-02；DECISION-069；audit Grade A- · P0=0 · P1=4 · P2=3；`sprint/s5-generation-ui-main-flow` 已 merge 至 `release/1`）
+> **Release 1 主干：** `release/1`
 
 ---
 
@@ -2333,11 +2333,12 @@ S3C-STORY-001（启动）
 # Sprint 5 Backlog
 
 > **Sprint 5 目标：** Generation / Streaming + **Release 1 真实 UI 主流程闭环**（输入 → 生成 → 预览 → 复制）
-> **Sprint 5 状态：** **In Progress**（2026-06-02；DECISION-067）
-> **Sprint 5 分支：** `sprint/s5-generation-ui-main-flow`（从 `release/1` 切出，DECISION-067）
+> **Sprint 5 状态：** **Closed**（2026-06-02；DECISION-069；S5-STORY-001~008 **Done**；Close Readiness **用户已确认**；merge `release/1`）
+> **Sprint 5 分支：** `sprint/s5-generation-ui-main-flow`（从 `release/1` 切出，DECISION-067；已 merge 至 `release/1`）
 > **Release 1 主干：** `release/1`
-> **UI 主流程入口：** **`/generate`**（真实业务页面；S5-STORY-007 实现）
-> **下一步：** S5-STORY-007 审查 / 关闭 → S5-STORY-008 E2E close readiness；不 merge `main`
+> **UI 主流程入口：** **`/generate`**（S5-STORY-007 Done @ `01318c4`）
+> **Close Readiness Audit：** [`docs/architecture/audits/sprint5-main-flow-close-readiness-audit.md`](../architecture/audits/sprint5-main-flow-close-readiness-audit.md)
+> **下一步：** 规划 Sprint 6-A / 6-B（Fixture Triple · Paste QA）；**不 merge `main`**
 > **Sprint 5 不做：** 真实微信公众号 Paste QA 全量回归、不宣称复制到公众号最终保真通过、Style Gallery、真实 QR / 小程序 / 图片上传托管 / AI 生图、复杂编辑器 / block 级编辑、样式市场、merge 至 `main`
 > **保留原则：** 真实 Paste QA 归 Sprint 6-B；Fixture Triple / PasteTestRecord 归 Sprint 6-A / 6-B；Sprint 5 UI smoke test 不替代微信公众号 Paste QA
 
@@ -2352,8 +2353,8 @@ S5-STORY-005 真实模型 Provider 对接（Volcengine / Doubao）— Done
 S5-STORY-005A Volcengine / Doubao Provider Dev-only Real API Smoke — Done
 S5-STORY-005B Model Article Candidate Enrichment + Real API Smoke Re-run — Done
 S5-STORY-006 受控 AI 样式选择生成与 validation pipeline 接入 — Done
-S5-STORY-007 Release 1 主流程真实 UI 页面集成（/generate）— In Review
-S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Planned
+S5-STORY-007 Release 1 主流程真实 UI 页面集成（/generate）— Done
+S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Done
 ```
 
 ---
@@ -2665,7 +2666,14 @@ S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Planned
 
 **用户故事：** 作为用户，我需要在真实业务页面中完成输入 → 生成 → 预览 → 复制，以便 Release 1 主链路可手动验收。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s5-generate-ui-main-flow`（**已 merge 至 sprint** @ `01318c4`）
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s5-generate-ui-main-flow`（**已 merge 至 sprint** @ `01318c4`）
+
+**关闭说明（用户确认 2026-06-02）：**
+
+- `/generate` 主流程可人工跑通（输入 → 生成 → 预览 → 复制）
+- 修复：Copy `supportedBlockTypes`（cta 等 structured block）、Preview visual layer、style selection diversity、Volcengine JSON parser
+- **不宣称：** Paste QA 已通过、公众号粘贴最终一致、样式质量最终达标、真实 provider 全场景稳定
+- **后续继续：** 更多 automated test、provider 稳定性、样式质量、Paste QA（Sprint 6-B）
 
 **目标：** 新增真实业务页面 `/generate`，跑通输入 → 生成 → 预览 → 复制；不执行微信公众号 Paste QA。
 
@@ -2707,21 +2715,55 @@ S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Planned
 
 **用户故事：** 作为产品负责人，我需要为真实 UI 主流程建立最小 smoke / e2e 验证，并做 Sprint 5 close readiness，以便确认 Release 1 主流程已在真实页面跑通。
 
-**优先级：** P0 · **状态：** Planned
+**优先级：** P0 · **状态：** Done · **工作分支：** `docs/s5-main-flow-e2e-close-readiness`
 
 **目标：** 为真实 UI 主流程建立最小 smoke / e2e 验证，并做 Sprint 5 close readiness。
 
+**实际产物：**
+
+| 路径 | 说明 |
+|------|------|
+| `docs/architecture/audits/sprint5-main-flow-close-readiness-audit.md` | Sprint 5 close readiness audit（P0=0） |
+| `tests/e2e/generate-page.spec.ts` | Playwright `/generate` smoke（3 cases） |
+| `playwright.config.ts` | e2e webServer 默认 `VOLCENGINE_ENABLE_REAL_PROVIDER=false` |
+
 **验收标准：**
 
-- [ ] AC-1 Playwright 或等价 smoke test 可打开真实页面
-- [ ] AC-2 可填写输入
-- [ ] AC-3 可触发生成
-- [ ] AC-4 可等待预览出现
-- [ ] AC-5 可触发复制动作或验证 Clipboard payload 生成
-- [ ] AC-6 lint / test / build PASS
-- [ ] AC-7 audit 明确 Sprint 5 是否达到「真实 UI 页面跑通 Release 1 主流程」（含 S5-STORY-005 真实模型 Provider 已接入；无 API key 时 CI 可用 deterministic provider 稳定，但不等于 Sprint 5 真实 API 对接验收通过）
-- [ ] AC-8 audit 明确真实微信公众号 Paste QA 仍未执行，归 Sprint 6-B
-- [ ] AC-9 已生成 execution report
-- [ ] AC-10 不自行关闭 Sprint 5（须用户确认）
+- [x] AC-1 Playwright smoke 可打开 `/generate` 真实页面
+- [x] AC-2 可填写输入
+- [x] AC-3 可触发生成
+- [x] AC-4 可等待预览出现
+- [x] AC-5 可触发复制或验证 Clipboard payload
+- [x] AC-6 lint / test / build PASS（743 tests）
+- [x] AC-7 audit 明确主链路已达 Close Readiness（真实 provider 已接入；e2e 以 deterministic 为基线）
+- [x] AC-8 audit 明确 Paste QA 未执行，归 Sprint 6-B
+- [x] AC-9 execution report 已生成
+- [x] AC-10 未自行关闭 Sprint 5（关闭由用户确认 · DECISION-069）
+
+---
+
+## Sprint 5 Close Readiness
+
+> **Sprint 5 状态：** **Closed**（2026-06-02；DECISION-069；S5-STORY-001~008 全部 Done；audit Grade A- · P0=0 · P1=4 · P2=3；`sprint/s5-generation-ui-main-flow` 已 merge 至 `release/1`）
+
+**Audit 摘要：**
+
+| 项 | 结论 |
+|----|------|
+| Audit 文档 | [`sprint5-main-flow-close-readiness-audit.md`](../architecture/audits/sprint5-main-flow-close-readiness-audit.md) |
+| Grade | A- |
+| P0 | 0 |
+| P1 | 4（登记 Sprint 6-A / 6-B / 后续） |
+| P2 | 3 |
+| Paste QA | **Not Run**（归 Sprint 6-B） |
+| Release 1 完成 | **否**（Paste QA 未执行；不宣称 Release 1 完成） |
+
+**关闭决策（DECISION-069）：**
+
+- 用户确认 Sprint 5 关闭
+- `sprint/s5-generation-ui-main-flow` merge 至 `release/1`
+- P1/P2 登记后续 Sprint，不阻塞关闭
+- **不 merge 至 `main`**
+- **不自动启动 Sprint 6-A / 6-B**
 
 ---
