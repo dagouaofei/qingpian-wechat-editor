@@ -76,7 +76,7 @@ Sprint 6 已交付用户可见真实 AI 主链路（DECISION-071~077）。Sprint
 
 | 目标 | Story |
 |------|-------|
-| 2–3 套完整 Article 样例 | S7-STORY-002 |
+| 2–3 套完整 Article 样例 | S7-STORY-002（**8 套** · DECISION-081） |
 | Style Gallery 可浏览入口 | S7-STORY-003 |
 | title / heading variant 丰富度 | S7-STORY-004 |
 | highlight / list / lead / cta 组合优化 | S7-STORY-005 |

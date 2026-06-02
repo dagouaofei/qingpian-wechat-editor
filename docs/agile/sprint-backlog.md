@@ -10,7 +10,7 @@
 > **Sprint 5：** Generation / Streaming + Release 1 真实 UI 主流程闭环 · **Closed**（2026-06-02；DECISION-069；audit Grade A- · P0=0 · P1=4 · P2=3；`sprint/s5-generation-ui-main-flow` 已 merge 至 `release/1`）
 > **Sprint 6：** Release 1 Visible AI Main Flow · **Closed**（2026-06-02；DECISION-078；audit Grade A- · P0=0 · P1=5 · P2=4；`sprint/s6-visible-ai-main-flow` 已 merge 至 `release/1`）
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
-> **当前 Sprint：** **Sprint 7 WeChat Article Experience & Style Richness**（**Paused** · DECISION-080 · S7-STORY-002+ 暂缓）
+> **当前 Sprint：** **Sprint 7 WeChat Article Experience & Style Richness**（**In Progress** · DECISION-081 · S7-STORY-002 启动中）
 > **当前 Chore：** **Visible Progress & Legacy Convergence** — **Done**（DECISION-080 · 用户验收 2026-06-02 · merged @ `a5704d6`）
 > **Sprint 7 分支：** `sprint/s7-wechat-article-experience`（从 `release/1` 切出）
 > **miaopian 对齐：** [`docs/agile/miaopian-alignment/s7-workflow-and-ux-gap.md`](miaopian-alignment/s7-workflow-and-ux-gap.md)
@@ -3102,7 +3102,7 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 # Sprint 7 Backlog · WeChat Article Experience & Style Richness
 
 > **Sprint 7 目标：** 整篇文章像公众号文章；Style Gallery；样式丰富度；修正过度卡片化；**miaopian 协作/体验对齐见 alignment 文档**
-> **Sprint 7 状态：** **Paused**（2026-06-02 启动 · DECISION-079；2026-06-02 暂停 · DECISION-080 · 先交付可见进展）
+> **Sprint 7 状态：** **In Progress**（2026-06-02 恢复 · DECISION-081 · S7-STORY-002 进行中）
 > **Sprint 7 分支：** `sprint/s7-wechat-article-experience`（从 `release/1` 切出）
 > **对齐文档：** [`docs/agile/miaopian-alignment/s7-workflow-and-ux-gap.md`](miaopian-alignment/s7-workflow-and-ux-gap.md)
 > **Sprint 7 不做：** Sprint 8 Paste QA、关闭 Release 1、merge `main`
@@ -3110,8 +3110,8 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 ## Sprint 7 建议执行顺序
 
 ```text
-S7-STORY-001 Sprint 7 启动 · miaopian 协作对齐与体验目标 — In Review
-S7-STORY-002 完整文章 fixture 与公众号文章样例集 — Planned
+S7-STORY-001 Sprint 7 启动 · miaopian 协作对齐与体验目标 — Done
+S7-STORY-002 完整文章 fixture 与公众号文章样例集 — In Review
 S7-STORY-003 Style Gallery 页面 — Planned
 S7-STORY-004 标题 / 分节标题 variant 丰富度 — Planned
 S7-STORY-005 重点高亮 / 列表 / 摘要 / CTA 样式优化 — Planned
@@ -3125,7 +3125,7 @@ S7-STORY-007 Sprint 7 手动视觉 QA 与关闭准备 — Planned
 
 **用户故事：** 作为产品负责人，我需要在 Sprint 7 启动时对齐 miaopian-demo 协作方式边界、交互流 gap 与「像公众号文章」体验目标。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `docs/s7-start-miaopian-alignment`（本轮在 sprint 分支完成）
+**优先级：** P0 · **状态：** Done · **工作分支：** `docs/s7-start-miaopian-alignment`（本轮在 sprint 分支完成）
 
 **对应 Product Backlog：** TECH-ARCH-023 · PB-R1 样式体验（Sprint 7 主责）
 
@@ -3158,11 +3158,44 @@ S7-STORY-007 Sprint 7 手动视觉 QA 与关闭准备 — Planned
 
 ## S7-STORY-002 完整文章 fixture 与公众号文章样例集
 
-**优先级：** P0 · **状态：** Planned · **工作分支：** `feature/s7-article-fixture-samples`
+**用户故事：** 作为 PO / 设计师，我需要在不调用 AI 的情况下，用 **8 套固定、可复现的完整公众号文章**，评审 Preview / Copy 在不同文章类型下的观感，并为 Gallery 与 Sprint 8 Paste 基线提供数据。
 
-**目标：** 至少 2–3 套完整 Article fixture，支撑视觉评审与 Gallery。
+**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s7-article-fixture-samples`
 
-**验收标准：** AC-1 2–3 套完整 fixture · AC-2 覆盖 Release 1 首批 block · AC-3 可驱动 Preview / Copy
+**对应 Product Backlog：** TECH-ARCH-023 · US-R1-012 / US-R1-013 前置数据
+
+**目标：** 8 套常见类型完整 Article fixture + 注册表；驱动 Preview / Copy；接入 `/gallery` 样例选择器。
+
+**8 套样例类型：**
+
+| ID | 类型 |
+|----|------|
+| `sample-knowledge` | 知识科普 / 干货 |
+| `sample-industry` | 行业趋势 / 观察 |
+| `sample-product` | 产品 / 功能解读 |
+| `sample-brand` | 品牌故事 / 价值 |
+| `sample-event` | 活动招募 / 沙龙 |
+| `sample-promo` | 促销 / 转化 |
+| `sample-listicle` | 清单体 / N 个技巧 |
+| `sample-seasonal` | 节点 / 复盘 / 里程碑 |
+
+**In Scope：**
+
+- [`src/fixtures/article-samples/`](../../src/fixtures/article-samples/) 注册表与 8 套 raw fixture
+- 合并 [`src/fixtures/gallery-articles.ts`](../../src/fixtures/gallery-articles.ts) 重复维护（smoke fixture 保留）
+- `/gallery` 样例下拉接入 8 套
+- Preview + Copy 渲染 smoke 单测
+
+**Out of Scope：** variant 视觉改动（S7-STORY-004~006）· Gallery 完整 UX（S7-STORY-003）· Paste QA（Sprint 8）· AI 生成样例
+
+**验收标准：**
+
+- [x] AC-1 **8 套** fixture 登记且有稳定 id（上表）
+- [x] AC-2 每套为完整文章：≥8 blocks、≥2 `heading`、有 `title`+`lead`，中文成稿
+- [x] AC-3 **8 套合计**覆盖 Release 1 全部 11 block 类型
+- [x] AC-4 每套 `parseArticle` PASS；Preview blocks 全 `ok`；Copy clipboard 可生成
+- [x] AC-5 `/gallery` 可切换 8 套样例并即时 Preview
+- [x] AC-6 单测：注册表 + representative 渲染 smoke（非全量 8×33 variant）
 
 ---
 

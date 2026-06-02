@@ -413,3 +413,9 @@
 | 2026-06-02 | Chore | `/gallery` fixture Preview 展台；删除 `/generate` 页面与 e2e | 应用 / 导航 | CHORE-VIS-001, CHORE-VIS-002 |
 | 2026-06-02 | Chore | 删除 batch `POST /api/generate` 与 `run-generate-main-flow` | 代码 / API | CHORE-VIS-001 |
 | 2026-06-02 | Chore | **CHORE-VIS-001/002 Done**；`chore/visible-progress-gallery-legacy` merge → sprint @ `a5704d6` | 敏捷 / Git | DECISION-080 |
+
+## 2026-06-02 · Sprint 7 恢复 · S7-STORY-002 八套 fixture
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-02 | Sprint 7 | **Sprint 7 恢复**（DECISION-081）；S7-STORY-002 扩至 8 套文章 fixture | 敏捷 / Fixture | DECISION-081, S7-STORY-002 |

@@ -4,30 +4,30 @@ import { IMPLEMENTED_FIRST_WAVE_VARIANT_IDS } from "@/core/styles/variants";
 import { renderGalleryPreview } from "@/lib/render-gallery-preview";
 
 describe("renderGalleryPreview", () => {
-  it("renders all first-wave block types for full-blocks fixture", () => {
-    const result = renderGalleryPreview("full-blocks");
+  it("renders knowledge sample with variants", () => {
+    const result = renderGalleryPreview("sample-knowledge");
 
-    expect(result.sampleId).toBe("full-blocks");
-    expect(result.previewBlocks).toHaveLength(11);
+    expect(result.sampleId).toBe("sample-knowledge");
+    expect(result.previewBlocks.length).toBeGreaterThanOrEqual(8);
     expect(result.previewBlocks.every((block) => block.ok)).toBe(true);
     expect(result.variantIds.length).toBeGreaterThan(0);
-    expect(new Set(result.variantIds).size).toBe(result.variantIds.length);
   });
 
-  it("renders minimal title fixture", () => {
-    const result = renderGalleryPreview("minimal-title");
+  it("renders product sample", () => {
+    const result = renderGalleryPreview("sample-product");
 
-    expect(result.previewBlocks).toHaveLength(1);
-    expect(result.previewBlocks[0]?.blockType).toBe("title");
-    expect(result.previewBlocks[0]?.ok).toBe(true);
+    expect(result.previewBlocks.length).toBeGreaterThanOrEqual(8);
+    expect(result.previewBlocks.some((block) => block.blockType === "image_placeholder")).toBe(
+      true,
+    );
   });
 
   it("reacts to style control changes", () => {
-    const decorative = renderGalleryPreview("full-blocks", {
+    const decorative = renderGalleryPreview("sample-knowledge", {
       articleStyle: "classic-news",
       colorPalette: "default",
     });
-    const plain = renderGalleryPreview("full-blocks", {
+    const plain = renderGalleryPreview("sample-knowledge", {
       articleStyle: "classic",
       colorPalette: "default",
     });

@@ -76,6 +76,7 @@
 | DECISION-078 | 2026-06-02 | 关闭 Sprint 6；visible main-flow audit A-，P0=0；merge sprint/s6-visible-ai-main-flow → release/1 | 已确认 |
 | DECISION-079 | 2026-06-02 | 正式启动 Sprint 7；S7-STORY-001 含 miaopian 协作对齐 + UX gap 文档；样式/Gallery 归 S7-STORY-002~006 | 已确认 |
 | DECISION-080 | 2026-06-02 | 暂停 Sprint 7 功能线；Visible-first Cursor 轮次规则；先行 `/gallery` 进展展台；`/generate` 页面已删除 | 已确认 |
+| DECISION-081 | 2026-06-02 | 恢复 Sprint 7；S7-STORY-002 样例集扩至 **8 套**常见公众号文章类型 | 已确认 |
 
 ### DECISION-019 详情
 
@@ -639,6 +640,23 @@
   4. Sprint 7 分支 **`sprint/s7-wechat-article-experience` 保留**；Chore 从 sprint 分支切 `chore/visible-progress-gallery-legacy`
 - **影响范围：** `sprint-backlog.md`、`sprint-plan.md`、`release-plan.md`、`changelog.md`、导航与 `/gallery` 页面
 - **关联：** DECISION-079、S7-STORY-003（最小版 pull-forward）、miaopian alignment
+- **状态：** 已确认
+
+### DECISION-081 详情（恢复 Sprint 7 · S7-STORY-002 八套文章 fixture）
+
+- **日期：** 2026-06-02
+- **背景：**
+  - CHORE-VIS-001/002 已完成（DECISION-080）；用户验收 `/gallery` 与 legacy 路径清理
+  - 原 S7-STORY-002 仅规划 2–3 套样例；用户确认扩至 **8 套**常见公众号文章类型
+  - 8 套 fixture 是 Gallery 评审、S7-STORY-004~006 样式改动与 Sprint 8 Paste 基线的共同数据层
+- **决策：**
+  1. **恢复 Sprint 7 功能线**（Paused → In Progress）
+  2. S7-STORY-001 标 **Done**；启动 **S7-STORY-002**（`feature/s7-article-fixture-samples`）
+  3. S7-STORY-002 交付 **8 套**完整 Article fixture（见 sprint-backlog 类型表）+ `/gallery` 接入
+  4. 继续遵守 DECISION-080 visible-first 验证规则（targeted test + build）
+  5. 不启动 Sprint 8；不关闭 Release 1
+- **影响范围：** `src/fixtures/article-samples/`、`/gallery`、sprint-backlog、execution report
+- **关联：** DECISION-079、DECISION-080、TECH-ARCH-023、S7-STORY-003
 - **状态：** 已确认
 
 ### DECISION-XXX：[标题]

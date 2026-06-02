@@ -25,7 +25,7 @@ import {
 import { renderGalleryPreview } from "@/lib/render-gallery-preview";
 
 export function GalleryPageClient() {
-  const [sampleId, setSampleId] = useState<GallerySampleId>("full-blocks");
+  const [sampleId, setSampleId] = useState<GallerySampleId>("sample-knowledge");
   const [styleControl, setStyleControl] = useState<PreviewStyleControlState>(
     DEFAULT_PREVIEW_STYLE_CONTROL,
   );

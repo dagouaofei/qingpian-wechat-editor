@@ -60,7 +60,7 @@
 | **Sprint 3-C** | **Closed**（2026-06-01；DECISION-065；audit Grade A；merged `release/1`） |
 | **Sprint 5** | **Closed**（2026-06-02；DECISION-069；S5-STORY-001~008 Done；audit Grade A- · P0=0；merged `release/1`） |
 | **Sprint 6** | **Closed**（2026-06-02；DECISION-078；merge `release/1`） |
-| **Sprint 7** | **Paused**（2026-06-02 启动 · DECISION-079；2026-06-02 暂停 · DECISION-080 · Chore visible progress） |
+| **Sprint 7** | **In Progress**（2026-06-02 恢复 · DECISION-081 · S7-STORY-002） |
 | **Release 1 主干** | `release/1` |
 | **下一步** | **S7-STORY-002** 文章 fixture 样例集 → Style Gallery |
 
@@ -552,7 +552,7 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 ---
 
-### Sprint 7：WeChat Article Experience & Style Richness — **Paused**（2026-06-02 · DECISION-079 · DECISION-080）
+### Sprint 7：WeChat Article Experience & Style Richness — **In Progress**（2026-06-02 · DECISION-081）
 
 **分支：** `sprint/s7-wechat-article-experience`（从 `release/1` 切出）
 
@@ -564,7 +564,7 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 2. 提升样式丰富度与样式组合观感
 3. **Style Gallery / 样式样例页**
 4. 修正**过度卡片化**问题
-5. 形成至少 **2–3 套**完整文章视觉风格样例
+5. 形成 **8 套**完整文章视觉风格样例（常见公众号类型 · DECISION-081）
 
 **Stories：** S7-STORY-001 ~ S7-STORY-007 — 见 `sprint-backlog.md`
 

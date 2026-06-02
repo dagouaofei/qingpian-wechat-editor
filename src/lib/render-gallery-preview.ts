@@ -3,9 +3,9 @@ import type { NormalizedInput } from "@/core/generation/input";
 import { parseAndNormalizeInputRequest } from "@/core/generation/input.normalize";
 
 import {
-  galleryArticleRawForSample,
-  type GallerySampleId,
-} from "@/fixtures/gallery-articles";
+  articleSampleRawForId,
+  type ArticleSampleId,
+} from "@/fixtures/article-samples";
 import {
   DEFAULT_PREVIEW_STYLE_CONTROL,
   type PreviewStyleControlState,
@@ -24,16 +24,16 @@ const GALLERY_NORMALIZED_INPUT: NormalizedInput = parseAndNormalizeInputRequest(
 });
 
 export type GalleryPreviewResult = {
-  sampleId: GallerySampleId;
+  sampleId: ArticleSampleId;
   previewBlocks: SerializedPreviewBlock[];
   variantIds: string[];
 };
 
 export function renderGalleryPreview(
-  sampleId: GallerySampleId,
+  sampleId: ArticleSampleId,
   control: PreviewStyleControlState = DEFAULT_PREVIEW_STYLE_CONTROL,
 ): GalleryPreviewResult {
-  const article = parseArticle(galleryArticleRawForSample(sampleId));
+  const article = parseArticle(articleSampleRawForId(sampleId));
   const rendered = renderArticlePreviewClient(
     article,
     GALLERY_NORMALIZED_INPUT,
