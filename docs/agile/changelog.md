@@ -339,3 +339,4 @@
 | 2026-06-02 | Release 1 | 新增 [`release-plan.md`](release-plan.md)；关闭标准从 lint/test/build 调整为 **可见主链路 + 样式体验 + 复制保真** | 敏捷 / 产品 | DECISION-070 |
 | 2026-06-02 | Release 1 | 原 Sprint 6-A/B 尾声计划在 Release 1 剩余阶段由方案 B 取代 | 敏捷 | DECISION-045, DECISION-070 |
 | 2026-06-02 | Release 1 | 更新 `user-story-map.md` 主路径与 Sprint 6/7/8 分工 | 产品 | DECISION-070 |
+| 2026-06-02 | Release 1 | `docs/release1-replan-visible-main-flow` merge 至 `release/1` @ `14dc27b` | Git / 敏捷 | DECISION-070 |

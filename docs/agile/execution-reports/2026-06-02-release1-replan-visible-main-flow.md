@@ -84,6 +84,8 @@
 - 历史文档 / audit 遗留项仍含「Sprint 6-A/B」字样；核心规划文档已更新，细粒度 P1 登记表可后续 chore 批量替换
 - 需用户 / ChatGPT 审查 DECISION-070 后 merge 工作分支 → `release/1`
 
-## 11. Commit
+## 11. Commit / Merge
 
-- Commit hash：未提交 / not committed
+- Commit：`14dc27b`
+- Merge `docs/release1-replan-visible-main-flow` → `release/1`：fast-forward @ `14dc27b`（DECISION-070）
+- **未 merge `main`**
