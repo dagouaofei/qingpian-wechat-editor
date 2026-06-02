@@ -122,7 +122,30 @@ function PreviewShell({
   );
 }
 
-function PreviewBlockOutput({ output }: { output: RendererOutputPlaceholder }) {
+function StreamingCaret() {
+  return (
+    <span
+      aria-hidden
+      style={{
+        display: "inline-block",
+        width: "2px",
+        height: "1em",
+        marginLeft: "2px",
+        verticalAlign: "text-bottom",
+        backgroundColor: PREVIEW_THEME.textAccent,
+        animation: "preview-caret-blink 1s step-end infinite",
+      }}
+    />
+  );
+}
+
+function PreviewBlockOutput({
+  output,
+  showStreamingCaret,
+}: {
+  output: RendererOutputPlaceholder;
+  showStreamingCaret?: boolean;
+}) {
   switch (output.kind) {
     case "title_block_preview": {
       const badge = output.slots.badge?.content;
@@ -141,11 +164,13 @@ function PreviewBlockOutput({ output }: { output: RendererOutputPlaceholder }) {
             <h2 style={previewTitleTextStyle("heading")}>
               {numberedPrefix}
               {output.text}
+              {showStreamingCaret ? <StreamingCaret /> : null}
             </h2>
           ) : (
             <h1 style={previewTitleTextStyle("title")}>
               {numberedPrefix}
               {output.text}
+              {showStreamingCaret ? <StreamingCaret /> : null}
             </h1>
           )}
         </PreviewShell>
@@ -159,6 +184,7 @@ function PreviewBlockOutput({ output }: { output: RendererOutputPlaceholder }) {
         >
           <p style={previewTextBlockTypography(output.layout, output.blockType)}>
             {renderInlineNodes(output.nodes)}
+            {showStreamingCaret ? <StreamingCaret /> : null}
           </p>
         </PreviewShell>
       );
@@ -313,7 +339,13 @@ function PreviewBlockOutput({ output }: { output: RendererOutputPlaceholder }) {
   }
 }
 
-export function PreviewBlockView({ block }: { block: SerializedPreviewBlock }) {
+export function PreviewBlockView({
+  block,
+  showStreamingCaret,
+}: {
+  block: SerializedPreviewBlock;
+  showStreamingCaret?: boolean;
+}) {
   if (!block.ok || !block.output) {
     return (
       <section
@@ -335,20 +367,58 @@ export function PreviewBlockView({ block }: { block: SerializedPreviewBlock }) {
 
   return (
     <>
-      <PreviewBlockOutput output={block.output} />
+      <PreviewBlockOutput output={block.output} showStreamingCaret={showStreamingCaret} />
       <PreviewIssueList issues={[...block.issues, ...block.warnings]} />
     </>
   );
 }
 
-export function ArticlePreviewPanel({ blocks }: { blocks: SerializedPreviewBlock[] }) {
+export function ArticlePreviewPanel({
+  blocks,
+  activeBlockId,
+  showStreamingCaret,
+  disableBlockRevealAnimation = false,
+}: {
+  blocks: SerializedPreviewBlock[];
+  activeBlockId?: string | null;
+  showStreamingCaret?: boolean;
+  disableBlockRevealAnimation?: boolean;
+}) {
   return (
     <div
       style={previewArticleContainerStyle()}
       data-testid="article-preview-panel"
     >
-      {blocks.map((block) => (
-        <PreviewBlockView key={block.blockId} block={block} />
+      <style>{`
+        @keyframes preview-caret-blink {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0; }
+        }
+        @keyframes preview-block-reveal {
+          from { opacity: 0; transform: translateY(8px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
+      {blocks.map((block, index) => (
+        <div
+          key={block.blockId}
+          id={`preview-block-${block.blockId}`}
+          style={
+            disableBlockRevealAnimation
+              ? undefined
+              : {
+                  animation: "preview-block-reveal 320ms ease-out both",
+                  animationDelay: `${Math.min(index * 40, 200)}ms`,
+                }
+          }
+        >
+          <PreviewBlockView
+            block={block}
+            showStreamingCaret={
+              showStreamingCaret && activeBlockId != null && block.blockId === activeBlockId
+            }
+          />
+        </div>
       ))}
     </div>
   );

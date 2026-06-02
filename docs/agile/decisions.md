@@ -70,6 +70,9 @@
 | DECISION-070 | 2026-06-02 | Release 1 尾声方案 B：Sprint 6 Visible Main Flow · Sprint 7 样式体验 · Sprint 8 复制保真与关闭 | 已确认 |
 | DECISION-071 | 2026-06-02 | 正式启动 Sprint 6：Release 1 Visible AI Main Flow；PB-R1-01~08；真实 AI 用户侧最小闭环 | 已确认 |
 | DECISION-072 | 2026-06-02 | Sprint 6 用户主流程：`/` + `/preview` + `requireRealProvider`；禁止静默 mock fallback | 已确认 |
+| DECISION-075 | 2026-06-02 | Sprint 6 UX 参考 miaopian-demo Landing；UI Shell + 预览页复制（主路径后续升级为 SSE · DECISION-077） | 已确认 |
+| DECISION-076 | 2026-06-02 | S6-STORY-005 客户端 batch 后 block/char 打字机；参考 miaopian 分析面板 UX；非 SSE token stream | **已废弃**（由 DECISION-077 取代） |
+| DECISION-077 | 2026-06-02 | S6-STORY-005 真实 SSE block-aware stream + phase 事件 + 即时预览 UI | 已确认 |
 
 ### DECISION-019 详情
 
@@ -522,7 +525,56 @@
 - **关联：** S6-STORY-002~004、DECISION-071、PB-R1-01~04
 - **状态：** 已确认
 
-## 决策模板
+### DECISION-075 详情（Sprint 6 UX Shell 对齐 miaopian-demo · batch 主路径）
+
+- **日期：** 2026-06-02
+- **背景：**
+  - 用户反馈 Sprint 6 首页 / 预览页 UI 过于简陋，难以对外演示
+  - `miaopian-demo`（秒篇成稿）Landing 的信息架构与视觉密度已验证可用
+  - S6-STORY-005 真实 SSE 流式方案复杂度高，影响主路径稳定性；需先 stabilise batch 主路径 + 复制
+- **决策：**
+  1. **UX 参考标准**：`miaopian-demo` Landing（信息架构、视觉密度、输入卡片、渐变 CTA）；**不复制旧项目代码**（DECISION-009）
+  2. **范围**：`/` 与 `/preview` UI Shell；**不动 Article Schema**
+  3. **主路径**：预览页使用 `POST /api/generate` batch generate（`requireRealProvider: true`）；SSE stream 不作为 Sprint 6 用户主路径阻塞项
+  4. **复制**：预览页提供「复制到公众号」按钮，payload 来自 Copy Renderer（`text/html` + `text/plain`）
+  5. **工作分支**：`feature/s6-ux-shell-miaopian-reference`（从 `sprint/s6-visible-ai-main-flow`）
+- **影响范围：** `src/app/home-page-client.tsx`、`src/app/preview/preview-page-client.tsx`、`src/components/ui-shell/`、`src/lib/copy-clipboard-payload.ts`
+- **关联：** DECISION-070、DECISION-072、S6-STORY-006（复制部分提前）、miaopian-demo UX 参考
+- **状态：** 已确认 · **用户验收通过**（2026-06-02；S6-STORY-006A Done）
+
+### DECISION-076 详情（S6-STORY-005 客户端打字机 · batch 主路径）
+
+- **日期：** 2026-06-02
+- **背景：**
+  - S6-STORY-005 要求轻量打字机/分块渐显，且 AC-5 排除完整 block-aware token streaming
+  - DECISION-075 已确认 batch `POST /api/generate` 为用户主路径
+  - `miaopian-demo` 的 block-aware SSE 为真实流式方案；其 **LandingStreamAnalysisPanel / GeneratingStatus** UX 可借鉴
+  - `miaopian-demo` 前端假 typewriter 分支 PO 未通过；本项目采用 **batch 完成后客户端 reveal**
+- **决策：**
+  1. 保持 batch generate；生成中展示 miaopian 风格 **成稿分析步骤** + **生成状态条**
+  2. API 返回后进入 **revealing** 阶段：block 逐段出现 + 文本 block 字符打字机 + streaming caret
+  3. revealing 完成后进入 **ready**，启用复制
+  4. 不引入 `/api/generate/stream` 作为 Sprint 6 Story 005 验收路径
+- **关联：** S6-STORY-005、DECISION-075、miaopian-demo UX 参考
+- **状态：** 已废弃（由 DECISION-077 取代）
+
+### DECISION-077 详情（S6-STORY-005 真实 SSE block-aware stream · 即时预览 UI）
+
+- **日期：** 2026-06-02
+- **背景：**
+  - miaopian-demo 建议：第一时间显示生成界面、真实 SSE block-aware stream、页面跟随滚动、统一 Preview Renderer
+  - DECISION-076 客户端假打字机已废弃
+  - stash 中 `feature/s6-real-sse-block-aware-stream` 已实现 Volcengine JSONL → GenerationEvent → SSE 主链路
+- **决策：**
+  1. 预览主路径改为 `POST /api/generate/stream`（SSE）
+  2. 扩展 GenerationEvent：保留 `block.start/delta/complete`；新增 `phase`（planning/writing/styling/finalizing）
+  3. 点击生成后立即进入 connecting/planning UI：分析面板 + 文章容器占位 + 预览 scroll 区
+  4. 流式 block 经 `renderStreamingPreviewBlocks` + `generateDeterministicStyleSelection` 走 **同一 Preview Renderer 与 Style 控件样式**；终态 `flow.complete` 交付 copy payload
+  5. 自动滚动跟随当前 block；用户上滑暂停；「回到当前位置」恢复
+  6. batch `/api/generate` 保留；**禁止**客户端 batch 后假打字机作为主方案
+- **架构边界（未破坏）：** 单一 Article Schema 终态；无平行 streamArticle；Preview/Copy 共享 Style + Renderer 体系
+- **关联：** S6-STORY-005、DECISION-075、miaopian-demo UX 参考
+- **状态：** 已确认 · **用户验收通过**（2026-06-02；S6-STORY-005 Done）
 
 ```
 ### DECISION-XXX：[标题]

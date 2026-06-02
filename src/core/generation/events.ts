@@ -9,6 +9,8 @@ import type { BlockType } from "@/core/blocks";
 import type { NormalizedInput } from "./input";
 
 export const GENERATION_EVENT_TYPES = [
+  "start",
+  "phase",
   "block.start",
   "block.delta",
   "block.complete",
@@ -28,6 +30,19 @@ export type GenerationEventBase = {
   requestId: string;
   sequence: number;
   timestamp?: string;
+};
+
+export type StreamPhase = "planning" | "writing" | "styling" | "finalizing";
+
+export type StreamStartEvent = GenerationEventBase & {
+  type: "start";
+  meta?: GenerationEventMeta;
+};
+
+export type PhaseEvent = GenerationEventBase & {
+  type: "phase";
+  phase: StreamPhase;
+  message: string;
 };
 
 export type BlockStartEvent = GenerationEventBase & {
@@ -69,6 +84,8 @@ export type HeartbeatEvent = GenerationEventBase & {
 };
 
 export type GenerationEvent =
+  | StreamStartEvent
+  | PhaseEvent
   | BlockStartEvent
   | BlockDeltaEvent
   | BlockCompleteEvent

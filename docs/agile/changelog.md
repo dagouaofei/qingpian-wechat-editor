@@ -367,3 +367,14 @@
 | 2026-06-02 | Sprint 6 | S6-STORY-005~006 仍为 **To Do**（打字机 / 风格切换 / 复制专项） | 敏捷 | — |
 | 2026-06-02 | Sprint 6 | 工作分支 `feature/s6-home-ai-preview-flow`；**不 merge release/1** | Git | S6-STORY-002~004 |
 | 2026-06-02 | Sprint 6 | `feature/s6-home-ai-preview-flow` merge 至 `sprint/s6-visible-ai-main-flow` @ `f38130a`；S6-STORY-002~004 **Done** | Git / 敏捷 | DECISION-072 |
+
+## 2026-06-02 · Sprint 6 SSE 流式预览 + UX Shell（S6-STORY-005 / 006A）
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-02 | Sprint 6 | **S6-STORY-005 Done**：真实 SSE `POST /api/generate/stream`；block-aware 流式预览 + Style 系统控件样式 + 滚动跟随 | 代码 / UI | S6-STORY-005, DECISION-077 |
+| 2026-06-02 | Sprint 6 | **S6-STORY-006A Done**：miaopian 风格 UI Shell；预览页复制 | 代码 / UI | S6-STORY-006A, DECISION-075 |
+| 2026-06-02 | Sprint 6 | DECISION-076 标记 **已废弃**（由 DECISION-077 取代） | 敏捷 | DECISION-076, DECISION-077 |
+| 2026-06-02 | Sprint 6 | 流式预览接入 `generateDeterministicStyleSelection`；list structured block 就绪校验 | 代码 | S6-STORY-005 |
+| 2026-06-02 | Sprint 6 | PO 验收通过（2026-06-02）；`feature/s6-generation-feedback-typewriter` merge 至 sprint（见 sprint-backlog merge hash） | 敏捷 / Git | S6-STORY-005, S6-STORY-006A |
+| 2026-06-02 | Sprint 6 | **S6-STORY-006** 仍为 **To Do**（风格 / 配色切换 + Paste QA 专项） | 敏捷 | S6-STORY-006 |

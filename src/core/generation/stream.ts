@@ -62,7 +62,7 @@ export function validateGenerationEventSequence(
     }
     lastSequence = event.sequence;
 
-    if (event.type === "heartbeat") {
+    if (event.type === "heartbeat" || event.type === "start" || event.type === "phase") {
       return;
     }
 

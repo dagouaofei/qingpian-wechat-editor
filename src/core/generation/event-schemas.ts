@@ -46,6 +46,21 @@ export const safeGenerationDeltaSchema = z
     message: "delta must not contain HTML markup",
   });
 
+export const streamStartEventSchema = generationEventBaseSchema
+  .extend({
+    type: z.literal("start"),
+    meta: generationEventMetaSchema.optional(),
+  })
+  .strict();
+
+export const phaseEventSchema = generationEventBaseSchema
+  .extend({
+    type: z.literal("phase"),
+    phase: z.enum(["planning", "writing", "styling", "finalizing"]),
+    message: z.string().min(1),
+  })
+  .strict();
+
 export const blockStartEventSchema = generationEventBaseSchema
   .extend({
     type: z.literal("block.start"),
@@ -99,6 +114,8 @@ export const heartbeatEventSchema = generationEventBaseSchema
 export const generationEventSchema: z.ZodType<GenerationEvent> = z.discriminatedUnion(
   "type",
   [
+    streamStartEventSchema,
+    phaseEventSchema,
     blockStartEventSchema,
     blockDeltaEventSchema,
     blockCompleteEventSchema,

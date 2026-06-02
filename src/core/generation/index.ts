@@ -3,6 +3,7 @@ export type {
   BlockCompleteEvent,
   BlockDeltaEvent,
   BlockStartEvent,
+  StreamStartEvent,
   DoneArticleEvent,
   GenerationErrorEvent,
   GenerationEvent,
@@ -145,6 +146,21 @@ export {
 } from "./model-article-enrichment";
 
 export { createVolcengineTransport } from "./volcengine-transport";
+export { createVolcengineStreamTransport } from "./volcengine-stream-transport";
+export type { VolcengineStreamTransport } from "./volcengine-stream-transport";
+
+export {
+  buildArticleCandidateFromStreamBlocks,
+  createJsonlBlockStreamParser,
+} from "./jsonl-block-stream-parser";
+export type { JsonlBlockStreamParser } from "./jsonl-block-stream-parser";
+
+export {
+  buildVolcengineStreamingPromptMessages,
+  buildVolcengineStreamingSystemPrompt,
+} from "./model-prompt-streaming";
+
+export { createVolcengineStreamingModelProvider } from "./volcengine-streaming-provider";
 
 export {
   buildGenerationEventsFromArticleCandidate,
@@ -153,6 +169,7 @@ export {
   enrichArticleCandidate,
   generateVolcengineProviderEvents,
   resolveGenerationModelProvider,
+  resolveStreamContext,
 } from "./volcengine-provider";
 
 export type { BuildGenerationEventsOptions } from "./volcengine-provider";

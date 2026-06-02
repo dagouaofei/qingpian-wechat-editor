@@ -35,7 +35,7 @@ function isPlainObject(value: unknown): value is Record<string, unknown> {
   return value !== null && typeof value === "object" && !Array.isArray(value);
 }
 
-function resolveStreamContext(
+export function resolveStreamContext(
   input: NormalizedInput,
   context: Partial<GenerationStreamContext> = {},
 ): GenerationStreamContext {

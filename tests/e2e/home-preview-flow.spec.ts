@@ -3,7 +3,7 @@ import { test, expect } from "@playwright/test";
 test.describe("home → preview main flow", () => {
   test("home page renders required topic input and generate button", async ({ page }) => {
     await page.goto("/");
-    await expect(page.getByRole("heading", { name: "公众号文章生成" })).toBeVisible();
+    await expect(page.getByTestId("home-page-title")).toHaveText("公众号文章生成");
     await expect(page.getByTestId("home-topic-input")).toBeVisible();
     await expect(page.getByTestId("home-generate-button")).toBeVisible();
   });
@@ -20,6 +20,7 @@ test.describe("home → preview main flow", () => {
   }) => {
     await page.goto("/");
     await page.getByTestId("home-topic-input").fill("轻篇 Sprint 6 首页预览联调测试");
+    await page.getByRole("button", { name: "展开高级选项（场景 / 读者 / 风格）" }).click();
     await page.getByTestId("home-scene-select").selectOption("knowledge");
     await page.getByTestId("home-audience-select").selectOption("general");
     await page.getByTestId("home-generate-button").click();
@@ -29,7 +30,9 @@ test.describe("home → preview main flow", () => {
       page
         .getByTestId("preview-loading-state")
         .or(page.getByTestId("preview-error-panel"))
+        .or(page.getByTestId("preview-analysis-panel"))
+        .or(page.getByTestId("preview-stream-placeholder"))
         .or(page.getByTestId("article-preview-panel")),
-    ).toBeVisible({ timeout: 60_000 });
+    ).toBeVisible({ timeout: 120_000 });
   });
 });

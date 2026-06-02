@@ -9,7 +9,7 @@
 > **Sprint 3-C：** Style Assignment / Selection Validation + Orchestrator + VisualAssetRegistry · **Closed**（2026-06-01；DECISION-065；audit Grade A；P0=0 · P1=5 · P2=4；merged `release/1`）
 > **Sprint 5：** Generation / Streaming + Release 1 真实 UI 主流程闭环 · **Closed**（2026-06-02；DECISION-069；audit Grade A- · P0=0 · P1=4 · P2=3；`sprint/s5-generation-ui-main-flow` 已 merge 至 `release/1`）
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
-> **当前 Sprint：** **Sprint 6 Release 1 Visible AI Main Flow**（**In Progress** · S6-STORY-001~004 Done · S6-STORY-005~006 To Do）
+> **当前 Sprint：** **Sprint 6 Release 1 Visible AI Main Flow**（**In Progress** · S6-STORY-001~005 Done · S6-STORY-006A Done · S6-STORY-006 To Do）
 > **Sprint 6 分支：** `sprint/s6-visible-ai-main-flow`（从 `release/1` 切出 · DECISION-071）
 > **Release 1 主干：** `release/1`
 
@@ -2341,7 +2341,7 @@ S3C-STORY-001（启动）
 > **Release 1 主干：** `release/1`
 > **UI 主流程入口：** **`/generate`**（S5-STORY-007 Done @ `01318c4`）
 > **Close Readiness Audit：** [`docs/architecture/audits/sprint5-main-flow-close-readiness-audit.md`](../architecture/audits/sprint5-main-flow-close-readiness-audit.md)
-> **下一步：** **S6-STORY-005** 基础生成反馈与轻量打字机；S6-STORY-006 待启动；Sprint 7/8 Planned · 未启动；**不 merge `main`**
+> **下一步：** **S6-STORY-006** 风格 / 配色切换与粘贴 QA；Sprint 7/8 Planned · 未启动；**不 merge `main`**
 > **Sprint 5 不做：** 真实微信公众号 Paste QA 全量回归、不宣称复制到公众号最终保真通过、Style Gallery、真实 QR / 小程序 / 图片上传托管 / AI 生图、复杂编辑器 / block 级编辑、样式市场、merge 至 `main`
 > **保留原则：** 真实 Paste QA 归 **Sprint 8**；Style Gallery / 样式丰富度归 **Sprint 7**；Sprint 5 技术 smoke **不替代** Release 1 用户可见验收与 Paste QA
 
@@ -2833,7 +2833,8 @@ S6-STORY-001 Sprint 6 Planning 与 Backlog / Story Map 对齐 — Done
 S6-STORY-002 首页输入与生成入口 — Done
 S6-STORY-003 真实 AI 生成结构化 Article — Done
 S6-STORY-004 预览页与带样式文章渲染 — Done
-S6-STORY-005 基础生成反馈与轻量打字机体验 — To Do
+S6-STORY-005 基础生成反馈与轻量打字机体验 — Done
+S6-STORY-006A 首页 / 预览 UI Shell 对齐 miaopian-demo — Done
 S6-STORY-006 风格 / 配色基础切换与复制到公众号 — To Do
 ```
 
@@ -2957,21 +2958,34 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — To Do
 
 **用户故事：** 作为用户，我点击生成后有明确反馈，并在生成完成后看到轻量打字机或分块渐显效果。
 
-**优先级：** P0 · **状态：** To Do · **工作分支：** `feature/s6-generation-feedback-typewriter`（启动时创建）
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s6-generation-feedback-typewriter`（**已 merge 至 sprint**）
 
-**对应 Product Backlog：** PB-R1-06
+**UX 参考：** miaopian-demo block-aware SSE + LandingStreamAnalysisPanel + 滚动跟随（DECISION-077）
 
-**对应 Story Map：** 等待生成 / 观察生成过程
+**主路径：** `POST /api/generate/stream`（真实 SSE）；batch `/api/generate` 保留
 
-**目标：** loading、生成步骤提示、基础生成反馈；生成完成后轻量打字机或分块渐显（非完整 block-aware token streaming）。
+**实际产物：**
+
+| 路径 | 说明 |
+|------|------|
+| `src/app/api/generate/stream/route.ts` | SSE API |
+| `src/server/generation/run-generate-stream-flow.ts` | stream + phase + flow.complete |
+| `src/core/generation/jsonl-block-stream-parser.ts` | JSONL → GenerationEvent |
+| `src/core/generation/volcengine-streaming-provider.ts` | Ark stream: true |
+| `src/lib/render-streaming-preview.ts` | 流式 block → Style Selection + Preview Renderer |
+| `src/lib/use-preview-stream-scroll.ts` | 自动跟随 + 回到当前位置 |
+| `src/components/preview/` | 成稿分析面板 + 生成状态条 |
+| `src/app/preview/preview-page-client.tsx` | connecting/planning/streaming/finalizing/done UI |
 
 **验收标准：**
 
-- [ ] AC-1 生成中有可见状态（loading / 步骤 / streaming 进度）
-- [ ] AC-2 失败与空输入有基础用户反馈
-- [ ] AC-3 完成后有轻量打字机或分块渐显（可选 SSE 事件驱动）
-- [ ] AC-4 不实现复杂编辑器或 block 级编辑
-- [ ] AC-5 不实现完整真流式 block-aware token streaming
+- [x] AC-1 点击后立即进入生成 UI（非空白等待）
+- [x] AC-2 phase + 分析步骤可见反馈
+- [x] AC-3 真实 SSE block.start/delta/complete 驱动 Preview Renderer + Style 系统控件样式 + caret
+- [x] AC-4 预览区滚动跟随 + 手动暂停/恢复
+- [x] AC-5 非客户端 batch 假打字机；终态 flow.complete 可复制
+
+**用户验收：** 2026-06-02 PO 确认通过（流式 Style 控件样式 + list 渲染 + 滚动跟随）
 
 ---
 
@@ -2994,6 +3008,39 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — To Do
 - [ ] AC-3 Copy 按钮；payload 来自 Copy Renderer（`text/html` + `text/plain`）
 - [ ] AC-4 最小粘贴 QA：公众号编辑器 + 135 编辑器；记录已知问题 backlog
 - [ ] AC-5 不宣称 Sprint 8 全量 Paste QA / Release 1 关闭已通过
+
+---
+
+## S6-STORY-006A 首页 / 预览 UI Shell 对齐 miaopian-demo（batch + 复制）
+
+**用户故事：** 作为用户，我可以在有产品感的首页输入需求，在预览工作台完成 batch 生成、查看带样式文章并复制到公众号。
+
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s6-ux-shell-miaopian-reference`（已并入 `feature/s6-generation-feedback-typewriter` 并 **merge 至 sprint**）
+
+**对应 Product Backlog：** PB-R1-01、PB-R1-04、PB-R1-07（复制部分提前）
+
+**UX 参考：** `miaopian-demo` Landing（信息架构与视觉密度；非代码复制 · DECISION-075）
+
+**目标：** `/` + `/preview` UI Shell 抛光；预览页 Copy 按钮。主路径后续由 S6-STORY-005 升级为 SSE（DECISION-077）。
+
+**实际产物：**
+
+| 路径 | 说明 |
+|------|------|
+| `src/components/ui-shell/` | 共享页面壳（backdrop / nav / primitives） |
+| `src/app/home-page-client.tsx` | miaopian 风格 Landing 输入区 |
+| `src/app/preview/preview-page-client.tsx` | 双栏工作台 + 复制 |
+| `src/lib/copy-clipboard-payload.ts` | 剪贴板复制工具 |
+
+**验收标准：**
+
+- [x] AC-1 `/` 信息架构对齐 miaopian Landing（hero + 输入卡片 + 示例选题 + 高级选项）
+- [x] AC-2 `/preview` 双栏布局（侧栏操作 + 主预览区）
+- [x] AC-3 预览主路径已升级为 SSE stream（原 batch 保留于 `/generate` harness · DECISION-077）
+- [x] AC-4 预览页「复制到公众号」可用（Copy Renderer payload）
+- [x] AC-5 不动 Article Schema；不复制 miaopian-demo 代码
+
+**用户验收：** 2026-06-02 PO 确认通过（随 S6-STORY-005 一并验收）
 
 ---
 

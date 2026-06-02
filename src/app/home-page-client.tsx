@@ -3,6 +3,17 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+import { CheckIcon, SparklesIcon } from "@/components/ui-shell/icons";
+import { PageShell } from "@/components/ui-shell/page-shell";
+import {
+  ShellBadge,
+  ShellButton,
+  ShellCard,
+  ShellCardAccent,
+  ShellFieldLabel,
+  ShellSelect,
+  ShellTextarea,
+} from "@/components/ui-shell/primitives";
 import {
   HOME_ARTICLE_SCENES,
   HOME_BASIC_STYLES,
@@ -19,10 +30,17 @@ const DEFAULT_FORM: HomeFormState = {
   basicStyle: "",
 };
 
+const EXAMPLE_PROMPTS = [
+  "如何做好一个公众号",
+  "春季护肤指南：敏感肌如何平稳换季",
+  "私域运营入门指南",
+];
+
 export function HomePageClient() {
   const router = useRouter();
   const [form, setForm] = useState<HomeFormState>(DEFAULT_FORM);
   const [validationMessage, setValidationMessage] = useState<string | null>(null);
+  const [showAdvanced, setShowAdvanced] = useState(false);
 
   function handleSubmit() {
     const validation = validateHomeForm(form);
@@ -36,111 +54,161 @@ export function HomePageClient() {
   }
 
   return (
-    <div className="mx-auto flex min-h-screen w-full max-w-2xl flex-col px-6 py-10">
-      <header className="mb-8 space-y-2">
-        <p className="text-sm font-medium text-emerald-700">轻篇 · Release 1</p>
-        <h1 className="text-3xl font-bold text-zinc-900">公众号文章生成</h1>
-        <p className="text-zinc-600">
-          输入主题与基础需求，使用真实 AI 生成结构化文章，并在预览页查看带样式效果。
-        </p>
-      </header>
+    <PageShell navCtaHref="#home-input" navCtaLabel="开始生成">
+      <section className="mx-auto max-w-6xl px-4 pb-16 pt-8 sm:px-6 md:pt-12">
+        <div className="grid items-start gap-8 lg:grid-cols-2 lg:gap-12">
+          <div className="space-y-6">
+            <div className="space-y-4">
+              <ShellBadge className="border-blue-200/50 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 px-3 py-1 text-sm font-medium text-blue-700">
+                <SparklesIcon className="mr-1 h-3.5 w-3.5" />
+                AI 驱动的公众号排版助手
+              </ShellBadge>
+              <h1
+                className="text-3xl font-bold leading-snug tracking-tight text-slate-900 sm:text-4xl"
+                data-testid="home-page-title"
+              >
+                公众号文章生成
+              </h1>
+              <p className="max-w-xl text-base leading-relaxed text-slate-600">
+                输入主题与基础需求，使用真实 AI 生成结构化文章，自动排版后在预览页查看带样式效果，并一键复制到公众号编辑器。
+              </p>
+            </div>
 
-      <form
-        className="space-y-5 rounded-xl border border-zinc-200 bg-white p-6 shadow-sm"
-        onSubmit={(event) => {
-          event.preventDefault();
-          handleSubmit();
-        }}
-      >
-        <label className="block space-y-1">
-          <span className="text-sm font-medium text-zinc-800">
-            文章主题 <span className="text-red-600">*</span>
-          </span>
-          <input
-            data-testid="home-topic-input"
-            className="w-full rounded-md border border-zinc-300 px-3 py-2"
-            value={form.topic}
-            onChange={(event) => setForm({ ...form, topic: event.target.value })}
-            placeholder="例如：春季护肤指南：敏感肌如何平稳换季"
-          />
-        </label>
+            <div className="hidden flex-wrap gap-2 lg:flex">
+              <ShellBadge className="border-emerald-200 bg-white/80 text-emerald-600 shadow-sm">
+                <CheckIcon className="mr-1" />
+                自动排版
+              </ShellBadge>
+              <ShellBadge className="border-blue-200 bg-white/80 text-blue-600 shadow-sm">
+                <CheckIcon className="mr-1" />
+                结构优化
+              </ShellBadge>
+              <ShellBadge className="border-indigo-200 bg-white/80 text-indigo-600 shadow-sm">
+                <CheckIcon className="mr-1" />
+                可复制到公众号
+              </ShellBadge>
+            </div>
+          </div>
 
-        <label className="block space-y-1">
-          <span className="text-sm font-medium text-zinc-800">文章用途 / 场景</span>
-          <select
-            data-testid="home-scene-select"
-            className="w-full rounded-md border border-zinc-300 px-3 py-2"
-            value={form.scene}
-            onChange={(event) => setForm({ ...form, scene: event.target.value })}
-          >
-            {HOME_ARTICLE_SCENES.map((option) => (
-              <option key={option.value || "none"} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </label>
+          <div id="home-input" className="relative">
+            <div className="absolute inset-0 -z-10 scale-95 rounded-3xl bg-gradient-to-r from-blue-500/20 to-indigo-500/20 blur-2xl" />
+            <ShellCard>
+              <ShellCardAccent />
+              <form
+                className="space-y-4 p-5 sm:p-6"
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  handleSubmit();
+                }}
+              >
+                <div className="flex items-center gap-2 text-sm text-slate-500">
+                  <div className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
+                  输入选题，开始生成带样式公众号文章
+                </div>
 
-        <label className="block space-y-1">
-          <span className="text-sm font-medium text-zinc-800">目标读者</span>
-          <select
-            data-testid="home-audience-select"
-            className="w-full rounded-md border border-zinc-300 px-3 py-2"
-            value={form.audience}
-            onChange={(event) => setForm({ ...form, audience: event.target.value })}
-          >
-            {HOME_TARGET_AUDIENCES.map((option) => (
-              <option key={option.value || "none"} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </label>
+                <label className="block space-y-2">
+                  <ShellFieldLabel required>文章主题</ShellFieldLabel>
+                  <ShellTextarea
+                    data-testid="home-topic-input"
+                    value={form.topic}
+                    onChange={(event) => setForm({ ...form, topic: event.target.value })}
+                    placeholder="例如：春季护肤指南：敏感肌如何平稳换季"
+                  />
+                </label>
 
-        <label className="block space-y-1">
-          <span className="text-sm font-medium text-zinc-800">基础风格</span>
-          <select
-            data-testid="home-style-select"
-            className="w-full rounded-md border border-zinc-300 px-3 py-2"
-            value={form.basicStyle}
-            onChange={(event) => setForm({ ...form, basicStyle: event.target.value })}
-          >
-            {HOME_BASIC_STYLES.map((option) => (
-              <option key={option.value || "default"} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-          <p className="text-xs text-zinc-500">
-            本轮仅作为生成参数；正式风格 / 配色切换将在后续 Story 实现。
-          </p>
-        </label>
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-xs font-medium text-slate-500">试试这些：</span>
+                  {EXAMPLE_PROMPTS.map((prompt) => (
+                    <button
+                      key={prompt}
+                      type="button"
+                      className="rounded-full border border-transparent bg-slate-100 px-3 py-1.5 text-xs text-slate-600 transition-all hover:border-blue-200 hover:bg-blue-50 hover:text-blue-600"
+                      onClick={() => setForm({ ...form, topic: prompt })}
+                    >
+                      {prompt}
+                    </button>
+                  ))}
+                </div>
 
-        {validationMessage ? (
-          <p
-            className="rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-900"
-            data-testid="home-validation-message"
-            role="alert"
-          >
-            {validationMessage}
-          </p>
-        ) : null}
+                <button
+                  type="button"
+                  className="text-sm font-medium text-blue-600 hover:text-blue-700"
+                  onClick={() => setShowAdvanced((value) => !value)}
+                >
+                  {showAdvanced ? "收起高级选项" : "展开高级选项（场景 / 读者 / 风格）"}
+                </button>
 
-        <button
-          type="submit"
-          data-testid="home-generate-button"
-          className="w-full rounded-md bg-zinc-900 px-4 py-2.5 font-medium text-white"
-        >
-          开始生成
-        </button>
-      </form>
+                {showAdvanced ? (
+                  <div className="grid gap-3 rounded-xl border border-slate-200 bg-slate-50/80 p-4 sm:grid-cols-2">
+                    <label className="block space-y-2 sm:col-span-2">
+                      <ShellFieldLabel>文章用途 / 场景</ShellFieldLabel>
+                      <ShellSelect
+                        data-testid="home-scene-select"
+                        value={form.scene}
+                        onChange={(event) => setForm({ ...form, scene: event.target.value })}
+                      >
+                        {HOME_ARTICLE_SCENES.map((option) => (
+                          <option key={option.value || "none"} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </ShellSelect>
+                    </label>
+                    <label className="block space-y-2">
+                      <ShellFieldLabel>目标读者</ShellFieldLabel>
+                      <ShellSelect
+                        data-testid="home-audience-select"
+                        value={form.audience}
+                        onChange={(event) => setForm({ ...form, audience: event.target.value })}
+                      >
+                        {HOME_TARGET_AUDIENCES.map((option) => (
+                          <option key={option.value || "none"} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </ShellSelect>
+                    </label>
+                    <label className="block space-y-2">
+                      <ShellFieldLabel>基础风格</ShellFieldLabel>
+                      <ShellSelect
+                        data-testid="home-style-select"
+                        value={form.basicStyle}
+                        onChange={(event) => setForm({ ...form, basicStyle: event.target.value })}
+                      >
+                        {HOME_BASIC_STYLES.map((option) => (
+                          <option key={option.value || "default"} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </ShellSelect>
+                    </label>
+                  </div>
+                ) : null}
 
-      <p className="mt-6 text-sm text-zinc-500">
-        开发者验收入口：{" "}
-        <a href="/generate" className="text-emerald-700 underline">
-          /generate
-        </a>
-      </p>
-    </div>
+                {validationMessage ? (
+                  <p
+                    className="rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-900"
+                    data-testid="home-validation-message"
+                    role="alert"
+                  >
+                    {validationMessage}
+                  </p>
+                ) : null}
+
+                <ShellButton
+                  type="submit"
+                  size="lg"
+                  className="w-full"
+                  data-testid="home-generate-button"
+                >
+                  <SparklesIcon className="h-5 w-5" />
+                  开始生成
+                </ShellButton>
+              </form>
+            </ShellCard>
+          </div>
+        </div>
+      </section>
+    </PageShell>
   );
 }
