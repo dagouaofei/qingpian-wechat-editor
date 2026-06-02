@@ -108,4 +108,4 @@
 
 ## 14. Commit
 
-- Commit hash：`b47ac4a`
+- Commit hash：`6e7be68`
