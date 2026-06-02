@@ -396,3 +396,11 @@
 | 2026-06-02 | Sprint 6 | Sprint 6 Close Readiness Audit（Grade A- · P0=0） | 文档 / QA | S6-STORY-001~006 |
 | 2026-06-02 | Sprint 6 | 修复 `home-preview-flow` e2e strict mode；`preview-visual-styles` 单测跟随 CSS var | 测试 | Sprint 6 close audit |
 | 2026-06-02 | Sprint 6 | Sprint 6 状态 → **Close Readiness**（**未关闭** · 待用户确认） | 敏捷 | DECISION-071 |
+
+## 2026-06-02 · Sprint 6 关闭 + Sprint 7 启动
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-02 | Sprint 6 | **Sprint 6 Closed**（DECISION-078）；merge `sprint/s6-visible-ai-main-flow` → `release/1` | 敏捷 / Git | DECISION-078 |
+| 2026-06-02 | Sprint 7 | **Sprint 7 启动**（DECISION-079）；`sprint/s7-wechat-article-experience` | 敏捷 / Git | DECISION-079, S7-STORY-001 |
+| 2026-06-02 | Sprint 7 | 新增 `docs/agile/miaopian-alignment/s7-workflow-and-ux-gap.md` | 文档 | S7-STORY-001 |

@@ -73,6 +73,8 @@
 | DECISION-075 | 2026-06-02 | Sprint 6 UX 参考 miaopian-demo Landing；UI Shell + 预览页复制（主路径后续升级为 SSE · DECISION-077） | 已确认 |
 | DECISION-076 | 2026-06-02 | S6-STORY-005 客户端 batch 后 block/char 打字机；参考 miaopian 分析面板 UX；非 SSE token stream | **已废弃**（由 DECISION-077 取代） |
 | DECISION-077 | 2026-06-02 | S6-STORY-005 真实 SSE block-aware stream + phase 事件 + 即时预览 UI | 已确认 |
+| DECISION-078 | 2026-06-02 | 关闭 Sprint 6；visible main-flow audit A-，P0=0；merge sprint/s6-visible-ai-main-flow → release/1 | 已确认 |
+| DECISION-079 | 2026-06-02 | 正式启动 Sprint 7；S7-STORY-001 含 miaopian 协作对齐 + UX gap 文档；样式/Gallery 归 S7-STORY-002~006 | 已确认 |
 
 ### DECISION-019 详情
 
@@ -576,7 +578,46 @@
 - **关联：** S6-STORY-005、DECISION-075、miaopian-demo UX 参考
 - **状态：** 已确认 · **用户验收通过**（2026-06-02；S6-STORY-005 Done）
 
-```
+### DECISION-078 详情（关闭 Sprint 6）
+
+- **日期：** 2026-06-02
+- **背景：**
+  - S6-STORY-001~006 + S6-STORY-006A 全部 Done
+  - Sprint 6 Close Readiness Audit 完成（`sprint6-visible-ai-main-flow-close-readiness-audit.md`）
+  - Audit Grade **A-**，P0=0，P1=5，P2=4
+  - 用户确认关闭 Sprint 6（承接「按方案做 Sprint 7 启动」指令）
+  - PB-R1-01~08 Sprint 6 范围已交付；Sprint 8 全量 Paste QA **未**完成
+- **决策：**
+  1. 用户接受 Sprint 6 close readiness audit 结论
+  2. Sprint 6 **正式关闭**
+  3. `sprint/s6-visible-ai-main-flow` **merge 至 `release/1`**
+  4. P1/P2 登记 Sprint 7 / Sprint 8，不阻塞关闭
+  5. **不 merge 至 `main`**
+  6. **不关闭 Release 1**
+  7. 下一步启动 Sprint 7（DECISION-079）
+- **关联：** S6-STORY-001~006、DECISION-071、DECISION-070、`sprint6-visible-ai-main-flow-close-readiness-audit.md`
+- **状态：** 已确认
+
+### DECISION-079 详情（正式启动 Sprint 7 · miaopian 协作与体验对齐）
+
+- **日期：** 2026-06-02
+- **背景：**
+  - Sprint 6 已关闭（DECISION-078）
+  - 用户希望工作方式向 miaopian-demo 靠拢，聚焦：**协作方式（4）· 交互流（1）· 成稿样式/Gallery（2）**
+  - DECISION-070 已将样式 richness / Gallery 规划为 Sprint 7
+  - 交互流主能力已在 Sprint 6 交付；协作方式需文档化 adopt / 不 adopt 边界
+- **决策：**
+  1. 从 `release/1` 创建 **`sprint/s7-wechat-article-experience`**
+  2. Sprint 7 名称不变：**WeChat Article Experience & Style Richness**
+  3. **S7-STORY-001** 扩展为：Sprint 7 启动 + [`s7-workflow-and-ux-gap.md`](miaopian-alignment/s7-workflow-and-ux-gap.md) + 体验目标对齐
+  4. **成稿样式 / Style Gallery（2）** → S7-STORY-002~006（不变）
+  5. **交互流（1）** 无 P0 gap；仅保留 optional polish backlog，不单独开 Sprint
+  6. **协作方式（4）** 写入 alignment 文档；延续 execution report + 单 Story 分支，**不**复制 demo 代码
+  7. Sprint 8 Paste QA / Release 1 关闭 **不在 Sprint 7 启动**
+- **影响范围：** `sprint-backlog.md`、`sprint-plan.md`、`release-plan.md`、`product-backlog.md`、`changelog.md`
+- **关联：** DECISION-070、DECISION-078、DECISION-075、DECISION-077、TECH-ARCH-023
+- **状态：** 已确认
+
 ### DECISION-XXX：[标题]
 
 - **日期：**

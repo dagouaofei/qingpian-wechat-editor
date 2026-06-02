@@ -93,9 +93,9 @@
 | TECH-ARCH-023 | Release 1 Style Quality Gate | EPIC-004 / EPIC-006 | Style Gallery / 视觉样例 / 样式效果验收；**Sprint 7** 主责；Sprint 3-B registry · Sprint 4-A/B renderer **Done** |
 | TECH-ARCH-024 | Release 1 Real UI Main Flow | EPIC-001 / EPIC-002 / EPIC-005 / EPIC-006 / EPIC-007 | Sprint 5 技术主链路 **Done**（`/generate` · DECISION-069）；**Sprint 6 用户可见真实 AI 闭环验收**（DECISION-070、DECISION-071）；Paste QA 归 Sprint 8 |
 | TECH-ARCH-025 | Real Model Provider Integration | EPIC-002 / EPIC-007 | **Sprint 5 Done**：Volcengine / Doubao provider + dev smoke PASSED；**Sprint 6 主流程必须走真实 AI**，mock-only 不作为 Sprint 6 验收 |
-| TECH-ARCH-026 | Release 1 Visible Main Flow Acceptance | EPIC-001 / EPIC-005 / EPIC-007 | **Sprint 6 执行中**（`sprint/s6-visible-ai-main-flow`）：首页 → 真实 AI 生成 → 预览 → 风格 / 配色 → 复制；每 Story 关联 PB-R1-01~08 |
+| TECH-ARCH-026 | Release 1 Visible Main Flow Acceptance | EPIC-001 / EPIC-005 / EPIC-007 | **Sprint 6 Done**（DECISION-078）：`/` → `/preview` → 风格 / 配色 → 复制 · PB-R1-01~08 |
 
-状态：文档契约 S1-STORY-021~028；代码 Sprint 2 + 3-A/B/C + 4-A/B + 5 **Done** 并 merge `release/1`。**Release 1 未关闭**。Release 1 尾声按 **方案 B（DECISION-070）** 重排：**Sprint 6 Visible AI Main Flow（In Progress）** · **Sprint 7 WeChat Article Experience** · **Sprint 8 Copy Fidelity & Closure**。详见 [`release-plan.md`](release-plan.md)。
+状态：文档契约 S1-STORY-021~028；代码 Sprint 2 + 3-A/B/C + 4-A/B + 5 + **6** **Done** 并 merge `release/1`。**Release 1 未关闭**。Release 1 尾声按 **方案 B（DECISION-070）** 重排：**Sprint 6 Closed** · **Sprint 7 In Progress** · **Sprint 8 Planned**。详见 [`release-plan.md`](release-plan.md)。
 
 ---
 
@@ -142,8 +142,8 @@
 
 | Sprint | 名称 | Story | 优先级 |
 |--------|------|-------|--------|
-| **Sprint 6** | Release 1 Visible AI Main Flow | S6-STORY-001 ~ S6-STORY-006 | **P0 · In Progress** |
-| Sprint 7 | WeChat Article Experience & Style Richness | S7-STORY-001 ~ S7-STORY-007 | P0 · 后续 |
+| **Sprint 6** | Release 1 Visible AI Main Flow | S6-STORY-001 ~ S6-STORY-006 | **P0 · Closed**（DECISION-078） |
+| **Sprint 7** | WeChat Article Experience & Style Richness | S7-STORY-001 ~ S7-STORY-007 | **P0 · In Progress**（DECISION-079） |
 | Sprint 8 | Copy Fidelity & Release 1 Closure | S8-STORY-001 ~ S8-STORY-007 | P0 · 后续 |
 
 Story 详情见 [`sprint-backlog.md`](sprint-backlog.md)。**不要把 Sprint 7/8 Story 放入当前执行中。**

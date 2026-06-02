@@ -59,9 +59,10 @@
 | **Sprint 4-B** | **Closed**（2026-06-01；DECISION-063） |
 | **Sprint 3-C** | **Closed**（2026-06-01；DECISION-065；audit Grade A；merged `release/1`） |
 | **Sprint 5** | **Closed**（2026-06-02；DECISION-069；S5-STORY-001~008 Done；audit Grade A- · P0=0；merged `release/1`） |
-| **Sprint 6** | **Close Readiness**（S6-STORY-001~006 Done · audit A- · 待用户确认关闭） |
+| **Sprint 6** | **Closed**（2026-06-02；DECISION-078；merge `release/1`） |
+| **Sprint 7** | **In Progress**（2026-06-02；DECISION-079；`sprint/s7-wechat-article-experience`） |
 | **Release 1 主干** | `release/1` |
-| **下一步** | 用户确认 Sprint 6 关闭 → merge sprint → `release/1` |
+| **下一步** | **S7-STORY-002** 文章 fixture 样例集 → Style Gallery |
 
 ---
 
@@ -500,9 +501,9 @@ Sprint 5 Closed — DECISION-069 · merged `release/1`
 
 ---
 
-### Sprint 6：Release 1 Visible AI Main Flow — **In Progress**（2026-06-02）
+### Sprint 6：Release 1 Visible AI Main Flow — **Closed**（2026-06-02 · DECISION-078）
 
-**分支：** `sprint/s6-visible-ai-main-flow`（从 `release/1` 切出 · DECISION-071）
+**分支：** `sprint/s6-visible-ai-main-flow`（已 merge 至 `release/1`）
 
 > **核心目标：** 用户侧**真实 AI**最小可用闭环 — **不是** mock demo，**不是**纯技术验证。Sprint 5 技术框架（Generation、Volcengine provider、Renderer）可复用，Sprint 6 验收以**可手测完整闭环**为准（DECISION-070、DECISION-071）。
 
@@ -547,13 +548,15 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 - 完整真流式 block-aware token streaming
 - Sprint 7 Style Gallery / 样式丰富度大改
 - Sprint 8 真实 Paste QA 全量回归与 Release 1 关闭
-- 不关闭 Sprint 6（须用户确认）、不关闭 Release 1、不 merge 至 `main` / `release/1`（本轮）
+- 不关闭 Release 1、不 merge 至 `main`（Release 1 关闭归 Sprint 8）
 
 ---
 
-### Sprint 7：WeChat Article Experience & Style Richness — **Planned（后续）**
+### Sprint 7：WeChat Article Experience & Style Richness — **In Progress**（2026-06-02 · DECISION-079）
 
-**分支（启动时）：** `sprint/s7-wechat-article-experience`（名称可在 S7-STORY-001 最终确认）
+**分支：** `sprint/s7-wechat-article-experience`（从 `release/1` 切出）
+
+**对齐文档：** [`docs/agile/miaopian-alignment/s7-workflow-and-ux-gap.md`](miaopian-alignment/s7-workflow-and-ux-gap.md)
 
 **Sprint Goal：**
 

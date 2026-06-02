@@ -8,10 +8,11 @@
 > **Sprint 4-B：** Preview / Copy Renderer for Structured Blocks · **Closed**（2026-06-01；DECISION-063；audit Grade A；P0=0）
 > **Sprint 3-C：** Style Assignment / Selection Validation + Orchestrator + VisualAssetRegistry · **Closed**（2026-06-01；DECISION-065；audit Grade A；P0=0 · P1=5 · P2=4；merged `release/1`）
 > **Sprint 5：** Generation / Streaming + Release 1 真实 UI 主流程闭环 · **Closed**（2026-06-02；DECISION-069；audit Grade A- · P0=0 · P1=4 · P2=3；`sprint/s5-generation-ui-main-flow` 已 merge 至 `release/1`）
+> **Sprint 6：** Release 1 Visible AI Main Flow · **Closed**（2026-06-02；DECISION-078；audit Grade A- · P0=0 · P1=5 · P2=4；`sprint/s6-visible-ai-main-flow` 已 merge 至 `release/1`）
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
-> **当前 Sprint：** **Sprint 6 Release 1 Visible AI Main Flow**（**Close Readiness · 待用户确认关闭** · S6-STORY-001~006 Done · S6-STORY-006A Done）
-> **Close Readiness Audit：** [`docs/architecture/audits/sprint6-visible-ai-main-flow-close-readiness-audit.md`](../architecture/audits/sprint6-visible-ai-main-flow-close-readiness-audit.md)（Grade **A-** · P0=0 · 2026-06-02）
-> **Sprint 6 分支：** `sprint/s6-visible-ai-main-flow`（从 `release/1` 切出 · DECISION-071）
+> **当前 Sprint：** **Sprint 7 WeChat Article Experience & Style Richness**（**In Progress** · DECISION-079 · S7-STORY-001 启动中）
+> **Sprint 7 分支：** `sprint/s7-wechat-article-experience`（从 `release/1` 切出）
+> **miaopian 对齐：** [`docs/agile/miaopian-alignment/s7-workflow-and-ux-gap.md`](miaopian-alignment/s7-workflow-and-ux-gap.md)
 > **Release 1 主干：** `release/1`
 
 ---
@@ -2342,7 +2343,7 @@ S3C-STORY-001（启动）
 > **Release 1 主干：** `release/1`
 > **UI 主流程入口：** **`/generate`**（S5-STORY-007 Done @ `01318c4`）
 > **Close Readiness Audit：** [`docs/architecture/audits/sprint5-main-flow-close-readiness-audit.md`](../architecture/audits/sprint5-main-flow-close-readiness-audit.md)
-> **下一步：** 用户确认 Sprint 6 关闭 → merge `sprint/s6-visible-ai-main-flow` → `release/1`；**不 merge `main`**
+> **下一步：** **S7-STORY-002** 完整文章 fixture 与样例集；Style Gallery（S7-STORY-003）；**不 merge `main`**
 > **Sprint 5 不做：** 真实微信公众号 Paste QA 全量回归、不宣称复制到公众号最终保真通过、Style Gallery、真实 QR / 小程序 / 图片上传托管 / AI 生图、复杂编辑器 / block 级编辑、样式市场、merge 至 `main`
 > **保留原则：** 真实 Paste QA 归 **Sprint 8**；Style Gallery / 样式丰富度归 **Sprint 7**；Sprint 5 技术 smoke **不替代** Release 1 用户可见验收与 Paste QA
 
@@ -2777,7 +2778,8 @@ S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Done
 > **Sprint 6 名称：** Release 1 Visible AI Main Flow
 > **Sprint 6 Sprint Goal：** 让用户真实完成一次公众号文章生成与使用闭环：打开首页 → 输入需求 → 真实 AI 生成文章 → 进入预览页 → 查看带样式公众号文章 → 切换基础风格 / 配色 → 复制到公众号编辑器 → 可实际粘贴使用。
 > **Sprint 6 定位：** 不是 mock demo，不是纯技术验证；须完成用户侧最小可用闭环（真实页面、真实 AI、结构化 Article、带样式预览、生成反馈、风格 / 配色切换、可复制、最小粘贴 QA）。
-> **Sprint 6 状态：** **Close Readiness**（2026-06-02 · 全部 Story Done · audit Grade A- · **待用户确认关闭**）
+> **Sprint 6 状态：** **Closed**（2026-06-02 · DECISION-078 · merge `release/1`）
+> **Close Readiness Audit：** [`docs/architecture/audits/sprint6-visible-ai-main-flow-close-readiness-audit.md`](../architecture/audits/sprint6-visible-ai-main-flow-close-readiness-audit.md)（Grade **A-** · P0=0）
 > **Sprint 6 分支：** `sprint/s6-visible-ai-main-flow`（从 `release/1` 切出）
 > **Release 1 主干：** `release/1`
 > **关联 Decision：** DECISION-070、DECISION-071
@@ -3063,15 +3065,16 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 # Sprint 7 Backlog · WeChat Article Experience & Style Richness
 
-> **Sprint 7 目标：** 整篇文章像公众号文章；Style Gallery；样式丰富度；修正过度卡片化
-> **Sprint 7 状态：** **Planned**（后续 · 未启动）
-> **Sprint 7 分支（启动时）：** `sprint/s7-wechat-article-experience`（DECISION-070）
+> **Sprint 7 目标：** 整篇文章像公众号文章；Style Gallery；样式丰富度；修正过度卡片化；**miaopian 协作/体验对齐见 alignment 文档**
+> **Sprint 7 状态：** **In Progress**（2026-06-02 启动 · DECISION-079）
+> **Sprint 7 分支：** `sprint/s7-wechat-article-experience`（从 `release/1` 切出）
+> **对齐文档：** [`docs/agile/miaopian-alignment/s7-workflow-and-ux-gap.md`](miaopian-alignment/s7-workflow-and-ux-gap.md)
 > **Sprint 7 不做：** Sprint 8 Paste QA、关闭 Release 1、merge `main`
 
 ## Sprint 7 建议执行顺序
 
 ```text
-S7-STORY-001 Sprint 7 启动与体验目标对齐 — Planned
+S7-STORY-001 Sprint 7 启动 · miaopian 协作对齐与体验目标 — In Review
 S7-STORY-002 完整文章 fixture 与公众号文章样例集 — Planned
 S7-STORY-003 Style Gallery 页面 — Planned
 S7-STORY-004 标题 / 分节标题 variant 丰富度 — Planned
@@ -3082,13 +3085,38 @@ S7-STORY-007 Sprint 7 手动视觉 QA 与关闭准备 — Planned
 
 ---
 
-## S7-STORY-001 Sprint 7 启动与体验目标对齐
+## S7-STORY-001 Sprint 7 启动 · miaopian 协作对齐与体验目标
 
-**优先级：** P0 · **状态：** Planned · **工作分支：** `docs/s7-start-backlog-split`
+**用户故事：** 作为产品负责人，我需要在 Sprint 7 启动时对齐 miaopian-demo 协作方式边界、交互流 gap 与「像公众号文章」体验目标。
 
-**目标：** 启动 sprint 分支；对齐「像公众号文章」体验目标与 Sprint 6 交付边界。
+**优先级：** P0 · **状态：** In Review · **工作分支：** `docs/s7-start-miaopian-alignment`（本轮在 sprint 分支完成）
 
-**验收标准：** AC-1 sprint 分支已创建 · AC-2 体验目标文档化 · AC-3 未启动 Sprint 8
+**对应 Product Backlog：** TECH-ARCH-023 · PB-R1 样式体验（Sprint 7 主责）
+
+**目标：** 创建 sprint 分支；登记 DECISION-079；发布 miaopian alignment 文档；明确 S7-STORY-002~007 边界。
+
+**实际产物：**
+
+| 路径 | 说明 |
+|------|------|
+| `docs/agile/miaopian-alignment/s7-workflow-and-ux-gap.md` | 协作 adopt/不 adopt · 交互流 gap · Gallery 边界 |
+| `docs/agile/decisions.md` | DECISION-078 · DECISION-079 |
+| `sprint/s7-wechat-article-experience` | Sprint 7 分支 |
+
+**验收标准：**
+
+- [x] AC-1 从 `release/1` 创建 `sprint/s7-wechat-article-experience`
+- [x] AC-2 [`s7-workflow-and-ux-gap.md`](miaopian-alignment/s7-workflow-and-ux-gap.md) 已登记（协作 4 · 交互 1 · 样式 2 边界）
+- [x] AC-3 交互流无 P0 gap 已文档化；optional polish 不阻塞 Sprint 7
+- [x] AC-4 Style Gallery / 样式 richness 明确归 S7-STORY-002~006
+- [x] AC-5 未启动 Sprint 8；未关闭 Release 1
+- [x] AC-6 Sprint 6 已关闭并 merge `release/1`（DECISION-078）
+
+---
+
+## S7-STORY-001（原） Sprint 7 启动与体验目标对齐
+
+> **已合并至上方 S7-STORY-001 扩展版（DECISION-079）。** 下列 AC 仍有效：体验目标文档化 · 未启动 Sprint 8。
 
 ---
 
