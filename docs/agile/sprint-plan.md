@@ -59,9 +59,9 @@
 | **Sprint 4-B** | **Closed**（2026-06-01；DECISION-063） |
 | **Sprint 3-C** | **Closed**（2026-06-01；DECISION-065；audit Grade A；merged `release/1`） |
 | **Sprint 5** | **Closed**（2026-06-02；DECISION-069；S5-STORY-001~008 Done；audit Grade A- · P0=0；merged `release/1`） |
-| **Sprint 6** | **In Progress**（2026-06-02；S6-STORY-001~006 Done；待整体验收） |
+| **Sprint 6** | **Close Readiness**（S6-STORY-001~006 Done · audit A- · 待用户确认关闭） |
 | **Release 1 主干** | `release/1` |
-| **下一步** | Sprint 6 整体验收 / Close Readiness；不 merge `main` |
+| **下一步** | 用户确认 Sprint 6 关闭 → merge sprint → `release/1` |
 
 ---
 

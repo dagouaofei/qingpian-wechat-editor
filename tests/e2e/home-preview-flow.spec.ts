@@ -26,13 +26,9 @@ test.describe("home → preview main flow", () => {
     await page.getByTestId("home-generate-button").click();
 
     await expect(page).toHaveURL(/\/preview\?topic=/);
-    await expect(
-      page
-        .getByTestId("preview-loading-state")
-        .or(page.getByTestId("preview-error-panel"))
-        .or(page.getByTestId("preview-analysis-panel"))
-        .or(page.getByTestId("preview-stream-placeholder"))
-        .or(page.getByTestId("article-preview-panel")),
-    ).toBeVisible({ timeout: 120_000 });
+    const previewShell = page.locator(
+      '[data-testid="preview-loading-state"], [data-testid="preview-error-panel"], [data-testid="preview-analysis-panel"], [data-testid="preview-stream-placeholder"], [data-testid="article-preview-panel"]',
+    );
+    await expect(previewShell.first()).toBeVisible({ timeout: 120_000 });
   });
 });

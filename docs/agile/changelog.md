@@ -388,3 +388,11 @@
 | 2026-06-02 | Sprint 6 | **Bugfix**：Copy Renderer 接入 theme palette tokens；暖色复制写入 inline hex（非 CSS 变量） | 代码 / Copy | S6-STORY-006 |
 | 2026-06-02 | Sprint 6 | **S6-STORY-006 Done**：PO 手测通过（含暖色复制公众号）；待 merge sprint | 敏捷 | S6-STORY-006 |
 | 2026-06-02 | Sprint 6 | PO 验收通过；`feature/s6-style-palette-copy-paste-qa` merge 至 `sprint/s6-visible-ai-main-flow` @ `e7391e5` | 敏捷 / Git | S6-STORY-006 |
+
+## 2026-06-02 · Sprint 6 Close Readiness Audit
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-02 | Sprint 6 | Sprint 6 Close Readiness Audit（Grade A- · P0=0） | 文档 / QA | S6-STORY-001~006 |
+| 2026-06-02 | Sprint 6 | 修复 `home-preview-flow` e2e strict mode；`preview-visual-styles` 单测跟随 CSS var | 测试 | Sprint 6 close audit |
+| 2026-06-02 | Sprint 6 | Sprint 6 状态 → **Close Readiness**（**未关闭** · 待用户确认） | 敏捷 | DECISION-071 |

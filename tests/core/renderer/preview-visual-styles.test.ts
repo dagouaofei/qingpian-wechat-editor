@@ -35,7 +35,7 @@ describe("preview-visual-styles", () => {
     const infoCard = previewInfoCardContainerStyle("warning_note");
 
     expect(quote.borderLeft).toContain("3px solid");
-    expect(highlight.backgroundColor).toBe("#f5f7fb");
-    expect(infoCard.backgroundColor).toBe("#fff8e6");
+    expect(highlight.backgroundColor).toBe("var(--preview-bg-band-blue, #f5f7fb)");
+    expect(infoCard.backgroundColor).toBe("var(--preview-bg-warning, #fff8e6)");
   });
 });
