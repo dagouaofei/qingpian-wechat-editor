@@ -66,6 +66,25 @@ describe("runGenerateMainFlow", () => {
     expect(serialized).not.toMatch(/Bearer\s+[A-Za-z0-9._-]+/);
   });
 
+  it("returns provider_config when requireRealProvider and Volcengine is not configured", async () => {
+    const result = await runGenerateMainFlow({
+      inputRequest: topicOnlyInputRequestFixture,
+      requireRealProvider: true,
+    });
+
+    if (process.env.VOLCENGINE_ENABLE_REAL_PROVIDER === "true" && process.env.VOLCENGINE_API_KEY) {
+      expect(result.ok).toBe(true);
+      return;
+    }
+
+    expect(result.ok).toBe(false);
+    if (result.ok) {
+      return;
+    }
+    expect(result.error.category).toBe("provider_config");
+    expect(result.error.code).toBe("real_provider_not_configured");
+  });
+
   it("returns input_validation for empty topic-only requests", async () => {
     const result = await runGenerateMainFlow({
       inputRequest: {

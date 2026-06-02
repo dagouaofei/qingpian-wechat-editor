@@ -27,6 +27,11 @@ export type GenerateMainFlowPhase =
 export type GenerateMainFlowInput = {
   inputRequest: InputRequest;
   requestId?: string;
+  /**
+   * When true, refuse deterministic/mock provider fallback (Sprint 6 user-facing flow).
+   * Tests and dev harness may omit this to allow deterministic provider.
+   */
+  requireRealProvider?: boolean;
 };
 
 export type SerializedPreviewBlock = {

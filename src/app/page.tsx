@@ -1,35 +1,12 @@
+import type { Metadata } from "next";
+
+import { HomePageClient } from "./home-page-client";
+
+export const metadata: Metadata = {
+  title: "轻篇公众号排版",
+  description: "输入需求，真实 AI 生成带样式公众号文章",
+};
+
 export default function Home() {
-  return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-zinc-50 px-6 font-sans">
-      <main className="w-full max-w-2xl rounded-2xl border border-zinc-200 bg-white p-10 shadow-sm">
-        <p className="text-sm font-medium text-emerald-600">轻篇</p>
-        <h1 className="mt-2 text-3xl font-semibold tracking-tight text-zinc-900">
-          轻篇公众号排版
-        </h1>
-        <p className="mt-4 text-base leading-7 text-zinc-600">
-          Release 1 主流程页面已接入真实生成链路。进入{" "}
-          <a href="/generate" className="font-medium text-emerald-700 underline">
-            /generate
-          </a>{" "}
-          可手动验收：输入 → 生成 → 预览 → 复制。
-        </p>
-        <dl className="mt-8 grid gap-4 text-sm text-zinc-700 sm:grid-cols-2">
-          <div>
-            <dt className="font-medium text-zinc-500">项目名</dt>
-            <dd className="mt-1 font-mono">qingpian-wechat-editor</dd>
-          </div>
-          <div>
-            <dt className="font-medium text-zinc-500">Release 1 聚焦</dt>
-            <dd className="mt-1">
-              文章生成、样式排版、流式预览与复制一致性闭环
-            </dd>
-          </div>
-        </dl>
-        <p className="mt-8 text-sm text-zinc-500">
-          开发规范见 <code className="text-zinc-700">docs/</code> 与{" "}
-          <code className="text-zinc-700">.cursor/rules/</code>
-        </p>
-      </main>
-    </div>
-  );
+  return <HomePageClient />;
 }

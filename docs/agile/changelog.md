@@ -354,3 +354,16 @@
 | 2026-06-02 | Sprint 6 | 更新 `user-story-map.md` 8 步闭环路径与 Sprint 6 排除范围 | 产品 | S6-STORY-001 |
 | 2026-06-02 | Sprint 6 | 在 sprint-backlog 登记 Sprint 6 技术 / 产品 / 内容 / 样式 DoD | 敏捷 | S6-STORY-001 |
 | 2026-06-02 | Sprint 6 | 新增 **DECISION-071**；Sprint 6 状态 **In Progress**；**不关闭 Sprint 6**；**不 merge main / release/1** | 敏捷 | DECISION-071 |
+
+---
+
+## 2026-06-02 · Sprint 6 首页 → 预览真实 AI 主流程
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-02 | Sprint 6 | **S6-STORY-002~004 Done**：首页 `/`、预览 `/preview`、真实 AI + Preview Renderer 闭环 | 代码 / UI | S6-STORY-002~004, DECISION-072 |
+| 2026-06-02 | Sprint 6 | `requireRealProvider`：用户主流程禁止静默 deterministic mock | 代码 / API | DECISION-072 |
+| 2026-06-02 | Sprint 6 | 增强 Volcengine prompt：公众号长文结构与必需 block 类型 | 代码 | S6-STORY-003 |
+| 2026-06-02 | Sprint 6 | S6-STORY-005~006 仍为 **To Do**（打字机 / 风格切换 / 复制专项） | 敏捷 | — |
+| 2026-06-02 | Sprint 6 | 工作分支 `feature/s6-home-ai-preview-flow`；**不 merge release/1** | Git | S6-STORY-002~004 |
+| 2026-06-02 | Sprint 6 | `feature/s6-home-ai-preview-flow` merge 至 `sprint/s6-visible-ai-main-flow`；S6-STORY-002~004 **Done** | Git / 敏捷 | DECISION-072 |

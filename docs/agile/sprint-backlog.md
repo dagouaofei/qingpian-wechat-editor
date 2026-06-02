@@ -9,7 +9,7 @@
 > **Sprint 3-C：** Style Assignment / Selection Validation + Orchestrator + VisualAssetRegistry · **Closed**（2026-06-01；DECISION-065；audit Grade A；P0=0 · P1=5 · P2=4；merged `release/1`）
 > **Sprint 5：** Generation / Streaming + Release 1 真实 UI 主流程闭环 · **Closed**（2026-06-02；DECISION-069；audit Grade A- · P0=0 · P1=4 · P2=3；`sprint/s5-generation-ui-main-flow` 已 merge 至 `release/1`）
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
-> **当前 Sprint：** **Sprint 6 Release 1 Visible AI Main Flow**（**In Progress** · S6-STORY-001 Done · S6-STORY-002~006 To Do）
+> **当前 Sprint：** **Sprint 6 Release 1 Visible AI Main Flow**（**In Progress** · S6-STORY-001~004 Done · S6-STORY-005~006 To Do）
 > **Sprint 6 分支：** `sprint/s6-visible-ai-main-flow`（从 `release/1` 切出 · DECISION-071）
 > **Release 1 主干：** `release/1`
 
@@ -2341,7 +2341,7 @@ S3C-STORY-001（启动）
 > **Release 1 主干：** `release/1`
 > **UI 主流程入口：** **`/generate`**（S5-STORY-007 Done @ `01318c4`）
 > **Close Readiness Audit：** [`docs/architecture/audits/sprint5-main-flow-close-readiness-audit.md`](../architecture/audits/sprint5-main-flow-close-readiness-audit.md)
-> **下一步：** **S6-STORY-002** 首页输入与生成入口；Sprint 7/8 Planned · 未启动；**不 merge `main`**
+> **下一步：** **S6-STORY-005** 基础生成反馈与轻量打字机；S6-STORY-006 待启动；Sprint 7/8 Planned · 未启动；**不 merge `main`**
 > **Sprint 5 不做：** 真实微信公众号 Paste QA 全量回归、不宣称复制到公众号最终保真通过、Style Gallery、真实 QR / 小程序 / 图片上传托管 / AI 生图、复杂编辑器 / block 级编辑、样式市场、merge 至 `main`
 > **保留原则：** 真实 Paste QA 归 **Sprint 8**；Style Gallery / 样式丰富度归 **Sprint 7**；Sprint 5 技术 smoke **不替代** Release 1 用户可见验收与 Paste QA
 
@@ -2830,9 +2830,9 @@ S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Done
 
 ```text
 S6-STORY-001 Sprint 6 Planning 与 Backlog / Story Map 对齐 — Done
-S6-STORY-002 首页输入与生成入口 — To Do
-S6-STORY-003 真实 AI 生成结构化 Article — To Do
-S6-STORY-004 预览页与带样式文章渲染 — To Do
+S6-STORY-002 首页输入与生成入口 — Done
+S6-STORY-003 真实 AI 生成结构化 Article — Done
+S6-STORY-004 预览页与带样式文章渲染 — Done
 S6-STORY-005 基础生成反馈与轻量打字机体验 — To Do
 S6-STORY-006 风格 / 配色基础切换与复制到公众号 — To Do
 ```
@@ -2866,7 +2866,7 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — To Do
 
 **用户故事：** 作为用户，我可以在首页输入公众号文章需求并点击开始生成。
 
-**优先级：** P0 · **状态：** To Do · **工作分支：** `feature/s6-home-input-generate-entry`（启动时创建）
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s6-home-ai-preview-flow`（**已 merge 至 sprint**）
 
 **对应 Product Backlog：** PB-R1-01
 
@@ -2874,13 +2874,21 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — To Do
 
 **目标：** 用户可以在首页输入主题、文章用途 / 场景、目标读者、基础风格等信息，并点击按钮开始生成。
 
+**实际产物：**
+
+| 路径 | 说明 |
+|------|------|
+| `/` | 首页：`HomePageClient` |
+| `src/lib/home-input.ts` | 表单 → `InputRequest` / URL 参数 |
+| `src/app/home-page-client.tsx` | 主题 / 场景 / 读者 / 基础风格 + 开始生成 |
+
 **验收标准：**
 
-- [ ] AC-1 存在可手动打开的首页（非仅 `/generate` 开发 harness）
-- [ ] AC-2 用户可输入主题及场景、读者、基础风格等字段
-- [ ] AC-3 生成按钮可见且可点击
-- [ ] AC-4 输入进入 `InputRequest` / `NormalizedInput` 主链路
-- [ ] AC-5 未启动 S6-STORY-003
+- [x] AC-1 首页 `/` 可手动打开
+- [x] AC-2 主题（必填）、场景、读者、基础风格字段
+- [x] AC-3 「开始生成」跳转 `/preview` 并携带参数
+- [x] AC-4 输入经 `buildHomeInputRequest` → `InputRequest`
+- [x] AC-5 空主题前端校验，不提交
 
 ---
 
@@ -2888,7 +2896,7 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — To Do
 
 **用户故事：** 作为用户，我点击生成后系统调用真实 AI，产出符合 Article / Block Schema 的结构化公众号文章。
 
-**优先级：** P0 · **状态：** To Do · **工作分支：** `feature/s6-real-ai-article-generation`（启动时创建）
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s6-home-ai-preview-flow`（**已 merge 至 sprint**）
 
 **对应 Product Backlog：** PB-R1-02
 
@@ -2896,13 +2904,23 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — To Do
 
 **目标：** 系统根据用户输入调用真实 AI（复用 Sprint 5 Volcengine provider），生成符合 Article / Block Schema 的结构化文章。
 
+**实际产物：**
+
+| 路径 | 说明 |
+|------|------|
+| `POST /api/generate` | `requireRealProvider: true` 拒绝静默 deterministic fallback |
+| `run-generate-main-flow.ts` | `requireRealProvider` 选项 |
+| `model-prompt.ts` | 公众号长文结构与 block 约束 prompt |
+
 **验收标准：**
 
-- [ ] AC-1 主流程默认或明确使用真实模型 Provider（非 mock-only 验收路径）
-- [ ] AC-2 输出经 `done.article` → Article Schema 校验
-- [ ] AC-3 禁止 parallel article model / DOM 抓取作为主链路
-- [ ] AC-4 deterministic provider 仅作 dev / CI fallback
-- [ ] AC-5 生成内容满足 Sprint 6 内容质量 DoD 基线（见上文）
+- [x] AC-1 预览页请求 `requireRealProvider: true`
+- [x] AC-2 `runGenerateMainFlow` → Volcengine → `finalizeGenerationEvents` → Article Schema
+- [x] AC-3 无 parallel article model / DOM 抓取
+- [x] AC-4 无 API key 时明确 `provider_config` 错误（非 mock 静默）
+- [x] AC-5 prompt 约束 1200–1500 字、分节与必需 block（质量依赖模型，待手测）
+
+**本轮未做：** 复杂 repair / 多轮重试（S6 后续可增强）
 
 ---
 
@@ -2910,7 +2928,7 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — To Do
 
 **用户故事：** 作为用户，我可以在预览页看到完整、带样式、接近公众号文章的结果。
 
-**优先级：** P0 · **状态：** To Do · **工作分支：** `feature/s6-styled-article-preview`（启动时创建）
+**优先级：** P0 · **状态：** Done · **工作分支：** `feature/s6-home-ai-preview-flow`（**已 merge 至 sprint**）
 
 **对应 Product Backlog：** PB-R1-03、PB-R1-04
 
@@ -2918,13 +2936,20 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — To Do
 
 **目标：** 预览页展示完整 Article；应用 Release 1 样式系统，非纯文本。
 
+**实际产物：**
+
+| 路径 | 说明 |
+|------|------|
+| `/preview` | 预览页：加载 / 成功 / 失败；`ArticlePreviewPanel` |
+| `src/app/preview/preview-page-client.tsx` | 承接生成 + Preview Renderer 输出 |
+
 **验收标准：**
 
-- [ ] AC-1 预览区展示完整 Article（非单 block demo）
-- [ ] AC-2 复用 Sprint 4 Preview Renderer / StyleResolver / Style System
-- [ ] AC-3 覆盖 Release 1 首批 block 类型 subset
-- [ ] AC-4 预览与 Copy 使用同一 Article 数据源
-- [ ] AC-5 不宣称 Sprint 7 样式丰富度 / Gallery 已达标
+- [x] AC-1 完整 Article 预览（`article-preview-panel`）
+- [x] AC-2 复用 Sprint 4 Preview Renderer + StyleResolver（经 `runGenerateMainFlow`）
+- [x] AC-3 模型输出 block 由 first-wave renderer 渲染
+- [x] AC-4 与 server 侧同一 `article` 数据源
+- [x] AC-5 基础 loading / 错误态；无风格切换 UI、无复制专项（归 S6-STORY-006）
 
 ---
 

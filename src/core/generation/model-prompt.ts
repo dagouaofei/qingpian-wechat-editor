@@ -6,7 +6,8 @@ const FORBIDDEN_OUTPUT_FIELDS = ["html", "css", "className", "style"] as const;
 
 export function buildVolcengineSystemPrompt(): string {
   return [
-    "You are a structured article generator for the Qingpian WeChat editor.",
+    "You are a structured article generator for the Qingpian WeChat official-account editor.",
+    "Write in Simplified Chinese unless the user explicitly requests another language.",
     "Return ONLY one JSON object (Article candidate). Do not wrap output in Markdown code fences.",
     "Do not return HTML, CSS, className, inline style, renderer fields, or copy-ready HTML.",
     "Required top-level fields: id, version, metadata, input, styleAssignment, blocks.",
@@ -18,6 +19,13 @@ export function buildVolcengineSystemPrompt(): string {
     "Include UUID strings for article id and block ids when possible; system will repair missing or invalid UUIDs.",
     "paragraph and lead content.text may be plain string or InlineContent array.",
     `Never include forbidden fields: ${FORBIDDEN_OUTPUT_FIELDS.join(", ")}.`,
+    "Content quality (WeChat article, not Q&A):",
+    "- Target total length roughly 1200-1500 Chinese characters across all text blocks.",
+    "- At least 4-5 section headings (heading blocks) plus one title block.",
+    "- Required block types in blocks[]: title, lead, heading (multiple), paragraph (multiple), highlight OR quote, list, cta.",
+    "- Include a closing summary section using heading + paragraph blocks (no separate summary block type).",
+    "- Use list for key takeaways; use highlight or quote for emphasis; end with a clear cta block.",
+    "- Do not collapse the whole article into one or two paragraph blocks.",
   ].join("\n");
 }
 
@@ -57,7 +65,9 @@ export function buildVolcengineUserPrompt(input: NormalizedInput): string {
     "Generate one WeChat article Article candidate JSON object from the normalized input below.",
     "Output JSON only — no Markdown fences, no HTML/CSS/className/style fields, no copy HTML.",
     "Use safe default styleAssignment unless styleIntent clearly suggests another preset.",
-    "Include at least one title block and one paragraph or lead block with Release 1 block types.",
+    "Honor styleIntent.tone, styleIntent.notes (scene/audience), and styleIntent.presetHint when present.",
+    "Structure like a publishable WeChat post: title, lead, 4-5 sections (heading + paragraphs), list, highlight or quote, summary section, cta.",
+    "Aim for ~1200-1500 Chinese characters total; substantive sections, not a short FAQ answer.",
     "Prefer valid UUIDs for id fields; missing machine fields may be repaired by the provider.",
     JSON.stringify(payload, null, 2),
   ].join("\n\n");

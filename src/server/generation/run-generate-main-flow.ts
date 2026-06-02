@@ -57,11 +57,24 @@ function failure(
   };
 }
 
-function resolveProvider(): {
+const REAL_PROVIDER_SETUP_HINT =
+  "未配置真实 AI 模型。请在 .env.local 设置 VOLCENGINE_ENABLE_REAL_PROVIDER=true、VOLCENGINE_API_KEY、VOLCENGINE_MODEL（参见 .env.example）。";
+
+function isVolcengineConfigured(): boolean {
+  const configResult = loadVolcengineProviderConfig(process.env);
+  return Boolean(
+    configResult.ok &&
+      configResult.config.enabled &&
+      configResult.config.apiKey &&
+      configResult.config.model,
+  );
+}
+
+function resolveProvider(requireRealProvider?: boolean): {
   mode: GenerateProviderMode;
   label: string;
   generate: typeof deterministicGenerationStreamProvider.generate;
-} {
+} | null {
   const configResult = loadVolcengineProviderConfig(process.env);
   if (
     configResult.ok &&
@@ -75,6 +88,10 @@ function resolveProvider(): {
       label: `Volcengine / Doubao (${configResult.config.model})`,
       generate: provider.generate.bind(provider),
     };
+  }
+
+  if (requireRealProvider) {
+    return null;
   }
 
   return {
@@ -150,7 +167,16 @@ export async function runGenerateMainFlow(
     );
   }
 
-  const provider = resolveProvider();
+  const provider = resolveProvider(input.requireRealProvider);
+  if (!provider) {
+    return failure(
+      "provider_config",
+      "real_provider_not_configured",
+      REAL_PROVIDER_SETUP_HINT,
+      phasesCompleted,
+    );
+  }
+
   const requestId =
     input.requestId ??
     input.inputRequest.metadata?.requestId ??
@@ -291,10 +317,20 @@ export async function runGenerateMainFlow(
 export async function getGenerateProviderStatus(): Promise<{
   providerMode: GenerateProviderMode;
   providerLabel: string;
+  realProviderConfigured: boolean;
 }> {
-  const provider = resolveProvider();
+  const realConfigured = isVolcengineConfigured();
+  const provider = resolveProvider(false);
+  if (!provider) {
+    return {
+      providerMode: "deterministic",
+      providerLabel: "No provider available",
+      realProviderConfigured: false,
+    };
+  }
   return {
     providerMode: provider.mode,
     providerLabel: provider.label,
+    realProviderConfigured: realConfigured,
   };
 }

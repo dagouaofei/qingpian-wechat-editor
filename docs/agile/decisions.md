@@ -69,6 +69,7 @@
 | DECISION-069 | 2026-06-02 | 关闭 Sprint 5；main-flow audit A-，P0=0；merge sprint/s5-generation-ui-main-flow → release/1 | 已确认 |
 | DECISION-070 | 2026-06-02 | Release 1 尾声方案 B：Sprint 6 Visible Main Flow · Sprint 7 样式体验 · Sprint 8 复制保真与关闭 | 已确认 |
 | DECISION-071 | 2026-06-02 | 正式启动 Sprint 6：Release 1 Visible AI Main Flow；PB-R1-01~08；真实 AI 用户侧最小闭环 | 已确认 |
+| DECISION-072 | 2026-06-02 | Sprint 6 用户主流程：`/` + `/preview` + `requireRealProvider`；禁止静默 mock fallback | 已确认 |
 
 ### DECISION-019 详情
 
@@ -503,6 +504,22 @@
   - **不关闭 Sprint 6**（本轮）；**不 merge `main` / `release/1`**（本轮）；**不启动 S6-STORY-002**（本轮）
 - **影响范围：** `product-backlog.md`、`sprint-backlog.md`、`sprint-plan.md`、`release-plan.md`、`user-story-map.md`、`changelog.md`
 - **关联：** DECISION-070、DECISION-069、S6-STORY-001、PB-R1-01~08
+- **状态：** 已确认
+
+### DECISION-072 详情（Sprint 6 首页 → 预览真实 AI 主流程）
+
+- **日期：** 2026-06-02
+- **背景：**
+  - S6-STORY-002~004 需一次性打通用户可见主链路
+  - Sprint 5 `/generate` 在缺少 API key 时会静默 fallback 到 deterministic provider，不符合 Sprint 6「真实 AI 用户主流程」验收
+- **决策：**
+  1. 用户主流程页面：**首页 `/`** → **预览 `/preview`**
+  2. 预览页调用 `POST /api/generate` 时传 `requireRealProvider: true`
+  3. 未配置 Volcengine 时返回 `provider_config`（HTTP 503），前端展示明确错误，**不**展示 mock 文章
+  4. `/generate` 保留为开发者 harness，可不传 `requireRealProvider`（deterministic 仍可用于 CI / 单测）
+  5. 复用 `runGenerateMainFlow`、Volcengine provider、Preview Renderer；增强 `model-prompt` 约束公众号长文结构
+- **影响范围：** `src/app/`、`src/lib/home-input.ts`、`src/server/generation/`、`src/app/api/generate/`
+- **关联：** S6-STORY-002~004、DECISION-071、PB-R1-01~04
 - **状态：** 已确认
 
 ## 决策模板

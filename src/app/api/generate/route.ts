@@ -6,15 +6,19 @@ import {
   runGenerateMainFlow,
 } from "@/server/generation/run-generate-main-flow";
 
+type GenerateApiRequestBody = InputRequest & {
+  requireRealProvider?: boolean;
+};
+
 export async function GET() {
   const status = await getGenerateProviderStatus();
   return NextResponse.json(status);
 }
 
 export async function POST(request: Request) {
-  let body: InputRequest;
+  let body: GenerateApiRequestBody;
   try {
-    body = (await request.json()) as InputRequest;
+    body = (await request.json()) as GenerateApiRequestBody;
   } catch {
     return NextResponse.json(
       {
@@ -30,14 +34,20 @@ export async function POST(request: Request) {
     );
   }
 
-  const result = await runGenerateMainFlow({ inputRequest: body });
+  const { requireRealProvider, ...inputRequest } = body;
+  const result = await runGenerateMainFlow({
+    inputRequest,
+    requireRealProvider: requireRealProvider === true,
+  });
   if (!result.ok) {
     const status =
       result.error.category === "provider_network"
         ? 502
-        : result.error.category === "input_validation"
-          ? 400
-          : 422;
+        : result.error.category === "provider_config"
+          ? 503
+          : result.error.category === "input_validation"
+            ? 400
+            : 422;
     return NextResponse.json(result, { status });
   }
 
