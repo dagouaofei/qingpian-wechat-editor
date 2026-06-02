@@ -89,12 +89,43 @@
 | TECH-ARCH-019 | Expansion Variant Coverage | EPIC-004 | 每 block 第 4/5 variant；不阻塞 first-wave closure |
 | TECH-ARCH-020 | Sprint 3-A/B/C Style System Delivery Split | EPIC-004 | infrastructure / first-wave registry / **assignment validation** · 3-A Done · 3-B Done · **3-C Done** |
 | TECH-ARCH-021 | Sprint 4-A/B Renderer Delivery Split | EPIC-004 / EPIC-006 | **Done**：Sprint 4-A text-first renderer Done；Sprint 4-B structured renderer Done；Preview / Copy Renderer 代码闭环完成（DECISION-061、DECISION-063） |
-| TECH-ARCH-022 | Sprint 6-A/B Paste QA Regression Split | EPIC-010 | fixture 三联 vs first-wave 33 variants QA；**仍未执行**，Release 1 33 variants 最小 Paste QA plan 已建立，真实 Paste QA 归 Sprint 6-B |
-| TECH-ARCH-023 | Release 1 Style Quality Gate | EPIC-004 / EPIC-006 | Style Quality Review / Gallery / 样式效果验收；Sprint 3-B registry Done；Sprint 4-A text-first renderer Done；Sprint 4-B structured renderer Done；Style Gallery 仍待 Sprint 6 / Release 2 |
-| TECH-ARCH-024 | Release 1 Real UI Main Flow | EPIC-001 / EPIC-002 / EPIC-005 / EPIC-006 / EPIC-007 | **Sprint 5 Closed（DECISION-069）**：`/generate` 主链路可手动跑通；真实 Volcengine provider 已接入；audit P0=0；**Paste QA 未执行**（Sprint 6-B）；**不宣称** Release 1 完成 |
-| TECH-ARCH-025 | Real Model Provider Integration | EPIC-002 / EPIC-007 | **Sprint 5 Closed**：Volcengine / Doubao provider + dev smoke PASSED；稳定性与输出质量 **后续继续观察** |
+| TECH-ARCH-022 | Release 1 Paste QA & Fixture Regression | EPIC-010 | 原 Sprint 6-A/B 规划；**方案 B** 下 Fixture / snapshot 分 Sprint 6/7 交付，**真实 Paste QA 归 Sprint 8**；33 variants plan 仍有效 |
+| TECH-ARCH-023 | Release 1 Style Quality Gate | EPIC-004 / EPIC-006 | Style Gallery / 视觉样例 / 样式效果验收；**Sprint 7** 主责；Sprint 3-B registry · Sprint 4-A/B renderer **Done** |
+| TECH-ARCH-024 | Release 1 Real UI Main Flow | EPIC-001 / EPIC-002 / EPIC-005 / EPIC-006 / EPIC-007 | Sprint 5 技术主链路 **Done**（`/generate` · DECISION-069）；**用户可见验收重排至 Sprint 6**（DECISION-070）；Paste QA 归 Sprint 8 |
+| TECH-ARCH-025 | Real Model Provider Integration | EPIC-002 / EPIC-007 | **Sprint 5 Done**：Volcengine / Doubao provider + dev smoke PASSED；Sprint 6 可先 mock/fixture，不阻塞可见主链路 |
+| TECH-ARCH-026 | Release 1 Visible Main Flow Acceptance | EPIC-001 / EPIC-005 / EPIC-007 | **Sprint 6 执行入口**：用户可见输入 → 生成过程 → 完整预览 → 复制；每 Sprint 至少一个可手测页面 |
 
-状态：文档契约 S1-STORY-021~028；代码按 Sprint 2 + 3-A/B/C + 4-A/B + 5 + 6-A/B 拆分。**Sprint 3-C Closed**（DECISION-065）。**Sprint 5 Closed**（2026-06-02；DECISION-069；TECH-ARCH-024、TECH-ARCH-025 Done；audit [`sprint5-main-flow-close-readiness-audit.md`](../architecture/audits/sprint5-main-flow-close-readiness-audit.md)；merged `release/1`）；**Fixture Triple：Sprint 6-A**；**真实 Paste QA：Sprint 6-B**；**Style Gallery：Sprint 6 / Release 2**。
+状态：文档契约 S1-STORY-021~028；代码 Sprint 2 + 3-A/B/C + 4-A/B + 5 **Done** 并 merge `release/1`。**Release 1 未关闭**。Release 1 尾声按 **方案 B（DECISION-070）** 重排：**Sprint 6 Visible Main Flow（下一步）** · **Sprint 7 WeChat Article Experience** · **Sprint 8 Copy Fidelity & Closure**。详见 [`release-plan.md`](release-plan.md)。
+
+---
+
+## Release 1 关闭标准（方案 B · DECISION-070）
+
+> 完整条目见 [`release-plan.md`](release-plan.md)。Release 1 **不以** lint/test/build/snapshot alone 关闭。
+
+| # | 关闭前置条件 |
+|---|--------------|
+| 1 | 用户能打开真实业务页面 |
+| 2 | 用户能输入主题并触发生成 |
+| 3 | 页面有生成过程反馈，不能只是静态 Renderer |
+| 4 | 能看到完整公众号文章预览（含 Release 1 首批 block） |
+| 5 | 样式具备基础丰富度，非单一模板 |
+| 6 | 整篇文章视觉上接近公众号文章 |
+| 7 | 能复制到公众号编辑器 |
+| 8 | 粘贴后核心样式基本一致（135 + 公众号后台最小 QA） |
+| 9 | 有手动 QA 记录与遗留问题 backlog |
+
+---
+
+## Release 1 剩余 Sprint Story 索引（Planned · 未启动）
+
+| Sprint | 名称 | Story | 优先级 |
+|--------|------|-------|--------|
+| **Sprint 6** | Visible Main Flow | S6-STORY-001 ~ S6-STORY-007 | **P0 · 下一步** |
+| Sprint 7 | WeChat Article Experience & Style Richness | S7-STORY-001 ~ S7-STORY-007 | P0 · 后续 |
+| Sprint 8 | Copy Fidelity & Release 1 Closure | S8-STORY-001 ~ S8-STORY-007 | P0 · 后续 |
+
+Story 详情见 [`sprint-backlog.md`](sprint-backlog.md)。**不要把 Sprint 7/8 Story 放入当前执行中。**
 
 ---
 

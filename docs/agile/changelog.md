@@ -324,4 +324,18 @@
 | 2026-06-02 | Sprint 5 | **关闭 Sprint 5**；用户确认 close readiness audit（Grade A- · P0=0）；DECISION-069 | 敏捷 | S5-STORY-008, DECISION-069 |
 | 2026-06-02 | Sprint 5 | `docs/s5-main-flow-e2e-close-readiness` merge 至 `sprint/s5-generation-ui-main-flow`（S5-STORY-008） | Git / 敏捷 | S5-STORY-008 |
 | 2026-06-02 | Sprint 5 | `sprint/s5-generation-ui-main-flow` merge 至 `release/1` | Git / Release 1 | DECISION-069 |
-| 2026-06-02 | Sprint 5 | Paste QA 仍 **Not Run**（归 Sprint 6-B）；**不宣称** Release 1 完成；**不 merge `main`** | 敏捷 / 架构 | DECISION-069 |
+| 2026-06-02 | Sprint 5 | Paste QA 仍 **Not Run**（归 Sprint 8）；**不宣称** Release 1 完成；**不 merge `main`** | 敏捷 / 架构 | DECISION-069 |
+
+---
+
+## 2026-06-02 · Release 1 尾声方案 B 重排
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-02 | Release 1 | Sprint 5 关闭后，Release 1 后续从纯技术收口调整为 **用户可见主链路收口（方案 B）** | 敏捷 / 产品 | DECISION-070 |
+| 2026-06-02 | Sprint 6 | 新增 **Sprint 6 Visible Main Flow**（S6-STORY-001~007）；**下一步最高优先级** | 敏捷 | DECISION-070 |
+| 2026-06-02 | Sprint 7 | 新增 **Sprint 7 WeChat Article Experience & Style Richness**（S7-STORY-001~007）；Planned | 敏捷 | DECISION-070 |
+| 2026-06-02 | Sprint 8 | 新增 **Sprint 8 Copy Fidelity & Release 1 Closure**（S8-STORY-001~007）；Planned | 敏捷 | DECISION-070 |
+| 2026-06-02 | Release 1 | 新增 [`release-plan.md`](release-plan.md)；关闭标准从 lint/test/build 调整为 **可见主链路 + 样式体验 + 复制保真** | 敏捷 / 产品 | DECISION-070 |
+| 2026-06-02 | Release 1 | 原 Sprint 6-A/B 尾声计划在 Release 1 剩余阶段由方案 B 取代 | 敏捷 | DECISION-045, DECISION-070 |
+| 2026-06-02 | Release 1 | 更新 `user-story-map.md` 主路径与 Sprint 6/7/8 分工 | 产品 | DECISION-070 |

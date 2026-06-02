@@ -67,6 +67,7 @@
 | DECISION-066 | 2026-06-02 | Sprint 5 范围调整为 Generation / Streaming + Release 1 真实 UI 主流程闭环 | 已确认 |
 | DECISION-068 | 2026-06-02 | Sprint 5 必须纳入真实模型 API Provider 对接（Volcengine / Doubao） | 已确认 |
 | DECISION-069 | 2026-06-02 | 关闭 Sprint 5；main-flow audit A-，P0=0；merge sprint/s5-generation-ui-main-flow → release/1 | 已确认 |
+| DECISION-070 | 2026-06-02 | Release 1 尾声方案 B：Sprint 6 Visible Main Flow · Sprint 7 样式体验 · Sprint 8 复制保真与关闭 | 已确认 |
 
 ### DECISION-019 详情
 
@@ -456,6 +457,28 @@
   6. **不自动启动 Sprint 6-A / 6-B**
   7. Sprint 6 启动前须用户确认
 - **关联：** S5-STORY-008、`sprint5-main-flow-close-readiness-audit.md`、TECH-ARCH-024、TECH-ARCH-025、DECISION-066、DECISION-068
+- **状态：** 已确认
+
+### DECISION-070 详情（Release 1 尾声方案 B 重排）
+
+- **日期：** 2026-06-02
+- **背景：**
+  - Sprint 5 已关闭（DECISION-069）：Generation / Streaming 技术框架、Volcengine provider、`/generate` 初版主链路已 merge `release/1`
+  - 用户反馈：Sprint 5 关闭后，**仍难以从 Release 1 验收角度**确认「用户能手动看到完整页面并完成主链路」
+  - 原 Release 1 尾声计划偏向 **Sprint 6-A Fixture Triple + Sprint 6-B Paste QA**（DECISION-045），用户体验验收偏晚
+  - Release 1 **不应**仅以 lint / test / build / renderer snapshot 关闭
+- **决策：**
+  1. Release 1 后续从「纯技术收口」调整为 **用户可见主链路收口（方案 B）**
+  2. Release 1 剩余阶段拆为 **3 个 Sprint**：
+     - **Sprint 6：Visible Main Flow** — 输入 → 生成过程 → 完整预览 → 复制；可先 mock/fixture
+     - **Sprint 7：WeChat Article Experience & Style Richness** — Gallery、样式丰富度、整篇观感、过度卡片化修正
+     - **Sprint 8：Copy Fidelity & Release 1 Closure** — Preview/Copy 一致性、135 + 公众号 Paste QA、Release 1 关闭准备
+  3. **Sprint 6 为下一步最高优先级**；Sprint 7/8 Planned · 未启动
+  4. **约束：** 后续每个 Sprint 必须至少交付 **一个可手测页面或可视化评审入口**
+  5. Release 1 关闭标准见 [`release-plan.md`](release-plan.md)；**不自动 merge `main`**
+  6. 原 Sprint 6-A/B 在 Release 1 **剩余阶段**由方案 B 取代（Fixture / Paste 能力分 Sprint 6/7/8 交付）
+- **影响范围：** `release-plan.md`、`product-backlog.md`、`sprint-plan.md`、`sprint-backlog.md`、`user-story-map.md`、TECH-ARCH-022~026
+- **关联：** DECISION-045（历史）、DECISION-069、S5-STORY-008
 - **状态：** 已确认
 
 ## 决策模板

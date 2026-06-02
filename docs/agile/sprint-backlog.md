@@ -8,6 +8,8 @@
 > **Sprint 4-B：** Preview / Copy Renderer for Structured Blocks · **Closed**（2026-06-01；DECISION-063；audit Grade A；P0=0）
 > **Sprint 3-C：** Style Assignment / Selection Validation + Orchestrator + VisualAssetRegistry · **Closed**（2026-06-01；DECISION-065；audit Grade A；P0=0 · P1=5 · P2=4；merged `release/1`）
 > **Sprint 5：** Generation / Streaming + Release 1 真实 UI 主流程闭环 · **Closed**（2026-06-02；DECISION-069；audit Grade A- · P0=0 · P1=4 · P2=3；`sprint/s5-generation-ui-main-flow` 已 merge 至 `release/1`）
+> **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
+> **下一步 Sprint：** **Sprint 6 Visible Main Flow**（Planned · 最高优先级）
 > **Release 1 主干：** `release/1`
 
 ---
@@ -2338,9 +2340,9 @@ S3C-STORY-001（启动）
 > **Release 1 主干：** `release/1`
 > **UI 主流程入口：** **`/generate`**（S5-STORY-007 Done @ `01318c4`）
 > **Close Readiness Audit：** [`docs/architecture/audits/sprint5-main-flow-close-readiness-audit.md`](../architecture/audits/sprint5-main-flow-close-readiness-audit.md)
-> **下一步：** 规划 Sprint 6-A / 6-B（Fixture Triple · Paste QA）；**不 merge `main`**
+> **下一步：** 启动 **Sprint 6 Visible Main Flow**（DECISION-070）；Sprint 7/8 Planned · 未启动；**不 merge `main`**
 > **Sprint 5 不做：** 真实微信公众号 Paste QA 全量回归、不宣称复制到公众号最终保真通过、Style Gallery、真实 QR / 小程序 / 图片上传托管 / AI 生图、复杂编辑器 / block 级编辑、样式市场、merge 至 `main`
-> **保留原则：** 真实 Paste QA 归 Sprint 6-B；Fixture Triple / PasteTestRecord 归 Sprint 6-A / 6-B；Sprint 5 UI smoke test 不替代微信公众号 Paste QA
+> **保留原则：** 真实 Paste QA 归 **Sprint 8**；Style Gallery / 样式丰富度归 **Sprint 7**；Sprint 5 技术 smoke **不替代** Release 1 用户可见验收与 Paste QA
 
 ## Sprint 5 建议执行顺序
 
@@ -2753,9 +2755,9 @@ S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Done
 | Audit 文档 | [`sprint5-main-flow-close-readiness-audit.md`](../architecture/audits/sprint5-main-flow-close-readiness-audit.md) |
 | Grade | A- |
 | P0 | 0 |
-| P1 | 4（登记 Sprint 6-A / 6-B / 后续） |
+| P1 | 4（登记 Sprint 7 / Sprint 8 / 后续） |
 | P2 | 3 |
-| Paste QA | **Not Run**（归 Sprint 6-B） |
+| Paste QA | **Not Run**（归 **Sprint 8**） |
 | Release 1 完成 | **否**（Paste QA 未执行；不宣称 Release 1 完成） |
 
 **关闭决策（DECISION-069）：**
@@ -2764,6 +2766,328 @@ S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Done
 - `sprint/s5-generation-ui-main-flow` merge 至 `release/1`
 - P1/P2 登记后续 Sprint，不阻塞关闭
 - **不 merge 至 `main`**
-- **不自动启动 Sprint 6-A / 6-B**
+- **不自动启动 Sprint 6 / 7 / 8**（Release 1 尾声方案 B · DECISION-070）
+
+---
+
+# Sprint 6 Backlog · Visible Main Flow
+
+> **Sprint 6 目标：** 用户可见主链路 — 输入主题 → 生成过程 → 完整预览 → 复制 HTML
+> **Sprint 6 状态：** **Planned**（下一步 · **最高优先级** · 未启动）
+> **Sprint 6 分支（启动时）：** `sprint/s6-visible-main-flow`（从 `release/1` 切出 · DECISION-070）
+> **Release 1 主干：** `release/1`
+> **关联 Decision：** DECISION-070
+> **前置：** Sprint 5 技术框架已 merge `release/1`（可复用 `/generate` 与 Renderer，但 Sprint 6 验收以**用户可见手测**为准）
+> **Sprint 6 不做：** Style Gallery（Sprint 7）、真实 Paste QA（Sprint 8）、关闭 Release 1、merge `main`
+
+## Sprint 6 建议执行顺序
+
+```text
+S6-STORY-001 Sprint 6 启动与 Release 1 后续计划同步 — Planned
+S6-STORY-002 输入主题与生成入口页面 — Planned
+S6-STORY-003 mock Article 生成主链路接入 — Planned
+S6-STORY-004 Preview 页面集成完整 Article 渲染 — Planned
+S6-STORY-005 Clipboard Copy 按钮与 payload 接入 — Planned
+S6-STORY-006 生成状态 / 基础错误态 / 最小用户反馈 — Planned
+S6-STORY-007 Sprint 6 手动 QA 与关闭准备 — Planned
+```
+
+---
+
+## S6-STORY-001 Sprint 6 启动与 Release 1 后续计划同步
+
+**用户故事：** 作为产品负责人，我需要在启动 Sprint 6 时建立 sprint 分支并同步方案 B 计划，以便团队在「用户可见主链路」边界下按 Story 推进。
+
+**优先级：** P0 · **状态：** Planned · **工作分支：** `docs/s6-start-backlog-split`（启动时创建）
+
+**目标：** 从 `release/1` 创建 `sprint/s6-visible-main-flow`；同步 DECISION-070、release-plan、backlog。
+
+**验收标准：**
+
+- [ ] AC-1 已从 `release/1` 创建 `sprint/s6-visible-main-flow`
+- [ ] AC-2 sprint-backlog / sprint-plan / release-plan 已同步 Sprint 6 范围
+- [ ] AC-3 S6-STORY-002~007 已登记 Planned 状态
+- [ ] AC-4 明确 Sprint 6 核心目标是用户可见主链路，不是底层抽象
+- [ ] AC-5 未启动 Sprint 7/8 功能 Story
+- [ ] AC-6 未关闭 Release 1；未 merge `main`
+
+---
+
+## S6-STORY-002 输入主题与生成入口页面
+
+**用户故事：** 作为用户，我可以在真实页面上输入主题并看到明确的生成入口，以便开始文章生成流程。
+
+**优先级：** P0 · **状态：** Planned · **工作分支：** `feature/s6-generate-entry-page`（启动时创建）
+
+**目标：** 用户可见输入区 + 生成触发入口；可独立于真实模型先跑通 UI。
+
+**验收标准：**
+
+- [ ] AC-1 存在可手动打开的生成入口页面
+- [ ] AC-2 用户可输入主题（资料/草稿可后置或最小占位）
+- [ ] AC-3 生成按钮 / 触发控件可见且可点击
+- [ ] AC-4 不 bypass Article / Renderer 主链路架构
+- [ ] AC-5 未宣称 Paste QA 通过
+
+---
+
+## S6-STORY-003 mock Article 生成主链路接入
+
+**用户故事：** 作为用户，我点击生成后可以通过 mock Article / fixture 走通生成主链路，以便在无真实模型时也能验证页面流程。
+
+**优先级：** P0 · **状态：** Planned · **工作分支：** `feature/s6-mock-generate-flow`（启动时创建）
+
+**目标：** mock / fixture 驱动的生成结果进入统一 Generation → Article 主链路；**不要求** Sprint 6 必须接入真实模型。
+
+**验收标准：**
+
+- [ ] AC-1 点击生成后可得到结构化 Article（mock / fixture / deterministic 均可）
+- [ ] AC-2 结果进入 Article Schema 校验链路
+- [ ] AC-3 不走 DOM 抓取或 parallel article model
+- [ ] AC-4 真实模型接入为可选，不阻塞 Sprint 6 关闭
+- [ ] AC-5 有最小 automated test 或 smoke 覆盖主链路
+
+---
+
+## S6-STORY-004 Preview 页面集成完整 Article 渲染
+
+**用户故事：** 作为用户，我可以在页面上预览完整公众号文章，以便确认生成结果可读且 block 齐全。
+
+**优先级：** P0 · **状态：** Planned · **工作分支：** `feature/s6-article-preview-page`（启动时创建）
+
+**目标：** Preview Renderer 渲染完整 Article；覆盖 Release 1 首批 block 类型。
+
+**验收标准：**
+
+- [ ] AC-1 预览区展示完整 Article（非单 block demo）
+- [ ] AC-2 复用 Sprint 4 Preview Renderer / StyleResolver
+- [ ] AC-3 含 title / lead / heading / paragraph / list / quote / highlight / info_card / cta / divider / image_placeholder 中 Release 1 必需 subset
+- [ ] AC-4 预览与 Copy 使用同一 Article 数据源
+- [ ] AC-5 不宣称样式丰富度已达标（归 Sprint 7）
+
+---
+
+## S6-STORY-005 Clipboard Copy 按钮与 payload 接入
+
+**用户故事：** 作为用户，我可以一键复制微信兼容 HTML，以便粘贴到公众号编辑器。
+
+**优先级：** P0 · **状态：** Planned · **工作分支：** `feature/s6-clipboard-copy-ui`（启动时创建）
+
+**目标：** Copy 按钮触发 Copy Renderer + Clipboard payload（`text/html` + `text/plain`）。
+
+**验收标准：**
+
+- [ ] AC-1 页面有明确 Copy 按钮
+- [ ] AC-2 payload 来自 Copy Renderer，非 DOM 抓取
+- [ ] AC-3 payload 含 `text/html` 与 `text/plain`
+- [ ] AC-4 复制失败有基础用户反馈
+- [ ] AC-5 不宣称粘贴保真已通过（归 Sprint 8）
+
+---
+
+## S6-STORY-006 生成状态 / 基础错误态 / 最小用户反馈
+
+**用户故事：** 作为用户，我在生成过程中能看到状态反馈，并在出错时得到可理解的提示。
+
+**优先级：** P0 · **状态：** Planned · **工作分支：** `feature/s6-generate-status-feedback`（启动时创建）
+
+**目标：** 生成中 / 成功 / 失败状态；不能只是静态 Renderer。
+
+**验收标准：**
+
+- [ ] AC-1 生成中有可见状态（loading / streaming / progress 任一）
+- [ ] AC-2 成功后可进入预览
+- [ ] AC-3 失败时有基础错误提示（非 silent fail）
+- [ ] AC-4 空输入等基础校验有反馈
+- [ ] AC-5 不实现复杂编辑器或 block 级编辑
+
+---
+
+## S6-STORY-007 Sprint 6 手动 QA 与关闭准备
+
+**用户故事：** 作为产品负责人，我需要 Sprint 6 手动 QA 清单与 close readiness，以便确认用户可见主链路可手测后再关闭 Sprint 6。
+
+**优先级：** P0 · **状态：** Planned · **工作分支：** `docs/s6-visible-main-flow-close-readiness`（启动时创建）
+
+**目标：** 手动 QA 路径文档 + audit / close readiness；不关闭 Release 1。
+
+**验收标准：**
+
+- [ ] AC-1 文档化手动 QA 路径：输入 → 生成 → 预览 → 复制
+- [ ] AC-2 `corepack pnpm lint` / `test` / `build` PASS
+- [ ] AC-3 至少一个 e2e 或 smoke 覆盖可见主链路
+- [ ] AC-4 audit 明确 Sprint 6 范围与 Sprint 7/8 边界
+- [ ] AC-5 未执行 Sprint 8 Paste QA
+- [ ] AC-6 未自行关闭 Sprint 6（待用户确认）
+- [ ] AC-7 未关闭 Release 1；未 merge `main`
+
+---
+
+# Sprint 7 Backlog · WeChat Article Experience & Style Richness
+
+> **Sprint 7 目标：** 整篇文章像公众号文章；Style Gallery；样式丰富度；修正过度卡片化
+> **Sprint 7 状态：** **Planned**（后续 · 未启动）
+> **Sprint 7 分支（启动时）：** `sprint/s7-wechat-article-experience`（DECISION-070）
+> **Sprint 7 不做：** Sprint 8 Paste QA、关闭 Release 1、merge `main`
+
+## Sprint 7 建议执行顺序
+
+```text
+S7-STORY-001 Sprint 7 启动与体验目标对齐 — Planned
+S7-STORY-002 完整文章 fixture 与公众号文章样例集 — Planned
+S7-STORY-003 Style Gallery 页面 — Planned
+S7-STORY-004 标题 / 分节标题 variant 丰富度 — Planned
+S7-STORY-005 重点高亮 / 列表 / 摘要 / CTA 样式优化 — Planned
+S7-STORY-006 整篇文章样式组合与过度卡片化修正 — Planned
+S7-STORY-007 Sprint 7 手动视觉 QA 与关闭准备 — Planned
+```
+
+---
+
+## S7-STORY-001 Sprint 7 启动与体验目标对齐
+
+**优先级：** P0 · **状态：** Planned · **工作分支：** `docs/s7-start-backlog-split`
+
+**目标：** 启动 sprint 分支；对齐「像公众号文章」体验目标与 Sprint 6 交付边界。
+
+**验收标准：** AC-1 sprint 分支已创建 · AC-2 体验目标文档化 · AC-3 未启动 Sprint 8
+
+---
+
+## S7-STORY-002 完整文章 fixture 与公众号文章样例集
+
+**优先级：** P0 · **状态：** Planned · **工作分支：** `feature/s7-article-fixture-samples`
+
+**目标：** 至少 2–3 套完整 Article fixture，支撑视觉评审与 Gallery。
+
+**验收标准：** AC-1 2–3 套完整 fixture · AC-2 覆盖 Release 1 首批 block · AC-3 可驱动 Preview / Copy
+
+---
+
+## S7-STORY-003 Style Gallery 页面
+
+**优先级：** P0 · **状态：** Planned · **工作分支：** `feature/s7-style-gallery`
+
+**目标：** 可浏览 variant / 样式样例的 Gallery 页面（TECH-ARCH-023 主交付入口）。
+
+**验收标准：** AC-1 Gallery 可手测 · AC-2 展示 first-wave variants 代表样例 · AC-3 不替代 Paste QA
+
+---
+
+## S7-STORY-004 标题 / 分节标题 variant 丰富度
+
+**优先级：** P0 · **状态：** Planned · **工作分支：** `feature/s7-heading-variant-richness`
+
+**目标：** 提升 title / heading 视觉层次，减少「全都一样」观感。
+
+---
+
+## S7-STORY-005 重点高亮 / 列表 / 摘要 / CTA 样式优化
+
+**优先级：** P0 · **状态：** Planned · **工作分支：** `feature/s7-structured-block-style-polish`
+
+**目标：** 优化 highlight / list / lead / cta 等 block 在整篇文章中的组合观感。
+
+---
+
+## S7-STORY-006 整篇文章样式组合与过度卡片化修正
+
+**优先级：** P0 · **状态：** Planned · **工作分支：** `feature/s7-article-rhythm-card-fix`
+
+**目标：** 修正过度卡片化；文章级 rhythm / variant 组合更接近公众号阅读体验。
+
+---
+
+## S7-STORY-007 Sprint 7 手动视觉 QA 与关闭准备
+
+**优先级：** P0 · **状态：** Planned · **工作分支：** `docs/s7-visual-qa-close-readiness`
+
+**目标：** 手动视觉 QA 记录；close readiness audit；不关闭 Release 1。
+
+---
+
+# Sprint 8 Backlog · Copy Fidelity & Release 1 Closure
+
+> **Sprint 8 目标：** Preview / Copy / 粘贴一致性；135 + 公众号后台 Paste QA；Release 1 关闭准备
+> **Sprint 8 状态：** **Planned**（后续 · 未启动）
+> **Sprint 8 分支（启动时）：** `sprint/s8-copy-fidelity-closure`（DECISION-070）
+> **承接：** 原 Sprint 6-A/B 中 Fixture Triple / 33 variants Paste QA / PasteTestRecord 目标（方案 B 收口至 Sprint 8）
+> **Sprint 8 不做：** 未满足 release-plan 关闭标准时 merge `main`
+
+## Sprint 8 建议执行顺序
+
+```text
+S8-STORY-001 Sprint 8 启动与复制保真范围确认 — Planned
+S8-STORY-002 Preview / Copy Renderer 一致性 QA — Planned
+S8-STORY-003 Clipboard HTML / Plain Text 双格式 QA — Planned
+S8-STORY-004 135 编辑器粘贴测试 — Planned
+S8-STORY-005 微信公众号后台粘贴测试 — Planned
+S8-STORY-006 fallback / unsupported block 降级策略 — Planned
+S8-STORY-007 Release 1 手动验收记录与关闭准备 — Planned
+```
+
+---
+
+## S8-STORY-001 Sprint 8 启动与复制保真范围确认
+
+**优先级：** P0 · **状态：** Planned · **工作分支：** `docs/s8-start-backlog-split`
+
+**目标：** 启动 sprint；确认 Paste QA 范围（33 variants · 135 · 公众号后台 · PasteTestRecord）。
+
+---
+
+## S8-STORY-002 Preview / Copy Renderer 一致性 QA
+
+**优先级：** P0 · **状态：** Planned · **工作分支：** `docs/s8-preview-copy-consistency-qa`
+
+**目标：** 系统性对比 Preview 与 Copy 输出；登记差异与 P1/P2。
+
+---
+
+## S8-STORY-003 Clipboard HTML / Plain Text 双格式 QA
+
+**优先级：** P0 · **状态：** Planned · **工作分支：** `docs/s8-clipboard-dual-format-qa`
+
+**目标：** 验证 `text/html` + `text/plain` 双格式在微信编辑场景下的行为。
+
+---
+
+## S8-STORY-004 135 编辑器粘贴测试
+
+**优先级：** P0 · **状态：** Planned · **工作分支：** `docs/s8-135-editor-paste-qa`
+
+**目标：** 135 编辑器最小 Paste QA；PasteTestRecord 记录。
+
+---
+
+## S8-STORY-005 微信公众号后台粘贴测试
+
+**优先级：** P0 · **状态：** Planned · **工作分支：** `docs/s8-wechat-backend-paste-qa`
+
+**目标：** 公众号后台最小 Paste QA；承接 first-wave 33 variants 回归（原 6-B 目标）。
+
+---
+
+## S8-STORY-006 fallback / unsupported block 降级策略
+
+**优先级：** P0 · **状态：** Planned · **工作分支：** `feature/s8-copy-fallback-strategy`
+
+**目标：** 明确 balanced / preview_only / unsupported 的 fallback 与用户可见说明。
+
+---
+
+## S8-STORY-007 Release 1 手动验收记录与关闭准备
+
+**优先级：** P0 · **状态：** Planned · **工作分支：** `docs/s8-release1-close-readiness`
+
+**目标：** 对照 [`release-plan.md`](release-plan.md) 关闭标准完成手动验收记录；**不自行关闭 Release 1**；不 merge `main`（须用户确认）。
+
+**验收标准：**
+
+- [ ] AC-1 release-plan 关闭标准逐项核对
+- [ ] AC-2 遗留问题写入 backlog / bugs.md
+- [ ] AC-3 有 Paste QA 记录（Not Run 须明确标注，不得冒充通过）
+- [ ] AC-4 未自行关闭 Release 1
+- [ ] AC-5 未 merge `main`
 
 ---

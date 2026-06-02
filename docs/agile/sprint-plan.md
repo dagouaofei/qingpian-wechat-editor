@@ -60,7 +60,7 @@
 | **Sprint 3-C** | **Closed**（2026-06-01；DECISION-065；audit Grade A；merged `release/1`） |
 | **Sprint 5** | **Closed**（2026-06-02；DECISION-069；S5-STORY-001~008 Done；audit Grade A- · P0=0；merged `release/1`） |
 | **Release 1 主干** | `release/1` |
-| **下一步** | 规划 Sprint 6-A / 6-B（Fixture Triple · Paste QA）；不 merge `main` |
+| **下一步** | 启动 **Sprint 6：Visible Main Flow**（DECISION-070）；Sprint 7/8 已规划 · 未启动；不 merge `main` |
 
 ---
 
@@ -76,7 +76,7 @@
 | 4 | P1/P2 已登记 Product Backlog 或后续 Sprint | ✅ |
 | 5 | Style Quality Gate 已登记 Product Backlog（TECH-ARCH-023） | ✅ |
 | 6 | Sprint 2 范围明确：Article / Block Schema + InlineContent 代码契约 | ✅ |
-| 7 | Sprint 3-A/B/C、4-A/B、5、6-A/B 拆分清晰 | ✅ |
+| 7 | Sprint 3-A/B/C、4-A/B、5、**6/7/8** 拆分清晰（Release 1 尾声方案 B · DECISION-070） | ✅ |
 | 8 | Release 1 first wave 11×3 + expansion 策略已确认（DECISION-043） | ✅ |
 | 9 | 受控 AI Style Selection 边界已确认（DECISION-040） | ✅ |
 | 10 | 用户确认接受 B 级 final audit | ✅ **已确认** |
@@ -492,36 +492,96 @@ Sprint 5 Closed — DECISION-069 · merged `release/1`
 - 不实现样式市场
 - 不 merge 至 `main`
 
-**保留原则：**
+**保留原则（Sprint 5 · 历史）：**
 
-- 真实 Paste QA 仍归 **Sprint 6-B**
-- Fixture Triple / PasteTestRecord 仍归 **Sprint 6-A / 6-B**
-- Sprint 5 的 UI 主流程 smoke test 只证明页面链路可跑通，**不替代**微信公众号粘贴 QA
-- 允许本地 deterministic provider 作为 dev fallback / test provider，但必须走同一 GenerationService / Article / Renderer / Copy 主链路；**不得**用静态 `mockArticle` 直接渲染页面假装主流程跑通
-- **Sprint 5 关闭验收**须包含 S5-STORY-005 真实模型 Provider 对接；deterministic provider **不能**作为 Release 1 主链路验收替代
+- Sprint 5 已交付 Generation 技术框架与 `/generate` 初版（DECISION-069）
+- Sprint 5 e2e / smoke **不替代** 微信公众号粘贴 QA（归 **Sprint 8**）
 
-### Sprint 6-A：Fixture Triple Infrastructure
+---
 
-**目标：**
+### Sprint 6：Release 1 Visible Main Flow — **Planned（下一步 · 最高优先级）**
 
-- Article JSON fixture
-- Copy HTML snapshot schema
-- Paste checklist / PasteTestRecord schema
-- 复制一致性 Bug 录入流程
+**分支（启动时）：** `sprint/s6-visible-main-flow`（从 `release/1` 切出 · DECISION-070）
 
-### Sprint 6-B：First-wave Required Variants Paste QA Regression
+> **核心目标：** 用户可见主链路 — **不是**继续底层抽象。Sprint 5 技术成果可复用/对齐，但 Release 1 验收须以**可手测页面**为准。
 
-**目标：**
+**Sprint Goal：**
 
-- **33** first-wave required variants 全量粘贴 QA
-- PasteTestRecord 记录
-- expansion variants 进入后续批次
+1. 把当前技术框架接入**用户可见页面**
+2. 用户完成：输入主题 → 点击生成 → **看到生成过程** → 预览完整文章 → 复制 HTML
+3. 可先使用 **mock Article / fixture**，不要求 Sprint 6 必须接入真实模型
+4. 必须有**可手动测试页面**（每 Sprint 至少一个可视化/手测入口 · DECISION-070）
+5. 生成状态 / 基础错误态 / 最小用户反馈
 
-**原则（DECISION-045、DECISION-066）：**
+**Stories：** S6-STORY-001 ~ S6-STORY-007 — 见 `sprint-backlog.md`
 
-- Sprint 2 范围不变；Sprint 5 已调整为 Generation / Streaming + Release 1 真实 UI 主流程闭环（DECISION-066）
-- 拆分保证可执行性，**不降低** Release 1 样式丰富度目标（最终 up to 11×5）
-- First wave 先 11×3，expansion 分后续子 Sprint
+**建议执行顺序：**
+
+```text
+S6-STORY-001 Sprint 6 启动与 Release 1 后续计划同步
+S6-STORY-002 输入主题与生成入口页面
+S6-STORY-003 mock Article 生成主链路接入
+S6-STORY-004 Preview 页面集成完整 Article 渲染
+S6-STORY-005 Clipboard Copy 按钮与 payload 接入
+S6-STORY-006 生成状态 / 基础错误态 / 最小用户反馈
+S6-STORY-007 Sprint 6 手动 QA 与关闭准备
+```
+
+**不做：**
+
+- 不执行 Sprint 7 Style Gallery / 样式丰富度大改
+- 不执行 Sprint 8 真实 Paste QA 全量回归
+- 不关闭 Release 1
+- 不 merge 至 `main`
+
+---
+
+### Sprint 7：WeChat Article Experience & Style Richness — **Planned（后续）**
+
+**分支（启动时）：** `sprint/s7-wechat-article-experience`（名称可在 S7-STORY-001 最终确认）
+
+**Sprint Goal：**
+
+1. 验证整篇文章是否**像公众号文章**
+2. 提升样式丰富度与样式组合观感
+3. **Style Gallery / 样式样例页**
+4. 修正**过度卡片化**问题
+5. 形成至少 **2–3 套**完整文章视觉风格样例
+
+**Stories：** S7-STORY-001 ~ S7-STORY-007 — 见 `sprint-backlog.md`
+
+**不做：**
+
+- 不替代 Sprint 8 Paste QA
+- 不关闭 Release 1
+- 不 merge 至 `main`
+
+---
+
+### Sprint 8：Copy Fidelity & Release 1 Closure — **Planned（后续）**
+
+**分支（启动时）：** `sprint/s8-copy-fidelity-closure`（名称可在 S8-STORY-001 最终确认）
+
+**Sprint Goal：**
+
+1. 验证 Preview / Copy / 微信公众号粘贴**一致性**
+2. 完成 **135 编辑器**与**公众号后台**最小 Paste QA
+3. 建立 / 完善 **PasteTestRecord**、fixture triple 与 QA 归档（承接原 Sprint 6-A/B 中 Paste 相关目标）
+4. 明确 **fallback** 与已知问题
+5. **Release 1 手动验收记录**与关闭准备（**不自动 merge `main`**）
+
+**Stories：** S8-STORY-001 ~ S8-STORY-007 — 见 `sprint-backlog.md`
+
+**不做：**
+
+- 不宣称 Release 1 完成，除非满足 [`release-plan.md`](release-plan.md) 关闭标准且用户确认
+- 不 merge 至 `main`（须 Release 1 整体验收后用户确认）
+
+**原则（DECISION-045 历史 · DECISION-070 方案 B）：**
+
+- Release 1 尾声由 Sprint **6 → 7 → 8** 顺序推进：可见主链路 → 样式体验 → 复制保真与关闭
+- 拆分保证可执行性，**不降低** Release 1 样式丰富度与复制一致性 P0 目标
+- First wave 11×3；expansion 仍分后续批次
 
 ---
 
