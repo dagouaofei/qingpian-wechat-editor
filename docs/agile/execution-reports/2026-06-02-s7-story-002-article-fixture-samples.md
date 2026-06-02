@@ -66,6 +66,6 @@
 
 ## 8. Commit / Merge
 
-- Commit hash：（待提交）
-- Merge 至 sprint：（待用户确认后执行）
+- Commit hash：`429ce30`（`feature/s7-article-fixture-samples`）
+- Merge 至 `sprint/s7-wechat-article-experience`：`429ce30`（fast-forward）
 - 未 merge `release/1` / `main`

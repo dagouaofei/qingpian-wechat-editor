@@ -3160,7 +3160,7 @@ S7-STORY-007 Sprint 7 手动视觉 QA 与关闭准备 — Planned
 
 **用户故事：** 作为 PO / 设计师，我需要在不调用 AI 的情况下，用 **8 套固定、可复现的完整公众号文章**，评审 Preview / Copy 在不同文章类型下的观感，并为 Gallery 与 Sprint 8 Paste 基线提供数据。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s7-article-fixture-samples`
+**优先级：** P0 · **状态：** In Review · **工作分支：** `feature/s7-article-fixture-samples` · merged sprint @ `429ce30`
 
 **对应 Product Backlog：** TECH-ARCH-023 · US-R1-012 / US-R1-013 前置数据
 

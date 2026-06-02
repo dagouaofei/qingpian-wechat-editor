@@ -418,4 +418,4 @@
 
 | 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
 |------|--------|----------|----------|----------------------|
-| 2026-06-02 | Sprint 7 | **Sprint 7 恢复**（DECISION-081）；S7-STORY-002 扩至 8 套文章 fixture | 敏捷 / Fixture | DECISION-081, S7-STORY-002 |
+| 2026-06-02 | Sprint 7 | **S7-STORY-002** 8 套 fixture + Gallery；merge @ `429ce30` | 代码 / Fixture | S7-STORY-002, DECISION-081 |
