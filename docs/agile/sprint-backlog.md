@@ -3203,7 +3203,7 @@ S7-STORY-007 Sprint 7 手动视觉 QA 与关闭准备 — Planned
 
 **用户故事：** 作为 PO / 设计师，我需要在 `/gallery` 上**浏览** 8 套样例文章的 Preview / Copy，并**肉眼确认** title 与 heading 在整篇中有清晰层次、不再「全都一样」。
 
-**优先级：** P0 · **状态：** **Done**（PO 签收 2026-06-02）· **工作分支：** `feature/s7-gallery-heading-variants` → `feature/s7-rich-styles-title-heading` · merged sprint（见 changelog · DECISION-083）
+**优先级：** P0 · **状态：** **Done**（PO 签收 2026-06-02）· **工作分支：** `feature/s7-gallery-heading-variants` → `feature/s7-rich-styles-title-heading` · merged sprint @ `517717e`
 
 **对应：** TECH-ARCH-023 · US-R1-012 · US-R1-013（标题层次部分）· **DECISION-082**
 
@@ -3235,7 +3235,7 @@ S7-STORY-007 Sprint 7 手动视觉 QA 与关闭准备 — Planned
 
 ## S7-STORY-005 重点高亮 / 列表 / 摘要 / CTA 样式优化
 
-**优先级：** P0 · **状态：** **Done**（PO 签收 2026-06-02）· **工作分支：** `feature/s7-rich-styles-title-heading`（与 S7-STORY-003 同批 · DECISION-083）· merged sprint（见 changelog）
+**优先级：** P0 · **状态：** **Done**（PO 签收 2026-06-02）· **工作分支：** `feature/s7-rich-styles-title-heading`（与 S7-STORY-003 同批 · DECISION-083）· merged sprint @ `517717e`
 
 **目标：** 优化 highlight / list / lead / cta 等 block 在整篇文章中的组合观感。
 
