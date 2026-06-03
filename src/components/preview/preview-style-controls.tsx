@@ -7,6 +7,7 @@ import {
   type PreviewStyleControlState,
 } from "@/lib/preview-style-controls";
 import { PREVIEW_COLOR_PALETTE_OPTIONS } from "@/lib/preview-color-palette";
+import { PREVIEW_HEADING_STYLE_OPTIONS } from "@/lib/preview-heading-style";
 import { ShellFieldLabel, ShellSelect } from "@/components/ui-shell/primitives";
 
 export function PreviewStyleControls({
@@ -60,6 +61,29 @@ export function PreviewStyleControls({
               ?.description
           }
         </p>
+      </label>
+
+      <label className="block space-y-1.5">
+        <ShellFieldLabel>小标题样式</ShellFieldLabel>
+        <ShellSelect
+          id="preview-heading-style"
+          data-testid="preview-heading-style-select"
+          disabled={disabled}
+          value={value.headingVariantId ?? ""}
+          onChange={(event) =>
+            onChange({
+              ...value,
+              headingVariantId: event.target.value as PreviewStyleControlState["headingVariantId"],
+            })
+          }
+        >
+          <option value="">跟随生成结果</option>
+          {PREVIEW_HEADING_STYLE_OPTIONS.map((option) => (
+            <option key={option.id} value={option.id}>
+              {option.label}
+            </option>
+          ))}
+        </ShellSelect>
       </label>
 
       <label className="block space-y-1.5">

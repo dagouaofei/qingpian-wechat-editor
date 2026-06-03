@@ -10,7 +10,7 @@
 > **Sprint 5：** Generation / Streaming + Release 1 真实 UI 主流程闭环 · **Closed**（2026-06-02；DECISION-069；audit Grade A- · P0=0 · P1=4 · P2=3；`sprint/s5-generation-ui-main-flow` 已 merge 至 `release/1`）
 > **Sprint 6：** Release 1 Visible AI Main Flow · **Closed**（2026-06-02；DECISION-078；audit Grade A- · P0=0 · P1=5 · P2=4；`sprint/s6-visible-ai-main-flow` 已 merge 至 `release/1`）
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
-> **当前 Sprint：** **Sprint 7**（**In Progress** · **S7-STORY-007A In Review** · 002~006 **Done** · **007 不做**）
+> **当前 Sprint：** **Sprint 7**（**In Progress** · **S7-STORY-007B In Progress** · 007A 代码 Done · **007 不做**）
 > **当前 Chore：** **Visible Progress & Legacy Convergence** — **Done**（DECISION-080 · 用户验收 2026-06-02 · merged @ `a5704d6`）
 > **Sprint 7 分支：** `sprint/s7-wechat-article-experience`（从 `release/1` 切出）
 > **miaopian 对齐：** [`docs/agile/miaopian-alignment/s7-workflow-and-ux-gap.md`](miaopian-alignment/s7-workflow-and-ux-gap.md)
@@ -998,7 +998,7 @@
 | `title_bottom_line_editorial` | title | `bottom_line` |
 | `heading_plain_minimal` | heading | `plain` |
 | `heading_numbered_section` | heading | `numbered` |
-| `heading_top_badge_topic` | heading | `top_badge` |
+| `heading_card_centered` | heading | `card` |
 
 **明确不做：**
 
@@ -3116,8 +3116,10 @@ S7-STORY-003 Style Gallery 与标题层级样式（合并原 003 + 004）— Don
 S7-STORY-004 标题 / 分节标题 variant 丰富度 — Merged → S7-STORY-003
 S7-STORY-005 重点高亮 / 列表 / 摘要 / CTA 样式优化 — Done
 S7-STORY-006 整篇文章样式组合与过度卡片化修正 — Done
-S7-STORY-007A R1 Style Fidelity Stabilization — In Review（当前）
-S7-STORY-007 Sprint 7 手动视觉 QA 与关闭准备 — Deferred（用户确认不做，改 007A）
+S7-STORY-007A R1 Style Fidelity Stabilization — In Review（代码 Done · 粘贴 QA 移交 007B）
+S7-STORY-007B R1 Golden Paste QA 与默认路径二次修复 — In Progress
+S7-STORY-008 Heading Publish 8 款审美实验 — In Review（当前）
+S7-STORY-007 Sprint 7 手动视觉 QA 与关闭准备 — Deferred
 ```
 
 ---
@@ -3306,6 +3308,51 @@ S7-STORY-007 Sprint 7 手动视觉 QA 与关闭准备 — Deferred（用户确�
 - [ ] AC-8 微信公众号粘贴 QA **PASS**（[`paste-qa/r1-golden-paste-qa.md`](paste-qa/r1-golden-paste-qa.md) · **Not Run**）
 
 **备注：** 粘贴 QA 未跑前 Story 保持 **In Review**；FAIL 须登记 `bugs.md`。
+
+---
+
+## S7-STORY-007B R1 Golden Paste QA 与默认路径二次修复
+
+**用户故事：** 作为 PO，我需要 `r1-golden-default-article` 在微信公众号粘贴后与 Preview 一致，并修复粘贴 FAIL 的根因。
+
+**优先级：** P0 · **状态：** **In Progress** · **工作分支：** `feature/s7-story-007a-r1-style-fidelity`（延续 007A 分支）
+
+**In Scope：** 真实粘贴 QA 记录 · FAIL→`bugs.md` · 仅默认路径二次修复（BUG-001 font-family 等）
+
+**Out of Scope：** 新增 variant · 97 variant polish · S7-STORY-007 · merge/关闭 Story
+
+**验收标准：**
+
+- [x] AC-1 确认 canonical preset=`business`（DECISION-086）
+- [x] AC-2 BUG-001 修复 + 自动化断言
+- [ ] AC-3 `r1-golden-default-article` 公众号粘贴 QA **PASS**（PO）
+- [x] AC-4 `npm run test` + `npm run build` PASS
+- [ ] AC-5 Story 保持 **In Review** 直至 AC-3 PASS
+
+---
+
+## S7-STORY-008 Heading Publish 8 款审美实验
+
+**用户故事：** 作为 PO，我需要在保证 Copy 一致性的前提下，让小标题有 8 款「能直接发公众号」的审美合格样式可选，并废弃历史 heading variant。
+
+**优先级：** P0 · **状态：** **In Review** · **工作分支：** `feature/s7-story-008-heading-publish-aesthetic`（延续 `feature/s7-story-007a-r1-style-fidelity` 未合并工作）
+
+**对应：** DECISION-087 · [`heading-publish-catalog.md`](../product/heading-publish-catalog.md)
+
+**In Scope：** 8 款 `HEADING_PUBLISH` registry · Preview/Copy 抛光 · `/gallery` + `/preview` 切换 · diversity 仅 8 款 · 废弃 5 款旧 ID
+
+**Out of Scope：** title · 其它 block · 第 9 款 heading · Release 1 关闭
+
+**验收标准：**
+
+- [x] AC-1 Registry / 生成 / Gallery / Preview 仅暴露 8 款 `HEADING_PUBLISH_VARIANT_IDS`
+- [x] AC-2 [`heading-publish-catalog.md`](../product/heading-publish-catalog.md) + [`heading-publish-8.md`](paste-qa/heading-publish-8.md)
+- [x] AC-3 `/gallery` + `/preview` 小标题切换与 Copy 同步
+- [x] AC-4 `heading-publish-parity.test.ts` 全绿
+- [ ] AC-5 PO catalog 审美 ≥6/8 合格
+- [ ] AC-6 PO 粘贴 QA ≥6/8 PASS
+
+**备注：** 不得将 AC-4 等同于 Story Done；待 PO 填 catalog / paste 表。
 
 ---
 

@@ -10,8 +10,8 @@ import {
 describe("release 1 first-wave paste qa plan", () => {
   const plan = buildRelease1FirstWavePasteQaPlan();
 
-  it("contains 97 release1 variants across 11 blocks", () => {
-    expect(plan).toHaveLength(97);
+  it("contains 92 release1 variants across 11 blocks", () => {
+    expect(plan).toHaveLength(92);
     expect(RELEASE1_FIRST_WAVE_VARIANT_GROUPS).toHaveLength(11);
 
     const distribution = new Map<string, number>();
@@ -21,7 +21,7 @@ describe("release 1 first-wave paste qa plan", () => {
 
     const expectedCounts: Record<string, number> = {
       title: 3,
-      heading: 13,
+      heading: 8,
       lead: 9,
       paragraph: 9,
       divider: 9,

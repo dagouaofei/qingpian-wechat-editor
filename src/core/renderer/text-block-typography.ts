@@ -10,6 +10,7 @@ export type TextBlockTypography = {
   fontWeight: string;
   lineHeight: string;
   marginBlock: string;
+  fontFamily: string;
 };
 
 export type TextBlockLayoutKind =
@@ -41,6 +42,7 @@ export function resolveTextBlockTypography(
     fontWeight: variantWeight === "regular" ? "400" : "400",
     lineHeight: blockType === "lead" ? "1.65" : presetTypography.bodyLineHeight,
     marginBlock: variantSpacing ?? (blockType === "lead" ? "20px" : "18px"),
+    fontFamily: presetTypography.fontFamily,
   };
 }
 

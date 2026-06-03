@@ -6,25 +6,77 @@ import {
   previewTitleBadgeStyle,
   previewTitleTextStyle,
 } from "@/core/renderer/preview-visual-styles";
+import { isHeadingPublishVariantId } from "@/core/renderer/title-heading-assets";
+import { resolveHeadingPublishIconLabel } from "@/core/renderer/heading-publish-decoration";
+import {
+  headingPublishContainerStyle,
+  headingPublishTextStyle,
+  headingPreviewCardCenteredFrameStyle,
+  headingPreviewCardCenteredIndexStyle,
+  headingPreviewHighlightMarkerBandCellStyle,
+  headingPreviewHighlightMarkerTableStyle,
+  headingPreviewHighlightMarkerTextCellStyle,
+  headingPreviewIconPrefixGlyphStyle,
+  headingPreviewMagazineLeftBarAccentRailStyle,
+  headingPreviewMagazineLeftBarLightRailStyle,
+  headingPreviewMagazineOffsetSectionStyle,
+  headingPreviewNumberedSectionBadgeStyle,
+  headingPreviewOrdinalStyle,
+  headingPreviewSectionKickerStyle,
+  headingPreviewShortLineUnderlineStyle,
+  headingPreviewShortLineWrapStyle,
+} from "@/core/renderer/heading-publish-visual";
 import type { TitleHeadingPresentation } from "@/core/renderer/title-heading-visual";
 import {
+  resolveTitleHeadingPaletteFromTypography,
   titleHeadingAccentBarStyle,
-  titleHeadingCardTitleFrameStyle,
+  titleHeadingCardTitleFrameStyleForBlock,
   titleHeadingCornerAccentStyle,
   titleHeadingEditorialLineStyle,
+  titleHeadingHighlightMarkerTextStyle,
   titleHeadingIconCapsuleStyle,
+  titleHeadingIconPrefixWrapStyle,
   titleHeadingLineCapStyle,
   titleHeadingLineSegmentStyle,
-  titleHeadingNumberBadgeStyle,
-  titleHeadingTopicPillStyle,
-  titleHeadingHighlightMarkerTextStyle,
-  titleHeadingShortLineWrapStyle,
-  titleHeadingShortLineBarStyle,
-  titleHeadingIconPrefixWrapStyle,
-  titleHeadingMinimalNumberLabelStyle,
   titleHeadingMagazineOffsetCardStyle,
+  titleHeadingMinimalNumberLabelStyle,
+  titleHeadingNumberBadgeStyle,
+  titleHeadingShortLineBarStyle,
+  titleHeadingTopicPillStyleForBlock,
 } from "@/core/renderer/title-heading-visual";
+import type { ThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
 import type { TitleBlockPreviewOutput } from "@/core/renderer/types";
+
+function isHeadingPublishOutput(output: TitleBlockPreviewOutput): boolean {
+  return (
+    output.blockType === "heading" && isHeadingPublishVariantId(output.variantId)
+  );
+}
+
+function paletteForOutput(output: TitleBlockPreviewOutput): ThemePaletteTokens {
+  if (isHeadingPublishOutput(output) && output.themePalette) {
+    return output.themePalette;
+  }
+  if (output.typography?.color) {
+    return resolveTitleHeadingPaletteFromTypography({
+      color: output.typography.color,
+      fontSize: output.typography.fontSize,
+      fontWeight: output.typography.fontWeight,
+      lineHeight: output.typography.lineHeight,
+      marginBlock: "28px",
+      accentColor: output.typography.accentColor,
+      mutedColor: output.typography.mutedColor,
+    });
+  }
+  return PALETTE_PROXY as unknown as ThemePaletteTokens;
+}
+
+function shellStyleForHeading(output: TitleBlockPreviewOutput): CSSProperties {
+  if (isHeadingPublishOutput(output)) {
+    return headingPublishContainerStyle();
+  }
+  return { margin: output.blockType === "title" ? "32px 0" : "24px 0" };
+}
 
 const PALETTE_PROXY = {
   textDefault: "var(--preview-text-default)",
@@ -84,11 +136,16 @@ function CornerAccents() {
 function IconCapsule({
   label,
   size = "md",
+  blockType = "title",
 }: {
   label: string;
   size?: "md" | "lg";
+  blockType?: "title" | "heading";
 }) {
-  const style = titleHeadingIconCapsuleStyle(PALETTE_PROXY as never) as CSSProperties;
+  const style = titleHeadingIconCapsuleStyle(
+    PALETTE_PROXY as never,
+    blockType,
+  ) as CSSProperties;
   return (
     <span
       aria-hidden
@@ -128,7 +185,9 @@ function TitleText({
   showStreamingCaret?: boolean;
   caret?: ReactNode;
 }) {
-  const textStyle = previewTitleTextStyle(output.blockType, output.typography);
+  const textStyle = isHeadingPublishOutput(output)
+    ? headingPublishTextStyle(output.typography ?? {})
+    : previewTitleTextStyle(output.blockType, output.typography);
   if (output.blockType === "heading") {
     return (
       <h2 style={textStyle}>
@@ -162,7 +221,10 @@ function CardTitleFrame({
     <PreviewShell
       variantId={output.variantId}
       style={{
-        ...(titleHeadingCardTitleFrameStyle(PALETTE_PROXY as never) as CSSProperties),
+        ...(titleHeadingCardTitleFrameStyleForBlock(
+          PALETTE_PROXY as never,
+          output.blockType,
+        ) as CSSProperties),
         position: "relative",
       }}
     >
@@ -291,7 +353,31 @@ export function TitleHeadingPreviewBlock({
         </PreviewShell>
       );
 
-    case "numbered":
+    case "numbered": {
+      const palette = paletteForOutput(output);
+      if (isHeadingPublishOutput(output)) {
+        const textStyleLocal = headingPublishTextStyle(output.typography ?? {});
+        const badgeStyle = headingPreviewNumberedSectionBadgeStyle(palette);
+        return (
+          <PreviewShell variantId={output.variantId} style={shellStyleForHeading(output)}>
+            <h2
+              style={{
+                ...textStyleLocal,
+                margin: 0,
+                display: "flex",
+                alignItems: "center",
+                gap: 0,
+              }}
+            >
+              <span style={badgeStyle}>{presentation.indexLabel ?? "01"}</span>
+              <span style={{ flex: 1, minWidth: 0 }}>
+                {output.text}
+                {showStreamingCaret ? caret : null}
+              </span>
+            </h2>
+          </PreviewShell>
+        );
+      }
       return (
         <PreviewShell
           variantId={output.variantId}
@@ -306,7 +392,11 @@ export function TitleHeadingPreviewBlock({
             border: "1px solid var(--preview-border-soft)",
           }}
         >
-          <span style={titleHeadingNumberBadgeStyle(PALETTE_PROXY as never) as CSSProperties}>
+          <span
+            style={
+              titleHeadingNumberBadgeStyle(palette, output.blockType) as CSSProperties
+            }
+          >
             {presentation.indexLabel ?? "01"}
           </span>
           <div style={{ flex: 1, minWidth: 0 }}>
@@ -315,6 +405,32 @@ export function TitleHeadingPreviewBlock({
           {presentation.iconCapsuleLabel ? (
             <IconCapsule label={presentation.iconCapsuleLabel} />
           ) : null}
+        </PreviewShell>
+      );
+    }
+
+    case "card":
+      if (isHeadingPublishOutput(output)) {
+        const palette = paletteForOutput(output);
+        const textStyleLocal = headingPublishTextStyle(output.typography ?? {});
+        return (
+          <PreviewShell
+            variantId={output.variantId}
+            style={headingPreviewCardCenteredFrameStyle(palette)}
+          >
+            <p style={headingPreviewCardCenteredIndexStyle(palette)}>
+              {presentation.indexLabel ?? "01"}
+            </p>
+            <h2 style={{ ...textStyleLocal, margin: 0, textAlign: "center" }}>
+              {output.text}
+              {showStreamingCaret ? caret : null}
+            </h2>
+          </PreviewShell>
+        );
+      }
+      return (
+        <PreviewShell variantId={output.variantId} style={{ margin: "24px 0" }}>
+          <TitleText output={output} showStreamingCaret={showStreamingCaret} caret={caret} />
         </PreviewShell>
       );
 
@@ -331,7 +447,14 @@ export function TitleHeadingPreviewBlock({
               <IconCapsule label={presentation.iconCapsuleLabel} />
             ) : null}
             {presentation.badgeText ? (
-              <p style={titleHeadingTopicPillStyle(PALETTE_PROXY as never) as CSSProperties}>
+              <p
+                style={
+                  titleHeadingTopicPillStyleForBlock(
+                    PALETTE_PROXY as never,
+                    output.blockType,
+                  ) as CSSProperties
+                }
+              >
                 {presentation.badgeText}
               </p>
             ) : null}
@@ -367,7 +490,14 @@ export function TitleHeadingPreviewBlock({
           }}
         >
           {presentation.badgeText ? (
-            <p style={titleHeadingTopicPillStyle(PALETTE_PROXY as never) as CSSProperties}>
+            <p
+              style={
+                titleHeadingTopicPillStyleForBlock(
+                  PALETTE_PROXY as never,
+                  output.blockType,
+                ) as CSSProperties
+              }
+            >
               {presentation.badgeText}
             </p>
           ) : null}
@@ -390,51 +520,167 @@ export function TitleHeadingPreviewBlock({
       );
 
     case "highlight_marker": {
-      const markerStyle = titleHeadingHighlightMarkerTextStyle(
-        PALETTE_PROXY as never,
-      ) as CSSProperties;
-      const textStyle = previewTitleTextStyle(output.blockType, output.typography);
+      const palette = paletteForOutput(output);
+      const textStyleLocal = isHeadingPublishOutput(output)
+        ? headingPublishTextStyle(output.typography ?? {})
+        : previewTitleTextStyle(output.blockType, output.typography);
       return (
-        <PreviewShell variantId={output.variantId} style={{ margin: "22px 0" }}>
-          <h2 style={{ ...textStyle, ...markerStyle }}>
-            {output.text}
+        <PreviewShell
+          variantId={output.variantId}
+          style={shellStyleForHeading(output)}
+        >
+          <h2 style={{ ...textStyleLocal, margin: 0 }}>
+            {isHeadingPublishOutput(output) ? (
+              <table style={headingPreviewHighlightMarkerTableStyle()}>
+                <tbody>
+                  <tr>
+                    <td
+                      style={headingPreviewHighlightMarkerTextCellStyle(
+                        palette,
+                        output.typography ?? {},
+                      )}
+                    >
+                      {output.text}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style={headingPreviewHighlightMarkerBandCellStyle(palette)}>
+                      &nbsp;
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            ) : (
+              <span
+                style={
+                  titleHeadingHighlightMarkerTextStyle(
+                    palette,
+                    output.blockType,
+                  ) as CSSProperties
+                }
+              >
+                {output.text}
+              </span>
+            )}
             {showStreamingCaret ? caret : null}
           </h2>
         </PreviewShell>
       );
     }
 
-    case "short_line":
-      return (
-        <PreviewShell variantId={output.variantId} style={{ margin: "22px 0", textAlign: "left" }}>
-          <div style={titleHeadingShortLineWrapStyle(PALETTE_PROXY as never) as CSSProperties}>
-            <TitleText output={output} showStreamingCaret={showStreamingCaret} caret={caret} />
-          </div>
-          <div
-            aria-hidden
-            style={titleHeadingShortLineBarStyle(PALETTE_PROXY as never) as CSSProperties}
-          />
-        </PreviewShell>
-      );
-
-    case "icon_prefix":
-      return (
-        <PreviewShell variantId={output.variantId} style={{ margin: "22px 0", textAlign: "left" }}>
-          <div style={titleHeadingIconPrefixWrapStyle(PALETTE_PROXY as never) as CSSProperties}>
-            <TitleText output={output} showStreamingCaret={showStreamingCaret} caret={caret} />
-          </div>
-        </PreviewShell>
-      );
-
-    case "minimal_number":
+    case "short_line": {
+      const palette = paletteForOutput(output);
+      if (isHeadingPublishOutput(output)) {
+        const textStyleLocal = headingPublishTextStyle(output.typography ?? {});
+        return (
+          <PreviewShell
+            variantId={output.variantId}
+            style={{ ...shellStyleForHeading(output), textAlign: "left" }}
+          >
+            <p style={{ margin: 0 }}>
+              <span style={headingPreviewShortLineWrapStyle()}>
+                <span style={{ ...textStyleLocal, display: "block" }}>{output.text}</span>
+                <span
+                  aria-hidden
+                  style={headingPreviewShortLineUnderlineStyle(palette)}
+                />
+              </span>
+              {showStreamingCaret ? caret : null}
+            </p>
+          </PreviewShell>
+        );
+      }
+      const underlineStyle = titleHeadingShortLineBarStyle(
+        palette,
+        output.blockType,
+      ) as CSSProperties;
       return (
         <PreviewShell
           variantId={output.variantId}
-          style={{ margin: "22px 0", display: "flex", alignItems: "stretch", gap: "14px" }}
+          style={{ ...shellStyleForHeading(output), textAlign: "left" }}
+        >
+          <TitleText output={output} showStreamingCaret={showStreamingCaret} caret={caret} />
+          <p aria-hidden style={underlineStyle}>
+            &nbsp;
+          </p>
+        </PreviewShell>
+      );
+    }
+
+    case "icon_prefix": {
+      const palette = paletteForOutput(output);
+      if (isHeadingPublishOutput(output)) {
+        const textStyleLocal = headingPublishTextStyle(output.typography ?? {});
+        const iconLabel = resolveHeadingPublishIconLabel(
+          presentation,
+          output.variantId,
+        );
+        return (
+          <PreviewShell variantId={output.variantId} style={shellStyleForHeading(output)}>
+            <h2 style={{ ...textStyleLocal, margin: 0 }}>
+              <span style={headingPreviewIconPrefixGlyphStyle(palette)}>
+                {iconLabel}
+              </span>
+              {output.text}
+              {showStreamingCaret ? caret : null}
+            </h2>
+          </PreviewShell>
+        );
+      }
+      return (
+        <PreviewShell
+          variantId={output.variantId}
+          style={{ ...shellStyleForHeading(output), textAlign: "left" }}
+        >
+          <div
+            style={
+              titleHeadingIconPrefixWrapStyle(palette, output.blockType) as CSSProperties
+            }
+          >
+            {presentation.iconCapsuleLabel ? (
+              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                <IconCapsule label={presentation.iconCapsuleLabel} blockType="heading" />
+                <TitleText output={output} showStreamingCaret={showStreamingCaret} caret={caret} />
+              </div>
+            ) : (
+              <TitleText output={output} showStreamingCaret={showStreamingCaret} caret={caret} />
+            )}
+          </div>
+        </PreviewShell>
+      );
+    }
+
+    case "minimal_number": {
+      const palette = paletteForOutput(output);
+      if (isHeadingPublishOutput(output)) {
+        const textStyleLocal = headingPublishTextStyle(output.typography ?? {});
+        return (
+          <PreviewShell variantId={output.variantId} style={shellStyleForHeading(output)}>
+            <h2 style={{ ...textStyleLocal, margin: 0 }}>
+              <span style={headingPreviewOrdinalStyle(palette)}>
+                {presentation.indexLabel ?? "01"}
+              </span>
+              {output.text}
+              {showStreamingCaret ? caret : null}
+            </h2>
+          </PreviewShell>
+        );
+      }
+      return (
+        <PreviewShell
+          variantId={output.variantId}
+          style={{
+            ...shellStyleForHeading(output),
+            display: "flex",
+            alignItems: "stretch",
+            gap: "14px",
+          }}
         >
           {presentation.indexLabel ? (
             <span
-              style={titleHeadingMinimalNumberLabelStyle(PALETTE_PROXY as never) as CSSProperties}
+              style={
+                titleHeadingMinimalNumberLabelStyle(palette, output.blockType) as CSSProperties
+              }
             >
               {presentation.indexLabel}
             </span>
@@ -445,7 +691,7 @@ export function TitleHeadingPreviewBlock({
               style={{
                 width: "1px",
                 alignSelf: "stretch",
-                background: "var(--preview-border-light)",
+                background: palette.borderLight,
                 opacity: 0.4,
               }}
             />
@@ -455,63 +701,42 @@ export function TitleHeadingPreviewBlock({
           </div>
         </PreviewShell>
       );
+    }
 
-    case "magazine_left_bar":
+    case "magazine_left_bar": {
+      const palette = paletteForOutput(output);
+      const textStyleLocal = headingPublishTextStyle(output.typography ?? {});
       return (
-        <PreviewShell variantId={output.variantId} style={{ margin: "22px 0" }}>
-          <div style={{ display: "flex", alignItems: "stretch", gap: "12px" }}>
-            <div style={{ display: "flex", gap: "3px", flexShrink: 0 }}>
-              <span
-                aria-hidden
-                style={{
-                  width: "1px",
-                  borderRadius: "1px",
-                  background: "var(--preview-border-light)",
-                  opacity: 0.55,
-                }}
-              />
-              <span
-                aria-hidden
-                style={{
-                  width: "3px",
-                  borderRadius: "2px",
-                  background: "var(--preview-text-accent)",
-                  opacity: 0.88,
-                }}
-              />
-            </div>
-            <div style={{ flex: 1, minWidth: 0, paddingTop: "2px" }}>
-              {presentation.badgeText ? (
-                <p
-                  style={{
-                    margin: "0 0 4px",
-                    fontSize: "10px",
-                    letterSpacing: "0.22em",
-                    textTransform: "uppercase",
-                    color: "var(--preview-text-muted)",
-                  }}
-                >
-                  {presentation.badgeText}
-                </p>
-              ) : null}
-              <TitleText output={output} showStreamingCaret={showStreamingCaret} caret={caret} />
-            </div>
-          </div>
+        <PreviewShell variantId={output.variantId} style={shellStyleForHeading(output)}>
+          <section style={headingPreviewMagazineLeftBarLightRailStyle(palette)}>
+            <section style={headingPreviewMagazineLeftBarAccentRailStyle(palette)}>
+              <p style={headingPreviewOrdinalStyle(palette)}>
+                {presentation.indexLabel ?? "01"}
+              </p>
+              <p style={headingPreviewSectionKickerStyle(palette)}>
+                {presentation.badgeText ?? "SECTION"}
+              </p>
+              <h2 style={{ ...textStyleLocal, margin: 0 }}>
+                {output.text}
+                {showStreamingCaret ? caret : null}
+              </h2>
+            </section>
+          </section>
         </PreviewShell>
       );
+    }
 
-    case "magazine_offset":
+    case "magazine_offset": {
+      const palette = paletteForOutput(output);
+      const sectionStyle = isHeadingPublishOutput(output)
+        ? (headingPreviewMagazineOffsetSectionStyle(palette) as CSSProperties)
+        : (titleHeadingMagazineOffsetCardStyle(palette, output.blockType) as CSSProperties);
       return (
-        <PreviewShell variantId={output.variantId} style={{ margin: "22px 0" }}>
-          <div style={{ paddingLeft: "6px", paddingTop: "4px" }}>
-            <div
-              style={titleHeadingMagazineOffsetCardStyle(PALETTE_PROXY as never) as CSSProperties}
-            >
-              <TitleText output={output} showStreamingCaret={showStreamingCaret} caret={caret} />
-            </div>
-          </div>
+        <PreviewShell variantId={output.variantId} style={sectionStyle}>
+          <TitleText output={output} showStreamingCaret={showStreamingCaret} caret={caret} />
         </PreviewShell>
       );
+    }
 
     default:
       return (

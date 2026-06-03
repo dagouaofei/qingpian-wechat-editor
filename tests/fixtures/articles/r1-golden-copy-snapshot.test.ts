@@ -57,6 +57,8 @@ describe("R1 golden copy snapshot", () => {
       expect(clipboard.issues.filter((i) => i.severity === "error")).toEqual([]);
       expect(collectCopySafeHtmlViolations(clipboard.textHtml)).toEqual([]);
       expect(clipboard.textHtml).not.toMatch(/linear-gradient/i);
+      expect(clipboard.textHtml).not.toMatch(/style="[^"]*font-family:"/);
+      expect(clipboard.textHtml).toMatch(/font-family:'PingFang SC'/);
 
       const snapshot = buildCopyHtmlSnapshot({
         article: styled,

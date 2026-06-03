@@ -18,16 +18,18 @@ export {
   TITLE_BLOCK_FIRST_WAVE_VARIANT_IDS,
   TITLE_FIRST_WAVE_VARIANTS,
   headingNumberedSection,
-  headingPlainMinimal,
-  headingTopBadgeTopic,
-  headingUnderlineClassic,
-  headingPillTopic,
-  headingEditorialPlain,
-  headingKeynoteStrong,
+  headingCardCentered,
   titleBottomLineEditorial,
   titleLeftBarClassic,
   titlePlainMinimal,
 } from "./title-heading";
+
+export {
+  HEADING_PUBLISH_VARIANT_COUNT,
+  HEADING_PUBLISH_VARIANT_IDS,
+  HEADING_PUBLISH_VARIANTS,
+  type HeadingPublishVariantId,
+} from "./heading-publish-pool";
 
 export {
   DIVIDER_FIRST_WAVE_VARIANTS,
@@ -78,16 +80,6 @@ export {
 } from "./structured";
 
 export {
-  MIAOPIAN_HEADING_VARIANTS,
-  headingHighlightMarker,
-  headingShortLine,
-  headingIconPrefix,
-  headingMinimalNumber,
-  headingMagazineLeftBar,
-  headingMagazineOffset,
-} from "./miaopian-heading-variants";
-
-export {
   EXPANSION_BLOCK_VARIANTS,
   LEAD_EXPANSION_VARIANTS,
   PARAGRAPH_EXPANSION_VARIANTS,
@@ -123,7 +115,7 @@ export const IMPLEMENTED_FIRST_WAVE_VARIANT_IDS =
 export const FIRST_WAVE_REQUIRED_VARIANT_COUNT_BY_BLOCK = {
   title: 3,
   lead: 9,
-  heading: 13,
+  heading: 8,
   paragraph: 9,
   divider: 9,
   list: 9,

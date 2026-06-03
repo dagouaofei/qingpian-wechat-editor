@@ -109,10 +109,10 @@ describe("title / heading copy renderer", () => {
     expect(html).toContain("底线标题");
   });
 
-  it("heading_plain_minimal copy render succeeds", () => {
+  it("heading_short_line copy render succeeds", () => {
     const article = createTitleHeadingArticleFixture({
       blockType: "heading",
-      variantId: "heading_plain_minimal",
+      variantId: "heading_short_line",
       text: "小节",
     });
     const resolved = resolveArticleStyle(article, styleRegistry);
@@ -131,7 +131,7 @@ describe("title / heading copy renderer", () => {
 
     expect(result.ok).toBe(true);
     expect(result.blockType).toBe("heading");
-    expect(result.variantId).toBe("heading_plain_minimal");
+    expect(result.variantId).toBe("heading_short_line");
   });
 
   it("heading_numbered_section copy html includes numbered prefix fallback", () => {
@@ -160,11 +160,12 @@ describe("title / heading copy renderer", () => {
     expect(html).toContain("编号章节");
   });
 
-  it("heading_top_badge_topic includes default topic badge in copy", () => {
+  it("heading_card_centered renders centered index and title in copy", () => {
     const article = createTitleHeadingArticleFixture({
       blockType: "heading",
-      variantId: "heading_top_badge_topic",
-      text: "徽章标题",
+      variantId: "heading_card_centered",
+      text: "卡片标题",
+      meta: { sourceIndex: 2 },
     });
     const resolved = resolveArticleStyle(article, styleRegistry);
     const block = article.blocks[0]!;
@@ -181,8 +182,10 @@ describe("title / heading copy renderer", () => {
     });
 
     const html = (result.output as { html: string }).html;
-    expect(html).toContain("徽章标题");
-    expect(html).toContain("话题");
+    expect(html).toContain("卡片标题");
+    expect(html).toMatch(/text-align:\s*center/i);
+    expect(html).toContain("02");
+    expect(html).not.toContain("话题");
   });
 
   it("escapes dangerous characters in copy output", () => {

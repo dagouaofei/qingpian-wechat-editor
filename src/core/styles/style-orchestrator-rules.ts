@@ -129,6 +129,7 @@ export function applyOrchestratorRuleR8(
       familyId: titleState.familyId,
       layoutMode: titleState.layoutMode,
     },
+    true,
   );
 }
 

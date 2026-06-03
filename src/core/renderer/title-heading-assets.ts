@@ -1,17 +1,19 @@
 import type { TitleBlockLayoutMode } from "@/core/styles";
+import { HEADING_PUBLISH_VARIANT_IDS } from "@/core/styles/variants/heading-publish-pool";
 
-/** Default VisualAssetRegistry ids per first-wave title/heading variant (no new variants). */
+/** Default VisualAssetRegistry ids per title / heading publish-pool variant. */
 export const TITLE_HEADING_ICON_ASSET_BY_VARIANT: Record<string, string> = {
   title_plain_minimal: "icon-star-minimal",
   title_left_bar_classic: "icon-quote-left",
   title_bottom_line_editorial: "icon-star-minimal",
-  heading_plain_minimal: "icon-arrow-right",
   heading_numbered_section: "icon-section-number",
-  heading_top_badge_topic: "icon-bookmark",
-  heading_underline_classic: "icon-arrow-right",
-  heading_pill_topic: "mark-topic-label",
-  heading_editorial_plain: "icon-section-number",
-  heading_keynote_strong: "icon-arrow-right",
+  heading_card_centered: "icon-section-number",
+  heading_short_line: "icon-arrow-right",
+  heading_highlight_marker: "icon-arrow-right",
+  heading_icon_prefix: "icon-arrow-right",
+  heading_minimal_number: "icon-section-number",
+  heading_magazine_left_bar: "icon-section-number",
+  heading_magazine_offset: "icon-arrow-right",
 };
 
 export type TitleHeadingIconGlyph = {
@@ -34,6 +36,8 @@ const ICON_GLYPHS: Record<string, TitleHeadingIconGlyph> = {
   },
   "mark-topic-label": { assetId: "mark-topic-label", glyph: "话", capsuleLabel: "话" },
 };
+
+const HEADING_PUBLISH_SET = new Set<string>(HEADING_PUBLISH_VARIANT_IDS);
 
 export function resolveTitleHeadingIconAssetId(
   variantId: string,
@@ -64,17 +68,21 @@ export function resolveTitleHeadingIconGlyph(assetId: string): TitleHeadingIconG
 }
 
 export function titleHeadingUsesCardTitleFrame(variantId: string): boolean {
-  return variantId === "title_plain_minimal" || variantId === "heading_top_badge_topic";
+  return variantId === "title_plain_minimal";
 }
 
 export function titleHeadingUsesIconDecorLayout(variantId: string): boolean {
   return (
     variantId === "title_left_bar_classic" ||
     variantId === "title_bottom_line_editorial" ||
-    variantId === "heading_plain_minimal"
+    variantId === "heading_icon_prefix"
   );
 }
 
 export function titleHeadingUsesCornerAccent(variantId: string): boolean {
   return titleHeadingUsesCardTitleFrame(variantId);
+}
+
+export function isHeadingPublishVariantId(variantId: string): boolean {
+  return HEADING_PUBLISH_SET.has(variantId);
 }

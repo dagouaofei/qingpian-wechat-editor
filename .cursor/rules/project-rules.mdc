@@ -38,7 +38,7 @@ alwaysApply: true
 ## Git 分支规则
 
 - 每个 Release 有独立 **`release/<n>`** 主干（Release 1 为 `release/1`）
-- 每个 Sprint 从**当前 release 主干**新建 **`sprint/<sprint-slug>`** 分支
+- 每个 Sprint 从**当前 release 主干**新建 **`sprint/<sprint编号>-<sprint-slug>`** 分支
 - Sprint 内每个具体任务必须从**当前 sprint 分支**新建独立工作分支（`feature/` / `docs/` / `bugfix/` / `chore/`）
 - **不得在 main 分支直接开发具体任务**
 - **不得把多个无关任务混在同一个工作分支中**

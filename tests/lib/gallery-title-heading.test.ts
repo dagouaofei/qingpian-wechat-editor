@@ -16,7 +16,7 @@ describe("galleryTitleHeadingOverridesForArticle", () => {
     )) {
       expect(
         assignment.titleVariantId === "title_plain_minimal" &&
-          assignment.headingVariantId === "heading_plain_minimal",
+          assignment.headingVariantId === "heading_short_line",
       ).toBe(false);
       const article = parseArticle(articleSampleRawForId(sampleId as keyof typeof GALLERY_SAMPLE_TITLE_HEADING_ASSIGNMENTS));
       const overrides = galleryTitleHeadingOverridesForArticle(article, sampleId as keyof typeof GALLERY_SAMPLE_TITLE_HEADING_ASSIGNMENTS);
@@ -33,14 +33,14 @@ describe("galleryTitleHeadingOverridesForArticle", () => {
       article,
       "sample-knowledge",
       "title_plain_minimal",
-      "heading_top_badge_topic",
+      "heading_card_centered",
     );
     const titleOverride = overrides.find((entry) =>
       article.blocks.find((block) => block.id === entry.blockId)?.type === "title",
     );
     expect(titleOverride?.variantId).toBe("title_plain_minimal");
     expect(
-      overrides.some((entry) => entry.variantId === "heading_top_badge_topic"),
+      overrides.some((entry) => entry.variantId === "heading_card_centered"),
     ).toBe(true);
   });
 });

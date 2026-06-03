@@ -1,9 +1,69 @@
 /**
  * WeChat paste–safe title/heading inline styles (no gradient / flex / shadow / absolute).
- * S7-STORY-007A — used by title-block-copy only; Preview keeps richer title-heading-visual.
+ * Heading publish pool tokens: `heading-publish-decoration.ts`（Preview/Copy 同源）。
  */
 
 import type { ThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
+import {
+  copySafeHighlightMarkerMarkedStyle,
+  copySafeMagazineOffsetSectionStyle,
+} from "@/core/renderer/heading-publish-decoration";
+
+export {
+  copySafeHeadingOrdinalStyle,
+  copySafeHeadingSectionKickerStyle,
+  copySafeHeadingSectionStyle,
+  copySafeHighlightMarkerMarkedStyle,
+  copySafeHighlightMarkerTextStyle,
+  copySafeHighlightMarkerWrapStyle,
+  copySafeInlineIconTextRowStyle,
+  copySafeIconPrefixGlyphStyle,
+  copySafeMagazineLeftBarAccentRailStyle,
+  copySafeMagazineLeftBarLightRailStyle,
+  copySafeMagazineOffsetSectionStyle,
+  copySafeShortLineWrapStyle,
+  copySafeNumberedSectionBadgeStyle,
+  copySafeShortLineUnderlineStyle,
+  copySafeTopicPillStyle,
+} from "@/core/renderer/heading-publish-decoration";
+
+/** @deprecated Use copySafeIconPrefixGlyphStyle for heading publish pool */
+export function copySafeIconPrefixInlineStyle(palette: ThemePaletteTokens): Record<string, string> {
+  return {
+    display: "inline-block",
+    margin: "0 10px 0 0",
+    padding: "0",
+    fontSize: "20px",
+    fontWeight: "700",
+    lineHeight: "1",
+    color: palette.textAccent,
+    verticalAlign: "middle",
+    backgroundColor: "transparent",
+    border: "none",
+  };
+}
+
+export function copySafeIconPrefixWrapStyle(palette: ThemePaletteTokens): Record<string, string> {
+  return {
+    paddingLeft: "12px",
+    borderLeft: `3px solid ${palette.textAccent}`,
+  };
+}
+
+export function copySafeMinimalNumberLabelStyle(palette: ThemePaletteTokens): Record<string, string> {
+  return {
+    display: "inline-block",
+    fontSize: "11px",
+    fontWeight: "600",
+    color: palette.textMuted,
+    letterSpacing: "0.08em",
+    minWidth: "26px",
+    textAlign: "right",
+    verticalAlign: "top",
+    paddingTop: "2px",
+    marginRight: "10px",
+  };
+}
 
 export function copySafeIconCapsuleStyle(palette: ThemePaletteTokens): Record<string, string> {
   return {
@@ -23,9 +83,9 @@ export function copySafeIconCapsuleStyle(palette: ThemePaletteTokens): Record<st
 
 export function copySafeCardTitleFrameStyle(palette: ThemePaletteTokens): Record<string, string> {
   return {
-    margin: "28px 0",
-    padding: "18px 20px",
-    textAlign: "center",
+    margin: "28px 0 12px",
+    padding: "14px 16px",
+    textAlign: "left",
     borderRadius: "8px",
     border: `1px solid ${palette.borderSoft}`,
     backgroundColor: palette.bgSoft,
@@ -48,7 +108,10 @@ export function copySafeNumberBadgeStyle(palette: ThemePaletteTokens): Record<st
   };
 }
 
-export function copySafeAccentBarStyle(palette: ThemePaletteTokens, blockType: "title" | "heading"): Record<string, string> {
+export function copySafeAccentBarStyle(
+  palette: ThemePaletteTokens,
+  blockType: "title" | "heading",
+): Record<string, string> {
   const width = blockType === "title" ? "4px" : "3px";
   return {
     width,
@@ -57,25 +120,11 @@ export function copySafeAccentBarStyle(palette: ThemePaletteTokens, blockType: "
 }
 
 export function copySafeHighlightMarkerStyle(palette: ThemePaletteTokens): Record<string, string> {
-  return {
-    display: "inline",
-    margin: "0",
-    padding: "0 4px 2px",
-    backgroundColor: palette.bgSoft,
-    borderBottom: `2px solid ${palette.textAccent}`,
-  };
+  return copySafeHighlightMarkerMarkedStyle(palette);
 }
 
 export function copySafeMagazineOffsetCardStyle(palette: ThemePaletteTokens): Record<string, string> {
-  return {
-    marginRight: "20px",
-    marginBottom: "2px",
-    padding: "14px 18px",
-    backgroundColor: palette.bgSoft,
-    border: `1px solid ${palette.borderSoft}`,
-    borderLeft: `4px solid ${palette.textAccent}`,
-    borderRadius: "8px",
-  };
+  return copySafeMagazineOffsetSectionStyle(palette);
 }
 
 export function copySafeEditorialLineTableStyle(): Record<string, string> {

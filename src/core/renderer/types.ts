@@ -108,7 +108,12 @@ export type TitleBlockPreviewOutput = {
     fontWeight: string;
     lineHeight: string;
     fontFamily?: string;
+    color?: string;
+    accentColor?: string;
+    mutedColor?: string;
   };
+  /** Heading publish pool：与 Copy 相同的 theme palette（避免 Preview 用 CSS 变量近似色） */
+  themePalette?: import("@/core/styles/theme-palette-tokens").ThemePaletteTokens;
   slots: Record<
     string,
     {

@@ -88,9 +88,10 @@ describe("orchestrator card rhythm rules", () => {
     ];
     const states = new Map(
       blocks.map((block) => {
-        const variantId = "heading_plain_minimal";
         const resolvedVariantId =
-          block.type === "title" ? "title_plain_minimal" : variantId;
+          block.type === "title"
+            ? "title_plain_minimal"
+            : "heading_icon_prefix";
         const variant = registry.variants.find((entry) => entry.id === resolvedVariantId)!;
         return [
           block.id,

@@ -1,15 +1,17 @@
 import type { BlockType } from "@/core/blocks";
 
+import { HEADING_PUBLISH_VARIANT_IDS } from "@/core/styles/variants/heading-publish-pool";
+
 import type { InputStyleIntent } from "./input";
 
 /**
  * Release 1 copy-safe decorative variants per block type.
  * Order: stronger decoration first; used for article-aware rotation.
  */
-/** Plain-first rotation — decorative variants only on strong density or later indices. */
+/** Decorative rotation — heading uses publish pool only (S7-STORY-008). */
 export const ARTICLE_VARIANT_ROTATION: Partial<Record<BlockType, readonly string[]>> = {
   title: ["title_plain_minimal", "title_left_bar_classic", "title_bottom_line_editorial"],
-  heading: ["heading_plain_minimal", "heading_numbered_section", "heading_top_badge_topic"],
+  heading: [...HEADING_PUBLISH_VARIANT_IDS],
   lead: ["lead_plain_intro", "lead_accent_band", "lead_quote_intro"],
   paragraph: ["paragraph_plain_body", "paragraph_accent_left", "paragraph_soft_card"],
   divider: ["divider_simple_line", "divider_dotted_line", "divider_section_space"],
@@ -41,7 +43,7 @@ const CARD_PRONE_BLOCK_TYPES = new Set<BlockType>([
 
 const PLAIN_VARIANT_BY_BLOCK_TYPE: Partial<Record<BlockType, string>> = {
   title: "title_plain_minimal",
-  heading: "heading_plain_minimal",
+  heading: "heading_short_line",
   lead: "lead_plain_intro",
   paragraph: "paragraph_plain_body",
   divider: "divider_simple_line",
@@ -55,6 +57,7 @@ const PLAIN_VARIANT_BY_BLOCK_TYPE: Partial<Record<BlockType, string>> = {
 
 const FIRST_BLOCK_DECORATIVE_VARIANT: Partial<Record<BlockType, string>> = {
   title: "title_bottom_line_editorial",
+  heading: "heading_magazine_left_bar",
 };
 
 export type ArticleVariantPickSource = "style_intent" | "article_diversity" | "preset_default";
@@ -67,18 +70,25 @@ export function resolveArticleAwareVariantId(
   const density = styleIntent?.densityHint ?? "medium";
 
   if (blockType === "heading") {
-    if (density === "light") {
-      return PLAIN_VARIANT_BY_BLOCK_TYPE.heading;
-    }
     const rotation = ARTICLE_VARIANT_ROTATION.heading;
     if (!rotation?.length) {
       return PLAIN_VARIANT_BY_BLOCK_TYPE.heading;
     }
-    if (density === "strong") {
-      const decorative = rotation.filter((id) => id !== "heading_plain_minimal");
-      return (decorative[0] ?? rotation[0]) as string;
+    if (density === "light") {
+      return indexWithinType % 2 === 0
+        ? "heading_short_line"
+        : "heading_minimal_number";
     }
-    return rotation[0];
+    if (density === "strong") {
+      const strongPool = [
+        "heading_magazine_left_bar",
+        "heading_highlight_marker",
+        "heading_magazine_offset",
+        "heading_numbered_section",
+      ] as const;
+      return strongPool[indexWithinType % strongPool.length];
+    }
+    return rotation[indexWithinType % rotation.length];
   }
 
   if (density === "light") {

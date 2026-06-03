@@ -20,6 +20,7 @@ import { resolveThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
 
 function labelHtml(
   label: string | undefined,
+  typography: ReturnType<typeof resolveHighlightTypography>,
   palette: ThemePaletteTokens,
 ): string {
   if (label == null) {
@@ -31,9 +32,10 @@ function labelHtml(
     {
       margin: "0 0 6px",
       color: palette.textAccent,
-      fontSize: "13px",
-      lineHeight: "1.5",
+      fontSize: typography.labelFontSize,
+      lineHeight: typography.lineHeight,
       fontWeight: "600",
+      fontFamily: typography.fontFamily,
     },
     escapeHtml(label),
   );
@@ -45,7 +47,7 @@ function bodyHtml(
   palette: ThemePaletteTokens,
 ): string {
   return (
-    labelHtml(content.label, palette) +
+    labelHtml(content.label, typography, palette) +
     wrapInlineElement(
       "p",
       {
@@ -53,6 +55,7 @@ function bodyHtml(
         color: typography.color,
         fontSize: typography.fontSize,
         lineHeight: typography.lineHeight,
+        fontFamily: typography.fontFamily,
       },
       escapeHtml(content.text),
     )

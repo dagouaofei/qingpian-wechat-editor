@@ -81,6 +81,8 @@
 | DECISION-083 | 2026-06-02 | 成稿风格/配色对齐 miaopian-demo 6+6；PresetBundle（defaultVariant + variantPools + defaultTheme）；heading +4；其它 block 扩至 9 variant/类 | 已确认 |
 | DECISION-084 | 2026-06-02 | S7 文章级卡片节奏：Orchestrator R4 + RCARD（连续卡片化≤2）；生成 plain-first rotation + hint 平衡 | 已确认 |
 | DECISION-085 | 2026-06-02 | S7-STORY-007A：R1 默认成稿样式保真；golden fixture + RLAYOUT；Copy 微信安全；007 Deferred | 已确认 |
+| DECISION-086 | 2026-06-02 | R1 默认 preset  canonical=`business`；`classic-news` 仅 legacy alias；golden/生成/fixture 对齐 | 已确认 |
+| DECISION-087 | 2026-06-03 | Heading 仅保留 8 款发布池；审美优先；废弃 5 款旧 heading ID | 已确认 |
 
 ### DECISION-019 详情
 
@@ -709,6 +711,19 @@
 - **关联：** DECISION-080、DECISION-081、TECH-ARCH-023、S7-STORY-002
 - **状态：** 已确认
 
+### DECISION-086 详情（R1 默认 preset id · business vs classic-news）
+
+- **日期：** 2026-06-02
+- **背景：** 架构文档仍写 `classic-news` 为默认 preset，而 DECISION-083 后代码、生成、`SAFE_STYLE_PRESET_ID`、golden fixture 均使用 **`business`**；分裂会导致粘贴 QA 与 PO 验收锚点不一致。
+- **决策：**
+  1. **Release 1 / Sprint 7 默认成稿 canonical preset id = `business`**（theme 默认 `businessBlue`）
+  2. **`classic-news`、`classic`、`business-pro`、`news` 等** 仅作为 **legacy alias**（`LEGACY_PRESET_ID_ALIASES` → `business`），不单独维护第二套默认 variant
+  3. **Golden fixtures**（`r1-golden-*`）、`/dev/style-fidelity`、空表单生成 fallback、streaming preview 空 style 均对齐 **`business`**
+  4. 架构文档中 `classic-news` 表述逐步改为「legacy 名 / 等价 business」；**不**恢复独立 `classic-news` preset 定义
+- **影响范围：** `miaopian-preset-bundles.ts`、`style-selection-prompt.ts`、`r1-golden-*.json`、`r1-style-quality-baseline.md`、paste-qa
+- **关联：** DECISION-083、DECISION-085、S7-STORY-007B
+- **状态：** 已确认
+
 ### DECISION-085 详情（S7-STORY-007A · R1 Style Fidelity Stabilization）
 
 - **日期：** 2026-06-02
@@ -726,11 +741,17 @@
 - **关联：** DECISION-083、DECISION-084、S7-STORY-006、Sprint 8 Paste QA（全量矩阵仍归 S8）
 - **状态：** 已确认（代码轮 In Review · 待 PO 粘贴 QA）
 
-### DECISION-XXX：[标题]
+### DECISION-087 详情（Heading Publish 8 · 审美实验）
 
-- **日期：**
-- **背景：**
+- **日期：** 2026-06-03
+- **背景：** 成稿小标题观感偏素、不像可直接发的公众号小节；registry 曾扩至 13 款 heading，粘贴 QA 未闭环且 Preview/Copy 漂移风险高。
 - **决策：**
-- **影响范围：**
-- **状态：** 待确认 / 已确认 / 已废弃
-```
+  1. **仅保留 8 款** `HEADING_PUBLISH_VARIANT_IDS`（见 [`heading-publish-catalog.md`](../product/heading-publish-catalog.md)）
+  2. **废弃** `heading_plain_minimal`、`heading_underline_classic`、`heading_pill_topic`、`heading_editorial_plain`、`heading_keynote_strong`（不得再进入 registry / 生成池 / Gallery）
+  3. **审美优先于 variant 数量**；heading Preview 装饰必须走 `heading-publish-visual` → `copySafe*` 同源
+  4. **默认 flagship：** `business` preset → `heading_short_line`；同篇 heading 仍统一 variant
+  5. **验收：** catalog 审美表 + [`heading-publish-8.md`](paste-qa/heading-publish-8.md) 粘贴表；≥6/8 合格方可关 Story
+- **影响范围：** `heading-publish-pool.ts`、`heading-publish-visual.ts`、`title-heading-copy-styles.ts`、`miaopian-preset-bundles.ts`、`style-selection-diversity.ts`、`/gallery`、`/preview`
+- **关联：** DECISION-085、DECISION-086、S7-STORY-008
+- **状态：** 已确认
+

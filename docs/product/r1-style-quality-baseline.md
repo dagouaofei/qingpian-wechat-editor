@@ -1,7 +1,10 @@
 # R1 Style Quality Baseline · 公众号默认排版基准
 
 > **Release 1** 默认成稿样式审美与微信粘贴约束。  
-> **关联：** S7-STORY-007A · DECISION-085 · US-R1-013
+> **关联：** S7-STORY-007A/B · S7-STORY-008 · DECISION-085/086/087 · US-R1-013
+
+**Canonical preset id（代码与 golden fixture）：** `business` + theme `businessBlue`。  
+**Legacy：** `classic-news` / `classic` / `business-pro` 等仅作 **alias**，解析为 `business`（DECISION-083、DECISION-086）。
 
 ---
 
@@ -11,7 +14,7 @@
 - **正文不得卡片化**（`paragraph` 默认 `paragraph_plain_body`）。
 - **卡片**仅用于强语义块：`info_card`、`highlight`、`quote`（适度）、尾部 `cta`。
 - **强视觉 block 不得连续 ≥3**；连续卡片化强调 ≤2（RCARD）。
-- **小标题**层级稳定；同篇 heading **统一 variant**（miaopian 对齐）。
+- **小标题**层级稳定；同篇 heading **统一 variant**；仅允许 **[Heading Publish 8 款](heading-publish-catalog.md)**（DECISION-087）；默认 `heading_short_line`。
 - **CTA** 默认在文末；中部仅用 `cta_plain_text` 或省略。
 - **divider** 仅大段切换；不连续出现；默认少用。
 

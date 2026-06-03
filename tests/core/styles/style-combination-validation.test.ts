@@ -54,7 +54,7 @@ describe("style combination validation", () => {
           blockType: "heading",
           override: {
             blockId: "h1",
-            variantId: "heading_top_badge_topic",
+            variantId: "heading_card_centered",
             slotOverrides: { badge: "01" },
             assetBindings: { badge: "mark-step-badge" },
           },
@@ -72,7 +72,7 @@ describe("style combination validation", () => {
     const result = validateStyleAssignmentBlockOverride(
       {
         blockId: "h1",
-        variantId: "heading_plain_minimal",
+        variantId: "heading_short_line",
         density: "dense" as never,
       },
       "heading",
@@ -86,7 +86,7 @@ describe("style combination validation", () => {
     const result = validateStyleAssignmentBlockOverride(
       {
         blockId: "h1",
-        variantId: "heading_plain_minimal",
+        variantId: "heading_short_line",
         familyId: "not_a_family",
       },
       "heading",
@@ -113,7 +113,7 @@ describe("style combination validation", () => {
       variants: [
         ...registry.variants,
         {
-          ...registry.variants.find((variant) => variant.id === "heading_plain_minimal")!,
+          ...registry.variants.find((variant) => variant.id === "heading_short_line")!,
           id: "heading_candidate_only",
           status: "release1_candidate" as const,
         },
@@ -149,7 +149,7 @@ describe("style combination validation", () => {
     const result = validateStyleAssignmentBlockOverride(
       {
         blockId: "h1",
-        variantId: "heading_top_badge_topic",
+        variantId: "heading_card_centered",
         assetBindings: { badge: "asset-missing" },
       },
       "heading",
