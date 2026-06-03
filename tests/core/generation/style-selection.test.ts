@@ -151,8 +151,8 @@ describe("generation style selection", () => {
     const variantIds =
       result.patch.blockOverrides?.map((override) => override.variantId) ?? [];
     expect(new Set(variantIds).size).toBeGreaterThan(5);
-    expect(variantIds).toContain("title_bottom_line_editorial");
-    expect(variantIds).toContain("lead_accent_band");
+    expect(variantIds).toContain("paragraph_plain_body");
+    expect(variantIds).toContain("lead_plain_intro");
   });
 
   it("falls back when patch references unknown variant", () => {

@@ -282,13 +282,26 @@ export type {
 export { orchestrateArticleStyle } from "./style-orchestrator";
 
 export {
+  isCardEmphasisVariant,
+  isCardEmphasisVariantId,
+  isCardRhythmBodyBlock,
+  isTitleHeadingDecorFamily,
+  PLAIN_RHYTHM_VARIANT_BY_BLOCK_TYPE,
+  resolvePlainRhythmVariantId,
+} from "./card-rhythm";
+
+export {
   ORCHESTRATOR_RULE_R1,
   ORCHESTRATOR_RULE_R2,
+  ORCHESTRATOR_RULE_R4,
   ORCHESTRATOR_RULE_R8,
+  ORCHESTRATOR_RULE_RCARD,
   applyOrchestratorRhythmRules,
   applyOrchestratorRuleR1,
   applyOrchestratorRuleR2,
+  applyOrchestratorRuleR4,
   applyOrchestratorRuleR8,
+  applyOrchestratorRuleCardStack,
 } from "./style-orchestrator-rules";
 
 export type { OrchestratorRuleId } from "./style-orchestrator-rules";

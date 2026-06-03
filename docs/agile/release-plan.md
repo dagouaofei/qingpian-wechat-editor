@@ -9,7 +9,7 @@
 | **Release** | Release 1 — **进行中（未关闭）** |
 | **主干分支** | `release/1` |
 | **已完成 Sprint** | Sprint 1-A/B · Sprint 2 · Sprint 3-A/B/C · Sprint 4-A/B · Sprint 5 · **Sprint 6** |
-| **当前 Sprint** | **Sprint 7**（**In Progress** · 002/003/005 **Done** · **下一步 S7-STORY-006** · DECISION-081/083） |
+| **当前 Sprint** | **Sprint 7**（**In Progress** · 002~006 **Done** · **下一步 S7-STORY-007** · DECISION-081~084） |
 | **后续 Sprint** | Sprint 8（已规划 · 未启动） |
 | **merge `main`** | **未执行** — Release 1 整体验收通过后才 merge |
 

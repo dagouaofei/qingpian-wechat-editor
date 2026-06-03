@@ -129,8 +129,9 @@ describe("renderStreamingPreviewBlocks", () => {
       normalizedInput: STREAM_STYLE_INPUT,
     });
 
-    expect(withStyleSelection[0]?.variantId).toBe("title_bottom_line_editorial");
-    expect(withStyleSelection[1]?.variantId).not.toBe(withoutStyleSelection[1]?.variantId);
+    expect(withStyleSelection[0]?.variantId).toBe("title_plain_minimal");
+    expect(withStyleSelection[0]?.variantId).not.toBe(withoutStyleSelection[0]?.variantId);
+    expect(withStyleSelection[1]?.variantId).toBe("paragraph_plain_body");
     expect(withStyleSelection[1]?.output?.kind).toBe("text_block_preview");
   });
 

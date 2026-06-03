@@ -79,6 +79,7 @@
 | DECISION-081 | 2026-06-02 | 恢复 Sprint 7；S7-STORY-002 样例集扩至 **8 套**常见公众号文章类型 | 已确认 |
 | DECISION-082 | 2026-06-02 | 合并 S7-STORY-003 与 S7-STORY-004 为单一 Story 003（Gallery UX + title/heading 丰富度）；004 标 Merged | 已确认 |
 | DECISION-083 | 2026-06-02 | 成稿风格/配色对齐 miaopian-demo 6+6；PresetBundle（defaultVariant + variantPools + defaultTheme）；heading +4；其它 block 扩至 9 variant/类 | 已确认 |
+| DECISION-084 | 2026-06-02 | S7 文章级卡片节奏：Orchestrator R4 + RCARD（连续卡片化≤2）；生成 plain-first rotation + hint 平衡 | 已确认 |
 
 ### DECISION-019 详情
 
@@ -675,6 +676,20 @@
 - **影响范围：** `src/config/miaopian-preset-bundles.ts`、`preview-style-controls`、`preview-color-palette`、`variants/*`、`/gallery`、`style-selection-prompt`
 - **关联：** DECISION-082、S7-STORY-003、S7-STORY-005
 - **状态：** 已确认
+
+### DECISION-084 详情（S7 文章级卡片节奏 · 过度卡片化修正）
+
+- **日期：** 2026-06-02
+- **背景：** DECISION-083 将各 block variant 扩至 9 个后，生成与 orchestrator 易连续选用 `*_card` / `info_card`，整篇观感偏 demo 卡片墙，不符合 US-R1-013「像公众号文章」。
+- **决策：**
+  1. **Orchestrator R4（实现）：** title/heading 上 `iconDecor` / `cardTitle` family 连续不超过 **2** 次，超出 fallback 至非 decor variant（如 `heading_numbered_section`）
+  2. **Orchestrator RCARD（S7 扩展）：** 正文块（含 `info_card`）卡片化强调连续不超过 **2** 次，超出 fallback 至各类 plain variant（`paragraph_plain_body` 等）
+  3. **生成路径：** `ARTICLE_VARIANT_ROTATION` 改为 plain-first；medium 密度下 card-prone 类型 index>0 强制 plain；`balanceCardEmphasisInBlockHints` 在 orchestrator 前对齐 hints
+  4. **warm preset 默认：** 减少默认 `paragraph_soft_card` / `quote_soft_card` 叠卡
+  5. **R1 仍禁用**（同篇 heading 统一 · DECISION-083）
+- **影响范围：** `card-rhythm.ts`、`style-orchestrator-rules.ts`、`style-selection-diversity.ts`、`style-selection-card-rhythm.ts`、`miaopian-preset-bundles.ts`
+- **关联：** S7-STORY-006、DECISION-083
+- **状态：** 已确认（PO 签收 2026-06-02 · S7-STORY-006 Done）
 
 ### DECISION-082 详情（合并 S7-STORY-003 与 S7-STORY-004）
 

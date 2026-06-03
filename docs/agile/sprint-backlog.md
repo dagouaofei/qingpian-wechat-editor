@@ -10,7 +10,7 @@
 > **Sprint 5：** Generation / Streaming + Release 1 真实 UI 主流程闭环 · **Closed**（2026-06-02；DECISION-069；audit Grade A- · P0=0 · P1=4 · P2=3；`sprint/s5-generation-ui-main-flow` 已 merge 至 `release/1`）
 > **Sprint 6：** Release 1 Visible AI Main Flow · **Closed**（2026-06-02；DECISION-078；audit Grade A- · P0=0 · P1=5 · P2=4；`sprint/s6-visible-ai-main-flow` 已 merge 至 `release/1`）
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
-> **当前 Sprint：** **Sprint 7 WeChat Article Experience & Style Richness**（**In Progress** · DECISION-081 · **S7-STORY-006 下一步** · 002/003/005 **Done** 2026-06-02 PO 签收）
+> **当前 Sprint：** **Sprint 7**（**In Progress** · **S7-STORY-007 下一步** · 002~006 **Done** 2026-06-02 PO 签收）
 > **当前 Chore：** **Visible Progress & Legacy Convergence** — **Done**（DECISION-080 · 用户验收 2026-06-02 · merged @ `a5704d6`）
 > **Sprint 7 分支：** `sprint/s7-wechat-article-experience`（从 `release/1` 切出）
 > **miaopian 对齐：** [`docs/agile/miaopian-alignment/s7-workflow-and-ux-gap.md`](miaopian-alignment/s7-workflow-and-ux-gap.md)
@@ -2344,7 +2344,7 @@ S3C-STORY-001（启动）
 > **Release 1 主干：** `release/1`
 > **UI 主流程入口：** **`/generate`**（S5-STORY-007 Done @ `01318c4`）
 > **Close Readiness Audit：** [`docs/architecture/audits/sprint5-main-flow-close-readiness-audit.md`](../architecture/audits/sprint5-main-flow-close-readiness-audit.md)
-> **下一步：** **S7-STORY-006** 整篇 rhythm / 过度卡片化修正；**不 merge `main`**
+> **下一步：** **S7-STORY-007** 手动视觉 QA 与 close readiness；**不 merge `main`**
 > **Sprint 5 不做：** 真实微信公众号 Paste QA 全量回归、不宣称复制到公众号最终保真通过、Style Gallery、真实 QR / 小程序 / 图片上传托管 / AI 生图、复杂编辑器 / block 级编辑、样式市场、merge 至 `main`
 > **保留原则：** 真实 Paste QA 归 **Sprint 8**；Style Gallery / 样式丰富度归 **Sprint 7**；Sprint 5 技术 smoke **不替代** Release 1 用户可见验收与 Paste QA
 
@@ -3102,7 +3102,7 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 # Sprint 7 Backlog · WeChat Article Experience & Style Richness
 
 > **Sprint 7 目标：** 整篇文章像公众号文章；Style Gallery；样式丰富度；修正过度卡片化；**miaopian 协作/体验对齐见 alignment 文档**
-> **Sprint 7 状态：** **In Progress**（2026-06-02 · DECISION-081/082/083 · **S7-STORY-002/003/005 Done**（PO 签收 2026-06-02）· **下一步 S7-STORY-006**）
+> **Sprint 7 状态：** **In Progress**（2026-06-02 · DECISION-081~084 · **S7-STORY-002~006 Done**（PO 签收）· **下一步 S7-STORY-007**）
 > **Sprint 7 分支：** `sprint/s7-wechat-article-experience`（从 `release/1` 切出）
 > **对齐文档：** [`docs/agile/miaopian-alignment/s7-workflow-and-ux-gap.md`](miaopian-alignment/s7-workflow-and-ux-gap.md)
 > **Sprint 7 不做：** Sprint 8 Paste QA、关闭 Release 1、merge `main`
@@ -3115,8 +3115,8 @@ S7-STORY-002 完整文章 fixture 与公众号文章样例集 — Done
 S7-STORY-003 Style Gallery 与标题层级样式（合并原 003 + 004）— Done
 S7-STORY-004 标题 / 分节标题 variant 丰富度 — Merged → S7-STORY-003
 S7-STORY-005 重点高亮 / 列表 / 摘要 / CTA 样式优化 — Done
-S7-STORY-006 整篇文章样式组合与过度卡片化修正 — Planned（下一步）
-S7-STORY-007 Sprint 7 手动视觉 QA 与关闭准备 — Planned
+S7-STORY-006 整篇文章样式组合与过度卡片化修正 — Done
+S7-STORY-007 Sprint 7 手动视觉 QA 与关闭准备 — Planned（下一步）
 ```
 
 ---
@@ -3252,9 +3252,25 @@ S7-STORY-007 Sprint 7 手动视觉 QA 与关闭准备 — Planned
 
 ## S7-STORY-006 整篇文章样式组合与过度卡片化修正
 
-**优先级：** P0 · **状态：** Planned · **工作分支：** `feature/s7-article-rhythm-card-fix`
+**优先级：** P0 · **状态：** **Done**（PO 签收 2026-06-02）· **工作分支：** `feature/s7-article-rhythm-card-fix` · **DECISION-084** · merged sprint（见 changelog）
 
 **目标：** 修正过度卡片化；文章级 rhythm / variant 组合更接近公众号阅读体验。
+
+**In Scope：**
+
+- Orchestrator **R4**（iconDecor/cardTitle 连续≤2）+ **RCARD**（正文卡片化强调连续≤2）
+- 生成 **plain-first** rotation + `balanceCardEmphasisInBlockHints`
+- `warm` preset 默认减卡片叠层
+
+**验收标准：**
+
+- [x] AC-1 Orchestrator RCARD：连续 3 个 `paragraph_soft_card` → 第 3 个 fallback `paragraph_plain_body`
+- [x] AC-2 Orchestrator R4：连续 3 个 title/heading cardTitle → 第 3 个 fallback 非 decor family
+- [x] AC-3 生成 hints 在 orchestrator 前做 RCARD 平衡
+- [x] AC-4 **802** tests + `npm run build` PASS
+- [x] AC-5 PO `/gallery` + 真实生成目验收「非卡片墙」观感（PO 签收 2026-06-02）
+
+**备注：** 不改动 Sprint 8 Paste QA 范围；不关闭 Sprint 7。
 
 ---
 

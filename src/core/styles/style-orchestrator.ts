@@ -30,10 +30,12 @@ export type OrchestrateArticleStyleOptions = {
   seedPlan?: ArticleStylePlan;
   patch?: StyleAssignmentPatch;
   selectionRequest?: StyleSelectionRequest;
-  /** Apply R1 / R2 / R8 (default true) */
+  /** Apply R2 / R4 / R8 / RCARD (default true) */
   applyRhythmRules?: boolean;
   /** R2 reuse limit (default 2) */
   maxAssetReuse?: number;
+  /** RCARD — consecutive card-emphasis body blocks (default 2) */
+  maxConsecutiveCardEmphasis?: number;
 };
 
 export type OrchestrateArticleStyleResult = {
@@ -216,7 +218,10 @@ export function orchestrateArticleStyle(
       states,
       registry,
       issues,
-      { maxAssetReuse: options?.maxAssetReuse },
+      {
+        maxAssetReuse: options?.maxAssetReuse,
+        maxConsecutiveCardEmphasis: options?.maxConsecutiveCardEmphasis,
+      },
     );
   }
 
@@ -243,6 +248,7 @@ export function orchestrateArticleStyle(
     {
       dedupeAdjacentHeadings: true,
       maxAssetReuse: options?.maxAssetReuse ?? 2,
+      maxConsecutiveCardEmphasis: options?.maxConsecutiveCardEmphasis ?? 2,
       avoidTitleFirstHeadingSameFamilyVariant: true,
     },
   );

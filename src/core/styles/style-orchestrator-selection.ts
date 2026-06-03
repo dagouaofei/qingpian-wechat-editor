@@ -5,6 +5,11 @@
 
 import type { Block } from "@/core/blocks";
 
+import {
+  isTitleHeadingDecorFamily,
+  resolvePlainRhythmVariantId,
+  resolveTitleHeadingR4FallbackVariantId,
+} from "./card-rhythm";
 import { getPresetById, getVariantById, getVariantsForBlockType } from "./registry";
 import type {
   PresetDefinition,
@@ -63,9 +68,41 @@ export function pickOrchestratorFallbackVariant(
   options?: {
     excludeVariantIds?: string[];
     excludeFamilyLayout?: { familyId: string; layoutMode?: string };
+    /** Prefer plain / non-card variant (S7-STORY-006 rhythm). */
+    preferPlainRhythm?: boolean;
   },
 ): VariantDefinition | undefined {
   const excluded = new Set(options?.excludeVariantIds ?? []);
+
+  if (options?.preferPlainRhythm) {
+    if (blockType === "title" || blockType === "heading") {
+      const r4FallbackId = resolveTitleHeadingR4FallbackVariantId(blockType);
+      if (!excluded.has(r4FallbackId)) {
+        const r4Variant = getVariantById(registry, r4FallbackId);
+        if (
+          r4Variant &&
+          isOrchestratorCopySafeRequiredVariant(r4Variant) &&
+          !isTitleHeadingDecorFamily(r4Variant.family)
+        ) {
+          return r4Variant;
+        }
+      }
+    }
+
+    const plainId = resolvePlainRhythmVariantId(blockType);
+    if (plainId && !excluded.has(plainId)) {
+      const plainVariant = getVariantById(registry, plainId);
+      if (
+        plainVariant &&
+        isOrchestratorCopySafeRequiredVariant(plainVariant) &&
+        (blockType !== "title" && blockType !== "heading"
+          ? true
+          : !isTitleHeadingDecorFamily(plainVariant.family))
+      ) {
+        return plainVariant;
+      }
+    }
+  }
 
   return getVariantsForBlockType(registry, blockType).find((variant) => {
     if (!isOrchestratorCopySafeRequiredVariant(variant)) {

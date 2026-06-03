@@ -17,6 +17,7 @@ import type {
 } from "@/core/styles/style-assignment";
 
 import type { InputStyleIntent } from "./input";
+import { balanceCardEmphasisInBlockHints } from "./style-selection-card-rhythm";
 import {
   resolveArticleAwareVariantId,
   type ArticleVariantPickSource,
@@ -340,7 +341,7 @@ export function buildStyleSelectionBlockHints(
 
   const typeCounters: Partial<Record<BlockType, number>> = {};
 
-  return article.blocks.map((block) => {
+  const hints = article.blocks.map((block) => {
     const indexWithinType = typeCounters[block.type] ?? 0;
     typeCounters[block.type] = indexWithinType + 1;
 
@@ -364,6 +365,8 @@ export function buildStyleSelectionBlockHints(
             : "Derived from preset default variant",
     };
   });
+
+  return balanceCardEmphasisInBlockHints(article, hints, registry);
 }
 
 export function buildStyleSelectionRequestFromArticle(
