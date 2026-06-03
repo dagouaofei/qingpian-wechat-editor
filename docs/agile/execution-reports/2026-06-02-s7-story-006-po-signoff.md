@@ -37,8 +37,8 @@
 
 ## 6. Commit
 
-- Feature commit：（见 git log）
-- Sprint merge：（见 git log）
+- Feature / sprint：`935640f` — `feat(s7): article card rhythm R4/RCARD and PO signoff S7-STORY-006`
+- Sprint fast-forward 至 `935640f`（与 feature 同 commit）
 
 ## 7. 建议下一步
 

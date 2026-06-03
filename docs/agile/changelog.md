@@ -440,5 +440,5 @@
 | 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
 |------|--------|----------|----------|----------------------|
 | 2026-06-02 | Sprint 7 | **DECISION-084**：Orchestrator R4 + RCARD；plain-first 生成 rotation；`card-rhythm.ts` | Style / Generation | DECISION-084, S7-STORY-006 |
-| 2026-06-02 | Sprint 7 | **S7-STORY-006 Done**（PO 签收）；`feature/s7-article-rhythm-card-fix` merge → sprint | 代码 / Git | S7-STORY-006 |
+| 2026-06-02 | Sprint 7 | **S7-STORY-006 Done**（PO 签收）；`feature/s7-article-rhythm-card-fix` fast-forward merge → sprint @ `935640f` | 代码 / Git | S7-STORY-006 |
 | 2026-06-02 | Sprint 7 | **下一步 S7-STORY-007**（视觉 QA + close readiness）；Sprint 7 **未关闭** | 敏捷 | S7-STORY-007 |

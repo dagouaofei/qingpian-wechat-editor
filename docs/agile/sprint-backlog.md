@@ -3252,7 +3252,7 @@ S7-STORY-007 Sprint 7 手动视觉 QA 与关闭准备 — Planned（下一步）
 
 ## S7-STORY-006 整篇文章样式组合与过度卡片化修正
 
-**优先级：** P0 · **状态：** **Done**（PO 签收 2026-06-02）· **工作分支：** `feature/s7-article-rhythm-card-fix` · **DECISION-084** · merged sprint（见 changelog）
+**优先级：** P0 · **状态：** **Done**（PO 签收 2026-06-02）· **工作分支：** `feature/s7-article-rhythm-card-fix` · **DECISION-084** · merged sprint @ `935640f`
 
 **目标：** 修正过度卡片化；文章级 rhythm / variant 组合更接近公众号阅读体验。
 
