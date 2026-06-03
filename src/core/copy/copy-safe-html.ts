@@ -10,6 +10,8 @@ export const COPY_SAFE_HTML_VIOLATION_CODES = [
   "transform",
   "pseudo_element",
   "flex_or_grid_layout",
+  "linear_gradient",
+  "box_shadow",
 ] as const;
 
 export type CopySafeHtmlViolationCode =
@@ -67,8 +69,18 @@ const COPY_SAFE_HTML_PATTERNS: Array<{
   },
   {
     code: "flex_or_grid_layout",
-    pattern: /\bdisplay\s*:\s*(flex|grid)/i,
+    pattern: /\bdisplay\s*:\s*(inline-flex|flex|grid)/i,
     message: "Copy HTML must not depend on flex/grid layout",
+  },
+  {
+    code: "linear_gradient",
+    pattern: /linear-gradient/i,
+    message: "Copy HTML must not use CSS gradients",
+  },
+  {
+    code: "box_shadow",
+    pattern: /box-shadow/i,
+    message: "Copy HTML must not use box-shadow",
   },
 ];
 

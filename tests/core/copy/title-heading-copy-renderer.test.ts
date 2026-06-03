@@ -74,7 +74,8 @@ describe("title / heading copy renderer", () => {
     });
 
     const html = (result.output as { html: string }).html;
-    expect(html).toContain("linear-gradient");
+    expect(html).not.toMatch(/linear-gradient/i);
+    expect(html).toContain("background-color");
     expect(html).toContain("左栏标题");
     expect(html).not.toMatch(/\bclass\s*=/);
     expect(html).not.toMatch(/::/);
@@ -101,12 +102,10 @@ describe("title / heading copy renderer", () => {
       registry: rendererRegistry,
     });
 
-    expect(result.warnings.some((warning) => warning.code === "copy_safety_warning")).toBe(
-      true,
-    );
-
     const html = (result.output as { html: string }).html;
-    expect(html).toContain("linear-gradient");
+    expect(copyHtmlUsesInlineStyleOnly(html)).toBe(true);
+    expect(html).not.toMatch(/linear-gradient/i);
+    expect(html).toContain("border-collapse:collapse");
     expect(html).toContain("底线标题");
   });
 

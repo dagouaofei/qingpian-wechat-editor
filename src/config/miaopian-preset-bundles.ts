@@ -341,15 +341,15 @@ const PRESET_BUNDLE_META: PresetBundleMeta[] = [
     tone: "理性、克制、可执行",
     defaultVariantByBlockType: {
       title: "title_bottom_line_editorial",
-      lead: "lead_business_brief",
+      lead: "lead_plain_intro",
       heading: "heading_short_line",
       paragraph: "paragraph_plain_body",
       divider: "divider_simple_line",
       list: "list_plain_bullets",
       quote: "quote_left_bar",
-      highlight: "highlight_flat_business",
+      highlight: "highlight_inline_emphasis",
       info_card: "info_card_key_takeaway",
-      cta: "cta_summary_band",
+      cta: "cta_plain_text",
       image_placeholder: "image_placeholder_simple",
     },
     variantPoolsByBlockType: {

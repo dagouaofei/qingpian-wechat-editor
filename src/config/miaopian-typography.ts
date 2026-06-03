@@ -20,14 +20,14 @@ export const MIAOPIAN_PRESET_TYPOGRAPHY: Record<MiaopianPresetId, MiaopianPreset
   business: {
     fontFamily:
       '"PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif',
-    titleFontSize: "25px",
-    titleLineHeight: "1.34",
+    titleFontSize: "24px",
+    titleLineHeight: "1.35",
     titleFontWeight: "700",
-    headingFontSize: "17px",
+    headingFontSize: "18px",
     headingLineHeight: "1.5",
     headingFontWeight: "600",
     bodyFontSize: "16px",
-    bodyLineHeight: "1.88",
+    bodyLineHeight: "1.75",
   },
   warm: {
     fontFamily:

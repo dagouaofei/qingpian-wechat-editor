@@ -1,0 +1,82 @@
+{
+  "id": "33333333-3333-4333-8333-000000000102",
+  "version": 1,
+  "metadata": {
+    "title": "R1 Golden · 结构化块密度",
+    "createdAt": "2026-06-02T00:00:00.000Z",
+    "updatedAt": "2026-06-02T00:00:00.000Z",
+    "locale": "zh-CN"
+  },
+  "input": {
+    "type": "fixture",
+    "raw": "fixture:r1-golden-structured-article",
+    "capturedAt": "2026-06-02T00:00:00.000Z"
+  },
+  "styleAssignment": {
+    "themeId": "businessBlue",
+    "presetId": "business"
+  },
+  "blocks": [
+    {
+      "id": "55555555-5555-4555-8555-010200000001",
+      "type": "title",
+      "content": { "text": "结构化块密度测试稿" }
+    },
+    {
+      "id": "55555555-5555-4555-8555-010200000002",
+      "type": "lead",
+      "content": { "text": "用于验证 info_card / highlight / quote 不会三连，且强视觉块之间必须有正文隔断。" }
+    },
+    {
+      "id": "55555555-5555-4555-8555-010200000003",
+      "type": "heading",
+      "content": { "text": "高密度结构化区", "level": 2 }
+    },
+    {
+      "id": "55555555-5555-4555-8555-010200000004",
+      "type": "paragraph",
+      "content": { "text": [{ "text": "下列块故意相邻，Orchestrator 应降级中间块为 plain variant。" }] }
+    },
+    {
+      "id": "55555555-5555-4555-8555-010200000005",
+      "type": "highlight",
+      "content": { "text": "第一条强调", "label": "提示" }
+    },
+    {
+      "id": "55555555-5555-4555-8555-010200000006",
+      "type": "info_card",
+      "content": { "title": "卡片 A", "body": "步骤说明", "icon": "steps" }
+    },
+    {
+      "id": "55555555-5555-4555-8555-010200000007",
+      "type": "quote",
+      "content": { "text": "若三连应被 rhythm 规则打断。", "attribution": "QA" }
+    },
+    {
+      "id": "55555555-5555-4555-8555-010200000008",
+      "type": "paragraph",
+      "content": { "text": [{ "text": "隔断段落后可再次出现单张卡片。" }] }
+    },
+    {
+      "id": "55555555-5555-4555-8555-010200000009",
+      "type": "info_card",
+      "content": { "title": "卡片 B", "body": "单独出现", "icon": "info" }
+    },
+    {
+      "id": "55555555-5555-4555-8555-010200000010",
+      "type": "list",
+      "content": {
+        "ordered": false,
+        "items": [
+          { "text": "清单项一", "subItems": [] },
+          { "text": "清单项二", "subItems": [] }
+        ]
+      }
+    },
+    {
+      "id": "55555555-5555-4555-8555-010200000011",
+      "type": "cta",
+      "content": { "text": "预约演示", "action": "book" }
+    }
+  ]
+}

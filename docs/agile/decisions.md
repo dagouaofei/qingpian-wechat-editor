@@ -80,6 +80,7 @@
 | DECISION-082 | 2026-06-02 | 合并 S7-STORY-003 与 S7-STORY-004 为单一 Story 003（Gallery UX + title/heading 丰富度）；004 标 Merged | 已确认 |
 | DECISION-083 | 2026-06-02 | 成稿风格/配色对齐 miaopian-demo 6+6；PresetBundle（defaultVariant + variantPools + defaultTheme）；heading +4；其它 block 扩至 9 variant/类 | 已确认 |
 | DECISION-084 | 2026-06-02 | S7 文章级卡片节奏：Orchestrator R4 + RCARD（连续卡片化≤2）；生成 plain-first rotation + hint 平衡 | 已确认 |
+| DECISION-085 | 2026-06-02 | S7-STORY-007A：R1 默认成稿样式保真；golden fixture + RLAYOUT；Copy 微信安全；007 Deferred | 已确认 |
 
 ### DECISION-019 详情
 
@@ -707,6 +708,23 @@
 - **影响范围：** `/gallery`、`preview-visual-styles.ts`、copy title/heading、`gallery-title-heading.ts`、sprint-backlog、alignment
 - **关联：** DECISION-080、DECISION-081、TECH-ARCH-023、S7-STORY-002
 - **状态：** 已确认
+
+### DECISION-085 详情（S7-STORY-007A · R1 Style Fidelity Stabilization）
+
+- **日期：** 2026-06-02
+- **背景：**
+  - 默认成稿 Preview、Copy 到公众号、整篇编排未达预期；继续加 variant 或局部微调无法收敛
+  - 用户明确 **不做 S7-STORY-007**，改 **S7-STORY-007A**：审计先行 → golden baseline → 默认路径闭环
+- **决策：**
+  1. **S7-STORY-007 Deferred**；**S7-STORY-007A** 为 Sprint 7 当前主线的样式保真任务（`feature/s7-story-007a-r1-style-fidelity`）
+  2. **不新增 variant 数量**；只修默认 `business` preset 实际使用的核心 variant + Copy 微信安全输出
+  3. **Golden 锚点：** `tests/fixtures/articles/r1-golden-{default,structured,longform}-article.json` + 粘贴 QA [`paste-qa/r1-golden-paste-qa.md`](paste-qa/r1-golden-paste-qa.md)
+  4. **Orchestrator RLAYOUT：** 强视觉块间距、卡片比例、CTA 尾部、divider 节制等（不改 Article 语义 blocks）
+  5. **Done 分轨：** 代码 + 自动化 snapshot = 可标 In Review/Done（代码）；**粘贴 QA Not Run 不得标 Story Done**
+  6. **开发调试：** `/dev/style-fidelity`（非 Gallery、非样式市场）
+- **影响范围：** `miaopian-preset-bundles.ts`、`miaopian-typography.ts`、`title-block-copy.ts`、`style-orchestrator-article-layout.ts`、`copy-safe-html.ts`、`/dev/style-fidelity`、golden fixtures、audit/baseline docs
+- **关联：** DECISION-083、DECISION-084、S7-STORY-006、Sprint 8 Paste QA（全量矩阵仍归 S8）
+- **状态：** 已确认（代码轮 In Review · 待 PO 粘贴 QA）
 
 ### DECISION-XXX：[标题]
 

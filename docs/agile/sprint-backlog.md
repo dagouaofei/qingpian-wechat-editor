@@ -10,7 +10,7 @@
 > **Sprint 5：** Generation / Streaming + Release 1 真实 UI 主流程闭环 · **Closed**（2026-06-02；DECISION-069；audit Grade A- · P0=0 · P1=4 · P2=3；`sprint/s5-generation-ui-main-flow` 已 merge 至 `release/1`）
 > **Sprint 6：** Release 1 Visible AI Main Flow · **Closed**（2026-06-02；DECISION-078；audit Grade A- · P0=0 · P1=5 · P2=4；`sprint/s6-visible-ai-main-flow` 已 merge 至 `release/1`）
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
-> **当前 Sprint：** **Sprint 7**（**In Progress** · **S7-STORY-007 下一步** · 002~006 **Done** 2026-06-02 PO 签收）
+> **当前 Sprint：** **Sprint 7**（**In Progress** · **S7-STORY-007A In Review** · 002~006 **Done** · **007 不做**）
 > **当前 Chore：** **Visible Progress & Legacy Convergence** — **Done**（DECISION-080 · 用户验收 2026-06-02 · merged @ `a5704d6`）
 > **Sprint 7 分支：** `sprint/s7-wechat-article-experience`（从 `release/1` 切出）
 > **miaopian 对齐：** [`docs/agile/miaopian-alignment/s7-workflow-and-ux-gap.md`](miaopian-alignment/s7-workflow-and-ux-gap.md)
@@ -3102,7 +3102,7 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 # Sprint 7 Backlog · WeChat Article Experience & Style Richness
 
 > **Sprint 7 目标：** 整篇文章像公众号文章；Style Gallery；样式丰富度；修正过度卡片化；**miaopian 协作/体验对齐见 alignment 文档**
-> **Sprint 7 状态：** **In Progress**（2026-06-02 · DECISION-081~084 · **S7-STORY-002~006 Done**（PO 签收）· **下一步 S7-STORY-007**）
+> **Sprint 7 状态：** **In Progress**（2026-06-02 · DECISION-081~085 · **S7-STORY-002~006 Done** · **S7-STORY-007A In Review** · **S7-STORY-007 不做**）
 > **Sprint 7 分支：** `sprint/s7-wechat-article-experience`（从 `release/1` 切出）
 > **对齐文档：** [`docs/agile/miaopian-alignment/s7-workflow-and-ux-gap.md`](miaopian-alignment/s7-workflow-and-ux-gap.md)
 > **Sprint 7 不做：** Sprint 8 Paste QA、关闭 Release 1、merge `main`
@@ -3116,7 +3116,8 @@ S7-STORY-003 Style Gallery 与标题层级样式（合并原 003 + 004）— Don
 S7-STORY-004 标题 / 分节标题 variant 丰富度 — Merged → S7-STORY-003
 S7-STORY-005 重点高亮 / 列表 / 摘要 / CTA 样式优化 — Done
 S7-STORY-006 整篇文章样式组合与过度卡片化修正 — Done
-S7-STORY-007 Sprint 7 手动视觉 QA 与关闭准备 — Planned（下一步）
+S7-STORY-007A R1 Style Fidelity Stabilization — In Review（当前）
+S7-STORY-007 Sprint 7 手动视觉 QA 与关闭准备 — Deferred（用户确认不做，改 007A）
 ```
 
 ---
@@ -3274,9 +3275,43 @@ S7-STORY-007 Sprint 7 手动视觉 QA 与关闭准备 — Planned（下一步）
 
 ---
 
+## S7-STORY-007A R1 Style Fidelity Stabilization（默认成稿 · 复制保真 · 整篇节奏）
+
+**用户故事：** 作为 PO，我需要默认生成文章在 Preview 与微信公众号粘贴后视觉一致、整篇节奏自然，而不是继续堆 variant 或局部微调。
+
+**优先级：** P0 · **状态：** **In Review**（代码 + 自动化 **Done** · 粘贴 QA **Not Run**）· **工作分支：** `feature/s7-story-007a-r1-style-fidelity` · **来源：** `sprint/s7-wechat-article-experience`
+
+**不做：** 新增 variant 数量 · S7-STORY-007 原 close-readiness 文档流 · Visual Layer 旧方案 · 平行 Article/Renderer
+
+**In Scope：**
+
+- 审计 [`docs/agile/audits/r1-style-fidelity-stabilization-audit.md`](audits/r1-style-fidelity-stabilization-audit.md)
+- 基准 [`docs/product/r1-style-quality-baseline.md`](../product/r1-style-quality-baseline.md)
+- Golden fixtures：`tests/fixtures/articles/r1-golden-*.json`（loader `@/fixtures/r1-golden`）
+- 默认 `business` preset 默认 variant + typography（16px / 1.75）
+- Orchestrator **RLAYOUT**（整篇节奏 10 条）
+- Copy 微信安全：title/heading copy-safe 样式；`copy-safe-html` 增 gradient/flex/shadow 检测
+- `/dev/style-fidelity` 调试页
+- 单测：golden copy snapshot · orchestrator layout · preview-copy token parity
+
+**验收标准：**
+
+- [x] AC-1 审计文档 + R1 baseline 文档
+- [x] AC-2 3 套 golden fixture（合法 Article · `business` + `businessBlue`）
+- [x] AC-3 默认路径 title/lead/heading/paragraph/info_card/highlight/quote/list/cta/divider/image 默认 variant 调整（preset bundles + typography）
+- [x] AC-4 Copy HTML snapshot（`r1-golden-copy-snapshot`）无 class/style/var/gradient/flex/absolute
+- [x] AC-5 Preview/Copy token parity 单测（golden default）
+- [x] AC-6 RLAYOUT orchestrator 单测
+- [x] AC-7 **809** tests + `npm run build` PASS
+- [ ] AC-8 微信公众号粘贴 QA **PASS**（[`paste-qa/r1-golden-paste-qa.md`](paste-qa/r1-golden-paste-qa.md) · **Not Run**）
+
+**备注：** 粘贴 QA 未跑前 Story 保持 **In Review**；FAIL 须登记 `bugs.md`。
+
+---
+
 ## S7-STORY-007 Sprint 7 手动视觉 QA 与关闭准备
 
-**优先级：** P0 · **状态：** Planned · **工作分支：** `docs/s7-visual-qa-close-readiness`
+**优先级：** P0 · **状态：** **Deferred**（用户 2026-06-02 确认不做，由 **S7-STORY-007A** 承接 R1 样式保真）· **原工作分支：** `docs/s7-visual-qa-close-readiness`
 
 **目标：** 手动视觉 QA 记录；close readiness audit；不关闭 Release 1。
 
