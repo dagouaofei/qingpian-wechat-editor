@@ -1,7 +1,14 @@
+import {
+  buildMiaopianPresetDefinitions,
+  MIAOPIAN_THEME_DEFINITIONS,
+} from "@/config/miaopian-preset-bundles";
+
+import { EXPANSION_BLOCK_VARIANTS } from "./expansion-blocks";
 import { TITLE_BLOCK_FIRST_WAVE_VARIANTS } from "./title-heading";
 import { TEXT_FIRST_BLOCK_VARIANTS } from "./text-first";
 import { STRUCTURED_BLOCK_VARIANTS } from "./structured";
 import { STYLE_SCHEMA_VERSION } from "../tokens";
+import type { BlockType } from "@/core/blocks";
 import type { StyleRegistry } from "../types";
 
 export {
@@ -13,6 +20,10 @@ export {
   headingNumberedSection,
   headingPlainMinimal,
   headingTopBadgeTopic,
+  headingUnderlineClassic,
+  headingPillTopic,
+  headingEditorialPlain,
+  headingKeynoteStrong,
   titleBottomLineEditorial,
   titleLeftBarClassic,
   titlePlainMinimal,
@@ -66,14 +77,43 @@ export {
   quotePlain,
 } from "./structured";
 
+export {
+  MIAOPIAN_HEADING_VARIANTS,
+  headingHighlightMarker,
+  headingShortLine,
+  headingIconPrefix,
+  headingMinimalNumber,
+  headingMagazineLeftBar,
+  headingMagazineOffset,
+} from "./miaopian-heading-variants";
+
+export {
+  EXPANSION_BLOCK_VARIANTS,
+  LEAD_EXPANSION_VARIANTS,
+  PARAGRAPH_EXPANSION_VARIANTS,
+  DIVIDER_EXPANSION_VARIANTS,
+  LIST_EXPANSION_VARIANTS,
+  QUOTE_EXPANSION_VARIANTS,
+  HIGHLIGHT_EXPANSION_VARIANTS,
+  INFO_CARD_EXPANSION_VARIANTS,
+  CTA_EXPANSION_VARIANTS,
+  IMAGE_PLACEHOLDER_EXPANSION_VARIANTS,
+} from "./expansion-blocks";
+
+/** @deprecated Use RELEASE1_REQUIRED_VARIANTS — kept for import compatibility */
 export const FIRST_WAVE_REQUIRED_VARIANTS = [
   ...TITLE_BLOCK_FIRST_WAVE_VARIANTS,
   ...TEXT_FIRST_BLOCK_VARIANTS,
   ...STRUCTURED_BLOCK_VARIANTS,
+  ...EXPANSION_BLOCK_VARIANTS,
 ] as const;
+
+export const RELEASE1_REQUIRED_VARIANTS = FIRST_WAVE_REQUIRED_VARIANTS;
 
 export const FIRST_WAVE_REQUIRED_VARIANT_IDS =
   FIRST_WAVE_REQUIRED_VARIANTS.map((variant) => variant.id);
+
+export const RELEASE1_REQUIRED_VARIANT_IDS = FIRST_WAVE_REQUIRED_VARIANT_IDS;
 
 export const IMPLEMENTED_FIRST_WAVE_VARIANTS = FIRST_WAVE_REQUIRED_VARIANTS;
 
@@ -82,89 +122,32 @@ export const IMPLEMENTED_FIRST_WAVE_VARIANT_IDS =
 
 export const FIRST_WAVE_REQUIRED_VARIANT_COUNT_BY_BLOCK = {
   title: 3,
-  lead: 3,
-  heading: 3,
-  paragraph: 3,
-  divider: 3,
-  list: 3,
-  quote: 3,
-  highlight: 3,
-  info_card: 3,
-  cta: 3,
-  image_placeholder: 3,
+  lead: 9,
+  heading: 13,
+  paragraph: 9,
+  divider: 9,
+  list: 9,
+  quote: 9,
+  highlight: 9,
+  info_card: 9,
+  cta: 9,
+  image_placeholder: 9,
 } as const;
+
+export const RELEASE1_REQUIRED_VARIANT_COUNT_BY_BLOCK =
+  FIRST_WAVE_REQUIRED_VARIANT_COUNT_BY_BLOCK;
+
+export function variantIdsForBlockType(blockType: BlockType): string[] {
+  return FIRST_WAVE_REQUIRED_VARIANTS.filter((v) => v.blockType === blockType).map(
+    (v) => v.id,
+  );
+}
 
 export function createFirstWaveRequiredVariantRegistry(): StyleRegistry {
   return {
     schemaVersion: STYLE_SCHEMA_VERSION,
-    themes: [
-      {
-        id: "default",
-        name: "Default Theme",
-        schemaVersion: STYLE_SCHEMA_VERSION,
-        tokens: {
-          color: {
-            "text.default": "#333333",
-            "text.muted": "#666666",
-            "text.accent": "#576b95",
-            "border.light": "#cccccc",
-            "border.soft": "#eeeeee",
-            "bg.soft": "#f9f9f9",
-            "bg.band": "#f5f5f5",
-            "bg.band.blue": "#f5f7fb",
-            "bg.steps": "#f8fafc",
-            "bg.warning": "#fff8e6",
-            "warning.color": "#b36b00",
-            "warning.text": "#5f3b00",
-          },
-          fontSize: { body: "16px" },
-        },
-      },
-      {
-        id: "warm-editorial",
-        name: "Warm Editorial Theme",
-        schemaVersion: STYLE_SCHEMA_VERSION,
-        tokens: {
-          color: {
-            "text.default": "#3d2c1e",
-            "text.muted": "#7a6555",
-            "text.accent": "#c45c26",
-            "brand.primary": "#c45c26",
-            "border.light": "#dcc8b8",
-            "border.soft": "#f0e4d8",
-            "bg.soft": "#fffaf5",
-            "bg.band": "#fff3e8",
-            "bg.band.blue": "#fff7ed",
-            "bg.steps": "#fff8f2",
-            "bg.warning": "#fff4e5",
-            "warning.color": "#b45309",
-            "warning.text": "#78350f",
-          },
-          fontSize: { body: "16px" },
-        },
-      },
-    ],
-    presets: [
-      {
-        id: "classic-news",
-        name: "Classic News",
-        schemaVersion: STYLE_SCHEMA_VERSION,
-        themeId: "default",
-        defaultVariantByBlockType: {
-          title: "title_plain_minimal",
-          lead: "lead_plain_intro",
-          heading: "heading_plain_minimal",
-          paragraph: "paragraph_plain_body",
-          divider: "divider_simple_line",
-          list: "list_plain_bullets",
-          quote: "quote_plain",
-          highlight: "highlight_inline_emphasis",
-          info_card: "info_card_key_takeaway",
-          cta: "cta_plain_text",
-          image_placeholder: "image_placeholder_simple",
-        },
-      },
-    ],
+    themes: MIAOPIAN_THEME_DEFINITIONS,
+    presets: buildMiaopianPresetDefinitions(),
     variants: [...FIRST_WAVE_REQUIRED_VARIANTS],
   };
 }

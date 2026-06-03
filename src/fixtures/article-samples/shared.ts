@@ -26,8 +26,8 @@ export function sampleArticleBase(articleIndex: number, title: string, raw: stri
       capturedAt: ARTICLE_SAMPLE_ISO,
     },
     styleAssignment: {
-      themeId: "default",
-      presetId: "classic-news",
+      themeId: "businessBlue",
+      presetId: "business",
     },
   };
 }

@@ -15,6 +15,7 @@ import {
   mergeStyleAssignmentPatch,
   styleAssignmentToArticleStylePlan,
 } from "./style-assignment-patch";
+import { unifyHeadingVariantsInStates } from "./style-orchestrator-heading-unify";
 import { applyOrchestratorRhythmRules } from "./style-orchestrator-rules";
 import {
   type OrchestratorBlockOverrideInput,
@@ -201,6 +202,13 @@ export function orchestrateArticleStyle(
     );
     states.set(block.id, state);
   }
+
+  unifyHeadingVariantsInStates(
+    article.blocks,
+    states,
+    registry,
+    preset.defaultVariantByBlockType?.heading,
+  );
 
   if (options?.applyRhythmRules !== false) {
     applyOrchestratorRhythmRules(

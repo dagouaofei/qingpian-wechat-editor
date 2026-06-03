@@ -19,6 +19,16 @@ const HEADING_LABELS: Record<GalleryHeadingVariantId, string> = {
   heading_plain_minimal: "Plain 小标题",
   heading_numbered_section: "Numbered 编号",
   heading_top_badge_topic: "Top badge 话题",
+  heading_underline_classic: "Underline 经典",
+  heading_pill_topic: "Pill 话题",
+  heading_editorial_plain: "Editorial 留白",
+  heading_keynote_strong: "Keynote 强调",
+  heading_highlight_marker: "荧光笔标题",
+  heading_short_line: "短线标题",
+  heading_icon_prefix: "图标前缀标题",
+  heading_minimal_number: "极简数字标题",
+  heading_magazine_left_bar: "杂志竖线标题",
+  heading_magazine_offset: "杂志错位标题",
 };
 
 export function GalleryTitleHeadingControls({

@@ -11,6 +11,7 @@ import {
   slotContentMap,
 } from "./text-style";
 import type { BlockRenderContext } from "./types";
+import { resolveTitleHeadingPresentation } from "./title-heading-visual";
 
 function buildPreviewSection(
   context: BlockRenderContext,
@@ -22,17 +23,32 @@ function buildPreviewSection(
     context.resolvedBlockStyle,
     block.type,
   );
+  const slotMap = slotContentMap(slots);
+  const presentation = resolveTitleHeadingPresentation(
+    layoutMode,
+    block.type,
+    block,
+    slotMap,
+    context.resolvedBlockStyle.variantId,
+  );
 
   return {
     kind: "title_block_preview",
     blockId: block.id,
     blockType: block.type,
     variantId: context.resolvedBlockStyle.variantId,
+    familyId: context.resolvedBlockStyle.variant.family,
     layoutMode,
     text: extractTitleBlockText(block),
     headingLevel: block.type === "heading" ? block.content.level : undefined,
-    slots: slotContentMap(slots),
-    ...(typography.textAlign ? {} : {}),
+    presentation,
+    slots: slotMap,
+    typography: {
+      fontSize: typography.fontSize,
+      fontWeight: typography.fontWeight,
+      lineHeight: typography.lineHeight,
+      fontFamily: typography.fontFamily,
+    },
   };
 }
 

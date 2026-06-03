@@ -74,7 +74,8 @@ describe("title / heading copy renderer", () => {
     });
 
     const html = (result.output as { html: string }).html;
-    expect(html).toContain("border-left:4px solid #333333");
+    expect(html).toContain("linear-gradient");
+    expect(html).toContain("左栏标题");
     expect(html).not.toMatch(/\bclass\s*=/);
     expect(html).not.toMatch(/::/);
     expect(html).not.toMatch(/<style[\s>]/i);
@@ -105,7 +106,7 @@ describe("title / heading copy renderer", () => {
     );
 
     const html = (result.output as { html: string }).html;
-    expect(html).toContain("border-bottom:1px solid #cccccc");
+    expect(html).toContain("linear-gradient");
     expect(html).toContain("底线标题");
   });
 
@@ -160,7 +161,7 @@ describe("title / heading copy renderer", () => {
     expect(html).toContain("编号章节");
   });
 
-  it("heading_top_badge_topic omits badge paragraph when badge missing", () => {
+  it("heading_top_badge_topic includes default topic badge in copy", () => {
     const article = createTitleHeadingArticleFixture({
       blockType: "heading",
       variantId: "heading_top_badge_topic",
@@ -182,7 +183,7 @@ describe("title / heading copy renderer", () => {
 
     const html = (result.output as { html: string }).html;
     expect(html).toContain("徽章标题");
-    expect(html).not.toContain("font-size:12px");
+    expect(html).toContain("话题");
   });
 
   it("escapes dangerous characters in copy output", () => {

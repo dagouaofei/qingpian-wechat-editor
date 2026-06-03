@@ -23,14 +23,10 @@ export type CtaTypography = {
   marginBlock: string;
 };
 
-const VARIANT_LAYOUT_MAP: Record<string, CtaLayoutKind> = {
-  cta_plain_text: "plain_text",
-  cta_button_like: "button_like",
-  cta_qr_placeholder: "qr_placeholder",
-};
+import { CTA_VARIANT_LAYOUT } from "./expansion-layout-maps";
 
 export function resolveCtaLayout(variantId: string): CtaLayoutKind | undefined {
-  return VARIANT_LAYOUT_MAP[variantId];
+  return CTA_VARIANT_LAYOUT[variantId];
 }
 
 export function resolveCtaTypography(

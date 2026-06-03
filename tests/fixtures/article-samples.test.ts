@@ -14,7 +14,7 @@ import { parseAndNormalizeInputRequest } from "@/core/generation/input.normalize
 const FIXTURE_NORMALIZED_INPUT = parseAndNormalizeInputRequest({
   mode: "topic_only",
   topic: "Article sample fixture",
-  styleIntent: { presetHint: "classic-news", densityHint: "medium" },
+  styleIntent: { presetHint: "business", densityHint: "medium" },
 });
 
 describe("article-samples registry", () => {
@@ -46,7 +46,7 @@ describe("article-samples registry", () => {
       const rendered = renderArticlePreviewClient(
         article,
         FIXTURE_NORMALIZED_INPUT,
-        { articleStyle: "classic-news", colorPalette: "default" },
+        { articleStyle: "business", colorPalette: "businessBlue" },
       );
 
       expect(rendered.previewBlocks.length).toBeGreaterThan(0);
@@ -62,7 +62,7 @@ describe("article-samples registry", () => {
       const rendered = renderArticlePreviewClient(
         article,
         FIXTURE_NORMALIZED_INPUT,
-        { articleStyle: "classic-news", colorPalette: "default" },
+        { articleStyle: "business", colorPalette: "businessBlue" },
       );
 
       expect(rendered.previewBlocks.every((block) => block.ok)).toBe(true);

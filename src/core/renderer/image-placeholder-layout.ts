@@ -25,16 +25,12 @@ export type ImagePlaceholderTypography = {
   marginBlock: string;
 };
 
-const VARIANT_LAYOUT_MAP: Record<string, ImagePlaceholderLayoutKind> = {
-  image_placeholder_simple: "simple",
-  image_placeholder_caption: "caption",
-  image_placeholder_card: "card",
-};
+import { IMAGE_PLACEHOLDER_VARIANT_LAYOUT } from "./expansion-layout-maps";
 
 export function resolveImagePlaceholderLayout(
   variantId: string,
 ): ImagePlaceholderLayoutKind | undefined {
-  return VARIANT_LAYOUT_MAP[variantId];
+  return IMAGE_PLACEHOLDER_VARIANT_LAYOUT[variantId];
 }
 
 export function resolveImagePlaceholderTypography(

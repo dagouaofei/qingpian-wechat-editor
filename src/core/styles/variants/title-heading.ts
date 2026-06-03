@@ -72,50 +72,79 @@ function presentationBadgeSlot(id = "badge") {
   };
 }
 
+function presentationIconSlot() {
+  return {
+    id: "icon",
+    role: "icon" as const,
+    label: "Icon",
+    binding: { source: "variant.presentation" as const },
+    copySafety: { copySafety: "balanced" as const, allowedInCopy: true },
+  };
+}
+
+function presentationCornerSlot() {
+  return {
+    id: "corner",
+    role: "decoration" as const,
+    label: "Corner Accent",
+    binding: { source: "variant.presentation" as const },
+    copySafety: { copySafety: "balanced" as const, allowedInCopy: true },
+  };
+}
+
 export const titlePlainMinimal: VariantDefinition = titleBlockVariant({
   id: "title_plain_minimal",
   blockType: "title",
-  family: "simple",
+  family: "cardTitle",
   name: "title-plain-minimal",
   label: "Plain Minimal Title",
-  description: "First-wave plain titleBlock with text-only layout",
+  description: "cardTitle frame with star icon capsule",
   layoutMode: "plain",
   copySafety: "strict",
   slots: {
     title: titleTextSlot(),
+    icon: presentationIconSlot(),
+    corner: presentationCornerSlot(),
   },
   tokens: {
     "typography.weight": "bold",
-    "spacing.block": "24px",
+    "typography.size": "26px",
+    "spacing.block": "32px",
   },
 });
 
 export const titleLeftBarClassic: VariantDefinition = titleBlockVariant({
   id: "title_left_bar_classic",
   blockType: "title",
-  family: "simple",
+  family: "iconDecor",
   name: "title-left-bar-classic",
   label: "Left Bar Classic Title",
-  description: "First-wave left bar titleBlock for editorial section openers",
+  description: "iconDecor left bar with quote icon capsule",
   layoutMode: "left_bar",
   copySafety: "strict",
   slots: {
     title: titleTextSlot(),
+    icon: presentationIconSlot(),
     decoration: presentationDecorationSlot(),
+  },
+  tokens: {
+    "typography.size": "26px",
+    "spacing.block": "32px",
   },
 });
 
 export const titleBottomLineEditorial: VariantDefinition = titleBlockVariant({
   id: "title_bottom_line_editorial",
   blockType: "title",
-  family: "simple",
+  family: "iconDecor",
   name: "title-bottom-line-editorial",
   label: "Bottom Line Editorial Title",
-  description: "First-wave bottom line titleBlock aligned with catalog title_with_bottom_line",
+  description: "iconDecor center title with star flanked ornament",
   layoutMode: "bottom_line",
   copySafety: "balanced",
   slots: {
     title: titleTextSlot(),
+    icon: presentationIconSlot(),
     divider: {
       id: "divider",
       role: "divider" as const,
@@ -124,19 +153,28 @@ export const titleBottomLineEditorial: VariantDefinition = titleBlockVariant({
       copySafety: { copySafety: "balanced" as const, allowedInCopy: true },
     },
   },
+  tokens: {
+    "typography.size": "28px",
+    "spacing.block": "36px",
+  },
 });
 
 export const headingPlainMinimal: VariantDefinition = titleBlockVariant({
   id: "heading_plain_minimal",
   blockType: "heading",
-  family: "simple",
+  family: "cardTitle",
   name: "heading-plain-minimal",
   label: "Plain Minimal Heading",
-  description: "First-wave plain heading titleBlock",
+  description: "iconDecor section row with arrow capsule (R8 groups with title_plain as cardTitle/plain)",
   layoutMode: "plain",
   copySafety: "strict",
   slots: {
     title: titleTextSlot(),
+    icon: presentationIconSlot(),
+  },
+  tokens: {
+    "typography.size": "18px",
+    "spacing.block": "24px",
   },
 });
 
@@ -146,12 +184,16 @@ export const headingNumberedSection: VariantDefinition = titleBlockVariant({
   family: "badgeTitle",
   name: "heading-numbered-section",
   label: "Numbered Section Heading",
-  description: "First-wave numbered heading with presentation badge",
+  description: "Circular index badge + section title",
   layoutMode: "numbered",
   copySafety: "balanced",
   slots: {
     title: titleTextSlot(),
     badge: presentationBadgeSlot(),
+  },
+  tokens: {
+    "typography.size": "18px",
+    "spacing.block": "24px",
   },
 });
 
@@ -161,12 +203,18 @@ export const headingTopBadgeTopic: VariantDefinition = titleBlockVariant({
   family: "badgeTitle",
   name: "heading-top-badge-topic",
   label: "Top Badge Topic Heading",
-  description: "First-wave top badge heading for topic emphasis",
+  description: "cardTitle topic pill with bookmark icon",
   layoutMode: "top_badge",
   copySafety: "balanced",
   slots: {
     title: titleTextSlot(),
     badge: presentationBadgeSlot(),
+    icon: presentationIconSlot(),
+    corner: presentationCornerSlot(),
+  },
+  tokens: {
+    "typography.size": "18px",
+    "spacing.block": "26px",
   },
 });
 
@@ -176,10 +224,30 @@ export const TITLE_FIRST_WAVE_VARIANTS = [
   titleBottomLineEditorial,
 ] as const;
 
+import {
+  headingEditorialPlain,
+  headingKeynoteStrong,
+  headingPillTopic,
+  headingUnderlineClassic,
+} from "./expansion-blocks";
+import { MIAOPIAN_HEADING_VARIANTS } from "./miaopian-heading-variants";
+
+export {
+  headingUnderlineClassic,
+  headingPillTopic,
+  headingEditorialPlain,
+  headingKeynoteStrong,
+} from "./expansion-blocks";
+
 export const HEADING_FIRST_WAVE_VARIANTS = [
   headingPlainMinimal,
   headingNumberedSection,
   headingTopBadgeTopic,
+  headingUnderlineClassic,
+  headingPillTopic,
+  headingEditorialPlain,
+  headingKeynoteStrong,
+  ...MIAOPIAN_HEADING_VARIANTS,
 ] as const;
 
 export const TITLE_BLOCK_FIRST_WAVE_VARIANTS = [
@@ -196,8 +264,8 @@ export const FIRST_WAVE_TITLE_HEADING_VARIANT_REGISTRY = {
   schemaVersion: STYLE_SCHEMA_VERSION,
   themes: [
     {
-      id: "default",
-      name: "Default Theme",
+      id: "businessBlue",
+      name: "商务蓝",
       schemaVersion: STYLE_SCHEMA_VERSION,
       tokens: {
         color: { "text.default": "#333333" },
@@ -207,10 +275,10 @@ export const FIRST_WAVE_TITLE_HEADING_VARIANT_REGISTRY = {
   ],
   presets: [
     {
-      id: "classic-news",
-      name: "Classic News",
+      id: "business",
+      name: "Business",
       schemaVersion: STYLE_SCHEMA_VERSION,
-      themeId: "default",
+      themeId: "businessBlue",
       defaultVariantByBlockType: {
         title: titlePlainMinimal.id,
         heading: headingPlainMinimal.id,

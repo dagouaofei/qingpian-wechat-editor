@@ -17,8 +17,8 @@ export function createQuoteArticleFixture(options: {
   return parseArticle({
     ...articleFixtureBase(),
     styleAssignment: {
-      themeId: "default",
-      presetId: "classic-news",
+      themeId: "businessBlue",
+      presetId: "business",
       blockOverrides: [{ blockId, variantId: options.variantId }],
     },
     blocks: [
@@ -44,8 +44,8 @@ export function createHighlightArticleFixture(options: {
   return parseArticle({
     ...articleFixtureBase(),
     styleAssignment: {
-      themeId: "default",
-      presetId: "classic-news",
+      themeId: "businessBlue",
+      presetId: "business",
       blockOverrides: [{ blockId, variantId: options.variantId }],
     },
     blocks: [
@@ -80,10 +80,10 @@ export const QUOTE_HIGHLIGHT_VARIANT_REGISTRY = {
   ],
   presets: [
     {
-      id: "classic-news",
+      id: "business",
       name: "Classic News",
       schemaVersion: STYLE_SCHEMA_VERSION,
-      themeId: "default",
+      themeId: "businessBlue",
       defaultVariantByBlockType: {
         quote: "quote_plain",
         highlight: "highlight_inline_emphasis",

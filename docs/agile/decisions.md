@@ -78,6 +78,7 @@
 | DECISION-080 | 2026-06-02 | 暂停 Sprint 7 功能线；Visible-first Cursor 轮次规则；先行 `/gallery` 进展展台；`/generate` 页面已删除 | 已确认 |
 | DECISION-081 | 2026-06-02 | 恢复 Sprint 7；S7-STORY-002 样例集扩至 **8 套**常见公众号文章类型 | 已确认 |
 | DECISION-082 | 2026-06-02 | 合并 S7-STORY-003 与 S7-STORY-004 为单一 Story 003（Gallery UX + title/heading 丰富度）；004 标 Merged | 已确认 |
+| DECISION-083 | 2026-06-02 | 成稿风格/配色对齐 miaopian-demo 6+6；PresetBundle（defaultVariant + variantPools + defaultTheme）；heading +4；其它 block 扩至 9 variant/类 | 已确认 |
 
 ### DECISION-019 详情
 
@@ -658,6 +659,21 @@
   5. 不启动 Sprint 8；不关闭 Release 1
 - **影响范围：** `src/fixtures/article-samples/`、`/gallery`、sprint-backlog、execution report
 - **关联：** DECISION-079、DECISION-080、TECH-ARCH-023、S7-STORY-003
+- **状态：** 已确认
+
+### DECISION-083 详情（miaopian 风格体系对齐 · variant 扩展）
+
+- **日期：** 2026-06-02
+- **背景：** PO 要求基础风格/配色与 miaopian-demo 一致；heading +4；其它 block 各 +6 variant；Gallery 全 block 可选手动 variant；风格应与默认配色及 variant 矩阵联动。
+- **决策：**
+  1. **正式 preset id：** `business` / `warm` / `magazine` / `keynote` / `xiaohongshu` / `dedao`（替换 `classic-news` 等旧 id；UI/生成 hint 保留 alias 过渡期）
+  2. **正式 theme id：** `businessBlue` / `premiumBlackGold` / `creamOrange` / `techGrayBlue` / `knowledgePurple` / `healthGreen`
+  3. **`PresetDefinition` 扩展：** `variantPoolsByBlockType`、`recommendedThemeIds`；默认配色见 `DEFAULT_THEME_FOR_PRESET`（[`src/config/miaopian-preset-bundles.ts`](../../src/config/miaopian-preset-bundles.ts)）
+  4. **Variant 总量：** title×3 · heading×7 · 其它 9 类各×9 → **91** `release1_required`（超出原 11×3 first-wave；Paste QA 在 Sprint 8 按 preset 代表组合抽样）
+  5. **title** 不扩至 12 个 miaopian titleBlock id；由 preset `defaultVariantByBlockType` + `variantPools` 表达差异
+  6. **不复制** miaopian-demo 代码（DECISION-009）；单一 StyleRegistry + Renderer（DECISION-025）
+- **影响范围：** `src/config/miaopian-preset-bundles.ts`、`preview-style-controls`、`preview-color-palette`、`variants/*`、`/gallery`、`style-selection-prompt`
+- **关联：** DECISION-082、S7-STORY-003、S7-STORY-005
 - **状态：** 已确认
 
 ### DECISION-082 详情（合并 S7-STORY-003 与 S7-STORY-004）

@@ -90,8 +90,25 @@ export type TitleBlockPreviewOutput = {
   blockType: "title" | "heading";
   variantId: string;
   layoutMode: TitleBlockLayoutMode;
+  familyId?: string;
   text: string;
   headingLevel?: 1 | 2 | 3;
+  presentation: {
+    badgeText?: string;
+    decorationLabel?: string;
+    indexLabel?: string;
+    iconAssetId?: string;
+    iconGlyph?: string;
+    iconCapsuleLabel?: string;
+    cardTitleFrame?: boolean;
+    cornerAccent?: boolean;
+  };
+  typography?: {
+    fontSize: string;
+    fontWeight: string;
+    lineHeight: string;
+    fontFamily?: string;
+  };
   slots: Record<
     string,
     {

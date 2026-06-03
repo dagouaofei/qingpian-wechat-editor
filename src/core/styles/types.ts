@@ -39,6 +39,10 @@ export type PresetDefinition = {
   themeId: string;
   description?: string;
   defaultVariantByBlockType?: Partial<Record<BlockType, string>>;
+  /** Allowed variant ids per block for Gallery / orchestration pools */
+  variantPoolsByBlockType?: Partial<Record<BlockType, string[]>>;
+  /** Subset of theme ids recommended for this preset (defaults still from themeId) */
+  recommendedThemeIds?: string[];
   density?: Density;
   tone?: string;
 };
@@ -56,10 +60,17 @@ export const TITLE_BLOCK_LAYOUT_MODES = [
   "bottom_line",
   "top_badge",
   "numbered",
+  "underline",
+  "pill",
+  "keynote_bar",
+  "highlight_marker",
+  "short_line",
+  "minimal_number",
   "card",
   "quote_mark",
   "icon_prefix",
   "magazine_left_bar",
+  "magazine_offset",
   "overlay",
   "offset_background",
 ] as const;
@@ -132,9 +143,17 @@ export const TITLE_BLOCK_FIRST_WAVE_ALLOWED_LAYOUT_MODES = [
   "bottom_line",
   "top_badge",
   "numbered",
+  "underline",
+  "pill",
+  "keynote_bar",
+  "highlight_marker",
+  "short_line",
+  "minimal_number",
+  "icon_prefix",
+  "magazine_left_bar",
+  "magazine_offset",
   "card",
   "quote_mark",
-  "icon_prefix",
 ] as const satisfies readonly TitleBlockLayoutMode[];
 
 export type TitleBlockCatalogLayoutMapping = {

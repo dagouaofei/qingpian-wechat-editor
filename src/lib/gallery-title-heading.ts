@@ -11,6 +11,16 @@ export const GALLERY_HEADING_VARIANT_IDS = [
   "heading_plain_minimal",
   "heading_numbered_section",
   "heading_top_badge_topic",
+  "heading_underline_classic",
+  "heading_pill_topic",
+  "heading_editorial_plain",
+  "heading_keynote_strong",
+  "heading_highlight_marker",
+  "heading_short_line",
+  "heading_icon_prefix",
+  "heading_minimal_number",
+  "heading_magazine_left_bar",
+  "heading_magazine_offset",
 ] as const;
 
 export type GalleryTitleVariantId = (typeof GALLERY_TITLE_VARIANT_IDS)[number];

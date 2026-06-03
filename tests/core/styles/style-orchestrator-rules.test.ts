@@ -189,7 +189,7 @@ describe("style orchestrator rules", () => {
           blockId: fixtureBlockId(1),
           blockType: "title" as const,
           variantId: "title_left_bar_classic",
-          familyId: "simple",
+          familyId: "iconDecor",
           layoutMode: "left_bar",
           source: "explicit" as const,
         },
@@ -199,7 +199,7 @@ describe("style orchestrator rules", () => {
         headingState(
           fixtureBlockId(2),
           "heading_plain_minimal",
-          "simple",
+          "cardTitle",
           "plain",
         ),
       ],
@@ -223,7 +223,7 @@ describe("style orchestrator rules", () => {
           blockId: fixtureBlockId(1),
           blockType: "title" as const,
           variantId: "title_plain_minimal",
-          familyId: "simple",
+          familyId: "cardTitle",
           layoutMode: "plain",
           source: "explicit" as const,
         },
@@ -233,7 +233,7 @@ describe("style orchestrator rules", () => {
         headingState(
           fixtureBlockId(2),
           "heading_plain_minimal",
-          "simple",
+          "cardTitle",
           "plain",
         ),
       ],
@@ -242,8 +242,8 @@ describe("style orchestrator rules", () => {
 
     applyOrchestratorRuleR8(blocks, states, registry, issues);
 
-    expect(states.get(fixtureBlockId(2))?.variantId).not.toBe(
-      "heading_plain_minimal",
+    expect(states.get(fixtureBlockId(2))?.variantId).toBe(
+      "heading_numbered_section",
     );
     expect(issues.some((issue) => issue.code === "orchestrator_r8_fallback")).toBe(
       true,

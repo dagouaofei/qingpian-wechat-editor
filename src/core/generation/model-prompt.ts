@@ -51,8 +51,8 @@ export function buildVolcengineUserPrompt(input: NormalizedInput): string {
     locale: input.metadata?.locale ?? "zh-CN",
     requiredInputType: resolveInputType(input),
     styleAssignmentDefaults: {
-      themeId: "default",
-      presetId: "classic-news",
+      themeId: "businessBlue",
+      presetId: "business",
     },
     outputContract: {
       version: 1,

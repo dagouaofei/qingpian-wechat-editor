@@ -1,14 +1,23 @@
 import type { BlockType } from "@/core/blocks";
 import {
+  CTA_EXPANSION_VARIANTS,
   CTA_FIRST_WAVE_VARIANTS,
+  DIVIDER_EXPANSION_VARIANTS,
   DIVIDER_FIRST_WAVE_VARIANTS,
   HEADING_FIRST_WAVE_VARIANTS,
+  HIGHLIGHT_EXPANSION_VARIANTS,
   HIGHLIGHT_FIRST_WAVE_VARIANTS,
+  IMAGE_PLACEHOLDER_EXPANSION_VARIANTS,
   IMAGE_PLACEHOLDER_FIRST_WAVE_VARIANTS,
+  INFO_CARD_EXPANSION_VARIANTS,
   INFO_CARD_FIRST_WAVE_VARIANTS,
+  LEAD_EXPANSION_VARIANTS,
   LEAD_FIRST_WAVE_VARIANTS,
+  LIST_EXPANSION_VARIANTS,
   LIST_FIRST_WAVE_VARIANTS,
+  PARAGRAPH_EXPANSION_VARIANTS,
   PARAGRAPH_FIRST_WAVE_VARIANTS,
+  QUOTE_EXPANSION_VARIANTS,
   QUOTE_FIRST_WAVE_VARIANTS,
   TITLE_FIRST_WAVE_VARIANTS,
   type CopySafety,
@@ -33,30 +42,53 @@ export type FirstWavePasteQaPlanEntry = {
 export const RELEASE1_FIRST_WAVE_VARIANT_GROUPS = [
   { blockType: "title", scope: "text_first", variants: TITLE_FIRST_WAVE_VARIANTS },
   { blockType: "heading", scope: "text_first", variants: HEADING_FIRST_WAVE_VARIANTS },
-  { blockType: "lead", scope: "text_first", variants: LEAD_FIRST_WAVE_VARIANTS },
+  {
+    blockType: "lead",
+    scope: "text_first",
+    variants: [...LEAD_FIRST_WAVE_VARIANTS, ...LEAD_EXPANSION_VARIANTS],
+  },
   {
     blockType: "paragraph",
     scope: "text_first",
-    variants: PARAGRAPH_FIRST_WAVE_VARIANTS,
+    variants: [...PARAGRAPH_FIRST_WAVE_VARIANTS, ...PARAGRAPH_EXPANSION_VARIANTS],
   },
-  { blockType: "divider", scope: "text_first", variants: DIVIDER_FIRST_WAVE_VARIANTS },
-  { blockType: "list", scope: "structured", variants: LIST_FIRST_WAVE_VARIANTS },
-  { blockType: "quote", scope: "structured", variants: QUOTE_FIRST_WAVE_VARIANTS },
+  {
+    blockType: "divider",
+    scope: "text_first",
+    variants: [...DIVIDER_FIRST_WAVE_VARIANTS, ...DIVIDER_EXPANSION_VARIANTS],
+  },
+  {
+    blockType: "list",
+    scope: "structured",
+    variants: [...LIST_FIRST_WAVE_VARIANTS, ...LIST_EXPANSION_VARIANTS],
+  },
+  {
+    blockType: "quote",
+    scope: "structured",
+    variants: [...QUOTE_FIRST_WAVE_VARIANTS, ...QUOTE_EXPANSION_VARIANTS],
+  },
   {
     blockType: "highlight",
     scope: "structured",
-    variants: HIGHLIGHT_FIRST_WAVE_VARIANTS,
+    variants: [...HIGHLIGHT_FIRST_WAVE_VARIANTS, ...HIGHLIGHT_EXPANSION_VARIANTS],
   },
   {
     blockType: "info_card",
     scope: "structured",
-    variants: INFO_CARD_FIRST_WAVE_VARIANTS,
+    variants: [...INFO_CARD_FIRST_WAVE_VARIANTS, ...INFO_CARD_EXPANSION_VARIANTS],
   },
-  { blockType: "cta", scope: "structured", variants: CTA_FIRST_WAVE_VARIANTS },
+  {
+    blockType: "cta",
+    scope: "structured",
+    variants: [...CTA_FIRST_WAVE_VARIANTS, ...CTA_EXPANSION_VARIANTS],
+  },
   {
     blockType: "image_placeholder",
     scope: "structured",
-    variants: IMAGE_PLACEHOLDER_FIRST_WAVE_VARIANTS,
+    variants: [
+      ...IMAGE_PLACEHOLDER_FIRST_WAVE_VARIANTS,
+      ...IMAGE_PLACEHOLDER_EXPANSION_VARIANTS,
+    ],
   },
 ] as const satisfies readonly {
   blockType: BlockType;

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 
 import { GalleryCopyPreviewPanel } from "@/components/gallery/gallery-copy-preview-panel";
-import { GalleryTitleHeadingControls } from "@/components/gallery/gallery-title-heading-controls";
+import { GalleryBlockVariantControls } from "@/components/gallery/gallery-block-variant-controls";
 import { ArticlePreviewPanel } from "@/components/preview/article-preview-panel";
 import { PreviewStyleControls } from "@/components/preview/preview-style-controls";
 import { PageShell } from "@/components/ui-shell/page-shell";
@@ -22,6 +22,7 @@ import {
 } from "@/fixtures/gallery-articles";
 import {
   DEFAULT_GALLERY_STYLE_CONTROL,
+  applyGalleryArticleStyle,
   type GalleryStyleControlState,
 } from "@/lib/gallery-style-controls";
 import { renderGalleryPreview } from "@/lib/render-gallery-preview";
@@ -93,12 +94,35 @@ export function GalleryPageClient() {
             <ShellCard>
               <PreviewStyleControls
                 value={styleControl}
-                onChange={(next) => setStyleControl({ ...styleControl, ...next })}
+                onChange={(next) => {
+                  if (next.articleStyle && next.articleStyle !== styleControl.articleStyle) {
+                    setStyleControl(
+                      applyGalleryArticleStyle(styleControl, next.articleStyle),
+                    );
+                    return;
+                  }
+                  setStyleControl({ ...styleControl, ...next });
+                }}
               />
+              <label className="mt-3 flex items-center gap-2 text-xs text-slate-600">
+                <input
+                  type="checkbox"
+                  data-testid="gallery-lock-color-palette"
+                  checked={Boolean(styleControl.lockColorPalette)}
+                  onChange={(event) =>
+                    setStyleControl({
+                      ...styleControl,
+                      lockColorPalette: event.target.checked,
+                    })
+                  }
+                />
+                切换风格时锁定配色
+              </label>
             </ShellCard>
 
             <ShellCard>
-              <GalleryTitleHeadingControls
+              <GalleryBlockVariantControls
+                sampleId={sampleId}
                 value={styleControl}
                 onChange={setStyleControl}
               />

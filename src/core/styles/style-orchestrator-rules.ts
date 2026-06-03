@@ -111,7 +111,7 @@ export function applyOrchestratorRuleR8(
     ORCHESTRATOR_RULE_R8,
     `title and first heading must not share family "${headingState.familyId}" with layout "${headingState.layoutMode}"`,
     issues,
-    [titleState.variantId],
+    [titleState.variantId, headingState.variantId],
     {
       familyId: titleState.familyId,
       layoutMode: titleState.layoutMode,
@@ -119,7 +119,10 @@ export function applyOrchestratorRuleR8(
   );
 }
 
-/** R1 — 相邻 heading 不得使用同 variant */
+/**
+ * R1 — 相邻 heading 不得使用同 variant（历史多样性规则）。
+ * Miaopian 文章级小标题统一 variant 后不再应用，见 `applyOrchestratorRhythmRules`。
+ */
 export function applyOrchestratorRuleR1(
   blocks: Block[],
   states: Map<string, OrchestratorBlockStyleState>,
@@ -215,6 +218,6 @@ export function applyOrchestratorRhythmRules(
   options?: { maxAssetReuse?: number },
 ): void {
   applyOrchestratorRuleR8(blocks, states, registry, issues);
-  applyOrchestratorRuleR1(blocks, states, registry, issues);
+  // R1 disabled: article-level heading variant unity (miaopian titleVariantPool model).
   applyOrchestratorRuleR2(states, issues, options?.maxAssetReuse ?? 2);
 }

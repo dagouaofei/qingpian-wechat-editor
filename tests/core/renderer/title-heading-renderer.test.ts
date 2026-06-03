@@ -34,6 +34,56 @@ const VARIANT_MATRIX = [
     blockType: "heading" as const,
     layoutMode: "top_badge",
   },
+  {
+    variantId: "heading_underline_classic",
+    blockType: "heading" as const,
+    layoutMode: "underline",
+  },
+  {
+    variantId: "heading_pill_topic",
+    blockType: "heading" as const,
+    layoutMode: "pill",
+  },
+  {
+    variantId: "heading_editorial_plain",
+    blockType: "heading" as const,
+    layoutMode: "plain",
+  },
+  {
+    variantId: "heading_keynote_strong",
+    blockType: "heading" as const,
+    layoutMode: "keynote_bar",
+  },
+  {
+    variantId: "heading_highlight_marker",
+    blockType: "heading" as const,
+    layoutMode: "highlight_marker",
+  },
+  {
+    variantId: "heading_short_line",
+    blockType: "heading" as const,
+    layoutMode: "short_line",
+  },
+  {
+    variantId: "heading_icon_prefix",
+    blockType: "heading" as const,
+    layoutMode: "icon_prefix",
+  },
+  {
+    variantId: "heading_minimal_number",
+    blockType: "heading" as const,
+    layoutMode: "minimal_number",
+  },
+  {
+    variantId: "heading_magazine_left_bar",
+    blockType: "heading" as const,
+    layoutMode: "magazine_left_bar",
+  },
+  {
+    variantId: "heading_magazine_offset",
+    blockType: "heading" as const,
+    layoutMode: "magazine_offset",
+  },
 ];
 
 describe("title / heading preview renderer", () => {
@@ -192,7 +242,7 @@ describe("title / heading preview renderer", () => {
     });
   });
 
-  it("heading_top_badge_topic disables badge when presentation and meta label missing", () => {
+  it("heading_top_badge_topic provides default topic badge when presentation missing", () => {
     const article = createTitleHeadingArticleFixture({
       blockType: "heading",
       variantId: "heading_top_badge_topic",
@@ -214,13 +264,14 @@ describe("title / heading preview renderer", () => {
 
     expect(result.ok).toBe(true);
     expect(result.output).toMatchObject({
+      presentation: expect.objectContaining({ badgeText: "话题", iconCapsuleLabel: "签" }),
       slots: expect.objectContaining({
-        badge: expect.objectContaining({ state: "disabled" }),
+        badge: expect.objectContaining({
+          state: "fallback",
+          content: "话题",
+        }),
       }),
     });
-    expect(result.warnings.some((warning) => warning.code === "optional_slot_disabled")).toBe(
-      true,
-    );
   });
 
   it("covers all first-wave variant ids in matrix", () => {

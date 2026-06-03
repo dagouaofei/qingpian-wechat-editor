@@ -34,11 +34,7 @@ const RELEASE1_BLOCK_TYPES = [
   "image_placeholder",
 ] as const satisfies readonly BlockType[];
 
-const FORBIDDEN_TITLE_LAYOUT_MODES = [
-  "magazine_left_bar",
-  "overlay",
-  "offset_background",
-] as const;
+const FORBIDDEN_TITLE_LAYOUT_MODES = ["overlay", "offset_background"] as const;
 
 function expectNoUnsafeKeys(value: unknown): void {
   if (!value || typeof value !== "object") {
@@ -78,10 +74,10 @@ function expectVariantValidationOk(variant: VariantDefinition): void {
 }
 
 describe("first-wave required variant coverage", () => {
-  it("covers exactly 33 release1_required variants", () => {
-    expect(FIRST_WAVE_REQUIRED_VARIANTS).toHaveLength(33);
-    expect(FIRST_WAVE_REQUIRED_VARIANT_IDS).toHaveLength(33);
-    expect(new Set(FIRST_WAVE_REQUIRED_VARIANT_IDS).size).toBe(33);
+  it("covers exactly 97 release1_required variants", () => {
+    expect(FIRST_WAVE_REQUIRED_VARIANTS).toHaveLength(97);
+    expect(FIRST_WAVE_REQUIRED_VARIANT_IDS).toHaveLength(97);
+    expect(new Set(FIRST_WAVE_REQUIRED_VARIANT_IDS).size).toBe(97);
 
     for (const variant of FIRST_WAVE_REQUIRED_VARIANTS) {
       expect(variant.schemaVersion).toBe(STYLE_SCHEMA_VERSION);
@@ -91,19 +87,19 @@ describe("first-wave required variant coverage", () => {
     }
   });
 
-  it("covers the 11 Release 1 block types with exactly 3 variants each", () => {
+  it("covers the 11 Release 1 block types with expected variant counts", () => {
     const actualBlockTypes = new Set(
       FIRST_WAVE_REQUIRED_VARIANTS.map((variant) => variant.blockType),
     );
     expect(actualBlockTypes).toEqual(new Set(RELEASE1_BLOCK_TYPES));
 
     for (const blockType of RELEASE1_BLOCK_TYPES) {
-      expect(FIRST_WAVE_REQUIRED_VARIANT_COUNT_BY_BLOCK[blockType]).toBe(3);
+      const expected = FIRST_WAVE_REQUIRED_VARIANT_COUNT_BY_BLOCK[blockType];
       expect(
         FIRST_WAVE_REQUIRED_VARIANTS.filter(
           (variant) => variant.blockType === blockType,
         ),
-      ).toHaveLength(3);
+      ).toHaveLength(expected);
     }
   });
 
@@ -128,7 +124,7 @@ describe("first-wave required variant coverage", () => {
     const titleBlockVariants = FIRST_WAVE_REQUIRED_VARIANTS.filter(
       (variant) => variant.blockType === "title" || variant.blockType === "heading",
     );
-    expect(titleBlockVariants).toHaveLength(6);
+    expect(titleBlockVariants).toHaveLength(16);
 
     for (const variant of titleBlockVariants) {
       expect(variant.componentProtocol?.componentId).toBe(
@@ -199,7 +195,7 @@ describe("first-wave required variant coverage", () => {
 
   it("builds and validates a complete first-wave StyleRegistry", () => {
     const registry = createFirstWaveRequiredVariantRegistry();
-    expect(registry.variants).toHaveLength(33);
+    expect(registry.variants).toHaveLength(97);
 
     const result = validateStyleRegistry(registry);
     expect(result.ok, result.issues.map((i) => i.message).join("; ")).toBe(
@@ -212,9 +208,10 @@ describe("first-wave required variant coverage", () => {
     const registry = createFirstWaveRequiredVariantRegistry();
 
     expect(getVariantsForBlockType(registry, "title")).toHaveLength(3);
-    expect(getVariantsForBlockType(registry, "paragraph")).toHaveLength(3);
+    expect(getVariantsForBlockType(registry, "paragraph")).toHaveLength(9);
+    expect(getVariantsForBlockType(registry, "heading")).toHaveLength(13);
     expect(getVariantsForBlockType(registry, "image_placeholder")).toHaveLength(
-      3,
+      9,
     );
 
     for (const variantId of FIRST_WAVE_REQUIRED_VARIANT_IDS) {

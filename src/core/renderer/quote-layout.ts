@@ -22,16 +22,12 @@ export type QuoteTypography = {
   marginBlock: string;
 };
 
-const VARIANT_LAYOUT_MAP: Record<string, QuoteLayoutKind> = {
-  quote_plain: "plain",
-  quote_left_bar: "left_bar",
-  quote_card: "card",
-};
+import { QUOTE_VARIANT_LAYOUT } from "./expansion-layout-maps";
 
 export function resolveQuoteLayout(
   variantId: string,
 ): QuoteLayoutKind | undefined {
-  return VARIANT_LAYOUT_MAP[variantId];
+  return QUOTE_VARIANT_LAYOUT[variantId];
 }
 
 export function resolveQuoteTypography(

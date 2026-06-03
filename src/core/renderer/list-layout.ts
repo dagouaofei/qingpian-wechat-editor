@@ -24,14 +24,10 @@ export type ListTypography = {
   itemGap: string;
 };
 
-const VARIANT_LAYOUT_MAP: Record<string, ListLayoutKind> = {
-  list_plain_bullets: "plain_bullets",
-  list_numbered_steps: "numbered_steps",
-  list_checklist_cards: "checklist_cards",
-};
+import { LIST_VARIANT_LAYOUT } from "./expansion-layout-maps";
 
 export function resolveListLayout(variantId: string): ListLayoutKind | undefined {
-  return VARIANT_LAYOUT_MAP[variantId];
+  return LIST_VARIANT_LAYOUT[variantId];
 }
 
 export function resolveListTypography(

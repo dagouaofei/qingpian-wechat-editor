@@ -13,12 +13,12 @@ describe("renderArticlePreviewClient", () => {
     const decorative = renderArticlePreviewClient(
       styleSelectionArticleFixture,
       styleSelectionNormalizedInput,
-      { articleStyle: "classic-news", colorPalette: "default" },
+      { articleStyle: "business", colorPalette: "businessBlue" },
     );
     const plain = renderArticlePreviewClient(
       styleSelectionArticleFixture,
       styleSelectionNormalizedInput,
-      { articleStyle: "classic", colorPalette: "default" },
+      { articleStyle: "warm", colorPalette: "businessBlue" },
     );
 
     const decorativeVariants = decorative.previewBlocks.map((block) => block.variantId);
@@ -33,34 +33,34 @@ describe("renderArticlePreviewClient", () => {
     const defaultPalette = renderArticlePreviewClient(
       styleSelectionMinimalArticleFixture,
       styleSelectionNormalizedInput,
-      { articleStyle: "classic-news", colorPalette: "default" },
+      { articleStyle: "business", colorPalette: "businessBlue" },
     );
     const warmPalette = renderArticlePreviewClient(
       styleSelectionMinimalArticleFixture,
       styleSelectionNormalizedInput,
-      { articleStyle: "classic-news", colorPalette: "warm" },
+      { articleStyle: "business", colorPalette: "creamOrange" },
     );
 
     expect(defaultPalette.clipboard.textHtml).not.toBe(warmPalette.clipboard.textHtml);
-    expect(defaultPalette.article.styleAssignment.themeId).toBe("default");
-    expect(warmPalette.article.styleAssignment.themeId).toBe("warm-editorial");
-    expect(warmPalette.clipboard.textHtml).toContain("#3d2c1e");
-    expect(warmPalette.clipboard.textHtml).toContain("#dcc8b8");
-    expect(warmPalette.clipboard.textHtml).not.toContain("#333333");
-    expect(warmPalette.clipboard.textHtml).not.toContain("#576b95");
+    expect(defaultPalette.article.styleAssignment.themeId).toBe("businessBlue");
+    expect(warmPalette.article.styleAssignment.themeId).toBe("creamOrange");
+    expect(warmPalette.clipboard.textHtml).toContain("#292524");
+    expect(warmPalette.clipboard.textHtml).toContain("#ea580c");
+    expect(warmPalette.clipboard.textHtml).not.toContain("#0f172a");
+    expect(warmPalette.clipboard.textHtml).not.toContain("#2563eb");
   });
 
-  it("builds normalized style intent for classic vs classic-news", () => {
-    const classicInput = normalizeInputRequest({
+  it("builds normalized style intent for warm vs business", () => {
+    const warmInput = normalizeInputRequest({
       mode: "topic_only",
       topic: "测试",
-      styleIntent: { presetHint: "classic", densityHint: "light" },
+      styleIntent: { presetHint: "warm", densityHint: "light" },
     });
 
     const rendered = renderArticlePreviewClient(
       styleSelectionMinimalArticleFixture,
-      classicInput,
-      { articleStyle: "classic", colorPalette: "default" },
+      warmInput,
+      { articleStyle: "warm", colorPalette: "creamOrange" },
     );
 
     expect(rendered.previewBlocks.some((block) => block.ok)).toBe(true);

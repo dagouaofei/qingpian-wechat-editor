@@ -19,6 +19,7 @@ const titleBlock: SerializedPreviewBlock = {
     variantId: "title-classic",
     layoutMode: "plain",
     text: "春季护肤指南",
+    presentation: {},
     slots: {},
   },
   issues: [],

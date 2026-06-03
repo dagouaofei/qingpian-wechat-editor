@@ -2,6 +2,8 @@
 
 import {
   PREVIEW_ARTICLE_STYLE_OPTIONS,
+  applyArticleStyleToPreviewControl,
+  type PreviewArticleStyleId,
   type PreviewStyleControlState,
 } from "@/lib/preview-style-controls";
 import { PREVIEW_COLOR_PALETTE_OPTIONS } from "@/lib/preview-color-palette";
@@ -38,10 +40,12 @@ export function PreviewStyleControls({
           disabled={disabled}
           value={value.articleStyle}
           onChange={(event) =>
-            onChange({
-              ...value,
-              articleStyle: event.target.value as PreviewStyleControlState["articleStyle"],
-            })
+            onChange(
+              applyArticleStyleToPreviewControl(
+                value,
+                event.target.value as PreviewArticleStyleId,
+              ),
+            )
           }
         >
           {PREVIEW_ARTICLE_STYLE_OPTIONS.map((option) => (

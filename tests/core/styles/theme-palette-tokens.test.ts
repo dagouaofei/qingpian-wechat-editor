@@ -11,20 +11,20 @@ describe("resolveThemePaletteTokens", () => {
   const registry = createFirstWaveRequiredVariantRegistry();
 
   it("returns default palette for default theme", () => {
-    const theme = getThemeById(registry, "default")!;
+    const theme = getThemeById(registry, "businessBlue")!;
     const palette = resolveThemePaletteTokens(theme.tokens);
 
-    expect(palette.textAccent).toBe("#576b95");
-    expect(palette.bgSoft).toBe("#f9f9f9");
+    expect(palette.textAccent).toBe("#2563eb");
+    expect(palette.bgSoft).toBe("#f1f5f9");
   });
 
   it("returns warm palette for warm-editorial theme", () => {
-    const theme = getThemeById(registry, "warm-editorial")!;
+    const theme = getThemeById(registry, "creamOrange")!;
     const palette = resolveThemePaletteTokens(theme.tokens);
 
-    expect(palette.textDefault).toBe("#3d2c1e");
-    expect(palette.textAccent).toBe("#c45c26");
-    expect(palette.bgBandBlue).toBe("#fff7ed");
+    expect(palette.textDefault).toBe("#292524");
+    expect(palette.textAccent).toBe("#ea580c");
+    expect(palette.bgBandBlue).toBe("#fffdfb");
     expect(palette).not.toEqual(DEFAULT_THEME_PALETTE);
   });
 });

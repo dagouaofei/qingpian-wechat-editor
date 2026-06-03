@@ -13,8 +13,8 @@ export function createInfoCardArticleFixture(options: {
   return parseArticle({
     ...articleFixtureBase(),
     styleAssignment: {
-      themeId: "default",
-      presetId: "classic-news",
+      themeId: "businessBlue",
+      presetId: "business",
       blockOverrides: [{ blockId, variantId: options.variantId }],
     },
     blocks: [
@@ -50,10 +50,10 @@ export const INFO_CARD_VARIANT_REGISTRY = {
   ],
   presets: [
     {
-      id: "classic-news",
+      id: "business",
       name: "Classic News",
       schemaVersion: STYLE_SCHEMA_VERSION,
-      themeId: "default",
+      themeId: "businessBlue",
       defaultVariantByBlockType: {
         info_card: "info_card_key_takeaway",
       },

@@ -169,8 +169,8 @@ describe("schema fixtures integration", () => {
       const result = validateArticle({
         ...minimalArticleFixture,
         styleAssignment: {
-          themeId: "default",
-          presetId: "classic-news",
+          themeId: "businessBlue",
+          presetId: "business",
           style: { color: "red" },
         },
       });

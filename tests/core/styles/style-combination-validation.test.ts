@@ -25,7 +25,7 @@ describe("style combination validation", () => {
       id: "broken-preset",
       name: "Broken",
       schemaVersion: STYLE_SCHEMA_VERSION,
-      themeId: "default",
+      themeId: "businessBlue",
       defaultVariantByBlockType: {
         title: "title_does_not_exist",
       },
@@ -37,7 +37,7 @@ describe("style combination validation", () => {
 
   it("errors when preset references unknown theme", () => {
     const result = validatePresetThemeCombination(
-      { presetId: "classic-news", themeId: "missing-theme" },
+      { presetId: "business", themeId: "missing-theme" },
       { registry },
     );
     expect(result.ok).toBe(false);
@@ -46,8 +46,8 @@ describe("style combination validation", () => {
 
   it("validates block override density and protocol boundaries together", () => {
     const result = validateThemePresetDensitySlotCombination({
-      presetId: "classic-news",
-      themeId: "default",
+      presetId: "business",
+      themeId: "businessBlue",
       density: "standard",
       blockOverrides: [
         {
@@ -104,7 +104,7 @@ describe("style combination validation", () => {
           id: "candidate-preset",
           name: "Candidate Preset",
           schemaVersion: STYLE_SCHEMA_VERSION,
-          themeId: "default",
+          themeId: "businessBlue",
           defaultVariantByBlockType: {
             heading: "heading_candidate_only",
           },

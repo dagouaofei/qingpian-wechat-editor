@@ -198,10 +198,10 @@ describe("structured first-wave variants", () => {
     );
   });
 
-  it("forms the 33-variant first-wave aggregate", () => {
+  it("forms the 97-variant release1 aggregate", () => {
     const ids = FIRST_WAVE_REQUIRED_VARIANTS.map((variant) => variant.id);
-    expect(FIRST_WAVE_REQUIRED_VARIANTS).toHaveLength(33);
-    expect(new Set(ids).size).toBe(33);
+    expect(FIRST_WAVE_REQUIRED_VARIANTS).toHaveLength(97);
+    expect(new Set(ids).size).toBe(97);
   });
 
   it("lists expected structured ids", () => {

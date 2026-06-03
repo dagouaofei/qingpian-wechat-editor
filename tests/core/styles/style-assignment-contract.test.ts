@@ -28,7 +28,7 @@ const validSelectionRequest = {
     headingCount: 1,
     densityHint: "standard" as const,
   },
-  preferredPresetId: "classic-news",
+  preferredPresetId: "business",
   blockStyleHints: [
     {
       blockId: fixtureBlockId(1),
@@ -50,7 +50,7 @@ describe("style assignment contract schemas", () => {
     it("parses a valid StyleSelectionRequest", () => {
       expect(parseStyleSelectionRequest(validSelectionRequest)).toMatchObject({
         articleId: FIXTURE_ARTICLE_ID,
-        preferredPresetId: "classic-news",
+        preferredPresetId: "business",
       });
     });
 
@@ -116,7 +116,7 @@ describe("style assignment contract schemas", () => {
 
   describe("StyleAssignmentPatch", () => {
     const validPatch = {
-      presetId: "classic-news",
+      presetId: "business",
       blockOverrides: [
         {
           blockId: fixtureBlockId(1),
@@ -136,7 +136,7 @@ describe("style assignment contract schemas", () => {
 
     it("parses a valid StyleAssignmentPatch", () => {
       expect(styleAssignmentPatchSchema.parse(validPatch)).toMatchObject({
-        presetId: "classic-news",
+        presetId: "business",
       });
     });
 
@@ -180,13 +180,13 @@ describe("style assignment contract schemas", () => {
       expect(
         parseArticleStylePlan({
           articleId: FIXTURE_ARTICLE_ID,
-          presetId: "classic-news",
-          themeId: "default",
+          presetId: "business",
+          themeId: "businessBlue",
           density: "standard",
         }),
       ).toMatchObject({
-        presetId: "classic-news",
-        themeId: "default",
+        presetId: "business",
+        themeId: "businessBlue",
       });
     });
 
@@ -194,8 +194,8 @@ describe("style assignment contract schemas", () => {
       expect(
         articleStylePlanSchema.parse({
           articleId: FIXTURE_ARTICLE_ID,
-          presetId: "classic-news",
-          themeId: "default",
+          presetId: "business",
+          themeId: "businessBlue",
           orchestratorHints: {
             dedupeAdjacentHeadings: true,
             maxAssetReuse: 2,

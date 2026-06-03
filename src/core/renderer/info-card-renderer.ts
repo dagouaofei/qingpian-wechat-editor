@@ -1,5 +1,5 @@
 import type { InfoCardBlock } from "@/core/blocks";
-import { INFO_CARD_FIRST_WAVE_VARIANTS } from "@/core/styles";
+import { variantIdsForBlockType } from "@/core/styles";
 
 import { renderInfoCardCopyHtml } from "@/core/copy/info-card-copy";
 import { createRendererIssue, partitionRendererIssues } from "./issues";
@@ -16,9 +16,7 @@ import type {
   RendererResult,
 } from "./types";
 
-export const INFO_CARD_SUPPORTED_VARIANT_IDS = INFO_CARD_FIRST_WAVE_VARIANTS.map(
-  (variant) => variant.id,
-);
+export const INFO_CARD_SUPPORTED_VARIANT_IDS = variantIdsForBlockType("info_card");
 
 export function validateInfoCardRenderContext(
   context: BlockRenderContext,

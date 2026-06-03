@@ -52,6 +52,21 @@ export function resolveArticleAwareVariantId(
 ): string | undefined {
   const density = styleIntent?.densityHint ?? "medium";
 
+  if (blockType === "heading") {
+    if (density === "light") {
+      return PLAIN_VARIANT_BY_BLOCK_TYPE.heading;
+    }
+    const rotation = ARTICLE_VARIANT_ROTATION.heading;
+    if (!rotation?.length) {
+      return PLAIN_VARIANT_BY_BLOCK_TYPE.heading;
+    }
+    if (density === "strong") {
+      const decorative = rotation.filter((id) => id !== "heading_plain_minimal");
+      return (decorative[0] ?? rotation[0]) as string;
+    }
+    return rotation[0];
+  }
+
   if (density === "light") {
     return PLAIN_VARIANT_BY_BLOCK_TYPE[blockType];
   }

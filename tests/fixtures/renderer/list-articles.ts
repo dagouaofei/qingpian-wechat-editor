@@ -13,8 +13,8 @@ export function createListArticleFixture(options: {
   return parseArticle({
     ...articleFixtureBase(),
     styleAssignment: {
-      themeId: "default",
-      presetId: "classic-news",
+      themeId: "businessBlue",
+      presetId: "business",
       blockOverrides: [{ blockId, variantId: options.variantId }],
     },
     blocks: [
@@ -53,10 +53,10 @@ export const LIST_VARIANT_REGISTRY = {
   ],
   presets: [
     {
-      id: "classic-news",
+      id: "business",
       name: "Classic News",
       schemaVersion: STYLE_SCHEMA_VERSION,
-      themeId: "default",
+      themeId: "businessBlue",
       defaultVariantByBlockType: {
         list: "list_plain_bullets",
       },

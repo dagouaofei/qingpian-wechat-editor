@@ -4,11 +4,7 @@ import type { ResolvedBlockStyleView } from "./types";
 
 export type DividerLayoutKind = "simple_line" | "dotted_line" | "section_space";
 
-const VARIANT_LAYOUT_MAP: Record<string, DividerLayoutKind> = {
-  divider_simple_line: "simple_line",
-  divider_dotted_line: "dotted_line",
-  divider_section_space: "section_space",
-};
+import { DIVIDER_VARIANT_LAYOUT } from "./expansion-layout-maps";
 
 export type DividerSpacing = {
   marginBlock: string;
@@ -18,7 +14,7 @@ export type DividerSpacing = {
 export function resolveDividerLayout(
   variantId: string,
 ): DividerLayoutKind | undefined {
-  return VARIANT_LAYOUT_MAP[variantId];
+  return DIVIDER_VARIANT_LAYOUT[variantId];
 }
 
 export function resolveDividerSpacing(

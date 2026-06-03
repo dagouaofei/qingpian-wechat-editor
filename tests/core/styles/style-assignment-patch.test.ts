@@ -26,7 +26,7 @@ describe("style assignment patch merge", () => {
   it("merges patch into styleAssignment without touching blocks content", () => {
     const patch = {
       presetId: "editorial-clean",
-      themeId: "default",
+      themeId: "businessBlue",
       blockOverrides: [
         {
           blockId: fixtureBlockId(1),
@@ -41,7 +41,7 @@ describe("style assignment patch merge", () => {
     expect(result.ok).toBe(true);
     expect(article.styleAssignment).toMatchObject({
       presetId: "editorial-clean",
-      themeId: "default",
+      themeId: "businessBlue",
       blockOverrides: [{ blockId: fixtureBlockId(1), variantId: "title-left" }],
     });
     expect(article.blocks).toEqual(baseArticle.blocks);
@@ -62,7 +62,7 @@ describe("style assignment patch merge", () => {
 
   it("returns explicit validation issues for invalid patch schema input", () => {
     const result = mergeStyleAssignmentPatch(baseArticle.styleAssignment, {
-      presetId: "classic-news",
+      presetId: "business",
       meta: {
         source: "ai_style_selection",
         generatedAt: FIXTURE_ISO,
@@ -105,8 +105,8 @@ describe("style assignment patch merge", () => {
 
   it("merges slotOverrides for an existing block override entry", () => {
     const current = {
-      themeId: "default",
-      presetId: "classic-news",
+      themeId: "businessBlue",
+      presetId: "business",
       blockOverrides: [
         {
           blockId: fixtureBlockId(1),

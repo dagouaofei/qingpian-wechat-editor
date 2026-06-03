@@ -26,10 +26,10 @@ const themeFixture = {
 };
 
 const presetFixture = {
-  id: "classic-news",
+  id: "business",
   name: "Classic News",
   schemaVersion: STYLE_SCHEMA_VERSION,
-  themeId: "default",
+  themeId: "businessBlue",
   description: "Classic news preset",
   defaultVariantByBlockType: {
     title: "title-centered",
@@ -78,8 +78,8 @@ describe("style system schema contract", () => {
   describe("presetDefinitionSchema", () => {
     it("parses valid PresetDefinition", () => {
       expect(presetDefinitionSchema.parse(presetFixture)).toMatchObject({
-        id: "classic-news",
-        themeId: "default",
+        id: "business",
+        themeId: "businessBlue",
       });
     });
 

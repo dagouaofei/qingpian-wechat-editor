@@ -20,8 +20,8 @@ export function createCtaArticleFixture(options: {
   return parseArticle({
     ...articleFixtureBase(),
     styleAssignment: {
-      themeId: "default",
-      presetId: "classic-news",
+      themeId: "businessBlue",
+      presetId: "business",
       blockOverrides: [{ blockId, variantId: options.variantId }],
     },
     blocks: [
@@ -47,8 +47,8 @@ export function createImagePlaceholderArticleFixture(options: {
   return parseArticle({
     ...articleFixtureBase(),
     styleAssignment: {
-      themeId: "default",
-      presetId: "classic-news",
+      themeId: "businessBlue",
+      presetId: "business",
       blockOverrides: [{ blockId, variantId: options.variantId }],
     },
     blocks: [
@@ -85,10 +85,10 @@ export const CTA_IMAGE_PLACEHOLDER_VARIANT_REGISTRY = {
   ],
   presets: [
     {
-      id: "classic-news",
+      id: "business",
       name: "Classic News",
       schemaVersion: STYLE_SCHEMA_VERSION,
-      themeId: "default",
+      themeId: "businessBlue",
       defaultVariantByBlockType: {
         cta: "cta_plain_text",
         image_placeholder: "image_placeholder_simple",

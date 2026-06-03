@@ -26,13 +26,13 @@ describe("renderGalleryPreview", () => {
   it("reacts to style control changes", () => {
     const decorative = renderGalleryPreview("sample-knowledge", {
       ...DEFAULT_GALLERY_STYLE_CONTROL,
-      articleStyle: "classic-news",
-      colorPalette: "default",
+      articleStyle: "business",
+      colorPalette: "businessBlue",
     });
     const plain = renderGalleryPreview("sample-knowledge", {
       ...DEFAULT_GALLERY_STYLE_CONTROL,
-      articleStyle: "classic",
-      colorPalette: "default",
+      articleStyle: "warm",
+      colorPalette: "creamOrange",
     });
 
     expect(decorative.variantIds).not.toEqual(plain.variantIds);

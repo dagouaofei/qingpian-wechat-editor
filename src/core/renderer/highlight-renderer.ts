@@ -1,5 +1,5 @@
 import type { HighlightBlock } from "@/core/blocks";
-import { HIGHLIGHT_FIRST_WAVE_VARIANTS } from "@/core/styles";
+import { variantIdsForBlockType } from "@/core/styles";
 
 import { renderHighlightCopyHtml } from "@/core/copy/highlight-copy";
 import { createRendererIssue, partitionRendererIssues } from "./issues";
@@ -16,9 +16,7 @@ import type {
   RendererResult,
 } from "./types";
 
-export const HIGHLIGHT_SUPPORTED_VARIANT_IDS = HIGHLIGHT_FIRST_WAVE_VARIANTS.map(
-  (variant) => variant.id,
-);
+export const HIGHLIGHT_SUPPORTED_VARIANT_IDS = variantIdsForBlockType("highlight");
 
 export function validateHighlightRenderContext(
   context: BlockRenderContext,

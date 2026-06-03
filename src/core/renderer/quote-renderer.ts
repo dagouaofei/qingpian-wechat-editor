@@ -1,5 +1,5 @@
 import type { QuoteBlock } from "@/core/blocks";
-import { QUOTE_FIRST_WAVE_VARIANTS } from "@/core/styles";
+import { variantIdsForBlockType } from "@/core/styles";
 
 import { renderQuoteCopyHtml } from "@/core/copy/quote-copy";
 import { createRendererIssue, partitionRendererIssues } from "./issues";
@@ -16,9 +16,7 @@ import type {
   RendererResult,
 } from "./types";
 
-export const QUOTE_SUPPORTED_VARIANT_IDS = QUOTE_FIRST_WAVE_VARIANTS.map(
-  (variant) => variant.id,
-);
+export const QUOTE_SUPPORTED_VARIANT_IDS = variantIdsForBlockType("quote");
 
 export function validateQuoteRenderContext(
   context: BlockRenderContext,

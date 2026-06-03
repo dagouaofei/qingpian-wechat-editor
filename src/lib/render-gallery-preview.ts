@@ -6,15 +6,14 @@ import {
   articleSampleRawForId,
   type ArticleSampleId,
 } from "@/fixtures/article-samples";
-import type { GalleryStyleControlState } from "@/lib/gallery-style-controls";
 import {
-  applyBlockOverridesToArticle,
-  galleryTitleHeadingOverridesForArticle,
-  type GalleryHeadingVariantId,
-  type GalleryTitleVariantId,
-} from "@/lib/gallery-title-heading";
+  DEFAULT_GALLERY_STYLE_CONTROL,
+  type GalleryStyleControlState,
+} from "@/lib/gallery-style-controls";
+import { galleryBlockOverridesForArticle } from "@/lib/gallery-block-variants";
+import { applyBlockOverridesToArticle } from "@/lib/gallery-title-heading";
 import {
-  DEFAULT_PREVIEW_STYLE_CONTROL,
+  buildNormalizedInputForPreviewControl,
   type PreviewStyleControlState,
 } from "@/lib/preview-style-controls";
 import { renderArticlePreviewClient } from "@/lib/render-article-preview-client";
@@ -25,7 +24,7 @@ const GALLERY_NORMALIZED_INPUT: NormalizedInput = parseAndNormalizeInputRequest(
   mode: "topic_only",
   topic: "Gallery fixture",
   styleIntent: {
-    presetHint: "classic-news",
+    presetHint: "business",
     densityHint: "medium",
   },
 });
@@ -43,27 +42,11 @@ export type GalleryPreviewResult = {
   };
 };
 
-function resolveTitleHeadingOverrideIds(control: GalleryStyleControlState): {
-  titleVariantId?: GalleryTitleVariantId;
-  headingVariantId?: GalleryHeadingVariantId;
-} {
-  return {
-    titleVariantId: control.titleVariantId || undefined,
-    headingVariantId: control.headingVariantId || undefined,
-  };
-}
-
 export function renderGalleryPreview(
   sampleId: ArticleSampleId,
-  control: GalleryStyleControlState = {
-    ...DEFAULT_PREVIEW_STYLE_CONTROL,
-    titleVariantId: "",
-    headingVariantId: "",
-    focusTitleHeading: false,
-  },
+  control: GalleryStyleControlState = DEFAULT_GALLERY_STYLE_CONTROL,
 ): GalleryPreviewResult {
   const article = parseArticle(articleSampleRawForId(sampleId));
-  const overrideIds = resolveTitleHeadingOverrideIds(control);
 
   const rendered = renderArticlePreviewClient(
     article,
@@ -73,12 +56,7 @@ export function renderGalleryPreview(
       postStyleSelectionPatch: (styledArticle) =>
         applyBlockOverridesToArticle(
           styledArticle,
-          galleryTitleHeadingOverridesForArticle(
-            styledArticle,
-            sampleId,
-            overrideIds.titleVariantId,
-            overrideIds.headingVariantId,
-          ),
+          galleryBlockOverridesForArticle(styledArticle, sampleId, control),
         ),
     },
   );
@@ -104,12 +82,5 @@ export function renderGalleryPreview(
 export function galleryNormalizedInputForControl(
   control: PreviewStyleControlState,
 ): NormalizedInput {
-  return {
-    ...GALLERY_NORMALIZED_INPUT,
-    styleIntent: {
-      ...GALLERY_NORMALIZED_INPUT.styleIntent,
-      presetHint: control.articleStyle === "classic" ? "classic" : "classic-news",
-      densityHint: control.articleStyle === "classic" ? "light" : "medium",
-    },
-  };
+  return buildNormalizedInputForPreviewControl(GALLERY_NORMALIZED_INPUT, control);
 }

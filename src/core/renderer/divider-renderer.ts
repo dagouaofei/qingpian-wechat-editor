@@ -1,4 +1,4 @@
-import { DIVIDER_FIRST_WAVE_VARIANTS } from "@/core/styles";
+import { variantIdsForBlockType } from "@/core/styles";
 
 import { renderDividerCopyHtml } from "@/core/copy/divider-copy";
 import { createRendererIssue, partitionRendererIssues } from "./issues";
@@ -12,9 +12,7 @@ import type {
   RendererResult,
 } from "./types";
 
-export const DIVIDER_SUPPORTED_VARIANT_IDS = DIVIDER_FIRST_WAVE_VARIANTS.map(
-  (variant) => variant.id,
-);
+export const DIVIDER_SUPPORTED_VARIANT_IDS = variantIdsForBlockType("divider");
 
 export function validateDividerRenderContext(
   context: BlockRenderContext,

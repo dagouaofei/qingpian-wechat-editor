@@ -261,7 +261,7 @@ export function buildStreamingBlocksFromEvent(
 
 function resolveStreamingPresetId(presetHint?: string): string {
   const trimmed = presetHint?.trim();
-  return trimmed && trimmed.length > 0 ? trimmed : "classic-news";
+  return trimmed && trimmed.length > 0 ? trimmed : "business";
 }
 
 function buildStreamingArticle(
@@ -305,7 +305,7 @@ function buildStreamingArticle(
       capturedAt: STREAM_PREVIEW_TIMESTAMP,
     },
     styleAssignment: {
-      themeId: "default",
+      themeId: "businessBlue",
       presetId,
     },
     blocks: articleBlocks.length > 0 ? articleBlocks : [],

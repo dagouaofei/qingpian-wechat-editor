@@ -93,8 +93,8 @@ describe("validateStyleSelectionPipeline", () => {
       kind: "article_style_plan",
       plan: {
         articleId: article.id,
-        presetId: "classic-news",
-        themeId: "default",
+        presetId: "business",
+        themeId: "businessBlue",
         blockOverrides: [
           {
             blockId: fixtureBlockId(1),
@@ -297,8 +297,8 @@ describe("validateStyleSelectionPipeline", () => {
       kind: "article_style_plan",
       plan: {
         articleId: article.id,
-        presetId: "classic-news",
-        themeId: "default",
+        presetId: "business",
+        themeId: "businessBlue",
         density: "dense" as never,
       },
     });
@@ -310,7 +310,7 @@ describe("validateStyleSelectionPipeline", () => {
     expect(validateDensityValue("dense")[0]?.code).toBe("unknown_density");
 
     const combinationResult = validatePresetThemeCombination(
-      { presetId: "classic-news", themeId: "default", density: "dense" as never },
+      { presetId: "business", themeId: "businessBlue", density: "dense" as never },
       { registry },
     );
     expect(combinationResult.ok).toBe(false);
@@ -337,17 +337,17 @@ describe("validateStyleSelectionPipeline", () => {
     ).toBe(true);
   });
 
-  it("applies R1 fallback_applied for adjacent heading conflict", () => {
+  it("keeps unified heading variant for adjacent headings (R1 disabled)", () => {
     const result = runFixture("orchestrator-r1-fallback-applied");
-    expect(result.validationStatus).toBe("fallback_applied");
+    expect(result.validationStatus).toBe("valid");
     expect(result.mergeAllowed).toBe(true);
     expect(
       result.issues.some((issue) => issue.code === "orchestrator_r1_fallback"),
-    ).toBe(true);
+    ).toBe(false);
     expect(
       result.plan.blockOverrides?.find((entry) => entry.blockId === fixtureBlockId(3))
         ?.variantId,
-    ).not.toBe("heading_plain_minimal");
+    ).toBe("heading_plain_minimal");
   });
 
   it("emits R2 asset reuse issue", () => {

@@ -46,10 +46,14 @@ export function previewArticleContainerStyle(): CSSProperties {
   return {
     maxWidth: "677px",
     margin: "0 auto",
-    padding: "16px 20px 24px",
+    padding: "16px 20px 28px",
     backgroundColor: "#ffffff",
-    fontFamily: '"PingFang SC", "Microsoft YaHei", sans-serif',
+    fontFamily:
+      '"PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif',
+    fontSize: "16px",
+    lineHeight: 1.75,
     color: PV.textDefault,
+    letterSpacing: "0.01em",
   };
 }
 
@@ -99,14 +103,19 @@ export function previewTitleContainerStyle(
   }
 }
 
-export function previewTitleTextStyle(blockType: "title" | "heading"): CSSProperties {
+export function previewTitleTextStyle(
+  blockType: "title" | "heading",
+  typography?: { fontSize?: string; fontWeight?: string; lineHeight?: string; fontFamily?: string },
+): CSSProperties {
   return {
     margin: 0,
+    padding: 0,
     color: PV.textDefault,
-    fontSize: blockType === "title" ? "24px" : "17px",
-    fontWeight: blockType === "title" ? 700 : 600,
-    lineHeight: blockType === "title" ? 1.35 : 1.45,
-    letterSpacing: blockType === "title" ? "0.02em" : undefined,
+    fontSize: typography?.fontSize ?? (blockType === "title" ? "25px" : "17px"),
+    fontWeight: typography?.fontWeight ?? (blockType === "title" ? "700" : "600"),
+    lineHeight: typography?.lineHeight ?? (blockType === "title" ? 1.34 : 1.5),
+    letterSpacing: blockType === "title" ? "0.02em" : "0.01em",
+    fontFamily: typography?.fontFamily,
   };
 }
 

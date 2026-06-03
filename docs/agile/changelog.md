@@ -425,3 +425,12 @@
 | 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
 |------|--------|----------|----------|----------------------|
 | 2026-06-02 | Sprint 7 | **DECISION-082**：S7-STORY-003 与 004 合并；Gallery Copy/聚焦/variant + title/heading polish | 代码 / Docs / `/gallery` | S7-STORY-003, DECISION-082 |
+
+## 2026-06-02 · S7-STORY-002/003/005 PO 签收
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-02 | Sprint 7 | **S7-STORY-002 Done**（PO 签收）：8 套 fixture 已在 sprint @ `429ce30` | Fixture / Gallery | S7-STORY-002 |
+| 2026-06-02 | Sprint 7 | **DECISION-083**：miaopian 6 preset + 6 theme；registry **97**；heading **13**（含 6 miaopian 样式）；同篇 heading 统一；公众号字号 | Style / Gallery / Generation | S7-STORY-003, S7-STORY-005, DECISION-083 |
+| 2026-06-02 | Sprint 7 | **S7-STORY-003 / 005 Done**（PO 签收）；`feature/s7-rich-styles-title-heading` merge → `sprint/s7-wechat-article-experience` | 代码 / Git | S7-STORY-003, S7-STORY-005 |
+| 2026-06-02 | Sprint 7 | **下一步 S7-STORY-006**（rhythm / 过度卡片化）；Sprint 7 **未关闭**；**不 merge `main`** | 敏捷 | S7-STORY-006 |

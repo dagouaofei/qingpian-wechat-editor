@@ -17,7 +17,7 @@ export const styleSelectionNormalizedInput = parseAndNormalizeInputRequest({
   ...topicOnlyInputRequestFixture,
   styleIntent: {
     tone: "formal editorial",
-    presetHint: "classic-news",
+    presetHint: "business",
     densityHint: "medium",
   },
 });
@@ -65,8 +65,8 @@ export const forbiddenModelStylePatchOutput = {
 };
 
 export const validModelStylePatchOutput = {
-  presetId: "classic-news",
-  themeId: "default",
+  presetId: "business",
+  themeId: "businessBlue",
   blockOverrides: [
     {
       blockId: fixtureBlockId(1),

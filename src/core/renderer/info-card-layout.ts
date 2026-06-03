@@ -26,16 +26,12 @@ export type InfoCardTypography = {
   marginBlock: string;
 };
 
-const VARIANT_LAYOUT_MAP: Record<string, InfoCardLayoutKind> = {
-  info_card_key_takeaway: "key_takeaway",
-  info_card_steps: "steps",
-  info_card_warning_note: "warning_note",
-};
+import { INFO_CARD_VARIANT_LAYOUT } from "./expansion-layout-maps";
 
 export function resolveInfoCardLayout(
   variantId: string,
 ): InfoCardLayoutKind | undefined {
-  return VARIANT_LAYOUT_MAP[variantId];
+  return INFO_CARD_VARIANT_LAYOUT[variantId];
 }
 
 export function resolveInfoCardTypography(

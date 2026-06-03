@@ -22,16 +22,12 @@ export type HighlightTypography = {
   marginBlock: string;
 };
 
-const VARIANT_LAYOUT_MAP: Record<string, HighlightLayoutKind> = {
-  highlight_inline_emphasis: "inline_emphasis",
-  highlight_accent_band: "accent_band",
-  highlight_soft_card: "soft_card",
-};
+import { HIGHLIGHT_VARIANT_LAYOUT } from "./expansion-layout-maps";
 
 export function resolveHighlightLayout(
   variantId: string,
 ): HighlightLayoutKind | undefined {
-  return VARIANT_LAYOUT_MAP[variantId];
+  return HIGHLIGHT_VARIANT_LAYOUT[variantId];
 }
 
 export function resolveHighlightTypography(

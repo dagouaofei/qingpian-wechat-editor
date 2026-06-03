@@ -22,15 +22,27 @@ import {
   type ArticleVariantPickSource,
 } from "./style-selection-diversity";
 
-export const SAFE_STYLE_PRESET_ID = "classic-news";
-export const SAFE_STYLE_THEME_ID = "default";
+export const SAFE_STYLE_PRESET_ID = "business";
+export const SAFE_STYLE_THEME_ID = "businessBlue";
 
 const FORBIDDEN_STYLE_FIELDS = ["html", "css", "className", "style"] as const;
 
 const KNOWN_PRESET_HINTS: Record<string, string> = {
-  classic: SAFE_STYLE_PRESET_ID,
-  "classic-news": SAFE_STYLE_PRESET_ID,
-  news: SAFE_STYLE_PRESET_ID,
+  business: "business",
+  "business-pro": "business",
+  "classic-news": "business",
+  classic: "business",
+  news: "business",
+  warm: "warm",
+  "brand-story": "warm",
+  brand: "warm",
+  magazine: "magazine",
+  "magazine-editorial": "magazine",
+  keynote: "keynote",
+  xiaohongshu: "xiaohongshu",
+  "lifestyle-vivid": "xiaohongshu",
+  lifestyle: "xiaohongshu",
+  dedao: "dedao",
 };
 
 const BLOCK_VARIANT_HEURISTICS: Partial<
@@ -244,6 +256,8 @@ export function pickRegisteredVariantForBlock(
   warnings: StyleValidationIssue[],
   blockIndexWithinType = 0,
 ): { variantId: string; source: ArticleVariantPickSource } {
+  const diversityIndex = blockType === "heading" ? 0 : blockIndexWithinType;
+
   const heuristicId = resolveHeuristicVariantId(blockType, styleIntent);
   if (heuristicId) {
     const heuristicVariant = getVariantById(registry, heuristicId);
@@ -260,7 +274,7 @@ export function pickRegisteredVariantForBlock(
 
   const diverseId = resolveArticleAwareVariantId(
     blockType,
-    blockIndexWithinType,
+    diversityIndex,
     styleIntent,
   );
   if (diverseId) {

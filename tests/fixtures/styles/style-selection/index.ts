@@ -44,8 +44,8 @@ function articleWithHeadings(
     ...minimalArticleFixture,
     ...overrides,
     styleAssignment: {
-      themeId: "default",
-      presetId: "classic-news",
+      themeId: "businessBlue",
+      presetId: "business",
       ...(overrides?.styleAssignment as object | undefined),
     },
     blocks: overrides?.blocks ?? [
@@ -76,7 +76,7 @@ export const validBasicStyleRequestFixture: StyleSelectionFixture = {
     kind: "style_selection_request",
     request: {
       articleId: minimalArticleFixture.id,
-      preferredPresetId: "classic-news",
+      preferredPresetId: "business",
       blockStyleHints: [
         {
           blockId: fixtureBlockId(1),
@@ -294,7 +294,7 @@ export const invalidBodySemanticFromSlotFixture: StyleSelectionFixture = {
 
 export const orchestratorR1FallbackAppliedFixture: StyleSelectionFixture = {
   id: "orchestrator-r1-fallback-applied",
-  description: "Adjacent headings share variant; R1 fallback applied",
+  description: "Adjacent headings share variant; unified (R1 disabled)",
   articleInput: articleWithHeadings({
     blocks: [
       {
@@ -331,9 +331,8 @@ export const orchestratorR1FallbackAppliedFixture: StyleSelectionFixture = {
   expected: {
     ok: true,
     mergeAllowed: true,
-    validationStatus: "fallback_applied",
-    issueCodes: ["orchestrator_r1_fallback"],
-    fallbackBlockIds: [fixtureBlockId(3)],
+    validationStatus: "valid",
+    issueCodes: [],
   },
 };
 
@@ -394,6 +393,16 @@ export const orchestratorR8TitleHeadingConflictFixture: StyleSelectionFixture = 
   input: {
     kind: "style_assignment_patch",
     patch: {
+      blockOverrides: [
+        {
+          blockId: fixtureBlockId(1),
+          variantId: "title_plain_minimal",
+        },
+        {
+          blockId: fixtureBlockId(2),
+          variantId: "heading_plain_minimal",
+        },
+      ],
       meta: {
         source: "orchestrator",
         generatedAt: GENERATED_AT,
