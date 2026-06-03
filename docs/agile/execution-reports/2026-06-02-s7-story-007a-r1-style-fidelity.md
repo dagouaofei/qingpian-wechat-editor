@@ -159,4 +159,4 @@ R1 默认成稿样式与微信公众号复制保真稳定化：审计 → baseli
 
 ## 15. Commit
 
-- Commit hash：（见本轮 `git commit` 后更新）
+- Commit hash：`53d616f`
