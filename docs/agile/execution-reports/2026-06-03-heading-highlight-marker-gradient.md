@@ -37,7 +37,7 @@ PO 手测 7/8 PASS 后先 commit；将 `heading_highlight_marker` 改为 miaopia
 ## 6. Commit
 
 - 上一轮（7/8）：`9fb9552`
-- 本轮：未提交 / not committed（待用户确认后 commit）
+- 本轮：`7d8e38c`（含渐变 alpha 20/33 微调，同 commit）
 
 ## 7. 建议下一步
 
