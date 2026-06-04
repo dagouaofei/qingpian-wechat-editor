@@ -110,4 +110,6 @@
 
 ## 14. Commit
 
-- Commit hash：（见下方 merge 后 sprint 分支 tip）
+- Story 分支 commit：`d58e0bd`（`docs/s8-story-001-compatibility-research`）
+- Sprint 分支 merge：**fast-forward** 至 `d58e0bd`（`sprint/s8-wechat-safe-css-contract`）
+- 当前分支：`sprint/s8-wechat-safe-css-contract`
