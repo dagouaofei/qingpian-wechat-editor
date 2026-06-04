@@ -117,7 +117,19 @@ OPEN / FIXED / WONTFIX
 
 ---
 
-## 6. PO 与开发闭环
+## 6. Validator 与 Drift 的分工（S8-STORY-004）
+
+| 阶段 | 工具 / 材料 | 发现什么 |
+|------|-------------|----------|
+| **复制前 / CI** | `validateWechatCopyHtml`（Contract v1 Profile） | Red 标签/CSS、禁止 `class`、未豁免 Yellow、嵌套过深等 **机器可读** violation |
+| **实机粘贴** | PO 对比 Preview / Clipboard / WeChat pasted | **视觉与结构失真**（CSS 被删改、DOM 被改写等） |
+| **闭环** | DRIFT 记录 +（S8-STORY-005 后）Fidelity Matrix 行 | Validator 与实机结果共同驱动 Contract / Profile / Renderer 修正 |
+
+**原则：** Validator PASS 不等于 Matrix PASS；实机 FAIL 仍须进入 Drift，即使 Validator 仅 warning。
+
+---
+
+## 7. PO 与开发闭环
 
 ```text
 PO 实机粘贴 → 填 DRIFT 记录 → 更新 Matrix status
@@ -130,9 +142,10 @@ PO 实机粘贴 → 填 DRIFT 记录 → 更新 Matrix status
 
 ---
 
-## 7. 变更记录
+## 8. 变更记录
 
 | 日期 | 变更 | Story |
 |------|------|-------|
 | 2026-06-04 | 创建草案 | S8-STORY-001 |
 | 2026-06-04 | 对齐 Contract v1 术语与 §9 修正流程 | S8-STORY-002 |
+| 2026-06-04 | 补充 Validator vs Drift 分工 | S8-STORY-004 |

@@ -313,6 +313,8 @@ allowedInDefaultPreset: true  # warm preset only; business 默认无 gradient
 
 ### 10.1 Copy HTML Validator（STORY-004）
 
+**实现状态（2026-06-04 · In Review）：** `src/core/wechat-compat/copy-html-validator.ts` · `validateWechatCopyHtml()` · 由 `src/core/wechat-compat/index.ts` 与 `src/core/copy/index.ts` 导出。默认 Profile：`WECHAT_SAFE_CONTRACT_V1_PROFILE`（`contractVersionId: wechat-safe-contract-v1`）。
+
 | Contract 级别 | Validator 行为 |
 |---------------|----------------|
 | Green | Pass（仍可做 DOM 深度等结构检查） |
@@ -320,7 +322,19 @@ allowedInDefaultPreset: true  # warm preset only; business 默认无 gradient
 | Yellow 无 waiver | **Warning** |
 | Red | **Fail** |
 
-输入：`contractVersionId: wechat-safe-contract-v1` + Clipboard HTML 字符串。
+**行为摘要：**
+
+- `valid = errors.length === 0`（仅有 warning 时仍可 `valid: true`）。
+- 扫描 HTML 标签（大小写不敏感）：Green pass · Yellow → `WECHAT_COPY_YELLOW_TAG` · Red/unknown → error。
+- 禁止 `class=`、`<style>`、`<link>`；inline `style` 解析（兼容末尾缺 `;`）。
+- 每条 declaration 调用 `validateCssDeclarationCompatibility`；禁止 `var(--*)`、`calc()`、`!important`、重复属性。
+- `nonTransferable` waiver（如 `heading_highlight_marker`）须 **同时** 匹配 `blockType` + `variantId`，不得全局放行。
+- `maxNestingDepth: 3` 超限 → warning（`WECHAT_COPY_MAX_NESTING_DEPTH_EXCEEDED`）。
+- 解析：Vitest/jsdom 使用 `DOMParser`；Node 无 DOM 时使用轻量 tag 栈（仅覆盖轻篇 Copy HTML 常见片段，非通用 sanitizer）。
+
+输入：`contractVersionId: wechat-safe-contract-v1` + Clipboard HTML 字符串；可选 `blockType` / `variantId` 供 waiver 查询。
+
+**与 legacy：** `src/core/copy/copy-safe-html.ts` 正则快检仍保留；新 snapshot 建议叠加 `validateWechatCopyHtml`。
 
 ### 10.2 WeChat Fidelity Matrix（STORY-005）
 

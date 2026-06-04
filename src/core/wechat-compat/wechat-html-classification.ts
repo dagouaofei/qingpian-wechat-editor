@@ -62,6 +62,10 @@ const TAG_INDEX = new Map(
   WECHAT_CONTRACT_V1_HTML_TAGS.map((entry) => [entry.tag.toLowerCase(), entry]),
 );
 
+export function isListedHtmlTag(tagName: string): boolean {
+  return TAG_INDEX.has(tagName.trim().toLowerCase());
+}
+
 export function classifyHtmlTag(tagName: string): HtmlTagClassificationResult {
   const tag = tagName.trim().toLowerCase();
   const entry = TAG_INDEX.get(tag);

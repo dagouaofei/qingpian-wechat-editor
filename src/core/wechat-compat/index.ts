@@ -57,3 +57,15 @@ export {
   WECHAT_MP_EDITOR_V1_LEGACY_PROFILE_ID,
   WECHAT_SAFE_CONTRACT_V1_PROFILE,
 } from "./wechat-compat-profile";
+
+export {
+  WECHAT_COPY_ISSUE_CODES,
+  validateWechatCopyHtml,
+  type ValidateWechatCopyHtmlInput,
+  type WechatCopyValidationIssue,
+  type WechatCopyValidationResult,
+  type WechatCopyValidationSeverity,
+  type ContractIssueLevel,
+} from "./copy-html-validator";
+
+export { isListedHtmlTag } from "./wechat-html-classification";

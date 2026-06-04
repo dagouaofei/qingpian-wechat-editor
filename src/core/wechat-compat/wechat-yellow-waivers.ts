@@ -52,11 +52,22 @@ export function findYellowWaiverForCapability(
 ): WaiverLookupResult {
   const normalized = capability.trim().toLowerCase();
   for (const waiver of WECHAT_CONTRACT_V1_YELLOW_WAIVERS) {
-    if (context.variantId && waiver.variantId !== context.variantId) {
-      continue;
-    }
-    if (context.blockType && waiver.blockType !== context.blockType) {
-      continue;
+    if (waiver.nonTransferable) {
+      if (
+        !context.variantId ||
+        !context.blockType ||
+        waiver.variantId !== context.variantId ||
+        waiver.blockType !== context.blockType
+      ) {
+        continue;
+      }
+    } else {
+      if (context.variantId && waiver.variantId !== context.variantId) {
+        continue;
+      }
+      if (context.blockType && waiver.blockType !== context.blockType) {
+        continue;
+      }
     }
     const matched = waiver.cssCapabilities.find(
       (c) => normalized.includes(c.toLowerCase()) || c.toLowerCase() === normalized,

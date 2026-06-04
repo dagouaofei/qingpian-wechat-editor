@@ -806,7 +806,8 @@
   2. `WECHAT_MP_COMPATIBILITY_PROFILE` 默认 = `WECHAT_SAFE_CONTRACT_V1_PROFILE`
   3. CSS 映射：green→allowed · yellow→risky · red→forbidden；`display:flex` 等升为 forbidden
   4. `WECHAT_CONTRACT_V1_YELLOW_WAIVERS` 含 `heading_highlight_marker`（`nonTransferable: true`）
-  5. `validateCss*Compatibility` 支持 `waiverContext`；未实现 HTML Validator（STORY-004）
-- **关联：** DECISION-089、S8-STORY-003
+  5. `validateCss*Compatibility` 支持 `waiverContext`；值级 Green（如 `display:inline-block`）在 declaration 路径优先于 property-only unknown
+  6. **S8-STORY-004（2026-06-04）：** `validateWechatCopyHtml`；`nonTransferable` waiver 须精确 `blockType`+`variantId`
+- **关联：** DECISION-089、S8-STORY-003、S8-STORY-004
 - **状态：** 已确认
 

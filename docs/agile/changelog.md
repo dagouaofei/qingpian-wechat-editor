@@ -464,3 +464,4 @@
 | 2026-06-04 | Sprint 8 | **DECISION-089 已确认**；**S8-STORY-002 Done**；Clipboard 禁 class（Copy 剥离）· gradient waiver 不外推；merge → sprint | 架构 / 敏捷 / Git | S8-STORY-002, DECISION-089 |
 | 2026-06-04 | Sprint 8 | **S8-STORY-003**：`src/core/wechat-compat` · Contract v1 profile + waivers；DECISION-090 | 代码 / 架构 | S8-STORY-003, DECISION-090 |
 | 2026-06-04 | Sprint 8 | **S8-STORY-003 Done**：`profileId`=`wechat-mp-editor-v1` · `contractVersionId`=`wechat-safe-contract-v1`；merge → sprint | 代码 / Git | S8-STORY-003 |
+| 2026-06-04 | Sprint 8 | **S8-STORY-004**：Copy HTML Validator（`validateWechatCopyHtml` · Contract v1 · waiver 非全局） | 代码 / 架构 | S8-STORY-004, DECISION-090 |

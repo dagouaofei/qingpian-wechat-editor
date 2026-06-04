@@ -90,6 +90,9 @@ function classifyPropertyAgainstProfile(
   if (matchRuleList(profile.cssRules.risky, property, value)) {
     return "risky";
   }
+  if (value !== undefined && matchRuleList(profile.cssRules.allowed, property, value)) {
+    return "allowed";
+  }
   if (matchRuleList(profile.cssRules.allowed, property)) {
     return "allowed";
   }
@@ -318,6 +321,10 @@ export function validateCssDeclarationCompatibility(
       ], normalizeProperty(property), value),
       waiverContext,
     );
+  }
+
+  if (pvLevel === "allowed") {
+    return cssResult("allowed", [], normalizeProperty(property), value);
   }
 
   if (propertyResult.level === "unknown") {
