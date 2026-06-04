@@ -28,17 +28,17 @@ S7-STORY-008 与 Sprint 7 正式收口：文档闭环、自动化检查、featur
 
 | 阶段 | `npm run test` | `npm run build` | `npm run lint` |
 |------|----------------|-----------------|----------------|
-| feature（commit 前） | 814 PASS | PASS | 0 errors（12 warnings） |
-| sprint（merge 后） | （见下方 merge 输出） | | |
-| release/1（merge 后） | （见下方 merge 输出） | | |
+| feature（`fe21469` 前） | 814 PASS | PASS | 0 errors（12 warnings） |
+| sprint（`be8f142` 后） | 814 PASS | PASS | 0 errors（12 warnings） |
+| release/1（`4878d564` 后） | 814 PASS | PASS | 0 errors（12 warnings） |
 
 ## 6. Git
 
 | 项 | 值 |
 |----|-----|
-| 文档 commit | `docs: close s7 story 008 paste qa`（见 `git log`） |
-| feature → sprint merge | `--no-ff`（见 report 更新时的 hash） |
-| sprint → release/1 merge | `--no-ff` |
+| 文档 commit（feature） | `fe21469` — `docs: close s7 story 008 paste qa` |
+| feature → sprint merge | `be8f142` — `--no-ff` merge `feature/s7-story-007a-r1-style-fidelity` |
+| sprint → release/1 merge | `4878d564` — `--no-ff` merge `sprint/s7-wechat-article-experience` |
 | push | `feature/s7-story-007a-r1-style-fidelity`、`sprint/s7-wechat-article-experience`、`release/1` |
 
 ## 7. S7-STORY-008 / Sprint 7 状态
@@ -58,4 +58,6 @@ S7-STORY-008 与 Sprint 7 正式收口：文档闭环、自动化检查、featur
 
 ## 9. Commit hash
 
-- 见本轮 `git log` 输出（merge 后更新本节）
+- `fe21469` — docs close S7-STORY-008 paste QA（feature）
+- `be8f142` — feature → sprint merge
+- `4878d564` — sprint → release/1 merge
