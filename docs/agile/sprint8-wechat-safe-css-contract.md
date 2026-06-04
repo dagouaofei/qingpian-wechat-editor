@@ -55,6 +55,8 @@
 | S8-STORY-005 | 多控件 Fixture 与 Fidelity Matrix | feature + docs | **Done** |
 | S8-STORY-006 | 公众号实机粘贴 QA 流程 | docs | **Done**（2026-06-04 · PO paste 19 行 · Drift 001–009） |
 | S8-STORY-006B | 结构化样式调研与 Drift 归类 | docs | **In Review** |
+| S8-STORY-006B-FIX-A | 已发布文章 evidence 提取工作流 | docs | **In Review** |
+| S8-STORY-006B-FIX-B | 批量补 article evidence（5–10） | docs | Planned |
 | S8-STORY-006C | 共性 Copy-safe renderer / fallback 修复 | feature | Planned（**未启动**） |
 | S8-STORY-006D | Matrix 回归与 Paste 复测 | docs + QA | Planned（**未启动**） |
 | S8-STORY-007 | Preview / Copy 统一渲染方案审计 | docs | Planned（**未启动**） |

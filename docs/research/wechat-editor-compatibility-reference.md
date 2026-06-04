@@ -28,7 +28,7 @@
 | **秀米** | 商业排版工具 | 图文排版 · 导出/复制 | **006B 已摘要** · §7 |
 | **mdnice** | 开源 / 在线 | Markdown → 微信主题 · GitHub 活跃 | **006B 已摘要** · §8.1 |
 | **Doocs 微信 Markdown** | 开源 | doocs/md · 微信排版生态 | **006B 已摘要** · §8.2 |
-| **已发布公众号文章** | 实机样本 | 10–20 篇模式采集 | **006B** · [`wechat-published-article-style-harvest.md`](wechat-published-article-style-harvest.md) |
+| **已发布公众号文章** | L0 归纳 + evidence 待补 | HARVEST L0×15 · FIX-A workflow | [`wechat-published-article-style-harvest.md`](wechat-published-article-style-harvest.md) |
 | **markdown-css** | 开源 CSS 集 | 通用 Markdown 样式 · 非微信专用 | 框架已列 · **待验证** |
 | **微信官方编辑器** | 平台 | mp.weixin.qq.com 图文编辑器 | 作为粘贴 **终态** 参照 · **待验证** |
 | **其它** | — | 新媒体管家、易点、壹写作等（按需追加） | 未展开 |
@@ -177,6 +177,10 @@
 | [`wechat-published-article-style-harvest.md`](wechat-published-article-style-harvest.md) | 已发布文章 15 条模式采集 |
 | [`wechat-copy-safe-pattern-library.md`](../architecture/wechat-copy-safe-pattern-library.md) | Copy-safe Pattern Library **v0.1** |
 | [`s8-drift-triage-2026-06-04.md`](../agile/paste-qa/drift/s8-drift-triage-2026-06-04.md) | 9 Drift 归类 + 006C/007/S9 路由 |
+| [`wechat-published-article-harvest-input-template.md`](wechat-published-article-harvest-input-template.md) | 用户 URL / URL+HTML 输入（**006B-FIX-A**） |
+| [`wechat-published-article-style-extraction-guide.md`](wechat-published-article-style-extraction-guide.md) | AI 提取 `WX-HARVEST-EVIDENCE-*` 规范 |
+
+**006B-FIX-A 结论：** 先建立 evidence extraction workflow；HARVEST-001~015 标 **L0**；**不** 声称 15 篇已实采；FIX-B 再批量补 URL/HTML。
 
 ---
 

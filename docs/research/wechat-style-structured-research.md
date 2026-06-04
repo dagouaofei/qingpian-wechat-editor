@@ -26,7 +26,7 @@
 | **mdnice** | 开源/在线 | README + 社区 issue 方向 | **高度接近** Markdown→inline→复制 |
 | **Doocs 微信 Markdown** | 开源 | 生态文档 + 皮肤思路 | **高度接近** CSS 子集文档化 |
 | **微信官方图文编辑器** | 平台 | Contract v1 + PO 实机 | **终态裁判** |
-| **真实已发布公众号文章** | 样本 | 15 条模式采集（见 harvest 文档） | 反向验证「什么能长期稳定」 |
+| **已发布公众号文章** | 模式归纳 + 待补 evidence | HARVEST L0 ×15（见 harvest）· FIX-A workflow | **非**可审计实采；FIX-B 补 L2/L3 |
 
 **未展开：** markdown-css 整包（非微信路径，见 compatibility-reference §4.6）。
 
@@ -141,9 +141,12 @@
 
 ---
 
-## 9. 真实公众号文章调研（摘要）
+## 9. 已发布公众号文章模式归纳与待补 evidence（摘要）
 
-完整 15 条样本见 [`wechat-published-article-style-harvest.md`](wechat-published-article-style-harvest.md)。
+- **HARVEST-001~015** 均为 **L0 pattern-hypothesis**（无真实 URL），见 [`wechat-published-article-style-harvest.md`](wechat-published-article-style-harvest.md)。
+- **不得** 表述为「已完成 15 篇可审计真实采集」。
+- 证据补全流程：[`wechat-published-article-harvest-input-template.md`](wechat-published-article-harvest-input-template.md) · [`wechat-published-article-style-extraction-guide.md`](wechat-published-article-style-extraction-guide.md)（**006B-FIX-A**）。
+- **后续 FIX-B：** 批量 5–10 篇 L2/L3，用户仅提供 URL 或 URL+HTML。
 
 | 共性观察 | 说明 |
 |----------|------|
@@ -155,7 +158,19 @@
 
 ---
 
-## 10. 共性结论（对接 PO Paste QA）
+## 10. 结论来源分层
+
+| 来源 | 可信度 | 用途 |
+|------|--------|------|
+| **PO Paste QA**（19 行） | 高 · 实机 | 006C 主依据 |
+| **Drift 001–009** | 高 · 实机/观察 | 006C 主依据 |
+| **竞品结构化调研**（§5–8） | 中 · 文献 | 辅助 |
+| **HARVEST L0** | 低 · 假设 | 仅辅助假设，须 L2/L3 验证 |
+| **WX-HARVEST-EVIDENCE**（待补） | L2/L3/L4 | 可增强 Pattern/006C |
+
+---
+
+## 11. 共性结论（对接 PO Paste QA）
 
 | # | 共性问题（006 已暴露） | 调研印证 |
 |---|------------------------|----------|
@@ -167,7 +182,7 @@
 
 ---
 
-## 11. 对轻篇 Copy-safe Pattern 的启发
+## 12. 对轻篇 Copy-safe Pattern 的启发
 
 1. **内层承载原则：** `background-color` / `border` / `border-left` 优先写在 **`p` 或 `h*`**，外层 `section` 仅作浅层 copy-safe wrapper（≤1 层）。
 2. **标题装饰简化：** 避免「左块+标题+右留白」多列 DOM；下划线用 `border-bottom:1px solid` 于 `h1`/`p`，避免高 padding 盒（对照 DRIFT-002）。
@@ -179,7 +194,7 @@
 
 ---
 
-## 12. 不建议进入 Release 1 的能力
+## 13. 不建议进入 Release 1 的能力
 
 | 能力 | 原因 |
 |------|------|
@@ -192,8 +207,9 @@
 
 ---
 
-## 13. 变更记录
+## 14. 变更记录
 
 | 日期 | 变更 |
 |------|------|
 | 2026-06-04 | 创建结构化调研（S8-STORY-006B） |
+| 2026-06-04 | FIX-A：harvest 改 L0 表述 · evidence workflow |

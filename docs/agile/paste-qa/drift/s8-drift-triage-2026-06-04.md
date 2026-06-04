@@ -18,6 +18,18 @@
 
 **不进入本轮：** 修改 Contract v1 分级 · 新增 variant · 启动 006C/007 实现。
 
+### 1.1 Evidence 与 006C / 006D（006B-FIX-A）
+
+| 依据 | 层级 | 对 006C |
+|------|------|---------|
+| PO Paste QA + Drift + Matrix | **实机** | **主依据** — 不因 harvest 缺证而阻塞 |
+| Pattern Library v0.1 | 文档 | 结构规范 |
+| HARVEST-001~015 | **L0** pattern-hypothesis | 辅助假设 only |
+| `WX-HARVEST-EVIDENCE-*`（待补） | L2/L3/L4 | 可增强，非 006C 前置 |
+
+- **已发布文章 harvest 目前为 L0 支撑**，不声称 15 篇可审计实采。
+- **006C 可启动**（用户批准后）基于 Paste/Drift；**006D 必须** Paste Re-test 验证修复。
+
 ---
 
 ## 2. A 类 — 卡片背景 / 边框丢失
@@ -55,8 +67,8 @@ PO 粘贴后 **看不到卡片边框与背景色**（及 probe 横幅类组合�
 
 ### 竞品/文章调研支撑
 
-- 135 / 已发布文 HARVEST-003/008/015：**背景在 `p` 更稳**。  
-- 见 [`wechat-style-structured-research.md`](../../../research/wechat-style-structured-research.md) §10–11。
+- 135 / 行业归纳：**背景在 `p` 更稳**（HARVEST L0 假设，待 L2/L3 evidence 验证）。  
+- 见 [`wechat-style-structured-research.md`](../../../research/wechat-style-structured-research.md) · [`harvest-input-template`](../../../research/wechat-published-article-harvest-input-template.md)。
 
 ### 建议 Copy-safe Pattern
 
@@ -275,3 +287,4 @@ PO 粘贴后 **看不到卡片边框与背景色**（及 probe 横幅类组合�
 | 日期 | 变更 |
 |------|------|
 | 2026-06-04 | 初版 triage（S8-STORY-006B） |
+| 2026-06-04 | FIX-A：006C 不因 L0 harvest 阻塞 · 006D 须实机验证 |

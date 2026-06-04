@@ -3,12 +3,27 @@
 > 轻篇公众号排版 · qingpian-wechat-editor  
 > **版本：** v0.1（文档规范 · **非** renderer 实现）  
 > **约束：** [`wechat-safe-contract-v1`](wechat-safe-html-css-contract.md) · Clipboard `text/html` · 禁 class / 外链样式表 / SVG / pseudo-element / 复杂 flex·grid·absolute  
-> **来源：** S8-STORY-006B 结构化调研 + Paste QA Session 2026-06-04 + Drift 001–009  
+> **来源：** PO Paste QA · Drift 001–009 · 结构化调研 · **L0** HARVEST 模式归纳（**非**可审计实采）  
 > **下游：** S8-STORY-006C（共性 renderer/fallback）· 006D（回归粘贴）· 007（Preview/Copy 审计）
 
 ---
 
-## 1. 使用说明
+## 1. Evidence 层级（Pattern v0.1）
+
+| 来源类型 | 当前层级 | 说明 |
+|----------|----------|------|
+| PO Paste QA / Matrix（19 行） | **实机** | 006C **主依据** |
+| Drift 001–009 | **实机/观察** | 与 Paste 绑定 |
+| 竞品结构化调研（006B） | 文献 | 辅助 |
+| HARVEST-001~015 | **L0** pattern-hypothesis | **不能** 当作真实文章采集证据 |
+| `WX-HARVEST-EVIDENCE-*` | 待补 L1–L4 | 见 [`harvest-input-template`](../research/wechat-published-article-harvest-input-template.md) |
+
+- 已发布文章部分 **目前以 L0 归纳为主**；后续 L2/L3/L4 通过 AI 提取 workflow 逐步写入。
+- L0 **不删除** Pattern，但 **不得** 在 006C 中写成「已实采验证」。
+
+---
+
+## 2. 使用说明
 
 | 原则 | 说明 |
 |------|------|
@@ -17,11 +32,11 @@
 | DOM 浅层 | 优先 `p` / `span` / 至多一层语义 `section` wrapper |
 | 内层承载 | 背景、边框、左线写在 **内容节点** 上，不写空壳外层 |
 | fallback 必填 | Yellow 能力须有文档化降级 |
-| 证据 | 须链 Matrix 行 / Drift / HARVEST 样本 |
+| 证据 | 须链 Matrix / Drift；HARVEST 仅 L0 时标 `needsArticleEvidence` |
 
 ---
 
-## 2. Pattern 索引
+## 3. Pattern 索引
 
 | patternId | 适用 block | 006C 优先级 |
 |-----------|------------|-------------|
@@ -36,7 +51,7 @@
 
 ---
 
-## 3. `copy-safe-card`
+## 4. `copy-safe-card`
 
 | 字段 | 内容 |
 |------|------|
@@ -49,13 +64,15 @@
 | **禁止 CSS** | `background` 简写渐变 · `linear-gradient` · `position` · flex/grid 分栏 |
 | **fallback** | 剥 radius/shadow 后保留 `border:1px solid` + `background-color` on `p`；仍失败则纯 `border-left` 条 |
 | **Matrix evidence** | S8M-CARD-001 WARNING · S8M-PARA-004 FAIL · S8M-SUM-004 FAIL · S8M-CARD-004 FAIL |
+| **currentEvidenceLevel** | Paste QA + Drift（实机）；HARVEST L0 假设 |
+| **needsArticleEvidence** | **yes** — FIX-B 补 L2/L3 可增强，不阻塞 006C |
 | **当前 Drift 关联** | DRIFT-004 · 005 · 006 · 007；DRIFT-003（观察） |
 | **是否可进入 Release 1** | **是**（实现须按本 pattern 改 renderer，非扩 Contract） |
 | **后续实现建议** | 006C：Copy Renderer 将卡片样式下沉至 `p`；Validator 仍 WARNING section 可保留 |
 
 ---
 
-## 4. `copy-safe-left-border`
+## 5. `copy-safe-left-border`
 
 | 字段 | 内容 |
 |------|------|
@@ -68,13 +85,15 @@
 | **禁止 CSS** | 多列模拟左条 · `display:flex` 左栏 |
 | **fallback** | 剥 `background` 后保留 `border-left`；仍失败则用 **Unicode 竖线字符** 前缀（仅 006C 评估，非默认） |
 | **Matrix evidence** | S8M-LEAD-003 WARNING · S8M-CARD-004 FAIL（含左线） |
+| **currentEvidenceLevel** | Paste QA + Drift；HARVEST L0 |
+| **needsArticleEvidence** | **yes** |
 | **当前 Drift 关联** | DRIFT-009 · 007（部分） |
 | **是否可进入 Release 1** | **是** |
 | **后续实现建议** | 006C：合并为单 `p` 左线；禁止 section 仅包 border |
 
 ---
 
-## 5. `copy-safe-title-divider`
+## 6. `copy-safe-title-divider`
 
 | 字段 | 内容 |
 |------|------|
@@ -87,13 +106,15 @@
 | **禁止 CSS** | 三列分栏 · 左方块+竖线分置不同列（DRIFT-001） |
 | **fallback** | 下划线失败 → 删除 border，保留纯文字标题；装饰线改 `span` 内 `border-bottom`（仍单层） |
 | **Matrix evidence** | S8M-TITLE-002 FAIL · S8M-TITLE-003 FAIL · S8M-HEAD-004 WARNING |
+| **currentEvidenceLevel** | Paste QA + Drift；HARVEST L0 |
+| **needsArticleEvidence** | **yes** |
 | **当前 Drift 关联** | DRIFT-001 · 002 · 008 |
 | **是否可进入 Release 1** | **是**（TITLE-002 candidate 须修复或降级后再入池） |
 | **后续实现建议** | 006C：重写 `title_left_bar_classic` DOM 为单节点左 border；`title_bottom_line` 降低 padding |
 
 ---
 
-## 6. `copy-safe-highlight-band`
+## 7. `copy-safe-highlight-band`
 
 | 字段 | 内容 |
 |------|------|
@@ -106,13 +127,15 @@
 | **禁止 CSS** | `linear-gradient` · `box-shadow` glow（除非 waiver+证据） |
 | **fallback** | 去渐变/阴影 → 纯色底；再失败 → 仅加粗文字 |
 | **Matrix evidence** | S8M-SUM-001 PASS · 未测 SUM-002/003 |
+| **currentEvidenceLevel** | 部分 Paste PASS；HARVEST L0 |
+| **needsArticleEvidence** | optional |
 | **当前 Drift 关联** | 间接支撑 A 类（与 card 合并修复） |
 | **是否可进入 Release 1** | **是** |
 | **后续实现建议** | 006C 与 `copy-safe-card` 统一「p 承载」策略 |
 
 ---
 
-## 7. `copy-safe-cta-button`
+## 8. `copy-safe-cta-button`
 
 | 字段 | 内容 |
 |------|------|
@@ -125,13 +148,15 @@
 | **禁止 CSS** | 大图按钮 · flex 居中容器 |
 | **fallback** | 去 radius → 直角色块；再失败 → 纯文字链 |
 | **Matrix evidence** | S8M-CTA-001 PASS |
+| **currentEvidenceLevel** | Paste PASS |
+| **needsArticleEvidence** | optional |
 | **当前 Drift 关联** | 无 FAIL |
 | **是否可进入 Release 1** | **是** |
 | **后续实现建议** | 006C 低优先；button-like variant 待 006D 补测 |
 
 ---
 
-## 8. `copy-safe-info-box`
+## 9. `copy-safe-info-box`
 
 | 字段 | 内容 |
 |------|------|
@@ -144,13 +169,15 @@
 | **禁止 CSS** | 横幅式多层嵌套+左竖线分节点（DRIFT-007） |
 | **fallback** | 同 `copy-safe-card` |
 | **Matrix evidence** | S8M-CARD-001 · 004 |
+| **currentEvidenceLevel** | Paste QA + Drift；HARVEST L0 |
+| **needsArticleEvidence** | **yes** |
 | **当前 Drift 关联** | DRIFT-004 · 007 |
 | **是否可进入 Release 1** | **是** |
 | **后续实现建议** | 006C 与 card pattern 合并实现 |
 
 ---
 
-## 9. `copy-safe-divider`
+## 10. `copy-safe-divider`
 
 | 字段 | 内容 |
 |------|------|
@@ -163,13 +190,15 @@
 | **禁止 CSS** | 大图分隔 · SVG 线 |
 | **fallback** | 剥复杂 border → `border-top:1px`；再失败 → 字符分隔线 |
 | **Matrix evidence** | S8M-DIV-001 PASS · S8M-DIV-004 PASS |
+| **currentEvidenceLevel** | Paste PASS |
+| **needsArticleEvidence** | optional |
 | **当前 Drift 关联** | 无 006 Session FAIL |
 | **是否可进入 Release 1** | **是** |
 | **后续实现建议** | 006C 低优先；probe accent 已 PASS |
 
 ---
 
-## 10. `copy-safe-inline-emphasis`
+## 11. `copy-safe-inline-emphasis`
 
 | 字段 | 内容 |
 |------|------|
@@ -182,13 +211,15 @@
 | **禁止 CSS** | 整段假卡片式外层 section 无文字 |
 | **fallback** | 去背景 → 仅加粗/变色 |
 | **Matrix evidence** | S8M-SUM-001 PASS · S8M-TITLE-001 WARNING（口径） |
+| **currentEvidenceLevel** | 部分 Paste；TITLE-001 待产品澄清 |
+| **needsArticleEvidence** | TITLE-001 **yes**（口径） |
 | **当前 Drift 关联** | DRIFT-003 OBSERVATION |
 | **是否可进入 Release 1** | **是**（003 先产品澄清） |
 | **后续实现建议** | 003 产品确认前不改 renderer；澄清后或归 006C 或关 Drift |
 
 ---
 
-## 11. Pattern ↔ 修复 Story 路由
+## 12. Pattern ↔ 修复 Story 路由
 
 | 目标 Story | 范围 |
 |------------|------|
@@ -199,8 +230,9 @@
 
 ---
 
-## 12. 变更记录
+## 13. 变更记录
 
 | 日期 | 变更 |
 |------|------|
 | 2026-06-04 | v0.1 初版（S8-STORY-006B · DECISION-091） |
+| 2026-06-04 | FIX-A：evidence 层级说明 · currentEvidenceLevel / needsArticleEvidence |
