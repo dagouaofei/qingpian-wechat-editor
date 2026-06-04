@@ -11,6 +11,8 @@ import {
   slotContentMap,
 } from "./text-style";
 import type { BlockRenderContext } from "./types";
+import { resolveHeadingPublishPaletteFromResolvedStyle } from "./heading-publish-decoration";
+import { isHeadingPublishVariantId } from "./title-heading-assets";
 import { resolveTitleHeadingPresentation } from "./title-heading-visual";
 
 function buildPreviewSection(
@@ -30,24 +32,35 @@ function buildPreviewSection(
     block,
     slotMap,
     context.resolvedBlockStyle.variantId,
+    context.article,
   );
+
+  const variantId = context.resolvedBlockStyle.variantId;
+  const themePalette =
+    block.type === "heading" && isHeadingPublishVariantId(variantId)
+      ? resolveHeadingPublishPaletteFromResolvedStyle(context.resolvedBlockStyle)
+      : undefined;
 
   return {
     kind: "title_block_preview",
     blockId: block.id,
     blockType: block.type,
-    variantId: context.resolvedBlockStyle.variantId,
+    variantId,
     familyId: context.resolvedBlockStyle.variant.family,
     layoutMode,
     text: extractTitleBlockText(block),
     headingLevel: block.type === "heading" ? block.content.level : undefined,
     presentation,
+    themePalette,
     slots: slotMap,
     typography: {
       fontSize: typography.fontSize,
       fontWeight: typography.fontWeight,
       lineHeight: typography.lineHeight,
       fontFamily: typography.fontFamily,
+      color: typography.color,
+      accentColor: typography.accentColor,
+      mutedColor: typography.mutedColor,
     },
   };
 }

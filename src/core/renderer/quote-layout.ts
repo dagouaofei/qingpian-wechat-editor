@@ -1,3 +1,4 @@
+import { typographyForMiaopianPreset } from "@/config/miaopian-typography";
 import type { QuoteBlock } from "@/core/blocks";
 import type { CopySafety } from "@/core/styles";
 import { resolveThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
@@ -20,6 +21,7 @@ export type QuoteTypography = {
   attributionFontSize: string;
   lineHeight: string;
   marginBlock: string;
+  fontFamily: string;
 };
 
 import { QUOTE_VARIANT_LAYOUT } from "./expansion-layout-maps";
@@ -36,6 +38,7 @@ export function resolveQuoteTypography(
   const palette = resolveThemePaletteTokens(resolved.tokens.theme);
   const bodyFontSize = resolved.tokens.theme.fontSize?.body ?? "16px";
   const variantSpacing = resolved.tokens.variant?.["spacing.block"];
+  const presetTypography = typographyForMiaopianPreset(resolved.presetId);
 
   return {
     color: palette.textDefault,
@@ -43,8 +46,9 @@ export function resolveQuoteTypography(
     accentColor: palette.textAccent,
     fontSize: bodyFontSize,
     attributionFontSize: "14px",
-    lineHeight: "1.75",
+    lineHeight: presetTypography.bodyLineHeight,
     marginBlock: variantSpacing ?? "18px",
+    fontFamily: presetTypography.fontFamily,
   };
 }
 

@@ -61,8 +61,9 @@ export function previewTitleContainerStyle(
   layoutMode: TitleBlockLayoutMode,
   blockType: "title" | "heading",
 ): CSSProperties {
-  const marginBlock = blockType === "title" ? "28px" : "22px";
-  const base: CSSProperties = { margin: `${marginBlock} 0` };
+  const base: CSSProperties = {
+    margin: blockType === "title" ? "28px 0" : "28px 0 12px",
+  };
 
   switch (layoutMode) {
     case "plain":

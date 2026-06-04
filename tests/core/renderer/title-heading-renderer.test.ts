@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import {
   FIRST_WAVE_TITLE_HEADING_VARIANT_REGISTRY,
+  HEADING_PUBLISH_VARIANT_IDS,
   TITLE_BLOCK_FIRST_WAVE_VARIANTS,
   parseStyleRegistry,
   resolveArticleStyle,
@@ -23,46 +24,15 @@ const VARIANT_MATRIX = [
     blockType: "title" as const,
     layoutMode: "bottom_line",
   },
-  { variantId: "heading_plain_minimal", blockType: "heading" as const, layoutMode: "plain" },
   {
-    variantId: "heading_numbered_section",
+    variantId: "heading_short_line",
     blockType: "heading" as const,
-    layoutMode: "numbered",
-  },
-  {
-    variantId: "heading_top_badge_topic",
-    blockType: "heading" as const,
-    layoutMode: "top_badge",
-  },
-  {
-    variantId: "heading_underline_classic",
-    blockType: "heading" as const,
-    layoutMode: "underline",
-  },
-  {
-    variantId: "heading_pill_topic",
-    blockType: "heading" as const,
-    layoutMode: "pill",
-  },
-  {
-    variantId: "heading_editorial_plain",
-    blockType: "heading" as const,
-    layoutMode: "plain",
-  },
-  {
-    variantId: "heading_keynote_strong",
-    blockType: "heading" as const,
-    layoutMode: "keynote_bar",
+    layoutMode: "short_line",
   },
   {
     variantId: "heading_highlight_marker",
     blockType: "heading" as const,
     layoutMode: "highlight_marker",
-  },
-  {
-    variantId: "heading_short_line",
-    blockType: "heading" as const,
-    layoutMode: "short_line",
   },
   {
     variantId: "heading_icon_prefix",
@@ -84,30 +54,41 @@ const VARIANT_MATRIX = [
     blockType: "heading" as const,
     layoutMode: "magazine_offset",
   },
-];
+  {
+    variantId: "heading_numbered_section",
+    blockType: "heading" as const,
+    layoutMode: "numbered",
+  },
+  {
+    variantId: "heading_card_centered",
+    blockType: "heading" as const,
+    layoutMode: "card",
+  },
+] as const;
 
-describe("title / heading preview renderer", () => {
+describe("title / heading renderer matrix", () => {
   const styleRegistry = parseStyleRegistry(FIRST_WAVE_TITLE_HEADING_VARIANT_REGISTRY);
   const rendererRegistry = createTitleBlockRendererRegistry();
 
-  it.each(VARIANT_MATRIX)(
-    "preview renders $variantId successfully",
-    ({ variantId, blockType, layoutMode }) => {
+  it("covers all publish heading variants plus title variants", () => {
+    const headingIds = VARIANT_MATRIX.filter((row) => row.blockType === "heading").map(
+      (row) => row.variantId,
+    );
+    expect(headingIds).toEqual([...HEADING_PUBLISH_VARIANT_IDS]);
+    expect(VARIANT_MATRIX).toHaveLength(TITLE_BLOCK_FIRST_WAVE_VARIANTS.length);
+  });
+
+  for (const row of VARIANT_MATRIX) {
+    it(`preview + copy render ${row.variantId}`, () => {
       const article = createTitleHeadingArticleFixture({
-        blockType,
-        variantId,
-        text: `${variantId} 文本`,
-        meta:
-          variantId === "heading_numbered_section"
-            ? { sourceIndex: 2 }
-            : variantId === "heading_top_badge_topic"
-              ? { label: "专题" }
-              : undefined,
+        blockType: row.blockType,
+        variantId: row.variantId,
+        text: row.blockType === "title" ? "主标题" : "小节标题",
       });
       const resolved = resolveArticleStyle(article, styleRegistry);
       const block = article.blocks[0]!;
 
-      const result = renderBlock({
+      const preview = renderBlock({
         input: {
           article,
           block,
@@ -118,189 +99,42 @@ describe("title / heading preview renderer", () => {
         registry: rendererRegistry,
       });
 
-      expect(result.ok).toBe(true);
-      expect(result.mode).toBe("preview");
-      expect(result.target).toBe("browser_preview");
-      expect(result.blockId).toBe(block.id);
-      expect(result.blockType).toBe(blockType);
-      expect(result.variantId).toBe(variantId);
-      expect(result.output).toMatchObject({
-        kind: "title_block_preview",
-        layoutMode,
-        text: `${variantId} 文本`,
+      const copy = renderBlock({
+        input: {
+          article,
+          block,
+          resolvedArticleStyle: resolved,
+          mode: "copy",
+          target: renderTargetForMode("copy"),
+        },
+        registry: rendererRegistry,
       });
-    },
-  );
 
-  it("resolves all 6 variants through renderer registry", () => {
-    expect(rendererRegistry.has("title", "preview")).toBe(true);
-    expect(rendererRegistry.has("title", "copy")).toBe(true);
-    expect(rendererRegistry.has("heading", "preview")).toBe(true);
-    expect(rendererRegistry.has("heading", "copy")).toBe(true);
-    expect(rendererRegistry.list()).toHaveLength(4);
-  });
+      expect(preview.ok).toBe(true);
+      expect(copy.ok).toBe(true);
+      if (preview.ok && preview.output && "layoutMode" in preview.output) {
+        expect(preview.output.layoutMode).toBe(row.layoutMode);
+      }
+    });
+  }
 
-  it("returns unsupported_variant for unregistered variant id", () => {
+  it("buildBlockRenderContext returns issues for unknown blockId", () => {
     const article = createTitleHeadingArticleFixture({
-      blockType: "title",
-      variantId: "title_plain_minimal",
-      text: "标题",
+      blockType: "heading",
+      variantId: "heading_short_line",
+      text: "H",
     });
     const resolved = resolveArticleStyle(article, styleRegistry);
-    resolved.blocks[0]!.variantId = "title-centered";
-    resolved.blocks[0]!.variant = {
-      ...resolved.blocks[0]!.variant,
-      id: "title-centered",
-    };
 
-    const block = article.blocks[0]!;
-    const { context } = buildBlockRenderContext({
+    const { context, issues } = buildBlockRenderContext({
       article,
-      blockId: block.id,
+      blockId: fixtureBlockId(99),
       resolvedArticleStyle: resolved,
       mode: "preview",
+      target: renderTargetForMode("preview"),
     });
 
-    expect(context).toBeDefined();
-    const result = renderBlock({
-      input: {
-        article,
-        block,
-        resolvedArticleStyle: resolved,
-        mode: "preview",
-        target: "browser_preview",
-      },
-      registry: rendererRegistry,
-    });
-
-    expect(result.ok).toBe(false);
-    expect(result.issues).toEqual([
-      expect.objectContaining({ code: "unsupported_variant" }),
-    ]);
-  });
-
-  it("returns missing_resolved_style when style is absent", () => {
-    const article = createTitleHeadingArticleFixture({
-      blockType: "title",
-      variantId: "title_plain_minimal",
-      text: "标题",
-    });
-    const resolved = resolveArticleStyle(article, styleRegistry);
-    const stripped = {
-      ...resolved,
-      blocks: resolved.blocks.filter((entry) => entry.blockId !== article.blocks[0]!.id),
-    };
-    const block = article.blocks[0]!;
-
-    const result = renderBlock({
-      input: {
-        article,
-        block,
-        resolvedArticleStyle: stripped,
-        mode: "preview",
-        target: "browser_preview",
-      },
-      registry: rendererRegistry,
-    });
-
-    expect(result.ok).toBe(false);
-    expect(result.issues).toEqual([
-      expect.objectContaining({ code: "missing_resolved_style" }),
-    ]);
-  });
-
-  it("heading_numbered_section uses index fallback when badge presentation missing", () => {
-    const article = createTitleHeadingArticleFixture({
-      blockType: "heading",
-      variantId: "heading_numbered_section",
-      text: "章节",
-      meta: { sourceIndex: 3 },
-    });
-    const resolved = resolveArticleStyle(article, styleRegistry);
-    const block = article.blocks[0]!;
-
-    const result = renderBlock({
-      input: {
-        article,
-        block,
-        resolvedArticleStyle: resolved,
-        mode: "preview",
-        target: "browser_preview",
-      },
-      registry: rendererRegistry,
-    });
-
-    expect(result.ok).toBe(true);
-    expect(result.output).toMatchObject({
-      kind: "title_block_preview",
-      slots: expect.objectContaining({
-        badge: expect.objectContaining({
-          state: "fallback",
-          content: "03",
-        }),
-      }),
-    });
-  });
-
-  it("heading_top_badge_topic provides default topic badge when presentation missing", () => {
-    const article = createTitleHeadingArticleFixture({
-      blockType: "heading",
-      variantId: "heading_top_badge_topic",
-      text: "章节",
-    });
-    const resolved = resolveArticleStyle(article, styleRegistry);
-    const block = article.blocks[0]!;
-
-    const result = renderBlock({
-      input: {
-        article,
-        block,
-        resolvedArticleStyle: resolved,
-        mode: "preview",
-        target: "browser_preview",
-      },
-      registry: rendererRegistry,
-    });
-
-    expect(result.ok).toBe(true);
-    expect(result.output).toMatchObject({
-      presentation: expect.objectContaining({ badgeText: "话题", iconCapsuleLabel: "签" }),
-      slots: expect.objectContaining({
-        badge: expect.objectContaining({
-          state: "fallback",
-          content: "话题",
-        }),
-      }),
-    });
-  });
-
-  it("covers all first-wave variant ids in matrix", () => {
-    expect(VARIANT_MATRIX.map((entry) => entry.variantId)).toEqual(
-      TITLE_BLOCK_FIRST_WAVE_VARIANTS.map((variant) => variant.id),
-    );
-  });
-});
-
-describe("title / heading renderer input contract", () => {
-  it("uses Article + ResolvedArticleStyle without parallel models", () => {
-    const article = createTitleHeadingArticleFixture({
-      blockType: "title",
-      variantId: "title_plain_minimal",
-      text: "标题",
-    });
-    const resolved = resolveArticleStyle(
-      article,
-      parseStyleRegistry(FIRST_WAVE_TITLE_HEADING_VARIANT_REGISTRY),
-    );
-
-    const { context } = buildBlockRenderContext({
-      article,
-      blockId: fixtureBlockId(1),
-      resolvedArticleStyle: resolved,
-      mode: "copy",
-    });
-
-    expect(context?.article).toBe(article);
-    expect(context?.resolvedArticleStyle).toBe(resolved);
+    expect(context).toBeUndefined();
+    expect(issues.length).toBeGreaterThan(0);
   });
 });

@@ -1,6 +1,7 @@
 import type { Article } from "@/core/article";
 import type { NormalizedInput } from "@/core/generation/input";
 import type { InputStyleIntent } from "@/core/generation/input";
+import type { HeadingPublishVariantId } from "@/core/styles/variants/heading-publish-pool";
 import {
   DEFAULT_THEME_FOR_PRESET,
   LEGACY_PRESET_ID_ALIASES,
@@ -22,6 +23,8 @@ export type PreviewStyleControlState = {
   colorPalette: PreviewColorPaletteId;
   /** When false, switching article style resets palette to preset default */
   lockColorPalette?: boolean;
+  /** Overrides all heading blocks; empty = use style-selection assignment */
+  headingVariantId?: HeadingPublishVariantId | "";
 };
 
 const DENSITY_BY_PRESET: Record<
@@ -91,6 +94,7 @@ export const DEFAULT_PREVIEW_STYLE_CONTROL: PreviewStyleControlState = {
   articleStyle: "business",
   colorPalette: DEFAULT_THEME_FOR_PRESET.business,
   lockColorPalette: false,
+  headingVariantId: "",
 };
 
 export function resolvePreviewStyleOption(articleStyle: PreviewArticleStyleId) {

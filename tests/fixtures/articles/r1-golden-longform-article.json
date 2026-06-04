@@ -1,0 +1,79 @@
+{
+  "id": "33333333-3333-4333-8333-000000000103",
+  "version": 1,
+  "metadata": {
+    "title": "R1 Golden · 长文公众号稿",
+    "createdAt": "2026-06-02T00:00:00.000Z",
+    "updatedAt": "2026-06-02T00:00:00.000Z",
+    "locale": "zh-CN"
+  },
+  "input": {
+    "type": "fixture",
+    "raw": "fixture:r1-golden-longform-article",
+    "capturedAt": "2026-06-02T00:00:00.000Z"
+  },
+  "styleAssignment": {
+    "themeId": "businessBlue",
+    "presetId": "business"
+  },
+  "blocks": [
+    { "id": "55555555-5555-4555-8555-010300000001", "type": "title", "content": { "text": "长文锚点：运营周报怎么写才有人读" } },
+    {
+      "id": "55555555-5555-4555-8555-010300000002",
+      "type": "lead",
+      "content": { "text": "每周一次的运营周报，最容易死在「信息堆砌」。本文用长文结构示范标题层级、段落节奏与文末 CTA。" }
+    },
+    { "id": "55555555-5555-4555-8555-010300000003", "type": "heading", "content": { "text": "本周三件事", "level": 2 } },
+    {
+      "id": "55555555-5555-4555-8555-010300000004",
+      "type": "paragraph",
+      "content": { "text": [{ "text": "第一段给出结论：增长来自内容实验与排版体验同步提升，而不是单点投放。" }] }
+    },
+    {
+      "id": "55555555-5555-4555-8555-010300000005",
+      "type": "list",
+      "content": {
+        "ordered": true,
+        "items": [
+          { "text": "实验：A/B 标题与导语", "subItems": [] },
+          { "text": "体验：Preview/Copy 一致", "subItems": [] },
+          { "text": "交付：粘贴 QA 归档", "subItems": [] }
+        ]
+      }
+    },
+    { "id": "55555555-5555-4555-8555-010300000006", "type": "heading", "content": { "text": "数据摘要", "level": 2 } },
+    {
+      "id": "55555555-5555-4555-8555-010300000007",
+      "type": "paragraph",
+      "content": { "text": [{ "text": "完读率提升需要段落长度控制与小标题规律出现，而不是增加装饰块数量。" }] }
+    },
+    {
+      "id": "55555555-5555-4555-8555-010300000008",
+      "type": "highlight",
+      "content": { "text": "强视觉块全文比例应低于 25%。", "label": "指标" }
+    },
+    { "id": "55555555-5555-4555-8555-010300000009", "type": "divider", "content": { "style": "line" } },
+    { "id": "55555555-5555-4555-8555-010300000010", "type": "heading", "content": { "text": "下周计划", "level": 2 } },
+    {
+      "id": "55555555-5555-4555-8555-010300000011",
+      "type": "paragraph",
+      "content": { "text": [{ "text": "继续以 golden fixture 驱动回归，避免新增 variant 分散精力。" }] }
+    },
+    {
+      "id": "55555555-5555-4555-8555-010300000012",
+      "type": "info_card",
+      "content": { "title": "风险", "body": "粘贴 FAIL 须登记 bugs.md", "icon": "warning" }
+    },
+    { "id": "55555555-5555-4555-8555-010300000013", "type": "heading", "content": { "text": "结语", "level": 2 } },
+    {
+      "id": "55555555-5555-4555-8555-010300000014",
+      "type": "paragraph",
+      "content": { "text": [{ "text": "把默认路径做稳，再考虑样式市场的扩展。" }] }
+    },
+    {
+      "id": "55555555-5555-4555-8555-010300000015",
+      "type": "cta",
+      "content": { "text": "复制本篇到公众号后台对照验收", "action": "copy" }
+    }
+  ]
+}

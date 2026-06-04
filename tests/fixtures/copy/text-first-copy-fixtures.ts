@@ -44,7 +44,7 @@ export const TEXT_FIRST_COPY_STYLE_REGISTRY = {
       themeId: "businessBlue",
       defaultVariantByBlockType: {
         title: "title_plain_minimal",
-        heading: "heading_plain_minimal",
+        heading: "heading_short_line",
         lead: "lead_plain_intro",
         paragraph: "paragraph_plain_body",
         divider: "divider_simple_line",

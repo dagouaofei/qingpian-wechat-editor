@@ -442,3 +442,11 @@
 | 2026-06-02 | Sprint 7 | **DECISION-084**：Orchestrator R4 + RCARD；plain-first 生成 rotation；`card-rhythm.ts` | Style / Generation | DECISION-084, S7-STORY-006 |
 | 2026-06-02 | Sprint 7 | **S7-STORY-006 Done**（PO 签收）；`feature/s7-article-rhythm-card-fix` fast-forward merge → sprint @ `935640f` | 代码 / Git | S7-STORY-006 |
 | 2026-06-02 | Sprint 7 | **下一步 S7-STORY-007**（视觉 QA + close readiness）；Sprint 7 **未关闭** | 敏捷 | S7-STORY-007 |
+
+## 2026-06-03 · Sprint 7 收口 · S7-STORY-008
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-03 | Sprint 7 | **S7-STORY-008 Done**：heading publish 8 款；第六轮公众号粘贴 **8/8 PASS**；荧光笔 `h3`+`linear-gradient`（`7d8e38c`） | Heading / Copy / Preview | S7-STORY-008, DECISION-087 |
+| 2026-06-03 | Sprint 7 | **Sprint 7 Closed**（用户确认）；`feature/s7-story-007a-r1-style-fidelity` → `sprint/s7-wechat-article-experience` → `release/1` | 敏捷 / Git | Sprint 7 |
+| 2026-06-03 | Sprint 7 | S7-STORY-007B（R1 golden 全文粘贴）移交 Sprint 8；不阻塞 S7 关闭 | 敏捷 | S7-STORY-007B |

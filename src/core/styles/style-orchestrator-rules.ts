@@ -10,6 +10,7 @@ import {
   isCardRhythmBodyBlock,
   isTitleHeadingDecorFamily,
 } from "./card-rhythm";
+import { applyOrchestratorArticleLayoutRules } from "./style-orchestrator-article-layout";
 import type { StyleRegistry, StyleValidationIssue } from "./types";
 import {
   type OrchestratorBlockStyleState,
@@ -128,6 +129,7 @@ export function applyOrchestratorRuleR8(
       familyId: titleState.familyId,
       layoutMode: titleState.layoutMode,
     },
+    true,
   );
 }
 
@@ -336,4 +338,5 @@ export function applyOrchestratorRhythmRules(
   );
   // R1 disabled: article-level heading variant unity (miaopian titleVariantPool model).
   applyOrchestratorRuleR2(states, issues, options?.maxAssetReuse ?? 2);
+  applyOrchestratorArticleLayoutRules(blocks, states, registry, issues);
 }

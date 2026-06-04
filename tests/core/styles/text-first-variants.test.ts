@@ -169,7 +169,7 @@ describe("text-first first-wave variants", () => {
   });
 
   it("keeps implemented first-wave aggregate explicit", () => {
-    expect(IMPLEMENTED_FIRST_WAVE_VARIANTS).toHaveLength(97);
+    expect(IMPLEMENTED_FIRST_WAVE_VARIANTS).toHaveLength(92);
     expect(TEXT_FIRST_BLOCK_VARIANTS).toHaveLength(12);
   });
 

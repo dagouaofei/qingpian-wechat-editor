@@ -1,5 +1,5 @@
 /**
- * Release 1 expansion variants — +6 per block type (heading +4 in title-heading.ts).
+ * Release 1 expansion variants — +6 per block type (heading pool: heading-publish-pool.ts).
  * @see DECISION-083
  */
 
@@ -138,63 +138,6 @@ function titleTextSlot(): SlotDefinition {
     copySafety: { copySafety: "strict", allowedInCopy: true },
   };
 }
-
-function headingExpansion(
-  config: {
-    id: string;
-    family: string;
-    label: string;
-    layoutMode: TitleBlockLayoutMode;
-    slots?: VariantDefinition["slots"];
-  },
-): VariantDefinition {
-  return {
-    id: config.id,
-    schemaVersion: STYLE_SCHEMA_VERSION,
-    blockType: "heading",
-    family: config.family,
-    name: config.id,
-    label: config.label,
-    status: "release1_required",
-    componentProtocol: {
-      componentId: TITLE_BLOCK_COMPONENT_ID,
-      familyId: config.family,
-      layoutMode: config.layoutMode,
-    },
-    compatibility: { copySafety: "balanced" },
-    slots: config.slots ?? { title: titleTextSlot(), decoration: presentationDecoration() },
-    tokens: { "typography.size": "18px", "spacing.block": "24px" },
-  };
-}
-
-export const headingUnderlineClassic = headingExpansion({
-  id: "heading_underline_classic",
-  family: "underline",
-  label: "Underline Classic Heading",
-  layoutMode: "underline",
-});
-
-export const headingPillTopic = headingExpansion({
-  id: "heading_pill_topic",
-  family: "pill",
-  label: "Pill Topic Heading",
-  layoutMode: "pill",
-  slots: { title: titleTextSlot(), badge: presentationBadge() },
-});
-
-export const headingEditorialPlain = headingExpansion({
-  id: "heading_editorial_plain",
-  family: "editorial",
-  label: "Editorial Plain Heading",
-  layoutMode: "plain",
-});
-
-export const headingKeynoteStrong = headingExpansion({
-  id: "heading_keynote_strong",
-  family: "keynote",
-  label: "Keynote Strong Heading",
-  layoutMode: "keynote_bar",
-});
 
 export const LEAD_EXPANSION_VARIANTS = [
   textFirstExpansion({

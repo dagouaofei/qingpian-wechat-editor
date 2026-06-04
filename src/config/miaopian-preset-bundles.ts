@@ -6,6 +6,7 @@
 import type { BlockType } from "@/core/blocks";
 import type { Density, PresetDefinition, ThemeDefinition } from "@/core/styles";
 import { STYLE_SCHEMA_VERSION } from "@/core/styles";
+import { HEADING_PUBLISH_VARIANT_IDS } from "@/core/styles/variants/heading-publish-pool";
 
 export type MiaopianPresetId =
   | "business"
@@ -208,21 +209,7 @@ const TITLE_POOL = [
   "title_bottom_line_editorial",
 ] as const;
 
-const HEADING_POOL = [
-  "heading_plain_minimal",
-  "heading_numbered_section",
-  "heading_top_badge_topic",
-  "heading_underline_classic",
-  "heading_pill_topic",
-  "heading_editorial_plain",
-  "heading_keynote_strong",
-  "heading_highlight_marker",
-  "heading_short_line",
-  "heading_icon_prefix",
-  "heading_minimal_number",
-  "heading_magazine_left_bar",
-  "heading_magazine_offset",
-] as const;
+const HEADING_POOL = [...HEADING_PUBLISH_VARIANT_IDS] as const;
 
 const LEAD_POOL = [
   "lead_plain_intro",
@@ -341,15 +328,15 @@ const PRESET_BUNDLE_META: PresetBundleMeta[] = [
     tone: "理性、克制、可执行",
     defaultVariantByBlockType: {
       title: "title_bottom_line_editorial",
-      lead: "lead_business_brief",
+      lead: "lead_plain_intro",
       heading: "heading_short_line",
       paragraph: "paragraph_plain_body",
       divider: "divider_simple_line",
       list: "list_plain_bullets",
       quote: "quote_left_bar",
-      highlight: "highlight_flat_business",
+      highlight: "highlight_inline_emphasis",
       info_card: "info_card_key_takeaway",
-      cta: "cta_summary_band",
+      cta: "cta_plain_text",
       image_placeholder: "image_placeholder_simple",
     },
     variantPoolsByBlockType: {
@@ -474,7 +461,7 @@ const PRESET_BUNDLE_META: PresetBundleMeta[] = [
     defaultVariantByBlockType: {
       title: "title_plain_minimal",
       lead: "lead_notebook_highlight",
-      heading: "heading_pill_topic",
+      heading: "heading_card_centered",
       paragraph: "paragraph_callout_soft",
       divider: "divider_dot_warm",
       list: "list_checklist_cards",

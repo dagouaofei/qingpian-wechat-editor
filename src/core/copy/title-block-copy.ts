@@ -15,19 +15,44 @@ import {
 } from "@/core/renderer/text-style";
 import type { BlockRenderContext } from "@/core/renderer/types";
 import {
+  copySafeCardTitleFrameStyle,
+  copySafeHeadingOrdinalStyle,
+  copySafeHeadingSectionKickerStyle,
+  copySafeHeadingSectionStyle,
+  copySafeHighlightMarkerTextStyle,
+  copySafeIconCapsuleStyle,
+  copySafeIconPrefixInlineStyle,
+  copySafeMagazineOffsetSectionStyle,
+  copySafeNumberBadgeStyle,
+  copySafeShortLineUnderlineStyle,
+  copySafeTopicPillStyle,
+} from "./title-heading-copy-styles";
+import {
+  renderPublishHighlightMarkerCopy,
+  renderPublishIconPrefixCopy,
+  renderPublishMagazineLeftBarCopy,
+  renderPublishMagazineOffsetCopy,
+  renderPublishMinimalNumberCopy,
+  renderPublishNumberedSectionCopy,
+  renderPublishShortLineCopy,
+  renderPublishCardCenteredCopy,
+} from "@/core/renderer/heading-publish-copy-html";
+import { isHeadingPublishVariantId } from "@/core/renderer/title-heading-assets";
+import {
   resolveTitleHeadingPresentation,
-  titleHeadingCardTitleFrameStyle,
-  titleHeadingIconCapsuleStyle,
-  titleHeadingNumberBadgeStyle,
   titleHeadingTopicPillStyle,
-  titleHeadingHighlightMarkerTextStyle,
-  titleHeadingShortLineWrapStyle,
-  titleHeadingShortLineBarStyle,
-  titleHeadingIconPrefixWrapStyle,
-  titleHeadingMinimalNumberLabelStyle,
-  titleHeadingMagazineOffsetCardStyle,
 } from "@/core/renderer/title-heading-visual";
 import type { TitleHeadingPresentation } from "@/core/renderer/title-heading-visual";
+
+function headingSectionStyle(): Record<string, string> {
+  return copySafeHeadingSectionStyle();
+}
+
+function titleSectionStyle(
+  typography: ReturnType<typeof resolveTitleBlockTypography>,
+): Record<string, string> {
+  return { margin: `${typography.marginBlock} 0` };
+}
 
 function titleParagraphHtml(
   text: string,
@@ -52,7 +77,7 @@ function titleParagraphHtml(
 function iconCapsuleCopyHtml(label: string, palette: ThemePaletteTokens): string {
   return wrapInlineElement(
     "span",
-    titleHeadingIconCapsuleStyle(palette),
+    copySafeIconCapsuleStyle(palette),
     escapeHtml(label),
   );
 }
@@ -73,7 +98,7 @@ function renderPlainTitleCopy(
 
   return wrapInlineElement(
     "section",
-    titleHeadingCardTitleFrameStyle(palette),
+    copySafeCardTitleFrameStyle(palette),
     `${iconTop}${titleParagraphHtml(text, typography, "center")}`,
   );
 }
@@ -174,7 +199,7 @@ function renderLeftBarCopy(
           wrapInlineElement("td", {
             width: barWidth,
             verticalAlign: "top",
-            background: `linear-gradient(180deg, ${palette.textAccent} 0%, ${palette.borderLight} 100%)`,
+            backgroundColor: palette.textAccent,
             borderRadius: "2px",
           }, "") +
           wrapInlineElement(
@@ -211,7 +236,7 @@ function renderBottomLineCopy(
       wrapInlineElement("td", { width: "40px", textAlign: "center", verticalAlign: "middle" }, icon) +
         wrapInlineElement("td", {
           height: "2px",
-          background: `linear-gradient(90deg, transparent, ${palette.textAccent}, transparent)`,
+          backgroundColor: palette.textAccent,
         }, "") +
         wrapInlineElement("td", { width: "40px", textAlign: "center", verticalAlign: "middle" }, icon),
     ),
@@ -228,19 +253,50 @@ function renderBottomLineCopy(
   );
 }
 
+function titleInlineHtml(
+  text: string,
+  typography: ReturnType<typeof resolveTitleBlockTypography>,
+): string {
+  return wrapInlineElement(
+    "span",
+    {
+      color: typography.color,
+      fontSize: typography.fontSize,
+      fontWeight: typography.fontWeight,
+      lineHeight: typography.lineHeight,
+      ...(typography.fontFamily ? { fontFamily: typography.fontFamily } : {}),
+    },
+    escapeHtml(text),
+  );
+}
+
 function renderNumberedCopy(
   text: string,
   typography: ReturnType<typeof resolveTitleBlockTypography>,
   palette: ThemePaletteTokens,
   indexLabel: string | undefined,
+  blockType: "title" | "heading",
 ): string {
-  const badgeStyle = titleHeadingNumberBadgeStyle(palette);
-  const badge = wrapInlineElement(
-    "span",
-    badgeStyle,
-    escapeHtml(indexLabel ?? "01"),
-  );
+  if (blockType === "heading") {
+    const label = indexLabel ?? "01";
+    const num = wrapInlineElement(
+      "span",
+      copySafeHeadingOrdinalStyle(palette),
+      escapeHtml(label),
+    );
+    return wrapInlineElement(
+      "section",
+      headingSectionStyle(),
+      wrapInlineElement(
+        "p",
+        { margin: "0", lineHeight: typography.lineHeight },
+        `${num}${titleInlineHtml(text, typography)}`,
+      ),
+    );
+  }
 
+  const badgeStyle = copySafeNumberBadgeStyle(palette);
+  const badge = wrapInlineElement("span", badgeStyle, escapeHtml(indexLabel ?? "01"));
   return wrapInlineElement(
     "section",
     {
@@ -271,22 +327,26 @@ function renderHighlightMarkerCopy(
   text: string,
   typography: ReturnType<typeof resolveTitleBlockTypography>,
   palette: ThemePaletteTokens,
+  blockType: "title" | "heading",
 ): string {
-  const markerStyle = titleHeadingHighlightMarkerTextStyle(palette);
+  if (blockType === "heading") {
+    return renderPublishHighlightMarkerCopy(text, typography, palette);
+  }
+  const sectionStyle = titleSectionStyle(typography);
+  const baseTextStyle = {
+    margin: "0",
+    color: typography.color,
+    fontSize: typography.fontSize,
+    fontWeight: typography.fontWeight,
+    lineHeight: typography.lineHeight,
+    ...(typography.fontFamily ? { fontFamily: typography.fontFamily } : {}),
+  };
   return wrapInlineElement(
     "section",
-    { margin: `${typography.marginBlock} 0` },
+    sectionStyle,
     wrapInlineElement(
       "p",
-      {
-        margin: "0",
-        color: typography.color,
-        fontSize: typography.fontSize,
-        fontWeight: typography.fontWeight,
-        lineHeight: typography.lineHeight,
-        ...(typography.fontFamily ? { fontFamily: typography.fontFamily } : {}),
-        ...markerStyle,
-      },
+      { ...baseTextStyle, ...copySafeHighlightMarkerTextStyle(palette, typography) },
       escapeHtml(text),
     ),
   );
@@ -297,12 +357,15 @@ function renderShortLineCopy(
   typography: ReturnType<typeof resolveTitleBlockTypography>,
   palette: ThemePaletteTokens,
 ): string {
-  const lineStyle = titleHeadingShortLineBarStyle(palette);
+  const underline = wrapInlineElement(
+    "p",
+    copySafeShortLineUnderlineStyle(palette),
+    "&nbsp;",
+  );
   return wrapInlineElement(
     "section",
-    { margin: `${typography.marginBlock} 0`, textAlign: "left" },
-    wrapInlineElement("div", titleHeadingShortLineWrapStyle(palette), titleParagraphHtml(text, typography, "left")) +
-      wrapInlineElement("div", { ...lineStyle, "aria-hidden": "true" }, ""),
+    { ...headingSectionStyle(), textAlign: "left" },
+    titleParagraphHtml(text, typography, "left") + underline,
   );
 }
 
@@ -310,15 +373,19 @@ function renderIconPrefixCopy(
   text: string,
   typography: ReturnType<typeof resolveTitleBlockTypography>,
   palette: ThemePaletteTokens,
+  presentation: TitleHeadingPresentation,
 ): string {
+  const iconLabel = presentation.iconCapsuleLabel ?? presentation.iconGlyph ?? "▸";
+  const icon = wrapInlineElement(
+    "span",
+    copySafeIconPrefixInlineStyle(palette),
+    escapeHtml(iconLabel),
+  );
+  const inner = `${icon}${titleInlineHtml(text, typography)}`;
   return wrapInlineElement(
     "section",
-    { margin: `${typography.marginBlock} 0`, textAlign: "left" },
-    wrapInlineElement(
-      "div",
-      titleHeadingIconPrefixWrapStyle(palette),
-      titleParagraphHtml(text, typography, "left"),
-    ),
+    { ...headingSectionStyle(), textAlign: "left" },
+    wrapInlineElement("p", { margin: "0", lineHeight: typography.lineHeight }, inner),
   );
 }
 
@@ -328,35 +395,19 @@ function renderMinimalNumberCopy(
   palette: ThemePaletteTokens,
   indexLabel: string | undefined,
 ): string {
-  if (!indexLabel) {
-    return wrapInlineElement(
-      "section",
-      { margin: `${typography.marginBlock} 0`, textAlign: "left" },
-      titleParagraphHtml(text, typography, "left"),
-    );
-  }
+  const label = indexLabel ?? "01";
   const num = wrapInlineElement(
     "span",
-    titleHeadingMinimalNumberLabelStyle(palette),
-    escapeHtml(indexLabel),
+    copySafeHeadingOrdinalStyle(palette),
+    escapeHtml(label),
   );
   return wrapInlineElement(
     "section",
-    { margin: `${typography.marginBlock} 0`, textAlign: "left" },
+    { ...headingSectionStyle(), textAlign: "left" },
     wrapInlineElement(
-      "table",
-      { width: "100%", borderCollapse: "collapse" },
-      wrapInlineElement(
-        "tr",
-        {},
-        wrapInlineElement("td", { width: "34px", verticalAlign: "top", textAlign: "right", paddingRight: "14px" }, num) +
-          wrapInlineElement("td", { width: "1px", verticalAlign: "top", background: palette.borderLight, opacity: "0.4" }, "") +
-          wrapInlineElement(
-            "td",
-            { verticalAlign: "top", paddingLeft: "14px", paddingTop: "1px" },
-            titleParagraphHtml(text, typography, "left"),
-          ),
-      ),
+      "p",
+      { margin: "0", lineHeight: typography.lineHeight },
+      `${num}${titleInlineHtml(text, typography)}`,
     ),
   );
 }
@@ -365,52 +416,57 @@ function renderMagazineLeftBarCopy(
   text: string,
   typography: ReturnType<typeof resolveTitleBlockTypography>,
   palette: ThemePaletteTokens,
-  badgeText: string | undefined,
+  presentation: TitleHeadingPresentation,
 ): string {
-  const kicker = badgeText
-    ? wrapInlineElement(
-        "p",
-        {
-          margin: "0 0 4px",
-          fontSize: "10px",
-          letterSpacing: "0.22em",
-          textTransform: "uppercase",
-          color: palette.textMuted,
-        },
-        escapeHtml(badgeText),
-      )
-    : wrapInlineElement(
-        "p",
-        {
-          margin: "0 0 4px",
-          fontSize: "10px",
-          letterSpacing: "0.22em",
-          textTransform: "uppercase",
-          color: palette.textMuted,
-        },
-        "Editorial",
-      );
-  const bars =
-    wrapInlineElement("span", { display: "block", width: "1px", height: "36px", borderRadius: "1px", background: palette.borderLight, opacity: "0.55", marginBottom: "3px" }, "") +
-    wrapInlineElement("span", { display: "block", width: "3px", height: "36px", borderRadius: "2px", background: palette.textAccent, opacity: "0.88" }, "");
-  return wrapInlineElement(
-    "section",
-    { margin: `${typography.marginBlock} 0`, textAlign: "left" },
+  const indexLine = wrapInlineElement(
+    "p",
+    copySafeHeadingOrdinalStyle(palette),
+    escapeHtml(presentation.indexLabel ?? "01"),
+  );
+  const sectionLine = wrapInlineElement(
+    "p",
+    copySafeHeadingSectionKickerStyle(palette),
+    escapeHtml(presentation.badgeText ?? "SECTION"),
+  );
+  const bars = wrapInlineElement(
+    "table",
+    { borderCollapse: "collapse", margin: "0", padding: "0" },
     wrapInlineElement(
-      "table",
-      { width: "100%", borderCollapse: "collapse" },
-      wrapInlineElement(
-        "tr",
-        {},
-        wrapInlineElement("td", { width: "18px", verticalAlign: "top", paddingRight: "12px" }, bars) +
-          wrapInlineElement(
-            "td",
-            { verticalAlign: "top", paddingTop: "2px" },
-            `${kicker}${titleParagraphHtml(text, typography, "left")}`,
-          ),
-      ),
+      "tr",
+      {},
+      wrapInlineElement("td", {
+        width: "1px",
+        height: "52px",
+        backgroundColor: palette.borderLight,
+        padding: "0",
+        fontSize: "0",
+        lineHeight: "0",
+      }, "&nbsp;") +
+        wrapInlineElement("td", {
+          width: "3px",
+          height: "52px",
+          backgroundColor: palette.textAccent,
+          padding: "0",
+          fontSize: "0",
+          lineHeight: "0",
+        }, "&nbsp;"),
     ),
   );
+  const body = wrapInlineElement(
+    "table",
+    { width: "100%", borderCollapse: "collapse" },
+    wrapInlineElement(
+      "tr",
+      {},
+      wrapInlineElement("td", { width: "14px", verticalAlign: "top", paddingRight: "10px" }, bars) +
+        wrapInlineElement(
+          "td",
+          { verticalAlign: "top" },
+          `${indexLine}${sectionLine}${titleParagraphHtml(text, typography, "left")}`,
+        ),
+    ),
+  );
+  return wrapInlineElement("section", headingSectionStyle(), body);
 }
 
 function renderMagazineOffsetCopy(
@@ -420,16 +476,8 @@ function renderMagazineOffsetCopy(
 ): string {
   return wrapInlineElement(
     "section",
-    { margin: `${typography.marginBlock} 0` },
-    wrapInlineElement(
-      "div",
-      { paddingLeft: "6px", paddingTop: "4px" },
-      wrapInlineElement(
-        "div",
-        titleHeadingMagazineOffsetCardStyle(palette),
-        titleParagraphHtml(text, typography, "left"),
-      ),
-    ),
+    copySafeMagazineOffsetSectionStyle(palette),
+    titleParagraphHtml(text, typography, "left"),
   );
 }
 
@@ -487,16 +535,25 @@ function renderTopBadgeCopy(
   typography: ReturnType<typeof resolveTitleBlockTypography>,
   presentation: TitleHeadingPresentation,
   palette: ThemePaletteTokens,
+  blockType: "title" | "heading",
 ): string {
-  const pillStyle = titleHeadingTopicPillStyle(palette);
-  const icon = presentation.iconCapsuleLabel
-    ? iconCapsuleCopyHtml(presentation.iconCapsuleLabel, palette)
-    : "";
+  const pillStyle = copySafeTopicPillStyle(palette);
   const badgeHtml =
     presentation.badgeText != null && presentation.badgeText.length > 0
       ? wrapInlineElement("span", pillStyle, escapeHtml(presentation.badgeText))
       : "";
 
+  if (blockType === "heading") {
+    return wrapInlineElement(
+      "section",
+      headingSectionStyle(),
+      `${badgeHtml}${titleParagraphHtml(text, typography, "left")}`,
+    );
+  }
+
+  const icon = presentation.iconCapsuleLabel
+    ? iconCapsuleCopyHtml(presentation.iconCapsuleLabel, palette)
+    : "";
   const headerRow = wrapInlineElement(
     "p",
     { margin: "0 0 10px 0", textAlign: "center" },
@@ -505,7 +562,7 @@ function renderTopBadgeCopy(
 
   return wrapInlineElement(
     "section",
-    titleHeadingCardTitleFrameStyle(palette),
+    copySafeCardTitleFrameStyle(palette),
     `${headerRow}${titleParagraphHtml(text, typography, "center")}`,
   );
 }
@@ -538,7 +595,12 @@ export function renderTitleBlockCopyHtml(
     block,
     slotMap,
     context.resolvedBlockStyle.variantId,
+    context.article,
   );
+
+  const variantId = context.resolvedBlockStyle.variantId;
+  const isPublishHeading =
+    block.type === "heading" && isHeadingPublishVariantId(variantId);
 
   let html: string;
 
@@ -556,10 +618,17 @@ export function renderTitleBlockCopyHtml(
       html = renderBottomLineCopy(text, typography, palette, presentation);
       break;
     case "numbered":
-      html = renderNumberedCopy(text, typography, palette, presentation.indexLabel);
+      html = isPublishHeading
+        ? renderPublishNumberedSectionCopy(text, typography, palette, presentation.indexLabel)
+        : renderNumberedCopy(text, typography, palette, presentation.indexLabel, block.type);
       break;
     case "top_badge":
-      html = renderTopBadgeCopy(text, typography, presentation, palette);
+      html = renderTopBadgeCopy(text, typography, presentation, palette, block.type);
+      break;
+    case "card":
+      html = isPublishHeading
+        ? renderPublishCardCenteredCopy(text, typography, palette, presentation.indexLabel)
+        : renderPlainHeadingCopy(text, typography, palette, presentation);
       break;
     case "underline":
       html = renderUnderlineCopy(text, typography, palette);
@@ -571,22 +640,39 @@ export function renderTitleBlockCopyHtml(
       html = renderKeynoteBarCopy(text, typography, palette);
       break;
     case "highlight_marker":
-      html = renderHighlightMarkerCopy(text, typography, palette);
+      html = isPublishHeading
+        ? renderPublishHighlightMarkerCopy(
+            text,
+            typography,
+            palette,
+            slotMap.subtitle?.content,
+          )
+        : renderHighlightMarkerCopy(text, typography, palette, block.type);
       break;
     case "short_line":
-      html = renderShortLineCopy(text, typography, palette);
+      html = isPublishHeading
+        ? renderPublishShortLineCopy(text, typography, palette)
+        : renderShortLineCopy(text, typography, palette);
       break;
     case "icon_prefix":
-      html = renderIconPrefixCopy(text, typography, palette);
+      html = isPublishHeading
+        ? renderPublishIconPrefixCopy(text, typography, palette, presentation, variantId)
+        : renderIconPrefixCopy(text, typography, palette, presentation);
       break;
     case "minimal_number":
-      html = renderMinimalNumberCopy(text, typography, palette, presentation.indexLabel);
+      html = isPublishHeading
+        ? renderPublishMinimalNumberCopy(text, typography, palette, presentation.indexLabel)
+        : renderMinimalNumberCopy(text, typography, palette, presentation.indexLabel);
       break;
     case "magazine_left_bar":
-      html = renderMagazineLeftBarCopy(text, typography, palette, presentation.badgeText);
+      html = isPublishHeading
+        ? renderPublishMagazineLeftBarCopy(text, typography, palette, presentation)
+        : renderMagazineLeftBarCopy(text, typography, palette, presentation);
       break;
     case "magazine_offset":
-      html = renderMagazineOffsetCopy(text, typography, palette);
+      html = isPublishHeading
+        ? renderPublishMagazineOffsetCopy(text, typography, palette)
+        : renderMagazineOffsetCopy(text, typography, palette);
       break;
     default:
       throw new Error(`unsupported titleBlock layoutMode for copy: ${layoutMode}`);

@@ -59,9 +59,9 @@ describe("style orchestrator rules", () => {
         fixtureBlockId(1),
         headingState(
           fixtureBlockId(1),
-          "heading_plain_minimal",
+          "heading_short_line",
           "simple",
-          "plain",
+          "short_line",
         ),
       ],
       [
@@ -91,18 +91,18 @@ describe("style orchestrator rules", () => {
         fixtureBlockId(1),
         headingState(
           fixtureBlockId(1),
-          "heading_plain_minimal",
+          "heading_short_line",
           "simple",
-          "plain",
+          "short_line",
         ),
       ],
       [
         fixtureBlockId(2),
         headingState(
           fixtureBlockId(2),
-          "heading_plain_minimal",
+          "heading_short_line",
           "simple",
-          "plain",
+          "short_line",
         ),
       ],
     ]);
@@ -111,7 +111,7 @@ describe("style orchestrator rules", () => {
     applyOrchestratorRuleR1(blocks, states, registry, issues);
 
     expect(states.get(fixtureBlockId(2))?.variantId).not.toBe(
-      "heading_plain_minimal",
+      "heading_short_line",
     );
     expect(issues.some((issue) => issue.code === "orchestrator_r1_fallback")).toBe(
       true,
@@ -124,7 +124,7 @@ describe("style orchestrator rules", () => {
       [
         fixtureBlockId(1),
         {
-          ...headingState(fixtureBlockId(1), "heading_plain_minimal", "simple"),
+          ...headingState(fixtureBlockId(1), "heading_short_line", "simple"),
           assetBindings: { icon: "asset-star" },
         },
       ],
@@ -148,7 +148,7 @@ describe("style orchestrator rules", () => {
       [
         fixtureBlockId(1),
         {
-          ...headingState(fixtureBlockId(1), "heading_plain_minimal", "simple"),
+          ...headingState(fixtureBlockId(1), "heading_short_line", "simple"),
           assetBindings: { a: "asset-star" },
         },
       ],
@@ -162,7 +162,7 @@ describe("style orchestrator rules", () => {
       [
         fixtureBlockId(3),
         {
-          ...headingState(fixtureBlockId(3), "heading_top_badge_topic", "badgeTitle"),
+          ...headingState(fixtureBlockId(3), "heading_card_centered", "cardTitle"),
           assetBindings: { c: "asset-star" },
         },
       ],
@@ -198,7 +198,7 @@ describe("style orchestrator rules", () => {
         fixtureBlockId(2),
         headingState(
           fixtureBlockId(2),
-          "heading_plain_minimal",
+          "heading_short_line",
           "cardTitle",
           "plain",
         ),
@@ -232,7 +232,7 @@ describe("style orchestrator rules", () => {
         fixtureBlockId(2),
         headingState(
           fixtureBlockId(2),
-          "heading_plain_minimal",
+          "heading_card_centered",
           "cardTitle",
           "plain",
         ),
@@ -267,11 +267,11 @@ describe("style orchestrator selection", () => {
       block,
       registry,
       preset,
-      { blockId: block.id, variantId: "heading_top_badge_topic" },
+      { blockId: block.id, variantId: "heading_card_centered" },
       issues,
     );
 
-    expect(state.variantId).toBe("heading_top_badge_topic");
+    expect(state.variantId).toBe("heading_card_centered");
     expect(state.source).toBe("explicit");
   });
 
@@ -291,7 +291,7 @@ describe("style orchestrator selection", () => {
       issues,
     );
 
-    expect(state.variantId).toBe("heading_plain_minimal");
+    expect(state.variantId).toBe("heading_short_line");
     expect(state.source).toBe("preset_default");
   });
 

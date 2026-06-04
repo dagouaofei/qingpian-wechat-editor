@@ -18,11 +18,7 @@ import type {
 
 export const TITLE_BLOCK_SUPPORTED_VARIANT_IDS = TITLE_BLOCK_FIRST_WAVE_VARIANT_IDS;
 
-const FORBIDDEN_COPY_LAYOUT_MODES = new Set([
-  "magazine_left_bar",
-  "overlay",
-  "offset_background",
-]);
+const FORBIDDEN_COPY_LAYOUT_MODES = new Set(["overlay", "offset_background"]);
 
 export function validateTitleBlockRenderContext(
   context: BlockRenderContext,

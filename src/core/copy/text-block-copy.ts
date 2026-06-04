@@ -31,6 +31,7 @@ function paragraphShell(
       fontSize: typography.fontSize,
       fontWeight: typography.fontWeight,
       lineHeight: typography.lineHeight,
+      fontFamily: typography.fontFamily,
       ...extra,
     },
     innerHtml,

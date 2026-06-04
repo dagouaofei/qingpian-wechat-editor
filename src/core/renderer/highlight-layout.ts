@@ -1,3 +1,4 @@
+import { typographyForMiaopianPreset } from "@/config/miaopian-typography";
 import type { HighlightBlock } from "@/core/blocks";
 import type { CopySafety } from "@/core/styles";
 import { resolveThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
@@ -20,6 +21,7 @@ export type HighlightTypography = {
   labelFontSize: string;
   lineHeight: string;
   marginBlock: string;
+  fontFamily: string;
 };
 
 import { HIGHLIGHT_VARIANT_LAYOUT } from "./expansion-layout-maps";
@@ -36,6 +38,7 @@ export function resolveHighlightTypography(
   const palette = resolveThemePaletteTokens(resolved.tokens.theme);
   const bodyFontSize = resolved.tokens.theme.fontSize?.body ?? "16px";
   const variantSpacing = resolved.tokens.variant?.["spacing.block"];
+  const presetTypography = typographyForMiaopianPreset(resolved.presetId);
 
   return {
     color: palette.textDefault,
@@ -43,7 +46,8 @@ export function resolveHighlightTypography(
     accentColor: palette.textAccent,
     fontSize: bodyFontSize,
     labelFontSize: "13px",
-    lineHeight: "1.75",
+    fontFamily: presetTypography.fontFamily,
+    lineHeight: presetTypography.bodyLineHeight,
     marginBlock: variantSpacing ?? "16px",
   };
 }

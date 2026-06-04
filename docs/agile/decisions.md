@@ -80,6 +80,9 @@
 | DECISION-082 | 2026-06-02 | 合并 S7-STORY-003 与 S7-STORY-004 为单一 Story 003（Gallery UX + title/heading 丰富度）；004 标 Merged | 已确认 |
 | DECISION-083 | 2026-06-02 | 成稿风格/配色对齐 miaopian-demo 6+6；PresetBundle（defaultVariant + variantPools + defaultTheme）；heading +4；其它 block 扩至 9 variant/类 | 已确认 |
 | DECISION-084 | 2026-06-02 | S7 文章级卡片节奏：Orchestrator R4 + RCARD（连续卡片化≤2）；生成 plain-first rotation + hint 平衡 | 已确认 |
+| DECISION-085 | 2026-06-02 | S7-STORY-007A：R1 默认成稿样式保真；golden fixture + RLAYOUT；Copy 微信安全；007 Deferred | 已确认 |
+| DECISION-086 | 2026-06-02 | R1 默认 preset  canonical=`business`；`classic-news` 仅 legacy alias；golden/生成/fixture 对齐 | 已确认 |
+| DECISION-087 | 2026-06-03 | Heading 仅保留 8 款发布池；审美优先；废弃 5 款旧 heading ID | 已确认 |
 
 ### DECISION-019 详情
 
@@ -708,11 +711,48 @@
 - **关联：** DECISION-080、DECISION-081、TECH-ARCH-023、S7-STORY-002
 - **状态：** 已确认
 
-### DECISION-XXX：[标题]
+### DECISION-086 详情（R1 默认 preset id · business vs classic-news）
 
-- **日期：**
-- **背景：**
+- **日期：** 2026-06-02
+- **背景：** 架构文档仍写 `classic-news` 为默认 preset，而 DECISION-083 后代码、生成、`SAFE_STYLE_PRESET_ID`、golden fixture 均使用 **`business`**；分裂会导致粘贴 QA 与 PO 验收锚点不一致。
 - **决策：**
-- **影响范围：**
-- **状态：** 待确认 / 已确认 / 已废弃
-```
+  1. **Release 1 / Sprint 7 默认成稿 canonical preset id = `business`**（theme 默认 `businessBlue`）
+  2. **`classic-news`、`classic`、`business-pro`、`news` 等** 仅作为 **legacy alias**（`LEGACY_PRESET_ID_ALIASES` → `business`），不单独维护第二套默认 variant
+  3. **Golden fixtures**（`r1-golden-*`）、`/dev/style-fidelity`、空表单生成 fallback、streaming preview 空 style 均对齐 **`business`**
+  4. 架构文档中 `classic-news` 表述逐步改为「legacy 名 / 等价 business」；**不**恢复独立 `classic-news` preset 定义
+- **影响范围：** `miaopian-preset-bundles.ts`、`style-selection-prompt.ts`、`r1-golden-*.json`、`r1-style-quality-baseline.md`、paste-qa
+- **关联：** DECISION-083、DECISION-085、S7-STORY-007B
+- **状态：** 已确认
+
+### DECISION-085 详情（S7-STORY-007A · R1 Style Fidelity Stabilization）
+
+- **日期：** 2026-06-02
+- **背景：**
+  - 默认成稿 Preview、Copy 到公众号、整篇编排未达预期；继续加 variant 或局部微调无法收敛
+  - 用户明确 **不做 S7-STORY-007**，改 **S7-STORY-007A**：审计先行 → golden baseline → 默认路径闭环
+- **决策：**
+  1. **S7-STORY-007 Deferred**；**S7-STORY-007A** 为 Sprint 7 当前主线的样式保真任务（`feature/s7-story-007a-r1-style-fidelity`）
+  2. **不新增 variant 数量**；只修默认 `business` preset 实际使用的核心 variant + Copy 微信安全输出
+  3. **Golden 锚点：** `tests/fixtures/articles/r1-golden-{default,structured,longform}-article.json` + 粘贴 QA [`paste-qa/r1-golden-paste-qa.md`](paste-qa/r1-golden-paste-qa.md)
+  4. **Orchestrator RLAYOUT：** 强视觉块间距、卡片比例、CTA 尾部、divider 节制等（不改 Article 语义 blocks）
+  5. **Done 分轨：** 代码 + 自动化 snapshot = 可标 In Review/Done（代码）；**粘贴 QA Not Run 不得标 Story Done**
+  6. **开发调试：** `/dev/style-fidelity`（非 Gallery、非样式市场）
+- **影响范围：** `miaopian-preset-bundles.ts`、`miaopian-typography.ts`、`title-block-copy.ts`、`style-orchestrator-article-layout.ts`、`copy-safe-html.ts`、`/dev/style-fidelity`、golden fixtures、audit/baseline docs
+- **关联：** DECISION-083、DECISION-084、S7-STORY-006、Sprint 8 Paste QA（全量矩阵仍归 S8）
+- **状态：** 已确认（代码轮 In Review · 待 PO 粘贴 QA）
+
+### DECISION-087 详情（Heading Publish 8 · 审美实验）
+
+- **日期：** 2026-06-03
+- **背景：** 成稿小标题观感偏素、不像可直接发的公众号小节；registry 曾扩至 13 款 heading，粘贴 QA 未闭环且 Preview/Copy 漂移风险高。
+- **决策：**
+  1. **仅保留 8 款** `HEADING_PUBLISH_VARIANT_IDS`（见 [`heading-publish-catalog.md`](../product/heading-publish-catalog.md)）
+  2. **废弃** `heading_plain_minimal`、`heading_underline_classic`、`heading_pill_topic`、`heading_editorial_plain`、`heading_keynote_strong`（不得再进入 registry / 生成池 / Gallery）
+  3. **审美优先于 variant 数量**；heading Preview 装饰必须走 `heading-publish-visual` → `copySafe*` 同源
+  4. **默认 flagship：** `business` preset → `heading_short_line`；同篇 heading 仍统一 variant
+  5. **验收：** catalog 审美表 + [`heading-publish-8.md`](paste-qa/heading-publish-8.md) 粘贴表；≥6/8 合格方可关 Story
+  6. **收口（2026-06-03）：** 第六轮公众号粘贴 **8/8 PASS**；`heading_highlight_marker` 使用 `h3`+`linear-gradient`（`7d8e38c`）；**S7-STORY-008 Done**；8 款进入 Release 1 **heading 发布池**；`warm` preset 默认 heading 仍为 `heading_highlight_marker`
+- **影响范围：** `heading-publish-pool.ts`、`heading-publish-decoration.ts`、`heading-publish-copy-html.ts`、`miaopian-preset-bundles.ts`、`/gallery`、`/preview`
+- **关联：** DECISION-085、DECISION-086、S7-STORY-008、Sprint 7 关闭
+- **状态：** 已确认 · **Story 已关闭（2026-06-03 用户确认）**
+

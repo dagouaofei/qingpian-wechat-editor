@@ -74,10 +74,10 @@ function expectVariantValidationOk(variant: VariantDefinition): void {
 }
 
 describe("first-wave required variant coverage", () => {
-  it("covers exactly 97 release1_required variants", () => {
-    expect(FIRST_WAVE_REQUIRED_VARIANTS).toHaveLength(97);
-    expect(FIRST_WAVE_REQUIRED_VARIANT_IDS).toHaveLength(97);
-    expect(new Set(FIRST_WAVE_REQUIRED_VARIANT_IDS).size).toBe(97);
+  it("covers exactly 92 release1_required variants", () => {
+    expect(FIRST_WAVE_REQUIRED_VARIANTS).toHaveLength(92);
+    expect(FIRST_WAVE_REQUIRED_VARIANT_IDS).toHaveLength(92);
+    expect(new Set(FIRST_WAVE_REQUIRED_VARIANT_IDS).size).toBe(92);
 
     for (const variant of FIRST_WAVE_REQUIRED_VARIANTS) {
       expect(variant.schemaVersion).toBe(STYLE_SCHEMA_VERSION);
@@ -124,7 +124,7 @@ describe("first-wave required variant coverage", () => {
     const titleBlockVariants = FIRST_WAVE_REQUIRED_VARIANTS.filter(
       (variant) => variant.blockType === "title" || variant.blockType === "heading",
     );
-    expect(titleBlockVariants).toHaveLength(16);
+    expect(titleBlockVariants).toHaveLength(11);
 
     for (const variant of titleBlockVariants) {
       expect(variant.componentProtocol?.componentId).toBe(
@@ -195,7 +195,7 @@ describe("first-wave required variant coverage", () => {
 
   it("builds and validates a complete first-wave StyleRegistry", () => {
     const registry = createFirstWaveRequiredVariantRegistry();
-    expect(registry.variants).toHaveLength(97);
+    expect(registry.variants).toHaveLength(92);
 
     const result = validateStyleRegistry(registry);
     expect(result.ok, result.issues.map((i) => i.message).join("; ")).toBe(
@@ -209,7 +209,7 @@ describe("first-wave required variant coverage", () => {
 
     expect(getVariantsForBlockType(registry, "title")).toHaveLength(3);
     expect(getVariantsForBlockType(registry, "paragraph")).toHaveLength(9);
-    expect(getVariantsForBlockType(registry, "heading")).toHaveLength(13);
+    expect(getVariantsForBlockType(registry, "heading")).toHaveLength(8);
     expect(getVariantsForBlockType(registry, "image_placeholder")).toHaveLength(
       9,
     );

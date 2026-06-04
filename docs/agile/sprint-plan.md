@@ -60,7 +60,7 @@
 | **Sprint 3-C** | **Closed**（2026-06-01；DECISION-065；audit Grade A；merged `release/1`） |
 | **Sprint 5** | **Closed**（2026-06-02；DECISION-069；S5-STORY-001~008 Done；audit Grade A- · P0=0；merged `release/1`） |
 | **Sprint 6** | **Closed**（2026-06-02；DECISION-078；merge `release/1`） |
-| **Sprint 7** | **In Progress**（2026-06-02 恢复 · DECISION-081 · S7-STORY-002） |
+| **Sprint 7** | **Done**（2026-06-03 · S7-STORY-008 关闭 · merge `release/1`） |
 | **Release 1 主干** | `release/1` |
 | **下一步** | **S7-STORY-002** 文章 fixture 样例集 → Style Gallery |
 
@@ -552,29 +552,22 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 ---
 
-### Sprint 7：WeChat Article Experience & Style Richness — **In Progress**（2026-06-02 · DECISION-081）
+### Sprint 7：WeChat Article Experience & Style Richness — **Done**（2026-06-03）
 
-**分支：** `sprint/s7-wechat-article-experience`（从 `release/1` 切出）
+**分支：** `sprint/s7-wechat-article-experience`（从 `release/1` 切出 · 已 merge 回 `release/1`）
 
 **对齐文档：** [`docs/agile/miaopian-alignment/s7-workflow-and-ux-gap.md`](miaopian-alignment/s7-workflow-and-ux-gap.md)
 
-**Sprint Goal：**
+**收口摘要：**
 
-1. 验证整篇文章是否**像公众号文章**
-2. 提升样式丰富度与样式组合观感
-3. **Style Gallery / 样式样例页**
-4. 修正**过度卡片化**问题
-5. 形成 **8 套**完整文章视觉风格样例（常见公众号类型 · DECISION-081）
+1. 8 套文章 fixture + Gallery + 样式丰富度（DECISION-081~083）
+2. 过度卡片化修正（DECISION-084 · S7-STORY-006）
+3. R1 默认路径保真（S7-STORY-007A · DECISION-085）
+4. **Heading publish 8 款** + Preview/Copy 同源 + **第六轮公众号粘贴 8/8 PASS**（S7-STORY-008 · DECISION-087）
 
-**Stories：** S7-STORY-001 ~ S7-STORY-007 — 见 `sprint-backlog.md`
+**遗留（非 S7 阻塞）：** S7-STORY-007B R1 golden 全文粘贴 → **Sprint 8**；整体视觉体系重置 → 后续 backlog
 
-**下一步：** **S7-STORY-003**（合并版 Gallery + title/heading · DECISION-082）→ S7-STORY-005
-
-**不做：**
-
-- 不替代 Sprint 8 Paste QA
-- 不关闭 Release 1
-- 不 merge 至 `main`
+**不做（已遵守）：** 未关闭 Release 1 · 未 merge `main` · 未启动 Sprint 8
 
 ---
 

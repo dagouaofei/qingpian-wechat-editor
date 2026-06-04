@@ -34,6 +34,7 @@ function titleHtml(
       fontSize: typography.titleFontSize,
       fontWeight: "600",
       lineHeight: "1.6",
+      fontFamily: typography.fontFamily,
     },
     escapeHtml(title),
   );
@@ -54,6 +55,7 @@ function iconHtml(
       color: typography.mutedColor,
       fontSize: typography.auxFontSize,
       lineHeight: "1.5",
+      fontFamily: typography.fontFamily,
     },
     escapeHtml(icon),
   );
@@ -71,6 +73,7 @@ function bodyParagraphHtml(
       color: typography.color,
       fontSize: typography.fontSize,
       lineHeight: typography.lineHeight,
+      fontFamily: typography.fontFamily,
       ...extra,
     },
     escapeHtml(text),
@@ -90,6 +93,7 @@ function stepsBodyHtml(
           color: typography.color,
           fontSize: typography.fontSize,
           lineHeight: typography.lineHeight,
+          fontFamily: typography.fontFamily,
         },
         `${index + 1}. ${escapeHtml(line)}`,
       ),

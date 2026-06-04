@@ -1,3 +1,4 @@
+import { typographyForMiaopianPreset } from "@/config/miaopian-typography";
 import type { InfoCardBlock } from "@/core/blocks";
 import type { CopySafety } from "@/core/styles";
 import { resolveThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
@@ -24,6 +25,7 @@ export type InfoCardTypography = {
   auxFontSize: string;
   lineHeight: string;
   marginBlock: string;
+  fontFamily: string;
 };
 
 import { INFO_CARD_VARIANT_LAYOUT } from "./expansion-layout-maps";
@@ -40,6 +42,7 @@ export function resolveInfoCardTypography(
   const palette = resolveThemePaletteTokens(resolved.tokens.theme);
   const bodyFontSize = resolved.tokens.theme.fontSize?.body ?? "16px";
   const variantSpacing = resolved.tokens.variant?.["spacing.block"];
+  const presetTypography = typographyForMiaopianPreset(resolved.presetId);
 
   return {
     color: palette.textDefault,
@@ -49,8 +52,9 @@ export function resolveInfoCardTypography(
     fontSize: bodyFontSize,
     titleFontSize: "16px",
     auxFontSize: "13px",
-    lineHeight: "1.75",
+    lineHeight: presetTypography.bodyLineHeight,
     marginBlock: variantSpacing ?? "16px",
+    fontFamily: presetTypography.fontFamily,
   };
 }
 

@@ -56,8 +56,8 @@ const BLOCK_VARIANT_HEURISTICS: Partial<
   },
   heading: {
     strong: "heading_numbered_section",
-    structured: "heading_top_badge_topic",
-    default: "heading_plain_minimal",
+    structured: "heading_card_centered",
+    default: "heading_short_line",
   },
   lead: {
     quote: "lead_quote_intro",

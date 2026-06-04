@@ -1,4 +1,8 @@
 import type { Article, BlockStyleOverride } from "@/core/article";
+import {
+  HEADING_PUBLISH_VARIANT_IDS,
+  type HeadingPublishVariantId,
+} from "@/core/styles/variants/heading-publish-pool";
 import type { ArticleSampleId } from "@/fixtures/article-samples";
 
 export const GALLERY_TITLE_VARIANT_IDS = [
@@ -7,31 +11,17 @@ export const GALLERY_TITLE_VARIANT_IDS = [
   "title_bottom_line_editorial",
 ] as const;
 
-export const GALLERY_HEADING_VARIANT_IDS = [
-  "heading_plain_minimal",
-  "heading_numbered_section",
-  "heading_top_badge_topic",
-  "heading_underline_classic",
-  "heading_pill_topic",
-  "heading_editorial_plain",
-  "heading_keynote_strong",
-  "heading_highlight_marker",
-  "heading_short_line",
-  "heading_icon_prefix",
-  "heading_minimal_number",
-  "heading_magazine_left_bar",
-  "heading_magazine_offset",
-] as const;
+export const GALLERY_HEADING_VARIANT_IDS = HEADING_PUBLISH_VARIANT_IDS;
 
 export type GalleryTitleVariantId = (typeof GALLERY_TITLE_VARIANT_IDS)[number];
-export type GalleryHeadingVariantId = (typeof GALLERY_HEADING_VARIANT_IDS)[number];
+export type GalleryHeadingVariantId = HeadingPublishVariantId;
 
 export type GalleryTitleHeadingAssignment = {
   titleVariantId: GalleryTitleVariantId;
   headingVariantId: GalleryHeadingVariantId;
 };
 
-/** Per-sample defaults — avoid title + heading both plain_minimal. */
+/** Per-sample defaults — showcase distinct heading styles from publish pool. */
 export const GALLERY_SAMPLE_TITLE_HEADING_ASSIGNMENTS: Record<
   ArticleSampleId,
   GalleryTitleHeadingAssignment
@@ -42,31 +32,31 @@ export const GALLERY_SAMPLE_TITLE_HEADING_ASSIGNMENTS: Record<
   },
   "sample-industry": {
     titleVariantId: "title_left_bar_classic",
-    headingVariantId: "heading_plain_minimal",
+    headingVariantId: "heading_short_line",
   },
   "sample-product": {
     titleVariantId: "title_plain_minimal",
-    headingVariantId: "heading_top_badge_topic",
+    headingVariantId: "heading_card_centered",
   },
   "sample-brand": {
     titleVariantId: "title_bottom_line_editorial",
-    headingVariantId: "heading_top_badge_topic",
+    headingVariantId: "heading_magazine_left_bar",
   },
   "sample-event": {
     titleVariantId: "title_left_bar_classic",
-    headingVariantId: "heading_numbered_section",
+    headingVariantId: "heading_highlight_marker",
   },
   "sample-promo": {
     titleVariantId: "title_bottom_line_editorial",
-    headingVariantId: "heading_numbered_section",
+    headingVariantId: "heading_icon_prefix",
   },
   "sample-listicle": {
     titleVariantId: "title_plain_minimal",
-    headingVariantId: "heading_numbered_section",
+    headingVariantId: "heading_minimal_number",
   },
   "sample-seasonal": {
     titleVariantId: "title_left_bar_classic",
-    headingVariantId: "heading_plain_minimal",
+    headingVariantId: "heading_magazine_offset",
   },
 };
 

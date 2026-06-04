@@ -11,7 +11,7 @@ import type { StyleRegistry, VariantDefinition } from "./types";
 /** Copy-safe plain variant per block type — used when card stack exceeds limit. */
 export const PLAIN_RHYTHM_VARIANT_BY_BLOCK_TYPE: Partial<Record<BlockType, string>> = {
   title: "title_plain_minimal",
-  heading: "heading_plain_minimal",
+  heading: "heading_short_line",
   lead: "lead_plain_intro",
   paragraph: "paragraph_plain_body",
   divider: "divider_simple_line",

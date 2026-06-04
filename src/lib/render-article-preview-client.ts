@@ -25,6 +25,10 @@ import {
   buildNormalizedInputForPreviewControl,
   type PreviewStyleControlState,
 } from "./preview-style-controls";
+import {
+  applyHeadingVariantToArticle,
+  type HeadingPublishVariantId,
+} from "./preview-heading-style";
 
 function serializePreviewBlocks(
   results: ReturnType<typeof renderArticleBlocks>,
@@ -76,9 +80,16 @@ export function renderArticlePreviewClient(
     ? applyPreviewThemeToArticle(styleResult.article, control.colorPalette)
     : themedArticle;
 
-  const styledArticle = options?.postStyleSelectionPatch
+  let styledArticle = options?.postStyleSelectionPatch
     ? options.postStyleSelectionPatch(styledArticleBase)
     : styledArticleBase;
+
+  if (control.headingVariantId) {
+    styledArticle = applyHeadingVariantToArticle(
+      styledArticle,
+      control.headingVariantId as HeadingPublishVariantId,
+    );
+  }
 
   const resolvedArticleStyle = resolveArticleStyle(styledArticle, registry);
   const previewRegistry = createRelease1FirstWavePreviewRendererRegistry();

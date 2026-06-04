@@ -1,0 +1,111 @@
+{
+  "id": "33333333-3333-4333-8333-000000000101",
+  "version": 1,
+  "metadata": {
+    "title": "R1 Golden · 默认公众号成稿",
+    "createdAt": "2026-06-02T00:00:00.000Z",
+    "updatedAt": "2026-06-02T00:00:00.000Z",
+    "locale": "zh-CN"
+  },
+  "input": {
+    "type": "fixture",
+    "raw": "fixture:r1-golden-default-article",
+    "capturedAt": "2026-06-02T00:00:00.000Z"
+  },
+  "styleAssignment": {
+    "themeId": "businessBlue",
+    "presetId": "business"
+  },
+  "blocks": [
+    {
+      "id": "55555555-5555-4555-8555-010100000001",
+      "type": "title",
+      "content": { "text": "R1 默认成稿：公众号排版保真锚点" }
+    },
+    {
+      "id": "55555555-5555-4555-8555-010100000002",
+      "type": "lead",
+      "content": {
+        "text": "本文档用于 Release 1 样式保真闭环：Preview、Copy HTML、微信公众号粘贴三者对齐。preset=business（classic-news alias），theme=businessBlue。"
+      }
+    },
+    {
+      "id": "55555555-5555-4555-8555-010100000003",
+      "type": "heading",
+      "content": { "text": "一、正文优先，卡片点缀", "level": 2 }
+    },
+    {
+      "id": "55555555-5555-4555-8555-010100000004",
+      "type": "paragraph",
+      "content": {
+        "text": [{ "text": "默认段落应以 16px、行高 1.75、#333 呈现，避免整段落在灰底卡片中。Orchestrator 会限制连续强视觉块与卡片比例。" }]
+      }
+    },
+    {
+      "id": "55555555-5555-4555-8555-010100000005",
+      "type": "list",
+      "content": {
+        "ordered": true,
+        "items": [
+          { "text": "Golden fixture 驱动 snapshot", "subItems": [] },
+          { "text": "Copy HTML 无 class / var / gradient", "subItems": [] },
+          { "text": "粘贴 QA 记录 PASS/FAIL", "subItems": [] }
+        ]
+      }
+    },
+    {
+      "id": "55555555-5555-4555-8555-010100000006",
+      "type": "quote",
+      "content": {
+        "text": "样式不是装饰，而是让读者愿意读完的基础设施。",
+        "attribution": "轻篇 R1"
+      }
+    },
+    {
+      "id": "55555555-5555-4555-8555-010100000007",
+      "type": "highlight",
+      "content": { "text": "Copy 与 Preview 必须来自同一份 ResolvedBlockStyle。", "label": "要点" }
+    },
+    {
+      "id": "55555555-5555-4555-8555-010100000008",
+      "type": "info_card",
+      "content": {
+        "title": "验收三步",
+        "body": "网页预览 → 复制 HTML → 公众号编辑器粘贴对照",
+        "icon": "steps"
+      }
+    },
+    {
+      "id": "55555555-5555-4555-8555-010100000009",
+      "type": "divider",
+      "content": { "style": "line" }
+    },
+    {
+      "id": "55555555-5555-4555-8555-010100000010",
+      "type": "heading",
+      "content": { "text": "二、结构化块与配图", "level": 2 }
+    },
+    {
+      "id": "55555555-5555-4555-8555-010100000011",
+      "type": "paragraph",
+      "content": {
+        "text": [{ "text": "图片占位默认简洁框，不应占据标题下首屏。CTA 仅在文末使用强调样式。" }]
+      }
+    },
+    {
+      "id": "55555555-5555-4555-8555-010100000012",
+      "type": "image_placeholder",
+      "content": {
+        "caption": "配图示意",
+        "aspectRatio": "16:9",
+        "position": "inline",
+        "suggestion": "公众号配图"
+      }
+    },
+    {
+      "id": "55555555-5555-4555-8555-010100000013",
+      "type": "cta",
+      "content": { "text": "在轻篇生成并复制你的排版成稿", "action": "try_now" }
+    }
+  ]
+}

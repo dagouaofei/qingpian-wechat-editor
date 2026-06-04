@@ -201,7 +201,7 @@ export const invalidUnknownAssetFixture: StyleSelectionFixture = {
       blockOverrides: [
         {
           blockId: fixtureBlockId(2),
-          variantId: "heading_top_badge_topic",
+          variantId: "heading_card_centered",
           assetBindings: { badge: "icon-not-registered" },
         },
       ],
@@ -238,7 +238,7 @@ export const invalidSlotOverrideFixture: StyleSelectionFixture = {
       blockOverrides: [
         {
           blockId: fixtureBlockId(2),
-          variantId: "heading_top_badge_topic",
+          variantId: "heading_card_centered",
           slotOverrides: { unknown_slot: "01" },
         },
       ],
@@ -315,11 +315,11 @@ export const orchestratorR1FallbackAppliedFixture: StyleSelectionFixture = {
       blockOverrides: [
         {
           blockId: fixtureBlockId(2),
-          variantId: "heading_plain_minimal",
+          variantId: "heading_short_line",
         },
         {
           blockId: fixtureBlockId(3),
-          variantId: "heading_plain_minimal",
+          variantId: "heading_short_line",
         },
       ],
       meta: {
@@ -375,7 +375,7 @@ export const orchestratorR2AssetLimitFixture: StyleSelectionFixture = {
 export const orchestratorR8TitleHeadingConflictFixture: StyleSelectionFixture = {
   id: "orchestrator-r8-title-heading-conflict",
   description:
-    "Title and first heading share family + layoutMode; R8 uses family+layoutMode not variantId equality",
+    "Publish pool pairs title_plain_minimal with heading_numbered_section (distinct family/layout)",
   articleInput: articleWithHeadings({
     blocks: [
       {
@@ -400,7 +400,7 @@ export const orchestratorR8TitleHeadingConflictFixture: StyleSelectionFixture = 
         },
         {
           blockId: fixtureBlockId(2),
-          variantId: "heading_plain_minimal",
+          variantId: "heading_numbered_section",
         },
       ],
       meta: {
@@ -412,9 +412,8 @@ export const orchestratorR8TitleHeadingConflictFixture: StyleSelectionFixture = 
   expected: {
     ok: true,
     mergeAllowed: true,
-    validationStatus: "fallback_applied",
-    issueCodes: ["orchestrator_r8_fallback"],
-    fallbackBlockIds: [fixtureBlockId(2)],
+    validationStatus: "valid",
+    issueCodes: [],
   },
 };
 

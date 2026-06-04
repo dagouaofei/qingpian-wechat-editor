@@ -6,6 +6,8 @@
 import { STYLE_SCHEMA_VERSION, TITLE_BLOCK_COMPONENT_ID } from "../types";
 import type { CopySafety, TitleBlockLayoutMode, VariantDefinition } from "../types";
 
+import { HEADING_PUBLISH_VARIANTS } from "./heading-publish-pool";
+
 function titleBlockVariant(
   config: {
     id: string;
@@ -159,64 +161,15 @@ export const titleBottomLineEditorial: VariantDefinition = titleBlockVariant({
   },
 });
 
-export const headingPlainMinimal: VariantDefinition = titleBlockVariant({
-  id: "heading_plain_minimal",
-  blockType: "heading",
-  family: "cardTitle",
-  name: "heading-plain-minimal",
-  label: "Plain Minimal Heading",
-  description: "iconDecor section row with arrow capsule (R8 groups with title_plain as cardTitle/plain)",
-  layoutMode: "plain",
-  copySafety: "strict",
-  slots: {
-    title: titleTextSlot(),
-    icon: presentationIconSlot(),
-  },
-  tokens: {
-    "typography.size": "18px",
-    "spacing.block": "24px",
-  },
-});
+export {
+  HEADING_PUBLISH_VARIANT_IDS,
+  HEADING_PUBLISH_VARIANT_COUNT,
+  headingNumberedSection,
+  headingCardCentered,
+  type HeadingPublishVariantId,
+} from "./heading-publish-pool";
 
-export const headingNumberedSection: VariantDefinition = titleBlockVariant({
-  id: "heading_numbered_section",
-  blockType: "heading",
-  family: "badgeTitle",
-  name: "heading-numbered-section",
-  label: "Numbered Section Heading",
-  description: "Circular index badge + section title",
-  layoutMode: "numbered",
-  copySafety: "balanced",
-  slots: {
-    title: titleTextSlot(),
-    badge: presentationBadgeSlot(),
-  },
-  tokens: {
-    "typography.size": "18px",
-    "spacing.block": "24px",
-  },
-});
-
-export const headingTopBadgeTopic: VariantDefinition = titleBlockVariant({
-  id: "heading_top_badge_topic",
-  blockType: "heading",
-  family: "badgeTitle",
-  name: "heading-top-badge-topic",
-  label: "Top Badge Topic Heading",
-  description: "cardTitle topic pill with bookmark icon",
-  layoutMode: "top_badge",
-  copySafety: "balanced",
-  slots: {
-    title: titleTextSlot(),
-    badge: presentationBadgeSlot(),
-    icon: presentationIconSlot(),
-    corner: presentationCornerSlot(),
-  },
-  tokens: {
-    "typography.size": "18px",
-    "spacing.block": "26px",
-  },
-});
+export { HEADING_PUBLISH_VARIANTS };
 
 export const TITLE_FIRST_WAVE_VARIANTS = [
   titlePlainMinimal,
@@ -224,31 +177,7 @@ export const TITLE_FIRST_WAVE_VARIANTS = [
   titleBottomLineEditorial,
 ] as const;
 
-import {
-  headingEditorialPlain,
-  headingKeynoteStrong,
-  headingPillTopic,
-  headingUnderlineClassic,
-} from "./expansion-blocks";
-import { MIAOPIAN_HEADING_VARIANTS } from "./miaopian-heading-variants";
-
-export {
-  headingUnderlineClassic,
-  headingPillTopic,
-  headingEditorialPlain,
-  headingKeynoteStrong,
-} from "./expansion-blocks";
-
-export const HEADING_FIRST_WAVE_VARIANTS = [
-  headingPlainMinimal,
-  headingNumberedSection,
-  headingTopBadgeTopic,
-  headingUnderlineClassic,
-  headingPillTopic,
-  headingEditorialPlain,
-  headingKeynoteStrong,
-  ...MIAOPIAN_HEADING_VARIANTS,
-] as const;
+export const HEADING_FIRST_WAVE_VARIANTS = HEADING_PUBLISH_VARIANTS;
 
 export const TITLE_BLOCK_FIRST_WAVE_VARIANTS = [
   ...TITLE_FIRST_WAVE_VARIANTS,
@@ -281,7 +210,7 @@ export const FIRST_WAVE_TITLE_HEADING_VARIANT_REGISTRY = {
       themeId: "businessBlue",
       defaultVariantByBlockType: {
         title: titlePlainMinimal.id,
-        heading: headingPlainMinimal.id,
+        heading: "heading_short_line",
       },
     },
   ],

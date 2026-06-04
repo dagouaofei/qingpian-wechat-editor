@@ -1,8 +1,28 @@
+import type { Article } from "@/core/article";
 import type { HeadingBlock, TitleBlock } from "@/core/blocks";
 import type { TitleBlockLayoutMode } from "@/core/styles";
 import type { ThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
 import { resolveThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
 
+import {
+  copySafeAccentBarStyle,
+  copySafeHeadingSectionStyle,
+  copySafeIconCapsuleStyle,
+  copySafeIconPrefixWrapStyle,
+  copySafeNumberBadgeStyle,
+} from "@/core/copy/title-heading-copy-styles";
+import {
+  buildHighlightMarkerGradient,
+  copySafeHighlightMarkerH3Style,
+  copySafeNumberedSectionBadgeStyle,
+} from "./heading-publish-decoration";
+import {
+  headingPreviewMagazineOffsetSectionStyle,
+  headingPreviewOrdinalStyle,
+  headingPreviewShortLineUnderlineStyle,
+  headingPreviewTopicPillStyle,
+} from "./heading-publish-visual";
+import { resolveHeadingIndexLabel } from "./heading-ordinal";
 import {
   resolveTitleHeadingIconAssetId,
   resolveTitleHeadingIconGlyph,
@@ -29,19 +49,31 @@ export function resolveTitleHeadingPresentation(
   block: TitleBlock | HeadingBlock,
   slots: TitleBlockPreviewOutput["slots"],
   variantId: string,
+  article?: Article,
 ): TitleHeadingPresentation {
   const badgeSlot = slots.badge;
   const decorationSlot = slots.decoration;
 
-  const indexLabel =
-    badgeSlot?.content ??
-    (block.meta?.sourceIndex != null
-      ? String(block.meta.sourceIndex).padStart(2, "0")
-      : undefined);
+  const usesHeadingOrdinal =
+    blockType === "heading" &&
+    (layoutMode === "numbered" ||
+      layoutMode === "minimal_number" ||
+      layoutMode === "magazine_left_bar" ||
+      layoutMode === "card");
+
+  const indexLabel = usesHeadingOrdinal
+    ? resolveHeadingIndexLabel(article, block.id, block.meta?.sourceIndex)
+    : badgeSlot?.content ??
+      (block.meta?.sourceIndex != null
+        ? String(block.meta.sourceIndex).padStart(2, "0")
+        : undefined);
 
   let badgeText = badgeSlot?.content;
   if (layoutMode === "top_badge") {
     badgeText = badgeText ?? block.meta?.label ?? (blockType === "heading" ? "话题" : "精选");
+  }
+  if (layoutMode === "magazine_left_bar" && blockType === "heading") {
+    badgeText = block.meta?.label ?? "SECTION";
   }
 
   let decorationLabel = decorationSlot?.content;
@@ -67,7 +99,13 @@ export function resolveTitleHeadingPresentation(
   };
 }
 
-export function titleHeadingIconCapsuleStyle(palette: ThemePaletteTokens): Record<string, string> {
+export function titleHeadingIconCapsuleStyle(
+  palette: ThemePaletteTokens,
+  blockType: "title" | "heading" = "title",
+): Record<string, string> {
+  if (blockType === "heading") {
+    return copySafeIconCapsuleStyle(palette);
+  }
   return {
     display: "inline-flex",
     alignItems: "center",
@@ -113,7 +151,10 @@ export function titleHeadingAccentBarStyle(
   palette: ThemePaletteTokens,
   blockType: "title" | "heading",
 ): Record<string, string> {
-  const width = blockType === "title" ? "5px" : "3px";
+  if (blockType === "heading") {
+    return copySafeAccentBarStyle(palette, "heading");
+  }
+  const width = "5px";
   return {
     width,
     minWidth: width,
@@ -123,7 +164,13 @@ export function titleHeadingAccentBarStyle(
   };
 }
 
-export function titleHeadingNumberBadgeStyle(palette: ThemePaletteTokens): Record<string, string> {
+export function titleHeadingNumberBadgeStyle(
+  palette: ThemePaletteTokens,
+  blockType: "title" | "heading" = "title",
+): Record<string, string> {
+  if (blockType === "heading") {
+    return copySafeNumberedSectionBadgeStyle(palette);
+  }
   return {
     display: "inline-flex",
     alignItems: "center",
@@ -216,14 +263,25 @@ export function paletteAccentWithAlpha(palette: ThemePaletteTokens, alphaHex: st
 
 export function titleHeadingHighlightMarkerTextStyle(
   palette: ThemePaletteTokens,
+  blockType: "title" | "heading" = "title",
+  typography?: {
+    fontSize?: string;
+    fontWeight?: string;
+    lineHeight?: string;
+    fontFamily?: string;
+    color?: string;
+  },
 ): Record<string, string> {
-  const soft = paletteAccentWithAlpha(palette, "24");
-  const mid = paletteAccentWithAlpha(palette, "38");
+  if (blockType === "heading") {
+    return copySafeHighlightMarkerH3Style(palette, typography ?? {});
+  }
   return {
     display: "inline",
     margin: "0",
     padding: "0 4px 2px",
-    background: `linear-gradient(180deg, transparent 56%, ${soft} 56%, ${mid} 84%, transparent 92%)`,
+    background: buildHighlightMarkerGradient(palette),
+    boxDecorationBreak: "clone",
+    WebkitBoxDecorationBreak: "clone",
   };
 }
 
@@ -234,7 +292,13 @@ export function titleHeadingShortLineWrapStyle(palette: ThemePaletteTokens): Rec
   };
 }
 
-export function titleHeadingShortLineBarStyle(palette: ThemePaletteTokens): Record<string, string> {
+export function titleHeadingShortLineBarStyle(
+  palette: ThemePaletteTokens,
+  blockType: "title" | "heading" = "title",
+): Record<string, string> {
+  if (blockType === "heading") {
+    return headingPreviewShortLineUnderlineStyle(palette) as Record<string, string>;
+  }
   return {
     height: "1px",
     marginTop: "8px",
@@ -243,7 +307,13 @@ export function titleHeadingShortLineBarStyle(palette: ThemePaletteTokens): Reco
   };
 }
 
-export function titleHeadingIconPrefixWrapStyle(palette: ThemePaletteTokens): Record<string, string> {
+export function titleHeadingIconPrefixWrapStyle(
+  palette: ThemePaletteTokens,
+  blockType: "title" | "heading" = "title",
+): Record<string, string> {
+  if (blockType === "heading") {
+    return copySafeIconPrefixWrapStyle(palette);
+  }
   return {
     paddingLeft: "12px",
     borderLeft: `3px solid ${palette.textAccent}`,
@@ -252,7 +322,11 @@ export function titleHeadingIconPrefixWrapStyle(palette: ThemePaletteTokens): Re
 
 export function titleHeadingMinimalNumberLabelStyle(
   palette: ThemePaletteTokens,
+  blockType: "title" | "heading" = "title",
 ): Record<string, string> {
+  if (blockType === "heading") {
+    return headingPreviewOrdinalStyle(palette) as Record<string, string>;
+  }
   return {
     fontSize: "11px",
     fontWeight: "600",
@@ -266,7 +340,11 @@ export function titleHeadingMinimalNumberLabelStyle(
 
 export function titleHeadingMagazineOffsetCardStyle(
   palette: ThemePaletteTokens,
+  blockType: "title" | "heading" = "title",
 ): Record<string, string> {
+  if (blockType === "heading") {
+    return headingPreviewMagazineOffsetSectionStyle(palette) as Record<string, string>;
+  }
   return {
     marginRight: "26px",
     marginBottom: "2px",
@@ -277,4 +355,24 @@ export function titleHeadingMagazineOffsetCardStyle(
     borderRadius: "12px",
     boxShadow: `0 2px 8px ${paletteAccentWithAlpha(palette, "44")}`,
   };
+}
+
+export function titleHeadingTopicPillStyleForBlock(
+  palette: ThemePaletteTokens,
+  blockType: "title" | "heading",
+): Record<string, string> {
+  if (blockType === "heading") {
+    return headingPreviewTopicPillStyle(palette) as Record<string, string>;
+  }
+  return titleHeadingTopicPillStyle(palette);
+}
+
+export function titleHeadingCardTitleFrameStyleForBlock(
+  palette: ThemePaletteTokens,
+  blockType: "title" | "heading",
+): Record<string, string> {
+  if (blockType === "heading") {
+    return copySafeHeadingSectionStyle();
+  }
+  return titleHeadingCardTitleFrameStyle(palette);
 }
