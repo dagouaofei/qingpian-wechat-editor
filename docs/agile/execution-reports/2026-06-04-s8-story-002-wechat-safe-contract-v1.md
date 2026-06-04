@@ -119,4 +119,5 @@
 
 ## 15. Commit
 
-- Story commit：见 sprint 分支 log（`docs(s8): Contract v1 and DECISION-089`）
+- Story / Sprint tip：`c44499a` — `docs(s8): finalize WeChat-safe Contract v1 (DECISION-089)`
+- Merge：`docs/s8-story-002-wechat-safe-contract-doc` → `sprint/s8-wechat-safe-css-contract`（fast-forward）
