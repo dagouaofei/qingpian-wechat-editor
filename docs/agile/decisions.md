@@ -751,7 +751,8 @@
   3. **审美优先于 variant 数量**；heading Preview 装饰必须走 `heading-publish-visual` → `copySafe*` 同源
   4. **默认 flagship：** `business` preset → `heading_short_line`；同篇 heading 仍统一 variant
   5. **验收：** catalog 审美表 + [`heading-publish-8.md`](paste-qa/heading-publish-8.md) 粘贴表；≥6/8 合格方可关 Story
-- **影响范围：** `heading-publish-pool.ts`、`heading-publish-visual.ts`、`title-heading-copy-styles.ts`、`miaopian-preset-bundles.ts`、`style-selection-diversity.ts`、`/gallery`、`/preview`
-- **关联：** DECISION-085、DECISION-086、S7-STORY-008
-- **状态：** 已确认
+  6. **收口（2026-06-03）：** 第六轮公众号粘贴 **8/8 PASS**；`heading_highlight_marker` 使用 `h3`+`linear-gradient`（`7d8e38c`）；**S7-STORY-008 Done**；8 款进入 Release 1 **heading 发布池**；`warm` preset 默认 heading 仍为 `heading_highlight_marker`
+- **影响范围：** `heading-publish-pool.ts`、`heading-publish-decoration.ts`、`heading-publish-copy-html.ts`、`miaopian-preset-bundles.ts`、`/gallery`、`/preview`
+- **关联：** DECISION-085、DECISION-086、S7-STORY-008、Sprint 7 关闭
+- **状态：** 已确认 · **Story 已关闭（2026-06-03 用户确认）**
 

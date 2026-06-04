@@ -41,7 +41,7 @@
 | `heading_icon_prefix` | ☐ | ☐ | | Pending |
 | `heading_minimal_number` | ☐ | ☐ | | Pending |
 
-**Story 关闭条件：** ≥6/8 两行均勾选 **合格**；不合格项登记 [`bugs.md`](../agile/bugs.md) 或下轮替换 layout，**不**增加第 9 款。
+**Story 状态（2026-06-03）：** S7-STORY-008 **Done** — 第六轮微信公众号粘贴 **8/8 PASS**；8 款为 Release 1 **heading 发布池**（`release1_required`）；`business` 默认 `heading_short_line`，`warm` 默认 `heading_highlight_marker`。
 
 ---
 

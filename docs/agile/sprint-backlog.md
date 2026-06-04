@@ -3102,7 +3102,7 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 # Sprint 7 Backlog · WeChat Article Experience & Style Richness
 
 > **Sprint 7 目标：** 整篇文章像公众号文章；Style Gallery；样式丰富度；修正过度卡片化；**miaopian 协作/体验对齐见 alignment 文档**
-> **Sprint 7 状态：** **In Progress**（2026-06-02 · DECISION-081~085 · **S7-STORY-002~006 Done** · **S7-STORY-007A In Review** · **S7-STORY-007 不做**）
+> **Sprint 7 状态：** **Done**（2026-06-03 用户确认收口 · **S7-STORY-008 Done** · heading publish 8/8 粘贴 PASS · merge `release/1` @ 收口 commit）
 > **Sprint 7 分支：** `sprint/s7-wechat-article-experience`（从 `release/1` 切出）
 > **对齐文档：** [`docs/agile/miaopian-alignment/s7-workflow-and-ux-gap.md`](miaopian-alignment/s7-workflow-and-ux-gap.md)
 > **Sprint 7 不做：** Sprint 8 Paste QA、关闭 Release 1、merge `main`
@@ -3117,8 +3117,8 @@ S7-STORY-004 标题 / 分节标题 variant 丰富度 — Merged → S7-STORY-003
 S7-STORY-005 重点高亮 / 列表 / 摘要 / CTA 样式优化 — Done
 S7-STORY-006 整篇文章样式组合与过度卡片化修正 — Done
 S7-STORY-007A R1 Style Fidelity Stabilization — In Review（代码 Done · 粘贴 QA 移交 007B）
-S7-STORY-007B R1 Golden Paste QA 与默认路径二次修复 — In Progress
-S7-STORY-008 Heading Publish 8 款审美实验 — In Review（当前）
+S7-STORY-007B R1 Golden Paste QA 与默认路径二次修复 — Deferred（移交 Sprint 8 · 非 S7 阻塞）
+S7-STORY-008 Heading Publish 8 款审美实验 — Done（2026-06-03 · 第六轮粘贴 8/8 PASS）
 S7-STORY-007 Sprint 7 手动视觉 QA 与关闭准备 — Deferred
 ```
 
@@ -3335,13 +3335,13 @@ S7-STORY-007 Sprint 7 手动视觉 QA 与关闭准备 — Deferred
 
 **用户故事：** 作为 PO，我需要在保证 Copy 一致性的前提下，让小标题有 8 款「能直接发公众号」的审美合格样式可选，并废弃历史 heading variant。
 
-**优先级：** P0 · **状态：** **In Review** · **工作分支：** `feature/s7-story-008-heading-publish-aesthetic`（延续 `feature/s7-story-007a-r1-style-fidelity` 未合并工作）
+**优先级：** P0 · **状态：** **Done**（2026-06-03 用户确认）· **工作分支：** `feature/s7-story-007a-r1-style-fidelity` · merged `sprint/s7-wechat-article-experience` → `release/1`
 
 **对应：** DECISION-087 · [`heading-publish-catalog.md`](../product/heading-publish-catalog.md)
 
-**In Scope：** 8 款 `HEADING_PUBLISH` registry · Preview/Copy 抛光 · `/gallery` + `/preview` 切换 · diversity 仅 8 款 · 废弃 5 款旧 ID
+**In Scope：** 8 款 `HEADING_PUBLISH` registry · Preview/Copy 同源 · `/gallery` + `/preview` · diversity 仅 8 款 · 废弃 5 款旧 ID
 
-**Out of Scope：** title · 其它 block · 第 9 款 heading · Release 1 关闭
+**Out of Scope：** title · 其它 block · 第 9 款 heading · Release 1 关闭 · Sprint 8
 
 **验收标准：**
 
@@ -3349,10 +3349,10 @@ S7-STORY-007 Sprint 7 手动视觉 QA 与关闭准备 — Deferred
 - [x] AC-2 [`heading-publish-catalog.md`](../product/heading-publish-catalog.md) + [`heading-publish-8.md`](paste-qa/heading-publish-8.md)
 - [x] AC-3 `/gallery` + `/preview` 小标题切换与 Copy 同步
 - [x] AC-4 `heading-publish-parity.test.ts` 全绿
-- [ ] AC-5 PO catalog 审美 ≥6/8 合格
-- [ ] AC-6 PO 粘贴 QA ≥6/8 PASS
+- [x] AC-5 PO 确认 8 款可发公众号（第六轮粘贴 8/8 PASS）
+- [x] AC-6 PO 粘贴 QA **8/8 PASS**（第六轮 · `heading_highlight_marker` 含 gradient 实机通过）
 
-**备注：** 不得将 AC-4 等同于 Story Done；待 PO 填 catalog / paste 表。
+**备注：** Release 1 **heading 发布池**已就绪；`warm` preset 默认 `heading_highlight_marker` 保留（DECISION-087）。R1 golden 全文粘贴仍归 S7-STORY-007B / Sprint 8。
 
 ---
 
