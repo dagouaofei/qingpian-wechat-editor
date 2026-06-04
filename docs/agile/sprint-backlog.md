@@ -10,9 +10,11 @@
 > **Sprint 5：** Generation / Streaming + Release 1 真实 UI 主流程闭环 · **Closed**（2026-06-02；DECISION-069；audit Grade A- · P0=0 · P1=4 · P2=3；`sprint/s5-generation-ui-main-flow` 已 merge 至 `release/1`）
 > **Sprint 6：** Release 1 Visible AI Main Flow · **Closed**（2026-06-02；DECISION-078；audit Grade A- · P0=0 · P1=5 · P2=4；`sprint/s6-visible-ai-main-flow` 已 merge 至 `release/1`）
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
-> **当前 Sprint：** **Sprint 7** — **Done**（2026-06-03 收口 · **S7-STORY-008 Done** · merge `release/1`）；**S7-STORY-007B** → Sprint 8
+> **当前 Sprint：** **Sprint 8** — **S8：WeChat-safe CSS Contract & Fidelity Test System**（**In Progress** · **下一步 S8-STORY-002** · DECISION-088）
+> **上一 Sprint：** **Sprint 7** — **Done**（2026-06-03 收口 · merge `release/1`）；**S7-STORY-007B** 承接至 S8 Paste / Fidelity 体系
 > **当前 Chore：** **Visible Progress & Legacy Convergence** — **Done**（DECISION-080 · 用户验收 2026-06-02 · merged @ `a5704d6`）
-> **Sprint 7 分支：** `sprint/s7-wechat-article-experience`（从 `release/1` 切出）
+> **Sprint 8 分支：** `sprint/s8-wechat-safe-css-contract`（从 `release/1` 切出 · 2026-06-04）
+> **Sprint 7 分支：** `sprint/s7-wechat-article-experience`（已 merge `release/1`）
 > **miaopian 对齐：** [`docs/agile/miaopian-alignment/s7-workflow-and-ux-gap.md`](miaopian-alignment/s7-workflow-and-ux-gap.md)
 > **Release 1 主干：** `release/1`
 
@@ -3364,88 +3366,211 @@ S7-STORY-007 Sprint 7 手动视觉 QA 与关闭准备 — Deferred
 
 ---
 
-# Sprint 8 Backlog · Copy Fidelity & Release 1 Closure
+# Sprint 8 Backlog · S8：WeChat-safe CSS Contract & Fidelity Test System
 
-> **Sprint 8 目标：** Preview / Copy / 粘贴一致性；135 + 公众号后台 Paste QA；Release 1 关闭准备
-> **Sprint 8 状态：** **Planned**（后续 · 未启动）
-> **Sprint 8 分支（启动时）：** `sprint/s8-copy-fidelity-closure`（DECISION-070）
-> **承接：** 原 Sprint 6-A/B 中 Fixture Triple / 33 variants Paste QA / PasteTestRecord 目标（方案 B 收口至 Sprint 8）
-> **Sprint 8 不做：** 未满足 release-plan 关闭标准时 merge `main`
+> **Sprint 8 名称：** S8：WeChat-safe CSS Contract & Fidelity Test System
+> **Sprint 8 定位：** 建立公众号安全样式 contract、复制一致性验证体系、失真诊断流程、多控件 variant 粘贴测试矩阵；为 **S9 文章视觉升级** 打地基。**不是**视觉美化 Sprint。
+> **Sprint 8 状态：** **In Progress**（2026-06-04 启动 · **S8-STORY-001 Done** · 下一步 **S8-STORY-002**）
+> **Sprint 8 分支：** `sprint/s8-wechat-safe-css-contract`（从 `release/1` 切出）
+> **Sprint 文档：** [`sprint8-wechat-safe-css-contract.md`](sprint8-wechat-safe-css-contract.md)
+> **决策：** DECISION-088（S8 范围重定义 · 取代原 DECISION-070 中 Sprint 8「Copy Fidelity & Release 1 Closure」叙事）
+> **承接：** S7-STORY-007B（R1 golden 全文粘贴）· 原 Paste QA / Fixture 目标 · `wechat-copy-style-rules.md` WeChatCompatibilityProfile 种子
+
+## Sprint 8 明确不做
+
+1. 不做大规模视觉美化
+2. 不做成熟网站 UI 改版
+3. 不做 streaming / 生成速度优化
+4. 不做配图、二维码、小程序
+5. 不继续围绕单个 heading 样式反复修
+6. 不把复杂样式直接进入默认样式池
+7. 不只依赖自动化测试替代公众号实机粘贴 QA
+8. **本轮（S8-STORY-001）不启动** Compatibility Profile 代码、Copy HTML Validator、fixture variant 扩充
 
 ## Sprint 8 建议执行顺序
 
 ```text
-S8-STORY-001 Sprint 8 启动与复制保真范围确认 — Planned
-S8-STORY-002 Preview / Copy Renderer 一致性 QA — Planned
-S8-STORY-003 Clipboard HTML / Plain Text 双格式 QA — Planned
-S8-STORY-004 135 编辑器粘贴测试 — Planned
-S8-STORY-005 微信公众号后台粘贴测试 — Planned
-S8-STORY-006 fallback / unsupported block 降级策略 — Planned
-S8-STORY-007 Release 1 手动验收记录与关闭准备 — Planned
+S8-STORY-001 公开资料与竞品兼容性调研 + Sprint 初始化 — Done（详细调研待后续补充）
+S8-STORY-002 WeChat-safe HTML/CSS Contract 文档 — Planned（下一步）
+S8-STORY-003 Compatibility Profile 代码实现 — Planned
+S8-STORY-004 Copy HTML Validator — Planned
+S8-STORY-005 多控件 Fixture 与 Fidelity Matrix — Planned
+S8-STORY-006 公众号实机粘贴 QA 流程 — Planned
+S8-STORY-007 Preview / Copy 统一渲染方案审计 — Planned
+S8-STORY-008 S8 Contract Audit 与关闭准备 — Planned
 ```
 
 ---
 
-## S8-STORY-001 Sprint 8 启动与复制保真范围确认
+## S8-STORY-001 公开资料与竞品兼容性调研
 
-**优先级：** P0 · **状态：** Planned · **工作分支：** `docs/s8-start-backlog-split`
+**优先级：** P0 · **状态：** **Done**（2026-06-04 · 用户确认 · **详细调研待后续补充**）· **工作分支：** `docs/s8-story-001-compatibility-research`（已 merge → `sprint/s8-wechat-safe-css-contract`）
 
-**目标：** 启动 sprint；确认 Paste QA 范围（33 variants · 135 · 公众号后台 · PasteTestRecord）。
+**用户故事：** 作为架构/产品，我需要系统调研公开公众号排版工具与开源方案，以便提炼轻篇第一版 WeChat-safe Contract seed，并明确可借鉴与不可照搬的边界。
 
----
+**目标：**
 
-## S8-STORY-002 Preview / Copy Renderer 一致性 QA
-
-**优先级：** P0 · **状态：** Planned · **工作分支：** `docs/s8-preview-copy-consistency-qa`
-
-**目标：** 系统性对比 Preview 与 Copy 输出；登记差异与 P1/P2。
-
----
-
-## S8-STORY-003 Clipboard HTML / Plain Text 双格式 QA
-
-**优先级：** P0 · **状态：** Planned · **工作分支：** `docs/s8-clipboard-dual-format-qa`
-
-**目标：** 验证 `text/html` + `text/plain` 双格式在微信编辑场景下的行为。
-
----
-
-## S8-STORY-004 135 编辑器粘贴测试
-
-**优先级：** P0 · **状态：** Planned · **工作分支：** `docs/s8-135-editor-paste-qa`
-
-**目标：** 135 编辑器最小 Paste QA；PasteTestRecord 记录。
-
----
-
-## S8-STORY-005 微信公众号后台粘贴测试
-
-**优先级：** P0 · **状态：** Planned · **工作分支：** `docs/s8-wechat-backend-paste-qa`
-
-**目标：** 公众号后台最小 Paste QA；承接 first-wave 33 variants 回归（原 6-B 目标）。
-
----
-
-## S8-STORY-006 fallback / unsupported block 降级策略
-
-**优先级：** P0 · **状态：** Planned · **工作分支：** `feature/s8-copy-fallback-strategy`
-
-**目标：** 明确 balanced / preview_only / unsupported 的 fallback 与用户可见说明。
-
----
-
-## S8-STORY-007 Release 1 手动验收记录与关闭准备
-
-**优先级：** P0 · **状态：** Planned · **工作分支：** `docs/s8-release1-close-readiness`
-
-**目标：** 对照 [`release-plan.md`](release-plan.md) 关闭标准完成手动验收记录；**不自行关闭 Release 1**；不 merge `main`（须用户确认）。
+- 调研 135、壹伴、秀米、mdnice、Doocs 微信 Markdown、markdown-css 等公开资料与开源方案
+- 产出 [`docs/research/wechat-editor-compatibility-reference.md`](../research/wechat-editor-compatibility-reference.md)
+- 建立 contract / 失真诊断 **草案占位**（非完整实现）
+- 完成 S8 Sprint 初始化与 Story 拆分
 
 **验收标准：**
 
-- [ ] AC-1 release-plan 关闭标准逐项核对
-- [ ] AC-2 遗留问题写入 backlog / bugs.md
-- [ ] AC-3 有 Paste QA 记录（Not Run 须明确标注，不得冒充通过）
-- [ ] AC-4 未自行关闭 Release 1
-- [ ] AC-5 未 merge `main`
+- [x] AC-1 S8 sprint 分支 `sprint/s8-wechat-safe-css-contract` 已创建
+- [x] AC-2 Story 分支 `docs/s8-story-001-compatibility-research` 已创建
+- [x] AC-3 [`sprint8-wechat-safe-css-contract.md`](sprint8-wechat-safe-css-contract.md) 已创建
+- [x] AC-4 S8 stories 001~008 已写入 sprint backlog
+- [x] AC-5 调研文档框架与「初步结论」模板已建立（各对象详表与来源链接 **待后续补充**，不阻塞 Story 关闭）
+- [x] AC-6 [`wechat-safe-html-css-contract.md`](../architecture/wechat-safe-html-css-contract.md) 草案已创建
+- [x] AC-7 [`copy-drift-diagnostics.md`](../architecture/copy-drift-diagnostics.md) 草案已创建
+- [x] AC-8 本轮不改业务代码 / renderer / 不新增 variant
+- [x] AC-9 不启动 S8-STORY-002
+
+**遗留（不阻塞 Done）：** [`wechat-editor-compatibility-reference.md`](../research/wechat-editor-compatibility-reference.md) §4 各对象详细记录、公开来源链接与实机对照 — 可在 S8-STORY-002 前或并行 chore 补充。
+
+**关联文档：** `wechat-editor-compatibility-reference.md` · `wechat-safe-html-css-contract.md` · `copy-drift-diagnostics.md`
+
+---
+
+## S8-STORY-002 WeChat-safe HTML/CSS Contract 文档
+
+**优先级：** P0 · **状态：** Planned · **工作分支：** `docs/s8-story-002-wechat-safe-contract-doc`
+
+**目标：**
+
+- 建立 HTML 标签白名单
+- 建立 CSS 属性 Green / Yellow / Red 分级
+- 建立 DOM 结构约束、inline style 规范、fallback 原则
+- 将 S8-STORY-001 调研结论并入正式 contract（升级 `wechat-safe-html-css-contract.md`）
+
+**验收标准：**
+
+- [ ] AC-1 contract 文档完整且与 `wechat-copy-style-rules.md` 对齐
+- [ ] AC-2 每项 Yellow/Red 有 fallback 或禁用说明
+- [ ] AC-3 明确与 Copy Validator / Fidelity Matrix 的字段映射
+
+---
+
+## S8-STORY-003 Compatibility Profile 代码实现
+
+**优先级：** P0 · **状态：** Planned · **工作分支：** `feature/s8-story-003-compatibility-profile`
+
+**目标：**
+
+- 将 contract 转成代码可校验规则（machine-readable profile）
+- 建立 safe / risky / forbidden CSS 属性表
+- 支持 block / variant 级豁免机制
+
+**验收标准：**
+
+- [ ] AC-1 profile 可被 Copy Renderer / Validator 引用
+- [ ] AC-2 与现有 `WeChatCompatibilityProfile` 契约一致或显式迁移说明
+- [ ] AC-3 豁免须可审计（variantId + reason）
+
+---
+
+## S8-STORY-004 Copy HTML Validator
+
+**优先级：** P0 · **状态：** Planned · **工作分支：** `feature/s8-story-004-copy-html-validator`
+
+**目标：**
+
+- 自动检查 Copy HTML 是否违反 WeChat-safe Contract
+- 识别 forbidden CSS、未声明 Yellow CSS、危险 DOM、非 inline style 依赖
+
+**验收标准：**
+
+- [ ] AC-1 对 fixture 输出可报告 violation 列表
+- [ ] AC-2 与 contract 文档版本字段关联
+- [ ] AC-3 CI 可运行（不替代实机粘贴 QA）
+
+---
+
+## S8-STORY-005 多控件 Fixture 与 Fidelity Matrix
+
+**优先级：** P0 · **状态：** Planned · **工作分支：** `feature/s8-story-005-fidelity-matrix`
+
+**目标：**
+
+- 覆盖控件类型：**title · heading · paragraph · lead · list · quote · info_card · summary · cta · divider**
+- **每个控件类型至少增加 2–4 个代表性 variant**（在现有 registry 上选取或新增，须代表：基础文本型 · 背景色块型 · 边框/卡片型 · 强调色/装饰型）
+- 建立 [`docs/agile/paste-qa/wechat-fidelity-matrix.md`](paste-qa/wechat-fidelity-matrix.md)
+
+**Matrix 字段（每行）：**
+
+| 字段 | 说明 |
+|------|------|
+| block type | 语义块类型 |
+| variant id | 样式 variant |
+| CSS capability | 涉及的 Green/Yellow/Red 能力 |
+| DOM structure | 关键 DOM 模式 |
+| Preview result | 编辑器内预览 |
+| Clipboard HTML | 复制产物摘要 |
+| WeChat paste result | 公众号实机粘贴 |
+| status | **PASS · FAIL · WARNING · UNTESTED** |
+| contract action | 修正建议（降级 / fallback / 豁免 / 移出 preset） |
+
+**验收标准：**
+
+- [ ] AC-1 10 类控件均在 matrix 有行（含多 variant）
+- [ ] AC-2 每类控件 ≥2 个代表性 variant 行（目标 2–4）
+- [ ] AC-3 状态列无空白默认（未测须标 UNTESTED）
+- [ ] AC-4 重点验证 contract 边界，非追求最终视觉效果
+
+---
+
+## S8-STORY-006 公众号实机粘贴 QA 流程
+
+**优先级：** P0 · **状态：** Planned · **工作分支：** `docs/s8-story-006-paste-qa-process`
+
+**目标：**
+
+- 标准化粘贴测试表、失真记录模板
+- 明确实机粘贴后如何记录 HTML/CSS
+- 明确 PO 测试与开发修正之间的闭环（对接 `copy-drift-diagnostics.md`）
+
+**验收标准：**
+
+- [ ] AC-1 135 + 公众号后台双通道流程文档化
+- [ ] AC-2 每条 FAIL/WARNING 可追溯到 matrix 行
+- [ ] AC-3 不宣称 Paste QA Done 除非实机记录完整
+
+---
+
+## S8-STORY-007 Preview / Copy 统一渲染方案审计
+
+**优先级：** P0 · **状态：** Planned · **工作分支：** `docs/s8-story-007-preview-copy-audit`
+
+**目标：**
+
+- 审计 Preview Renderer 与 Copy Renderer 是否分叉
+- 判断 Preview 是否应复用 Copy-safe HTML
+- 提出统一渲染方案：**用户侧正式 Preview 应尽量预览最终 Copy HTML**
+
+**验收标准：**
+
+- [ ] AC-1 差异清单与 P0/P1 分级
+- [ ] AC-2 统一方案写入 architecture 文档（待 DECISION 确认）
+- [ ] AC-3 不在本 Story 强行改代码（除非后续 Story 拆分）
+
+---
+
+## S8-STORY-008 S8 Contract Audit 与关闭准备
+
+**优先级：** P0 · **状态：** Planned · **工作分支：** `docs/s8-story-008-contract-audit-close`
+
+**目标：**
+
+- 审计 contract、validator、matrix、QA 是否形成闭环
+- 判断 S9 是否可进入文章视觉升级
+- 登记遗留问题；**不自行关闭 Sprint 8 / Release 1**
+
+**验收标准：**
+
+- [ ] AC-1 contract ↔ profile ↔ validator ↔ matrix ↔ paste QA 链路图完整
+- [ ] AC-2 S9 进入条件清单（或阻塞项）已写
+- [ ] AC-3 Release 1 关闭与 S8 关闭分离说明（R1 关闭仍须用户确认）
+- [ ] AC-4 未 merge `main`
 
 ---

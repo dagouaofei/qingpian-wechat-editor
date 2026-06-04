@@ -450,3 +450,13 @@
 | 2026-06-03 | Sprint 7 | **S7-STORY-008 Done**：heading publish 8 款；第六轮公众号粘贴 **8/8 PASS**；荧光笔 `h3`+`linear-gradient`（`7d8e38c`） | Heading / Copy / Preview | S7-STORY-008, DECISION-087 |
 | 2026-06-03 | Sprint 7 | **Sprint 7 Closed**（用户确认）；`feature/s7-story-007a-r1-style-fidelity` → `sprint/s7-wechat-article-experience` → `release/1` | 敏捷 / Git | Sprint 7 |
 | 2026-06-03 | Sprint 7 | S7-STORY-007B（R1 golden 全文粘贴）移交 Sprint 8；不阻塞 S7 关闭 | 敏捷 | S7-STORY-007B |
+
+## 2026-06-04 · Sprint 8 启动 · S8-STORY-001
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-04 | Sprint 8 | **DECISION-088**：S8 重定义为 WeChat-safe CSS Contract & Fidelity Test System（8 stories） | 敏捷 / 架构 | DECISION-088 |
+| 2026-06-04 | Sprint 8 | 创建分支 `sprint/s8-wechat-safe-css-contract`、`docs/s8-story-001-compatibility-research` | Git | S8-STORY-001 |
+| 2026-06-04 | Sprint 8 | 新增 `sprint8-wechat-safe-css-contract.md`、调研与 contract/失真诊断草案 | 敏捷 / 架构 / 调研 | S8-STORY-001 |
+| 2026-06-04 | Sprint 8 | 替换 sprint-backlog Sprint 8 章节（S8-STORY-001~008）；**未改业务代码** | 敏捷 | S8-STORY-001 |
+| 2026-06-04 | Sprint 8 | **S8-STORY-001 Done**（用户确认 DECISION-088）；调研详表待补；merge → `sprint/s8-wechat-safe-css-contract` | 敏捷 / Git | S8-STORY-001, DECISION-088 |

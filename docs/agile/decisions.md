@@ -83,6 +83,7 @@
 | DECISION-085 | 2026-06-02 | S7-STORY-007A：R1 默认成稿样式保真；golden fixture + RLAYOUT；Copy 微信安全；007 Deferred | 已确认 |
 | DECISION-086 | 2026-06-02 | R1 默认 preset  canonical=`business`；`classic-news` 仅 legacy alias；golden/生成/fixture 对齐 | 已确认 |
 | DECISION-087 | 2026-06-03 | Heading 仅保留 8 款发布池；审美优先；废弃 5 款旧 heading ID | 已确认 |
+| DECISION-088 | 2026-06-04 | Sprint 8 重定义：WeChat-safe CSS Contract & Fidelity Test System（S8-STORY-001~008） | 已确认 |
 
 ### DECISION-019 详情
 
@@ -755,4 +756,24 @@
 - **影响范围：** `heading-publish-pool.ts`、`heading-publish-decoration.ts`、`heading-publish-copy-html.ts`、`miaopian-preset-bundles.ts`、`/gallery`、`/preview`
 - **关联：** DECISION-085、DECISION-086、S7-STORY-008、Sprint 7 关闭
 - **状态：** 已确认 · **Story 已关闭（2026-06-03 用户确认）**
+
+### DECISION-088 详情（Sprint 8 · WeChat-safe CSS Contract & Fidelity Test System）
+
+- **日期：** 2026-06-04
+- **背景：**
+  - Sprint 7 已完成样式丰富度与 heading 发布池（DECISION-087）；继续单点修样式无法建立可复制的公众号兼容体系
+  - DECISION-070 原将 Sprint 8 规划为「Copy Fidelity & Release 1 Closure」，范围偏关闭验收，缺少 contract、Validator、多控件 Matrix 与失真诊断闭环
+  - 用户要求 S8 为 S9 文章视觉升级打地基，而非视觉美化 Sprint
+- **决策：**
+  1. **Sprint 8 名称与目标重定义：** WeChat-safe CSS Contract & Fidelity Test System
+  2. **Sprint 分支：** `sprint/s8-wechat-safe-css-contract`（从 `release/1` 切出）
+  3. **Committed stories：** S8-STORY-001 ~ S8-STORY-008（见 `sprint-backlog.md`）
+  4. **S8-STORY-005 约束：** 10 类控件 × 每类 **至少 2–4 个代表性 variant**；Matrix 状态 PASS/FAIL/WARNING/UNTESTED
+  5. **文档交付：** `wechat-safe-html-css-contract.md`、`copy-drift-diagnostics.md`、`wechat-editor-compatibility-reference.md`；Matrix 在 STORY-005
+  6. **Release 1 关闭** 仍独立；S8 不自动 merge `main`；S8 关闭须用户确认
+  7. **S7-STORY-007B** 承接至 S8 Paste / Fidelity 体系
+- **Sprint 8 不做：** 大规模视觉美化、UI 改版、streaming、配图/小程序、单 heading 反复修、复杂样式进默认池、仅用自动化替代实机粘贴 QA
+- **影响范围：** `sprint8-wechat-safe-css-contract.md`、`release-plan.md`、`product-backlog.md`、`sprint-backlog.md`、`docs/architecture/`、`docs/research/`
+- **关联：** DECISION-070、DECISION-006、DECISION-027、S7-STORY-007B
+- **状态：** 已确认 · Sprint 8 **In Progress**（**S8-STORY-001 Done** · 详表待补 · 下一步 **002**）
 

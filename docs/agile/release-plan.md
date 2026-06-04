@@ -9,8 +9,8 @@
 | **Release** | Release 1 — **进行中（未关闭）** |
 | **主干分支** | `release/1` |
 | **已完成 Sprint** | Sprint 1-A/B · Sprint 2 · Sprint 3-A/B/C · Sprint 4-A/B · Sprint 5 · **Sprint 6** |
-| **当前 Sprint** | **Sprint 7**（**In Progress** · 002~006 **Done** · **下一步 S7-STORY-007** · DECISION-081~084） |
-| **后续 Sprint** | Sprint 8（已规划 · 未启动） |
+| **当前 Sprint** | **Sprint 8** — **WeChat-safe CSS Contract & Fidelity Test System**（**In Progress** · S8-STORY-001 · DECISION-088） |
+| **上一 Sprint** | **Sprint 7** — **Done**（2026-06-03 · merge `release/1`） |
 | **merge `main`** | **未执行** — Release 1 整体验收通过后才 merge |
 
 > Sprint 5 已交付 Generation / Streaming 技术框架与 `/generate` 初版主链路（DECISION-069），但 **Release 1 不能以 lint/test/build/snapshot  alone 关闭**。Release 1 尾声已按 **方案 B（DECISION-070）** 重排为用户可见主链路 → 公众号文章体验 → 复制保真与关闭。
@@ -39,14 +39,14 @@
 | Sprint | 名称 | 核心目标 | 状态 |
 |--------|------|----------|------|
 | **Sprint 6** | **Release 1 Visible AI Main Flow** | 真实 AI 用户侧最小闭环：首页 → 真实 AI 生成 → 带样式预览 → 风格 / 配色 → 复制 → 最小粘贴 QA | **Closed**（DECISION-078） |
-| **Sprint 7** | **WeChat Article Experience & Style Richness** | 整篇文章像公众号文章；Style Gallery；样式丰富度；miaopian 协作对齐；**8 套**完整视觉样例 | **In Progress**（DECISION-081 · S7-STORY-002） |
-| **Sprint 8** | **Copy Fidelity & Release 1 Closure** | Preview / Copy / 粘贴一致性；135 + 公众号后台 Paste QA；fallback 与遗留问题；Release 1 关闭准备 | **后续 · Planned** |
+| **Sprint 7** | **WeChat Article Experience & Style Richness** | 整篇文章像公众号文章；Style Gallery；样式丰富度；miaopian 协作对齐；**8 套**完整视觉样例 | **Done**（2026-06-03） |
+| **Sprint 8** | **WeChat-safe CSS Contract & Fidelity Test System** | 公众号安全样式 contract；Preview/Copy 一致性原则；Compatibility Profile + Validator；多控件 Fidelity Matrix；失真诊断与实机粘贴 QA；为 S9 视觉升级打地基 | **In Progress**（DECISION-088） |
 
 **Sprint 分支（启动时从 `release/1` 切出）：**
 
 - Sprint 6：`sprint/s6-visible-ai-main-flow`
 - Sprint 7：`sprint/s7-wechat-article-experience`（名称可在 Sprint 7 启动 Story 中最终确认）
-- Sprint 8：`sprint/s8-copy-fidelity-closure`（名称可在 Sprint 8 启动 Story 中最终确认）
+- Sprint 8：`sprint/s8-wechat-safe-css-contract`（DECISION-088 · 2026-06-04 启动）
 
 **原 Release 1 尾声计划变更说明：**
 
@@ -85,7 +85,7 @@ Release 1 **不再**仅以 `lint` / `test` / `build` / renderer snapshot 作为�
 
 - **Sprint 6：** S6-STORY-001 ~ S6-STORY-006
 - **Sprint 7：** S7-STORY-001 ~ S7-STORY-007
-- **Sprint 8：** S8-STORY-001 ~ S8-STORY-007
+- **Sprint 8：** S8-STORY-001 ~ S8-STORY-008 · [`sprint8-wechat-safe-css-contract.md`](sprint8-wechat-safe-css-contract.md)
 
 ---
 
