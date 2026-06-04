@@ -54,8 +54,8 @@
 | S8-STORY-004 | Copy HTML Validator | feature | **Done** |
 | S8-STORY-005 | 多控件 Fixture 与 Fidelity Matrix | feature + docs | **Done** |
 | S8-STORY-006 | 公众号实机粘贴 QA 流程 | docs | **Done**（2026-06-04 · PO paste 19 行 · Drift 001–009） |
-| S8-STORY-006B | 结构化样式调研与 Drift 归类 | docs | **In Review** |
-| S8-STORY-006B-FIX-A | 已发布文章 evidence 提取工作流 | docs | **In Review** |
+| S8-STORY-006B | 结构化样式调研与 Drift 归类 | docs | **Done**（2026-06-04 · merge sprint） |
+| S8-STORY-006B-FIX-A | 已发布文章 evidence 提取工作流 | docs | **Done**（2026-06-04 · merge sprint） |
 | S8-STORY-006B-FIX-B | 批量补 article evidence（5–10） | docs | Planned |
 | S8-STORY-006C | 共性 Copy-safe renderer / fallback 修复 | feature | Planned（**未启动**） |
 | S8-STORY-006D | Matrix 回归与 Paste 复测 | docs + QA | Planned（**未启动**） |
@@ -75,6 +75,9 @@
 | 已发布文章采集 | [`docs/research/wechat-published-article-style-harvest.md`](../research/wechat-published-article-style-harvest.md) | 006B |
 | Copy-safe Pattern Library | [`docs/architecture/wechat-copy-safe-pattern-library.md`](../architecture/wechat-copy-safe-pattern-library.md) | 006B |
 | Drift Triage | [`docs/agile/paste-qa/drift/s8-drift-triage-2026-06-04.md`](paste-qa/drift/s8-drift-triage-2026-06-04.md) | 006B |
+| Harvest 输入模板 | [`docs/research/wechat-published-article-harvest-input-template.md`](../research/wechat-published-article-harvest-input-template.md) | 006B-FIX-A |
+| AI 提取规范 | [`docs/research/wechat-published-article-style-extraction-guide.md`](../research/wechat-published-article-style-extraction-guide.md) | 006B-FIX-A |
+| 已发布文章证据（样本） | [`docs/research/wechat-published-article-evidence/`](../research/wechat-published-article-evidence/) | 006B-FIX-A · FIX-B |
 | Contract v1 | [`docs/architecture/wechat-safe-html-css-contract.md`](../architecture/wechat-safe-html-css-contract.md) · `wechat-safe-contract-v1` | 002 Done · DECISION-089 |
 | 失真诊断 | [`docs/architecture/copy-drift-diagnostics.md`](../architecture/copy-drift-diagnostics.md) | 001 占位 → 006 流程 |
 | Fidelity Matrix | [`docs/agile/paste-qa/wechat-fidelity-matrix.md`](paste-qa/wechat-fidelity-matrix.md) | 005 |

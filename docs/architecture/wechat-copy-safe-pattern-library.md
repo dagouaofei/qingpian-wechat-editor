@@ -16,7 +16,7 @@
 | Drift 001–009 | **实机/观察** | 与 Paste 绑定 |
 | 竞品结构化调研（006B） | 文献 | 辅助 |
 | HARVEST-001~015 | **L0** pattern-hypothesis | **不能** 当作真实文章采集证据 |
-| `WX-HARVEST-EVIDENCE-*` | 待补 L1–L4 | 见 [`harvest-input-template`](../research/wechat-published-article-harvest-input-template.md) |
+| `WX-HARVEST-EVIDENCE-*` | **L2 样本 1 条**（`WX-HARVEST-EVIDENCE-001`）· FIX-B 待补 | 见 [`harvest-input-template`](../research/wechat-published-article-harvest-input-template.md) · [`wechat-published-article-evidence/`](../research/wechat-published-article-evidence/) |
 
 - 已发布文章部分 **目前以 L0 归纳为主**；后续 L2/L3/L4 通过 AI 提取 workflow 逐步写入。
 - L0 **不删除** Pattern，但 **不得** 在 006C 中写成「已实采验证」。

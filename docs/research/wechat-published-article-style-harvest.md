@@ -2,7 +2,7 @@
 
 > **定位：** 两阶段 — **阶段 1（006B-FIX-A）** 建立 evidence 提取工作流；**阶段 2（006B-FIX-B，未启动）** 批量补 5–10 篇真实 evidence。  
 > **重要：** 下文 `HARVEST-001`~`015` 为 **L0 pattern-hypothesis**（无真实 `articleUrl`），**不等于** 可审计的真实文章反向采集。  
-> **真实证据：** 使用 [`wechat-published-article-harvest-input-template.md`](wechat-published-article-harvest-input-template.md) + [`wechat-published-article-style-extraction-guide.md`](wechat-published-article-style-extraction-guide.md) 产出 `WX-HARVEST-EVIDENCE-###`。
+> **真实证据：** 使用 [`wechat-published-article-harvest-input-template.md`](wechat-published-article-harvest-input-template.md) + [`wechat-published-article-style-extraction-guide.md`](wechat-published-article-style-extraction-guide.md) 产出 `WX-HARVEST-EVIDENCE-###`。已收录见 [`wechat-published-article-evidence/`](wechat-published-article-evidence/)（006B-FIX-B 批量补采未启动）。
 
 ---
 

@@ -10,7 +10,7 @@
 > **Sprint 5：** Generation / Streaming + Release 1 真实 UI 主流程闭环 · **Closed**（2026-06-02；DECISION-069；audit Grade A- · P0=0 · P1=4 · P2=3；`sprint/s5-generation-ui-main-flow` 已 merge 至 `release/1`）
 > **Sprint 6：** Release 1 Visible AI Main Flow · **Closed**（2026-06-02；DECISION-078；audit Grade A- · P0=0 · P1=5 · P2=4；`sprint/s6-visible-ai-main-flow` 已 merge 至 `release/1`）
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
-> **当前 Sprint：** **Sprint 8** — **S8：WeChat-safe CSS Contract & Fidelity Test System**（**In Progress** · **S8-STORY-006B-FIX-A In Review** · **006B-FIX-B/006C/006D 未启动** · **007 未启动** · DECISION-088/089/090/091）
+> **当前 Sprint：** **Sprint 8** — **S8：WeChat-safe CSS Contract & Fidelity Test System**（**In Progress** · **S8-STORY-006B / 006B-FIX-A Done**（merge sprint · 2026-06-04）· **006B-FIX-B/006C/006D 未启动** · **007 未启动** · DECISION-088/089/090/091）
 > **上一 Sprint：** **Sprint 7** — **Done**（2026-06-03 收口 · merge `release/1`）；**S7-STORY-007B** 承接至 S8 Paste / Fidelity 体系
 > **当前 Chore：** **Visible Progress & Legacy Convergence** — **Done**（DECISION-080 · 用户验收 2026-06-02 · merged @ `a5704d6`）
 > **Sprint 8 分支：** `sprint/s8-wechat-safe-css-contract`（从 `release/1` 切出 · 2026-06-04）
@@ -3396,8 +3396,8 @@ S8-STORY-003 Compatibility Profile 代码实现 — Done（merge sprint · profi
 S8-STORY-004 Copy HTML Validator — **Done**（merge sprint · `validateWechatCopyHtml`）
 S8-STORY-005 多控件 Fixture 与 Fidelity Matrix — **Done**
 S8-STORY-006 公众号实机粘贴 QA 流程 — **Done**
-S8-STORY-006B 结构化样式调研与 Drift 归类 — **In Review**（待 merge）
-S8-STORY-006B-FIX-A 已发布文章 evidence 提取工作流 — **In Review**
+S8-STORY-006B 结构化样式调研与 Drift 归类 — **Done**（merge sprint · 2026-06-04）
+S8-STORY-006B-FIX-A 已发布文章 evidence 提取工作流 — **Done**（merge sprint · 2026-06-04）
 S8-STORY-006B-FIX-B 批量补 5–10 篇 article evidence — Planned（**未启动**）
 S8-STORY-006C 共性 Copy-safe renderer / fallback 修复 — Planned（**未启动**）
 S8-STORY-006D Matrix 回归与 Paste 复测 — Planned（**未启动**）
@@ -3562,7 +3562,7 @@ S8-STORY-008 S8 Contract Audit 与关闭准备 — Planned
 
 ## S8-STORY-006B 结构化样式调研与 Drift 归类
 
-**优先级：** P0 · **状态：** **In Review** · **工作分支：** `docs/s8-story-006b-style-research-drift-triage` · **来源：** `sprint/s8-wechat-safe-css-contract`
+**优先级：** P0 · **状态：** **Done**（用户确认 2026-06-04）· **工作分支：** `docs/s8-story-006b-style-research-drift-triage` · **merge：** `sprint/s8-wechat-safe-css-contract`（经 `docs/s8-story-006b-fix-harvest-extraction-workflow` 链合并）
 
 **用户故事：** 作为架构/产品，我需要在修 renderer 前完成竞品与已发布文章的结构化调研，将 9 个 Drift 归入共性类别，并产出 Copy-safe Pattern Library v0.1。
 
@@ -3583,18 +3583,20 @@ S8-STORY-008 S8 Contract Audit 与关闭准备 — Planned
 - [x] AC-5 明确 007（HEAD-002）与 S9 边界
 - [x] AC-6 不改 renderer · Contract 分级 · Profile · Validator · 不新增 variant
 - [x] AC-7 不虚构 Paste QA · 不启动 006C
-- [ ] AC-8 用户确认 Done · merge → sprint
+- [x] AC-8 用户确认 Done · merge → sprint
 - [x] AC-9 lint / test / build PASS
 
 **Out of Scope：** renderer · 006C 实现 · 007 审计实现 · S9 视觉升级
 
 **关联：** DECISION-091 · S8-STORY-006 Drift 001–009
 
+**收口说明：** HARVEST-001~015 为 **L0 pattern-hypothesis**；真实证据走 `WX-HARVEST-EVIDENCE-*`（见 FIX-A · 首条 L2 样本 `WX-HARVEST-EVIDENCE-001`）。
+
 ---
 
 ## S8-STORY-006B-FIX-A 已发布文章 Evidence 提取工作流
 
-**优先级：** P0 · **状态：** **In Review** · **工作分支：** `docs/s8-story-006b-fix-harvest-extraction-workflow` · **来源：** `docs/s8-story-006b-style-research-drift-triage`（006B 未 merge 时同链）
+**优先级：** P0 · **状态：** **Done**（用户确认 2026-06-04）· **工作分支：** `docs/s8-story-006b-fix-harvest-extraction-workflow` · **merge：** `sprint/s8-wechat-safe-css-contract`
 
 **用户故事：** 审查发现 HARVEST-001~015 无真实 URL，不能称为可审计实采；需建立用户仅提供 URL 或 URL+HTML、由 AI 自动提取 evidence 的最小流程。
 
@@ -3614,16 +3616,18 @@ S8-STORY-008 S8 Contract Audit 与关闭准备 — Planned
 - [x] AC-4 HARVEST 标 L0；不声称 15 篇实采
 - [x] AC-5 示例区明确非真实 evidence · 不虚构 URL
 - [x] AC-6 不改 renderer/Contract/Matrix paste
-- [ ] AC-7 用户确认 Done · merge sprint
+- [x] AC-7 用户确认 Done · merge sprint
 - [x] AC-8 lint / test / build PASS
 
 **Out of Scope：** 补满 15 URL · FIX-B · 006C · 业务代码
+
+**交付物（补充）：** [`wechat-published-article-evidence/WX-HARVEST-EVIDENCE-001.md`](../research/wechat-published-article-evidence/WX-HARVEST-EVIDENCE-001.md)（L2 样本 · 非 FIX-B 批量）
 
 ---
 
 ## S8-STORY-006B-FIX-B 批量补真实 Article Evidence（Planned）
 
-**优先级：** P1 · **状态：** Planned · **依赖：** FIX-A Done
+**优先级：** P1 · **状态：** Planned · **依赖：** FIX-A **Done**
 
 **目标：** 5–10 篇 `WX-HARVEST-EVIDENCE-*`（L2/L3），用户 URL 或 URL+HTML + AI 提取。
 

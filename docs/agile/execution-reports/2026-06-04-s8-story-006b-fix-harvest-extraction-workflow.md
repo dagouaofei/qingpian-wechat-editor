@@ -9,7 +9,7 @@
 - Sprint：Sprint 8
 - 关联 Story / Decision：S8-STORY-006B-FIX-A · DECISION-091（implementation note §7）
 - 执行者：Cursor
-- 状态：In Review
+- 状态：**Done**（用户确认 2026-06-04 · merge sprint）
 
 ## 2. 本轮目标
 
@@ -89,7 +89,7 @@
 
 ## 14. 是否建议 merge → sprint
 
-**建议** 与 006B 一并或顺序 merge（纯 docs · 检查 PASS）— **待用户审查**，未自行 merge。
+**已 merge** → `sprint/s8-wechat-safe-css-contract`（用户确认 2026-06-04 · 与 006B 同链）。
 
 ## 15. 运行检查
 
