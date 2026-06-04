@@ -160,5 +160,8 @@ validateWechatCopyHtml(input: ValidateWechatCopyHtmlInput): WechatCopyValidation
 
 | 项 | 结果 |
 |----|------|
+| Sprint 分支 | `sprint/s8-wechat-safe-css-contract` @ `c661495`（fast-forward merge） |
 | S8-STORY-004 | **Done** |
-| `npm run test` / `lint` / `build` | 见收口轮次记录 |
+| `npm run test` | PASS · 835 tests（收口轮次；首次 run 遇 vitest worker 超时后重试通过） |
+| `npm run lint` | PASS · 0 errors |
+| `npm run build` | PASS |
