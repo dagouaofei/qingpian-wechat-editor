@@ -25,6 +25,10 @@ import {
   S8_FIDELITY_STYLE_REGISTRY,
 } from "../fixtures/fidelity/s8-wechat-fidelity-registry";
 import { S8_WECHAT_FIDELITY_FIXTURE_SPECS } from "../fixtures/fidelity/s8-wechat-fidelity-spec";
+import {
+  S8_FIDELITY_PASTE_QA_OVERLAY_20260604,
+  type FidelityPasteOverlay,
+} from "./wechat-fidelity-matrix-paste-overlay";
 
 import type {
   FidelityValidatorStatus,
@@ -138,8 +142,24 @@ export function buildWechatFidelityMatrixRow(
   };
 }
 
+export function applyFidelityPasteOverlay(
+  row: WechatFidelityMatrixRow,
+): WechatFidelityMatrixRow {
+  const overlay: FidelityPasteOverlay | undefined =
+    S8_FIDELITY_PASTE_QA_OVERLAY_20260604[row.matrixRowId];
+  if (overlay == null) return row;
+  return {
+    ...row,
+    pasteStatus: overlay.pasteStatus,
+    pasteEvidence: overlay.pasteEvidence,
+    contractAction: overlay.contractAction,
+  };
+}
+
 export function buildWechatFidelityMatrix(): WechatFidelityMatrixRow[] {
-  return S8_WECHAT_FIDELITY_FIXTURE_SPECS.map(buildWechatFidelityMatrixRow);
+  return S8_WECHAT_FIDELITY_FIXTURE_SPECS.map(buildWechatFidelityMatrixRow).map(
+    applyFidelityPasteOverlay,
+  );
 }
 
 function escapeMdCell(value: string): string {
@@ -171,7 +191,8 @@ export function formatMatrixStory006PasteQaAppendix(): string {
 | 文档 | 用途 |
 |------|------|
 | [\`wechat-paste-qa-workflow.md\`](wechat-paste-qa-workflow.md) | 公众号实机粘贴标准流程 |
-| [\`wechat-paste-qa-session-2026-06-04-s8-story-006.md\`](wechat-paste-qa-session-2026-06-04-s8-story-006.md) | 第一轮 Session 表（**paste 默认 UNTESTED**） |
+| [\`wechat-paste-qa-session-2026-06-04-s8-story-006.md\`](wechat-paste-qa-session-2026-06-04-s8-story-006.md) | 第一轮 Session · 19 行已回填 Matrix |
+| [\`drift/README.md\`](drift/README.md) | Copy Drift 索引（FAIL/WARNING · 2026-06-04） |
 | [\`wechat-paste-qa-pack-2026-06-04.md\`](wechat-paste-qa-pack-2026-06-04.md) | Smoke / Risk / Probe Copy HTML 样本包 |
 
 **回填规则：** 仅 PO 实机后可改上表 \`pasteStatus\` / \`pasteEvidence\`；**禁止** Cursor/CI 虚构 PASS。
@@ -198,13 +219,17 @@ export function buildWechatFidelityMatrixDocument(): string {
   const pass = rows.filter((r) => r.validatorStatus === "PASS").length;
   const warn = rows.filter((r) => r.validatorStatus === "WARNING").length;
   const fail = rows.filter((r) => r.validatorStatus === "FAIL").length;
+  const pasteTested = rows.filter((r) => r.pasteStatus !== "UNTESTED").length;
+  const pastePass = rows.filter((r) => r.pasteStatus === "PASS").length;
+  const pasteWarn = rows.filter((r) => r.pasteStatus === "WARNING").length;
+  const pasteFail = rows.filter((r) => r.pasteStatus === "FAIL").length;
 
   return `# WeChat Fidelity Matrix（Contract v1 · 第一版）
 
 > 轻篇公众号排版 · qingpian-wechat-editor  
 > **Contract：** \`wechat-safe-contract-v1\` · **Profile：** \`wechat-mp-editor-v1\`  
 > **Story：** S8-STORY-005 · **生成：** \`tests/support/wechat-fidelity-matrix-builder.ts\`  
-> **状态：** Validator 已跑 · Paste QA **UNTESTED**（待 S8-STORY-006）
+> **状态：** Validator 已跑 · Paste QA Session 2026-06-04 已回填 ${pasteTested} 行（Matrix 其余 ${rows.length - pasteTested} 行 UNTESTED）
 
 ---
 
@@ -227,7 +252,7 @@ export function buildWechatFidelityMatrixDocument(): string {
 | **validatorStatus** | PASS | \`valid=true\` 且无 warning |
 | | WARNING | \`valid=true\` 但有 Yellow 等 warning |
 | | FAIL | 存在 error（\`valid=false\`） |
-| **pasteStatus** | PASS / FAIL / WARNING / UNTESTED | 公众号实机粘贴结果；本轮均为 **UNTESTED** |
+| **pasteStatus** | PASS / FAIL / WARNING / UNTESTED | 公众号实机粘贴结果；Session 2026-06-04 已测 ${pasteTested} 行 |
 
 **重要：** \`validatorStatus=PASS\` **不代表** Paste QA PASS。
 
@@ -250,7 +275,7 @@ Fixture 使用 preset \`s8_fidelity_matrix_test\`（test-only）；probe variant
 | 层 | 工具 | 本轮 |
 |----|------|------|
 | 机器校验 | \`validateWechatCopyHtml\` | 已执行（见下表） |
-| 实机粘贴 | 公众号后台 / 135 | **未执行** → pasteStatus=UNTESTED |
+| 实机粘贴 | 公众号后台 | **Session 2026-06-04** · ${pasteTested}/${rows.length} 行已测 |
 
 ---
 
@@ -258,7 +283,8 @@ Fixture 使用 preset \`s8_fidelity_matrix_test\`（test-only）；probe variant
 
 - **控件：** title · heading · paragraph · lead · list · quote · summary（\`highlight\`）· info_card · cta · divider  
 - **样本数：** ${rows.length} 行（≥30）  
-- **汇总：** PASS ${pass} · WARNING ${warn} · FAIL ${fail}  
+- **Validator 汇总：** PASS ${pass} · WARNING ${warn} · FAIL ${fail}  
+- **Paste 汇总（已测行）：** PASS ${pastePass} · WARNING ${pasteWarn} · FAIL ${pasteFail} · UNTESTED ${rows.length - pasteTested}  
 - **CSS 能力：** Green/Yellow 见 sprint8 / contract v1；Red 能力仅在 Validator 单测，不纳入本轮粘贴样本  
 
 ---
@@ -277,5 +303,6 @@ ${formatMatrixStory006PasteQaAppendix()}
 |------|------|-------|
 | 2026-06-04 | 创建第一版 Matrix（fixture + validator） | S8-STORY-005 |
 | 2026-06-04 | §7 Paste QA 入口 · Risk Set 说明（paste 仍 UNTESTED） | S8-STORY-006 |
+| 2026-06-04 | Session 2026-06-04 回填 paste 列 · Drift 001–009 | S8-STORY-006 |
 `;
 }

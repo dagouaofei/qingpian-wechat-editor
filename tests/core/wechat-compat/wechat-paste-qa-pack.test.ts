@@ -59,7 +59,7 @@ describe("S8 WeChat Paste QA pack", () => {
         (r) => r.matrixRowId === entry.row.matrixRowId,
       );
       expect(matrixRow?.validatorStatus).toBe(entry.row.validatorStatus);
-      expect(entry.row.pasteStatus).toBe("UNTESTED");
+      expect(entry.row.pasteStatus).toBe(matrixRow?.pasteStatus);
     }
   });
 

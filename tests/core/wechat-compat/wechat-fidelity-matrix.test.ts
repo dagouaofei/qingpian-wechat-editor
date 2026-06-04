@@ -9,6 +9,7 @@ import {
   buildWechatFidelityMatrix,
   buildWechatFidelityMatrixDocument,
 } from "../../support/wechat-fidelity-matrix-builder";
+import { S8_FIDELITY_PASTE_QA_OVERLAY_20260604 } from "../../support/wechat-fidelity-matrix-paste-overlay";
 
 const MATRIX_DOC_PATH = join(
   dirname(fileURLToPath(import.meta.url)),
@@ -45,7 +46,11 @@ describe("S8 WeChat Fidelity Matrix", () => {
     for (const row of rows) {
       expect(row.clipboardHtmlSummary.length).toBeGreaterThan(0);
       expect(row.validation.contractVersionId).toBe("wechat-safe-contract-v1");
-      expect(row.pasteStatus).toBe("UNTESTED");
+      if (S8_FIDELITY_PASTE_QA_OVERLAY_20260604[row.matrixRowId] != null) {
+        expect(["PASS", "WARNING", "FAIL"]).toContain(row.pasteStatus);
+      } else {
+        expect(row.pasteStatus).toBe("UNTESTED");
+      }
       expect(["PASS", "WARNING", "FAIL"]).toContain(row.validatorStatus);
 
       if (row.variantType === "probe") {
@@ -76,16 +81,13 @@ describe("S8 WeChat Fidelity Matrix", () => {
     ).toBe(true);
   });
 
-  it("matches committed wechat-fidelity-matrix.md when UPDATE_FIDELITY_MATRIX is unset", () => {
+  it("matches committed wechat-fidelity-matrix.md (or regenerates when UPDATE_FIDELITY_MATRIX=1)", () => {
     const generated = buildWechatFidelityMatrixDocument();
-    const committed = readFileSync(MATRIX_DOC_PATH, "utf8");
-    expect(generated).toBe(committed);
-  });
-
-  it("regenerates matrix doc when UPDATE_FIDELITY_MATRIX=1", () => {
-    if (process.env.UPDATE_FIDELITY_MATRIX !== "1") {
+    if (process.env.UPDATE_FIDELITY_MATRIX === "1") {
+      writeFileSync(MATRIX_DOC_PATH, generated, "utf8");
       return;
     }
-    writeFileSync(MATRIX_DOC_PATH, buildWechatFidelityMatrixDocument(), "utf8");
+    const committed = readFileSync(MATRIX_DOC_PATH, "utf8");
+    expect(generated).toBe(committed);
   });
 });
