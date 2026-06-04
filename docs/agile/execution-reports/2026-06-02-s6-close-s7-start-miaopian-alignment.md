@@ -38,8 +38,8 @@
 
 | 项 | 值 |
 |----|-----|
-| Sprint 6 merge | `sprint/s6-visible-ai-main-flow` → `release/1`（见 commit hash） |
-| Sprint 7 分支 | `sprint/s7-wechat-article-experience` |
+| Sprint 6 merge | `sprint/s6-visible-ai-main-flow` → `release/1` @ `ba8c2d0`（fast-forward） |
+| Sprint 7 分支 | `sprint/s7-wechat-article-experience` @ `ba8c2d0` |
 | merge `main` | 未执行 |
 
 ## 5. 建议下一步
@@ -50,4 +50,4 @@
 
 ## 6. Commit
 
-- Commit hash：（见本轮 docs commit）
+- Commit hash：`ba8c2d0`（docs · Sprint 6 关闭 + Sprint 7 规划）

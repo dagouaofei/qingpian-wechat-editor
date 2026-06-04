@@ -16,18 +16,18 @@ function minimalRegistry() {
     schemaVersion: STYLE_SCHEMA_VERSION,
     themes: [
       {
-        id: "default",
-        name: "Default",
+        id: "businessBlue",
+        name: "商务蓝",
         schemaVersion: STYLE_SCHEMA_VERSION,
         tokens: { color: { "text.default": "#333" } },
       },
     ],
     presets: [
       {
-        id: "classic-news",
+        id: "business",
         name: "Classic News",
         schemaVersion: STYLE_SCHEMA_VERSION,
-        themeId: "default",
+        themeId: "businessBlue",
         defaultVariantByBlockType: { title: "title-centered" },
       },
     ],
@@ -104,12 +104,12 @@ describe("style registry helpers", () => {
     const registry = parseStyleRegistry(minimalRegistry());
 
     it("getThemeById returns theme", () => {
-      expect(getThemeById(registry, "default")?.id).toBe("default");
+      expect(getThemeById(registry, "businessBlue")?.id).toBe("businessBlue");
       expect(getThemeById(registry, "missing")).toBeUndefined();
     });
 
     it("getPresetById returns preset", () => {
-      expect(getPresetById(registry, "classic-news")?.themeId).toBe("default");
+      expect(getPresetById(registry, "business")?.themeId).toBe("businessBlue");
       expect(getPresetById(registry, "missing")).toBeUndefined();
     });
 

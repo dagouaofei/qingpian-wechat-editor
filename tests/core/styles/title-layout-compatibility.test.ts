@@ -117,16 +117,18 @@ describe("title block layout compatibility", () => {
       expect(result.ok).toBe(false);
     });
 
-    it("errors for release1_required magazine_left_bar", () => {
+    it("allows release1_required magazine_left_bar (miaopian heading pool)", () => {
       const variant = variantDefinitionSchema.parse({
         ...baseTitleVariant,
+        id: "heading_magazine_left_bar",
+        blockType: "heading",
         componentProtocol: {
           ...baseTitleVariant.componentProtocol,
           layoutMode: "magazine_left_bar",
         },
       });
       const result = validateTitleBlockLayoutCompatibility(variant);
-      expect(result.ok).toBe(false);
+      expect(result.ok).toBe(true);
     });
 
     it("warns for release1_candidate magazine_left_bar", () => {

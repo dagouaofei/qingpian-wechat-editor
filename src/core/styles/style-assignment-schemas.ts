@@ -161,6 +161,7 @@ export const articleStylePlanOrchestratorHintsSchema = z
   .object({
     dedupeAdjacentHeadings: z.boolean().optional(),
     maxAssetReuse: z.number().int().positive().optional(),
+    maxConsecutiveCardEmphasis: z.number().int().positive().optional(),
     avoidTitleFirstHeadingSameFamilyVariant: z.boolean().optional(),
     notes: z.array(safeStyleStringSchema).optional(),
   })

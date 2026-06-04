@@ -99,6 +99,22 @@ const defaultVariantByBlockTypeSchema = z
   })
   .strict();
 
+const variantPoolsByBlockTypeSchema = z
+  .object({
+    title: z.array(identifierSchema).optional(),
+    heading: z.array(identifierSchema).optional(),
+    lead: z.array(identifierSchema).optional(),
+    paragraph: z.array(identifierSchema).optional(),
+    list: z.array(identifierSchema).optional(),
+    quote: z.array(identifierSchema).optional(),
+    highlight: z.array(identifierSchema).optional(),
+    info_card: z.array(identifierSchema).optional(),
+    cta: z.array(identifierSchema).optional(),
+    divider: z.array(identifierSchema).optional(),
+    image_placeholder: z.array(identifierSchema).optional(),
+  })
+  .strict();
+
 export const presetDefinitionSchema = z
   .object({
     id: identifierSchema,
@@ -107,6 +123,8 @@ export const presetDefinitionSchema = z
     themeId: identifierSchema,
     description: safeStyleStringSchema.optional(),
     defaultVariantByBlockType: defaultVariantByBlockTypeSchema.optional(),
+    variantPoolsByBlockType: variantPoolsByBlockTypeSchema.optional(),
+    recommendedThemeIds: z.array(identifierSchema).optional(),
     density: densitySchema.optional(),
     tone: safeStyleStringSchema.optional(),
   })

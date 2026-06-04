@@ -1,3 +1,4 @@
+import { typographyForMiaopianPreset } from "@/config/miaopian-typography";
 import type { ListBlock } from "@/core/blocks";
 import type { CopySafety } from "@/core/styles";
 import { resolveThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
@@ -22,16 +23,13 @@ export type ListTypography = {
   lineHeight: string;
   marginBlock: string;
   itemGap: string;
+  fontFamily: string;
 };
 
-const VARIANT_LAYOUT_MAP: Record<string, ListLayoutKind> = {
-  list_plain_bullets: "plain_bullets",
-  list_numbered_steps: "numbered_steps",
-  list_checklist_cards: "checklist_cards",
-};
+import { LIST_VARIANT_LAYOUT } from "./expansion-layout-maps";
 
 export function resolveListLayout(variantId: string): ListLayoutKind | undefined {
-  return VARIANT_LAYOUT_MAP[variantId];
+  return LIST_VARIANT_LAYOUT[variantId];
 }
 
 export function resolveListTypography(
@@ -40,6 +38,7 @@ export function resolveListTypography(
   const palette = resolveThemePaletteTokens(resolved.tokens.theme);
   const bodyFontSize = resolved.tokens.theme.fontSize?.body ?? "16px";
   const variantSpacing = resolved.tokens.variant?.["spacing.block"];
+  const presetTypography = typographyForMiaopianPreset(resolved.presetId);
 
   return {
     color: palette.textDefault,
@@ -47,9 +46,10 @@ export function resolveListTypography(
     markerColor: palette.textAccent,
     fontSize: bodyFontSize,
     subItemFontSize: "15px",
-    lineHeight: "1.75",
+    lineHeight: presetTypography.bodyLineHeight,
     marginBlock: variantSpacing ?? "16px",
     itemGap: "8px",
+    fontFamily: presetTypography.fontFamily,
   };
 }
 

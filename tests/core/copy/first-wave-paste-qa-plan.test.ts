@@ -10,8 +10,8 @@ import {
 describe("release 1 first-wave paste qa plan", () => {
   const plan = buildRelease1FirstWavePasteQaPlan();
 
-  it("contains 33 first-wave variants across 11 blocks", () => {
-    expect(plan).toHaveLength(33);
+  it("contains 92 release1 variants across 11 blocks", () => {
+    expect(plan).toHaveLength(92);
     expect(RELEASE1_FIRST_WAVE_VARIANT_GROUPS).toHaveLength(11);
 
     const distribution = new Map<string, number>();
@@ -19,8 +19,24 @@ describe("release 1 first-wave paste qa plan", () => {
       distribution.set(entry.blockType, (distribution.get(entry.blockType) ?? 0) + 1);
     }
 
-    expect([...distribution.entries()]).toEqual(
-      RELEASE1_FIRST_WAVE_COPY_BLOCK_TYPES.map((blockType) => [blockType, 3]),
+    const expectedCounts: Record<string, number> = {
+      title: 3,
+      heading: 8,
+      lead: 9,
+      paragraph: 9,
+      divider: 9,
+      list: 9,
+      quote: 9,
+      highlight: 9,
+      info_card: 9,
+      cta: 9,
+      image_placeholder: 9,
+    };
+    expect([...distribution.entries()].sort()).toEqual(
+      RELEASE1_FIRST_WAVE_COPY_BLOCK_TYPES.map((blockType) => [
+        blockType,
+        expectedCounts[blockType] ?? 0,
+      ]).sort(),
     );
   });
 
@@ -102,7 +118,7 @@ describe("release 1 first-wave paste qa plan", () => {
         entry.blockType === "cta" || entry.blockType === "image_placeholder",
     );
 
-    expect(placeholderEntries).toHaveLength(6);
+    expect(placeholderEntries).toHaveLength(18);
     for (const entry of placeholderEntries) {
       expect(entry.notes.join(" ")).toContain("Release 1 placeholder scope only");
     }

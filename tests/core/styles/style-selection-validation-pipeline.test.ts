@@ -93,8 +93,8 @@ describe("validateStyleSelectionPipeline", () => {
       kind: "article_style_plan",
       plan: {
         articleId: article.id,
-        presetId: "classic-news",
-        themeId: "default",
+        presetId: "business",
+        themeId: "businessBlue",
         blockOverrides: [
           {
             blockId: fixtureBlockId(1),
@@ -156,7 +156,7 @@ describe("validateStyleSelectionPipeline", () => {
         blockOverrides: [
           {
             blockId: fixtureBlockId(1),
-            variantId: "heading_plain_minimal",
+            variantId: "heading_short_line",
           },
         ],
         meta: { source: "user", generatedAt: "2026-06-01T00:00:00.000Z" },
@@ -213,7 +213,7 @@ describe("validateStyleSelectionPipeline", () => {
         blockOverrides: [
           {
             blockId: fixtureBlockId(2),
-            variantId: "heading_top_badge_topic",
+            variantId: "heading_card_centered",
             assetBindings: { badge: "icon-warning-triangle" },
           },
         ],
@@ -254,7 +254,7 @@ describe("validateStyleSelectionPipeline", () => {
         blockOverrides: [
           {
             blockId: fixtureBlockId(2),
-            variantId: "heading_top_badge_topic",
+            variantId: "heading_card_centered",
             slotOverrides: { badge: "<b>01</b>" },
           },
         ],
@@ -273,7 +273,7 @@ describe("validateStyleSelectionPipeline", () => {
         blockOverrides: [
           {
             blockId: fixtureBlockId(2),
-            variantId: "heading_top_badge_topic",
+            variantId: "heading_card_centered",
             slotOverrides: { style: "color:red" },
           },
         ],
@@ -297,8 +297,8 @@ describe("validateStyleSelectionPipeline", () => {
       kind: "article_style_plan",
       plan: {
         articleId: article.id,
-        presetId: "classic-news",
-        themeId: "default",
+        presetId: "business",
+        themeId: "businessBlue",
         density: "dense" as never,
       },
     });
@@ -310,7 +310,7 @@ describe("validateStyleSelectionPipeline", () => {
     expect(validateDensityValue("dense")[0]?.code).toBe("unknown_density");
 
     const combinationResult = validatePresetThemeCombination(
-      { presetId: "classic-news", themeId: "default", density: "dense" as never },
+      { presetId: "business", themeId: "businessBlue", density: "dense" as never },
       { registry },
     );
     expect(combinationResult.ok).toBe(false);
@@ -337,17 +337,17 @@ describe("validateStyleSelectionPipeline", () => {
     ).toBe(true);
   });
 
-  it("applies R1 fallback_applied for adjacent heading conflict", () => {
+  it("keeps unified heading variant for adjacent headings (R1 disabled)", () => {
     const result = runFixture("orchestrator-r1-fallback-applied");
-    expect(result.validationStatus).toBe("fallback_applied");
+    expect(result.validationStatus).toBe("valid");
     expect(result.mergeAllowed).toBe(true);
     expect(
       result.issues.some((issue) => issue.code === "orchestrator_r1_fallback"),
-    ).toBe(true);
+    ).toBe(false);
     expect(
       result.plan.blockOverrides?.find((entry) => entry.blockId === fixtureBlockId(3))
         ?.variantId,
-    ).not.toBe("heading_plain_minimal");
+    ).toBe("heading_short_line");
   });
 
   it("emits R2 asset reuse issue", () => {
@@ -360,16 +360,16 @@ describe("validateStyleSelectionPipeline", () => {
     expect(result.validationStatus).toBe("fallback_applied");
   });
 
-  it("applies R8 fallback using family + layoutMode semantics", () => {
+  it("avoids R8 false positive for publish pool title/heading pairing", () => {
     const result = runFixture("orchestrator-r8-title-heading-conflict");
     expect(
       result.issues.some((issue) => issue.code === "orchestrator_r8_fallback"),
-    ).toBe(true);
-    expect(result.validationStatus).toBe("fallback_applied");
+    ).toBe(false);
+    expect(result.validationStatus).toBe("valid");
     expect(
       result.plan.blockOverrides?.find((entry) => entry.blockId === fixtureBlockId(2))
         ?.variantId,
-    ).not.toBe("heading_plain_minimal");
+    ).toBe("heading_numbered_section");
   });
 
   it("re-validates orchestrator output in post_orchestrator_validation stage", () => {
@@ -457,12 +457,12 @@ describe("style selection validation snapshot seeds", () => {
     }
   });
 
-  it("documents R8 family+layoutMode semantics in orchestrator-r8 seed", () => {
+  it("documents publish-safe title/heading pairing in orchestrator-r8 seed", () => {
     const seed = getStyleSelectionValidationSeed(
       "orchestrator-r8-title-heading-conflict",
     );
-    expect(seed?.snapshot.expectedIssueCodes).toContain("orchestrator_r8_fallback");
-    expect(seed?.description).toContain("family + layoutMode");
+    expect(seed?.snapshot.expectedIssueCodes).toHaveLength(0);
+    expect(seed?.description).toContain("distinct family");
   });
 
   it("covers preview-only rejection seed", () => {

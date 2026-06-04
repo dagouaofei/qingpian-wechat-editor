@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
   FIRST_WAVE_TITLE_HEADING_VARIANT_REGISTRY,
   HEADING_FIRST_WAVE_VARIANTS,
+  HEADING_PUBLISH_VARIANT_IDS,
   TITLE_BLOCK_COMPONENT_ID,
   TITLE_BLOCK_FIRST_WAVE_VARIANTS,
   TITLE_FIRST_WAVE_VARIANTS,
@@ -16,22 +17,19 @@ import {
   variantDefinitionSchema,
 } from "@/core/styles";
 
-const FORBIDDEN_LAYOUT_MODES = [
-  "magazine_left_bar",
-  "overlay",
-  "offset_background",
-] as const;
+const FORBIDDEN_LAYOUT_MODES = ["overlay", "offset_background"] as const;
 
 describe("title / heading first-wave variants", () => {
-  it("exports 3 title and 3 heading variants (6 total)", () => {
+  it("exports 3 title and 8 heading publish variants (11 total)", () => {
     expect(TITLE_FIRST_WAVE_VARIANTS).toHaveLength(3);
-    expect(HEADING_FIRST_WAVE_VARIANTS).toHaveLength(3);
-    expect(TITLE_BLOCK_FIRST_WAVE_VARIANTS).toHaveLength(6);
+    expect(HEADING_FIRST_WAVE_VARIANTS).toHaveLength(8);
+    expect(TITLE_BLOCK_FIRST_WAVE_VARIANTS).toHaveLength(11);
+    expect(HEADING_PUBLISH_VARIANT_IDS).toHaveLength(8);
   });
 
   it("has unique variant ids", () => {
     const ids = TITLE_BLOCK_FIRST_WAVE_VARIANTS.map((v) => v.id);
-    expect(new Set(ids).size).toBe(6);
+    expect(new Set(ids).size).toBe(11);
   });
 
   it("all variants are release1_required titleBlock definitions", () => {
@@ -129,7 +127,7 @@ describe("title / heading first-wave variants", () => {
     const headingVariants = getVariantsForBlockType(registry, "heading");
 
     expect(titleVariants).toHaveLength(3);
-    expect(headingVariants).toHaveLength(3);
+    expect(headingVariants).toHaveLength(8);
     expect(titleVariants.every((v) => v.status === "release1_required")).toBe(
       true,
     );
@@ -144,14 +142,9 @@ describe("title / heading first-wave variants", () => {
     expect(result.ok, result.issues.map((i) => i.message).join("; ")).toBe(true);
   });
 
-  it("lists expected variant ids", () => {
-    expect(TITLE_BLOCK_FIRST_WAVE_VARIANTS.map((v) => v.id)).toEqual([
-      "title_plain_minimal",
-      "title_left_bar_classic",
-      "title_bottom_line_editorial",
-      "heading_plain_minimal",
-      "heading_numbered_section",
-      "heading_top_badge_topic",
+  it("lists expected publish heading variant ids", () => {
+    expect(HEADING_FIRST_WAVE_VARIANTS.map((v) => v.id)).toEqual([
+      ...HEADING_PUBLISH_VARIANT_IDS,
     ]);
   });
 
@@ -161,6 +154,15 @@ describe("title / heading first-wave variants", () => {
     ).toEqual(["plain", "left_bar", "bottom_line"]);
     expect(
       HEADING_FIRST_WAVE_VARIANTS.map((v) => v.componentProtocol?.layoutMode),
-    ).toEqual(["plain", "numbered", "top_badge"]);
+    ).toEqual([
+      "short_line",
+      "highlight_marker",
+      "icon_prefix",
+      "minimal_number",
+      "magazine_left_bar",
+      "magazine_offset",
+      "numbered",
+      "card",
+    ]);
   });
 });

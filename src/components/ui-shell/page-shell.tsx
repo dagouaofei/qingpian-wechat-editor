@@ -32,10 +32,11 @@ export function AppNav({
         </Link>
         <div className="flex items-center gap-3">
           <Link
-            href="/generate"
+            href="/gallery"
             className="hidden text-sm text-slate-600 transition-colors hover:text-slate-900 sm:inline"
+            data-testid="nav-gallery-link"
           >
-            开发者入口
+            样式进展
           </Link>
           <Link href={ctaHref}>
             <ShellButton size="sm">{ctaLabel}</ShellButton>

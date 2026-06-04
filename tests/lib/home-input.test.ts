@@ -23,12 +23,12 @@ describe("home input", () => {
       topic: "春季护肤指南",
       scene: "knowledge",
       audience: "parents",
-      basicStyle: "classic-news",
+      basicStyle: "business",
     });
 
     expect(request.mode).toBe("topic_only");
     expect(request.topic).toBe("春季护肤指南");
-    expect(request.styleIntent?.presetHint).toBe("classic-news");
+    expect(request.styleIntent?.presetHint).toBe("business");
     expect(request.styleIntent?.notes).toContain("知识科普");
     expect(request.styleIntent?.notes).toContain("宝妈");
     expect(request.metadata?.source).toBe("home-ui");

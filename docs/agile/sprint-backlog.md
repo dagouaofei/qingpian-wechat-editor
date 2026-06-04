@@ -10,7 +10,8 @@
 > **Sprint 5：** Generation / Streaming + Release 1 真实 UI 主流程闭环 · **Closed**（2026-06-02；DECISION-069；audit Grade A- · P0=0 · P1=4 · P2=3；`sprint/s5-generation-ui-main-flow` 已 merge 至 `release/1`）
 > **Sprint 6：** Release 1 Visible AI Main Flow · **Closed**（2026-06-02；DECISION-078；audit Grade A- · P0=0 · P1=5 · P2=4；`sprint/s6-visible-ai-main-flow` 已 merge 至 `release/1`）
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
-> **当前 Sprint：** **Sprint 7 WeChat Article Experience & Style Richness**（**In Progress** · DECISION-079 · S7-STORY-001 启动中）
+> **当前 Sprint：** **Sprint 7**（**In Progress** · **S7-STORY-007B In Progress** · 007A 代码 Done · **007 不做**）
+> **当前 Chore：** **Visible Progress & Legacy Convergence** — **Done**（DECISION-080 · 用户验收 2026-06-02 · merged @ `a5704d6`）
 > **Sprint 7 分支：** `sprint/s7-wechat-article-experience`（从 `release/1` 切出）
 > **miaopian 对齐：** [`docs/agile/miaopian-alignment/s7-workflow-and-ux-gap.md`](miaopian-alignment/s7-workflow-and-ux-gap.md)
 > **Release 1 主干：** `release/1`
@@ -997,7 +998,7 @@
 | `title_bottom_line_editorial` | title | `bottom_line` |
 | `heading_plain_minimal` | heading | `plain` |
 | `heading_numbered_section` | heading | `numbered` |
-| `heading_top_badge_topic` | heading | `top_badge` |
+| `heading_card_centered` | heading | `card` |
 
 **明确不做：**
 
@@ -2343,7 +2344,7 @@ S3C-STORY-001（启动）
 > **Release 1 主干：** `release/1`
 > **UI 主流程入口：** **`/generate`**（S5-STORY-007 Done @ `01318c4`）
 > **Close Readiness Audit：** [`docs/architecture/audits/sprint5-main-flow-close-readiness-audit.md`](../architecture/audits/sprint5-main-flow-close-readiness-audit.md)
-> **下一步：** **S7-STORY-002** 完整文章 fixture 与样例集；Style Gallery（S7-STORY-003）；**不 merge `main`**
+> **下一步：** **S7-STORY-007** 手动视觉 QA 与 close readiness；**不 merge `main`**
 > **Sprint 5 不做：** 真实微信公众号 Paste QA 全量回归、不宣称复制到公众号最终保真通过、Style Gallery、真实 QR / 小程序 / 图片上传托管 / AI 生图、复杂编辑器 / block 级编辑、样式市场、merge 至 `main`
 > **保留原则：** 真实 Paste QA 归 **Sprint 8**；Style Gallery / 样式丰富度归 **Sprint 7**；Sprint 5 技术 smoke **不替代** Release 1 用户可见验收与 Paste QA
 
@@ -3063,10 +3064,45 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 ---
 
+# Visible Progress Chore（DECISION-080 · Sprint 7 Paused）
+
+> **状态：** Done（2026-06-02 用户验收）· **工作分支：** `chore/visible-progress-gallery-legacy` → `sprint/s7-wechat-article-experience`
+> **目标：** 肉眼可见进展 + 入口澄清；不调用 AI；不全量测试每轮
+
+## CHORE-VIS-001 `/generate` legacy 收敛与导航澄清
+
+**优先级：** P2 · **状态：** Done · **工作分支：** `chore/visible-progress-gallery-legacy`
+
+**用户故事：** 作为协作者，我需要清楚用户主路径是 `/` → `/preview`，而不是 `/generate` dev 页。
+
+**验收标准：**
+
+- [x] AC-1 导航主链：`/` CTA + `/gallery`「样式进展」
+- [x] AC-2 **`/generate` 页面已删除**（2026-06-02 用户确认无作用）
+- [x] AC-3 batch `POST /api/generate` 已删除；仅保留 `POST /api/generate/stream` SSE 主路径
+
+---
+
+## CHORE-VIS-002 `/gallery` 进展可视化最小版（S7-STORY-003 pull-forward）
+
+**优先级：** P1 · **状态：** Done · **工作分支：** `chore/visible-progress-gallery-legacy`
+
+**用户故事：** 作为 PO / 开发者，我需要在不调用 AI 的情况下，用 fixture Article 即时查看 Renderer / Style 改动进展。
+
+**验收标准：**
+
+- [x] AC-1 `/gallery` 可访问，fixture 驱动 Preview（`full-blocks` + `minimal-title`）
+- [x] AC-2 复用 PreviewStyleControls + ArticlePreviewPanel；展示 variant id 列表
+- [x] AC-3 不替代 S7-STORY-003 完整 Gallery（无多主题样例墙 / 无 Copy 侧栏）；后续 Sprint 7 恢复时扩展
+
+**关联：** S7-STORY-003（Planned · 完整版待 Sprint 7 恢复）
+
+---
+
 # Sprint 7 Backlog · WeChat Article Experience & Style Richness
 
 > **Sprint 7 目标：** 整篇文章像公众号文章；Style Gallery；样式丰富度；修正过度卡片化；**miaopian 协作/体验对齐见 alignment 文档**
-> **Sprint 7 状态：** **In Progress**（2026-06-02 启动 · DECISION-079）
+> **Sprint 7 状态：** **Done**（2026-06-03 用户确认收口 · **S7-STORY-008 Done** · heading publish 8/8 粘贴 PASS · merge `release/1` @ 收口 commit）
 > **Sprint 7 分支：** `sprint/s7-wechat-article-experience`（从 `release/1` 切出）
 > **对齐文档：** [`docs/agile/miaopian-alignment/s7-workflow-and-ux-gap.md`](miaopian-alignment/s7-workflow-and-ux-gap.md)
 > **Sprint 7 不做：** Sprint 8 Paste QA、关闭 Release 1、merge `main`
@@ -3074,13 +3110,16 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 ## Sprint 7 建议执行顺序
 
 ```text
-S7-STORY-001 Sprint 7 启动 · miaopian 协作对齐与体验目标 — In Review
-S7-STORY-002 完整文章 fixture 与公众号文章样例集 — Planned
-S7-STORY-003 Style Gallery 页面 — Planned
-S7-STORY-004 标题 / 分节标题 variant 丰富度 — Planned
-S7-STORY-005 重点高亮 / 列表 / 摘要 / CTA 样式优化 — Planned
-S7-STORY-006 整篇文章样式组合与过度卡片化修正 — Planned
-S7-STORY-007 Sprint 7 手动视觉 QA 与关闭准备 — Planned
+S7-STORY-001 Sprint 7 启动 · miaopian 协作对齐与体验目标 — Done
+S7-STORY-002 完整文章 fixture 与公众号文章样例集 — Done
+S7-STORY-003 Style Gallery 与标题层级样式（合并原 003 + 004）— Done
+S7-STORY-004 标题 / 分节标题 variant 丰富度 — Merged → S7-STORY-003
+S7-STORY-005 重点高亮 / 列表 / 摘要 / CTA 样式优化 — Done
+S7-STORY-006 整篇文章样式组合与过度卡片化修正 — Done
+S7-STORY-007A R1 Style Fidelity Stabilization — In Review（代码 Done · 粘贴 QA 移交 007B）
+S7-STORY-007B R1 Golden Paste QA 与默认路径二次修复 — Deferred（移交 Sprint 8 · 非 S7 阻塞）
+S7-STORY-008 Heading Publish 8 款审美实验 — Done（2026-06-03 · 第六轮粘贴 8/8 PASS）
+S7-STORY-007 Sprint 7 手动视觉 QA 与关闭准备 — Deferred
 ```
 
 ---
@@ -3089,7 +3128,7 @@ S7-STORY-007 Sprint 7 手动视觉 QA 与关闭准备 — Planned
 
 **用户故事：** 作为产品负责人，我需要在 Sprint 7 启动时对齐 miaopian-demo 协作方式边界、交互流 gap 与「像公众号文章」体验目标。
 
-**优先级：** P0 · **状态：** In Review · **工作分支：** `docs/s7-start-miaopian-alignment`（本轮在 sprint 分支完成）
+**优先级：** P0 · **状态：** Done · **工作分支：** `docs/s7-start-miaopian-alignment`（本轮在 sprint 分支完成）
 
 **对应 Product Backlog：** TECH-ARCH-023 · PB-R1 样式体验（Sprint 7 主责）
 
@@ -3122,51 +3161,204 @@ S7-STORY-007 Sprint 7 手动视觉 QA 与关闭准备 — Planned
 
 ## S7-STORY-002 完整文章 fixture 与公众号文章样例集
 
-**优先级：** P0 · **状态：** Planned · **工作分支：** `feature/s7-article-fixture-samples`
+**用户故事：** 作为 PO / 设计师，我需要在不调用 AI 的情况下，用 **8 套固定、可复现的完整公众号文章**，评审 Preview / Copy 在不同文章类型下的观感，并为 Gallery 与 Sprint 8 Paste 基线提供数据。
 
-**目标：** 至少 2–3 套完整 Article fixture，支撑视觉评审与 Gallery。
+**优先级：** P0 · **状态：** **Done**（PO 签收 2026-06-02）· **工作分支：** `feature/s7-article-fixture-samples` · merged sprint @ `429ce30`
 
-**验收标准：** AC-1 2–3 套完整 fixture · AC-2 覆盖 Release 1 首批 block · AC-3 可驱动 Preview / Copy
+**对应 Product Backlog：** TECH-ARCH-023 · US-R1-012 / US-R1-013 前置数据
+
+**目标：** 8 套常见类型完整 Article fixture + 注册表；驱动 Preview / Copy；接入 `/gallery` 样例选择器。
+
+**8 套样例类型：**
+
+| ID | 类型 |
+|----|------|
+| `sample-knowledge` | 知识科普 / 干货 |
+| `sample-industry` | 行业趋势 / 观察 |
+| `sample-product` | 产品 / 功能解读 |
+| `sample-brand` | 品牌故事 / 价值 |
+| `sample-event` | 活动招募 / 沙龙 |
+| `sample-promo` | 促销 / 转化 |
+| `sample-listicle` | 清单体 / N 个技巧 |
+| `sample-seasonal` | 节点 / 复盘 / 里程碑 |
+
+**In Scope：**
+
+- [`src/fixtures/article-samples/`](../../src/fixtures/article-samples/) 注册表与 8 套 raw fixture
+- 合并 [`src/fixtures/gallery-articles.ts`](../../src/fixtures/gallery-articles.ts) 重复维护（smoke fixture 保留）
+- `/gallery` 样例下拉接入 8 套
+- Preview + Copy 渲染 smoke 单测
+
+**Out of Scope：** highlight/list/lead/cta 大改（S7-STORY-005）· 整篇 rhythm / 过度卡片化（S7-STORY-006）· Gallery + title/heading 丰富度（**合并版 S7-STORY-003** · DECISION-082）· Paste QA（Sprint 8）· AI 生成样例
+
+**验收标准：**
+
+- [x] AC-1 **8 套** fixture 登记且有稳定 id（上表）
+- [x] AC-2 每套为完整文章：≥8 blocks、≥2 `heading`、有 `title`+`lead`，中文成稿
+- [x] AC-3 **8 套合计**覆盖 Release 1 全部 11 block 类型
+- [x] AC-4 每套 `parseArticle` PASS；Preview blocks 全 `ok`；Copy clipboard 可生成
+- [x] AC-5 `/gallery` 可切换 8 套样例并即时 Preview
+- [x] AC-6 单测：注册表 + representative 渲染 smoke（非全量 8×33 variant）
 
 ---
 
-## S7-STORY-003 Style Gallery 页面
+## S7-STORY-003 Style Gallery 与标题层级样式（合并原 003 + 004）
 
-**优先级：** P0 · **状态：** Planned · **工作分支：** `feature/s7-style-gallery`
+**用户故事：** 作为 PO / 设计师，我需要在 `/gallery` 上**浏览** 8 套样例文章的 Preview / Copy，并**肉眼确认** title 与 heading 在整篇中有清晰层次、不再「全都一样」。
 
-**目标：** 可浏览 variant / 样式样例的 Gallery 页面（TECH-ARCH-023 主交付入口）。
+**优先级：** P0 · **状态：** **Done**（PO 签收 2026-06-02）· **工作分支：** `feature/s7-gallery-heading-variants` → `feature/s7-rich-styles-title-heading` · merged sprint @ `517717e`
 
-**验收标准：** AC-1 Gallery 可手测 · AC-2 展示 first-wave variants 代表样例 · AC-3 不替代 Paste QA
+**对应：** TECH-ARCH-023 · US-R1-012 · US-R1-013（标题层次部分）· **DECISION-082**
+
+**In Scope：**
+
+- **Gallery UX（原 003）：** Copy 对照区 · title/heading 聚焦模式 · title/heading variant 侧栏切换（fixture 驱动，无 AI）
+- **Title / Heading 样式丰富度（原 004）：** `preview-visual-styles.ts` + copy title/heading 6 variant 视觉 polish · 8 套样例有意识 assignment（[`gallery-title-heading.ts`](../../src/lib/gallery-title-heading.ts)）
+
+**Out of Scope：** highlight/list/lead/cta（S7-STORY-005）· rhythm / 卡片化（S7-STORY-006）· Paste QA（Sprint 8）· 全量 33×8 自动化矩阵
+
+**验收标准：**
+
+- [x] AC-1 `/gallery` 可手测：8 套样例 + 风格/配色 + **Copy 对照区**
+- [x] AC-2 Title/Heading **聚焦模式**可快速定位层级 block
+- [x] AC-3 6 个 first-wave title/heading variant 在 Gallery 上**视觉可区分**
+- [x] AC-4 8 套样例 title 与首个 heading **不**同为 plain_minimal 组合
+- [x] AC-5 Preview 与 Copy 对 title/heading **同源 typography token**
+- [x] AC-6 targeted 单测：Gallery render + title/heading variant 切换 smoke
+
+**备注：** CHORE-VIS-002 已交付 `/gallery` 最小 fixture Preview（DECISION-080）；2026-06-02 第二轮 **6 风格 preset + 6 配色 + title/heading 富样式**；第三轮 **iconDecor / cardTitle** + R8 节奏族修复；第四轮 **DECISION-083** miaopian **6 preset + 6 theme**、**heading 13**（含 6 种 miaopian 对齐样式）、**其它 block 各 9 variant（registry 97）**、Gallery **全 block variant 切换** + **风格→默认配色联动**；第五轮 **同篇 heading 统一 variant** + **公众号字号**（`miaopian-typography.ts`）· **796 tests + build PASS** · **PO `/gallery` 签收 2026-06-02**。
 
 ---
 
 ## S7-STORY-004 标题 / 分节标题 variant 丰富度
 
-**优先级：** P0 · **状态：** Planned · **工作分支：** `feature/s7-heading-variant-richness`
+**状态：** **Merged → S7-STORY-003**（2026-06-02 · DECISION-082 · 用户确认）
 
-**目标：** 提升 title / heading 视觉层次，减少「全都一样」观感。
-
----
+**说明：** 标题 / 分节标题 variant 丰富度并入 S7-STORY-003；不再单独开分支 `feature/s7-heading-variant-richness`。
 
 ## S7-STORY-005 重点高亮 / 列表 / 摘要 / CTA 样式优化
 
-**优先级：** P0 · **状态：** Planned · **工作分支：** `feature/s7-structured-block-style-polish`
+**优先级：** P0 · **状态：** **Done**（PO 签收 2026-06-02）· **工作分支：** `feature/s7-rich-styles-title-heading`（与 S7-STORY-003 同批 · DECISION-083）· merged sprint @ `517717e`
 
 **目标：** 优化 highlight / list / lead / cta 等 block 在整篇文章中的组合观感。
+
+**验收标准：**
+
+- [x] AC-1 quote / highlight / paragraph / list / lead / divider / info_card / cta / image_placeholder 各具备 **9** 个 `release1_required` variant（registry 97）
+- [x] AC-2 expansion layout maps + Preview / Copy renderer 分支覆盖新 variant
+- [x] AC-3 Gallery 可 per-block 切换 variant（`gallery-block-variant-controls`）
+- [x] AC-4 796 tests + `npm run build` PASS
+
+**备注：** 2026-06-02 已随 DECISION-083 交付 expansion variant + layout maps + renderer；**title 仍 3 variant**。整篇 rhythm / 过度卡片化归 **S7-STORY-006**。Paste QA 矩阵见 Sprint 8 抽样策略（非 97×8 全量）。
 
 ---
 
 ## S7-STORY-006 整篇文章样式组合与过度卡片化修正
 
-**优先级：** P0 · **状态：** Planned · **工作分支：** `feature/s7-article-rhythm-card-fix`
+**优先级：** P0 · **状态：** **Done**（PO 签收 2026-06-02）· **工作分支：** `feature/s7-article-rhythm-card-fix` · **DECISION-084** · merged sprint @ `935640f`
 
 **目标：** 修正过度卡片化；文章级 rhythm / variant 组合更接近公众号阅读体验。
+
+**In Scope：**
+
+- Orchestrator **R4**（iconDecor/cardTitle 连续≤2）+ **RCARD**（正文卡片化强调连续≤2）
+- 生成 **plain-first** rotation + `balanceCardEmphasisInBlockHints`
+- `warm` preset 默认减卡片叠层
+
+**验收标准：**
+
+- [x] AC-1 Orchestrator RCARD：连续 3 个 `paragraph_soft_card` → 第 3 个 fallback `paragraph_plain_body`
+- [x] AC-2 Orchestrator R4：连续 3 个 title/heading cardTitle → 第 3 个 fallback 非 decor family
+- [x] AC-3 生成 hints 在 orchestrator 前做 RCARD 平衡
+- [x] AC-4 **802** tests + `npm run build` PASS
+- [x] AC-5 PO `/gallery` + 真实生成目验收「非卡片墙」观感（PO 签收 2026-06-02）
+
+**备注：** 不改动 Sprint 8 Paste QA 范围；不关闭 Sprint 7。
+
+---
+
+## S7-STORY-007A R1 Style Fidelity Stabilization（默认成稿 · 复制保真 · 整篇节奏）
+
+**用户故事：** 作为 PO，我需要默认生成文章在 Preview 与微信公众号粘贴后视觉一致、整篇节奏自然，而不是继续堆 variant 或局部微调。
+
+**优先级：** P0 · **状态：** **In Review**（代码 + 自动化 **Done** · 粘贴 QA **Not Run**）· **工作分支：** `feature/s7-story-007a-r1-style-fidelity` · **来源：** `sprint/s7-wechat-article-experience`
+
+**不做：** 新增 variant 数量 · S7-STORY-007 原 close-readiness 文档流 · Visual Layer 旧方案 · 平行 Article/Renderer
+
+**In Scope：**
+
+- 审计 [`docs/agile/audits/r1-style-fidelity-stabilization-audit.md`](audits/r1-style-fidelity-stabilization-audit.md)
+- 基准 [`docs/product/r1-style-quality-baseline.md`](../product/r1-style-quality-baseline.md)
+- Golden fixtures：`tests/fixtures/articles/r1-golden-*.json`（loader `@/fixtures/r1-golden`）
+- 默认 `business` preset 默认 variant + typography（16px / 1.75）
+- Orchestrator **RLAYOUT**（整篇节奏 10 条）
+- Copy 微信安全：title/heading copy-safe 样式；`copy-safe-html` 增 gradient/flex/shadow 检测
+- `/dev/style-fidelity` 调试页
+- 单测：golden copy snapshot · orchestrator layout · preview-copy token parity
+
+**验收标准：**
+
+- [x] AC-1 审计文档 + R1 baseline 文档
+- [x] AC-2 3 套 golden fixture（合法 Article · `business` + `businessBlue`）
+- [x] AC-3 默认路径 title/lead/heading/paragraph/info_card/highlight/quote/list/cta/divider/image 默认 variant 调整（preset bundles + typography）
+- [x] AC-4 Copy HTML snapshot（`r1-golden-copy-snapshot`）无 class/style/var/gradient/flex/absolute
+- [x] AC-5 Preview/Copy token parity 单测（golden default）
+- [x] AC-6 RLAYOUT orchestrator 单测
+- [x] AC-7 **809** tests + `npm run build` PASS
+- [ ] AC-8 微信公众号粘贴 QA **PASS**（[`paste-qa/r1-golden-paste-qa.md`](paste-qa/r1-golden-paste-qa.md) · **Not Run**）
+
+**备注：** 粘贴 QA 未跑前 Story 保持 **In Review**；FAIL 须登记 `bugs.md`。
+
+---
+
+## S7-STORY-007B R1 Golden Paste QA 与默认路径二次修复
+
+**用户故事：** 作为 PO，我需要 `r1-golden-default-article` 在微信公众号粘贴后与 Preview 一致，并修复粘贴 FAIL 的根因。
+
+**优先级：** P0 · **状态：** **In Progress** · **工作分支：** `feature/s7-story-007a-r1-style-fidelity`（延续 007A 分支）
+
+**In Scope：** 真实粘贴 QA 记录 · FAIL→`bugs.md` · 仅默认路径二次修复（BUG-001 font-family 等）
+
+**Out of Scope：** 新增 variant · 97 variant polish · S7-STORY-007 · merge/关闭 Story
+
+**验收标准：**
+
+- [x] AC-1 确认 canonical preset=`business`（DECISION-086）
+- [x] AC-2 BUG-001 修复 + 自动化断言
+- [ ] AC-3 `r1-golden-default-article` 公众号粘贴 QA **PASS**（PO）
+- [x] AC-4 `npm run test` + `npm run build` PASS
+- [ ] AC-5 Story 保持 **In Review** 直至 AC-3 PASS
+
+---
+
+## S7-STORY-008 Heading Publish 8 款审美实验
+
+**用户故事：** 作为 PO，我需要在保证 Copy 一致性的前提下，让小标题有 8 款「能直接发公众号」的审美合格样式可选，并废弃历史 heading variant。
+
+**优先级：** P0 · **状态：** **Done**（2026-06-03 用户确认）· **工作分支：** `feature/s7-story-007a-r1-style-fidelity` · merged `sprint/s7-wechat-article-experience` → `release/1`
+
+**对应：** DECISION-087 · [`heading-publish-catalog.md`](../product/heading-publish-catalog.md)
+
+**In Scope：** 8 款 `HEADING_PUBLISH` registry · Preview/Copy 同源 · `/gallery` + `/preview` · diversity 仅 8 款 · 废弃 5 款旧 ID
+
+**Out of Scope：** title · 其它 block · 第 9 款 heading · Release 1 关闭 · Sprint 8
+
+**验收标准：**
+
+- [x] AC-1 Registry / 生成 / Gallery / Preview 仅暴露 8 款 `HEADING_PUBLISH_VARIANT_IDS`
+- [x] AC-2 [`heading-publish-catalog.md`](../product/heading-publish-catalog.md) + [`heading-publish-8.md`](paste-qa/heading-publish-8.md)
+- [x] AC-3 `/gallery` + `/preview` 小标题切换与 Copy 同步
+- [x] AC-4 `heading-publish-parity.test.ts` 全绿
+- [x] AC-5 PO 确认 8 款可发公众号（第六轮粘贴 8/8 PASS）
+- [x] AC-6 PO 粘贴 QA **8/8 PASS**（第六轮 · `heading_highlight_marker` 含 gradient 实机通过）
+
+**备注：** Release 1 **heading 发布池**已就绪；`warm` preset 默认 `heading_highlight_marker` 保留（DECISION-087）。R1 golden 全文粘贴仍归 S7-STORY-007B / Sprint 8。
 
 ---
 
 ## S7-STORY-007 Sprint 7 手动视觉 QA 与关闭准备
 
-**优先级：** P0 · **状态：** Planned · **工作分支：** `docs/s7-visual-qa-close-readiness`
+**优先级：** P0 · **状态：** **Deferred**（用户 2026-06-02 确认不做，由 **S7-STORY-007A** 承接 R1 样式保真）· **原工作分支：** `docs/s7-visual-qa-close-readiness`
 
 **目标：** 手动视觉 QA 记录；close readiness audit；不关闭 Release 1。
 

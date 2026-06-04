@@ -12,8 +12,8 @@ describe("style-selection-diversity", () => {
     const second = resolveArticleAwareVariantId("paragraph", 1, { densityHint: "medium" });
     const third = resolveArticleAwareVariantId("paragraph", 2, { densityHint: "medium" });
 
-    expect(first).toBe("paragraph_accent_left");
-    expect(second).toBe("paragraph_soft_card");
+    expect(first).toBe("paragraph_plain_body");
+    expect(second).toBe("paragraph_plain_body");
     expect(third).toBe("paragraph_plain_body");
   });
 
@@ -26,9 +26,15 @@ describe("style-selection-diversity", () => {
     );
   });
 
-  it("uses decorative title and lead for first block", () => {
-    expect(resolveArticleAwareVariantId("title", 0)).toBe("title_bottom_line_editorial");
-    expect(resolveArticleAwareVariantId("lead", 0)).toBe("lead_accent_band");
+  it("uses plain-first rotation for default density", () => {
+    expect(resolveArticleAwareVariantId("title", 0)).toBe("title_plain_minimal");
+    expect(resolveArticleAwareVariantId("lead", 0)).toBe("lead_plain_intro");
+  });
+
+  it("uses decorative title on strong density first block", () => {
+    expect(
+      resolveArticleAwareVariantId("title", 0, { densityHint: "strong" }),
+    ).toBe("title_bottom_line_editorial");
   });
 
   it("defines rotation lists for all Release 1 structured block types", () => {
@@ -92,8 +98,6 @@ describe("style-selection-diversity integration", () => {
 
     const variantIds =
       result.patch.blockOverrides?.map((override) => override.variantId) ?? [];
-    expect(new Set(variantIds).size).toBeGreaterThan(1);
-    expect(variantIds).toContain("paragraph_accent_left");
-    expect(variantIds).toContain("paragraph_soft_card");
+    expect(variantIds.every((id) => id === "paragraph_plain_body")).toBe(true);
   });
 });

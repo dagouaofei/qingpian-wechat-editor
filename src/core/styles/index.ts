@@ -181,6 +181,9 @@ export {
   FIRST_WAVE_REQUIRED_VARIANTS,
   FIRST_WAVE_TITLE_HEADING_VARIANT_REGISTRY,
   HEADING_FIRST_WAVE_VARIANTS,
+  HEADING_PUBLISH_VARIANT_COUNT,
+  HEADING_PUBLISH_VARIANT_IDS,
+  HEADING_PUBLISH_VARIANTS,
   HIGHLIGHT_FIRST_WAVE_VARIANTS,
   IMAGE_PLACEHOLDER_FIRST_WAVE_VARIANTS,
   IMPLEMENTED_FIRST_WAVE_VARIANT_IDS,
@@ -200,6 +203,20 @@ export {
   TITLE_BLOCK_FIRST_WAVE_VARIANT_IDS,
   TITLE_FIRST_WAVE_VARIANTS,
   createFirstWaveRequiredVariantRegistry,
+  variantIdsForBlockType,
+  RELEASE1_REQUIRED_VARIANT_COUNT_BY_BLOCK,
+  RELEASE1_REQUIRED_VARIANT_IDS,
+  RELEASE1_REQUIRED_VARIANTS,
+  CTA_EXPANSION_VARIANTS,
+  DIVIDER_EXPANSION_VARIANTS,
+  EXPANSION_BLOCK_VARIANTS,
+  HIGHLIGHT_EXPANSION_VARIANTS,
+  IMAGE_PLACEHOLDER_EXPANSION_VARIANTS,
+  INFO_CARD_EXPANSION_VARIANTS,
+  LEAD_EXPANSION_VARIANTS,
+  LIST_EXPANSION_VARIANTS,
+  PARAGRAPH_EXPANSION_VARIANTS,
+  QUOTE_EXPANSION_VARIANTS,
 } from "./variants";
 
 export type {
@@ -268,13 +285,26 @@ export type {
 export { orchestrateArticleStyle } from "./style-orchestrator";
 
 export {
+  isCardEmphasisVariant,
+  isCardEmphasisVariantId,
+  isCardRhythmBodyBlock,
+  isTitleHeadingDecorFamily,
+  PLAIN_RHYTHM_VARIANT_BY_BLOCK_TYPE,
+  resolvePlainRhythmVariantId,
+} from "./card-rhythm";
+
+export {
   ORCHESTRATOR_RULE_R1,
   ORCHESTRATOR_RULE_R2,
+  ORCHESTRATOR_RULE_R4,
   ORCHESTRATOR_RULE_R8,
+  ORCHESTRATOR_RULE_RCARD,
   applyOrchestratorRhythmRules,
   applyOrchestratorRuleR1,
   applyOrchestratorRuleR2,
+  applyOrchestratorRuleR4,
   applyOrchestratorRuleR8,
+  applyOrchestratorRuleCardStack,
 } from "./style-orchestrator-rules";
 
 export type { OrchestratorRuleId } from "./style-orchestrator-rules";

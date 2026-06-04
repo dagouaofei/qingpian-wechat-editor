@@ -75,6 +75,14 @@
 | DECISION-077 | 2026-06-02 | S6-STORY-005 真实 SSE block-aware stream + phase 事件 + 即时预览 UI | 已确认 |
 | DECISION-078 | 2026-06-02 | 关闭 Sprint 6；visible main-flow audit A-，P0=0；merge sprint/s6-visible-ai-main-flow → release/1 | 已确认 |
 | DECISION-079 | 2026-06-02 | 正式启动 Sprint 7；S7-STORY-001 含 miaopian 协作对齐 + UX gap 文档；样式/Gallery 归 S7-STORY-002~006 | 已确认 |
+| DECISION-080 | 2026-06-02 | 暂停 Sprint 7 功能线；Visible-first Cursor 轮次规则；先行 `/gallery` 进展展台；`/generate` 页面已删除 | 已确认 |
+| DECISION-081 | 2026-06-02 | 恢复 Sprint 7；S7-STORY-002 样例集扩至 **8 套**常见公众号文章类型 | 已确认 |
+| DECISION-082 | 2026-06-02 | 合并 S7-STORY-003 与 S7-STORY-004 为单一 Story 003（Gallery UX + title/heading 丰富度）；004 标 Merged | 已确认 |
+| DECISION-083 | 2026-06-02 | 成稿风格/配色对齐 miaopian-demo 6+6；PresetBundle（defaultVariant + variantPools + defaultTheme）；heading +4；其它 block 扩至 9 variant/类 | 已确认 |
+| DECISION-084 | 2026-06-02 | S7 文章级卡片节奏：Orchestrator R4 + RCARD（连续卡片化≤2）；生成 plain-first rotation + hint 平衡 | 已确认 |
+| DECISION-085 | 2026-06-02 | S7-STORY-007A：R1 默认成稿样式保真；golden fixture + RLAYOUT；Copy 微信安全；007 Deferred | 已确认 |
+| DECISION-086 | 2026-06-02 | R1 默认 preset  canonical=`business`；`classic-news` 仅 legacy alias；golden/生成/fixture 对齐 | 已确认 |
+| DECISION-087 | 2026-06-03 | Heading 仅保留 8 款发布池；审美优先；废弃 5 款旧 heading ID | 已确认 |
 
 ### DECISION-019 详情
 
@@ -618,11 +626,133 @@
 - **关联：** DECISION-070、DECISION-078、DECISION-075、DECISION-077、TECH-ARCH-023
 - **状态：** 已确认
 
-### DECISION-XXX：[标题]
+### DECISION-080 详情（暂停 Sprint 7 · Visible-first Cursor 轮次规则）
 
-- **日期：**
+- **日期：** 2026-06-02
 - **背景：**
+  - Sprint 7 已启动（DECISION-079），但用户反馈 Cursor 轮次「文档 / 全量测试多、可见页面进展少」，与 miaopian-demo「Landing 即产品展台」体验差距大
+  - 用户主路径已是 `/` → `/preview`（DECISION-075 / DECISION-077）；`/generate` 仍易让人误以为仍在 dev 页打转
+  - S7-STORY-003 Style Gallery 可 partial pull-forward 为最小 fixture Preview 展台，无需等 Sprint 7 全套
 - **决策：**
-- **影响范围：**
-- **状态：** 待确认 / 已确认 / 已废弃
-```
+  1. **暂停 Sprint 7 功能 Story 线**（S7-STORY-002~007 暂缓；S7-STORY-001 保持 In Review）
+  2. 开 **Chore 小目标**（不必称 Sprint 7 继续推进）：
+     - **CHORE-VIS-001**（P2）：删除 `/generate` 页面与 batch `POST /api/generate`；主路径 `/` · `/preview` · `/gallery` + SSE stream
+     - **CHORE-VIS-002**（P1）：`/gallery` fixture 驱动 Preview 展台（S7-STORY-003 最小版；不调用 AI）
+  3. **Visible-first Cursor 轮次规则：**
+     - 每轮优先交付**肉眼可见**的页面 / Renderer / Style 进展（Gallery、Preview、Copy 可视差异）
+     - **禁止**每轮默认跑全量自动化测试（`npm test` / 全 e2e）；仅跑与改动相关的 targeted test + `pnpm build`（或 lint）
+     - 全量测试保留给：Sprint close readiness、merge 至 `release/1` 前、用户明确要求
+     - execution report 仍必填，但应突出「本轮肉眼可见变化」与 Gallery 验收路径
+  4. Sprint 7 分支 **`sprint/s7-wechat-article-experience` 保留**；Chore 从 sprint 分支切 `chore/visible-progress-gallery-legacy`
+- **影响范围：** `sprint-backlog.md`、`sprint-plan.md`、`release-plan.md`、`changelog.md`、导航与 `/gallery` 页面
+- **关联：** DECISION-079、S7-STORY-003（最小版 pull-forward）、miaopian alignment
+- **状态：** 已确认
+
+### DECISION-081 详情（恢复 Sprint 7 · S7-STORY-002 八套文章 fixture）
+
+- **日期：** 2026-06-02
+- **背景：**
+  - CHORE-VIS-001/002 已完成（DECISION-080）；用户验收 `/gallery` 与 legacy 路径清理
+  - 原 S7-STORY-002 仅规划 2–3 套样例；用户确认扩至 **8 套**常见公众号文章类型
+  - 8 套 fixture 是 Gallery 评审、S7-STORY-004~006 样式改动与 Sprint 8 Paste 基线的共同数据层
+- **决策：**
+  1. **恢复 Sprint 7 功能线**（Paused → In Progress）
+  2. S7-STORY-001 标 **Done**；启动 **S7-STORY-002**（`feature/s7-article-fixture-samples`）
+  3. S7-STORY-002 交付 **8 套**完整 Article fixture（见 sprint-backlog 类型表）+ `/gallery` 接入
+  4. 继续遵守 DECISION-080 visible-first 验证规则（targeted test + build）
+  5. 不启动 Sprint 8；不关闭 Release 1
+- **影响范围：** `src/fixtures/article-samples/`、`/gallery`、sprint-backlog、execution report
+- **关联：** DECISION-079、DECISION-080、TECH-ARCH-023、S7-STORY-003
+- **状态：** 已确认
+
+### DECISION-083 详情（miaopian 风格体系对齐 · variant 扩展）
+
+- **日期：** 2026-06-02
+- **背景：** PO 要求基础风格/配色与 miaopian-demo 一致；heading +4；其它 block 各 +6 variant；Gallery 全 block 可选手动 variant；风格应与默认配色及 variant 矩阵联动。
+- **决策：**
+  1. **正式 preset id：** `business` / `warm` / `magazine` / `keynote` / `xiaohongshu` / `dedao`（替换 `classic-news` 等旧 id；UI/生成 hint 保留 alias 过渡期）
+  2. **正式 theme id：** `businessBlue` / `premiumBlackGold` / `creamOrange` / `techGrayBlue` / `knowledgePurple` / `healthGreen`
+  3. **`PresetDefinition` 扩展：** `variantPoolsByBlockType`、`recommendedThemeIds`；默认配色见 `DEFAULT_THEME_FOR_PRESET`（[`src/config/miaopian-preset-bundles.ts`](../../src/config/miaopian-preset-bundles.ts)）
+  4. **Variant 总量：** title×3 · heading×7 · 其它 9 类各×9 → **91** `release1_required`（超出原 11×3 first-wave；Paste QA 在 Sprint 8 按 preset 代表组合抽样）
+  5. **title** 不扩至 12 个 miaopian titleBlock id；由 preset `defaultVariantByBlockType` + `variantPools` 表达差异
+  6. **不复制** miaopian-demo 代码（DECISION-009）；单一 StyleRegistry + Renderer（DECISION-025）
+- **影响范围：** `src/config/miaopian-preset-bundles.ts`、`preview-style-controls`、`preview-color-palette`、`variants/*`、`/gallery`、`style-selection-prompt`
+- **关联：** DECISION-082、S7-STORY-003、S7-STORY-005
+- **状态：** 已确认
+
+### DECISION-084 详情（S7 文章级卡片节奏 · 过度卡片化修正）
+
+- **日期：** 2026-06-02
+- **背景：** DECISION-083 将各 block variant 扩至 9 个后，生成与 orchestrator 易连续选用 `*_card` / `info_card`，整篇观感偏 demo 卡片墙，不符合 US-R1-013「像公众号文章」。
+- **决策：**
+  1. **Orchestrator R4（实现）：** title/heading 上 `iconDecor` / `cardTitle` family 连续不超过 **2** 次，超出 fallback 至非 decor variant（如 `heading_numbered_section`）
+  2. **Orchestrator RCARD（S7 扩展）：** 正文块（含 `info_card`）卡片化强调连续不超过 **2** 次，超出 fallback 至各类 plain variant（`paragraph_plain_body` 等）
+  3. **生成路径：** `ARTICLE_VARIANT_ROTATION` 改为 plain-first；medium 密度下 card-prone 类型 index>0 强制 plain；`balanceCardEmphasisInBlockHints` 在 orchestrator 前对齐 hints
+  4. **warm preset 默认：** 减少默认 `paragraph_soft_card` / `quote_soft_card` 叠卡
+  5. **R1 仍禁用**（同篇 heading 统一 · DECISION-083）
+- **影响范围：** `card-rhythm.ts`、`style-orchestrator-rules.ts`、`style-selection-diversity.ts`、`style-selection-card-rhythm.ts`、`miaopian-preset-bundles.ts`
+- **关联：** S7-STORY-006、DECISION-083
+- **状态：** 已确认（PO 签收 2026-06-02 · S7-STORY-006 Done）
+
+### DECISION-082 详情（合并 S7-STORY-003 与 S7-STORY-004）
+
+- **日期：** 2026-06-02
+- **背景：**
+  - 原 S7-STORY-003（Style Gallery UX）与 S7-STORY-004（title/heading variant 丰富度）共享同一验收入口（`/gallery` + 8 套 fixture）
+  - 单独交付 Gallery 无 title/heading 视觉改进时仍显「全都一样」；单独交付 variant 丰富度无 Gallery 对照 UI 时 PO 难以系统验收
+  - 符合 DECISION-080 visible-first 与 TECH-ARCH-023 Style Quality Gate
+- **决策：**
+  1. **扩写 S7-STORY-003** 为合并版：Gallery Copy 对照区 + title/heading 聚焦模式 + variant 切换 + 6 个 first-wave title/heading variant 视觉 polish + 8 套样例 assignment
+  2. **S7-STORY-004 标 Merged → S7-STORY-003**；不再单独开 `feature/s7-heading-variant-richness`
+  3. **S7-STORY-005~007 编号不变**
+  4. 工作分支：`feature/s7-gallery-heading-variants`（从 `sprint/s7-wechat-article-experience` 切出）
+  5. 分批交付：Batch A（Gallery Copy + 聚焦 + 2 套样例视觉差）→ Batch B（6 variant polish + 8 套 assignment + 单测）
+- **影响范围：** `/gallery`、`preview-visual-styles.ts`、copy title/heading、`gallery-title-heading.ts`、sprint-backlog、alignment
+- **关联：** DECISION-080、DECISION-081、TECH-ARCH-023、S7-STORY-002
+- **状态：** 已确认
+
+### DECISION-086 详情（R1 默认 preset id · business vs classic-news）
+
+- **日期：** 2026-06-02
+- **背景：** 架构文档仍写 `classic-news` 为默认 preset，而 DECISION-083 后代码、生成、`SAFE_STYLE_PRESET_ID`、golden fixture 均使用 **`business`**；分裂会导致粘贴 QA 与 PO 验收锚点不一致。
+- **决策：**
+  1. **Release 1 / Sprint 7 默认成稿 canonical preset id = `business`**（theme 默认 `businessBlue`）
+  2. **`classic-news`、`classic`、`business-pro`、`news` 等** 仅作为 **legacy alias**（`LEGACY_PRESET_ID_ALIASES` → `business`），不单独维护第二套默认 variant
+  3. **Golden fixtures**（`r1-golden-*`）、`/dev/style-fidelity`、空表单生成 fallback、streaming preview 空 style 均对齐 **`business`**
+  4. 架构文档中 `classic-news` 表述逐步改为「legacy 名 / 等价 business」；**不**恢复独立 `classic-news` preset 定义
+- **影响范围：** `miaopian-preset-bundles.ts`、`style-selection-prompt.ts`、`r1-golden-*.json`、`r1-style-quality-baseline.md`、paste-qa
+- **关联：** DECISION-083、DECISION-085、S7-STORY-007B
+- **状态：** 已确认
+
+### DECISION-085 详情（S7-STORY-007A · R1 Style Fidelity Stabilization）
+
+- **日期：** 2026-06-02
+- **背景：**
+  - 默认成稿 Preview、Copy 到公众号、整篇编排未达预期；继续加 variant 或局部微调无法收敛
+  - 用户明确 **不做 S7-STORY-007**，改 **S7-STORY-007A**：审计先行 → golden baseline → 默认路径闭环
+- **决策：**
+  1. **S7-STORY-007 Deferred**；**S7-STORY-007A** 为 Sprint 7 当前主线的样式保真任务（`feature/s7-story-007a-r1-style-fidelity`）
+  2. **不新增 variant 数量**；只修默认 `business` preset 实际使用的核心 variant + Copy 微信安全输出
+  3. **Golden 锚点：** `tests/fixtures/articles/r1-golden-{default,structured,longform}-article.json` + 粘贴 QA [`paste-qa/r1-golden-paste-qa.md`](paste-qa/r1-golden-paste-qa.md)
+  4. **Orchestrator RLAYOUT：** 强视觉块间距、卡片比例、CTA 尾部、divider 节制等（不改 Article 语义 blocks）
+  5. **Done 分轨：** 代码 + 自动化 snapshot = 可标 In Review/Done（代码）；**粘贴 QA Not Run 不得标 Story Done**
+  6. **开发调试：** `/dev/style-fidelity`（非 Gallery、非样式市场）
+- **影响范围：** `miaopian-preset-bundles.ts`、`miaopian-typography.ts`、`title-block-copy.ts`、`style-orchestrator-article-layout.ts`、`copy-safe-html.ts`、`/dev/style-fidelity`、golden fixtures、audit/baseline docs
+- **关联：** DECISION-083、DECISION-084、S7-STORY-006、Sprint 8 Paste QA（全量矩阵仍归 S8）
+- **状态：** 已确认（代码轮 In Review · 待 PO 粘贴 QA）
+
+### DECISION-087 详情（Heading Publish 8 · 审美实验）
+
+- **日期：** 2026-06-03
+- **背景：** 成稿小标题观感偏素、不像可直接发的公众号小节；registry 曾扩至 13 款 heading，粘贴 QA 未闭环且 Preview/Copy 漂移风险高。
+- **决策：**
+  1. **仅保留 8 款** `HEADING_PUBLISH_VARIANT_IDS`（见 [`heading-publish-catalog.md`](../product/heading-publish-catalog.md)）
+  2. **废弃** `heading_plain_minimal`、`heading_underline_classic`、`heading_pill_topic`、`heading_editorial_plain`、`heading_keynote_strong`（不得再进入 registry / 生成池 / Gallery）
+  3. **审美优先于 variant 数量**；heading Preview 装饰必须走 `heading-publish-visual` → `copySafe*` 同源
+  4. **默认 flagship：** `business` preset → `heading_short_line`；同篇 heading 仍统一 variant
+  5. **验收：** catalog 审美表 + [`heading-publish-8.md`](paste-qa/heading-publish-8.md) 粘贴表；≥6/8 合格方可关 Story
+  6. **收口（2026-06-03）：** 第六轮公众号粘贴 **8/8 PASS**；`heading_highlight_marker` 使用 `h3`+`linear-gradient`（`7d8e38c`）；**S7-STORY-008 Done**；8 款进入 Release 1 **heading 发布池**；`warm` preset 默认 heading 仍为 `heading_highlight_marker`
+- **影响范围：** `heading-publish-pool.ts`、`heading-publish-decoration.ts`、`heading-publish-copy-html.ts`、`miaopian-preset-bundles.ts`、`/gallery`、`/preview`
+- **关联：** DECISION-085、DECISION-086、S7-STORY-008、Sprint 7 关闭
+- **状态：** 已确认 · **Story 已关闭（2026-06-03 用户确认）**
+

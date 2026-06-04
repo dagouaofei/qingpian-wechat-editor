@@ -283,8 +283,8 @@ export function buildArticleCandidateFromStreamBlocks(
       capturedAt: context.input.normalizedAt,
     },
     styleAssignment: {
-      themeId: "default",
-      presetId: "classic-news",
+      themeId: "businessBlue",
+      presetId: "business",
     },
     blocks,
     generation: {

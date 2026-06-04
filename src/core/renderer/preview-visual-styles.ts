@@ -46,10 +46,14 @@ export function previewArticleContainerStyle(): CSSProperties {
   return {
     maxWidth: "677px",
     margin: "0 auto",
-    padding: "16px 20px 24px",
+    padding: "16px 20px 28px",
     backgroundColor: "#ffffff",
-    fontFamily: '"PingFang SC", "Microsoft YaHei", sans-serif',
+    fontFamily:
+      '"PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif',
+    fontSize: "16px",
+    lineHeight: 1.75,
     color: PV.textDefault,
+    letterSpacing: "0.01em",
   };
 }
 
@@ -57,57 +61,75 @@ export function previewTitleContainerStyle(
   layoutMode: TitleBlockLayoutMode,
   blockType: "title" | "heading",
 ): CSSProperties {
-  const marginBlock = blockType === "title" ? "24px" : "20px";
-  const base: CSSProperties = { margin: `${marginBlock} 0` };
+  const base: CSSProperties = {
+    margin: blockType === "title" ? "28px 0" : "28px 0 12px",
+  };
 
   switch (layoutMode) {
     case "plain":
       return {
         ...base,
         textAlign: blockType === "title" ? "center" : "left",
+        padding: blockType === "title" ? "0 12px" : undefined,
       };
     case "left_bar":
       return {
         ...base,
-        borderLeft: `4px solid ${PV.textDefault}`,
-        paddingLeft: "12px",
+        borderLeft: `${blockType === "title" ? 5 : 3}px solid ${PV.textAccent}`,
+        paddingLeft: blockType === "title" ? "14px" : "12px",
+        backgroundColor: blockType === "title" ? PV.bgSoft : undefined,
       };
     case "bottom_line":
       return {
         ...base,
         textAlign: "center",
-        paddingBottom: "8px",
-        borderBottom: `1px solid ${PV.borderLight}`,
+        paddingBottom: "10px",
+        borderBottom: `2px solid ${PV.textAccent}`,
       };
     case "numbered":
-      return base;
+      return {
+        ...base,
+        paddingLeft: "4px",
+      };
     case "top_badge":
       return {
         ...base,
         textAlign: "center",
+        padding: "12px 16px 8px",
+        backgroundColor: PV.bgBandBlue,
+        borderRadius: "8px",
       };
     default:
       return base;
   }
 }
 
-export function previewTitleTextStyle(blockType: "title" | "heading"): CSSProperties {
+export function previewTitleTextStyle(
+  blockType: "title" | "heading",
+  typography?: { fontSize?: string; fontWeight?: string; lineHeight?: string; fontFamily?: string },
+): CSSProperties {
   return {
     margin: 0,
+    padding: 0,
     color: PV.textDefault,
-    fontSize: blockType === "title" ? "22px" : "18px",
-    fontWeight: 600,
-    lineHeight: 1.4,
+    fontSize: typography?.fontSize ?? (blockType === "title" ? "25px" : "17px"),
+    fontWeight: typography?.fontWeight ?? (blockType === "title" ? "700" : "600"),
+    lineHeight: typography?.lineHeight ?? (blockType === "title" ? 1.34 : 1.5),
+    letterSpacing: blockType === "title" ? "0.02em" : "0.01em",
+    fontFamily: typography?.fontFamily,
   };
 }
 
 export function previewTitleBadgeStyle(): CSSProperties {
   return {
-    margin: "0 0 4px",
-    color: PV.textMuted,
-    fontSize: "12px",
+    margin: "0 0 6px",
+    color: PV.textAccent,
+    fontSize: "11px",
+    fontWeight: 600,
     lineHeight: 1.4,
     textAlign: "center",
+    letterSpacing: "0.08em",
+    textTransform: "uppercase",
   };
 }
 

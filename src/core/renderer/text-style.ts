@@ -1,6 +1,12 @@
 import type { HeadingBlock, TitleBlock } from "@/core/blocks";
+import { typographyForMiaopianPreset } from "@/config/miaopian-typography";
 import type { CopySafety, TitleBlockLayoutMode } from "@/core/styles";
 
+import {
+  resolveTitleHeadingIconAssetId,
+  resolveTitleHeadingIconGlyph,
+  titleHeadingUsesCornerAccent,
+} from "./title-heading-assets";
 import type { ResolvedBlockStyleView, SlotRenderState } from "./types";
 
 export type TitleBlockTypography = {
@@ -10,6 +16,9 @@ export type TitleBlockTypography = {
   lineHeight: string;
   marginBlock: string;
   textAlign?: "left" | "center";
+  accentColor?: string;
+  mutedColor?: string;
+  fontFamily?: string;
 };
 
 export function resolveTitleBlockTypography(
@@ -17,16 +26,36 @@ export function resolveTitleBlockTypography(
   blockType: "title" | "heading",
 ): TitleBlockTypography {
   const themeColor = resolved.tokens.theme.color?.["text.default"] ?? "#333333";
-  const variantWeight = resolved.tokens.variant?.["typography.weight"];
+  const accentColor = resolved.tokens.theme.color?.["text.accent"] ?? themeColor;
+  const mutedColor = resolved.tokens.theme.color?.["text.muted"] ?? themeColor;
   const variantSpacing = resolved.tokens.variant?.["spacing.block"];
+  const variantWeight = resolved.tokens.variant?.["typography.weight"];
+  const variantSize = resolved.tokens.variant?.["typography.size"];
+  const presetTypography = typographyForMiaopianPreset(resolved.presetId);
+
+  const defaultTitleSize =
+    blockType === "title" ? presetTypography.titleFontSize : presetTypography.headingFontSize;
+  const defaultLineHeight =
+    blockType === "title"
+      ? presetTypography.titleLineHeight
+      : presetTypography.headingLineHeight;
+  const defaultWeight =
+    variantWeight === "bold"
+      ? "700"
+      : blockType === "title"
+        ? presetTypography.titleFontWeight
+        : presetTypography.headingFontWeight;
 
   return {
     color: themeColor,
-    fontSize: blockType === "title" ? "22px" : "18px",
-    fontWeight: variantWeight === "bold" ? "bold" : "600",
-    lineHeight: "1.4",
-    marginBlock: variantSpacing ?? (blockType === "title" ? "24px" : "20px"),
+    fontSize: variantSize ?? defaultTitleSize,
+    fontWeight: defaultWeight,
+    lineHeight: defaultLineHeight,
+    marginBlock: variantSpacing ?? (blockType === "title" ? "28px" : "22px"),
     textAlign: blockType === "title" ? "center" : "left",
+    accentColor,
+    mutedColor,
+    fontFamily: presetTypography.fontFamily,
   };
 }
 
@@ -82,22 +111,81 @@ export function resolveTitleBlockSlotContents(
     }
 
     if (slotState.binding.source === "variant.presentation") {
-      if (slotId === "badge" && block.meta?.sourceIndex != null) {
+      const layoutMode = resolved.componentProtocol.layoutMode;
+      const variantId = resolved.variantId;
+
+      if (slotId === "icon") {
+        const assetId = resolveTitleHeadingIconAssetId(
+          variantId,
+          block.type,
+          layoutMode ?? "plain",
+        );
+        const glyph = resolveTitleHeadingIconGlyph(assetId);
         results.push({
           slotId,
           state: "fallback",
-          content: String(block.meta.sourceIndex).padStart(2, "0"),
-          fallbackReason: "presentation_unavailable_use_meta_index",
+          content: assetId,
+          fallbackReason: "presentation_default_icon_asset",
         });
         continue;
       }
 
-      if (slotId === "badge" && block.meta?.label) {
+      if (slotId === "corner" && titleHeadingUsesCornerAccent(variantId)) {
+        results.push({
+          slotId,
+          state: "active",
+          content: "mark-corner-accent",
+        });
+        continue;
+      }
+
+      if (slotId === "badge") {
+        if (block.meta?.sourceIndex != null) {
+          results.push({
+            slotId,
+            state: "fallback",
+            content: String(block.meta.sourceIndex).padStart(2, "0"),
+            fallbackReason: "presentation_unavailable_use_meta_index",
+          });
+          continue;
+        }
+
+        if (layoutMode === "top_badge") {
+          results.push({
+            slotId,
+            state: "fallback",
+            content: block.meta?.label ?? (block.type === "heading" ? "话题" : "精选"),
+            fallbackReason: "presentation_default_topic_badge",
+          });
+          continue;
+        }
+
+        if (block.meta?.label) {
+          results.push({
+            slotId,
+            state: "fallback",
+            content: block.meta.label,
+            fallbackReason: "presentation_unavailable_use_meta_label",
+          });
+          continue;
+        }
+      }
+
+      if (slotId === "decoration" && layoutMode === "left_bar") {
         results.push({
           slotId,
           state: "fallback",
-          content: block.meta.label,
-          fallbackReason: "presentation_unavailable_use_meta_label",
+          content: block.type === "title" ? "主标题" : "SECTION",
+          fallbackReason: "presentation_default_left_bar_label",
+        });
+        continue;
+      }
+
+      if (slotId === "divider" && layoutMode === "bottom_line") {
+        results.push({
+          slotId,
+          state: "active",
+          content: "editorial-line",
         });
         continue;
       }

@@ -2,6 +2,7 @@
 
 import type { CSSProperties, ReactNode } from "react";
 
+import { TitleHeadingPreviewBlock } from "@/components/preview/title-heading-preview-block";
 import {
   PREVIEW_THEME,
   previewArticleContainerStyle,
@@ -31,20 +32,15 @@ import {
   previewQuoteTextStyle,
   previewTextBlockContainerStyle,
   previewTextBlockTypography,
-  previewTitleBadgeStyle,
-  previewTitleContainerStyle,
-  previewTitleTextStyle,
 } from "@/core/renderer/preview-visual-styles";
 import type {
   PreviewInlineNode,
   RendererIssue,
   RendererOutputPlaceholder,
 } from "@/core/renderer";
-
+import type { SerializedPreviewBlock } from "@/server/generation/generate-flow-types";
 import type { PreviewColorPaletteId } from "@/lib/preview-color-palette";
 import { previewPaletteCssVariables } from "@/lib/preview-color-palette";
-
-import type { SerializedPreviewBlock } from "./types";
 
 function renderInlineNodes(nodes: PreviewInlineNode[]) {
   return nodes.map((node, index) => {
@@ -151,32 +147,12 @@ function PreviewBlockOutput({
 }) {
   switch (output.kind) {
     case "title_block_preview": {
-      const badge = output.slots.badge?.content;
-      const numberedPrefix =
-        output.layoutMode === "numbered" && badge ? `${badge} ` : "";
-
       return (
-        <PreviewShell
-          style={previewTitleContainerStyle(output.layoutMode, output.blockType)}
-          variantId={output.variantId}
-        >
-          {output.layoutMode === "top_badge" && badge ? (
-            <p style={previewTitleBadgeStyle()}>{badge}</p>
-          ) : null}
-          {output.blockType === "heading" ? (
-            <h2 style={previewTitleTextStyle("heading")}>
-              {numberedPrefix}
-              {output.text}
-              {showStreamingCaret ? <StreamingCaret /> : null}
-            </h2>
-          ) : (
-            <h1 style={previewTitleTextStyle("title")}>
-              {numberedPrefix}
-              {output.text}
-              {showStreamingCaret ? <StreamingCaret /> : null}
-            </h1>
-          )}
-        </PreviewShell>
+        <TitleHeadingPreviewBlock
+          output={output}
+          showStreamingCaret={showStreamingCaret}
+          caret={showStreamingCaret ? <StreamingCaret /> : null}
+        />
       );
     }
     case "text_block_preview":
@@ -381,7 +357,7 @@ export function ArticlePreviewPanel({
   activeBlockId,
   showStreamingCaret,
   disableBlockRevealAnimation = false,
-  colorPalette = "default",
+  colorPalette = "businessBlue",
 }: {
   blocks: SerializedPreviewBlock[];
   activeBlockId?: string | null;

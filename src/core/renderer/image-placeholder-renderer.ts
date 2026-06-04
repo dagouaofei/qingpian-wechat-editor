@@ -1,5 +1,5 @@
 import type { ImagePlaceholderBlock } from "@/core/blocks";
-import { IMAGE_PLACEHOLDER_FIRST_WAVE_VARIANTS } from "@/core/styles";
+import { variantIdsForBlockType } from "@/core/styles";
 
 import { renderImagePlaceholderCopyHtml } from "@/core/copy/image-placeholder-copy";
 import { createRendererIssue, partitionRendererIssues } from "./issues";
@@ -17,7 +17,7 @@ import type {
 } from "./types";
 
 export const IMAGE_PLACEHOLDER_SUPPORTED_VARIANT_IDS =
-  IMAGE_PLACEHOLDER_FIRST_WAVE_VARIANTS.map((variant) => variant.id);
+  variantIdsForBlockType("image_placeholder");
 
 export function validateImagePlaceholderRenderContext(
   context: BlockRenderContext,

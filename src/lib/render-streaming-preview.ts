@@ -15,7 +15,7 @@ import {
 } from "@/core/styles";
 
 import type { StreamingPreviewBlock } from "@/app/preview/streaming-preview-panel";
-import type { SerializedPreviewBlock } from "@/app/generate/types";
+import type { SerializedPreviewBlock } from "@/server/generation/generate-flow-types";
 
 const STREAM_PREVIEW_ARTICLE_ID = "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa";
 const STREAM_PREVIEW_TIMESTAMP = "2026-06-02T00:00:00.000Z";
@@ -261,7 +261,7 @@ export function buildStreamingBlocksFromEvent(
 
 function resolveStreamingPresetId(presetHint?: string): string {
   const trimmed = presetHint?.trim();
-  return trimmed && trimmed.length > 0 ? trimmed : "classic-news";
+  return trimmed && trimmed.length > 0 ? trimmed : "business";
 }
 
 function buildStreamingArticle(
@@ -305,7 +305,7 @@ function buildStreamingArticle(
       capturedAt: STREAM_PREVIEW_TIMESTAMP,
     },
     styleAssignment: {
-      themeId: "default",
+      themeId: "businessBlue",
       presetId,
     },
     blocks: articleBlocks.length > 0 ? articleBlocks : [],

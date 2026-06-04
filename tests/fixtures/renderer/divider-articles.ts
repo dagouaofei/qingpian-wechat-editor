@@ -12,8 +12,8 @@ export function createDividerArticleFixture(options: {
   return parseArticle({
     ...articleFixtureBase(),
     styleAssignment: {
-      themeId: "default",
-      presetId: "classic-news",
+      themeId: "businessBlue",
+      presetId: "business",
       blockOverrides: [{ blockId, variantId: options.variantId }],
     },
     blocks: [
@@ -40,10 +40,10 @@ export const DIVIDER_VARIANT_REGISTRY = {
   ],
   presets: [
     {
-      id: "classic-news",
+      id: "business",
       name: "Classic News",
       schemaVersion: STYLE_SCHEMA_VERSION,
-      themeId: "default",
+      themeId: "businessBlue",
       defaultVariantByBlockType: {
         divider: "divider_simple_line",
       },

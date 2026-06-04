@@ -10,6 +10,8 @@ export const COPY_SAFE_HTML_VIOLATION_CODES = [
   "transform",
   "pseudo_element",
   "flex_or_grid_layout",
+  "linear_gradient",
+  "box_shadow",
 ] as const;
 
 export type CopySafeHtmlViolationCode =
@@ -67,23 +69,43 @@ const COPY_SAFE_HTML_PATTERNS: Array<{
   },
   {
     code: "flex_or_grid_layout",
-    pattern: /\bdisplay\s*:\s*(flex|grid)/i,
+    pattern: /\bdisplay\s*:\s*(inline-flex|flex|grid)/i,
     message: "Copy HTML must not depend on flex/grid layout",
+  },
+  {
+    code: "linear_gradient",
+    pattern: /linear-gradient/i,
+    message: "Copy HTML must not use CSS gradients",
+  },
+  {
+    code: "box_shadow",
+    pattern: /box-shadow/i,
+    message: "Copy HTML must not use box-shadow",
   },
 ];
 
+export type CollectCopySafeHtmlOptions = {
+  /** 明确允许的高风险项（须对应 variant 粘贴 QA 通过，如 heading_highlight_marker） */
+  allowedViolationCodes?: CopySafeHtmlViolationCode[];
+};
+
 export function collectCopySafeHtmlViolations(
   html: string,
+  options?: CollectCopySafeHtmlOptions,
 ): CopySafeHtmlViolation[] {
-  return COPY_SAFE_HTML_PATTERNS.filter(({ pattern }) => pattern.test(html)).map(
-    ({ code, message }) => ({ code, message }),
-  );
+  const allowed = new Set(options?.allowedViolationCodes ?? []);
+  return COPY_SAFE_HTML_PATTERNS.filter(({ pattern }) => pattern.test(html))
+    .map(({ code, message }) => ({ code, message }))
+    .filter((violation) => !allowed.has(violation.code));
 }
 
-export function assertCopySafeHtmlSnapshot(html: string): void {
+export function assertCopySafeHtmlSnapshot(
+  html: string,
+  options?: CollectCopySafeHtmlOptions,
+): void {
   assertCopySafeHtml(html);
 
-  const violations = collectCopySafeHtmlViolations(html);
+  const violations = collectCopySafeHtmlViolations(html, options);
   if (violations.length > 0) {
     throw new Error(violations.map((violation) => violation.message).join("; "));
   }

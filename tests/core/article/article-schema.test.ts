@@ -26,8 +26,8 @@ function minimalArticleBase() {
       capturedAt: ISO,
     },
     styleAssignment: {
-      themeId: "default",
-      presetId: "classic-news",
+      themeId: "businessBlue",
+      presetId: "business",
     },
   };
 }
@@ -139,8 +139,8 @@ describe("article schema contract", () => {
           capturedAt: ISO,
         },
         styleAssignment: {
-          themeId: "default",
-          presetId: "classic-news",
+          themeId: "businessBlue",
+          presetId: "business",
           blockOverrides: [
             {
               blockId: blockId(1),
@@ -295,8 +295,8 @@ describe("article schema contract", () => {
         articleSchema.parse({
           ...minimalArticleBase(),
           styleAssignment: {
-            themeId: "default",
-            presetId: "classic-news",
+            themeId: "businessBlue",
+            presetId: "business",
             blockOverrides: [
               {
                 blockId: blockId(1),

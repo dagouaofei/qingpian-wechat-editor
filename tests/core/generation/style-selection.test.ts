@@ -92,7 +92,7 @@ describe("generation style selection", () => {
       mode: "deterministic",
     });
 
-    expect(patchResult.patch.presetId).toBe("classic-news");
+    expect(patchResult.patch.presetId).toBe("business");
     expect(patchResult.patch.blockOverrides?.length).toBeGreaterThan(0);
   });
 
@@ -123,7 +123,7 @@ describe("generation style selection", () => {
     });
 
     expect(result.applied).toBe(true);
-    expect(result.article.styleAssignment.presetId).toBe("classic-news");
+    expect(result.article.styleAssignment.presetId).toBe("business");
     expect(result.article.styleAssignment.blockOverrides?.length).toBeGreaterThan(0);
   });
 
@@ -151,8 +151,8 @@ describe("generation style selection", () => {
     const variantIds =
       result.patch.blockOverrides?.map((override) => override.variantId) ?? [];
     expect(new Set(variantIds).size).toBeGreaterThan(5);
-    expect(variantIds).toContain("title_bottom_line_editorial");
-    expect(variantIds).toContain("lead_accent_band");
+    expect(variantIds).toContain("paragraph_plain_body");
+    expect(variantIds).toContain("lead_plain_intro");
   });
 
   it("falls back when patch references unknown variant", () => {
@@ -167,7 +167,7 @@ describe("generation style selection", () => {
 
     expect(result.usedFallback).toBe(true);
     expect(result.applied).toBe(true);
-    expect(result.article.styleAssignment.presetId).toBe("classic-news");
+    expect(result.article.styleAssignment.presetId).toBe("business");
   });
 
   it("rejects preview_only variant and applies fallback", () => {
@@ -182,10 +182,10 @@ describe("generation style selection", () => {
 
     expect(result.usedFallback).toBe(true);
     expect(result.applied).toBe(true);
-    expect(
-      result.issues.some((issue) => issue.code.includes("variant")) ||
-        result.warnings.some((issue) => issue.code.includes("fallback")),
-    ).toBe(true);
+    const block3Override = result.article.styleAssignment.blockOverrides?.find(
+      (entry) => entry.blockId === fixtureBlockId(3),
+    );
+    expect(block3Override?.variantId).not.toBe("heading_preview_only_fixture");
   });
 
   it("rejects styleIntent containing forbidden HTML fields", () => {

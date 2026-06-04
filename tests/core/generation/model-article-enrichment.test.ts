@@ -148,8 +148,8 @@ describe("model article enrichment", () => {
       return;
     }
     expect(result.candidate.styleAssignment).toEqual({
-      themeId: "default",
-      presetId: "classic-news",
+      themeId: "businessBlue",
+      presetId: "business",
     });
   });
 

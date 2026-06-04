@@ -187,8 +187,8 @@ describe("style validation policy", () => {
       const article = parseArticle({
         ...minimalArticleFixture,
         styleAssignment: {
-          themeId: "default",
-          presetId: "classic-news",
+          themeId: "businessBlue",
+          presetId: "business",
           blockOverrides: [
             {
               blockId: minimalArticleFixture.blocks[0]!.id,
@@ -213,8 +213,8 @@ describe("style validation policy", () => {
       const article = parseArticle({
         ...minimalArticleFixture,
         styleAssignment: {
-          themeId: "default",
-          presetId: "classic-news",
+          themeId: "businessBlue",
+          presetId: "business",
           blockOverrides: [
             {
               blockId: minimalArticleFixture.blocks[0]!.id,

@@ -15,8 +15,8 @@ describe("preview-visual-styles", () => {
     const bottomLine = previewTitleContainerStyle("bottom_line", "title");
 
     expect(plain.textAlign).toBe("center");
-    expect(leftBar.borderLeft).toContain("4px solid");
-    expect(bottomLine.borderBottom).toContain("1px solid");
+    expect(String(leftBar.borderLeft)).toContain("3px solid");
+    expect(String(bottomLine.borderBottom)).toContain("2px solid");
   });
 
   it("maps text block layouts to distinct container styles", () => {

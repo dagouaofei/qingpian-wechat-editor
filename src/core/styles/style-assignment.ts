@@ -90,6 +90,8 @@ export type StyleAssignmentPatch = {
 export type ArticleStylePlanOrchestratorHints = {
   dedupeAdjacentHeadings?: boolean;
   maxAssetReuse?: number;
+  /** S7-STORY-006 — RCARD consecutive card-emphasis body block limit */
+  maxConsecutiveCardEmphasis?: number;
   avoidTitleFirstHeadingSameFamilyVariant?: boolean;
   notes?: string[];
 };

@@ -395,8 +395,8 @@ export const STRUCTURED_BLOCK_VARIANT_REGISTRY = {
   schemaVersion: STYLE_SCHEMA_VERSION,
   themes: [
     {
-      id: "default",
-      name: "Default Theme",
+      id: "businessBlue",
+      name: "商务蓝",
       schemaVersion: STYLE_SCHEMA_VERSION,
       tokens: {
         color: { "text.default": "#333333" },
@@ -406,10 +406,10 @@ export const STRUCTURED_BLOCK_VARIANT_REGISTRY = {
   ],
   presets: [
     {
-      id: "classic-news",
+      id: "business",
       name: "Classic News",
       schemaVersion: STYLE_SCHEMA_VERSION,
-      themeId: "default",
+      themeId: "businessBlue",
       defaultVariantByBlockType: {
         quote: quotePlain.id,
         highlight: highlightInlineEmphasis.id,

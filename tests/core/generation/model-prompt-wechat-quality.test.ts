@@ -21,7 +21,7 @@ describe("Volcengine prompt WeChat article quality", () => {
       ...topicOnlyInputRequestFixture,
       styleIntent: {
         notes: "文章用途/场景：知识科普",
-        presetHint: "classic-news",
+        presetHint: "business",
       },
     });
     const prompt = buildVolcengineUserPrompt(normalized);

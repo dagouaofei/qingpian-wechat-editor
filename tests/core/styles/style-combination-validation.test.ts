@@ -25,7 +25,7 @@ describe("style combination validation", () => {
       id: "broken-preset",
       name: "Broken",
       schemaVersion: STYLE_SCHEMA_VERSION,
-      themeId: "default",
+      themeId: "businessBlue",
       defaultVariantByBlockType: {
         title: "title_does_not_exist",
       },
@@ -37,7 +37,7 @@ describe("style combination validation", () => {
 
   it("errors when preset references unknown theme", () => {
     const result = validatePresetThemeCombination(
-      { presetId: "classic-news", themeId: "missing-theme" },
+      { presetId: "business", themeId: "missing-theme" },
       { registry },
     );
     expect(result.ok).toBe(false);
@@ -46,15 +46,15 @@ describe("style combination validation", () => {
 
   it("validates block override density and protocol boundaries together", () => {
     const result = validateThemePresetDensitySlotCombination({
-      presetId: "classic-news",
-      themeId: "default",
+      presetId: "business",
+      themeId: "businessBlue",
       density: "standard",
       blockOverrides: [
         {
           blockType: "heading",
           override: {
             blockId: "h1",
-            variantId: "heading_top_badge_topic",
+            variantId: "heading_card_centered",
             slotOverrides: { badge: "01" },
             assetBindings: { badge: "mark-step-badge" },
           },
@@ -72,7 +72,7 @@ describe("style combination validation", () => {
     const result = validateStyleAssignmentBlockOverride(
       {
         blockId: "h1",
-        variantId: "heading_plain_minimal",
+        variantId: "heading_short_line",
         density: "dense" as never,
       },
       "heading",
@@ -86,7 +86,7 @@ describe("style combination validation", () => {
     const result = validateStyleAssignmentBlockOverride(
       {
         blockId: "h1",
-        variantId: "heading_plain_minimal",
+        variantId: "heading_short_line",
         familyId: "not_a_family",
       },
       "heading",
@@ -104,7 +104,7 @@ describe("style combination validation", () => {
           id: "candidate-preset",
           name: "Candidate Preset",
           schemaVersion: STYLE_SCHEMA_VERSION,
-          themeId: "default",
+          themeId: "businessBlue",
           defaultVariantByBlockType: {
             heading: "heading_candidate_only",
           },
@@ -113,7 +113,7 @@ describe("style combination validation", () => {
       variants: [
         ...registry.variants,
         {
-          ...registry.variants.find((variant) => variant.id === "heading_plain_minimal")!,
+          ...registry.variants.find((variant) => variant.id === "heading_short_line")!,
           id: "heading_candidate_only",
           status: "release1_candidate" as const,
         },
@@ -149,7 +149,7 @@ describe("style combination validation", () => {
     const result = validateStyleAssignmentBlockOverride(
       {
         blockId: "h1",
-        variantId: "heading_top_badge_topic",
+        variantId: "heading_card_centered",
         assetBindings: { badge: "asset-missing" },
       },
       "heading",

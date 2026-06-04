@@ -1,5 +1,5 @@
 import type { ListBlock } from "@/core/blocks";
-import { LIST_FIRST_WAVE_VARIANTS } from "@/core/styles";
+import { variantIdsForBlockType } from "@/core/styles";
 
 import { renderListCopyHtml } from "@/core/copy/list-copy";
 import { createRendererIssue, partitionRendererIssues } from "./issues";
@@ -16,9 +16,7 @@ import type {
   RendererResult,
 } from "./types";
 
-export const LIST_SUPPORTED_VARIANT_IDS = LIST_FIRST_WAVE_VARIANTS.map(
-  (variant) => variant.id,
-);
+export const LIST_SUPPORTED_VARIANT_IDS = variantIdsForBlockType("list");
 
 export function validateListRenderContext(
   context: BlockRenderContext,

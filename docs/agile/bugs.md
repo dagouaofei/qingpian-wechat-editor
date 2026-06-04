@@ -21,4 +21,21 @@
 
 ## 已知 Bug
 
-暂无已知 Bug。
+### BUG-001 Copy HTML `font-family` 双引号截断 style 属性
+
+| 字段 | 内容 |
+|------|------|
+| Bug ID | BUG-001 |
+| 标题 | 粘贴公众号时字体栈失效：`style` 属性被 `font-family:"PingFang` 截断 |
+| 发现时间 | 2026-06-02 |
+| 所属 | Sprint 7 · S7-STORY-007B |
+| 严重级别 | P0 |
+| 复现步骤 | `/dev/style-fidelity` → `r1-golden-default-article` → 复制 Copy HTML → 粘贴公众号；或检查 HTML 中 `style="...font-family:"PingFang` |
+| 预期结果 | `font-family` 完整写入 inline style，粘贴后保留 PingFang/微软雅黑栈 |
+| 实际结果 | `buildInlineStyle` 输出未转义双引号，属性在第一个字体名引号处结束，后续 `font-size`/`color` 可能丢失 |
+| 状态 | **Fixed**（007B · `copy-typography.ts` + `inline-style.ts` + 各 Copy renderer 补 `fontFamily`） |
+| 处理记录 | 单引号字体栈；golden 自动化断言 `font-family:'PingFang SC'`；**待 PO 公众号粘贴复验** |
+
+---
+
+暂无其它 Open Bug。

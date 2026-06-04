@@ -24,8 +24,8 @@ export function articleFixtureBase() {
       capturedAt: FIXTURE_ISO,
     },
     styleAssignment: {
-      themeId: "default",
-      presetId: "classic-news",
+      themeId: "businessBlue",
+      presetId: "business",
     },
   };
 }

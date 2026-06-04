@@ -90,8 +90,30 @@ export type TitleBlockPreviewOutput = {
   blockType: "title" | "heading";
   variantId: string;
   layoutMode: TitleBlockLayoutMode;
+  familyId?: string;
   text: string;
   headingLevel?: 1 | 2 | 3;
+  presentation: {
+    badgeText?: string;
+    decorationLabel?: string;
+    indexLabel?: string;
+    iconAssetId?: string;
+    iconGlyph?: string;
+    iconCapsuleLabel?: string;
+    cardTitleFrame?: boolean;
+    cornerAccent?: boolean;
+  };
+  typography?: {
+    fontSize: string;
+    fontWeight: string;
+    lineHeight: string;
+    fontFamily?: string;
+    color?: string;
+    accentColor?: string;
+    mutedColor?: string;
+  };
+  /** Heading publish pool：与 Copy 相同的 theme palette（避免 Preview 用 CSS 变量近似色） */
+  themePalette?: import("@/core/styles/theme-palette-tokens").ThemePaletteTokens;
   slots: Record<
     string,
     {

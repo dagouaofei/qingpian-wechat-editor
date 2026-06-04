@@ -51,10 +51,10 @@ export const STRUCTURED_COPY_STYLE_REGISTRY = {
   ],
   presets: [
     {
-      id: "classic-news",
+      id: "business",
       name: "Classic News",
       schemaVersion: STYLE_SCHEMA_VERSION,
-      themeId: "default",
+      themeId: "businessBlue",
       defaultVariantByBlockType: {
         list: "list_plain_bullets",
         quote: "quote_plain",
@@ -154,8 +154,8 @@ export function createStructuredCopyArticleFixture() {
   return parseArticle({
     ...articleFixtureBase(),
     styleAssignment: {
-      themeId: "default",
-      presetId: "classic-news",
+      themeId: "businessBlue",
+      presetId: "business",
       blockOverrides: STRUCTURED_COPY_SNAPSHOT_VARIANTS.map((variantId, index) => ({
         blockId: fixtureBlockId(index + 1),
         variantId,

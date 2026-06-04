@@ -18,13 +18,17 @@ import {
   resolveArticleStyle,
 } from "@/core/styles";
 
-import type { SerializedPreviewBlock } from "@/app/generate/types";
+import type { SerializedPreviewBlock } from "@/server/generation/generate-flow-types";
 
 import {
   applyPreviewThemeToArticle,
   buildNormalizedInputForPreviewControl,
   type PreviewStyleControlState,
 } from "./preview-style-controls";
+import {
+  applyHeadingVariantToArticle,
+  type HeadingPublishVariantId,
+} from "./preview-heading-style";
 
 function serializePreviewBlocks(
   results: ReturnType<typeof renderArticleBlocks>,
@@ -58,6 +62,9 @@ export function renderArticlePreviewClient(
   article: Article,
   normalizedInput: NormalizedInput,
   control: PreviewStyleControlState,
+  options?: {
+    postStyleSelectionPatch?: (article: Article) => Article;
+  },
 ): RenderArticlePreviewClientResult {
   const registry = createFirstWaveRequiredVariantRegistry();
   const themedArticle = applyPreviewThemeToArticle(article, control.colorPalette);
@@ -69,9 +76,20 @@ export function renderArticlePreviewClient(
     registry,
   });
 
-  const styledArticle = styleResult.applied
+  const styledArticleBase = styleResult.applied
     ? applyPreviewThemeToArticle(styleResult.article, control.colorPalette)
     : themedArticle;
+
+  let styledArticle = options?.postStyleSelectionPatch
+    ? options.postStyleSelectionPatch(styledArticleBase)
+    : styledArticleBase;
+
+  if (control.headingVariantId) {
+    styledArticle = applyHeadingVariantToArticle(
+      styledArticle,
+      control.headingVariantId as HeadingPublishVariantId,
+    );
+  }
 
   const resolvedArticleStyle = resolveArticleStyle(styledArticle, registry);
   const previewRegistry = createRelease1FirstWavePreviewRendererRegistry();

@@ -1,3 +1,4 @@
+import { typographyForMiaopianPreset } from "@/config/miaopian-typography";
 import type { CopySafety } from "@/core/styles";
 import { resolveThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
 
@@ -9,6 +10,7 @@ export type TextBlockTypography = {
   fontWeight: string;
   lineHeight: string;
   marginBlock: string;
+  fontFamily: string;
 };
 
 export type TextBlockLayoutKind =
@@ -18,17 +20,10 @@ export type TextBlockLayoutKind =
   | "accent_left"
   | "soft_card";
 
-const VARIANT_LAYOUT_MAP: Record<string, TextBlockLayoutKind> = {
-  lead_plain_intro: "plain",
-  lead_accent_band: "accent_band",
-  lead_quote_intro: "quote_intro",
-  paragraph_plain_body: "plain",
-  paragraph_accent_left: "accent_left",
-  paragraph_soft_card: "soft_card",
-};
+import { TEXT_BLOCK_VARIANT_LAYOUT } from "./expansion-layout-maps";
 
 export function resolveTextBlockLayout(variantId: string): TextBlockLayoutKind | undefined {
-  return VARIANT_LAYOUT_MAP[variantId];
+  return TEXT_BLOCK_VARIANT_LAYOUT[variantId];
 }
 
 export function resolveTextBlockTypography(
@@ -38,14 +33,16 @@ export function resolveTextBlockTypography(
   const palette = resolveThemePaletteTokens(resolved.tokens.theme);
   const variantWeight = resolved.tokens.variant?.["typography.weight"];
   const variantSpacing = resolved.tokens.variant?.["spacing.block"];
-  const bodyFontSize = resolved.tokens.theme.fontSize?.body ?? "16px";
+  const presetTypography = typographyForMiaopianPreset(resolved.presetId);
+  const bodyFontSize = resolved.tokens.theme.fontSize?.body ?? presetTypography.bodyFontSize;
 
   return {
     color: palette.textDefault,
     fontSize: blockType === "lead" ? "17px" : bodyFontSize,
     fontWeight: variantWeight === "regular" ? "400" : "400",
-    lineHeight: blockType === "lead" ? "1.6" : "1.75",
-    marginBlock: variantSpacing ?? (blockType === "lead" ? "18px" : "16px"),
+    lineHeight: blockType === "lead" ? "1.65" : presetTypography.bodyLineHeight,
+    marginBlock: variantSpacing ?? (blockType === "lead" ? "20px" : "18px"),
+    fontFamily: presetTypography.fontFamily,
   };
 }
 

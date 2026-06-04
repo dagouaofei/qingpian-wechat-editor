@@ -17,20 +17,33 @@ import type {
 } from "@/core/styles/style-assignment";
 
 import type { InputStyleIntent } from "./input";
+import { balanceCardEmphasisInBlockHints } from "./style-selection-card-rhythm";
 import {
   resolveArticleAwareVariantId,
   type ArticleVariantPickSource,
 } from "./style-selection-diversity";
 
-export const SAFE_STYLE_PRESET_ID = "classic-news";
-export const SAFE_STYLE_THEME_ID = "default";
+export const SAFE_STYLE_PRESET_ID = "business";
+export const SAFE_STYLE_THEME_ID = "businessBlue";
 
 const FORBIDDEN_STYLE_FIELDS = ["html", "css", "className", "style"] as const;
 
 const KNOWN_PRESET_HINTS: Record<string, string> = {
-  classic: SAFE_STYLE_PRESET_ID,
-  "classic-news": SAFE_STYLE_PRESET_ID,
-  news: SAFE_STYLE_PRESET_ID,
+  business: "business",
+  "business-pro": "business",
+  "classic-news": "business",
+  classic: "business",
+  news: "business",
+  warm: "warm",
+  "brand-story": "warm",
+  brand: "warm",
+  magazine: "magazine",
+  "magazine-editorial": "magazine",
+  keynote: "keynote",
+  xiaohongshu: "xiaohongshu",
+  "lifestyle-vivid": "xiaohongshu",
+  lifestyle: "xiaohongshu",
+  dedao: "dedao",
 };
 
 const BLOCK_VARIANT_HEURISTICS: Partial<
@@ -43,8 +56,8 @@ const BLOCK_VARIANT_HEURISTICS: Partial<
   },
   heading: {
     strong: "heading_numbered_section",
-    structured: "heading_top_badge_topic",
-    default: "heading_plain_minimal",
+    structured: "heading_card_centered",
+    default: "heading_short_line",
   },
   lead: {
     quote: "lead_quote_intro",
@@ -244,6 +257,8 @@ export function pickRegisteredVariantForBlock(
   warnings: StyleValidationIssue[],
   blockIndexWithinType = 0,
 ): { variantId: string; source: ArticleVariantPickSource } {
+  const diversityIndex = blockType === "heading" ? 0 : blockIndexWithinType;
+
   const heuristicId = resolveHeuristicVariantId(blockType, styleIntent);
   if (heuristicId) {
     const heuristicVariant = getVariantById(registry, heuristicId);
@@ -260,7 +275,7 @@ export function pickRegisteredVariantForBlock(
 
   const diverseId = resolveArticleAwareVariantId(
     blockType,
-    blockIndexWithinType,
+    diversityIndex,
     styleIntent,
   );
   if (diverseId) {
@@ -326,7 +341,7 @@ export function buildStyleSelectionBlockHints(
 
   const typeCounters: Partial<Record<BlockType, number>> = {};
 
-  return article.blocks.map((block) => {
+  const hints = article.blocks.map((block) => {
     const indexWithinType = typeCounters[block.type] ?? 0;
     typeCounters[block.type] = indexWithinType + 1;
 
@@ -350,6 +365,8 @@ export function buildStyleSelectionBlockHints(
             : "Derived from preset default variant",
     };
   });
+
+  return balanceCardEmphasisInBlockHints(article, hints, registry);
 }
 
 export function buildStyleSelectionRequestFromArticle(

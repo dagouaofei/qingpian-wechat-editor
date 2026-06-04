@@ -31,8 +31,9 @@ function subItemsHtml(
         {
           margin: "2px 0 0 20px",
           color: typography.mutedColor,
-          fontSize: "15px",
-          lineHeight: "1.65",
+          fontSize: typography.subItemFontSize,
+          lineHeight: typography.lineHeight,
+          fontFamily: typography.fontFamily,
         },
         `${marker} ${escapeHtml(item)}`,
       ),
@@ -52,6 +53,7 @@ function plainBulletItemHtml(
         color: typography.color,
         fontSize: typography.fontSize,
         lineHeight: typography.lineHeight,
+        fontFamily: typography.fontFamily,
       },
       `• ${escapeHtml(item.text)}`,
     ) + subItemsHtml(item.subItems, "◦", typography)
@@ -71,6 +73,7 @@ function numberedStepItemHtml(
         color: typography.color,
         fontSize: typography.fontSize,
         lineHeight: typography.lineHeight,
+        fontFamily: typography.fontFamily,
       },
       `${index + 1}. ${escapeHtml(item.text)}`,
     ) + subItemsHtml(item.subItems, "·", typography)
@@ -90,6 +93,7 @@ function checklistCardItemHtml(
         color: typography.color,
         fontSize: typography.fontSize,
         lineHeight: typography.lineHeight,
+        fontFamily: typography.fontFamily,
       },
       `✓ ${escapeHtml(item.text)}`,
     ) + subItemsHtml(item.subItems, "·", typography);
@@ -152,6 +156,7 @@ export function renderListCopyHtml(
       color: typography.color,
       fontSize: typography.fontSize,
       lineHeight: typography.lineHeight,
+      fontFamily: typography.fontFamily,
     },
     innerHtml,
   );

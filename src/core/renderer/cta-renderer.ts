@@ -1,5 +1,5 @@
 import type { CtaBlock } from "@/core/blocks";
-import { CTA_FIRST_WAVE_VARIANTS } from "@/core/styles";
+import { variantIdsForBlockType } from "@/core/styles";
 
 import { renderCtaCopyHtml } from "@/core/copy/cta-copy";
 import { createRendererIssue, partitionRendererIssues } from "./issues";
@@ -13,9 +13,7 @@ import type {
   RendererResult,
 } from "./types";
 
-export const CTA_SUPPORTED_VARIANT_IDS = CTA_FIRST_WAVE_VARIANTS.map(
-  (variant) => variant.id,
-);
+export const CTA_SUPPORTED_VARIANT_IDS = variantIdsForBlockType("cta");
 
 export function validateCtaRenderContext(
   context: BlockRenderContext,

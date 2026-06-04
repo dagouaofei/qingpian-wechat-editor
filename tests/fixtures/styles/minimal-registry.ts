@@ -5,8 +5,8 @@ export const minimalStyleRegistryFixture = {
   schemaVersion: STYLE_SCHEMA_VERSION,
   themes: [
     {
-      id: "default",
-      name: "Default Theme",
+      id: "businessBlue",
+      name: "商务蓝",
       schemaVersion: STYLE_SCHEMA_VERSION,
       tokens: {
         color: { "text.default": "#333333" },
@@ -16,10 +16,10 @@ export const minimalStyleRegistryFixture = {
   ],
   presets: [
     {
-      id: "classic-news",
+      id: "business",
       name: "Classic News",
       schemaVersion: STYLE_SCHEMA_VERSION,
-      themeId: "default",
+      themeId: "businessBlue",
       defaultVariantByBlockType: {
         title: "title-centered",
         paragraph: "paragraph-standard",

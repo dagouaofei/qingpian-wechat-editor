@@ -19,9 +19,13 @@ export const HOME_TARGET_AUDIENCES = [
 ] as const;
 
 export const HOME_BASIC_STYLES = [
-  { value: "", label: "默认（classic-news）" },
-  { value: "classic-news", label: "经典资讯" },
-  { value: "classic", label: "经典简约" },
+  { value: "", label: "默认（简洁商务）" },
+  { value: "business", label: "简洁商务" },
+  { value: "warm", label: "温暖叙事" },
+  { value: "magazine", label: "高级杂志" },
+  { value: "keynote", label: "科技发布会" },
+  { value: "xiaohongshu", label: "小红书感" },
+  { value: "dedao", label: "得到风" },
 ] as const;
 
 export type HomeFormState = {

@@ -38,13 +38,13 @@ export const TEXT_FIRST_COPY_STYLE_REGISTRY = {
   ],
   presets: [
     {
-      id: "classic-news",
+      id: "business",
       name: "Classic News",
       schemaVersion: STYLE_SCHEMA_VERSION,
-      themeId: "default",
+      themeId: "businessBlue",
       defaultVariantByBlockType: {
         title: "title_plain_minimal",
-        heading: "heading_plain_minimal",
+        heading: "heading_short_line",
         lead: "lead_plain_intro",
         paragraph: "paragraph_plain_body",
         divider: "divider_simple_line",
@@ -113,8 +113,8 @@ export function createTextFirstCopyArticleFixture() {
   return parseArticle({
     ...articleFixtureBase(),
     styleAssignment: {
-      themeId: "default",
-      presetId: "classic-news",
+      themeId: "businessBlue",
+      presetId: "business",
       blockOverrides: [
         { blockId: fixtureBlockId(1), variantId: "title_plain_minimal" },
         { blockId: fixtureBlockId(2), variantId: "heading_numbered_section" },

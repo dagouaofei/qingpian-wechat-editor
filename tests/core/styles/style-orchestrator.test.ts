@@ -2,11 +2,14 @@ import { describe, expect, it } from "vitest";
 
 import { parseArticle } from "@/core/article";
 import {
+  createFirstWaveRequiredVariantRegistry,
   orchestrateArticleStyle,
   parseStyleRegistry,
   resolveArticleStyle,
 } from "@/core/styles";
 import { FIRST_WAVE_TITLE_HEADING_VARIANT_REGISTRY } from "@/core/styles/variants/title-heading";
+
+const fullRegistry = createFirstWaveRequiredVariantRegistry();
 
 import { minimalArticleFixture } from "../../fixtures/articles/minimal-article";
 import { fixtureBlockId } from "../../fixtures/articles/shared";
@@ -18,8 +21,8 @@ function articleWithBlocks(
   return parseArticle({
     ...minimalArticleFixture,
     styleAssignment: {
-      themeId: "default",
-      presetId: "classic-news",
+      themeId: "businessBlue",
+      presetId: "business",
       ...styleAssignment,
     },
     blocks,
@@ -41,9 +44,9 @@ describe("orchestrateArticleStyle", () => {
     const result = orchestrateArticleStyle(article, registry);
 
     expect(result.plan.articleId).toBe(article.id);
-    expect(result.plan.presetId).toBe("classic-news");
-    expect(result.plan.themeId).toBe("default");
-    expect(result.styleAssignment.presetId).toBe("classic-news");
+    expect(result.plan.presetId).toBe("business");
+    expect(result.plan.themeId).toBe("businessBlue");
+    expect(result.styleAssignment.presetId).toBe("business");
   });
 
   it("does not mutate the original Article object", () => {
@@ -81,7 +84,7 @@ describe("orchestrateArticleStyle", () => {
     expect(article.blocks).toEqual(blocksSnapshot);
   });
 
-  it("applies R1 fallback through orchestrateArticleStyle", () => {
+  it("keeps the same heading variant on adjacent headings (R1 disabled for miaopian unity)", () => {
     const article = articleWithBlocks(
       [
         {
@@ -97,8 +100,8 @@ describe("orchestrateArticleStyle", () => {
       ],
       {
         blockOverrides: [
-          { blockId: fixtureBlockId(1), variantId: "heading_plain_minimal" },
-          { blockId: fixtureBlockId(2), variantId: "heading_plain_minimal" },
+          { blockId: fixtureBlockId(1), variantId: "heading_short_line" },
+          { blockId: fixtureBlockId(2), variantId: "heading_short_line" },
         ],
       },
     );
@@ -108,13 +111,52 @@ describe("orchestrateArticleStyle", () => {
     expect(
       result.plan.blockOverrides?.find((o) => o.blockId === fixtureBlockId(2))
         ?.variantId,
-    ).not.toBe("heading_plain_minimal");
+    ).toBe("heading_short_line");
     expect(
       result.issues.some((issue) => issue.code === "orchestrator_r1_fallback"),
-    ).toBe(true);
+    ).toBe(false);
   });
 
-  it("applies R8 fallback through orchestrateArticleStyle", () => {
+  it("uses the same heading variant for every heading in the article", () => {
+    const article = articleWithBlocks([
+      {
+        id: fixtureBlockId(1),
+        type: "heading",
+        content: { text: "第一节", level: 2 },
+      },
+      {
+        id: fixtureBlockId(2),
+        type: "heading",
+        content: { text: "第二节", level: 2 },
+        meta: { sourceIndex: 2 },
+      },
+      {
+        id: fixtureBlockId(3),
+        type: "paragraph",
+        content: { text: [{ text: "正文" }] },
+      },
+      {
+        id: fixtureBlockId(4),
+        type: "heading",
+        content: { text: "第三节", level: 2 },
+        meta: { sourceIndex: 3 },
+      },
+    ]);
+
+    const fullRegistry = createFirstWaveRequiredVariantRegistry();
+    const result = orchestrateArticleStyle(article, fullRegistry);
+    const headingOverrides =
+      result.plan.blockOverrides?.filter((override) => {
+        const block = article.blocks.find((b) => b.id === override.blockId);
+        return block?.type === "heading";
+      }) ?? [];
+
+    expect(headingOverrides).toHaveLength(3);
+    const uniqueVariants = new Set(headingOverrides.map((o) => o.variantId));
+    expect(uniqueVariants.size).toBe(1);
+  });
+
+  it("does not apply R8 when publish pool title and heading differ in family", () => {
     const article = articleWithBlocks([
       {
         id: fixtureBlockId(1),
@@ -131,12 +173,8 @@ describe("orchestrateArticleStyle", () => {
     const result = orchestrateArticleStyle(article, registry);
 
     expect(
-      result.plan.blockOverrides?.find((o) => o.blockId === fixtureBlockId(2))
-        ?.variantId,
-    ).not.toBe("heading_plain_minimal");
-    expect(
       result.issues.some((issue) => issue.code === "orchestrator_r8_fallback"),
-    ).toBe(true);
+    ).toBe(false);
   });
 
   it("emits R2 issues when asset reuse exceeds limit", () => {
@@ -201,7 +239,7 @@ describe("orchestrateArticleStyle", () => {
     const result = orchestrateArticleStyle(article, registry, {
       patch: {
         blockOverrides: [
-          { blockId: fixtureBlockId(1), variantId: "heading_top_badge_topic" },
+          { blockId: fixtureBlockId(1), variantId: "heading_card_centered" },
         ],
         meta: {
           source: "user",
@@ -211,25 +249,39 @@ describe("orchestrateArticleStyle", () => {
     });
 
     expect(result.plan.blockOverrides?.[0]?.variantId).toBe(
-      "heading_top_badge_topic",
+      "heading_card_centered",
     );
   });
 
-  it("does not silent fail when rhythm fallback issues are emitted", () => {
+  it("emits rhythm fallback when three card-emphasis paragraphs stack", () => {
     const article = articleWithBlocks([
       {
         id: fixtureBlockId(1),
-        type: "title",
-        content: { text: "标题" },
+        type: "paragraph",
+        content: { text: [{ text: "A" }] },
       },
       {
         id: fixtureBlockId(2),
-        type: "heading",
-        content: { text: "章节", level: 2 },
+        type: "paragraph",
+        content: { text: [{ text: "B" }] },
+      },
+      {
+        id: fixtureBlockId(3),
+        type: "paragraph",
+        content: { text: [{ text: "C" }] },
       },
     ]);
 
-    const result = orchestrateArticleStyle(article, registry);
+    const result = orchestrateArticleStyle(article, fullRegistry, {
+      patch: {
+        meta: { source: "user", validationStatus: "valid" },
+        blockOverrides: [
+          { blockId: fixtureBlockId(1), variantId: "paragraph_soft_card" },
+          { blockId: fixtureBlockId(2), variantId: "paragraph_soft_card" },
+          { blockId: fixtureBlockId(3), variantId: "paragraph_soft_card" },
+        ],
+      },
+    });
 
     expect(result.issues.length).toBeGreaterThan(0);
     expect(result.plan.meta?.validationStatus).toBe("fallback_applied");
@@ -252,8 +304,8 @@ describe("orchestrateArticleStyle", () => {
     const result = orchestrateArticleStyle(article, registry, {
       patch: {
         blockOverrides: [
-          { blockId: fixtureBlockId(1), variantId: "heading_plain_minimal" },
-          { blockId: fixtureBlockId(2), variantId: "heading_plain_minimal" },
+          { blockId: fixtureBlockId(1), variantId: "heading_short_line" },
+          { blockId: fixtureBlockId(2), variantId: "heading_short_line" },
         ],
         meta: { source: "system", validationStatus: "valid" },
       },
@@ -311,6 +363,6 @@ describe("orchestrateArticleStyle", () => {
     expect(
       result.plan.blockOverrides?.find((o) => o.blockId === fixtureBlockId(2))
         ?.variantId,
-    ).toBe("heading_plain_minimal");
+    ).toBe("heading_short_line");
   });
 });

@@ -31,8 +31,9 @@ function attributionHtml(
     {
       margin: "8px 0 0",
       color: typography.mutedColor,
-      fontSize: "14px",
-      lineHeight: "1.6",
+      fontSize: typography.attributionFontSize,
+      lineHeight: typography.lineHeight,
+      fontFamily: typography.fontFamily,
       textAlign: "right",
     },
     `— ${escapeHtml(attribution)}`,
@@ -51,6 +52,7 @@ function quoteBodyHtml(
         color: typography.color,
         fontSize: typography.fontSize,
         lineHeight: typography.lineHeight,
+        fontFamily: typography.fontFamily,
       },
       escapeHtml(content.text),
     ) + attributionHtml(content.attribution, typography)

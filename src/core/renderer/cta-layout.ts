@@ -1,3 +1,4 @@
+import { typographyForMiaopianPreset } from "@/config/miaopian-typography";
 import type { CtaBlock } from "@/core/blocks";
 import type { CopySafety } from "@/core/styles";
 import { resolveThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
@@ -21,16 +22,13 @@ export type CtaTypography = {
   actionFontSize: string;
   lineHeight: string;
   marginBlock: string;
+  fontFamily: string;
 };
 
-const VARIANT_LAYOUT_MAP: Record<string, CtaLayoutKind> = {
-  cta_plain_text: "plain_text",
-  cta_button_like: "button_like",
-  cta_qr_placeholder: "qr_placeholder",
-};
+import { CTA_VARIANT_LAYOUT } from "./expansion-layout-maps";
 
 export function resolveCtaLayout(variantId: string): CtaLayoutKind | undefined {
-  return VARIANT_LAYOUT_MAP[variantId];
+  return CTA_VARIANT_LAYOUT[variantId];
 }
 
 export function resolveCtaTypography(
@@ -39,6 +37,7 @@ export function resolveCtaTypography(
   const palette = resolveThemePaletteTokens(resolved.tokens.theme);
   const bodyFontSize = resolved.tokens.theme.fontSize?.body ?? "16px";
   const variantSpacing = resolved.tokens.variant?.["spacing.block"];
+  const presetTypography = typographyForMiaopianPreset(resolved.presetId);
 
   return {
     color: palette.textDefault,
@@ -46,8 +45,9 @@ export function resolveCtaTypography(
     accentColor: palette.textAccent,
     fontSize: bodyFontSize,
     actionFontSize: "15px",
-    lineHeight: "1.75",
+    lineHeight: presetTypography.bodyLineHeight,
     marginBlock: variantSpacing ?? "18px",
+    fontFamily: presetTypography.fontFamily,
   };
 }
 

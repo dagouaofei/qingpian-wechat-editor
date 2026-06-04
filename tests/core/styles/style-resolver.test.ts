@@ -27,8 +27,8 @@ describe("style resolver", () => {
       const resolved = resolveArticleStyle(article, registry);
 
       expect(resolved.articleId).toBe(article.id);
-      expect(resolved.presetId).toBe("classic-news");
-      expect(resolved.themeId).toBe("default");
+      expect(resolved.presetId).toBe("business");
+      expect(resolved.themeId).toBe("businessBlue");
       expect(resolved.blocks).toHaveLength(1);
     });
 
@@ -65,8 +65,8 @@ describe("style resolver", () => {
       expect(block.blockId).toBe(fixtureBlockId(1));
       expect(block.blockType).toBe("title");
       expect(block.variantId).toBe("title-centered");
-      expect(block.presetId).toBe("classic-news");
-      expect(block.themeId).toBe("default");
+      expect(block.presetId).toBe("business");
+      expect(block.themeId).toBe("businessBlue");
       expect(block.variant.id).toBe("title-centered");
     });
 
@@ -88,8 +88,8 @@ describe("style resolver", () => {
       const article = parseArticle({
         ...minimalArticleFixture,
         styleAssignment: {
-          themeId: "default",
-          presetId: "classic-news",
+          themeId: "businessBlue",
+          presetId: "business",
           blockOverrides: [
             {
               blockId: fixtureBlockId(1),
@@ -115,8 +115,8 @@ describe("style resolver", () => {
       const article = parseArticle({
         ...minimalArticleFixture,
         styleAssignment: {
-          themeId: "default",
-          presetId: "classic-news",
+          themeId: "businessBlue",
+          presetId: "business",
           blockOverrides: [
             {
               blockId: fixtureBlockId(1),
@@ -138,8 +138,8 @@ describe("style resolver", () => {
       const article = parseArticle({
         ...minimalArticleFixture,
         styleAssignment: {
-          themeId: "default",
-          presetId: "classic-news",
+          themeId: "businessBlue",
+          presetId: "business",
           blockOverrides: [
             {
               blockId: fixtureBlockId(1),
@@ -166,8 +166,8 @@ describe("style resolver", () => {
       const article = parseArticle({
         ...minimalArticleFixture,
         styleAssignment: {
-          themeId: "default",
-          presetId: "classic-news",
+          themeId: "businessBlue",
+          presetId: "business",
           blockOverrides: [
             {
               blockId: fixtureBlockId(1),
@@ -196,13 +196,13 @@ describe("style resolver", () => {
       const article = parseArticle({
         ...minimalArticleFixture,
         styleAssignment: {
-          themeId: "default",
+          themeId: "businessBlue",
           presetId: "missing-preset",
         },
       });
 
       const resolved = resolveArticleStyle(article, registry);
-      expect(resolved.presetId).toBe("classic-news");
+      expect(resolved.presetId).toBe("business");
       expect(resolved.issues?.some((i) => i.code === "preset_not_found")).toBe(
         true,
       );
@@ -213,12 +213,12 @@ describe("style resolver", () => {
         ...minimalArticleFixture,
         styleAssignment: {
           themeId: "missing-theme",
-          presetId: "classic-news",
+          presetId: "business",
         },
       });
 
       const resolved = resolveArticleStyle(article, registry);
-      expect(resolved.themeId).toBe("default");
+      expect(resolved.themeId).toBe("businessBlue");
       expect(resolved.issues?.some((i) => i.code === "theme_not_found")).toBe(
         true,
       );
@@ -283,7 +283,7 @@ describe("style resolver", () => {
       const article = parseArticle({
         ...minimalArticleFixture,
         styleAssignment: {
-          themeId: "default",
+          themeId: "businessBlue",
           presetId: "missing-preset",
         },
       });

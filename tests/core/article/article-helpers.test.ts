@@ -31,8 +31,8 @@ function minimalArticle(overrides?: {
       capturedAt: ISO,
     },
     styleAssignment: {
-      themeId: "default",
-      presetId: "classic-news",
+      themeId: "businessBlue",
+      presetId: "business",
     },
     blocks: overrides?.blocks ?? [
       { id: BLOCK_ID, type: "title", content: { text: "文章标题" } },

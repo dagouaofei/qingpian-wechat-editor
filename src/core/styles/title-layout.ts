@@ -84,6 +84,55 @@ export const TITLE_BLOCK_LAYOUT_COMPATIBILITY_TABLE: TitleBlockLayoutCompatibili
       allowedCopySafety: REQUIRED_COPY_SAFETY,
       allowedVariantStatus: ALL_VARIANT_STATUS,
     }),
+    underline: entry("underline", {
+      allowedInCopy: true,
+      riskLevel: "low",
+      allowedCopySafety: REQUIRED_COPY_SAFETY,
+      allowedVariantStatus: ALL_VARIANT_STATUS,
+      notes: "Section underline heading",
+    }),
+    pill: entry("pill", {
+      allowedInCopy: true,
+      riskLevel: "medium",
+      allowedCopySafety: REQUIRED_COPY_SAFETY,
+      allowedVariantStatus: ALL_VARIANT_STATUS,
+      notes: "Pill label heading",
+    }),
+    keynote_bar: entry("keynote_bar", {
+      allowedInCopy: true,
+      riskLevel: "low",
+      allowedCopySafety: REQUIRED_COPY_SAFETY,
+      allowedVariantStatus: ALL_VARIANT_STATUS,
+      notes: "Strong keynote underline heading",
+    }),
+    highlight_marker: entry("highlight_marker", {
+      allowedInCopy: true,
+      riskLevel: "medium",
+      allowedCopySafety: REQUIRED_COPY_SAFETY,
+      allowedVariantStatus: ALL_VARIANT_STATUS,
+      notes: "Highlighter marker band behind heading text",
+    }),
+    short_line: entry("short_line", {
+      allowedInCopy: true,
+      riskLevel: "low",
+      allowedCopySafety: REQUIRED_COPY_SAFETY,
+      allowedVariantStatus: ALL_VARIANT_STATUS,
+      notes: "Bottom accent line heading (miaopian title_with_bottom_line)",
+    }),
+    minimal_number: entry("minimal_number", {
+      allowedInCopy: true,
+      riskLevel: "low",
+      allowedCopySafety: REQUIRED_COPY_SAFETY,
+      allowedVariantStatus: ALL_VARIANT_STATUS,
+      notes: "Index label + divider + heading",
+    }),
+    magazine_offset: entry("magazine_offset", {
+      allowedInCopy: true,
+      riskLevel: "medium",
+      allowedCopySafety: REQUIRED_COPY_SAFETY,
+      allowedVariantStatus: ALL_VARIANT_STATUS,
+      notes: "Offset card heading (miaopian magazine_offset_title)",
+    }),
     card: entry("card", {
       allowedInCopy: true,
       riskLevel: "medium",
@@ -106,9 +155,9 @@ export const TITLE_BLOCK_LAYOUT_COMPATIBILITY_TABLE: TitleBlockLayoutCompatibili
       allowedInCopy: true,
       riskLevel: "medium",
       fallbackLayoutMode: "left_bar",
-      allowedCopySafety: ALL_COPY_SAFETY,
-      allowedVariantStatus: CANDIDATE_ONLY_STATUS,
-      notes: "Candidate-only magazine left bar; fallback to left_bar",
+      allowedCopySafety: REQUIRED_COPY_SAFETY,
+      allowedVariantStatus: ALL_VARIANT_STATUS,
+      notes: "Magazine dual vertical bar heading",
     }),
     overlay: entry("overlay", {
       allowedInCopy: false,
@@ -296,9 +345,7 @@ export function validateTitleBlockLayoutCompatibility(
 
   if (
     variant.status === "release1_required" &&
-    (layoutMode === "overlay" ||
-      layoutMode === "offset_background" ||
-      layoutMode === "magazine_left_bar")
+    (layoutMode === "overlay" || layoutMode === "offset_background")
   ) {
     pushLayoutIssue(issues, {
       severity: "error",

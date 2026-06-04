@@ -26,7 +26,7 @@ function getVariant(id: string): VariantDefinition {
 
 describe("protocol validation", () => {
   it("accepts valid release1_required variant protocol", () => {
-    const variant = getVariant("heading_plain_minimal");
+    const variant = getVariant("heading_short_line");
     const result = validateVariantProtocolCompatibility(variant, {
       registry,
       assetRegistry,
@@ -36,7 +36,7 @@ describe("protocol validation", () => {
   });
 
   it("errors when variant blockType does not match requested blockType", () => {
-    const result = validateBlockVisualProtocol("title", "heading_plain_minimal", {
+    const result = validateBlockVisualProtocol("title", "heading_short_line", {
       registry,
       assetRegistry,
     });
@@ -71,7 +71,7 @@ describe("protocol validation", () => {
   });
 
   it("errors for illegal slot override key", () => {
-    const variant = getVariant("heading_top_badge_topic");
+    const variant = getVariant("heading_card_centered");
     const result = validateSlotOverrideCompatibility(
       { badge: "STEP 1", unknown_slot: "x" },
       variant,
@@ -93,7 +93,7 @@ describe("protocol validation", () => {
   });
 
   it("errors when slot override contains html or style injection", () => {
-    const variant = getVariant("heading_top_badge_topic");
+    const variant = getVariant("heading_card_centered");
     const htmlResult = validateSlotOverrideCompatibility(
       { badge: "<b>STEP</b>" },
       variant,
@@ -114,7 +114,7 @@ describe("protocol validation", () => {
   });
 
   it("errors when assetBindings reference unregistered assetId", () => {
-    const variant = getVariant("heading_top_badge_topic");
+    const variant = getVariant("heading_card_centered");
     const result = validateAssetBindingsCompatibility(
       { badge: "icon-not-registered" },
       variant,
@@ -129,7 +129,7 @@ describe("protocol validation", () => {
   });
 
   it("errors when copy-unsafe asset used on required path", () => {
-    const variant = getVariant("heading_top_badge_topic");
+    const variant = getVariant("heading_card_centered");
     const result = validateAssetBindingsCompatibility(
       { badge: "icon-warning-triangle" },
       variant,
@@ -145,7 +145,7 @@ describe("protocol validation", () => {
 
   it("errors when candidate variant enters default required path", () => {
     const candidateVariant: VariantDefinition = {
-      ...getVariant("heading_plain_minimal"),
+      ...getVariant("heading_short_line"),
       id: "heading_candidate_only",
       status: "release1_candidate",
       compatibility: { copySafety: "balanced" },
@@ -160,7 +160,7 @@ describe("protocol validation", () => {
   });
 
   it("validates titleBlock layout compatibility for heading variants", () => {
-    const variant = getVariant("heading_top_badge_topic");
+    const variant = getVariant("heading_card_centered");
     const result = validateBlockStyleProtocolBundle({
       blockType: "heading",
       variantId: variant.id,
@@ -189,7 +189,7 @@ describe("protocol validation", () => {
   });
 
   it("accepts registered copy-safe asset bindings", () => {
-    const variant = getVariant("heading_top_badge_topic");
+    const variant = getVariant("heading_card_centered");
     const result = validateAssetBindingsCompatibility(
       { badge: "mark-step-badge" },
       variant,

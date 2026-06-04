@@ -1,7 +1,4 @@
-import {
-  LEAD_FIRST_WAVE_VARIANTS,
-  PARAGRAPH_FIRST_WAVE_VARIANTS,
-} from "@/core/styles";
+import { variantIdsForBlockType } from "@/core/styles";
 
 import { renderTextBlockCopyHtml } from "@/core/copy/text-block-copy";
 import { createRendererIssue, partitionRendererIssues } from "./issues";
@@ -16,8 +13,8 @@ import type {
 } from "./types";
 
 export const TEXT_BLOCK_SUPPORTED_VARIANT_IDS = [
-  ...LEAD_FIRST_WAVE_VARIANTS.map((variant) => variant.id),
-  ...PARAGRAPH_FIRST_WAVE_VARIANTS.map((variant) => variant.id),
+  ...variantIdsForBlockType("lead"),
+  ...variantIdsForBlockType("paragraph"),
 ];
 
 export function validateTextBlockRenderContext(

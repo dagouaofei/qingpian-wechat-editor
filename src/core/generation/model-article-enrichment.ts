@@ -20,8 +20,8 @@ export type {
 } from "./model-article-candidate";
 
 const DEFAULT_STYLE_ASSIGNMENT = {
-  themeId: "default",
-  presetId: "classic-news",
+  themeId: "businessBlue",
+  presetId: "business",
 } as const;
 
 const FORBIDDEN_FIELDS = ["html", "css", "className", "style"] as const;
