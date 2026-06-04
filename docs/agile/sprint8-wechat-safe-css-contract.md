@@ -54,7 +54,10 @@
 | S8-STORY-004 | Copy HTML Validator | feature | **Done** |
 | S8-STORY-005 | 多控件 Fixture 与 Fidelity Matrix | feature + docs | **Done** |
 | S8-STORY-006 | 公众号实机粘贴 QA 流程 | docs | **Done**（2026-06-04 · PO paste 19 行 · Drift 001–009） |
-| S8-STORY-007 | Preview / Copy 统一渲染方案审计 | docs | Planned |
+| S8-STORY-006B | 结构化样式调研与 Drift 归类 | docs | **In Review** |
+| S8-STORY-006C | 共性 Copy-safe renderer / fallback 修复 | feature | Planned（**未启动**） |
+| S8-STORY-006D | Matrix 回归与 Paste 复测 | docs + QA | Planned（**未启动**） |
+| S8-STORY-007 | Preview / Copy 统一渲染方案审计 | docs | Planned（**未启动**） |
 | S8-STORY-008 | S8 Contract Audit 与关闭准备 | docs | Planned |
 
 详情见 [`sprint-backlog.md`](sprint-backlog.md) Sprint 8 章节。
@@ -65,7 +68,11 @@
 
 | 文档 | 路径 | Story |
 |------|------|-------|
-| 竞品与开源调研 | [`docs/research/wechat-editor-compatibility-reference.md`](../research/wechat-editor-compatibility-reference.md) | 001 |
+| 竞品与开源调研 | [`docs/research/wechat-editor-compatibility-reference.md`](../research/wechat-editor-compatibility-reference.md) | 001 · 006B |
+| 结构化样式调研 | [`docs/research/wechat-style-structured-research.md`](../research/wechat-style-structured-research.md) | 006B |
+| 已发布文章采集 | [`docs/research/wechat-published-article-style-harvest.md`](../research/wechat-published-article-style-harvest.md) | 006B |
+| Copy-safe Pattern Library | [`docs/architecture/wechat-copy-safe-pattern-library.md`](../architecture/wechat-copy-safe-pattern-library.md) | 006B |
+| Drift Triage | [`docs/agile/paste-qa/drift/s8-drift-triage-2026-06-04.md`](paste-qa/drift/s8-drift-triage-2026-06-04.md) | 006B |
 | Contract v1 | [`docs/architecture/wechat-safe-html-css-contract.md`](../architecture/wechat-safe-html-css-contract.md) · `wechat-safe-contract-v1` | 002 Done · DECISION-089 |
 | 失真诊断 | [`docs/architecture/copy-drift-diagnostics.md`](../architecture/copy-drift-diagnostics.md) | 001 占位 → 006 流程 |
 | Fidelity Matrix | [`docs/agile/paste-qa/wechat-fidelity-matrix.md`](paste-qa/wechat-fidelity-matrix.md) | 005 |

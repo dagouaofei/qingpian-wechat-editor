@@ -15,3 +15,5 @@
 | [009](DRIFT-S8-20260604-009.md) | S8M-LEAD-003 | WARNING | OPEN |
 
 Session：[wechat-paste-qa-session-2026-06-04-s8-story-006.md](../wechat-paste-qa-session-2026-06-04-s8-story-006.md)
+
+**Triage（006B）：** [s8-drift-triage-2026-06-04.md](s8-drift-triage-2026-06-04.md) — A/B/C/D/E 类 + 006C/007/S9 路由

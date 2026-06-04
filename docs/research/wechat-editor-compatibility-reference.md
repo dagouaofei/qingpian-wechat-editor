@@ -2,9 +2,9 @@
 
 > 轻篇公众号排版 · qingpian-wechat-editor
 >
-> **Story：** S8-STORY-001
-> **状态：** 调研框架已建立（S8-STORY-001 Done）· **§4 各对象详细记录与来源链接待后续补充**
-> **关联：** [`wechat-safe-html-css-contract.md`](../architecture/wechat-safe-html-css-contract.md) · **`wechat-safe-contract-v1`**（S8-STORY-002 定稿）· DECISION-088
+> **Story：** S8-STORY-001（框架）· **S8-STORY-006B**（结构化调研 · 2026-06-04）
+> **状态：** §4 种子已填 · **结构化调研见专项文档**（下文 §9）
+> **关联：** [`wechat-safe-html-css-contract.md`](../architecture/wechat-safe-html-css-contract.md) · **`wechat-safe-contract-v1`** · DECISION-088 · DECISION-091
 
 ---
 
@@ -23,11 +23,12 @@
 
 | 对象 | 类型 | 公开入口 / 备注 | 调研状态 |
 |------|------|-----------------|----------|
-| **135 编辑器** | 商业排版工具 | 135editor.com · 样式库 + 复制到微信 | 框架已列 · **待验证** |
-| **壹伴** | 浏览器插件 / 助手 | 同步公众号、素材库 | 框架已列 · **待验证** |
-| **秀米** | 商业排版工具 | 图文排版 · 导出/复制 | 框架已列 · **待验证** |
-| **mdnice** | 开源 / 在线 | Markdown → 微信主题 · GitHub 活跃 | 框架已列 · **待验证** |
-| **Doocs 微信 Markdown** | 开源 | doocs/md · 微信排版生态 | 框架已列 · **待验证** |
+| **135 编辑器** | 商业排版工具 | 135editor.com · 样式库 + 复制到微信 | **006B 已摘要** · [`wechat-style-structured-research.md`](wechat-style-structured-research.md) §5 |
+| **壹伴** | 浏览器插件 / 助手 | 同步公众号、素材库 | **006B 已摘要** · §6 · 不进 R1 主链路 |
+| **秀米** | 商业排版工具 | 图文排版 · 导出/复制 | **006B 已摘要** · §7 |
+| **mdnice** | 开源 / 在线 | Markdown → 微信主题 · GitHub 活跃 | **006B 已摘要** · §8.1 |
+| **Doocs 微信 Markdown** | 开源 | doocs/md · 微信排版生态 | **006B 已摘要** · §8.2 |
+| **已发布公众号文章** | 实机样本 | 10–20 篇模式采集 | **006B** · [`wechat-published-article-style-harvest.md`](wechat-published-article-style-harvest.md) |
 | **markdown-css** | 开源 CSS 集 | 通用 Markdown 样式 · 非微信专用 | 框架已列 · **待验证** |
 | **微信官方编辑器** | 平台 | mp.weixin.qq.com 图文编辑器 | 作为粘贴 **终态** 参照 · **待验证** |
 | **其它** | — | 新媒体管家、易点、壹写作等（按需追加） | 未展开 |
@@ -160,13 +161,26 @@
 ## 7. 下一步
 
 - [x] 将 §6 种子并入 **Contract v1**（S8-STORY-002 · `wechat-safe-contract-v1`）
-- [ ] 逐对象补充 §4 表格（附来源链接）— **详细竞品调研** 在 Matrix / 后续 chore 继续，**非 STORY-002 范围**
-- [ ] 对 registry 中 **2–4 variant / 控件** 做 Fidelity Matrix 行（S8-STORY-005）
-- [ ] 135 + 公众号后台端到端失真样例（S8-STORY-006）
+- [x] Fidelity Matrix + 第一轮 Paste QA（S8-STORY-005 / 006）
+- [x] 结构化调研 + Pattern Library v0.1 + Drift triage（**S8-STORY-006B**）
+- [ ] 按 Pattern 做共性 renderer/fallback（**S8-STORY-006C** · 未启动）
+- [ ] Matrix 回归 + re-paste（**S8-STORY-006D**）
+- [ ] 可选：§4 附更多公开来源链接（chore）
 
 ---
 
-## 8. 参考资料（公开 · 待扩充链接）
+## 8. S8-STORY-006B 结构化调研入口
+
+| 文档 | 用途 |
+|------|------|
+| [`wechat-style-structured-research.md`](wechat-style-structured-research.md) | 135 / 壹伴 / 秀米 / mdnice / Doocs + 共性结论 |
+| [`wechat-published-article-style-harvest.md`](wechat-published-article-style-harvest.md) | 已发布文章 15 条模式采集 |
+| [`wechat-copy-safe-pattern-library.md`](../architecture/wechat-copy-safe-pattern-library.md) | Copy-safe Pattern Library **v0.1** |
+| [`s8-drift-triage-2026-06-04.md`](../agile/paste-qa/drift/s8-drift-triage-2026-06-04.md) | 9 Drift 归类 + 006C/007/S9 路由 |
+
+---
+
+## 9. 参考资料（公开 · 待扩充链接）
 
 - mdnice：https://github.com/mdnice
 - Doocs：https://github.com/doocs

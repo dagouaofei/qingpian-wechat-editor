@@ -469,3 +469,4 @@
 | 2026-06-04 | Sprint 8 | **S8-STORY-005**：35 行 Fidelity Matrix + fixture/validator 流水线 | 测试 / 文档 | S8-STORY-005 |
 | 2026-06-04 | Sprint 8 | **S8-STORY-005 Done**；merge `feature/s8-story-005-fidelity-matrix` → sprint | 测试 / Git | S8-STORY-005 |
 | 2026-06-04 | Sprint 8 | **S8-STORY-006 Done**：Paste QA · PO 19 行 Matrix/Drift 同步 · overlay · Drift 001–009 | 文档 / 测试 | S8-STORY-006 |
+| 2026-06-04 | Sprint 8 | **S8-STORY-006B**：结构化样式调研 · 文章采集 · Pattern Library v0.1 · Drift triage · DECISION-091 | 文档 / 研究 | S8-STORY-006B |

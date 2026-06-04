@@ -10,7 +10,7 @@
 > **Sprint 5：** Generation / Streaming + Release 1 真实 UI 主流程闭环 · **Closed**（2026-06-02；DECISION-069；audit Grade A- · P0=0 · P1=4 · P2=3；`sprint/s5-generation-ui-main-flow` 已 merge 至 `release/1`）
 > **Sprint 6：** Release 1 Visible AI Main Flow · **Closed**（2026-06-02；DECISION-078；audit Grade A- · P0=0 · P1=5 · P2=4；`sprint/s6-visible-ai-main-flow` 已 merge 至 `release/1`）
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
-> **当前 Sprint：** **Sprint 8** — **S8：WeChat-safe CSS Contract & Fidelity Test System**（**In Progress** · **S8-STORY-006 Done** · **S8-STORY-007 未启动**（用户确认）· DECISION-088/089/090）
+> **当前 Sprint：** **Sprint 8** — **S8：WeChat-safe CSS Contract & Fidelity Test System**（**In Progress** · **S8-STORY-006B In Review** · **006C/006D 未启动** · **007 未启动** · DECISION-088/089/090/091）
 > **上一 Sprint：** **Sprint 7** — **Done**（2026-06-03 收口 · merge `release/1`）；**S7-STORY-007B** 承接至 S8 Paste / Fidelity 体系
 > **当前 Chore：** **Visible Progress & Legacy Convergence** — **Done**（DECISION-080 · 用户验收 2026-06-02 · merged @ `a5704d6`）
 > **Sprint 8 分支：** `sprint/s8-wechat-safe-css-contract`（从 `release/1` 切出 · 2026-06-04）
@@ -3396,6 +3396,9 @@ S8-STORY-003 Compatibility Profile 代码实现 — Done（merge sprint · profi
 S8-STORY-004 Copy HTML Validator — **Done**（merge sprint · `validateWechatCopyHtml`）
 S8-STORY-005 多控件 Fixture 与 Fidelity Matrix — **Done**
 S8-STORY-006 公众号实机粘贴 QA 流程 — **Done**
+S8-STORY-006B 结构化样式调研与 Drift 归类 — **In Review**
+S8-STORY-006C 共性 Copy-safe renderer / fallback 修复 — Planned（**未启动**）
+S8-STORY-006D Matrix 回归与 Paste 复测 — Planned（**未启动**）
 S8-STORY-007 Preview / Copy 统一渲染方案审计 — Planned（**未启动**）
 S8-STORY-008 S8 Contract Audit 与关闭准备 — Planned
 ```
@@ -3552,6 +3555,64 @@ S8-STORY-008 S8 Contract Audit 与关闭准备 — Planned
 **审查结论（收口）：** 接受 Matrix/overlay/Drift；DRIFT-003 = observation（非 renderer bug）；HEAD-002 = validator false positive 观察（本轮不改 Contract）；背景/边框/卡片类为后续修复簇；**不改 renderer · 不改 Contract v1 · 不新增 variant · 不启动 007**。
 
 **Paste 汇总（Session 19 行）：** PASS 10 · WARNING 4 · FAIL 5 · Matrix 余 16 行 UNTESTED。
+
+---
+
+## S8-STORY-006B 结构化样式调研与 Drift 归类
+
+**优先级：** P0 · **状态：** **In Review** · **工作分支：** `docs/s8-story-006b-style-research-drift-triage` · **来源：** `sprint/s8-wechat-safe-css-contract`
+
+**用户故事：** 作为架构/产品，我需要在修 renderer 前完成竞品与已发布文章的结构化调研，将 9 个 Drift 归入共性类别，并产出 Copy-safe Pattern Library v0.1。
+
+**目标：**
+
+- [`wechat-style-structured-research.md`](../research/wechat-style-structured-research.md) — 135 / 壹伴 / 秀米 / mdnice / Doocs + 共性结论
+- [`wechat-published-article-style-harvest.md`](../research/wechat-published-article-style-harvest.md) — 15 条模式采集
+- [`wechat-copy-safe-pattern-library.md`](../architecture/wechat-copy-safe-pattern-library.md) — v0.1（8 patterns）
+- [`s8-drift-triage-2026-06-04.md`](paste-qa/drift/s8-drift-triage-2026-06-04.md) — A/B/C/D/E 类 + 006C/007/S9 路由
+- 更新 [`wechat-editor-compatibility-reference.md`](../research/wechat-editor-compatibility-reference.md) §8 入口
+
+**验收标准：**
+
+- [x] AC-1 结构化调研文档完成（6 对象 + 方法 + 共性）
+- [x] AC-2 已发布文章采集 ≥10 条（15 条 HARVEST）
+- [x] AC-3 Pattern Library v0.1（8 pattern · 含 Matrix/Drift/fallback）
+- [x] AC-4 9 Drift triage 完成；明确 006C P0 簇
+- [x] AC-5 明确 007（HEAD-002）与 S9 边界
+- [x] AC-6 不改 renderer · Contract 分级 · Profile · Validator · 不新增 variant
+- [x] AC-7 不虚构 Paste QA · 不启动 006C
+- [ ] AC-8 用户确认 Done · merge → sprint
+- [x] AC-9 lint / test / build PASS
+
+**Out of Scope：** renderer · 006C 实现 · 007 审计实现 · S9 视觉升级
+
+**关联：** DECISION-091 · S8-STORY-006 Drift 001–009
+
+---
+
+## S8-STORY-006C 共性 Copy-safe renderer / fallback 修复
+
+**优先级：** P0 · **状态：** Planned（**未启动**）· **工作分支：** `feature/s8-story-006c-copy-safe-renderer-fixes`（建议）
+
+**目标：** 按 Pattern Library v0.1 与 triage P0 项修复 Copy Renderer（`copy-safe-card` · `copy-safe-left-border` · `copy-safe-title-divider` 等）；**不改 Contract v1 分级**。
+
+**依赖：** S8-STORY-006B Done · 用户明确启动
+
+**验收标准（草案）：**
+
+- [ ] AC-1 A/B/C 类 Drift 对应 variant 在 006D re-paste 改善或可解释降级
+- [ ] AC-2 不新增 variant · probe 不进默认 preset
+- [ ] AC-3 Validator/Matrix 更新与修复一致
+
+---
+
+## S8-STORY-006D Matrix 回归与 Paste 复测
+
+**优先级：** P0 · **状态：** Planned（**未启动**）
+
+**目标：** Matrix 余 16 行 UNTESTED 粘贴 + 19 行回归；更新 paste overlay。
+
+**依赖：** 006C 或用户批准仅文档/部分修复策略
 
 ---
 

@@ -86,6 +86,7 @@
 | DECISION-088 | 2026-06-04 | Sprint 8 重定义：WeChat-safe CSS Contract & Fidelity Test System（S8-STORY-001~008） | 已确认 |
 | DECISION-089 | 2026-06-04 | WeChat-safe Contract v1（`wechat-safe-contract-v1`）为后续 Copy HTML 约束依据 | 已确认 |
 | DECISION-090 | 2026-06-04 | Contract v1 代码化：`src/core/wechat-compat` 为默认 `WECHAT_MP_COMPATIBILITY_PROFILE` | 已确认 |
+| DECISION-091 | 2026-06-04 | Copy-safe Pattern Library v0.1（文档）；Drift triage；006C/007/S9 路由；本轮不改 Contract/Renderer | 已确认 |
 
 ### DECISION-019 详情
 
@@ -810,5 +811,19 @@
   6. **S8-STORY-004（2026-06-04）：** `validateWechatCopyHtml`；`nonTransferable` waiver 须精确 `blockType`+`variantId`
   7. **S8-STORY-006（2026-06-04）：** Paste QA 以公众号后台为终态裁判；Drift 编号 `DRIFT-S8-YYYYMMDD-###`；Matrix paste 仅 PO 回填
 - **关联：** DECISION-089、S8-STORY-003、S8-STORY-004、S8-STORY-005、S8-STORY-006
+- **状态：** 已确认
+
+### DECISION-091 详情（Copy-safe Pattern Library v0.1 · Drift Triage）
+
+- **日期：** 2026-06-04
+- **背景：** S8-STORY-006 第一轮 Paste QA 暴露卡片/边框/左线/标题线等共性 Drift；须在修 renderer 前完成结构化调研与归类。
+- **决策：**
+  1. 新增 [`wechat-copy-safe-pattern-library.md`](../architecture/wechat-copy-safe-pattern-library.md) **v0.1**（8 个 patternId；仅文档规范）
+  2. 新增结构化调研 [`wechat-style-structured-research.md`](../research/wechat-style-structured-research.md) 与文章采集 [`wechat-published-article-style-harvest.md`](../research/wechat-published-article-style-harvest.md)
+  3. Drift 001–009 归入 A/B/C/D/E 类（[`s8-drift-triage-2026-06-04.md`](../agile/paste-qa/drift/s8-drift-triage-2026-06-04.md)）
+  4. **P0 共性修复** 进入 **S8-STORY-006C**（card · left-border · title-divider）；**HEAD-002** 观察进 **007**；**DRIFT-003** 产品澄清前不进 006C
+  5. **本轮不** 修改 renderer · Contract v1 分级 · Profile · Validator · 不新增 variant · **不启动** 006C/007 实现
+  6. 视觉升级与非保真装饰 **延后 S9**
+- **关联：** S8-STORY-006B、S8-STORY-006C（Planned）、S8-STORY-006D（Planned）、DECISION-088/089/090
 - **状态：** 已确认
 
