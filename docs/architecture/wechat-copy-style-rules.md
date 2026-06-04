@@ -3,6 +3,8 @@
 > 轻篇公众号排版 · qingpian-wechat-editor
 >
 > 状态：正式技术方案 · Sprint 1-B 定稿
+>
+> **后续 Copy HTML 约束依据（2026-06-04）：** [`wechat-safe-html-css-contract.md`](wechat-safe-html-css-contract.md) · **`wechat-safe-contract-v1`**（DECISION-089）。本文档 §1.3 WeChatCompatibilityProfile 种子在 **S8-STORY-003** 对齐 Contract v1；属性分级冲突时 **以 Contract v1 为准**。
 
 ---
 

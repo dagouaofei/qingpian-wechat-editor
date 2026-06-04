@@ -10,7 +10,7 @@
 > **Sprint 5：** Generation / Streaming + Release 1 真实 UI 主流程闭环 · **Closed**（2026-06-02；DECISION-069；audit Grade A- · P0=0 · P1=4 · P2=3；`sprint/s5-generation-ui-main-flow` 已 merge 至 `release/1`）
 > **Sprint 6：** Release 1 Visible AI Main Flow · **Closed**（2026-06-02；DECISION-078；audit Grade A- · P0=0 · P1=5 · P2=4；`sprint/s6-visible-ai-main-flow` 已 merge 至 `release/1`）
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
-> **当前 Sprint：** **Sprint 8** — **S8：WeChat-safe CSS Contract & Fidelity Test System**（**In Progress** · **下一步 S8-STORY-002** · DECISION-088）
+> **当前 Sprint：** **Sprint 8** — **S8：WeChat-safe CSS Contract & Fidelity Test System**（**In Progress** · **S8-STORY-002 Done** · 下一步 **S8-STORY-003** · DECISION-088/089）
 > **上一 Sprint：** **Sprint 7** — **Done**（2026-06-03 收口 · merge `release/1`）；**S7-STORY-007B** 承接至 S8 Paste / Fidelity 体系
 > **当前 Chore：** **Visible Progress & Legacy Convergence** — **Done**（DECISION-080 · 用户验收 2026-06-02 · merged @ `a5704d6`）
 > **Sprint 8 分支：** `sprint/s8-wechat-safe-css-contract`（从 `release/1` 切出 · 2026-06-04）
@@ -3370,7 +3370,7 @@ S7-STORY-007 Sprint 7 手动视觉 QA 与关闭准备 — Deferred
 
 > **Sprint 8 名称：** S8：WeChat-safe CSS Contract & Fidelity Test System
 > **Sprint 8 定位：** 建立公众号安全样式 contract、复制一致性验证体系、失真诊断流程、多控件 variant 粘贴测试矩阵；为 **S9 文章视觉升级** 打地基。**不是**视觉美化 Sprint。
-> **Sprint 8 状态：** **In Progress**（2026-06-04 启动 · **S8-STORY-001 Done** · 下一步 **S8-STORY-002**）
+> **Sprint 8 状态：** **In Progress**（**S8-STORY-001~002 Done** · 下一步 **S8-STORY-003**）
 > **Sprint 8 分支：** `sprint/s8-wechat-safe-css-contract`（从 `release/1` 切出）
 > **Sprint 文档：** [`sprint8-wechat-safe-css-contract.md`](sprint8-wechat-safe-css-contract.md)
 > **决策：** DECISION-088（S8 范围重定义 · 取代原 DECISION-070 中 Sprint 8「Copy Fidelity & Release 1 Closure」叙事）
@@ -3391,8 +3391,8 @@ S7-STORY-007 Sprint 7 手动视觉 QA 与关闭准备 — Deferred
 
 ```text
 S8-STORY-001 公开资料与竞品兼容性调研 + Sprint 初始化 — Done（详细调研待后续补充）
-S8-STORY-002 WeChat-safe HTML/CSS Contract 文档 — Planned（下一步）
-S8-STORY-003 Compatibility Profile 代码实现 — Planned
+S8-STORY-002 WeChat-safe HTML/CSS Contract 文档 — Done（`wechat-safe-contract-v1` · DECISION-089）
+S8-STORY-003 Compatibility Profile 代码实现 — Planned（下一步）
 S8-STORY-004 Copy HTML Validator — Planned
 S8-STORY-005 多控件 Fixture 与 Fidelity Matrix — Planned
 S8-STORY-006 公众号实机粘贴 QA 流程 — Planned
@@ -3435,20 +3435,30 @@ S8-STORY-008 S8 Contract Audit 与关闭准备 — Planned
 
 ## S8-STORY-002 WeChat-safe HTML/CSS Contract 文档
 
-**优先级：** P0 · **状态：** Planned · **工作分支：** `docs/s8-story-002-wechat-safe-contract-doc`
+**优先级：** P0 · **状态：** **Done**（2026-06-04 · 用户确认 DECISION-089 · merge → `sprint/s8-wechat-safe-css-contract`）· **工作分支：** `docs/s8-story-002-wechat-safe-contract-doc`
 
 **目标：**
 
-- 建立 HTML 标签白名单
-- 建立 CSS 属性 Green / Yellow / Red 分级
-- 建立 DOM 结构约束、inline style 规范、fallback 原则
-- 将 S8-STORY-001 调研结论并入正式 contract（升级 `wechat-safe-html-css-contract.md`）
+- 将 [`wechat-safe-html-css-contract.md`](../architecture/wechat-safe-html-css-contract.md) 定为 **`wechat-safe-contract-v1`**
+- HTML / CSS Green · Yellow · Red 分级、DOM、inline、waiver/evidence、fallback、修正流程
+- 明确与 STORY-003~007 关系；对齐 `wechat-copy-style-rules.md`（以 Contract v1 为后续依据）
+
+**完成范围：**
+
+- Contract v1 全文定稿（仅文档）
+- `copy-drift-diagnostics.md` / `wechat-editor-compatibility-reference.md` 引用对齐
+- `wechat-copy-style-rules.md` 增加 Contract v1 指向（不大改历史正文）
+- **DECISION-089**（已确认：`border-radius` 全局 Yellow · Clipboard 禁 class / Preview 不限 / Copy 剥离 · gradient waiver 不外推）
 
 **验收标准：**
 
-- [ ] AC-1 contract 文档完整且与 `wechat-copy-style-rules.md` 对齐
-- [ ] AC-2 每项 Yellow/Red 有 fallback 或禁用说明
-- [ ] AC-3 明确与 Copy Validator / Fidelity Matrix 的字段映射
+- [x] AC-1 contract 文档完整；与 `wechat-copy-style-rules.md` 冲突已在 Contract §1.3 说明，以 v1 为准
+- [x] AC-2 每项 Yellow 有 fallback；Red 有禁止说明
+- [x] AC-3 Validator / Matrix 字段映射见 Contract §10
+- [x] AC-4 未改 `src/**` / tests / fixture
+- [x] AC-5 未启动 S8-STORY-003
+
+**关联：** DECISION-089 · S7 `heading_highlight_marker` waiver 种子（§4.4）
 
 ---
 

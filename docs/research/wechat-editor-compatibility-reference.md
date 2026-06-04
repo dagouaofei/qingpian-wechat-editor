@@ -4,7 +4,7 @@
 >
 > **Story：** S8-STORY-001
 > **状态：** 调研框架已建立（S8-STORY-001 Done）· **§4 各对象详细记录与来源链接待后续补充**
-> **关联：** [`wechat-safe-html-css-contract.md`](../architecture/wechat-safe-html-css-contract.md) · DECISION-088
+> **关联：** [`wechat-safe-html-css-contract.md`](../architecture/wechat-safe-html-css-contract.md) · **`wechat-safe-contract-v1`**（S8-STORY-002 定稿）· DECISION-088
 
 ---
 
@@ -157,12 +157,12 @@
 
 ---
 
-## 7. 下一步（S8-STORY-002+）
+## 7. 下一步
 
-- [ ] 逐对象补充 §4 表格（附来源链接与截图索引，放 `docs/agile/paste-qa/`）
-- [ ] 将 §6 种子合并进 contract 正式版（002）
-- [ ] 对 registry 中 **2–4 variant / 控件** 抽样做首次 Matrix 行（005）
-- [ ] 135 + 公众号后台各至少 1 条端到端失真样例写入 `copy-drift-diagnostics.md` 模板（006）
+- [x] 将 §6 种子并入 **Contract v1**（S8-STORY-002 · `wechat-safe-contract-v1`）
+- [ ] 逐对象补充 §4 表格（附来源链接）— **详细竞品调研** 在 Matrix / 后续 chore 继续，**非 STORY-002 范围**
+- [ ] 对 registry 中 **2–4 variant / 控件** 做 Fidelity Matrix 行（S8-STORY-005）
+- [ ] 135 + 公众号后台端到端失真样例（S8-STORY-006）
 
 ---
 

@@ -63,7 +63,7 @@
 | **Sprint 7** | **Done**（2026-06-03 · S7-STORY-008 关闭 · merge `release/1`） |
 | **Sprint 8** | **In Progress**（2026-06-04 · S8-STORY-001 · DECISION-088） |
 | **Release 1 主干** | `release/1` |
-| **下一步** | **S8-STORY-002** WeChat-safe HTML/CSS Contract 文档定稿 |
+| **下一步** | **S8-STORY-003** Compatibility Profile（002 In Review · Contract v1） |
 
 ---
 
@@ -589,7 +589,7 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 **Stories：** S8-STORY-001 ~ S8-STORY-008 — 见 `sprint-backlog.md`
 
-**当前：** S8-STORY-002 · **001 Done**（调研框架完成 · §4 详表待补）
+**当前：** **S8-STORY-003**（Profile）· **002 Done**（DECISION-089）
 
 **不做：**
 

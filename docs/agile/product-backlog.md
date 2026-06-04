@@ -95,7 +95,7 @@
 | TECH-ARCH-025 | Real Model Provider Integration | EPIC-002 / EPIC-007 | **Sprint 5 Done**：Volcengine / Doubao provider + dev smoke PASSED；**Sprint 6 主流程必须走真实 AI**，mock-only 不作为 Sprint 6 验收 |
 | TECH-ARCH-026 | Release 1 Visible Main Flow Acceptance | EPIC-001 / EPIC-005 / EPIC-007 | **Sprint 6 Done**（DECISION-078）：`/` → `/preview` → 风格 / 配色 → 复制 · PB-R1-01~08 |
 
-状态：文档契约 S1-STORY-021~028；代码 Sprint 2 + 3-A/B/C + 4-A/B + 5 + **6** + **7** **Done** 并 merge `release/1`。**Release 1 未关闭**。Release 1 尾声按 **方案 B（DECISION-070）** 重排；**Sprint 8** 已按 **DECISION-088** 启动为 **WeChat-safe CSS Contract & Fidelity Test System**（**In Progress** · **S8-STORY-001 Done** · 下一步 **S8-STORY-002**）。详见 [`release-plan.md`](release-plan.md) · [`sprint8-wechat-safe-css-contract.md`](sprint8-wechat-safe-css-contract.md)。
+状态：文档契约 S1-STORY-021~028；代码 Sprint 2 + 3-A/B/C + 4-A/B + 5 + **6** + **7** **Done** 并 merge `release/1`。**Release 1 未关闭**。Release 1 尾声按 **方案 B（DECISION-070）** 重排；**Sprint 8**（**In Progress** · **Contract v1** `wechat-safe-contract-v1` · **002 Done** · 下一步 **STORY-003**）。详见 [`release-plan.md`](release-plan.md) · [`sprint8-wechat-safe-css-contract.md`](sprint8-wechat-safe-css-contract.md)。
 
 ---
 
@@ -144,7 +144,7 @@
 |--------|------|-------|--------|
 | **Sprint 6** | Release 1 Visible AI Main Flow | S6-STORY-001 ~ S6-STORY-006 | **P0 · Closed**（DECISION-078） |
 | **Sprint 7** | WeChat Article Experience & Style Richness | S7-STORY-001 ~ S7-STORY-008 | **P0 · Done**（2026-06-03 · merge `release/1`） |
-| **Sprint 8** | WeChat-safe CSS Contract & Fidelity Test System | S8-STORY-001 ~ S8-STORY-008 | **P0 · In Progress**（DECISION-088 · **001 Done** · 002 下一步） |
+| **Sprint 8** | WeChat-safe CSS Contract & Fidelity Test System | S8-STORY-001 ~ S8-STORY-008 | **P0 · In Progress**（DECISION-088/089 · **001~002 Done**） |
 
 Story 详情见 [`sprint-backlog.md`](sprint-backlog.md)。**不要把 Sprint 7/8 Story 放入当前执行中。**
 

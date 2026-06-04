@@ -49,7 +49,7 @@
 | Story | 名称 | 类型 | 状态 |
 |-------|------|------|------|
 | S8-STORY-001 | 公开资料与竞品兼容性调研 + Sprint 初始化 | docs | **Done**（详细调研待后续补充 · 2026-06-04） |
-| S8-STORY-002 | WeChat-safe HTML/CSS Contract 文档 | docs | Planned |
+| S8-STORY-002 | WeChat-safe HTML/CSS Contract 文档 | docs | **Done**（`wechat-safe-contract-v1` · DECISION-089） |
 | S8-STORY-003 | Compatibility Profile 代码实现 | feature | Planned |
 | S8-STORY-004 | Copy HTML Validator | feature | Planned |
 | S8-STORY-005 | 多控件 Fixture 与 Fidelity Matrix | feature + docs | Planned |
@@ -66,7 +66,7 @@
 | 文档 | 路径 | Story |
 |------|------|-------|
 | 竞品与开源调研 | [`docs/research/wechat-editor-compatibility-reference.md`](../research/wechat-editor-compatibility-reference.md) | 001 |
-| Contract 草案 | [`docs/architecture/wechat-safe-html-css-contract.md`](../architecture/wechat-safe-html-css-contract.md) | 001 占位 → 002 定稿 |
+| Contract v1 | [`docs/architecture/wechat-safe-html-css-contract.md`](../architecture/wechat-safe-html-css-contract.md) · `wechat-safe-contract-v1` | 002 Done · DECISION-089 |
 | 失真诊断 | [`docs/architecture/copy-drift-diagnostics.md`](../architecture/copy-drift-diagnostics.md) | 001 占位 → 006 流程 |
 | Fidelity Matrix | [`docs/agile/paste-qa/wechat-fidelity-matrix.md`](paste-qa/wechat-fidelity-matrix.md) | 005 |
 | 历史复制规则 | [`docs/architecture/wechat-copy-style-rules.md`](../architecture/wechat-copy-style-rules.md) | 对齐 002 |
@@ -88,7 +88,8 @@
 release/1
   └── sprint/s8-wechat-safe-css-contract
         ├── docs/s8-story-001-compatibility-research  ← Done（已 merge）
-        ├── docs/s8-story-002-wechat-safe-contract-doc  ← 下一步
+        ├── docs/s8-story-002-wechat-safe-contract-doc  ← Done（已 merge）
+        ├── feature/s8-story-003-compatibility-profile  ← 下一步
         ├── feature/s8-story-003-compatibility-profile
         └── …
 ```

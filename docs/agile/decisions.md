@@ -84,6 +84,7 @@
 | DECISION-086 | 2026-06-02 | R1 默认 preset  canonical=`business`；`classic-news` 仅 legacy alias；golden/生成/fixture 对齐 | 已确认 |
 | DECISION-087 | 2026-06-03 | Heading 仅保留 8 款发布池；审美优先；废弃 5 款旧 heading ID | 已确认 |
 | DECISION-088 | 2026-06-04 | Sprint 8 重定义：WeChat-safe CSS Contract & Fidelity Test System（S8-STORY-001~008） | 已确认 |
+| DECISION-089 | 2026-06-04 | WeChat-safe Contract v1（`wechat-safe-contract-v1`）为后续 Copy HTML 约束依据 | 已确认 |
 
 ### DECISION-019 详情
 
@@ -775,5 +776,25 @@
 - **Sprint 8 不做：** 大规模视觉美化、UI 改版、streaming、配图/小程序、单 heading 反复修、复杂样式进默认池、仅用自动化替代实机粘贴 QA
 - **影响范围：** `sprint8-wechat-safe-css-contract.md`、`release-plan.md`、`product-backlog.md`、`sprint-backlog.md`、`docs/architecture/`、`docs/research/`
 - **关联：** DECISION-070、DECISION-006、DECISION-027、S7-STORY-007B
-- **状态：** 已确认 · Sprint 8 **In Progress**（**S8-STORY-001 Done** · 详表待补 · 下一步 **002**）
+- **状态：** 已确认 · Sprint 8 **In Progress**（**S8-STORY-001 Done** · **002 In Review**）
+
+### DECISION-089 详情（WeChat-safe Contract v1）
+
+- **日期：** 2026-06-04
+- **背景：**
+  - S8-STORY-001 完成调研框架与 contract 草案（`contract-draft-0.1`）
+  - 后续 Profile、Validator、Matrix 需要 **单一、可版本化** 的 HTML/CSS/DOM 约束，避免与 Sprint 1-B `wechat-copy-style-rules.md` 种子漂移
+- **决策：**
+  1. 定稿 [`wechat-safe-html-css-contract.md`](../architecture/wechat-safe-html-css-contract.md) 为 **`wechat-safe-contract-v1`**
+  2. **Green / Yellow / Red** 三分法适用于 **HTML 标签** 与 **CSS 属性（含值级约束）**
+  3. **Yellow** 必须绑定 **waiver + evidence**；无 evidence 时 Validator **warning**（S8-STORY-004）
+  4. **Red** 不得进入 Copy HTML；Validator **fail**
+  5. `border-radius`、`linear-gradient`、`box-decoration-break` 等 **非全局 Green**；`linear-gradient` 仅 per-variant evidence（如 `heading_highlight_marker` / DECISION-087）
+  6. **后续工程以 Contract v1 为准**；`wechat-copy-style-rules.md` §1.3 Profile 在 **S8-STORY-003** 对齐，冲突以 Contract v1 为准
+  7. Contract 调整须经 **Matrix / Drift / Decision** 闭环（Contract §9）
+  8. **用户确认（2026-06-04）：** `border-radius` 维持全局 **Yellow**；**Clipboard** 禁止 `class`，Preview/dev/test DOM 不限，**Copy Renderer 出口须剥离 class**；`heading_highlight_marker` 的 `linear-gradient` waiver **不得外推**至其它 variant
+- **影响范围：** `wechat-safe-html-css-contract.md`、`copy-drift-diagnostics.md`、`wechat-copy-style-rules.md`（引用段）、`sprint-backlog.md`
+- **关联：** DECISION-088、DECISION-087、S8-STORY-002~007
+- **状态：** **已确认**（2026-06-04 · 用户确认：`border-radius` 全局 Yellow · Clipboard 禁止 class（Preview/dev/test 除外 · Copy 须剥离）· `heading_highlight_marker` gradient waiver 不得外推）
+
 

@@ -2,8 +2,8 @@
 
 > 轻篇公众号排版 · qingpian-wechat-editor
 >
-> **状态：** 草案 · S8-STORY-001 占位 · **S8-STORY-006** 流程定稿
-> **关联：** [`wechat-safe-html-css-contract.md`](wechat-safe-html-css-contract.md) · Fidelity Matrix · DECISION-088
+> **状态：** 流程草案 · **Contract 依据：** [`wechat-safe-html-css-contract.md`](wechat-safe-html-css-contract.md) **`wechat-safe-contract-v1`** · **S8-STORY-006** 流程定稿
+> **关联：** Fidelity Matrix · DECISION-088 · DECISION-089
 
 ---
 
@@ -54,7 +54,9 @@
 | **增加 fallback** | Renderer 可在输出前自动降级 |
 | **移出默认 preset** | 保留 variant 但不进入 `release1_required` / 默认池 |
 
-每次修正须更新：contract 文档 · Profile · Matrix 行 ·（若分级变化）`decisions.md`。
+每次修正须更新：**Contract v1**（`wechat-safe-contract-v1`）· Compatibility Profile · Validator · Matrix 行 ·（若分级变化）`decisions.md` · `changelog.md`。
+
+完整步骤见 Contract v1 §9。
 
 ---
 
@@ -71,7 +73,9 @@
 - **Block type：**
 - **Variant ID：**
 - **粘贴目标：** 135 / 微信公众号后台 / 其它
+- **Contract 版本：** `wechat-safe-contract-v1`
 - **Matrix 行 ID：**（S8-STORY-005 后填写）
+- **evidenceId / waiver：**（若涉及 Yellow 能力）
 
 #### 现象
 （一句话 + 截图路径 optional）
@@ -131,3 +135,4 @@ PO 实机粘贴 → 填 DRIFT 记录 → 更新 Matrix status
 | 日期 | 变更 | Story |
 |------|------|-------|
 | 2026-06-04 | 创建草案 | S8-STORY-001 |
+| 2026-06-04 | 对齐 Contract v1 术语与 §9 修正流程 | S8-STORY-002 |
