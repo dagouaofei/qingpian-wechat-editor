@@ -462,3 +462,5 @@
 | 2026-06-04 | Sprint 8 | **S8-STORY-001 Done**（用户确认 DECISION-088）；调研详表待补；merge → `sprint/s8-wechat-safe-css-contract` | 敏捷 / Git | S8-STORY-001, DECISION-088 |
 | 2026-06-04 | Sprint 8 | **Contract v1 定稿**（`wechat-safe-contract-v1`）；HTML/CSS 分级 · waiver · fallback · DOM/inline；DECISION-089 待确认 | 架构 / 敏捷 | S8-STORY-002, DECISION-089 |
 | 2026-06-04 | Sprint 8 | **DECISION-089 已确认**；**S8-STORY-002 Done**；Clipboard 禁 class（Copy 剥离）· gradient waiver 不外推；merge → sprint | 架构 / 敏捷 / Git | S8-STORY-002, DECISION-089 |
+| 2026-06-04 | Sprint 8 | **S8-STORY-003**：`src/core/wechat-compat` · Contract v1 profile + waivers；DECISION-090 | 代码 / 架构 | S8-STORY-003, DECISION-090 |
+| 2026-06-04 | Sprint 8 | **S8-STORY-003 Done**：`profileId`=`wechat-mp-editor-v1` · `contractVersionId`=`wechat-safe-contract-v1`；merge → sprint | 代码 / Git | S8-STORY-003 |

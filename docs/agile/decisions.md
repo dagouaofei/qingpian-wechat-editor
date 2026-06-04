@@ -85,6 +85,7 @@
 | DECISION-087 | 2026-06-03 | Heading 仅保留 8 款发布池；审美优先；废弃 5 款旧 heading ID | 已确认 |
 | DECISION-088 | 2026-06-04 | Sprint 8 重定义：WeChat-safe CSS Contract & Fidelity Test System（S8-STORY-001~008） | 已确认 |
 | DECISION-089 | 2026-06-04 | WeChat-safe Contract v1（`wechat-safe-contract-v1`）为后续 Copy HTML 约束依据 | 已确认 |
+| DECISION-090 | 2026-06-04 | Contract v1 代码化：`src/core/wechat-compat` 为默认 `WECHAT_MP_COMPATIBILITY_PROFILE` | 已确认 |
 
 ### DECISION-019 详情
 
@@ -797,4 +798,15 @@
 - **关联：** DECISION-088、DECISION-087、S8-STORY-002~007
 - **状态：** **已确认**（2026-06-04 · 用户确认：`border-radius` 全局 Yellow · Clipboard 禁止 class（Preview/dev/test 除外 · Copy 须剥离）· `heading_highlight_marker` gradient waiver 不得外推）
 
+### DECISION-090 详情（Compatibility Profile 代码 · Contract v1）
+
+- **日期：** 2026-06-04
+- **决策：**
+  1. 新增 `src/core/wechat-compat/` 实现 Contract v1（`WECHAT_SAFE_CONTRACT_VERSION_ID`）
+  2. `WECHAT_MP_COMPATIBILITY_PROFILE` 默认 = `WECHAT_SAFE_CONTRACT_V1_PROFILE`
+  3. CSS 映射：green→allowed · yellow→risky · red→forbidden；`display:flex` 等升为 forbidden
+  4. `WECHAT_CONTRACT_V1_YELLOW_WAIVERS` 含 `heading_highlight_marker`（`nonTransferable: true`）
+  5. `validateCss*Compatibility` 支持 `waiverContext`；未实现 HTML Validator（STORY-004）
+- **关联：** DECISION-089、S8-STORY-003
+- **状态：** 已确认
 

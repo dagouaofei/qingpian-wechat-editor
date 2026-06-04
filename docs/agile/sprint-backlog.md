@@ -10,7 +10,7 @@
 > **Sprint 5：** Generation / Streaming + Release 1 真实 UI 主流程闭环 · **Closed**（2026-06-02；DECISION-069；audit Grade A- · P0=0 · P1=4 · P2=3；`sprint/s5-generation-ui-main-flow` 已 merge 至 `release/1`）
 > **Sprint 6：** Release 1 Visible AI Main Flow · **Closed**（2026-06-02；DECISION-078；audit Grade A- · P0=0 · P1=5 · P2=4；`sprint/s6-visible-ai-main-flow` 已 merge 至 `release/1`）
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
-> **当前 Sprint：** **Sprint 8** — **S8：WeChat-safe CSS Contract & Fidelity Test System**（**In Progress** · **S8-STORY-002 Done** · 下一步 **S8-STORY-003** · DECISION-088/089）
+> **当前 Sprint：** **Sprint 8** — **S8：WeChat-safe CSS Contract & Fidelity Test System**（**In Progress** · **S8-STORY-003 Done** · 下一步 **S8-STORY-004** · DECISION-088/089/090）
 > **上一 Sprint：** **Sprint 7** — **Done**（2026-06-03 收口 · merge `release/1`）；**S7-STORY-007B** 承接至 S8 Paste / Fidelity 体系
 > **当前 Chore：** **Visible Progress & Legacy Convergence** — **Done**（DECISION-080 · 用户验收 2026-06-02 · merged @ `a5704d6`）
 > **Sprint 8 分支：** `sprint/s8-wechat-safe-css-contract`（从 `release/1` 切出 · 2026-06-04）
@@ -3392,8 +3392,8 @@ S7-STORY-007 Sprint 7 手动视觉 QA 与关闭准备 — Deferred
 ```text
 S8-STORY-001 公开资料与竞品兼容性调研 + Sprint 初始化 — Done（详细调研待后续补充）
 S8-STORY-002 WeChat-safe HTML/CSS Contract 文档 — Done（`wechat-safe-contract-v1` · DECISION-089）
-S8-STORY-003 Compatibility Profile 代码实现 — Planned（下一步）
-S8-STORY-004 Copy HTML Validator — Planned
+S8-STORY-003 Compatibility Profile 代码实现 — Done（merge sprint · profileId `wechat-mp-editor-v1`）
+S8-STORY-004 Copy HTML Validator — Planned（下一步）
 S8-STORY-005 多控件 Fixture 与 Fidelity Matrix — Planned
 S8-STORY-006 公众号实机粘贴 QA 流程 — Planned
 S8-STORY-007 Preview / Copy 统一渲染方案审计 — Planned
@@ -3464,19 +3464,23 @@ S8-STORY-008 S8 Contract Audit 与关闭准备 — Planned
 
 ## S8-STORY-003 Compatibility Profile 代码实现
 
-**优先级：** P0 · **状态：** Planned · **工作分支：** `feature/s8-story-003-compatibility-profile`
+**优先级：** P0 · **状态：** **Done**（2026-06-04 · 审查通过 · merge → `sprint/s8-wechat-safe-css-contract`）· **工作分支：** `feature/s8-story-003-compatibility-profile`
 
 **目标：**
 
-- 将 contract 转成代码可校验规则（machine-readable profile）
-- 建立 safe / risky / forbidden CSS 属性表
-- 支持 block / variant 级豁免机制
+- 将 `wechat-safe-contract-v1` 代码化为 `src/core/wechat-compat/`
+- `WECHAT_MP_COMPATIBILITY_PROFILE` 默认指向 Contract v1
+- Yellow waivers（`heading_highlight_marker`）+ HTML/CSS 分级 + fallback 策略
 
 **验收标准：**
 
-- [ ] AC-1 profile 可被 Copy Renderer / Validator 引用
-- [ ] AC-2 与现有 `WeChatCompatibilityProfile` 契约一致或显式迁移说明
-- [ ] AC-3 豁免须可审计（variantId + reason）
+- [x] AC-1 profile 可被 `@/core/wechat-compat` 与 `@/core/styles` 引用
+- [x] AC-2 Zod 校验 base profile；扩展字段 `contractVersionId` / `dom` / `yellowWaivers`；迁移说明见 profile notes
+- [x] AC-3 豁免可审计（`evidenceId` · `variantId` · `nonTransferable`）
+- [x] AC-4 未实现 Validator / 未改 renderer 输出
+- [x] AC-5 unit tests 823 pass
+
+**关联：** DECISION-090 · `tests/core/wechat-compat/contract-v1-profile.test.ts`
 
 ---
 

@@ -77,7 +77,7 @@ describe("style validation policy", () => {
         ...baseVariant,
         compatibility: {
           copySafety: "balanced",
-          wechat: { riskyCssProperties: ["display: flex"] },
+          wechat: { riskyCssProperties: ["border-radius: 8px"] },
         },
       });
       const result = validateVariantForWechatCopy(variant);

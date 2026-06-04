@@ -1,4 +1,11 @@
-import { STYLE_SCHEMA_VERSION } from "./tokens";
+import {
+  WECHAT_CONTRACT_V1_FORBIDDEN_DECLARATION_PATTERNS,
+  WECHAT_SAFE_CONTRACT_V1_PROFILE,
+  isComplexFlexDeclaration,
+  isYellowCapabilityWaived,
+  type CssClassificationContext,
+} from "@/core/wechat-compat";
+
 import { weChatCompatibilityProfileSchema } from "./schemas";
 import type {
   CompatibilityIssue,
@@ -9,42 +16,14 @@ import type {
   WeChatCompatibilityProfile,
 } from "./types";
 
-const FORBIDDEN_DECLARATION_PATTERNS: Array<{
-  code: string;
-  pattern: RegExp;
-  message: string;
-}> = [
-  {
-    code: "css_variable",
-    pattern: /var\s*\(\s*--/i,
-    message: "CSS variables (var(--*)) are forbidden in WeChat copy HTML",
-  },
-  {
-    code: "selector_rule",
-    pattern: /(^|[\s,{])(\.[a-zA-Z_][\w-]*|#[a-zA-Z_][\w-]*)\s*\{/,
-    message: "CSS selector rules are forbidden in WeChat copy HTML",
-  },
-  {
-    code: "pseudo_selector",
-    pattern: /::?(before|after|hover|focus|active|visited)\b/i,
-    message: "Pseudo selectors are forbidden in WeChat copy HTML",
-  },
-  {
-    code: "media_query",
-    pattern: /@media\b/i,
-    message: "@media queries are forbidden in WeChat copy HTML",
-  },
-  {
-    code: "font_face",
-    pattern: /@font-face\b/i,
-    message: "External fonts (@font-face) are forbidden in WeChat copy HTML",
-  },
-  {
-    code: "tailwind_class_dependency",
-    pattern: /\b(className|class)\s*=/i,
-    message: "Tailwind class / className dependencies are forbidden in copy HTML",
-  },
-];
+export type CssCompatibilityValidateOptions = {
+  profile?: WeChatCompatibilityProfile;
+  /** Variant/block context for Contract v1 Yellow waivers */
+  waiverContext?: CssClassificationContext;
+};
+
+const FORBIDDEN_DECLARATION_PATTERNS =
+  WECHAT_CONTRACT_V1_FORBIDDEN_DECLARATION_PATTERNS;
 
 function normalizeProperty(property: string): string {
   return property.trim().toLowerCase();
@@ -129,78 +108,66 @@ function scanForbiddenDeclarationPatterns(
   return issues;
 }
 
-export const WECHAT_MP_COMPATIBILITY_PROFILE: WeChatCompatibilityProfile = {
-  id: "wechat-mp-editor-v1",
-  name: "WeChat MP Editor Release 1",
-  schemaVersion: STYLE_SCHEMA_VERSION,
-  target: "wechat_mp_editor",
-  cssRules: {
-    allowed: [
-      "font-family",
-      "font-size",
-      "line-height",
-      "font-weight",
-      "color",
-      "background",
-      "background-color",
-      "margin",
-      "margin-top",
-      "margin-right",
-      "margin-bottom",
-      "margin-left",
-      "padding",
-      "padding-top",
-      "padding-right",
-      "padding-bottom",
-      "padding-left",
-      "border",
-      "border-top",
-      "border-right",
-      "border-bottom",
-      "border-left",
-      "border-radius",
-      "text-align",
-      "letter-spacing",
-      "white-space",
-      "word-break",
-    ],
-    risky: [
-      "display:flex",
-      "display:grid",
-      "position:relative",
-      "box-shadow",
-      "overflow",
-      "min-height",
-      "max-width",
-      "width",
-      "height",
-    ],
-    forbidden: [
-      "position:absolute",
-      "position:fixed",
-      "animation",
-      "transition",
-      "transform",
-      "hover",
-    ],
-  },
-  fallbackPolicy: {
-    onForbiddenCss: "reject",
-    onRiskyCss: "warn",
-    previewOnlyAllowed: false,
-    notes:
-      "Release 1 default: forbidden CSS rejected; risky CSS warns; preview_only blocked from copy path",
-  },
-  notes:
-    "Release 1 WeChat MP editor compatibility profile. Does not replace manual paste QA.",
-};
+/**
+ * Default WeChat compatibility profile — profileId `wechat-mp-editor-v1`, contract `wechat-safe-contract-v1`.
+ * @see docs/architecture/wechat-safe-html-css-contract.md
+ * @see src/core/wechat-compat/wechat-compat-profile.ts
+ */
+export const WECHAT_MP_COMPATIBILITY_PROFILE: WeChatCompatibilityProfile =
+  WECHAT_SAFE_CONTRACT_V1_PROFILE;
 
-weChatCompatibilityProfileSchema.parse(WECHAT_MP_COMPATIBILITY_PROFILE);
+export {
+  WECHAT_SAFE_CONTRACT_V1_PROFILE,
+  WECHAT_SAFE_CONTRACT_VERSION_ID,
+} from "@/core/wechat-compat";
+
+export function getWeChatSafeContractProfile() {
+  return WECHAT_SAFE_CONTRACT_V1_PROFILE;
+}
+
+function applyWaiverToRiskyResult(
+  declarationOrCapability: string,
+  result: CssCompatibilityResult,
+  context?: CssClassificationContext,
+): CssCompatibilityResult {
+  if (result.level !== "risky" || !context?.variantId) {
+    return result;
+  }
+  if (!isYellowCapabilityWaived(declarationOrCapability, context)) {
+    return result;
+  }
+  return {
+    ...result,
+    ok: true,
+    issues: [
+      ...result.issues,
+      buildIssue(
+        "css_yellow_waiver_applied",
+        `Yellow capability waived for variant ${context.variantId}`,
+        "risky",
+        "warning",
+        result.property,
+        result.value,
+      ),
+    ],
+  };
+}
 
 export function validateCssPropertyCompatibility(
   property: string,
-  profile: WeChatCompatibilityProfile = WECHAT_MP_COMPATIBILITY_PROFILE,
+  profileOrOptions:
+    | WeChatCompatibilityProfile
+    | CssCompatibilityValidateOptions = WECHAT_MP_COMPATIBILITY_PROFILE,
+  legacyContext?: CssClassificationContext,
 ): CssCompatibilityResult {
+  const profile =
+    "cssRules" in profileOrOptions
+      ? profileOrOptions
+      : (profileOrOptions.profile ?? WECHAT_MP_COMPATIBILITY_PROFILE);
+  const waiverContext =
+    "cssRules" in profileOrOptions
+      ? legacyContext
+      : profileOrOptions.waiverContext;
   const normalizedProperty = normalizeProperty(property);
   const level = classifyPropertyAgainstProfile(profile, normalizedProperty);
 
@@ -209,15 +176,19 @@ export function validateCssPropertyCompatibility(
   }
 
   if (level === "risky") {
-    return cssResult("risky", [
-      buildIssue(
-        "css_property_risky",
-        `CSS property "${normalizedProperty}" is risky for WeChat copy`,
-        "risky",
-        "warning",
-        normalizedProperty,
-      ),
-    ], normalizedProperty);
+    return applyWaiverToRiskyResult(
+      normalizedProperty,
+      cssResult("risky", [
+        buildIssue(
+          "css_property_risky",
+          `CSS property "${normalizedProperty}" is risky (Contract Yellow) for WeChat copy`,
+          "risky",
+          "warning",
+          normalizedProperty,
+        ),
+      ], normalizedProperty),
+      waiverContext,
+    );
   }
 
   if (level === "forbidden") {
@@ -245,8 +216,19 @@ export function validateCssPropertyCompatibility(
 
 export function validateCssDeclarationCompatibility(
   declaration: string,
-  profile: WeChatCompatibilityProfile = WECHAT_MP_COMPATIBILITY_PROFILE,
+  profileOrOptions:
+    | WeChatCompatibilityProfile
+    | CssCompatibilityValidateOptions = WECHAT_MP_COMPATIBILITY_PROFILE,
+  legacyContext?: CssClassificationContext,
 ): CssCompatibilityResult {
+  const profile =
+    "cssRules" in profileOrOptions
+      ? profileOrOptions
+      : (profileOrOptions.profile ?? WECHAT_MP_COMPATIBILITY_PROFILE);
+  const waiverContext =
+    "cssRules" in profileOrOptions
+      ? legacyContext
+      : profileOrOptions.waiverContext;
   const trimmed = declaration.trim();
   if (!trimmed) {
     return cssResult("unknown", [
@@ -278,7 +260,25 @@ export function validateCssDeclarationCompatibility(
 
   const property = trimmed.slice(0, colonIndex);
   const value = trimmed.slice(colonIndex + 1).replace(/;$/, "").trim();
-  const propertyResult = validateCssPropertyCompatibility(property, profile);
+
+  if (isComplexFlexDeclaration(property, value)) {
+    return cssResult("forbidden", [
+      buildIssue(
+        "css_complex_flex_forbidden",
+        "Complex flex layout is forbidden in WeChat copy (Contract Red)",
+        "forbidden",
+        "error",
+        normalizeProperty(property),
+        value,
+      ),
+    ], normalizeProperty(property), value);
+  }
+
+  const propertyResult = validateCssPropertyCompatibility(
+    property,
+    profile,
+    waiverContext,
+  );
 
   const pvLevel = classifyPropertyAgainstProfile(
     profile,
@@ -300,16 +300,24 @@ export function validateCssDeclarationCompatibility(
   }
 
   if (pvLevel === "risky") {
-    return cssResult("risky", [
-      buildIssue(
-        "css_declaration_risky",
-        `CSS declaration "${propertyValueKey(property, value)}" is risky for WeChat copy`,
-        "risky",
-        "warning",
-        normalizeProperty(property),
-        value,
-      ),
-    ], normalizeProperty(property), value);
+    const capabilityKey =
+      value.includes("linear-gradient") || value.includes("gradient")
+        ? "linear-gradient"
+        : propertyValueKey(property, value);
+    return applyWaiverToRiskyResult(
+      capabilityKey,
+      cssResult("risky", [
+        buildIssue(
+          "css_declaration_risky",
+          `CSS declaration "${propertyValueKey(property, value)}" is risky (Contract Yellow) for WeChat copy`,
+          "risky",
+          "warning",
+          normalizeProperty(property),
+          value,
+        ),
+      ], normalizeProperty(property), value),
+      waiverContext,
+    );
   }
 
   if (propertyResult.level === "unknown") {

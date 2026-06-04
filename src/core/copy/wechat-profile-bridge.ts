@@ -1,11 +1,12 @@
 /**
  * wechat-copy-style-rules.md 文档字段 ↔ 代码 WeChatCompatibilityProfile 结构映射
  * @see docs/architecture/wechat-copy-style-rules.md §3
- * @see src/core/styles/types.ts WeChatCompatibilityProfile
+ * @see docs/architecture/wechat-safe-html-css-contract.md (`wechat-safe-contract-v1`)
+ * @see src/core/wechat-compat — Contract v1 machine-readable profile (S8-STORY-003)
  *
  * 文档侧仍使用 allowedCssProperties / riskyCssProperties / forbiddenCssProperties；
- * 代码侧统一为 profile.cssRules.{allowed,risky,forbidden}。
- * Renderer / Copy 层读取 profile 时以代码结构为准，文档字段仅作对照。
+ * 代码侧统一为 profile.cssRules.{allowed,risky,forbidden}（green/yellow/red）。
+ * 属性分级以 Contract v1 为准；Renderer / Copy 默认读取 WECHAT_SAFE_CONTRACT_V1_PROFILE。
  */
 
 export const WECHAT_PROFILE_DOC_FIELD_BRIDGE = {

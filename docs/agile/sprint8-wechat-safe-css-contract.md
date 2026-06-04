@@ -50,7 +50,7 @@
 |-------|------|------|------|
 | S8-STORY-001 | 公开资料与竞品兼容性调研 + Sprint 初始化 | docs | **Done**（详细调研待后续补充 · 2026-06-04） |
 | S8-STORY-002 | WeChat-safe HTML/CSS Contract 文档 | docs | **Done**（`wechat-safe-contract-v1` · DECISION-089） |
-| S8-STORY-003 | Compatibility Profile 代码实现 | feature | Planned |
+| S8-STORY-003 | Compatibility Profile 代码实现 | feature | **Done**（`profileId` + `contractVersionId` 分离） |
 | S8-STORY-004 | Copy HTML Validator | feature | Planned |
 | S8-STORY-005 | 多控件 Fixture 与 Fidelity Matrix | feature + docs | Planned |
 | S8-STORY-006 | 公众号实机粘贴 QA 流程 | docs | Planned |
@@ -89,7 +89,8 @@ release/1
   └── sprint/s8-wechat-safe-css-contract
         ├── docs/s8-story-001-compatibility-research  ← Done（已 merge）
         ├── docs/s8-story-002-wechat-safe-contract-doc  ← Done（已 merge）
-        ├── feature/s8-story-003-compatibility-profile  ← 下一步
+        ├── feature/s8-story-003-compatibility-profile  ← Done（已 merge）
+        ├── feature/s8-story-004-copy-html-validator  ← 下一步
         ├── feature/s8-story-003-compatibility-profile
         └── …
 ```

@@ -14,8 +14,9 @@
 
 | 字段 | 值 |
 |------|-----|
+| `profileId`（`WeChatCompatibilityProfile.id`） | `wechat-mp-editor-v1` |
 | `contractVersionId` | `wechat-safe-contract-v1` |
-| 定稿 Story | S8-STORY-002 |
+| 定稿 Story | S8-STORY-002 · 代码化 S8-STORY-003 |
 | 上一版 | `contract-draft-0.1`（S8-STORY-001 草案，已废止） |
 
 ### 1.2 声明（必读）
@@ -303,7 +304,7 @@ allowedInDefaultPreset: true  # warm preset only; business 默认无 gradient
 
 | Story | 与 Contract v1 关系 |
 |-------|---------------------|
-| **S8-STORY-003** | 将 Green/Yellow/Red **代码化**为 `WeChatCompatibilityProfile`；实现 `yellowWaivers`、值级 `display` 枚举、maxNestingDepth |
+| **S8-STORY-003** | 将 Green/Yellow/Red **代码化**为 `WeChatCompatibilityProfile`；实现 `yellowWaivers`、值级 `display` 枚举、maxNestingDepth · 代码：`src/core/wechat-compat/`（`WECHAT_SAFE_CONTRACT_V1_PROFILE`） |
 | **S8-STORY-004** | **Copy HTML Validator**：Red → fail；Yellow 无 evidence → warning；Green → pass |
 | **S8-STORY-005** | **Fidelity Matrix**：10 类控件 × 每类 2–4 variant；结果 **反向修正** Contract |
 | **S8-STORY-006** | **实机 Paste QA** + Drift 模板；修正误判 |
