@@ -49,14 +49,16 @@
 
 | 命令 | 结果 |
 |------|------|
-| `npm run test` | （merge 后执行） |
-| `npm run lint` | （merge 后执行） |
-| `npm run build` | （merge 后执行） |
+| `npm run test` | PASS（845 tests） |
+| `npm run lint` | PASS（0 errors · 12 warnings 既有） |
+| `npm run build` | PASS |
 
 ## 8. Commit / merge
 
-- Closeout commit：（见 `git rev-parse HEAD` on sprint after merge）
-- Merge：`docs/s8-story-006b-fix-harvest-extraction-workflow` → `sprint/s8-wechat-safe-css-contract`
+- 工作分支 closeout commit：`e3007d1`
+- Sprint HEAD（fast-forward merge 后）：`e3007d1`
+- Merge：`docs/s8-story-006b-fix-harvest-extraction-workflow` → `sprint/s8-wechat-safe-css-contract`（fast-forward）
+- 链上提交：`0fc2672`（006B 调研）· `2eb2d36`（FIX-A workflow）· `e3007d1`（收口 + evidence-001）
 
 ## 9. 建议下一步
 
