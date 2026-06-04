@@ -68,4 +68,13 @@ export {
   type ContractIssueLevel,
 } from "./copy-html-validator";
 
+export type {
+  FidelityMatrixBlockType,
+  FidelityPasteStatus,
+  FidelityValidatorStatus,
+  FidelityVariantType,
+  WechatFidelityFixtureSpec,
+  WechatFidelityMatrixRow,
+} from "./fidelity-matrix-types";
+
 export { isListedHtmlTag } from "./wechat-html-classification";

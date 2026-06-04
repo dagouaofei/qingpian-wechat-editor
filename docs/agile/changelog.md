@@ -466,3 +466,5 @@
 | 2026-06-04 | Sprint 8 | **S8-STORY-003 Done**：`profileId`=`wechat-mp-editor-v1` · `contractVersionId`=`wechat-safe-contract-v1`；merge → sprint | 代码 / Git | S8-STORY-003 |
 | 2026-06-04 | Sprint 8 | **S8-STORY-004**：Copy HTML Validator（`validateWechatCopyHtml` · Contract v1 · waiver 非全局） | 代码 / 架构 | S8-STORY-004, DECISION-090 |
 | 2026-06-04 | Sprint 8 | **S8-STORY-004 Done**（用户审查通过）；merge `feature/s8-story-004-copy-html-validator` → sprint | 代码 / Git | S8-STORY-004 |
+| 2026-06-04 | Sprint 8 | **S8-STORY-005**：35 行 Fidelity Matrix + fixture/validator 流水线 | 测试 / 文档 | S8-STORY-005 |
+| 2026-06-04 | Sprint 8 | **S8-STORY-005 Done**；merge `feature/s8-story-005-fidelity-matrix` → sprint | 测试 / Git | S8-STORY-005 |

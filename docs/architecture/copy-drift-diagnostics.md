@@ -127,6 +127,8 @@ OPEN / FIXED / WONTFIX
 
 **原则：** Validator PASS 不等于 Matrix PASS；实机 FAIL 仍须进入 Drift，即使 Validator 仅 warning。
 
+**Matrix（S8-STORY-005）：** [`docs/agile/paste-qa/wechat-fidelity-matrix.md`](../agile/paste-qa/wechat-fidelity-matrix.md) — 每行 `matrixRowId` + `fixtureId` + `validatorStatus`；`pasteStatus=UNTESTED` 待 STORY-006。
+
 ---
 
 ## 7. PO 与开发闭环
@@ -149,3 +151,4 @@ PO 实机粘贴 → 填 DRIFT 记录 → 更新 Matrix status
 | 2026-06-04 | 创建草案 | S8-STORY-001 |
 | 2026-06-04 | 对齐 Contract v1 术语与 §9 修正流程 | S8-STORY-002 |
 | 2026-06-04 | 补充 Validator vs Drift 分工 | S8-STORY-004 |
+| 2026-06-04 | 第一版 Fidelity Matrix（35 行 · paste UNTESTED） | S8-STORY-005 |

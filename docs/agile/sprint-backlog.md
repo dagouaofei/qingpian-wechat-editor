@@ -10,7 +10,7 @@
 > **Sprint 5：** Generation / Streaming + Release 1 真实 UI 主流程闭环 · **Closed**（2026-06-02；DECISION-069；audit Grade A- · P0=0 · P1=4 · P2=3；`sprint/s5-generation-ui-main-flow` 已 merge 至 `release/1`）
 > **Sprint 6：** Release 1 Visible AI Main Flow · **Closed**（2026-06-02；DECISION-078；audit Grade A- · P0=0 · P1=5 · P2=4；`sprint/s6-visible-ai-main-flow` 已 merge 至 `release/1`）
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
-> **当前 Sprint：** **Sprint 8** — **S8：WeChat-safe CSS Contract & Fidelity Test System**（**In Progress** · **S8-STORY-004 Done** · 下一步 **S8-STORY-005** Fidelity Matrix · **待用户确认启动** · DECISION-088/089/090）
+> **当前 Sprint：** **Sprint 8** — **S8：WeChat-safe CSS Contract & Fidelity Test System**（**In Progress** · **S8-STORY-005 Done** · 下一步 **S8-STORY-006** Paste QA 流程 · **待用户确认启动** · DECISION-088/089/090）
 > **上一 Sprint：** **Sprint 7** — **Done**（2026-06-03 收口 · merge `release/1`）；**S7-STORY-007B** 承接至 S8 Paste / Fidelity 体系
 > **当前 Chore：** **Visible Progress & Legacy Convergence** — **Done**（DECISION-080 · 用户验收 2026-06-02 · merged @ `a5704d6`）
 > **Sprint 8 分支：** `sprint/s8-wechat-safe-css-contract`（从 `release/1` 切出 · 2026-06-04）
@@ -3393,8 +3393,8 @@ S7-STORY-007 Sprint 7 手动视觉 QA 与关闭准备 — Deferred
 S8-STORY-001 公开资料与竞品兼容性调研 + Sprint 初始化 — Done（详细调研待后续补充）
 S8-STORY-002 WeChat-safe HTML/CSS Contract 文档 — Done（`wechat-safe-contract-v1` · DECISION-089）
 S8-STORY-003 Compatibility Profile 代码实现 — Done（merge sprint · profileId `wechat-mp-editor-v1`）
-S8-STORY-004 Copy HTML Validator — **Done**（merge sprint · `validateWechatCopyHtml` · 未建 Matrix）
-S8-STORY-005 多控件 Fixture 与 Fidelity Matrix — Planned
+S8-STORY-004 Copy HTML Validator — **Done**（merge sprint · `validateWechatCopyHtml`）
+S8-STORY-005 多控件 Fixture 与 Fidelity Matrix — **Done**
 S8-STORY-006 公众号实机粘贴 QA 流程 — Planned
 S8-STORY-007 Preview / Copy 统一渲染方案审计 — Planned
 S8-STORY-008 S8 Contract Audit 与关闭准备 — Planned
@@ -3509,34 +3509,25 @@ S8-STORY-008 S8 Contract Audit 与关闭准备 — Planned
 
 ## S8-STORY-005 多控件 Fixture 与 Fidelity Matrix
 
-**优先级：** P0 · **状态：** Planned · **工作分支：** `feature/s8-story-005-fidelity-matrix`
+**优先级：** P0 · **状态：** **Done**（用户确认 2026-06-04）· **工作分支：** `feature/s8-story-005-fidelity-matrix`（已 merge）· **来源：** `sprint/s8-wechat-safe-css-contract`
 
 **目标：**
 
-- 覆盖控件类型：**title · heading · paragraph · lead · list · quote · info_card · summary · cta · divider**
-- **每个控件类型至少增加 2–4 个代表性 variant**（在现有 registry 上选取或新增，须代表：基础文本型 · 背景色块型 · 边框/卡片型 · 强调色/装饰型）
-- 建立 [`docs/agile/paste-qa/wechat-fidelity-matrix.md`](paste-qa/wechat-fidelity-matrix.md)
-
-**Matrix 字段（每行）：**
-
-| 字段 | 说明 |
-|------|------|
-| block type | 语义块类型 |
-| variant id | 样式 variant |
-| CSS capability | 涉及的 Green/Yellow/Red 能力 |
-| DOM structure | 关键 DOM 模式 |
-| Preview result | 编辑器内预览 |
-| Clipboard HTML | 复制产物摘要 |
-| WeChat paste result | 公众号实机粘贴 |
-| status | **PASS · FAIL · WARNING · UNTESTED** |
-| contract action | 修正建议（降级 / fallback / 豁免 / 移出 preset） |
+- 35 个 fixture × Matrix 行（10 类控件；`summary` = `highlight`）
+- Copy HTML + `validateWechatCopyHtml()` 自动化
+- [`docs/agile/paste-qa/wechat-fidelity-matrix.md`](paste-qa/wechat-fidelity-matrix.md)（pasteStatus=UNTESTED）
+- probe variant：`paragraph_callout_soft`、`highlight_border_glow`、`info_card_soft_banner`、`divider_short_accent`（test-only preset）
+- **未做：** 实机 Paste QA（006）· renderer 结构变更 · preset 扩充
 
 **验收标准：**
 
-- [ ] AC-1 10 类控件均在 matrix 有行（含多 variant）
-- [ ] AC-2 每类控件 ≥2 个代表性 variant 行（目标 2–4）
-- [ ] AC-3 状态列无空白默认（未测须标 UNTESTED）
-- [ ] AC-4 重点验证 contract 边界，非追求最终视觉效果
+- [x] AC-1 10 类控件均在 matrix 有行（含多 variant）
+- [x] AC-2 每类控件 ≥2 个代表性 variant 行（2–4）
+- [x] AC-3 pasteStatus 均为 UNTESTED（validator 已填）
+- [x] AC-4 边界验证导向；未做视觉升级
+- [x] AC-5 用户确认 Done · merge → sprint
+
+**validator 汇总：** PASS 0 · WARNING 30 · FAIL 5 — 五条 FAIL **不在 005 修 renderer**，输入 006 / Drift 闭环。
 
 ---
 

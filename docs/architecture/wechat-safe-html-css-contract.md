@@ -306,7 +306,7 @@ allowedInDefaultPreset: true  # warm preset only; business 默认无 gradient
 |-------|---------------------|
 | **S8-STORY-003** | 将 Green/Yellow/Red **代码化**为 `WeChatCompatibilityProfile`；实现 `yellowWaivers`、值级 `display` 枚举、maxNestingDepth · 代码：`src/core/wechat-compat/`（`WECHAT_SAFE_CONTRACT_V1_PROFILE`） |
 | **S8-STORY-004** | **Copy HTML Validator**：Red → fail；Yellow 无 evidence → warning；Green → pass |
-| **S8-STORY-005** | **Fidelity Matrix**：10 类控件 × 每类 2–4 variant；结果 **反向修正** Contract |
+| **S8-STORY-005** | **Fidelity Matrix**：10 类控件 × 每类 2–4 variant；第一版见 [`docs/agile/paste-qa/wechat-fidelity-matrix.md`](../agile/paste-qa/wechat-fidelity-matrix.md)（35 行 · validator 已跑 · paste UNTESTED） |
 | **S8-STORY-006** | **实机 Paste QA** + Drift 模板；修正误判 |
 | **S8-STORY-007** | 审计 Preview 是否应输出 **Copy-safe HTML**；避免 Preview-only DOM/CSS |
 | **S8-STORY-008** | contract ↔ profile ↔ validator ↔ matrix ↔ paste 闭环审计 |
