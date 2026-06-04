@@ -808,6 +808,7 @@
   4. `WECHAT_CONTRACT_V1_YELLOW_WAIVERS` 含 `heading_highlight_marker`（`nonTransferable: true`）
   5. `validateCss*Compatibility` 支持 `waiverContext`；值级 Green（如 `display:inline-block`）在 declaration 路径优先于 property-only unknown
   6. **S8-STORY-004（2026-06-04）：** `validateWechatCopyHtml`；`nonTransferable` waiver 须精确 `blockType`+`variantId`
-- **关联：** DECISION-089、S8-STORY-003、S8-STORY-004
+  7. **S8-STORY-006（2026-06-04）：** Paste QA 以公众号后台为终态裁判；Drift 编号 `DRIFT-S8-YYYYMMDD-###`；Matrix paste 仅 PO 回填
+- **关联：** DECISION-089、S8-STORY-003、S8-STORY-004、S8-STORY-005、S8-STORY-006
 - **状态：** 已确认
 

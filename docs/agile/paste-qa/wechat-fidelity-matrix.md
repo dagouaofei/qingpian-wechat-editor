@@ -105,8 +105,35 @@ Fixture 使用 preset `s8_fidelity_matrix_test`（test-only）；probe variant �
 
 ---
 
-## 7. 变更记录
+## 7. S8-STORY-006 Paste QA 入口
+
+| 文档 | 用途 |
+|------|------|
+| [`wechat-paste-qa-workflow.md`](wechat-paste-qa-workflow.md) | 公众号实机粘贴标准流程 |
+| [`wechat-paste-qa-session-2026-06-04-s8-story-006.md`](wechat-paste-qa-session-2026-06-04-s8-story-006.md) | 第一轮 Session 表（**paste 默认 UNTESTED**） |
+| [`wechat-paste-qa-pack-2026-06-04.md`](wechat-paste-qa-pack-2026-06-04.md) | Smoke / Risk / Probe Copy HTML 样本包 |
+
+**回填规则：** 仅 PO 实机后可改上表 `pasteStatus` / `pasteEvidence`；**禁止** Cursor/CI 虚构 PASS。
+
+### 7.1 Risk Set（validator FAIL · 跟踪口径）
+
+以下五行 **不在 S8-STORY-005 修复**；已纳入 Paste QA Risk Set，由 **STORY-006 / Drift / 后续** 闭环：
+
+| matrixRowId | variantId |
+|-------------|-----------|
+| S8M-TITLE-002 | `title_left_bar_classic` |
+| S8M-TITLE-003 | `title_bottom_line_editorial` |
+| S8M-HEAD-002 | `heading_numbered_section` |
+| S8M-HEAD-004 | `heading_card_centered` |
+| S8M-LEAD-003 | `lead_quote_intro` |
+
+实机粘贴若 FAIL → `DRIFT-S8-YYYYMMDD-###`（见 [`copy-drift-diagnostics.md`](../../architecture/copy-drift-diagnostics.md)）。
+
+---
+
+## 8. 变更记录
 
 | 日期 | 变更 | Story |
 |------|------|-------|
 | 2026-06-04 | 创建第一版 Matrix（fixture + validator） | S8-STORY-005 |
+| 2026-06-04 | §7 Paste QA 入口 · Risk Set 说明（paste 仍 UNTESTED） | S8-STORY-006 |

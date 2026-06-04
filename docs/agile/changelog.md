@@ -468,3 +468,4 @@
 | 2026-06-04 | Sprint 8 | **S8-STORY-004 Done**（用户审查通过）；merge `feature/s8-story-004-copy-html-validator` → sprint | 代码 / Git | S8-STORY-004 |
 | 2026-06-04 | Sprint 8 | **S8-STORY-005**：35 行 Fidelity Matrix + fixture/validator 流水线 | 测试 / 文档 | S8-STORY-005 |
 | 2026-06-04 | Sprint 8 | **S8-STORY-005 Done**；merge `feature/s8-story-005-fidelity-matrix` → sprint | 测试 / Git | S8-STORY-005 |
+| 2026-06-04 | Sprint 8 | **S8-STORY-006**：Paste QA workflow · Session · QA pack · Drift `DRIFT-S8-*` | 文档 / 测试 | S8-STORY-006 |

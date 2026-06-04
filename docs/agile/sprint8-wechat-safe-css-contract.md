@@ -53,7 +53,7 @@
 | S8-STORY-003 | Compatibility Profile 代码实现 | feature | **Done**（`profileId` + `contractVersionId` 分离） |
 | S8-STORY-004 | Copy HTML Validator | feature | **Done** |
 | S8-STORY-005 | 多控件 Fixture 与 Fidelity Matrix | feature + docs | **Done** |
-| S8-STORY-006 | 公众号实机粘贴 QA 流程 | docs | Planned |
+| S8-STORY-006 | 公众号实机粘贴 QA 流程 | docs | **In Review** |
 | S8-STORY-007 | Preview / Copy 统一渲染方案审计 | docs | Planned |
 | S8-STORY-008 | S8 Contract Audit 与关闭准备 | docs | Planned |
 

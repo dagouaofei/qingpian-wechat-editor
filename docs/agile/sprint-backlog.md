@@ -10,7 +10,7 @@
 > **Sprint 5：** Generation / Streaming + Release 1 真实 UI 主流程闭环 · **Closed**（2026-06-02；DECISION-069；audit Grade A- · P0=0 · P1=4 · P2=3；`sprint/s5-generation-ui-main-flow` 已 merge 至 `release/1`）
 > **Sprint 6：** Release 1 Visible AI Main Flow · **Closed**（2026-06-02；DECISION-078；audit Grade A- · P0=0 · P1=5 · P2=4；`sprint/s6-visible-ai-main-flow` 已 merge 至 `release/1`）
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
-> **当前 Sprint：** **Sprint 8** — **S8：WeChat-safe CSS Contract & Fidelity Test System**（**In Progress** · **S8-STORY-005 Done** · 下一步 **S8-STORY-006** Paste QA 流程 · **待用户确认启动** · DECISION-088/089/090）
+> **当前 Sprint：** **Sprint 8** — **S8：WeChat-safe CSS Contract & Fidelity Test System**（**In Progress** · **S8-STORY-006 In Review** · 下一步 **S8-STORY-007** · DECISION-088/089/090）
 > **上一 Sprint：** **Sprint 7** — **Done**（2026-06-03 收口 · merge `release/1`）；**S7-STORY-007B** 承接至 S8 Paste / Fidelity 体系
 > **当前 Chore：** **Visible Progress & Legacy Convergence** — **Done**（DECISION-080 · 用户验收 2026-06-02 · merged @ `a5704d6`）
 > **Sprint 8 分支：** `sprint/s8-wechat-safe-css-contract`（从 `release/1` 切出 · 2026-06-04）
@@ -3395,7 +3395,7 @@ S8-STORY-002 WeChat-safe HTML/CSS Contract 文档 — Done（`wechat-safe-contra
 S8-STORY-003 Compatibility Profile 代码实现 — Done（merge sprint · profileId `wechat-mp-editor-v1`）
 S8-STORY-004 Copy HTML Validator — **Done**（merge sprint · `validateWechatCopyHtml`）
 S8-STORY-005 多控件 Fixture 与 Fidelity Matrix — **Done**
-S8-STORY-006 公众号实机粘贴 QA 流程 — Planned
+S8-STORY-006 公众号实机粘贴 QA 流程 — **In Review**
 S8-STORY-007 Preview / Copy 统一渲染方案审计 — Planned
 S8-STORY-008 S8 Contract Audit 与关闭准备 — Planned
 ```
@@ -3533,19 +3533,21 @@ S8-STORY-008 S8 Contract Audit 与关闭准备 — Planned
 
 ## S8-STORY-006 公众号实机粘贴 QA 流程
 
-**优先级：** P0 · **状态：** Planned · **工作分支：** `docs/s8-story-006-paste-qa-process`
+**优先级：** P0 · **状态：** **In Review** · **工作分支：** `docs/s8-story-006-paste-qa-workflow` · **来源：** `sprint/s8-wechat-safe-css-contract`
 
 **目标：**
 
-- 标准化粘贴测试表、失真记录模板
-- 明确实机粘贴后如何记录 HTML/CSS
-- 明确 PO 测试与开发修正之间的闭环（对接 `copy-drift-diagnostics.md`）
+- [`wechat-paste-qa-workflow.md`](paste-qa/wechat-paste-qa-workflow.md) · Session 模板 · QA pack（19 条）
+- `copy-drift-diagnostics.md` 定稿（`DRIFT-S8-*`）
+- Matrix §7 Paste QA 入口；**pasteStatus 仍 UNTESTED**（无 PO 实机填写）
 
 **验收标准：**
 
-- [ ] AC-1 135 + 公众号后台双通道流程文档化
-- [ ] AC-2 每条 FAIL/WARNING 可追溯到 matrix 行
-- [ ] AC-3 不宣称 Paste QA Done 除非实机记录完整
+- [x] AC-1 公众号后台为主流程 · 135 仅辅助（workflow §3–4）
+- [x] AC-2 Smoke 10 + Risk 5 FAIL + Probe 4 · 可追溯 `matrixRowId`
+- [x] AC-3 不虚构 paste PASS · Session/Matrix 默认 UNTESTED
+- [x] AC-4 QA pack builder 测试覆盖
+- [ ] AC-5 用户确认 Done · merge → sprint
 
 ---
 
