@@ -3,7 +3,7 @@
 ## 1. 基本信息
 
 - 日期：2026-06-04
-- 当前分支：`docs/s8-story-006-paste-qa-workflow`
+- 当前分支：`sprint/s8-wechat-safe-css-contract`（收口执行时）
 - 来源分支：`sprint/s8-wechat-safe-css-contract`（推断，与 Story 006 一致）
 - 目标合并分支：`sprint/s8-wechat-safe-css-contract`
 - Sprint：Sprint 8 — WeChat-safe CSS Contract
@@ -29,7 +29,7 @@
 
 - renderer / Contract v1 修复
 - 其余 16 行 Matrix 实机粘贴
-- merge sprint、commit（待用户）
+- ~~merge sprint~~（已完成 · `a0f05cd`）
 
 ## 4. 修改文件
 
@@ -123,7 +123,8 @@
 ## 15. Git
 
 - **工作分支：** `docs/s8-story-006-paste-qa-workflow`
-- **合并：** → `sprint/s8-wechat-safe-css-contract`（**未** merge `release/1` / `main`）
+- **合并：** `docs/s8-story-006-paste-qa-workflow` → `sprint/s8-wechat-safe-css-contract`（fast-forward · 无独立 merge commit）
+- **未 merge：** `release/1` · `main`（按审查要求）
 - **Commit message：** `docs: sync paste qa matrix and drift records`
-- **Commit hash：** （merge 后填写）
-- **Merge commit：** （merge 后填写）
+- **Commit hash：** `a0f05cd`
+- **Sprint 分支 HEAD：** `a0f05cd`（含 `784586b` workflow + 同步提交）
