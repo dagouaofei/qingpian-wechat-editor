@@ -20,6 +20,7 @@ import {
   TITLE_BLOCK_FIRST_WAVE_VARIANTS,
   CTA_EXPANSION_VARIANTS,
 } from "@/core/styles";
+import { HARVEST_CANDIDATE_VARIANTS } from "@/core/styles/variants/harvest-candidate-variants";
 
 export const S8_FIDELITY_PRESET_ID = "s8_fidelity_matrix_test";
 
@@ -71,5 +72,6 @@ export const S8_FIDELITY_STYLE_REGISTRY = {
     ...INFO_CARD_EXPANSION_VARIANTS,
     ...CTA_FIRST_WAVE_VARIANTS,
     ...CTA_EXPANSION_VARIANTS,
+    ...HARVEST_CANDIDATE_VARIANTS,
   ],
 } as const;

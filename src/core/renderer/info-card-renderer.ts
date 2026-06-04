@@ -1,6 +1,7 @@
 import type { InfoCardBlock } from "@/core/blocks";
 import { variantIdsForBlockType } from "@/core/styles";
 
+import { HARVEST_CANDIDATE_VARIANT_IDS } from "@/core/copy/harvest-candidate-copy";
 import { renderInfoCardCopyHtml } from "@/core/copy/info-card-copy";
 import { createRendererIssue, partitionRendererIssues } from "./issues";
 import {
@@ -48,7 +49,14 @@ export function validateInfoCardRenderContext(
     );
   }
 
-  if (!INFO_CARD_SUPPORTED_VARIANT_IDS.includes(resolvedBlockStyle.variantId)) {
+  const isHarvestCandidate = (
+    HARVEST_CANDIDATE_VARIANT_IDS as readonly string[]
+  ).includes(resolvedBlockStyle.variantId);
+
+  if (
+    !INFO_CARD_SUPPORTED_VARIANT_IDS.includes(resolvedBlockStyle.variantId) &&
+    !isHarvestCandidate
+  ) {
     issues.push(
       createRendererIssue({
         code: "unsupported_variant",
@@ -60,7 +68,7 @@ export function validateInfoCardRenderContext(
     );
   }
 
-  if (resolveInfoCardLayout(resolvedBlockStyle.variantId) == null) {
+  if (resolveInfoCardLayout(resolvedBlockStyle.variantId) == null && !isHarvestCandidate) {
     issues.push(
       createRendererIssue({
         code: "unsupported_variant",

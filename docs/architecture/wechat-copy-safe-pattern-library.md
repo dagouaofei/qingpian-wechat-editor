@@ -21,6 +21,18 @@
 - 已发布文章部分 **目前以 L0 归纳为主**；后续 L2/L3/L4 通过 AI 提取 workflow 逐步写入。
 - L0 **不删除** Pattern，但 **不得** 在 006C 中写成「已实采验证」。
 
+### 1.1 S8-STORY-006C 落地状态（2026-06-04 · In Review）
+
+| patternId | Copy 落地 | 代码路径 | 006D |
+|-----------|-----------|----------|------|
+| `copy-safe-card` | **已落地** | `info-card-copy` · `text-block-copy` · `highlight-copy` · `quote-copy` | 待 re-paste |
+| `copy-safe-left-border` | **已落地** | `text-block-copy` · `info-card-copy`（warning_note） | 待 re-paste |
+| `copy-safe-title-divider` | **已落地** | `title-block-copy` · `heading-publish-copy-html` | 待 re-paste |
+| Harvest candidates | **2 条** | `heading_purple_chapter_label_candidate` · `info_card_reading_path_candidate` → Matrix `S8M-HARVEST-001/002` | UNTESTED |
+
+- **未改** Contract v1 分级 · Validator 放宽 · 默认 preset。
+- Drift 001–002、004–009 → `IMPLEMENTED_PENDING_006D_REPASTE`；Drift 003 保持 observation。
+
 ---
 
 ## 2. 使用说明

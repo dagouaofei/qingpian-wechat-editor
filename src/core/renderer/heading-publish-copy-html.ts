@@ -3,6 +3,7 @@
  * Preview 装饰须与 `heading-publish-decoration.ts` 同源 token 对齐。
  */
 
+import { wrapCopySafeMarginSection, wrapTitleHeadingElement } from "@/core/copy/copy-safe-primitives";
 import { escapeHtml } from "@/core/copy/html-escape";
 import { wrapInlineElement } from "@/core/copy/inline-style";
 import type { ThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
@@ -13,6 +14,7 @@ import {
   copySafeHeadingSectionKickerStyle,
   copySafeHeadingSectionStyle,
   copySafeCardCenteredFrameStyle,
+  copySafeCardCenteredHeadingStyle,
   copySafeCardCenteredIndexStyle,
   copySafeHighlightMarkerH3Style,
   copySafeHighlightMarkerSectionStyle,
@@ -177,7 +179,18 @@ export function renderPublishCardCenteredCopy(
   return wrapInlineElement(
     "section",
     copySafeCardCenteredFrameStyle(palette),
-    `${indexLine}${titleParagraphHtml(text, typography, "center")}`,
+    `${indexLine}${wrapTitleHeadingElement(
+      "heading",
+      {
+        ...copySafeCardCenteredHeadingStyle(palette),
+        color: typography.color,
+        fontSize: typography.fontSize,
+        fontWeight: typography.fontWeight,
+        lineHeight: typography.lineHeight,
+        ...(typography.fontFamily ? { fontFamily: typography.fontFamily } : {}),
+      },
+      escapeHtml(text),
+    )}`,
   );
 }
 
@@ -222,10 +235,23 @@ export function renderPublishMagazineLeftBarCopy(
     copySafeHeadingSectionKickerStyle(palette),
     escapeHtml(presentation.badgeText ?? "SECTION"),
   );
-  const content = `${indexLine}${sectionLine}${titleParagraphHtml(text, typography, "left")}`;
-  const inner = wrapInlineElement("section", copySafeMagazineLeftBarAccentRailStyle(palette), content);
-  const middle = wrapInlineElement("section", copySafeMagazineLeftBarLightRailStyle(palette), inner);
-  return wrapInlineElement("section", copySafeHeadingSectionStyle(), middle);
+  return wrapCopySafeMarginSection(
+    copySafeHeadingSectionStyle().margin ?? "28px 0 12px",
+    `${indexLine}${sectionLine}${wrapTitleHeadingElement(
+      "heading",
+      {
+        margin: "0",
+        padding: "2px 0 2px 10px",
+        borderLeft: `3px solid ${palette.textAccent}`,
+        color: typography.color,
+        fontSize: typography.fontSize,
+        fontWeight: typography.fontWeight,
+        lineHeight: typography.lineHeight,
+        ...(typography.fontFamily ? { fontFamily: typography.fontFamily } : {}),
+      },
+      escapeHtml(text),
+    )}`,
+  );
 }
 
 export function renderPublishMagazineOffsetCopy(
@@ -233,9 +259,21 @@ export function renderPublishMagazineOffsetCopy(
   typography: TitleBlockTypography,
   palette: ThemePaletteTokens,
 ): string {
-  return wrapInlineElement(
-    "section",
-    copySafeMagazineOffsetSectionStyle(palette),
-    titleParagraphHtml(text, typography, "left"),
+  const { margin, ...offsetOnHeading } = copySafeMagazineOffsetSectionStyle(palette);
+  return wrapCopySafeMarginSection(
+    margin ?? "28px 0 12px",
+    wrapTitleHeadingElement(
+      "heading",
+      {
+        margin: "0",
+        ...offsetOnHeading,
+        color: typography.color,
+        fontSize: typography.fontSize,
+        fontWeight: typography.fontWeight,
+        lineHeight: typography.lineHeight,
+        ...(typography.fontFamily ? { fontFamily: typography.fontFamily } : {}),
+      },
+      escapeHtml(text),
+    ),
   );
 }

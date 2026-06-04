@@ -1,5 +1,13 @@
 import type { HeadingBlock, TitleBlock } from "@/core/blocks";
 
+import {
+  copySafeCardContentStyle,
+  copySafeLeftBorderContentStyle,
+  mergeInlineStyles,
+  wrapCopySafeMarginSection,
+  wrapTitleHeadingElement,
+} from "./copy-safe-primitives";
+import { renderHarvestChapterLabelHeadingCopy } from "./harvest-candidate-copy";
 import { assertCopySafeHtml, escapeHtml } from "./html-escape";
 import { wrapInlineElement } from "./inline-style";
 import type { ThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
@@ -15,7 +23,6 @@ import {
 } from "@/core/renderer/text-style";
 import type { BlockRenderContext } from "@/core/renderer/types";
 import {
-  copySafeCardTitleFrameStyle,
   copySafeHeadingOrdinalStyle,
   copySafeHeadingSectionKickerStyle,
   copySafeHeadingSectionStyle,
@@ -54,24 +61,27 @@ function titleSectionStyle(
   return { margin: `${typography.marginBlock} 0` };
 }
 
+function titleHeadingBaseStyle(
+  typography: ReturnType<typeof resolveTitleBlockTypography>,
+  align: "left" | "center" = "left",
+): Record<string, string> {
+  return {
+    margin: "0",
+    color: typography.color,
+    fontSize: typography.fontSize,
+    fontWeight: typography.fontWeight,
+    lineHeight: typography.lineHeight,
+    textAlign: align,
+    ...(typography.fontFamily ? { fontFamily: typography.fontFamily } : {}),
+  };
+}
+
 function titleParagraphHtml(
   text: string,
   typography: ReturnType<typeof resolveTitleBlockTypography>,
   align: "left" | "center" = "left",
 ): string {
-  return wrapInlineElement(
-    "p",
-    {
-      margin: "0",
-      color: typography.color,
-      fontSize: typography.fontSize,
-      fontWeight: typography.fontWeight,
-      lineHeight: typography.lineHeight,
-      textAlign: align,
-      ...(typography.fontFamily ? { fontFamily: typography.fontFamily } : {}),
-    },
-    escapeHtml(text),
-  );
+  return wrapInlineElement("p", titleHeadingBaseStyle(typography, align), escapeHtml(text));
 }
 
 function iconCapsuleCopyHtml(label: string, palette: ThemePaletteTokens): string {
@@ -96,10 +106,17 @@ function renderPlainTitleCopy(
       )
     : "";
 
-  return wrapInlineElement(
-    "section",
-    copySafeCardTitleFrameStyle(palette),
-    `${iconTop}${titleParagraphHtml(text, typography, "center")}`,
+  return wrapCopySafeMarginSection(
+    `${typography.marginBlock} 0`,
+    `${iconTop}${wrapTitleHeadingElement(
+      "title",
+      copySafeCardContentStyle(titleHeadingBaseStyle(typography, "center"), {
+        backgroundColor: palette.bgSoft,
+        border: `1px solid ${palette.borderSoft}`,
+        padding: "14px 16px",
+      }),
+      escapeHtml(text),
+    )}`,
   );
 }
 
@@ -120,28 +137,19 @@ function renderPlainHeadingCopy(
         backgroundColor: palette.textAccent,
       }, "");
 
-  return wrapInlineElement(
-    "section",
-    {
-      margin: `${typography.marginBlock} 0`,
-      padding: "10px 14px",
-      borderRadius: "10px",
-      backgroundColor: palette.bgSoft,
-      border: `1px solid ${palette.borderSoft}`,
-    },
-    wrapInlineElement(
-      "table",
-      { width: "100%", borderCollapse: "collapse" },
-      wrapInlineElement(
-        "tr",
-        {},
-        wrapInlineElement("td", { width: "40px", verticalAlign: "middle" }, icon) +
-          wrapInlineElement(
-            "td",
-            { verticalAlign: "middle" },
-            titleParagraphHtml(text, typography, "left"),
-          ),
-      ),
+  const prefix = icon
+    ? wrapInlineElement("span", { display: "inline-block", margin: "0 10px 0 0" }, icon)
+    : "";
+  return wrapCopySafeMarginSection(
+    `${typography.marginBlock} 0`,
+    wrapTitleHeadingElement(
+      "heading",
+      copySafeCardContentStyle(titleHeadingBaseStyle(typography, "left"), {
+        backgroundColor: palette.bgSoft,
+        border: `1px solid ${palette.borderSoft}`,
+        padding: "10px 14px",
+      }),
+      `${prefix}${escapeHtml(text)}`,
     ),
   );
 }
@@ -169,46 +177,46 @@ function renderLeftBarCopy(
       )
     : "";
 
-  const iconCell = presentation.iconCapsuleLabel
+  const iconPrefix = presentation.iconCapsuleLabel
     ? wrapInlineElement(
-        "td",
-        { width: "44px", verticalAlign: "top" },
+        "span",
+        { display: "inline-block", margin: "0 10px 0 0", verticalAlign: "top" },
         iconCapsuleCopyHtml(presentation.iconCapsuleLabel, palette),
       )
     : "";
 
-  return wrapInlineElement(
-    "section",
-    {
-      margin: `${typography.marginBlock} 0`,
-      padding: blockType === "title" ? "16px 18px" : "12px 14px",
-      backgroundColor: palette.bgSoft,
-      borderRadius: "10px",
-      border: `1px solid ${palette.borderSoft}`,
-    },
-    wrapInlineElement(
-      "table",
-      {
-        width: "100%",
-        borderCollapse: "collapse",
-      },
-      wrapInlineElement(
-        "tr",
-        {},
-        iconCell +
-          wrapInlineElement("td", {
-            width: barWidth,
-            verticalAlign: "top",
-            backgroundColor: palette.textAccent,
-            borderRadius: "2px",
-          }, "") +
-          wrapInlineElement(
-            "td",
-            { verticalAlign: "top", paddingLeft: "12px" },
-            `${labelHtml}${titleParagraphHtml(text, typography, "left")}`,
+  const headingHtml =
+    blockType === "title"
+      ? wrapTitleHeadingElement(
+          "title",
+          copySafeLeftBorderContentStyle(
+            titleHeadingBaseStyle(typography, "left"),
+            `${barWidth} solid ${palette.textAccent}`,
+            {
+              paddingLeft: "16px",
+              padding: "16px 18px",
+              backgroundColor: palette.bgSoft,
+            },
           ),
-      ),
-    ),
+          `${iconPrefix}${escapeHtml(text)}`,
+        )
+      : wrapTitleHeadingElement(
+          "heading",
+          copySafeLeftBorderContentStyle(
+            titleHeadingBaseStyle(typography, "left"),
+            `${barWidth} solid ${palette.textAccent}`,
+            {
+              paddingLeft: "14px",
+              padding: "12px 14px",
+              backgroundColor: palette.bgSoft,
+            },
+          ),
+          `${iconPrefix}${escapeHtml(text)}`,
+        );
+
+  return wrapCopySafeMarginSection(
+    `${typography.marginBlock} 0`,
+    `${labelHtml}${headingHtml}`,
   );
 }
 
@@ -222,34 +230,21 @@ function renderBottomLineCopy(
     ? iconCapsuleCopyHtml(presentation.iconCapsuleLabel, palette)
     : "";
 
-  const ornament = wrapInlineElement(
-    "table",
-    {
-      width: "280px",
-      maxWidth: "100%",
-      margin: "10px auto 0",
-      borderCollapse: "collapse",
-    },
-    wrapInlineElement(
-      "tr",
-      {},
-      wrapInlineElement("td", { width: "40px", textAlign: "center", verticalAlign: "middle" }, icon) +
-        wrapInlineElement("td", {
-          height: "2px",
-          backgroundColor: palette.textAccent,
-        }, "") +
-        wrapInlineElement("td", { width: "40px", textAlign: "center", verticalAlign: "middle" }, icon),
-    ),
-  );
+  const iconPrefix =
+    icon.length > 0
+      ? wrapInlineElement("span", { display: "inline-block", margin: "0 0 8px" }, icon)
+      : "";
 
-  return wrapInlineElement(
-    "section",
-    {
-      margin: `${typography.marginBlock} 0`,
-      textAlign: "center",
-      padding: "12px 16px 0",
-    },
-    `${titleParagraphHtml(text, typography, "center")}${ornament}`,
+  return wrapCopySafeMarginSection(
+    `${typography.marginBlock} 0`,
+    `${iconPrefix}${wrapTitleHeadingElement(
+      "title",
+      mergeInlineStyles(titleHeadingBaseStyle(typography, "center"), {
+        paddingBottom: "6px",
+        borderBottom: `1px solid ${palette.textAccent}`,
+      }),
+      escapeHtml(text),
+    )}`,
   );
 }
 
@@ -297,28 +292,16 @@ function renderNumberedCopy(
 
   const badgeStyle = copySafeNumberBadgeStyle(palette);
   const badge = wrapInlineElement("span", badgeStyle, escapeHtml(indexLabel ?? "01"));
-  return wrapInlineElement(
-    "section",
-    {
-      margin: `${typography.marginBlock} 0`,
-      padding: "12px 14px",
-      backgroundColor: palette.bgSteps,
-      borderRadius: "10px",
-      border: `1px solid ${palette.borderSoft}`,
-    },
-    wrapInlineElement(
-      "table",
-      { width: "100%", borderCollapse: "collapse" },
-      wrapInlineElement(
-        "tr",
-        {},
-        wrapInlineElement("td", { width: "44px", verticalAlign: "middle" }, badge) +
-          wrapInlineElement(
-            "td",
-            { verticalAlign: "middle" },
-            titleParagraphHtml(text, typography, "left"),
-          ),
-      ),
+  return wrapCopySafeMarginSection(
+    `${typography.marginBlock} 0`,
+    wrapTitleHeadingElement(
+      "title",
+      copySafeCardContentStyle(titleHeadingBaseStyle(typography, "left"), {
+        backgroundColor: palette.bgSteps,
+        border: `1px solid ${palette.borderSoft}`,
+        padding: "12px 14px",
+      }),
+      `${badge}${titleInlineHtml(text, typography)}`,
     ),
   );
 }
@@ -485,15 +468,18 @@ function renderUnderlineCopy(
   text: string,
   typography: ReturnType<typeof resolveTitleBlockTypography>,
   palette: ThemePaletteTokens,
+  blockType: "title" | "heading",
 ): string {
-  return wrapInlineElement(
-    "section",
-    {
-      margin: `${typography.marginBlock} 0`,
-      paddingBottom: "8px",
-      borderBottom: `1px solid ${palette.borderLight}`,
-    },
-    titleParagraphHtml(text, typography, "left"),
+  return wrapCopySafeMarginSection(
+    `${typography.marginBlock} 0`,
+    wrapTitleHeadingElement(
+      blockType,
+      mergeInlineStyles(titleHeadingBaseStyle(typography, "left"), {
+        paddingBottom: "8px",
+        borderBottom: `1px solid ${palette.borderLight}`,
+      }),
+      escapeHtml(text),
+    ),
   );
 }
 
@@ -518,15 +504,18 @@ function renderKeynoteBarCopy(
   text: string,
   typography: ReturnType<typeof resolveTitleBlockTypography>,
   palette: ThemePaletteTokens,
+  blockType: "title" | "heading",
 ): string {
-  return wrapInlineElement(
-    "section",
-    {
-      margin: `${typography.marginBlock} 0`,
-      paddingBottom: "10px",
-      borderBottom: `2px solid ${palette.textAccent}`,
-    },
-    titleParagraphHtml(text, typography, "left"),
+  return wrapCopySafeMarginSection(
+    `${typography.marginBlock} 0`,
+    wrapTitleHeadingElement(
+      blockType,
+      mergeInlineStyles(titleHeadingBaseStyle(typography, "left"), {
+        paddingBottom: "10px",
+        borderBottom: `2px solid ${palette.textAccent}`,
+      }),
+      escapeHtml(text),
+    ),
   );
 }
 
@@ -560,10 +549,17 @@ function renderTopBadgeCopy(
     `${icon}${badgeHtml}`,
   );
 
-  return wrapInlineElement(
-    "section",
-    copySafeCardTitleFrameStyle(palette),
-    `${headerRow}${titleParagraphHtml(text, typography, "center")}`,
+  return wrapCopySafeMarginSection(
+    `${typography.marginBlock} 0`,
+    `${headerRow}${wrapTitleHeadingElement(
+      "title",
+      copySafeCardContentStyle(titleHeadingBaseStyle(typography, "center"), {
+        backgroundColor: palette.bgSoft,
+        border: `1px solid ${palette.borderSoft}`,
+        padding: "14px 16px",
+      }),
+      escapeHtml(text),
+    )}`,
   );
 }
 
@@ -599,6 +595,11 @@ export function renderTitleBlockCopyHtml(
   );
 
   const variantId = context.resolvedBlockStyle.variantId;
+
+  if (variantId === "heading_purple_chapter_label_candidate") {
+    return renderHarvestChapterLabelHeadingCopy(context);
+  }
+
   const isPublishHeading =
     block.type === "heading" && isHeadingPublishVariantId(variantId);
 
@@ -631,13 +632,13 @@ export function renderTitleBlockCopyHtml(
         : renderPlainHeadingCopy(text, typography, palette, presentation);
       break;
     case "underline":
-      html = renderUnderlineCopy(text, typography, palette);
+      html = renderUnderlineCopy(text, typography, palette, block.type);
       break;
     case "pill":
       html = renderPillCopy(text, typography, palette, presentation.badgeText);
       break;
     case "keynote_bar":
-      html = renderKeynoteBarCopy(text, typography, palette);
+      html = renderKeynoteBarCopy(text, typography, palette, block.type);
       break;
     case "highlight_marker":
       html = isPublishHeading

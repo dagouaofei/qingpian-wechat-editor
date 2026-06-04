@@ -121,6 +121,10 @@ export function buildWechatFidelityMatrixRow(
   }
   if (spec.variantType === "candidate") {
     notesParts.push("candidate: not in default preset until Matrix PASS");
+    if (spec.matrixRowId.startsWith("S8M-HARVEST-")) {
+      notesParts.push("sourceEvidenceId: WX-HARVEST-EVIDENCE-001");
+      notesParts.push("release1Eligible: false");
+    }
   }
   if (spec.variantId === "heading_highlight_marker") {
     notesParts.push("waiver: PASTE-HEADING-HIGHLIGHT-20260603");
@@ -304,5 +308,6 @@ ${formatMatrixStory006PasteQaAppendix()}
 | 2026-06-04 | 创建第一版 Matrix（fixture + validator） | S8-STORY-005 |
 | 2026-06-04 | §7 Paste QA 入口 · Risk Set 说明（paste 仍 UNTESTED） | S8-STORY-006 |
 | 2026-06-04 | Session 2026-06-04 回填 paste 列 · Drift 001–009 | S8-STORY-006 |
+| 2026-06-04 | S8-STORY-006C copy-safe pattern fix · harvest candidates S8M-HARVEST-001/002 | S8-STORY-006C |
 `;
 }

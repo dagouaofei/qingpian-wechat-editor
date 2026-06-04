@@ -67,12 +67,17 @@ describe("S8 WeChat Paste QA pack", () => {
     expect([...S8_PASTE_QA_SMOKE_MATRIX_ROW_IDS]).toHaveLength(10);
   });
 
-  it("risk set includes five validator FAIL rows", () => {
+  it("risk set rows remain in matrix after 006C validator changes", () => {
     const matrix = buildWechatFidelityMatrix();
     for (const id of S8_PASTE_QA_RISK_MATRIX_ROW_IDS) {
-      const row = matrix.find((r) => r.matrixRowId === id);
-      expect(row?.validatorStatus).toBe("FAIL");
+      expect(matrix.find((r) => r.matrixRowId === id)).toBeDefined();
     }
+    expect(
+      matrix.find((r) => r.matrixRowId === "S8M-HEAD-002")?.validatorStatus,
+    ).toBe("FAIL");
+    expect(
+      matrix.find((r) => r.matrixRowId === "S8M-TITLE-003")?.validatorStatus,
+    ).toBe("WARNING");
   });
 
   it("probe set entries are probe variantType", () => {

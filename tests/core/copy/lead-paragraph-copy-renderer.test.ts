@@ -183,7 +183,8 @@ describe("lead / paragraph copy renderer", () => {
 
     const html = (result.output as { html: string }).html;
     expect(html).toContain("background-color:#f9f9f9");
-    expect(html).toContain("border-radius:8px");
+    expect(html).toContain("border:1px solid #eeeeee");
+    expect(html).not.toContain("border-radius:8px");
   });
 
   it("warns on unsafe color in copy path", () => {

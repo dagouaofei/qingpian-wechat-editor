@@ -10,7 +10,7 @@
 > **Sprint 5：** Generation / Streaming + Release 1 真实 UI 主流程闭环 · **Closed**（2026-06-02；DECISION-069；audit Grade A- · P0=0 · P1=4 · P2=3；`sprint/s5-generation-ui-main-flow` 已 merge 至 `release/1`）
 > **Sprint 6：** Release 1 Visible AI Main Flow · **Closed**（2026-06-02；DECISION-078；audit Grade A- · P0=0 · P1=5 · P2=4；`sprint/s6-visible-ai-main-flow` 已 merge 至 `release/1`）
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
-> **当前 Sprint：** **Sprint 8** — **S8：WeChat-safe CSS Contract & Fidelity Test System**（**In Progress** · **S8-STORY-006B / 006B-FIX-A Done**（merge sprint · 2026-06-04）· **006B-FIX-B/006C/006D 未启动** · **007 未启动** · DECISION-088/089/090/091）
+> **当前 Sprint：** **Sprint 8** — **S8：WeChat-safe CSS Contract & Fidelity Test System**（**In Progress** · **S8-STORY-006C In Review** · **006D/007 未启动** · DECISION-088/089/090/091）
 > **上一 Sprint：** **Sprint 7** — **Done**（2026-06-03 收口 · merge `release/1`）；**S7-STORY-007B** 承接至 S8 Paste / Fidelity 体系
 > **当前 Chore：** **Visible Progress & Legacy Convergence** — **Done**（DECISION-080 · 用户验收 2026-06-02 · merged @ `a5704d6`）
 > **Sprint 8 分支：** `sprint/s8-wechat-safe-css-contract`（从 `release/1` 切出 · 2026-06-04）
@@ -3399,7 +3399,7 @@ S8-STORY-006 公众号实机粘贴 QA 流程 — **Done**
 S8-STORY-006B 结构化样式调研与 Drift 归类 — **Done**（merge sprint · 2026-06-04）
 S8-STORY-006B-FIX-A 已发布文章 evidence 提取工作流 — **Done**（merge sprint · 2026-06-04）
 S8-STORY-006B-FIX-B 批量补 5–10 篇 article evidence — Planned（**未启动**）
-S8-STORY-006C 共性 Copy-safe renderer / fallback 修复 — Planned（**未启动**）
+S8-STORY-006C 共性 Copy-safe renderer / fallback 修复 — **In Review**
 S8-STORY-006D Matrix 回归与 Paste 复测 — Planned（**未启动**）
 S8-STORY-007 Preview / Copy 统一渲染方案审计 — Planned（**未启动**）
 S8-STORY-008 S8 Contract Audit 与关闭准备 — Planned
@@ -3635,17 +3635,22 @@ S8-STORY-008 S8 Contract Audit 与关闭准备 — Planned
 
 ## S8-STORY-006C 共性 Copy-safe renderer / fallback 修复
 
-**优先级：** P0 · **状态：** Planned（**未启动**）· **工作分支：** `feature/s8-story-006c-copy-safe-renderer-fixes`（建议）
+**优先级：** P0 · **状态：** **In Review** · **工作分支：** `feature/s8-story-006c-harvest-pattern-candidate-fix` · **来源：** `sprint/s8-wechat-safe-css-contract`
 
-**目标：** 按 Pattern Library v0.1 与 triage P0 项修复 Copy Renderer（`copy-safe-card` · `copy-safe-left-border` · `copy-safe-title-divider` 等）；**不改 Contract v1 分级**。
+**目标：** 按 Pattern Library v0.1 与 triage P0 项修复 Copy Renderer（`copy-safe-card` · `copy-safe-left-border` · `copy-safe-title-divider` 等）；**不改 Contract v1 分级**；harvest → candidate variant 最小闭环。
 
-**依赖：** S8-STORY-006B Done · 用户明确启动
+**依赖：** S8-STORY-006B / FIX-A Done
 
-**验收标准（草案）：**
+**验收标准：**
 
-- [ ] AC-1 A/B/C 类 Drift 对应 variant 在 006D re-paste 改善或可解释降级
-- [ ] AC-2 不新增 variant · probe 不进默认 preset
-- [ ] AC-3 Validator/Matrix 更新与修复一致
+- [x] AC-1 A/B/C 类 Drift 有代码级 Copy 修复（样式下沉 `p`/`h1`/`h3`）
+- [x] AC-2 harvest candidate ≥1（实际 2：`heading_purple_chapter_label_candidate` · `info_card_reading_path_candidate`）
+- [x] AC-3 candidate 不进默认 preset · 不进 release1_required · `experimental`
+- [x] AC-4 Matrix 更新（含 S8M-HARVEST-001/002）· affected rows 标 needs 006D re-paste
+- [x] AC-5 不虚构 pasteStatus · Drift pending 006D
+- [x] AC-6 test / lint / build PASS
+- [ ] AC-7 用户确认 Done · merge sprint
+- [ ] AC-8 006D re-paste（**不在本轮**）
 
 ---
 

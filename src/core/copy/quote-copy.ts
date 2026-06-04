@@ -13,50 +13,52 @@ import type {
   RendererIssue,
 } from "@/core/renderer/types";
 
+import {
+  copySafeCardContentStyle,
+  copySafeLeftBorderContentStyle,
+  mergeInlineStyles,
+  wrapCopySafeMarginSection,
+} from "./copy-safe-primitives";
 import { assertCopySafeHtml, escapeHtml } from "./html-escape";
 import { wrapInlineElement } from "./inline-style";
 import type { ThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
 import { resolveThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
 
-function attributionHtml(
-  attribution: string | undefined,
-  typography: ReturnType<typeof resolveQuoteTypography>,
-): string {
-  if (attribution == null) {
-    return "";
-  }
-
-  return wrapInlineElement(
-    "p",
-    {
-      margin: "8px 0 0",
-      color: typography.mutedColor,
-      fontSize: typography.attributionFontSize,
-      lineHeight: typography.lineHeight,
-      fontFamily: typography.fontFamily,
-      textAlign: "right",
-    },
-    `— ${escapeHtml(attribution)}`,
-  );
+function quoteBase(typography: ReturnType<typeof resolveQuoteTypography>): Record<string, string> {
+  return {
+    color: typography.color,
+    fontSize: typography.fontSize,
+    lineHeight: typography.lineHeight,
+    fontFamily: typography.fontFamily,
+  };
 }
 
 function quoteBodyHtml(
   content: NormalizedQuoteContent,
   typography: ReturnType<typeof resolveQuoteTypography>,
 ): string {
-  return (
-    wrapInlineElement(
-      "p",
-      {
-        margin: "0",
-        color: typography.color,
-        fontSize: typography.fontSize,
-        lineHeight: typography.lineHeight,
-        fontFamily: typography.fontFamily,
-      },
-      escapeHtml(content.text),
-    ) + attributionHtml(content.attribution, typography)
+  const body = wrapInlineElement(
+    "span",
+    { display: "block", margin: "0" },
+    escapeHtml(content.text),
   );
+  const attribution =
+    content.attribution != null
+      ? wrapInlineElement(
+          "span",
+          {
+            display: "block",
+            margin: "8px 0 0",
+            color: typography.mutedColor,
+            fontSize: typography.attributionFontSize,
+            lineHeight: typography.lineHeight,
+            fontFamily: typography.fontFamily,
+            textAlign: "right",
+          },
+          `— ${escapeHtml(content.attribution)}`,
+        )
+      : "";
+  return body + attribution;
 }
 
 function wrapQuoteLayoutHtml(
@@ -65,36 +67,39 @@ function wrapQuoteLayoutHtml(
   typography: ReturnType<typeof resolveQuoteTypography>,
   palette: ThemePaletteTokens,
 ): string {
-  const bodyHtml = quoteBodyHtml(content, typography);
+  const margin = `${typography.marginBlock} 0`;
+  const base = quoteBase(typography);
+  const inner = quoteBodyHtml(content, typography);
 
   switch (layout) {
     case "plain":
-      return wrapInlineElement(
-        "section",
-        { margin: `${typography.marginBlock} 0` },
-        bodyHtml,
+      return wrapCopySafeMarginSection(
+        margin,
+        wrapInlineElement("p", mergeInlineStyles(base, { margin: "0" }), inner),
       );
     case "left_bar":
-      return wrapInlineElement(
-        "section",
-        {
-          margin: `${typography.marginBlock} 0`,
-          paddingLeft: "12px",
-          borderLeft: `3px solid ${typography.accentColor}`,
-        },
-        bodyHtml,
+      return wrapCopySafeMarginSection(
+        margin,
+        wrapInlineElement(
+          "p",
+          copySafeLeftBorderContentStyle(base, `3px solid ${typography.accentColor}`, {
+            paddingLeft: "12px",
+          }),
+          inner,
+        ),
       );
     case "card":
-      return wrapInlineElement(
-        "section",
-        {
-          margin: `${typography.marginBlock} 0`,
-          padding: "12px 16px",
-          backgroundColor: palette.bgSoft,
-          border: `1px solid ${palette.borderSoft}`,
-          borderRadius: "8px",
-        },
-        bodyHtml,
+      return wrapCopySafeMarginSection(
+        margin,
+        wrapInlineElement(
+          "p",
+          copySafeCardContentStyle(base, {
+            backgroundColor: palette.bgSoft,
+            border: `1px solid ${palette.borderSoft}`,
+            padding: "12px 16px",
+          }),
+          inner,
+        ),
       );
     default:
       throw new Error(`unsupported quote layout: ${layout satisfies never}`);

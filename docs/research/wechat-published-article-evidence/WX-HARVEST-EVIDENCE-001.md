@@ -84,3 +84,12 @@ supporting-evidence
 - 文章为排版工具推广文，版式代表 **第三方 Markdown→公众号** 工具链，可作为「竞品/工具生成文」样式样本，**不能**替代 PO Paste QA 主证据。
 - 与 HARVEST 假设对齐：强化 **copy-safe-card** / **highlight-band** 在真实文中的 **Yellow 风险**（gradient、shadow、深 `section`）；**left-border** 假设在本篇 **弱验证**。
 - repo **未**保存全文 HTML。
+
+### S8-STORY-006C candidate 映射
+
+| matrixRowId | variantId | copySafePattern |
+|-------------|-----------|-----------------|
+| S8M-HARVEST-001 | `heading_purple_chapter_label_candidate` | `copy-safe-title-divider`（章节标签 + 标题，视觉意图改写） |
+| S8M-HARVEST-002 | `info_card_reading_path_candidate` | `copy-safe-info-box`（阅读路径单 `p` 信息块） |
+
+- `pasteStatus`: **UNTESTED**（006D 实机复测）

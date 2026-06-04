@@ -105,7 +105,8 @@ describe("title / heading copy renderer", () => {
     const html = (result.output as { html: string }).html;
     expect(copyHtmlUsesInlineStyleOnly(html)).toBe(true);
     expect(html).not.toMatch(/linear-gradient/i);
-    expect(html).toContain("border-collapse:collapse");
+    expect(html).toContain("border-bottom:1px solid");
+    expect(html).toContain("<h1");
     expect(html).toContain("底线标题");
   });
 

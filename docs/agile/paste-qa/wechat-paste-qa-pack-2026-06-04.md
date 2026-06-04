@@ -30,15 +30,15 @@
 | variantType | existing |
 | validatorStatus | WARNING |
 | validatorErrors | — |
-| validatorWarnings | WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER |
+| validatorWarnings | WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER |
 
-**Copy HTML 摘要：** <section style="margin:28px 0 12px;padding:14px 16px;text-align:left;border-radius:8px;border:1px solid #eeeeee;backgrou…
+**Copy HTML 摘要：** <section style="margin:32px 0"><p style="margin:0 0 12px 0;text-align:center"><span style="display:inline-block;width:32…
 
 **测试说明：** 复制上述 HTML（或打开 snapshot 文件全选复制），粘贴到**微信公众号后台**正文编辑器；勿用 135/浏览器 Preview 代替判定。
 
 
 ```html
-<section style="margin:28px 0 12px;padding:14px 16px;text-align:left;border-radius:8px;border:1px solid #eeeeee;background-color:#f9f9f9"><p style="margin:0 0 12px 0;text-align:center"><span style="display:inline-block;width:32px;height:32px;line-height:32px;text-align:center;border-radius:8px;background-color:#f9f9f9;border:1px solid #eeeeee;color:#576b95;font-size:15px;font-weight:700">✦</span></p><p style="margin:0;color:#333333;font-size:26px;font-weight:700;line-height:1.35;text-align:center;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif">S8 Matrix · title_plain_minimal</p></section>
+<section style="margin:32px 0"><p style="margin:0 0 12px 0;text-align:center"><span style="display:inline-block;width:32px;height:32px;line-height:32px;text-align:center;border-radius:8px;background-color:#f9f9f9;border:1px solid #eeeeee;color:#576b95;font-size:15px;font-weight:700">✦</span></p><h1 style="margin:0;color:#333333;font-size:26px;font-weight:700;line-height:1.35;text-align:center;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;padding:14px 16px;background-color:#f9f9f9;border:1px solid #eeeeee">S8 Matrix · title_plain_minimal</h1></section>
 ```
 
 ### S8M-HEAD-001 · heading_short_line
@@ -74,13 +74,13 @@
 | validatorErrors | — |
 | validatorWarnings | WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_TAG |
 
-**Copy HTML 摘要：** <section style="margin:18px 0"><p style="margin:0;color:#333333;font-size:16px;font-weight:400;line-height:1.75;font-fam…
+**Copy HTML 摘要：** <section style="margin:18px 0"><p style="color:#333333;font-size:16px;font-weight:400;line-height:1.75;font-family:'Ping…
 
 **测试说明：** 复制上述 HTML（或打开 snapshot 文件全选复制），粘贴到**微信公众号后台**正文编辑器；勿用 135/浏览器 Preview 代替判定。
 
 
 ```html
-<section style="margin:18px 0"><p style="margin:0;color:#333333;font-size:16px;font-weight:400;line-height:1.75;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif">正文 fixture paragraph_plain_body：验证 inline typography 与 Yellow 装饰边界。</p></section>
+<section style="margin:18px 0"><p style="color:#333333;font-size:16px;font-weight:400;line-height:1.75;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;margin:0">正文 fixture paragraph_plain_body：验证 inline typography 与 Yellow 装饰边界。</p></section>
 ```
 
 ### S8M-LEAD-001 · lead_plain_intro
@@ -95,13 +95,13 @@
 | validatorErrors | — |
 | validatorWarnings | WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_TAG |
 
-**Copy HTML 摘要：** <section style="margin:18px 0"><p style="margin:0;color:#333333;font-size:17px;font-weight:400;line-height:1.65;font-fam…
+**Copy HTML 摘要：** <section style="margin:18px 0"><p style="color:#333333;font-size:17px;font-weight:400;line-height:1.65;font-family:'Ping…
 
 **测试说明：** 复制上述 HTML（或打开 snapshot 文件全选复制），粘贴到**微信公众号后台**正文编辑器；勿用 135/浏览器 Preview 代替判定。
 
 
 ```html
-<section style="margin:18px 0"><p style="margin:0;color:#333333;font-size:17px;font-weight:400;line-height:1.65;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif">导语 fixture：lead_plain_intro。用于 Contract v1 复制校验。</p></section>
+<section style="margin:18px 0"><p style="color:#333333;font-size:17px;font-weight:400;line-height:1.65;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;margin:0">导语 fixture：lead_plain_intro。用于 Contract v1 复制校验。</p></section>
 ```
 
 ### S8M-LIST-001 · list_plain_bullets
@@ -137,13 +137,13 @@
 | validatorErrors | — |
 | validatorWarnings | WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_TAG |
 
-**Copy HTML 摘要：** <section style="margin:18px 0"><p style="margin:0;color:#333333;font-size:16px;line-height:1.75;font-family:'PingFang SC…
+**Copy HTML 摘要：** <section style="margin:18px 0"><p style="color:#333333;font-size:16px;line-height:1.75;font-family:'PingFang SC', 'Hirag…
 
 **测试说明：** 复制上述 HTML（或打开 snapshot 文件全选复制），粘贴到**微信公众号后台**正文编辑器；勿用 135/浏览器 Preview 代替判定。
 
 
 ```html
-<section style="margin:18px 0"><p style="margin:0;color:#333333;font-size:16px;line-height:1.75;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif">引用 fixture quote_plain</p><p style="margin:8px 0 0;color:#666666;font-size:14px;line-height:1.75;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;text-align:right">— S8 Fidelity Matrix</p></section>
+<section style="margin:18px 0"><p style="color:#333333;font-size:16px;line-height:1.75;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;margin:0"><span style="display:block;margin:0">引用 fixture quote_plain</span><span style="display:block;margin:8px 0 0;color:#666666;font-size:14px;line-height:1.75;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;text-align:right">— S8 Fidelity Matrix</span></p></section>
 ```
 
 ### S8M-SUM-001 · highlight_inline_emphasis
@@ -158,13 +158,13 @@
 | validatorErrors | — |
 | validatorWarnings | WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_TAG |
 
-**Copy HTML 摘要：** <section style="margin:16px 0;padding-left:8px;border-left:2px solid #576b95"><p style="margin:0 0 6px;color:#576b95;fon…
+**Copy HTML 摘要：** <section style="margin:16px 0"><p style="color:#333333;font-size:16px;line-height:1.75;font-family:'PingFang SC', 'Hirag…
 
 **测试说明：** 复制上述 HTML（或打开 snapshot 文件全选复制），粘贴到**微信公众号后台**正文编辑器；勿用 135/浏览器 Preview 代替判定。
 
 
 ```html
-<section style="margin:16px 0;padding-left:8px;border-left:2px solid #576b95"><p style="margin:0 0 6px;color:#576b95;font-size:13px;line-height:1.75;font-weight:600;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif">重点</p><p style="margin:0;color:#333333;font-size:16px;line-height:1.75;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif">总结/重点 fixture highlight_inline_emphasis</p></section>
+<section style="margin:16px 0"><p style="color:#333333;font-size:16px;line-height:1.75;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;margin:0;border-left:2px solid #576b95;padding-left:8px"><span style="display:block;margin:0 0 6px;color:#576b95;font-size:13px;line-height:1.75;font-weight:600;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif">重点</span>总结/重点 fixture highlight_inline_emphasis</p></section>
 ```
 
 ### S8M-CARD-001 · info_card_key_takeaway
@@ -177,15 +177,15 @@
 | variantType | existing |
 | validatorStatus | WARNING |
 | validatorErrors | — |
-| validatorWarnings | WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER |
+| validatorWarnings | WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_TAG |
 
-**Copy HTML 摘要：** <section style="margin:16px 0;padding:12px 16px;background-color:#f9f9f9;border:1px solid #576b95;border-radius:8px"><p …
+**Copy HTML 摘要：** <section style="margin:16px 0"><p style="color:#333333;font-size:16px;line-height:1.75;font-family:'PingFang SC', 'Hirag…
 
 **测试说明：** 复制上述 HTML（或打开 snapshot 文件全选复制），粘贴到**微信公众号后台**正文编辑器；勿用 135/浏览器 Preview 代替判定。
 
 
 ```html
-<section style="margin:16px 0;padding:12px 16px;background-color:#f9f9f9;border:1px solid #576b95;border-radius:8px"><p style="margin:0 0 8px;color:#576b95;font-size:16px;font-weight:600;line-height:1.6;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif">信息卡 info_card_key_takeaway</p><p style="margin:0;color:#333333;font-size:16px;line-height:1.75;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif">要点一
+<section style="margin:16px 0"><p style="color:#333333;font-size:16px;line-height:1.75;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;margin:0;padding:12px 16px;background-color:#f9f9f9;border:1px solid #576b95"><span style="display:block;margin:0 0 8px;color:#576b95;font-size:16px;font-weight:600;line-height:1.6;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif">信息卡 info_card_key_takeaway</span>要点一
 要点二</p></section>
 ```
 
@@ -245,16 +245,16 @@
 | blockType | title |
 | variantType | candidate |
 | validatorStatus | FAIL |
-| validatorErrors | WECHAT_COPY_RED_CSS, WECHAT_COPY_RED_CSS |
-| validatorWarnings | WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER, WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER, WECHAT_COPY_YELLOW_TAG, … |
+| validatorErrors | WECHAT_COPY_RED_CSS |
+| validatorWarnings | WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER, … |
 
-**Copy HTML 摘要：** <section style="margin:32px 0;padding:16px 18px;background-color:#f9f9f9;border-radius:10px;border:1px solid #eeeeee"><t…
+**Copy HTML 摘要：** <section style="margin:32px 0"><p style="margin:0 0 6px 0;color:#576b95;font-size:11px;font-weight:600;letter-spacing:0.…
 
 **测试说明：** 复制上述 HTML（或打开 snapshot 文件全选复制），粘贴到**微信公众号后台**正文编辑器；勿用 135/浏览器 Preview 代替判定。
 
 
 ```html
-<section style="margin:32px 0;padding:16px 18px;background-color:#f9f9f9;border-radius:10px;border:1px solid #eeeeee"><table style="width:100%;border-collapse:collapse"><tr style=""><td style="width:44px;vertical-align:top"><span style="display:inline-block;width:32px;height:32px;line-height:32px;text-align:center;border-radius:8px;background-color:#f9f9f9;border:1px solid #eeeeee;color:#576b95;font-size:15px;font-weight:700">引</span></td><td style="width:5px;vertical-align:top;background-color:#576b95;border-radius:2px"></td><td style="vertical-align:top;padding-left:12px"><p style="margin:0 0 6px 0;color:#576b95;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">主标题</p><p style="margin:0;color:#333333;font-size:26px;font-weight:700;line-height:1.35;text-align:left;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif">S8 Matrix · title_left_bar_classic</p></td></tr></table></section>
+<section style="margin:32px 0"><p style="margin:0 0 6px 0;color:#576b95;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">主标题</p><h1 style="margin:0;color:#333333;font-size:26px;font-weight:700;line-height:1.35;text-align:left;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;border-left:5px solid #576b95;padding-left:16px;padding:16px 18px;background-color:#f9f9f9"><span style="display:inline-block;margin:0 10px 0 0;vertical-align:top"><span style="display:inline-block;width:32px;height:32px;line-height:32px;text-align:center;border-radius:8px;background-color:#f9f9f9;border:1px solid #eeeeee;color:#576b95;font-size:15px;font-weight:700">引</span></span>S8 Matrix · title_left_bar_classic</h1></section>
 ```
 
 ### S8M-TITLE-003 · title_bottom_line_editorial
@@ -265,17 +265,17 @@
 | fixtureId | `s8-title-bottom-line` |
 | blockType | title |
 | variantType | existing |
-| validatorStatus | FAIL |
-| validatorErrors | WECHAT_COPY_RED_CSS |
-| validatorWarnings | WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER, WECHAT_COPY_YELLOW_TAG, … |
+| validatorStatus | WARNING |
+| validatorErrors | — |
+| validatorWarnings | WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER |
 
-**Copy HTML 摘要：** <section style="margin:36px 0;text-align:center;padding:12px 16px 0"><p style="margin:0;color:#333333;font-size:28px;fon…
+**Copy HTML 摘要：** <section style="margin:36px 0"><span style="display:inline-block;margin:0 0 8px"><span style="display:inline-block;width…
 
 **测试说明：** 复制上述 HTML（或打开 snapshot 文件全选复制），粘贴到**微信公众号后台**正文编辑器；勿用 135/浏览器 Preview 代替判定。
 
 
 ```html
-<section style="margin:36px 0;text-align:center;padding:12px 16px 0"><p style="margin:0;color:#333333;font-size:28px;font-weight:700;line-height:1.35;text-align:center;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif">S8 Matrix · title_bottom_line_editorial</p><table style="width:280px;max-width:100%;margin:10px auto 0;border-collapse:collapse"><tr style=""><td style="width:40px;text-align:center;vertical-align:middle"><span style="display:inline-block;width:32px;height:32px;line-height:32px;text-align:center;border-radius:8px;background-color:#f9f9f9;border:1px solid #eeeeee;color:#576b95;font-size:15px;font-weight:700">✦</span></td><td style="height:2px;background-color:#576b95"></td><td style="width:40px;text-align:center;vertical-align:middle"><span style="display:inline-block;width:32px;height:32px;line-height:32px;text-align:center;border-radius:8px;background-color:#f9f9f9;border:1px solid #eeeeee;color:#576b95;font-size:15px;font-weight:700">✦</span></td></tr></table></section>
+<section style="margin:36px 0"><span style="display:inline-block;margin:0 0 8px"><span style="display:inline-block;width:32px;height:32px;line-height:32px;text-align:center;border-radius:8px;background-color:#f9f9f9;border:1px solid #eeeeee;color:#576b95;font-size:15px;font-weight:700">✦</span></span><h1 style="margin:0;color:#333333;font-size:28px;font-weight:700;line-height:1.35;text-align:center;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;padding-bottom:6px;border-bottom:1px solid #576b95">S8 Matrix · title_bottom_line_editorial</h1></section>
 ```
 
 ### S8M-HEAD-002 · heading_numbered_section
@@ -309,15 +309,15 @@
 | variantType | existing |
 | validatorStatus | FAIL |
 | validatorErrors | WECHAT_COPY_RED_CSS |
-| validatorWarnings | WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER |
+| validatorWarnings | WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER |
 
-**Copy HTML 摘要：** <section style="margin:28px 0 12px;padding:16px 18px;text-align:center;border-radius:8px;border:1px solid #eeeeee;backgr…
+**Copy HTML 摘要：** <section style="margin:28px 0 12px;padding:0"><p style="display:block;margin:0 0 10px;padding:0;font-size:22px;font-weig…
 
 **测试说明：** 复制上述 HTML（或打开 snapshot 文件全选复制），粘贴到**微信公众号后台**正文编辑器；勿用 135/浏览器 Preview 代替判定。
 
 
 ```html
-<section style="margin:28px 0 12px;padding:16px 18px;text-align:center;border-radius:8px;border:1px solid #eeeeee;background-color:transparent"><p style="display:block;margin:0 0 10px;padding:0;font-size:22px;font-weight:700;line-height:1.2;color:#576b95;text-align:center;letter-spacing:0.05em;font-variant-numeric:tabular-nums">01</p><p style="margin:0;color:#333333;font-size:17px;font-weight:600;line-height:1.5;text-align:center;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif">章节 · heading_card_centered</p></section>
+<section style="margin:28px 0 12px;padding:0"><p style="display:block;margin:0 0 10px;padding:0;font-size:22px;font-weight:700;line-height:1.2;color:#576b95;text-align:center;letter-spacing:0.05em;font-variant-numeric:tabular-nums">01</p><h3 style="margin:0;padding:16px 18px;text-align:center;border-top:1px solid #eeeeee;border-bottom:1px solid #eeeeee;background-color:transparent;color:#333333;font-size:17px;font-weight:600;line-height:1.5;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif">章节 · heading_card_centered</h3></section>
 ```
 
 ### S8M-LEAD-003 · lead_quote_intro
@@ -332,13 +332,13 @@
 | validatorErrors | WECHAT_COPY_RED_CSS |
 | validatorWarnings | WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_TAG |
 
-**Copy HTML 摘要：** <section style="margin:20px 0;padding-left:12px;border-left:3px solid #cccccc"><p style="margin:0;color:#333333;font-siz…
+**Copy HTML 摘要：** <section style="margin:20px 0"><p style="color:#333333;font-size:17px;font-weight:400;line-height:1.65;font-family:'Ping…
 
 **测试说明：** 复制上述 HTML（或打开 snapshot 文件全选复制），粘贴到**微信公众号后台**正文编辑器；勿用 135/浏览器 Preview 代替判定。
 
 
 ```html
-<section style="margin:20px 0;padding-left:12px;border-left:3px solid #cccccc"><p style="margin:0;color:#333333;font-size:17px;font-weight:400;line-height:1.65;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;font-style:italic">导语 fixture：lead_quote_intro。用于 Contract v1 复制校验。</p></section>
+<section style="margin:20px 0"><p style="color:#333333;font-size:17px;font-weight:400;line-height:1.65;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;margin:0;border-left:3px solid #cccccc;padding-left:12px;font-style:italic">导语 fixture：lead_quote_intro。用于 Contract v1 复制校验。</p></section>
 ```
 
 
@@ -356,15 +356,15 @@
 | variantType | probe |
 | validatorStatus | WARNING |
 | validatorErrors | — |
-| validatorWarnings | WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER |
+| validatorWarnings | WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_TAG |
 
-**Copy HTML 摘要：** <section style="margin:18px 0;padding:12px 16px;background-color:#f9f9f9;border:1px solid #eeeeee;border-radius:8px"><p …
+**Copy HTML 摘要：** <section style="margin:18px 0"><p style="color:#333333;font-size:16px;font-weight:400;line-height:1.75;font-family:'Ping…
 
 **测试说明：** 复制上述 HTML（或打开 snapshot 文件全选复制），粘贴到**微信公众号后台**正文编辑器；勿用 135/浏览器 Preview 代替判定。
 
 
 ```html
-<section style="margin:18px 0;padding:12px 16px;background-color:#f9f9f9;border:1px solid #eeeeee;border-radius:8px"><p style="margin:0;color:#333333;font-size:16px;font-weight:400;line-height:1.75;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif">正文 fixture paragraph_callout_soft：验证 inline typography 与 Yellow 装饰边界。</p></section>
+<section style="margin:18px 0"><p style="color:#333333;font-size:16px;font-weight:400;line-height:1.75;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;margin:0;padding:12px 16px;background-color:#f9f9f9;border:1px solid #eeeeee">正文 fixture paragraph_callout_soft：验证 inline typography 与 Yellow 装饰边界。</p></section>
 ```
 
 ### S8M-SUM-004 · highlight_border_glow
@@ -377,15 +377,15 @@
 | variantType | probe |
 | validatorStatus | WARNING |
 | validatorErrors | — |
-| validatorWarnings | WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER |
+| validatorWarnings | WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_TAG |
 
-**Copy HTML 摘要：** <section style="margin:16px 0;padding:12px 16px;background-color:#f9f9f9;border:1px solid #eeeeee;border-radius:8px"><p …
+**Copy HTML 摘要：** <section style="margin:16px 0"><p style="color:#333333;font-size:16px;line-height:1.75;font-family:'PingFang SC', 'Hirag…
 
 **测试说明：** 复制上述 HTML（或打开 snapshot 文件全选复制），粘贴到**微信公众号后台**正文编辑器；勿用 135/浏览器 Preview 代替判定。
 
 
 ```html
-<section style="margin:16px 0;padding:12px 16px;background-color:#f9f9f9;border:1px solid #eeeeee;border-radius:8px"><p style="margin:0 0 6px;color:#576b95;font-size:13px;line-height:1.75;font-weight:600;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif">重点</p><p style="margin:0;color:#333333;font-size:16px;line-height:1.75;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif">总结/重点 fixture highlight_border_glow</p></section>
+<section style="margin:16px 0"><p style="color:#333333;font-size:16px;line-height:1.75;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;margin:0;padding:12px 16px;background-color:#f9f9f9;border:1px solid #eeeeee"><span style="display:block;margin:0 0 6px;color:#576b95;font-size:13px;line-height:1.75;font-weight:600;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif">重点</span>总结/重点 fixture highlight_border_glow</p></section>
 ```
 
 ### S8M-CARD-004 · info_card_soft_banner
@@ -400,13 +400,13 @@
 | validatorErrors | — |
 | validatorWarnings | WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_TAG |
 
-**Copy HTML 摘要：** <section style="margin:16px 0;padding:12px 16px;background-color:#fff8e6;border-left:4px solid #b36b00"><p style="margin…
+**Copy HTML 摘要：** <section style="margin:16px 0"><p style="color:#5f3b00;font-size:16px;line-height:1.75;font-family:'PingFang SC', 'Hirag…
 
 **测试说明：** 复制上述 HTML（或打开 snapshot 文件全选复制），粘贴到**微信公众号后台**正文编辑器；勿用 135/浏览器 Preview 代替判定。
 
 
 ```html
-<section style="margin:16px 0;padding:12px 16px;background-color:#fff8e6;border-left:4px solid #b36b00"><p style="margin:0 0 6px;color:#666666;font-size:13px;line-height:1.5;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif">提示</p><p style="margin:0 0 8px;color:#576b95;font-size:16px;font-weight:600;line-height:1.6;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif">信息卡 info_card_soft_banner</p><p style="margin:0;color:#5f3b00;font-size:16px;line-height:1.75;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif">要点一
+<section style="margin:16px 0"><p style="color:#5f3b00;font-size:16px;line-height:1.75;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;margin:0;border-left:4px solid #b36b00;padding-left:12px;padding:12px 16px;background-color:#fff8e6"><span style="display:block;margin:0 0 6px;color:#666666;font-size:13px;line-height:1.5;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif">提示</span><span style="display:block;margin:0 0 8px;color:#576b95;font-size:16px;font-weight:600;line-height:1.6;font-family:'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif">信息卡 info_card_soft_banner</span>要点一
 要点二</p></section>
 ```
 

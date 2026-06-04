@@ -44,11 +44,16 @@ function fidelityBlockContent(
         label: "重点",
       };
     case "info_card":
-      return {
-        title: `信息卡 ${variantId}`,
-        body: "要点一\n要点二",
-        icon: "提示",
-      };
+      return variantId === "info_card_reading_path_candidate"
+        ? {
+            title: "阅读路径：",
+            body: "要点一 / 要点二 / 要点三",
+          }
+        : {
+            title: `信息卡 ${variantId}`,
+            body: "要点一\n要点二",
+            icon: "提示",
+          };
     case "cta":
       return {
         text: `行动号召 ${variantId}`,
@@ -68,7 +73,12 @@ export function createS8FidelityArticleFixture(
     type: spec.blockType,
     content: fidelityBlockContent(spec.blockType, spec.variantId),
     ...(spec.blockType === "heading"
-      ? { meta: { sourceIndex: 1 } }
+      ? {
+          meta:
+            spec.variantId === "heading_purple_chapter_label_candidate"
+              ? { sourceIndex: 1, label: "CHAPTER 01" }
+              : { sourceIndex: 1 },
+        }
       : {}),
   };
 
