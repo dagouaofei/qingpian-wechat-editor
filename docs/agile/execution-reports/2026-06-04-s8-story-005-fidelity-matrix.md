@@ -129,6 +129,8 @@
 
 ## 14. Commit & Merge
 
-- Commit：`feat: add wechat fidelity matrix fixtures`（见 merge 后 hash）
-- Merge：`feature/s8-story-005-fidelity-matrix` → `sprint/s8-wechat-safe-css-contract`
+- `68a32ef` — `feat: add wechat fidelity matrix fixtures`
+- Merge：`feature/s8-story-005-fidelity-matrix` → `sprint/s8-wechat-safe-css-contract`（fast-forward）
+- Sprint tip：`68a32ef`
 - **未** merge `release/1` / `main`
+- **S8-STORY-005：** **Done**
