@@ -80,4 +80,6 @@
 
 ## 11. Commit
 
-- 未提交 / not committed（待用户指示）
+- `89558d9` — `feat: implement wechat compatibility profile`
+- Merge：`feature/s8-story-003-compatibility-profile` → `sprint/s8-wechat-safe-css-contract`（fast-forward）
+- Sprint tip：`89558d9`
