@@ -329,8 +329,10 @@ function renderHighlightMarkerCopy(
   palette: ThemePaletteTokens,
   blockType: "title" | "heading",
 ): string {
-  const sectionStyle =
-    blockType === "heading" ? headingSectionStyle() : titleSectionStyle(typography);
+  if (blockType === "heading") {
+    return renderPublishHighlightMarkerCopy(text, typography, palette);
+  }
+  const sectionStyle = titleSectionStyle(typography);
   const baseTextStyle = {
     margin: "0",
     color: typography.color,
@@ -339,24 +341,12 @@ function renderHighlightMarkerCopy(
     lineHeight: typography.lineHeight,
     ...(typography.fontFamily ? { fontFamily: typography.fontFamily } : {}),
   };
-  if (blockType === "heading") {
-    const marked = wrapInlineElement(
-      "span",
-      copySafeHighlightMarkerTextStyle(palette),
-      escapeHtml(text),
-    );
-    return wrapInlineElement(
-      "section",
-      sectionStyle,
-      wrapInlineElement("p", baseTextStyle, marked),
-    );
-  }
   return wrapInlineElement(
     "section",
     sectionStyle,
     wrapInlineElement(
       "p",
-      { ...baseTextStyle, ...copySafeHighlightMarkerTextStyle(palette) },
+      { ...baseTextStyle, ...copySafeHighlightMarkerTextStyle(palette, typography) },
       escapeHtml(text),
     ),
   );
@@ -651,7 +641,12 @@ export function renderTitleBlockCopyHtml(
       break;
     case "highlight_marker":
       html = isPublishHeading
-        ? renderPublishHighlightMarkerCopy(text, typography, palette)
+        ? renderPublishHighlightMarkerCopy(
+            text,
+            typography,
+            palette,
+            slotMap.subtitle?.content,
+          )
         : renderHighlightMarkerCopy(text, typography, palette, block.type);
       break;
     case "short_line":

@@ -12,7 +12,7 @@
 | ID | 中文名 | 适用场景 | 禁止场景 | Preview/Copy 必现元素 |
 |----|--------|----------|----------|------------------------|
 | `heading_short_line` | 短线标题 | 知识/行业/默认小节 | 连续多节无正文间隔 | 17px 字重 600 + 2px accent 底线（≤280px） |
-| `heading_highlight_marker` | 荧光笔强调 | 活动/叙事段首强调 | 全篇每节都用 | 窄 table：字行 + 12px accent 色条（字底压住条） |
+| `heading_highlight_marker` | 荧光笔强调 | 活动/叙事段首强调 | 全篇每节都用 | `h3` inline + accent ≈12%/20% 纵向渐变（56%–92% 淡出） |
 | `heading_magazine_left_bar` | 杂志竖线 | 品牌/深度观察 | 清单体密集编号文 | 3px 左色条 + 12px 左内边距，无 card 外框 |
 | `heading_magazine_offset` | 杂志错位 | 季节/复盘/里程碑 | 短帖单节 | 浅底块 + 4px 左线 + 适度 padding |
 | `heading_numbered_section` | 编号小节 | 清单/步骤/促销条目 | 无 `sourceIndex` 时仍显示默认序号 | accent 方牌编号 + 标题左对齐紧贴 |
@@ -48,7 +48,7 @@
 ## 3. 技术约束（Copy Fidelity）
 
 - 仅 inline style；`font-size` / `font-family` / `color` / `line-height` 写在文本节点
-- 禁止 `linear-gradient`、`var(--`、`class`、`<style>`
+- 除 `heading_highlight_marker` 外禁止 `linear-gradient`；禁止 `var(--`、`class`、`<style>`
 - 装饰用 table + border 或真实 DOM 元素（见 `title-block-copy.ts`）
 - 自动化：[`heading-publish-parity.test.ts`](../../tests/core/styles/heading-publish-parity.test.ts)（含 [`HEADING_PUBLISH_COPY_CONTRACT`](../architecture/heading-publish-copy-contract.md)）
 

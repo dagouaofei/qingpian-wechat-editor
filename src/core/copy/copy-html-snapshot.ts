@@ -10,6 +10,8 @@ import {
   type RendererOutputPlaceholder,
 } from "@/core/renderer";
 
+import { HEADING_HIGHLIGHT_MARKER_COPY_SAFE_OPTIONS } from "@/core/renderer/heading-publish-decoration";
+
 import { assertCopySafeHtmlSnapshot } from "./copy-safe-html";
 import {
   createSprint4ATextFirstCopyRendererRegistry,
@@ -109,7 +111,12 @@ export function buildCopyHtmlSnapshot(
     }
 
     try {
-      assertCopySafeHtmlSnapshot(result.output.html);
+      assertCopySafeHtmlSnapshot(
+        result.output.html,
+        result.output.variantId === "heading_highlight_marker"
+          ? HEADING_HIGHLIGHT_MARKER_COPY_SAFE_OPTIONS
+          : undefined,
+      );
     } catch (error) {
       issues.push(
         createRendererIssue({

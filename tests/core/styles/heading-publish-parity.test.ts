@@ -12,6 +12,7 @@ import {
 } from "@/core/renderer";
 import {
   assertHeadingPublishCopyContract,
+  HEADING_HIGHLIGHT_MARKER_COPY_SAFE_OPTIONS,
 } from "@/core/renderer/heading-publish-decoration";
 import { resolveTitleBlockTypography } from "@/core/renderer/text-style";
 import {
@@ -80,8 +81,21 @@ describe("heading publish pool parity", () => {
       if (themeColor) {
         expect(copyPayload.textHtml).toContain(themeColor);
       }
-      expect(collectCopySafeHtmlViolations(copyPayload.textHtml)).toHaveLength(0);
-      expect(copyPayload.textHtml).not.toMatch(/linear-gradient/i);
+      expect(
+        collectCopySafeHtmlViolations(
+          copyPayload.textHtml,
+          variantId === "heading_highlight_marker"
+            ? HEADING_HIGHLIGHT_MARKER_COPY_SAFE_OPTIONS
+            : undefined,
+        ),
+      ).toHaveLength(0);
+      if (variantId === "heading_highlight_marker") {
+        expect(copyPayload.textHtml).toMatch(/linear-gradient\s*\(\s*180deg/i);
+        expect(copyPayload.textHtml).toMatch(/<h3\b/i);
+        expect(copyPayload.textHtml).toMatch(/display:\s*inline/i);
+      } else {
+        expect(copyPayload.textHtml).not.toMatch(/linear-gradient/i);
+      }
 
       const contractErrors = assertHeadingPublishCopyContract(
         copyPayload.textHtml,

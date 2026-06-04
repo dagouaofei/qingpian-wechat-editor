@@ -84,18 +84,28 @@ const COPY_SAFE_HTML_PATTERNS: Array<{
   },
 ];
 
+export type CollectCopySafeHtmlOptions = {
+  /** 明确允许的高风险项（须对应 variant 粘贴 QA 通过，如 heading_highlight_marker） */
+  allowedViolationCodes?: CopySafeHtmlViolationCode[];
+};
+
 export function collectCopySafeHtmlViolations(
   html: string,
+  options?: CollectCopySafeHtmlOptions,
 ): CopySafeHtmlViolation[] {
-  return COPY_SAFE_HTML_PATTERNS.filter(({ pattern }) => pattern.test(html)).map(
-    ({ code, message }) => ({ code, message }),
-  );
+  const allowed = new Set(options?.allowedViolationCodes ?? []);
+  return COPY_SAFE_HTML_PATTERNS.filter(({ pattern }) => pattern.test(html))
+    .map(({ code, message }) => ({ code, message }))
+    .filter((violation) => !allowed.has(violation.code));
 }
 
-export function assertCopySafeHtmlSnapshot(html: string): void {
+export function assertCopySafeHtmlSnapshot(
+  html: string,
+  options?: CollectCopySafeHtmlOptions,
+): void {
   assertCopySafeHtml(html);
 
-  const violations = collectCopySafeHtmlViolations(html);
+  const violations = collectCopySafeHtmlViolations(html, options);
   if (violations.length > 0) {
     throw new Error(violations.map((violation) => violation.message).join("; "));
   }

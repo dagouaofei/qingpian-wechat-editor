@@ -5,7 +5,7 @@
 
 import type { ThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
 import {
-  copySafeHighlightMarkerMarkedStyle,
+  copySafeHighlightMarkerH3Style,
   copySafeMagazineOffsetSectionStyle,
 } from "@/core/renderer/heading-publish-decoration";
 
@@ -13,9 +13,10 @@ export {
   copySafeHeadingOrdinalStyle,
   copySafeHeadingSectionKickerStyle,
   copySafeHeadingSectionStyle,
-  copySafeHighlightMarkerMarkedStyle,
+  copySafeHighlightMarkerH3Style,
+  copySafeHighlightMarkerSectionStyle,
+  copySafeHighlightMarkerSubtitleStyle,
   copySafeHighlightMarkerTextStyle,
-  copySafeHighlightMarkerWrapStyle,
   copySafeInlineIconTextRowStyle,
   copySafeIconPrefixGlyphStyle,
   copySafeMagazineLeftBarAccentRailStyle,
@@ -25,6 +26,7 @@ export {
   copySafeNumberedSectionBadgeStyle,
   copySafeShortLineUnderlineStyle,
   copySafeTopicPillStyle,
+  buildHighlightMarkerGradient,
 } from "@/core/renderer/heading-publish-decoration";
 
 /** @deprecated Use copySafeIconPrefixGlyphStyle for heading publish pool */
@@ -119,8 +121,17 @@ export function copySafeAccentBarStyle(
   };
 }
 
-export function copySafeHighlightMarkerStyle(palette: ThemePaletteTokens): Record<string, string> {
-  return copySafeHighlightMarkerMarkedStyle(palette);
+export function copySafeHighlightMarkerStyle(
+  palette: ThemePaletteTokens,
+  typography?: {
+    fontSize?: string;
+    fontWeight?: string;
+    lineHeight?: string;
+    fontFamily?: string;
+    color?: string;
+  },
+): Record<string, string> {
+  return copySafeHighlightMarkerH3Style(palette, typography ?? {});
 }
 
 export function copySafeMagazineOffsetCardStyle(palette: ThemePaletteTokens): Record<string, string> {

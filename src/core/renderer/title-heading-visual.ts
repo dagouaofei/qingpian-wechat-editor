@@ -12,7 +12,8 @@ import {
   copySafeNumberBadgeStyle,
 } from "@/core/copy/title-heading-copy-styles";
 import {
-  copySafeHighlightMarkerTextStyle,
+  buildHighlightMarkerGradient,
+  copySafeHighlightMarkerH3Style,
   copySafeNumberedSectionBadgeStyle,
 } from "./heading-publish-decoration";
 import {
@@ -263,17 +264,24 @@ export function paletteAccentWithAlpha(palette: ThemePaletteTokens, alphaHex: st
 export function titleHeadingHighlightMarkerTextStyle(
   palette: ThemePaletteTokens,
   blockType: "title" | "heading" = "title",
+  typography?: {
+    fontSize?: string;
+    fontWeight?: string;
+    lineHeight?: string;
+    fontFamily?: string;
+    color?: string;
+  },
 ): Record<string, string> {
   if (blockType === "heading") {
-    return copySafeHighlightMarkerTextStyle(palette);
+    return copySafeHighlightMarkerH3Style(palette, typography ?? {});
   }
-  const soft = paletteAccentWithAlpha(palette, "24");
-  const mid = paletteAccentWithAlpha(palette, "38");
   return {
     display: "inline",
     margin: "0",
     padding: "0 4px 2px",
-    background: `linear-gradient(180deg, transparent 56%, ${soft} 56%, ${mid} 84%, transparent 92%)`,
+    background: buildHighlightMarkerGradient(palette),
+    boxDecorationBreak: "clone",
+    WebkitBoxDecorationBreak: "clone",
   };
 }
 

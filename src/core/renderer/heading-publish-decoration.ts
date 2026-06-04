@@ -50,6 +50,11 @@ export type HeadingPublishVariantId = (typeof HEADING_PUBLISH_VARIANT_IDS)[numbe
 /** 全池共性：装饰元素默认无灰底填充（胶囊/图标/标题字） */
 export const HEADING_PUBLISH_NO_FILL_ON_LABEL = true;
 
+/** 荧光笔 variant 经 PO 粘贴 QA 允许 inline linear-gradient */
+export const HEADING_HIGHLIGHT_MARKER_COPY_SAFE_OPTIONS = {
+  allowedViolationCodes: ["linear_gradient" as const],
+};
+
 export type HeadingPublishCopyContract = {
   /** Copy HTML 必须匹配（装饰存在性） */
   mustMatch: RegExp[];
@@ -67,8 +72,15 @@ export const HEADING_PUBLISH_COPY_CONTRACT: Record<
     mustNotMatch: [/width:\s*200px/i],
   },
   heading_highlight_marker: {
-    mustMatch: [/<table/i, /width:\s*auto/i, /height:\s*1[02]px/i],
-    mustNotMatch: [/border-bottom:\s*8px/i, /height:\s*6px/i, /margin:\s*-5px/i],
+    mustMatch: [
+      /<h3\b/i,
+      /display:\s*inline/i,
+      /linear-gradient\s*\(\s*180deg/i,
+      /transparent\s+56%/i,
+      /box-decoration-break:\s*clone/i,
+      /-webkit-box-decoration-break:\s*clone/i,
+    ],
+    mustNotMatch: [/<table/i, /display:\s*inline-block/i, /border-bottom:\s*[0-9]+px/i],
   },
   heading_magazine_left_bar: {
     mustMatch: [/border-left:\s*1px/i, /border-left:\s*3px/i],
@@ -203,19 +215,55 @@ export function copySafeShortLineUnderlineStyle(
   };
 }
 
-/** 荧光笔：窄 table 双行（字行 + 色条行），微信比 border-bottom 更易保留叠压感 */
-export function copySafeHighlightMarkerTableStyle(): Record<string, string> {
+/** 主题 accent 叠加 8 位 hex 透明度（RRGGBBAA） */
+export function paletteAccentWithAlphaHex(
+  palette: ThemePaletteTokens,
+  alphaHex: string,
+): string {
+  const raw = palette.textAccent.replace("#", "");
+  if (raw.length === 6) {
+    return `#${raw}${alphaHex}`;
+  }
+  return palette.textAccent;
+}
+
+/** 荧光笔渐变透明度：弱强调 / 中段（略高于原 14/22，仍克制） */
+export const HIGHLIGHT_MARKER_GRADIENT_ALPHA_SOFT = "20";
+export const HIGHLIGHT_MARKER_GRADIENT_ALPHA_MID = "33";
+
+/** miaopian 荧光笔纵向渐变 — Preview/Copy 同源 */
+export function buildHighlightMarkerGradient(palette: ThemePaletteTokens): string {
+  const accentSoft = paletteAccentWithAlphaHex(
+    palette,
+    HIGHLIGHT_MARKER_GRADIENT_ALPHA_SOFT,
+  );
+  const accentMid = paletteAccentWithAlphaHex(
+    palette,
+    HIGHLIGHT_MARKER_GRADIENT_ALPHA_MID,
+  );
+  return `linear-gradient(180deg,transparent 56%,${accentSoft} 56%,${accentMid} 84%,transparent 92%)`;
+}
+
+export function copySafeHighlightMarkerSectionStyle(
+  typography: {
+    fontSize?: string;
+    fontWeight?: string;
+    lineHeight?: string;
+    fontFamily?: string;
+    color?: string;
+  },
+): Record<string, string> {
   return {
-    width: "auto",
-    borderCollapse: "collapse",
-    margin: "0",
-    border: "none",
+    ...copySafeHeadingSectionStyle(),
+    textAlign: "left",
+    ...(typography.fontFamily ? { fontFamily: typography.fontFamily } : {}),
+    ...(typography.color ? { color: typography.color } : {}),
   };
 }
 
-export function copySafeHighlightMarkerTextCellStyle(
+export function copySafeHighlightMarkerH3Style(
   palette: ThemePaletteTokens,
-  typography?: {
+  typography: {
     fontSize?: string;
     fontWeight?: string;
     lineHeight?: string;
@@ -225,67 +273,50 @@ export function copySafeHighlightMarkerTextCellStyle(
 ): Record<string, string> {
   return {
     margin: "0",
-    padding: "0 6px 6px",
-    border: "none",
-    verticalAlign: "bottom",
-    backgroundColor: "transparent",
-    color: typography?.color ?? palette.textDefault,
-    fontSize: typography?.fontSize ?? "17px",
-    fontWeight: typography?.fontWeight ?? "600",
-    lineHeight: typography?.lineHeight ?? "1.45",
-    ...(typography?.fontFamily ? { fontFamily: typography.fontFamily } : {}),
+    padding: "0 4px 2px",
+    display: "inline",
+    fontSize: typography.fontSize ?? "17px",
+    lineHeight: typography.lineHeight ?? "1.45",
+    fontWeight: typography.fontWeight ?? "600",
+    letterSpacing: "0.02em",
+    color: typography.color ?? palette.textDefault,
+    background: buildHighlightMarkerGradient(palette),
+    boxDecorationBreak: "clone",
+    WebkitBoxDecorationBreak: "clone",
+    ...(typography.fontFamily ? { fontFamily: typography.fontFamily } : {}),
   };
 }
 
-export function copySafeHighlightMarkerBandCellStyle(
-  palette: ThemePaletteTokens,
+export function copySafeHighlightMarkerSubtitleStyle(
+  typography: {
+    fontSize?: string;
+    lineHeight?: string;
+    fontFamily?: string;
+    color?: string;
+  },
 ): Record<string, string> {
   return {
-    height: "12px",
-    margin: "0",
+    margin: "8px 0 0",
     padding: "0",
-    border: "none",
-    backgroundColor: palette.textAccent,
-    fontSize: "0",
-    lineHeight: "0",
+    fontSize: typography.fontSize ?? "14px",
+    lineHeight: typography.lineHeight ?? "1.5",
+    color: typography.color ?? "#666666",
+    ...(typography.fontFamily ? { fontFamily: typography.fontFamily } : {}),
   };
 }
 
-/** @deprecated 微信粘贴易脱节；publish 池使用 table 结构 */
-export function copySafeHighlightMarkerMarkedStyle(
-  palette: ThemePaletteTokens,
-  typography?: {
-    fontSize?: string;
-    fontWeight?: string;
-    lineHeight?: string;
-    fontFamily?: string;
-    color?: string;
-  },
-): Record<string, string> {
-  return copySafeHighlightMarkerTextCellStyle(palette, typography);
-}
-
-/** @deprecated 使用 copySafeHighlightMarkerMarkedStyle */
+/** @deprecated 使用 copySafeHighlightMarkerH3Style */
 export function copySafeHighlightMarkerTextStyle(
   palette: ThemePaletteTokens,
+  typography?: {
+    fontSize?: string;
+    fontWeight?: string;
+    lineHeight?: string;
+    fontFamily?: string;
+    color?: string;
+  },
 ): Record<string, string> {
-  return copySafeHighlightMarkerMarkedStyle(palette);
-}
-
-/** @deprecated 分离条在微信粘贴中易与字脱节 */
-export function copySafeHighlightMarkerBarStyle(
-  palette: ThemePaletteTokens,
-): Record<string, string> {
-  return copySafeHighlightMarkerMarkedStyle(palette);
-}
-
-export function copySafeHighlightMarkerWrapStyle(): Record<string, string> {
-  return {
-    display: "inline-block",
-    margin: "0",
-    padding: "0",
-    maxWidth: "100%",
-  };
+  return copySafeHighlightMarkerH3Style(palette, typography ?? {});
 }
 
 export function copySafeMagazineOffsetSectionStyle(

@@ -4,7 +4,7 @@
  */
 
 import { escapeHtml } from "@/core/copy/html-escape";
-import { buildInlineStyle, wrapInlineElement } from "@/core/copy/inline-style";
+import { wrapInlineElement } from "@/core/copy/inline-style";
 import type { ThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
 import type { TitleHeadingPresentation } from "./title-heading-visual";
 import type { TitleBlockTypography } from "./text-style";
@@ -14,9 +14,9 @@ import {
   copySafeHeadingSectionStyle,
   copySafeCardCenteredFrameStyle,
   copySafeCardCenteredIndexStyle,
-  copySafeHighlightMarkerBandCellStyle,
-  copySafeHighlightMarkerTableStyle,
-  copySafeHighlightMarkerTextCellStyle,
+  copySafeHighlightMarkerH3Style,
+  copySafeHighlightMarkerSectionStyle,
+  copySafeHighlightMarkerSubtitleStyle,
   copySafeIconPrefixGlyphStyle,
   copySafeInlineIconTextRowStyle,
   copySafeMagazineLeftBarAccentRailStyle,
@@ -62,40 +62,29 @@ function titleInlineHtml(text: string, typography: TitleBlockTypography): string
   );
 }
 
-function baseTextParagraphStyle(typography: TitleBlockTypography): Record<string, string> {
-  return {
-    margin: "0",
-    color: typography.color,
-    fontSize: typography.fontSize,
-    fontWeight: typography.fontWeight,
-    lineHeight: typography.lineHeight,
-    ...(typography.fontFamily ? { fontFamily: typography.fontFamily } : {}),
-  };
-}
-
-function renderPublishHighlightMarkerTableHtml(
-  text: string,
-  typography: TitleBlockTypography,
-  palette: ThemePaletteTokens,
-): string {
-  const textCellStyle = buildInlineStyle(
-    copySafeHighlightMarkerTextCellStyle(palette, typography),
-  );
-  const bandCellStyle = buildInlineStyle(copySafeHighlightMarkerBandCellStyle(palette));
-  const tableStyle = buildInlineStyle(copySafeHighlightMarkerTableStyle());
-  return `<table style="${tableStyle}"><tbody><tr><td style="${textCellStyle}">${escapeHtml(text)}</td></tr><tr><td style="${bandCellStyle}">&nbsp;</td></tr></tbody></table>`;
-}
-
 export function renderPublishHighlightMarkerCopy(
   text: string,
   typography: TitleBlockTypography,
   palette: ThemePaletteTokens,
+  subtitleText?: string,
 ): string {
-  const marked = renderPublishHighlightMarkerTableHtml(text, typography, palette);
+  const h3 = wrapInlineElement(
+    "h3",
+    copySafeHighlightMarkerH3Style(palette, typography),
+    escapeHtml(text),
+  );
+  const subtitle =
+    subtitleText != null && subtitleText.length > 0
+      ? wrapInlineElement(
+          "p",
+          copySafeHighlightMarkerSubtitleStyle(typography),
+          escapeHtml(subtitleText),
+        )
+      : "";
   return wrapInlineElement(
     "section",
-    copySafeHeadingSectionStyle(),
-    wrapInlineElement("p", baseTextParagraphStyle(typography), marked),
+    copySafeHighlightMarkerSectionStyle(typography),
+    `${h3}${subtitle}`,
   );
 }
 

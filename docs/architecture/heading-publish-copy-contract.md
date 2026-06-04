@@ -22,7 +22,7 @@
 | 短线随字宽 | `inline-block` wrap + `width:100%` 底线，禁止固定 `200px` |
 | numbered ≠ minimal | numbered 须 6px 方牌（accent 底 + 白字）；minimal 须纯文本序号 |
 | `HEADING_PUBLISH_COMMON_COPY_FORBIDDEN` | 全池禁止满宽 table 等粘贴退化模式 |
-| 荧光笔 | 窄 `table`（`width:auto`）字行 + 12px 色条行；禁止仅 `border-bottom` 单 span（微信难叠压） |
+| 荧光笔 | `section` + `h3{display:inline}` + `linear-gradient(180deg,…)` + `box-decoration-break:clone`；仅此 variant 允许 copy-safe 豁免 `linear-gradient` |
 | `heading_icon_prefix` | 禁止 `<table>`；固定 `▸` + inline 兄弟节点 |
 | 仅 inline style | 与 [wechat-copy-style-rules.md](wechat-copy-style-rules.md) 一致 |
 

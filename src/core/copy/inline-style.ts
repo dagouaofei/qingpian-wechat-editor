@@ -21,7 +21,7 @@ export function buildInlineStyle(styles: InlineStyleRecord): string {
 }
 
 export function wrapInlineElement(
-  tag: keyof HTMLElementTagNameMap | "section" | "p" | "span",
+  tag: keyof HTMLElementTagNameMap | "section" | "p" | "span" | "h3",
   styles: InlineStyleRecord,
   innerHtml: string,
 ): string {

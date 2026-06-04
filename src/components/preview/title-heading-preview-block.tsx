@@ -13,9 +13,9 @@ import {
   headingPublishTextStyle,
   headingPreviewCardCenteredFrameStyle,
   headingPreviewCardCenteredIndexStyle,
-  headingPreviewHighlightMarkerBandCellStyle,
-  headingPreviewHighlightMarkerTableStyle,
-  headingPreviewHighlightMarkerTextCellStyle,
+  headingPreviewHighlightMarkerH3Style,
+  headingPreviewHighlightMarkerSectionStyle,
+  headingPreviewHighlightMarkerSubtitleStyle,
   headingPreviewIconPrefixGlyphStyle,
   headingPreviewMagazineLeftBarAccentRailStyle,
   headingPreviewMagazineLeftBarLightRailStyle,
@@ -521,47 +521,43 @@ export function TitleHeadingPreviewBlock({
 
     case "highlight_marker": {
       const palette = paletteForOutput(output);
-      const textStyleLocal = isHeadingPublishOutput(output)
-        ? headingPublishTextStyle(output.typography ?? {})
-        : previewTitleTextStyle(output.blockType, output.typography);
+      const typography = output.typography ?? {};
+      if (isHeadingPublishOutput(output)) {
+        const subtitle = output.slots?.subtitle?.content;
+        return (
+          <section
+            style={headingPreviewHighlightMarkerSectionStyle(typography)}
+            data-variant-id={output.variantId}
+          >
+            <h3 style={headingPreviewHighlightMarkerH3Style(palette, typography)}>
+              {output.text}
+              {showStreamingCaret ? caret : null}
+            </h3>
+            {subtitle ? (
+              <p style={headingPreviewHighlightMarkerSubtitleStyle(typography)}>
+                {subtitle}
+              </p>
+            ) : null}
+          </section>
+        );
+      }
+      const textStyleLocal = previewTitleTextStyle(output.blockType, output.typography);
       return (
         <PreviewShell
           variantId={output.variantId}
           style={shellStyleForHeading(output)}
         >
           <h2 style={{ ...textStyleLocal, margin: 0 }}>
-            {isHeadingPublishOutput(output) ? (
-              <table style={headingPreviewHighlightMarkerTableStyle()}>
-                <tbody>
-                  <tr>
-                    <td
-                      style={headingPreviewHighlightMarkerTextCellStyle(
-                        palette,
-                        output.typography ?? {},
-                      )}
-                    >
-                      {output.text}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style={headingPreviewHighlightMarkerBandCellStyle(palette)}>
-                      &nbsp;
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            ) : (
-              <span
-                style={
-                  titleHeadingHighlightMarkerTextStyle(
-                    palette,
-                    output.blockType,
-                  ) as CSSProperties
-                }
-              >
-                {output.text}
-              </span>
-            )}
+            <span
+              style={
+                titleHeadingHighlightMarkerTextStyle(
+                  palette,
+                  output.blockType,
+                ) as CSSProperties
+              }
+            >
+              {output.text}
+            </span>
             {showStreamingCaret ? caret : null}
           </h2>
         </PreviewShell>

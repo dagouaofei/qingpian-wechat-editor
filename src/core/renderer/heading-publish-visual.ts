@@ -13,9 +13,9 @@ import {
   copySafeHeadingSectionStyle,
   copySafeCardCenteredFrameStyle,
   copySafeCardCenteredIndexStyle,
-  copySafeHighlightMarkerBandCellStyle,
-  copySafeHighlightMarkerTableStyle,
-  copySafeHighlightMarkerTextCellStyle,
+  copySafeHighlightMarkerH3Style,
+  copySafeHighlightMarkerSectionStyle,
+  copySafeHighlightMarkerSubtitleStyle,
   copySafeInlineIconTextRowStyle,
   copySafeIconPrefixGlyphStyle,
   copySafeMagazineLeftBarAccentRailStyle,
@@ -58,11 +58,17 @@ export function headingPublishContainerStyle(): CSSProperties {
   return copySafeHeadingSectionStyle() as CSSProperties;
 }
 
-export function headingPreviewHighlightMarkerTableStyle(): CSSProperties {
-  return copySafeHighlightMarkerTableStyle() as CSSProperties;
+export function headingPreviewHighlightMarkerSectionStyle(typography: {
+  fontSize?: string;
+  fontWeight?: string;
+  lineHeight?: string;
+  fontFamily?: string;
+  color?: string;
+}): CSSProperties {
+  return copySafeHighlightMarkerSectionStyle(typography) as CSSProperties;
 }
 
-export function headingPreviewHighlightMarkerTextCellStyle(
+export function headingPreviewHighlightMarkerH3Style(
   palette: ThemePaletteTokens,
   typography?: {
     fontSize?: string;
@@ -72,22 +78,17 @@ export function headingPreviewHighlightMarkerTextCellStyle(
     color?: string;
   },
 ): CSSProperties {
-  return copySafeHighlightMarkerTextCellStyle(palette, typography) as CSSProperties;
+  return copySafeHighlightMarkerH3Style(palette, typography ?? {}) as CSSProperties;
 }
 
-export function headingPreviewHighlightMarkerBandCellStyle(
-  palette: ThemePaletteTokens,
-): CSSProperties {
-  return copySafeHighlightMarkerBandCellStyle(palette) as CSSProperties;
+export function headingPreviewHighlightMarkerSubtitleStyle(typography: {
+  fontSize?: string;
+  lineHeight?: string;
+  fontFamily?: string;
+  color?: string;
+}): CSSProperties {
+  return copySafeHighlightMarkerSubtitleStyle(typography) as CSSProperties;
 }
-
-/** @deprecated */
-export const headingPreviewHighlightMarkerMarkedStyle =
-  headingPreviewHighlightMarkerTextCellStyle;
-export const headingPreviewHighlightMarkerTextStyle =
-  headingPreviewHighlightMarkerTextCellStyle;
-export const headingPreviewHighlightMarkerBarStyle =
-  headingPreviewHighlightMarkerBandCellStyle;
 
 export function headingPreviewCardCenteredFrameStyle(
   palette: ThemePaletteTokens,

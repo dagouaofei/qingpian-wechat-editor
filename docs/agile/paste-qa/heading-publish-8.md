@@ -52,4 +52,5 @@
 - **2026-06-03 第三轮修复：** Preview 注入 `themePalette` 与 Copy 同源；短线随字宽；荧光笔 6px 叠压；杂志竖线改 border-left 双轨（禁 table）；错位/编号边框色=accent；图标 table 垂直居中 + 统一 glyph
 - **2026-06-03 第四轮修复：** 荧光笔改为同 span `border-bottom:8px`（禁负 margin 分离条）；编号 28px 浅底圆章；图标行改 inline 紧贴 + 固定 `▸` 字形
 - **2026-06-03 第五轮修复：** 荧光笔改窄 table 双行（12px 色条）；编号改 accent 方牌（禁圆章）；`heading_top_badge_topic` 替换为 `heading_card_centered`（透明外框 + 居中序号/标题）
+- **2026-06-03 荧光笔（miaopian 渐变）：** `section` + `h3{display:inline}` + `linear-gradient(180deg, transparent 56%, accent14, accent22, transparent 92%)` + `box-decoration-break:clone`；移除 table/双行色条历史方案；copy-snapshot 对本品豁免 `linear-gradient`
 
