@@ -127,4 +127,4 @@
 - **未 merge：** `release/1` · `main`（按审查要求）
 - **Commit message：** `docs: sync paste qa matrix and drift records`
 - **Commit hash：** `a0f05cd`
-- **Sprint 分支 HEAD：** `a0f05cd`（含 `784586b` workflow + 同步提交）
+- **Sprint 分支 HEAD：** `bdf7571`（`a0f05cd` 同步 + `bdf7571` 审查收口）
