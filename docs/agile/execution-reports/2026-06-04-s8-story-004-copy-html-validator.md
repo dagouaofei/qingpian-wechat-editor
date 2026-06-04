@@ -9,7 +9,7 @@
 - Sprint：S8
 - 关联：S8-STORY-004 · DECISION-089 · DECISION-090
 - 执行者：Cursor
-- 状态：**In Review**（待用户确认 merge，未 merge sprint）
+- 状态：**Done**（用户审查通过 · 2026-06-04 · 已 merge sprint）
 
 ## 2. 本轮目标
 
@@ -126,27 +126,39 @@ validateWechatCopyHtml(input: ValidateWechatCopyHtmlInput): WechatCopyValidation
 
 ## 14. 未完成
 
-- 用户确认 Story Done + merge `feature/s8-story-004-copy-html-validator` → sprint
-- S8-STORY-005 Fidelity Matrix
+- S8-STORY-005 Fidelity Matrix（**等待用户确认启动**，不在本 Story 范围）
 - CI 集成 validator（可选后续）
 
 ## 15. 风险
 
-- `section`/`div` 大量 Yellow warning 可能噪音高；待 Matrix/实机（005/006）决定是否 waiver
+- `section`/`div` 大量 Yellow warning 可能噪音高；**本轮不放宽**；待 Matrix/实机（005/006）再判断
 - 轻量 parser 对畸形 HTML 可能误报 `PARSE_ERROR` warning
 
-## 16. 审查问题
+## 16. 审查收口（用户确认）
 
-- `valid` 在仅有 warning 时为 `true` 是否符合产品预期？（当前按 spec：`valid = no errors`）
-- 是否本轮 merge 至 sprint？
+| 结论 | 状态 |
+|------|------|
+| `valid = errors.length === 0`（`valid = no errors`） | **接受** |
+| 仅有 warning 时 `valid: true`，**不代表** Paste QA PASS | **接受** |
+| warning 须进入 Matrix / Paste QA 闭环 | **接受** |
+| `section` / `div` Yellow warning 暂不放宽 | **留待 S8-STORY-005 / 006** |
+| 不修改 renderer · 不新增 Matrix · 不新增 variant | **确认** |
 
 ## 17. 建议下一步
 
-1. 用户 / ChatGPT 审查本 report + 测试
-2. 确认后 merge → `sprint/s8-wechat-safe-css-contract`
-3. 启动 **S8-STORY-005** Fidelity Matrix（勿与 004 混分支）
+1. ~~merge → sprint~~ **已完成**
+2. **S8-STORY-005** Fidelity Matrix — 待用户明确启动指令
+3. 后续 snapshot 可叠加 `validateWechatCopyHtml`
 
-## 18. Commit
+## 18. Commit & Merge
 
-- `37cdd6e` — `feat: add wechat copy html validator`
-- Merge：未执行（待用户确认）
+- `16b2b3d` — `feat: add wechat copy html validator`
+- Merge：`feature/s8-story-004-copy-html-validator` → `sprint/s8-wechat-safe-css-contract`（见 §19 merge commit）
+- **未** merge `release/1` / `main`
+
+## 19. Merge 后检查（sprint 分支）
+
+| 项 | 结果 |
+|----|------|
+| S8-STORY-004 | **Done** |
+| `npm run test` / `lint` / `build` | 见收口轮次记录 |

@@ -63,7 +63,7 @@
 | **Sprint 7** | **Done**（2026-06-03 · S7-STORY-008 关闭 · merge `release/1`） |
 | **Sprint 8** | **In Progress**（2026-06-04 · S8-STORY-001 · DECISION-088） |
 | **Release 1 主干** | `release/1` |
-| **下一步** | **S8-STORY-005** Fidelity Matrix（004 In Review） |
+| **下一步** | **S8-STORY-005** Fidelity Matrix（004 Done · **待用户确认启动**） |
 
 ---
 
@@ -589,7 +589,7 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 **Stories：** S8-STORY-001 ~ S8-STORY-008 — 见 `sprint-backlog.md`
 
-**当前：** **S8-STORY-004** In Review（Copy HTML Validator）· **005** Matrix 待启动
+**当前：** **S8-STORY-004** Done · **005** Matrix 待用户确认启动
 
 **不做：**
 

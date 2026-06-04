@@ -313,7 +313,7 @@ allowedInDefaultPreset: true  # warm preset only; business 默认无 gradient
 
 ### 10.1 Copy HTML Validator（STORY-004）
 
-**实现状态（2026-06-04 · In Review）：** `src/core/wechat-compat/copy-html-validator.ts` · `validateWechatCopyHtml()` · 由 `src/core/wechat-compat/index.ts` 与 `src/core/copy/index.ts` 导出。默认 Profile：`WECHAT_SAFE_CONTRACT_V1_PROFILE`（`contractVersionId: wechat-safe-contract-v1`）。
+**实现状态（2026-06-04 · Done）：** `src/core/wechat-compat/copy-html-validator.ts` · `validateWechatCopyHtml()` · 由 `src/core/wechat-compat/index.ts` 与 `src/core/copy/index.ts` 导出。默认 Profile：`WECHAT_SAFE_CONTRACT_V1_PROFILE`（`contractVersionId: wechat-safe-contract-v1`）。
 
 | Contract 级别 | Validator 行为 |
 |---------------|----------------|
