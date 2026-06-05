@@ -33,8 +33,8 @@
 
 ## 5. Commit
 
-- Mode B commit：待记录（merge 前）
-- Merge commit：待记录
+- Mode A：`b5f0e5a` · Mode B：`f6d8d06`
+- Sprint merge：fast-forward `db185bf` → `f6d8d06` on `sprint/s8-wechat-safe-css-contract`
 
 ## 6. 未完成
 
