@@ -11,7 +11,7 @@ describe("buildStyleLibraryAdminViewModel", () => {
 
     expect(viewModel.overview.libraryId).toBe("qingpian-style-library-v0");
     expect(viewModel.overview.schemaVersion).toBe(1);
-    expect(viewModel.overview.totalAssets).toBe(2);
+    expect(viewModel.overview.totalAssets).toBe(8);
     expect(viewModel.overview.variantAssetCount).toBe(2);
     expect(viewModel.overview.seedAssetCount).toBe(2);
     expect(viewModel.overview.registryPatchCount).toBe(1);
@@ -41,7 +41,10 @@ describe("buildStyleLibraryAdminViewModel", () => {
   it("builds status summary cards from manifest metrics", () => {
     const viewModel = buildStyleLibraryAdminViewModel();
 
-    expect(viewModel.statusSummary.totalAssets).toBe(2);
+    expect(viewModel.statusSummary.totalAssets).toBe(8);
+    expect(viewModel.statusSummary.styleCount).toBe(4);
+    expect(viewModel.statusSummary.paletteCount).toBe(2);
+    expect(viewModel.statusSummary.ruleCount).toBe(4);
     expect(viewModel.statusSummary.seedCandidates).toBe(2);
     expect(viewModel.statusSummary.pasteQaPassed).toBe(2);
     expect(viewModel.statusSummary.userSelectable).toBe(0);

@@ -124,6 +124,54 @@ export type {
 } from "./inspection-result";
 
 export {
+  STYLE_LIBRARY_PALETTE_ASSETS,
+  STYLE_LIBRARY_PALETTE_METADATA,
+  PURPLE_CHAPTER_PALETTE_ASSET,
+  READING_PATH_PALETTE_ASSET,
+} from "./palette-assets";
+export type { PaletteMetadata } from "./palette-assets";
+
+export {
+  STYLE_LIBRARY_RULE_ASSETS,
+  STYLE_LIBRARY_RULE_METADATA,
+  RULE_HARVEST_NOT_RELEASE1_ASSET,
+  RULE_PASTE_QA_BEFORE_DEFAULT_ASSET,
+  RULE_USER_SELECTABLE_NOT_DEFAULT_ASSET,
+  RULE_WARNING_PROMOTE_WITH_EVIDENCE_ASSET,
+} from "./rule-assets";
+export type { RuleMetadata, RuleSeverity } from "./rule-assets";
+
+export {
+  CHAPTER_LABEL_STYLE,
+  READING_PATH_STYLE,
+  STYLE_LIBRARY_STYLE_DEFINITIONS,
+} from "./style-assets";
+export type { StyleDefinition, StyleLocalizedList, StyleLocalizedText } from "./style-assets";
+
+export {
+  buildStylePaletteRuleGraph,
+  buildStylePaletteRuleSummaryCounts,
+  buildVariantStyleAssociation,
+  getPaletteMetadataById,
+  getPalettesForVariantAssetId,
+  getRuleMetadataById,
+  getRulesForVariantAssetId,
+  getStyleDefinitionById,
+  getStyleForVariantAssetId,
+  getStyleLibraryPaletteAssets,
+  getStyleLibraryRuleAssets,
+  getStyleLibraryStyleDefinitions,
+  isRuleWithWarning,
+  localizeList,
+  localizeText,
+} from "./style-palette-rule";
+export type {
+  StylePaletteRuleGraph,
+  StylePaletteRuleSummaryCounts,
+  VariantStyleAssociation,
+} from "./style-palette-rule";
+
+export {
   checkPromoteEligibility,
   createPromoteProposal,
   createUserSelectablePatchProposal,
