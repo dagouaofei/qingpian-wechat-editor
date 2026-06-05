@@ -17,6 +17,10 @@ import {
 } from "./copy-safe-primitives";
 import { assertCopySafeHtml, escapeHtml } from "./html-escape";
 import { wrapInlineElement } from "./inline-style";
+import {
+  HTML_PASTE_TEAL_SECTION_COLOR,
+  resolveHtmlPasteTealSectionLabel,
+} from "@/core/renderer/html-paste-teal-section-label-shared";
 import { HEADING_TEAL_SECTION_LABEL_HTML_PASTE_VARIANT_ID } from "@/core/styles/variants/html-paste-candidate-variants";
 
 export const HTML_PASTE_CANDIDATE_SOURCE_EVIDENCE_ID = "WX-HTML-PASTE-E2E-001";
@@ -35,7 +39,7 @@ export const HTML_PASTE_CANDIDATE_METADATA = {
   requiresPasteQa: true,
 };
 
-const TEAL_SECTION = "#0d9488";
+const TEAL_SECTION = HTML_PASTE_TEAL_SECTION_COLOR;
 
 export function renderHtmlPasteTealSectionLabelHeadingCopy(
   context: BlockRenderContext,
@@ -46,9 +50,7 @@ export function renderHtmlPasteTealSectionLabelHeadingCopy(
     "heading",
   );
   const text = extractTitleBlockText(block);
-  const sectionLabel =
-    block.meta?.label?.trim() ||
-    `SECTION ${String(block.meta?.sourceIndex ?? 2).padStart(2, "0")}`;
+  const sectionLabel = resolveHtmlPasteTealSectionLabel(block);
 
   const labelRow = wrapInlineElement(
     "p",

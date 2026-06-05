@@ -3982,6 +3982,8 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 - [x] AC-12 lint / test / build PASS
 - [ ] AC-13 用户确认 merge sprint
 
+**FIX-A（2026-06-05）：** Preview / Copy 不一致 — preview 走通用 `renderTitleBlockPreview` 未显示 teal section label；新增 `html-paste-candidate-preview` + UI 分支 · 待 PO 重验
+
 ---
 
 ## S9-STORY-006 Preview / Copy / Validator Integration

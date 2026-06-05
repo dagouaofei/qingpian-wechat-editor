@@ -123,6 +123,18 @@ describe("S9-STORY-007C user-selectable preview picker", () => {
     expect(defaultHeadingVariants.every((id) => id !== S9_STORY_007B_VARIANT_ID)).toBe(true);
     expect(selectedHeadingVariants.every((id) => id === S9_STORY_007B_VARIANT_ID)).toBe(true);
     expect(selectedRendered.clipboard.textHtml).toContain("#0d9488");
+
+    const selectedHeadingPreview = selectedRendered.previewBlocks.find(
+      (block) => block.blockType === "heading",
+    );
+    expect(selectedHeadingPreview?.output?.kind).toBe("title_block_preview");
+    if (selectedHeadingPreview?.output?.kind === "title_block_preview") {
+      expect(selectedHeadingPreview.output.variantId).toBe(S9_STORY_007B_VARIANT_ID);
+      expect(selectedHeadingPreview.output.presentation.htmlPasteTealSectionLabel).toBe(true);
+      expect(selectedHeadingPreview.output.typography?.accentColor).toBe("#0d9488");
+      expect(selectedHeadingPreview.output.presentation.badgeText).toMatch(/^SECTION /);
+    }
+
     expect(getUserSelectablePreviewVariantIds()).toContain(S9_STORY_007B_VARIANT_ID);
   });
 });

@@ -46,6 +46,67 @@ import {
 } from "@/core/renderer/title-heading-visual";
 import type { ThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
 import type { TitleBlockPreviewOutput } from "@/core/renderer/types";
+import { HTML_PASTE_TEAL_SECTION_COLOR } from "@/core/renderer/html-paste-teal-section-label-shared";
+import { HEADING_TEAL_SECTION_LABEL_HTML_PASTE_VARIANT_ID } from "@/core/styles/variants/html-paste-candidate-variants";
+
+function isHtmlPasteTealSectionLabelOutput(output: TitleBlockPreviewOutput): boolean {
+  return (
+    output.variantId === HEADING_TEAL_SECTION_LABEL_HTML_PASTE_VARIANT_ID ||
+    output.presentation.htmlPasteTealSectionLabel === true
+  );
+}
+
+function HtmlPasteTealSectionLabelPreview({
+  output,
+  showStreamingCaret,
+  caret,
+}: {
+  output: TitleBlockPreviewOutput;
+  showStreamingCaret?: boolean;
+  caret?: ReactNode;
+}) {
+  const sectionLabel = output.presentation.badgeText ?? "SECTION 02";
+  const teal = output.typography?.accentColor ?? HTML_PASTE_TEAL_SECTION_COLOR;
+
+  return (
+    <PreviewShell
+      variantId={output.variantId}
+      style={{ margin: "24px 0 12px", textAlign: "left" }}
+    >
+      <p style={{ margin: "0 0 6px", textAlign: "left" }}>
+        <span
+          style={{
+            display: "inline-block",
+            backgroundColor: teal,
+            color: "#ffffff",
+            fontSize: "11px",
+            fontWeight: 700,
+            padding: "2px 10px",
+            letterSpacing: "1px",
+            lineHeight: 1.5,
+          }}
+        >
+          {sectionLabel}
+        </span>
+      </p>
+      <h2
+        style={{
+          margin: 0,
+          fontSize: output.typography?.fontSize ?? "17px",
+          fontWeight: output.typography?.fontWeight ?? "700",
+          lineHeight: output.typography?.lineHeight ?? "1.5",
+          color: output.typography?.color ?? "#1f2937",
+          ...(output.typography?.fontFamily
+            ? { fontFamily: output.typography.fontFamily }
+            : {}),
+        }}
+      >
+        {output.text}
+        {showStreamingCaret ? caret : null}
+      </h2>
+    </PreviewShell>
+  );
+}
 
 function isHeadingPublishOutput(output: TitleBlockPreviewOutput): boolean {
   return (
@@ -250,6 +311,16 @@ export function TitleHeadingPreviewBlock({
   showStreamingCaret?: boolean;
   caret?: ReactNode;
 }) {
+  if (isHtmlPasteTealSectionLabelOutput(output)) {
+    return (
+      <HtmlPasteTealSectionLabelPreview
+        output={output}
+        showStreamingCaret={showStreamingCaret}
+        caret={caret}
+      />
+    );
+  }
+
   const presentation = output.presentation;
 
   switch (output.layoutMode) {
