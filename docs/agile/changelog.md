@@ -505,4 +505,6 @@
 | 2026-06-05 | Sprint 9 | **S9-STORY-004 Done**：merge lifecycle management → sprint @ `7300b9f` | Git | S9-STORY-004 |
 | 2026-06-05 | Sprint 9 | **S9-STORY-006-FIX-A**：WARNING readiness 运营文案 · blocked/warnings summary 计数 refinement | 代码 / 文档 | S9-STORY-006 |
 | 2026-06-05 | Sprint 9 | **S9-STORY-007 In Review**：Promote to user_selectable · proposal-based review · DECISION-101 · [`style-library-promote-user-selectable.md`](../architecture/style-library-promote-user-selectable.md) | 代码 / 文档 | S9-STORY-007 · DECISION-101 |
-| 2026-06-05 | Sprint 9 | **S9-STORY-008 In Review**：Style / Palette / Rule Management v0 · DECISION-102 · [`style-palette-rule-management-v0.md`](../architecture/style-palette-rule-management-v0.md) | 代码 / 文档 | S9-STORY-008 · DECISION-102 |
+| 2026-06-05 | Sprint 9 | **S9-STORY-008 In Review**：Style / Palette / Rule Management v0 · DECISION-102 | 代码 / 文档 | S9-STORY-008 · DECISION-102 |
+| 2026-06-05 | Sprint 9 | merge S9-STORY-008 → sprint @ `e5f6db6` | Git | S9-STORY-008 |
+| 2026-06-05 | Sprint 9 | **S9-STORY-005 In Review**：HTML Paste to Candidate Proposal · DECISION-104 · [`style-library-html-to-candidate-proposal.md`](../architecture/style-library-html-to-candidate-proposal.md) | 代码 / 文档 | S9-STORY-005 · DECISION-104 |

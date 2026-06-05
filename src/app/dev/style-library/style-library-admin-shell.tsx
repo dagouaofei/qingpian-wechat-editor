@@ -3,6 +3,7 @@ import type {
   StyleLibraryCandidateReviewCard,
   StyleLibraryLifecycleGroup,
 } from "./style-library-view-model";
+import { StyleLibraryHtmlProposalPanel } from "./style-library-html-proposal-panel";
 import { StyleLibraryInspectionPreviewShell } from "./style-library-inspection-preview";
 
 type Props = {
@@ -837,6 +838,7 @@ export function StyleLibraryAdminShell({ viewModel }: Props) {
     paletteCards,
     ruleCards,
     styleManagementDisabledActions,
+    locale,
     runtimeNotice,
   } = viewModel;
 
@@ -1268,6 +1270,8 @@ export function StyleLibraryAdminShell({ viewModel }: Props) {
           ))}
         </div>
       </section>
+
+      <StyleLibraryHtmlProposalPanel locale={locale} />
 
       <section
         aria-labelledby="style-library-candidate-review-heading"

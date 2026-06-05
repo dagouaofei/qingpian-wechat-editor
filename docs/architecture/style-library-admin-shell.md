@@ -163,7 +163,17 @@ Workbench 扩展 Style / Palette / Rule metadata 管理：
 
 ---
 
-## 15. 代码结构
+## 16. HTML Paste to Candidate Proposal（S9-STORY-005 · DECISION-104）
+
+- **新增候选样式** client panel：粘贴 HTML · blockType · 生成 candidate proposal
+- proposal inspection · evidence draft · Cursor patch summary
+- 不写 manifest · apply 由 S9-STORY-007B 承接
+
+详见 [`style-library-html-to-candidate-proposal.md`](style-library-html-to-candidate-proposal.md)。
+
+---
+
+## 17. 代码结构
 
 ```text
 src/app/dev/style-library/

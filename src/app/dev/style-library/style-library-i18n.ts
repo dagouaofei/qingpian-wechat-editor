@@ -194,6 +194,24 @@ export type StyleLibraryUiCopy = {
   candidateUnlinkedStyle: string;
   candidateUnlinkedPalette: string;
   candidateUnlinkedRule: string;
+  sectionCreateCandidate: string;
+  htmlProposalHint: string;
+  htmlProposalInputLabel: string;
+  htmlProposalBlockTypeLabel: string;
+  htmlProposalLabelInput: string;
+  htmlProposalGenerateButton: string;
+  htmlProposalPreviewTitle: string;
+  htmlProposalFeaturesTitle: string;
+  htmlProposalInspectionTitle: string;
+  htmlProposalEvidenceTitle: string;
+  htmlProposalCursorPatchTitle: string;
+  htmlProposalNextStepsTitle: string;
+  htmlProposalEmptyHtml: string;
+  htmlProposalNoProposal: string;
+  htmlProposalBlockHeading: string;
+  htmlProposalBlockInfoCard: string;
+  htmlProposalBlockParagraph: string;
+  htmlProposalBlockQuote: string;
 };
 
 const LIFECYCLE_STATES: StyleLibraryLifecycleState[] = [
@@ -447,6 +465,25 @@ const UI_COPY: Record<StyleLibraryLocale, StyleLibraryUiCopy> = {
     candidateUnlinkedStyle: "未关联风格",
     candidateUnlinkedPalette: "未关联配色",
     candidateUnlinkedRule: "未关联规则",
+    sectionCreateCandidate: "新增候选样式",
+    htmlProposalHint:
+      "粘贴公众号 HTML 生成 candidate proposal · 不写 manifest · 不激活 runtime · 真实提交由 S9-STORY-007B 执行",
+    htmlProposalInputLabel: "粘贴 HTML",
+    htmlProposalBlockTypeLabel: "blockType",
+    htmlProposalLabelInput: "候选样式名称（可选）",
+    htmlProposalGenerateButton: "生成候选样式提案",
+    htmlProposalPreviewTitle: "Candidate Proposal",
+    htmlProposalFeaturesTitle: "提取的样式特征",
+    htmlProposalInspectionTitle: "Preview / Copy / Validator（proposal）",
+    htmlProposalEvidenceTitle: "Evidence draft",
+    htmlProposalCursorPatchTitle: "Cursor patch summary",
+    htmlProposalNextStepsTitle: "下一步",
+    htmlProposalEmptyHtml: "未能提取 inline style 特征",
+    htmlProposalNoProposal: "粘贴 HTML 并点击「生成候选样式提案」",
+    htmlProposalBlockHeading: "heading",
+    htmlProposalBlockInfoCard: "info_card",
+    htmlProposalBlockParagraph: "paragraph",
+    htmlProposalBlockQuote: "quote",
   },
   en: {
     workbenchTitle: "Style Library Workbench",
@@ -665,6 +702,25 @@ const UI_COPY: Record<StyleLibraryLocale, StyleLibraryUiCopy> = {
     candidateUnlinkedStyle: "No linked style",
     candidateUnlinkedPalette: "No linked palette",
     candidateUnlinkedRule: "No linked rules",
+    sectionCreateCandidate: "Create Candidate Variant",
+    htmlProposalHint:
+      "Paste WeChat HTML to generate a candidate proposal · no manifest write · apply via S9-STORY-007B",
+    htmlProposalInputLabel: "Paste HTML",
+    htmlProposalBlockTypeLabel: "blockType",
+    htmlProposalLabelInput: "Candidate label (optional)",
+    htmlProposalGenerateButton: "Generate Candidate Proposal",
+    htmlProposalPreviewTitle: "Candidate Proposal",
+    htmlProposalFeaturesTitle: "Extracted style features",
+    htmlProposalInspectionTitle: "Preview / Copy / Validator (proposal)",
+    htmlProposalEvidenceTitle: "Evidence draft",
+    htmlProposalCursorPatchTitle: "Cursor patch summary",
+    htmlProposalNextStepsTitle: "Next steps",
+    htmlProposalEmptyHtml: "Could not extract inline style features",
+    htmlProposalNoProposal: "Paste HTML and click Generate Candidate Proposal",
+    htmlProposalBlockHeading: "heading",
+    htmlProposalBlockInfoCard: "info_card",
+    htmlProposalBlockParagraph: "paragraph",
+    htmlProposalBlockQuote: "quote",
   },
 };
 
@@ -1236,4 +1292,28 @@ const PROMOTE_IMPACT_COPY: Record<
 
 export function getPromoteImpactCopy(locale: StyleLibraryLocale) {
   return PROMOTE_IMPACT_COPY[locale];
+}
+
+const HTML_PROPOSAL_WARNING_COPY: Record<StyleLibraryLocale, Record<string, string>> = {
+  zh: {
+    EMPTY_HTML: "HTML 为空",
+    FORBIDDEN_CSS_DETECTED: "检测到 forbidden CSS（class/style 标签等）",
+    RISKY_CSS_DETECTED: "检测到 risky CSS 模式",
+    NO_INLINE_STYLE: "未检测到 inline style",
+    TAG_NOT_DETECTED: "未能识别 HTML 标签",
+  },
+  en: {
+    EMPTY_HTML: "HTML is empty",
+    FORBIDDEN_CSS_DETECTED: "Forbidden CSS detected (class/style tags, etc.)",
+    RISKY_CSS_DETECTED: "Risky CSS patterns detected",
+    NO_INLINE_STYLE: "No inline style detected",
+    TAG_NOT_DETECTED: "Could not detect HTML tag",
+  },
+};
+
+export function translateHtmlProposalWarning(
+  locale: StyleLibraryLocale,
+  code: string,
+): string {
+  return HTML_PROPOSAL_WARNING_COPY[locale][code] ?? code;
 }
