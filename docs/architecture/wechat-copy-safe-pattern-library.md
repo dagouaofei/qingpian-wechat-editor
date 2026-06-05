@@ -235,15 +235,15 @@
 | **适用 variant 场景** | 行内加粗/强调色、极简标题（TITLE-001） |
 | **推荐 DOM 结构** | `p` 内 `span`/`strong` + `color`/`font-weight`/`background-color`（小面积） |
 | **允许 CSS** | `font-weight` · `color` · `background-color`（行内小范围） |
-| **慎用 CSS** | 大区块背景误用为「卡片」观察（DRIFT-003） |
+| **慎用 CSS** | `h1` 级大区块 bg/border 可被微信剥离（DRIFT-003 已澄清） |
 | **禁止 CSS** | 整段假卡片式外层 section 无文字 |
 | **fallback** | 去背景 → 仅加粗/变色 |
-| **Matrix evidence** | S8M-SUM-001 PASS · S8M-TITLE-001 WARNING（口径） |
-| **currentEvidenceLevel** | 部分 Paste；TITLE-001 待产品澄清 |
-| **needsArticleEvidence** | TITLE-001 **yes**（口径） |
-| **当前 Drift 关联** | DRIFT-003 OBSERVATION |
-| **是否可进入 Release 1** | **是**（003 先产品澄清） |
-| **后续实现建议** | 003 产品确认前不改 renderer；澄清后或归 006C 或关 Drift |
+| **Matrix evidence** | S8M-SUM-001 PASS · S8M-TITLE-001 WARNING（历史观察 · 产品已澄清） |
+| **currentEvidenceLevel** | Paste WARNING = 平台剥离 · Copy HTML 含卡片 chrome |
+| **needsArticleEvidence** | optional（P2-S10-001） |
+| **当前 Drift 关联** | DRIFT-003 **CLOSED** · PRODUCT_EXPECTATION_CLARIFIED |
+| **是否可进入 Release 1** | **是** |
+| **后续实现建议** | 更强卡片标题 → `title_left_bar` / info_card / S10 cardTitle variants |
 
 ---
 

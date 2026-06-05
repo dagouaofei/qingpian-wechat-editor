@@ -17,7 +17,9 @@ export const S8_FIDELITY_PASTE_QA_OVERLAY_20260604: Record<
     pasteStatus: "WARNING",
     pasteEvidence: "没有显示卡片边框和背景色",
     contractAction:
-      "See DRIFT-S8-20260604-003 (observation · needs product clarification; not renderer bug)",
+      "DRIFT-003 clarified: PRODUCT_EXPECTATION · NOT renderer bug · NO S8 code change",
+    notes:
+      "plain=layoutMode not no-card · Copy HTML has bg/border · WeChat strips h1 chrome · typography-first tier acceptable · card title users → title_left_bar / info_card / S10",
   },
   "S8M-TITLE-002": {
     pasteStatus: "FAIL",

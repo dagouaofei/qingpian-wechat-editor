@@ -481,3 +481,4 @@
 | 2026-06-05 | Sprint 8 / 9 | **S8-STORY-008 Done**：Sprint 9 Style Management System v0 重排 · S9-STORY-001~009 草案 · S10 方向 · DECISION-092 | 文档 | S8-STORY-008 |
 | 2026-06-05 | Sprint 8 | merge `docs/s8-story-008-s9-style-management-replanning` → sprint @ `301f73a` | Git | S8-STORY-008 |
 | 2026-06-05 | Sprint 8 | **S8-STORY-007 Done**：HEAD-002 validator false positive 审计 · no S8 code change | 文档 | S8-STORY-007 |
+| 2026-06-05 | Sprint 8 | **S8-DRIFT-003 Done**：`title_plain_minimal` 产品澄清 · NOT renderer bug · NO S8 code change | 文档 / Matrix | S8-DRIFT-003 |
