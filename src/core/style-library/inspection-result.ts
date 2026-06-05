@@ -70,6 +70,7 @@ export type StyleLibraryInspectionSummary = {
   promoteReadiness: PromoteReadiness;
   operatorConclusionKey:
     | "ready_for_promote_review"
+    | "ready_for_promote_review_with_warnings"
     | "needs_paste_qa"
     | "has_blocking_issues"
     | "validator_fail";

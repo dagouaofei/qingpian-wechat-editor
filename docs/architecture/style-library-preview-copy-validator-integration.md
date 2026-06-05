@@ -94,7 +94,15 @@ PromoteReadiness {
 | blocking issues（errors） | not ready |
 | 无 paste QA evidence | needs paste QA |
 | validator PASS/WARNING + paste_qa_pass lifecycle + paste QA evidence | **ready for S9-STORY-007 promote review** |
+| validator WARNING + paste_qa_pass + no blocking issues | readiness 文案：**可进入上线审核（有兼容性提醒，需保留 Paste QA 证据）** / **Ready for promote review with compatibility warnings** |
 | seed ready | **仍不自动 promote** — 仅 Workbench 结论 |
+
+**Summary 计数（S9-STORY-006-FIX-A）：**
+
+| 指标 | 规则 |
+|------|------|
+| 阻塞候选样式 / Blocked candidates | 仅 `validator FAIL` 或存在 blocking issue |
+| 有兼容性提醒 / Warnings | `validator WARNING` 且无 blocking issue（WARNING-only 不计入 blocked） |
 
 006D seed assets 当前 lifecycle `paste_qa_pass`，含 `PASTE-QA-SESSION-006D` evidence；validator 通常为 WARNING（Yellow tag），仍显示 ready for promote review。
 

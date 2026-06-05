@@ -14,6 +14,7 @@ import type { SerializedPreviewBlock } from "@/server/generation/generate-flow-t
 import {
   getInspectionConclusionCopy,
   getInspectionUiCopy,
+  getPromoteReadinessLabel,
   getValidatorStatusLabel,
   translatePromoteBlockedReason,
   type StyleLibraryInspectionUiCopy,
@@ -25,6 +26,7 @@ export type StyleLibraryInspectionSummaryCounts = {
   needsPasteQa: number;
   readyForPromoteReview: number;
   blockedCandidates: number;
+  compatibilityWarnings: number;
 };
 
 export type StyleLibraryCandidateInspectionPanel = {
@@ -104,9 +106,10 @@ function buildInspectionPanel(
     warningCount: summary.validator.warningCount,
     operatorConclusion: getInspectionConclusionCopy(locale, summary.operatorConclusionKey),
     promoteReadiness: readiness,
-    promoteReadinessLabel: readiness.readyForPromoteReview
-      ? ui.promoteReadyLabel
-      : ui.promoteNotReadyLabel,
+    promoteReadinessLabel: getPromoteReadinessLabel(locale, {
+      readyForPromoteReview: readiness.readyForPromoteReview,
+      validatorStatus: summary.validator.status,
+    }),
     promoteBlockedReasons: readiness.blockedReasons.map((code) =>
       translatePromoteBlockedReason(locale, code),
     ),
@@ -142,6 +145,12 @@ export function buildStyleLibraryInspectionSummaryCounts(
       ) {
         acc.blockedCandidates += 1;
       }
+      if (
+        summary.validator.status === "WARNING" &&
+        !summary.promoteReadiness.hasBlockingIssues
+      ) {
+        acc.compatibilityWarnings += 1;
+      }
       return acc;
     },
     {
@@ -149,6 +158,7 @@ export function buildStyleLibraryInspectionSummaryCounts(
       needsPasteQa: 0,
       readyForPromoteReview: 0,
       blockedCandidates: 0,
+      compatibilityWarnings: 0,
     },
   );
 }

@@ -94,6 +94,7 @@ export type StyleLibraryUiCopy = {
   summaryNeedsPasteQa: string;
   summaryReadyForPromoteReview: string;
   summaryBlockedCandidates: string;
+  summaryCompatibilityWarnings: string;
   sectionPreviewCopyValidator: string;
   inspectionPreviewTitle: string;
   inspectionCopyTitle: string;
@@ -119,6 +120,7 @@ export type StyleLibraryUiCopy = {
   copyStatusOk: string;
   copyStatusError: string;
   promoteReadyLabel: string;
+  promoteReadyWithWarningsLabel: string;
   promoteNotReadyLabel: string;
 };
 
@@ -239,6 +241,7 @@ const UI_COPY: Record<StyleLibraryLocale, StyleLibraryUiCopy> = {
     summaryNeedsPasteQa: "需要粘贴 QA",
     summaryReadyForPromoteReview: "可进入上线审核",
     summaryBlockedCandidates: "阻塞候选样式",
+    summaryCompatibilityWarnings: "有兼容性提醒",
     sectionPreviewCopyValidator: "Preview / Copy / Validator",
     inspectionPreviewTitle: "样式预览",
     inspectionCopyTitle: "Copy HTML",
@@ -264,6 +267,8 @@ const UI_COPY: Record<StyleLibraryLocale, StyleLibraryUiCopy> = {
     copyStatusOk: "Copy 生成成功",
     copyStatusError: "Copy 生成失败",
     promoteReadyLabel: "可进入上线审核",
+    promoteReadyWithWarningsLabel:
+      "可进入上线审核（有兼容性提醒，需保留 Paste QA 证据）",
     promoteNotReadyLabel: "暂不可进入上线审核",
   },
   en: {
@@ -349,6 +354,7 @@ const UI_COPY: Record<StyleLibraryLocale, StyleLibraryUiCopy> = {
     summaryNeedsPasteQa: "Needs paste QA",
     summaryReadyForPromoteReview: "Ready for promote review",
     summaryBlockedCandidates: "Blocked candidates",
+    summaryCompatibilityWarnings: "Warnings",
     sectionPreviewCopyValidator: "Preview / Copy / Validator",
     inspectionPreviewTitle: "Style Preview",
     inspectionCopyTitle: "Copy HTML",
@@ -374,6 +380,8 @@ const UI_COPY: Record<StyleLibraryLocale, StyleLibraryUiCopy> = {
     copyStatusOk: "Copy OK",
     copyStatusError: "Copy failed",
     promoteReadyLabel: "Ready for promote review",
+    promoteReadyWithWarningsLabel:
+      "Ready for promote review with compatibility warnings",
     promoteNotReadyLabel: "Not ready for promote review",
   },
 };
@@ -679,6 +687,7 @@ export type StyleLibraryInspectionUiCopy = Pick<
   | "copyStatusOk"
   | "copyStatusError"
   | "promoteReadyLabel"
+  | "promoteReadyWithWarningsLabel"
   | "promoteNotReadyLabel"
 >;
 
@@ -692,6 +701,7 @@ export function getInspectionUiCopy(
     copyStatusOk: ui.copyStatusOk,
     copyStatusError: ui.copyStatusError,
     promoteReadyLabel: ui.promoteReadyLabel,
+    promoteReadyWithWarningsLabel: ui.promoteReadyWithWarningsLabel,
     promoteNotReadyLabel: ui.promoteNotReadyLabel,
   };
 }
@@ -714,13 +724,19 @@ export function getValidatorStatusLabel(
 const INSPECTION_CONCLUSION_COPY: Record<
   StyleLibraryLocale,
   Record<
-    "ready_for_promote_review" | "needs_paste_qa" | "has_blocking_issues" | "validator_fail",
+    | "ready_for_promote_review"
+    | "ready_for_promote_review_with_warnings"
+    | "needs_paste_qa"
+    | "has_blocking_issues"
+    | "validator_fail",
     string
   >
 > = {
   zh: {
     ready_for_promote_review:
-      "可进入上线审核：自动校验通过/警告，已有粘贴 QA 证据；真实 promote 由 S9-STORY-007 执行。",
+      "可进入上线审核：自动校验通过，已有粘贴 QA 证据；真实 promote 由 S9-STORY-007 执行。",
+    ready_for_promote_review_with_warnings:
+      "可进入上线审核（有兼容性提醒，需保留 Paste QA 证据）",
     needs_paste_qa:
       "需要人工粘贴复测：当前仅完成自动校验，仍缺 paste QA 证据。",
     has_blocking_issues:
@@ -730,7 +746,9 @@ const INSPECTION_CONCLUSION_COPY: Record<
   },
   en: {
     ready_for_promote_review:
-      "Ready for promote review: auto validation passed/warned with paste QA evidence; actual promote is S9-STORY-007.",
+      "Ready for promote review: auto validation passed with paste QA evidence; actual promote is S9-STORY-007.",
+    ready_for_promote_review_with_warnings:
+      "Ready for promote review with compatibility warnings",
     needs_paste_qa:
       "Needs manual paste re-test: auto validation only; paste QA evidence missing.",
     has_blocking_issues:
@@ -740,10 +758,28 @@ const INSPECTION_CONCLUSION_COPY: Record<
   },
 };
 
+export function getPromoteReadinessLabel(
+  locale: StyleLibraryLocale,
+  options: {
+    readyForPromoteReview: boolean;
+    validatorStatus: "PASS" | "WARNING" | "FAIL";
+  },
+): string {
+  const ui = getInspectionUiCopy(locale);
+  if (!options.readyForPromoteReview) {
+    return ui.promoteNotReadyLabel;
+  }
+  if (options.validatorStatus === "WARNING") {
+    return ui.promoteReadyWithWarningsLabel;
+  }
+  return ui.promoteReadyLabel;
+}
+
 export function getInspectionConclusionCopy(
   locale: StyleLibraryLocale,
   key:
     | "ready_for_promote_review"
+    | "ready_for_promote_review_with_warnings"
     | "needs_paste_qa"
     | "has_blocking_issues"
     | "validator_fail",

@@ -84,10 +84,10 @@ describe("buildStyleLibraryAdminViewModel", () => {
     }
 
     expect(zhViewModel.candidateReviewCards[0]?.currentConclusion).toContain(
-      "上线审核",
+      "有兼容性提醒",
     );
     expect(enViewModel.candidateReviewCards[0]?.currentConclusion).toContain(
-      "promote review",
+      "compatibility warnings",
     );
     expect(zhViewModel.candidateReviewCards[0]?.disabledActions[0]?.label).toBe(
       "校验",

@@ -116,6 +116,7 @@ export type StyleLibraryStatusSummary = {
   needsPasteQa: number;
   readyForPromoteReview: number;
   blockedCandidates: number;
+  compatibilityWarnings: number;
 };
 
 export type StyleLibraryLifecycleGroup = {
@@ -329,6 +330,7 @@ function buildStatusSummary(
     needsPasteQa: inspectionSummaryCounts.needsPasteQa,
     readyForPromoteReview: inspectionSummaryCounts.readyForPromoteReview,
     blockedCandidates: inspectionSummaryCounts.blockedCandidates,
+    compatibilityWarnings: inspectionSummaryCounts.compatibilityWarnings,
   };
 }
 

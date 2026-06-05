@@ -114,7 +114,7 @@ Workbench 集成 lifecycle transition engine 与 **Lifecycle Change Proposal** �
 
 **inspection-only** 集成 — 复用 Preview / Copy Renderer 与 `validateWechatCopyHtml`：
 
-- Status Summary：**检查概览**（自动校验通过 · 需要粘贴 QA · 可进入上线审核 · 阻塞候选样式）
+- Status Summary：**检查概览**（自动校验通过 · 需要粘贴 QA · 可进入上线审核 · 阻塞候选样式 · **有兼容性提醒**）
 - Candidate Review：**Preview / Copy / Validator / Promote readiness** 面板
 - Diagnostics / Advanced：raw Copy HTML · raw validator issues
 

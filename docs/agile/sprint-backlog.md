@@ -3942,6 +3942,8 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 
 **验收：** 006D seed candidates 可 preview · copy · validate · promote readiness；不修改 runtime registry / Gallery / 用户侧 Preview·Copy。
 
+**FIX-A（2026-06-05）：** WARNING + paste_qa_pass 显示带兼容性提醒的 readiness 文案；Summary「阻塞候选样式」仅计 FAIL/blocking；新增「有兼容性提醒」计数。
+
 **非目标：** 不 promote · 不写 manifest · 不新建 renderer · 不做 harvest parser
 
 ---

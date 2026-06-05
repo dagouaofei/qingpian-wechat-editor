@@ -158,6 +158,9 @@ function resolveOperatorConclusionKey(
   if (!readiness.hasPasteQaEvidence) {
     return "needs_paste_qa";
   }
+  if (readiness.readyForPromoteReview && validator.status === "WARNING") {
+    return "ready_for_promote_review_with_warnings";
+  }
   return "ready_for_promote_review";
 }
 

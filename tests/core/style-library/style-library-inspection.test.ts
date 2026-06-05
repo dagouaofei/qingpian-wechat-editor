@@ -90,7 +90,7 @@ describe("style-library inspection engine", () => {
     expect(summary.validator.status).not.toBe("FAIL");
     expect(summary.promoteReadiness.hasPasteQaEvidence).toBe(true);
     expect(summary.promoteReadiness.readyForPromoteReview).toBe(true);
-    expect(summary.operatorConclusionKey).toBe("ready_for_promote_review");
+    expect(summary.operatorConclusionKey).toBe("ready_for_promote_review_with_warnings");
     expect(summary.promoteReadiness.nextRequiredStory).toBe("S9-STORY-007");
   });
 

@@ -691,7 +691,7 @@ export function StyleLibraryAdminShell({ viewModel }: Props) {
           {ui.sectionInspectionSummary}
         </h3>
         <dl
-          className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4"
+          className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
           data-testid="style-library-inspection-summary"
         >
           <SummaryCard
@@ -713,6 +713,11 @@ export function StyleLibraryAdminShell({ viewModel }: Props) {
             label={ui.summaryBlockedCandidates}
             value={statusSummary.blockedCandidates}
             testId="style-library-blocked-candidates"
+          />
+          <SummaryCard
+            label={ui.summaryCompatibilityWarnings}
+            value={statusSummary.compatibilityWarnings}
+            testId="style-library-compatibility-warnings"
           />
         </dl>
       </section>
