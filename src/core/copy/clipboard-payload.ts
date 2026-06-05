@@ -6,6 +6,7 @@ import type { BlockRendererRegistry, RendererIssue } from "@/core/renderer";
 import {
   buildCopyHtmlSnapshot,
   type CopyHtmlSnapshotEntry,
+  type BuildCopyHtmlSnapshotOptions,
 } from "./copy-html-snapshot";
 import { buildArticlePlainText } from "./plain-text";
 
@@ -29,6 +30,7 @@ export type BuildClipboardPayloadOptions = {
   resolvedArticleStyle: ResolvedArticleStyle;
   registry?: BlockRendererRegistry;
   supportedBlockTypes?: readonly BlockType[];
+  renderBlockFn?: BuildCopyHtmlSnapshotOptions["renderBlockFn"];
 };
 
 function joinSnapshotHtml(entries: CopyHtmlSnapshotEntry[]): string {

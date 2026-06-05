@@ -94,6 +94,7 @@ export function GalleryPageClient() {
             <ShellCard>
               <PreviewStyleControls
                 value={styleControl}
+                includeUserSelectableHeadingOptions={false}
                 onChange={(next) => {
                   if (next.articleStyle && next.articleStyle !== styleControl.articleStyle) {
                     setStyleControl(
@@ -101,7 +102,12 @@ export function GalleryPageClient() {
                     );
                     return;
                   }
-                  setStyleControl({ ...styleControl, ...next });
+                  setStyleControl({
+                    ...styleControl,
+                    ...next,
+                    headingVariantId:
+                      (next.headingVariantId ?? "") as GalleryStyleControlState["headingVariantId"],
+                  });
                 }}
               />
               <label className="mt-3 flex items-center gap-2 text-xs text-slate-600">

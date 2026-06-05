@@ -3936,7 +3936,7 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 
 ## S9-STORY-007B Apply Candidate Promote Patch via Cursor
 
-**优先级：** P0 · **状态：** In Review · **分支：** `feature/s9-story-007b-apply-candidate-promote-patch`
+**优先级：** P0 · **状态：** Done · **merge：** sprint @ `634709d` · AUDIT-A @ `3a1e8a3`
 
 **目标（DECISION-105）：** HTML paste proposal → Cursor code-backed apply patch → `user_selectable` asset · 不进入 default preset / release1_required
 
@@ -3959,7 +3959,28 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 - [x] AC-16~AC-18 lint / test / build PASS
 - [x] AC-19 execution report
 - [x] AC-20 commit
-- [ ] AC-21 用户确认 merge sprint
+- [x] AC-21 merge sprint @ `634709d`
+
+---
+
+## S9-STORY-007C Expose User-selectable Variant to User Preview Style Picker
+
+**优先级：** P0 · **状态：** In Review · **分支：** `feature/s9-story-007c-expose-user-selectable-preview-picker`
+
+**背景：** PO 明确 user-selectable 须出现在**用户预览页**样式选择器；S9-STORY-009 closeout 暂停 · audit 分支暂不 merge。
+
+**目标（DECISION-107）：** 007B `user_selectable` variant 进入用户预览页手动选择池 · Preview / Copy 可用 · 不污染 default / release1 / AI 路径。
+
+**文档：** [`style-library-user-selectable-preview-picker.md`](../architecture/style-library-user-selectable-preview-picker.md)
+
+**验收：**
+
+- [x] AC-1~AC-4 预览页选择 · Preview · Copy
+- [x] AC-5~AC-9 default preset / defaultEligible / release1 / AI / 默认生成边界
+- [x] AC-10 Workbench metadata 不变
+- [x] AC-11 Gallery 不暴露 user_selectable
+- [x] AC-12 lint / test / build PASS
+- [ ] AC-13 用户确认 merge sprint
 
 ---
 
@@ -4029,11 +4050,13 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 
 ## S9-STORY-009 S9 Audit / Closeout
 
-**优先级：** P0 · **状态：** Planned
+**优先级：** P0 · **状态：** **On Hold** · **分支：** `docs/s9-story-009-end-to-end-audit-closeout`（**暂不 merge**）
 
-**目标（DECISION-097 调整后）：** **运营验收 audit + 技术 audit** — 对照 DECISION-097 七项运营场景；审计样式管理后台 v0 是否形成「新增 → 验证 → 上线 → 分发」闭环；输出 S10 进入条件。
+**暂停原因：** 初版 audit 仅验证 Workbench metadata；须先完成 **S9-STORY-007C**（用户预览页样式选择器）。
 
-**非目标：** 不自行关闭 Sprint 9 · 不 merge `main` 除非用户确认 · 不以纯技术 checklist 代替运营验收
+**目标：** 007C merge 后重跑 closeout · 再评估 Sprint 9 关闭
+
+**非目标：** 本轮不确认 DECISION-106 · 不 merge audit 分支 · 不关闭 Sprint 9 · 不 merge `release/1` / `main`
 
 ---
 
