@@ -17,9 +17,12 @@ describe("StyleLibraryAdminShell", () => {
     expect(html).toContain('data-testid="style-library-lifecycle-pipeline"');
     expect(html).toContain('data-testid="style-library-candidate-review"');
     expect(html).toContain('data-testid="style-library-diagnostics"');
-    expect(html).toContain("Style Library v0");
+    expect(html).toContain("Style Library Workbench");
+    expect(html).toContain("样式资产管理后台 v0");
     expect(html).toContain("Not connected to runtime");
     expect(html).toContain("Read-only governance shell");
+    expect(html).toContain("Candidate / Paste QA passed");
+    expect(html).toContain("Not user selectable / Not default eligible");
     expect(html).toContain('data-testid="style-library-lifecycle-column-paste_qa_pass"');
     expect(html).toContain('data-testid="style-library-candidate-card-seed-variant-heading-purple-chapter-label"');
     expect(html).toContain('data-testid="style-library-candidate-card-seed-variant-info-card-reading-path"');
@@ -36,7 +39,8 @@ describe("StyleLibraryAdminShell", () => {
     expect(html).toContain("WX-HARVEST-EVIDENCE-001");
     expect(html).not.toContain('type="submit"');
     expect(html).not.toContain("<form");
-    expect(html).toContain("not applied to runtime StyleRegistry");
+    expect(html).toContain("Gallery");
+    expect(html).toContain('data-testid="style-library-asset-row-seed-variant-heading-purple-chapter-label"');
   });
 
   it("renders disabled action buttons on candidate cards", () => {

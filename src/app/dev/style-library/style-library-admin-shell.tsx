@@ -114,31 +114,40 @@ function CandidateReviewCard({ card }: { card: StyleLibraryCandidateReviewCard }
 
       <dl className="mt-4 grid gap-2 text-sm sm:grid-cols-2">
         <div>
-          <dt className="text-xs text-slate-500">blockType</dt>
+          <dt className="text-xs text-slate-500">样式类型 blockType</dt>
           <dd>{card.blockType ?? "—"}</dd>
         </div>
         <div>
-          <dt className="text-xs text-slate-500">styleFamily</dt>
+          <dt className="text-xs text-slate-500">风格族 styleFamily</dt>
           <dd>{card.styleFamily ?? "—"}</dd>
         </div>
         <div>
-          <dt className="text-xs text-slate-500">evidence count</dt>
+          <dt className="text-xs text-slate-500">证据数量 evidence</dt>
           <dd data-testid={`style-library-candidate-evidence-${card.assetId}`}>
             {card.evidenceCount}
           </dd>
         </div>
         <div>
-          <dt className="text-xs text-slate-500">next step</dt>
+          <dt className="text-xs text-slate-500">当前结论</dt>
+          <dd
+            className="font-medium text-rose-800"
+            data-testid={`style-library-candidate-conclusion-${card.assetId}`}
+          >
+            {card.currentConclusion}
+          </dd>
+        </div>
+        <div className="sm:col-span-2">
+          <dt className="text-xs text-slate-500">下一步</dt>
           <dd className="text-amber-800">{card.nextStepHint}</dd>
         </div>
       </dl>
 
       <div className="mt-4 rounded-lg border border-slate-100 bg-slate-50 px-3 py-2 text-xs">
-        <p className="font-medium text-slate-600">Distribution flags</p>
+        <p className="font-medium text-slate-600">分发状态 distribution</p>
         <ul className="mt-1 space-y-0.5 text-slate-700">
-          <li>userSelectable: {boolLabel(card.userSelectable)}</li>
-          <li>defaultEligible: {boolLabel(card.defaultEligible)}</li>
-          <li>release1Required: {boolLabel(card.release1Required)}</li>
+          <li>用户可选 userSelectable: {boolLabel(card.userSelectable)}</li>
+          <li>默认可用 defaultEligible: {boolLabel(card.defaultEligible)}</li>
+          <li>Release 1 必需 release1Required: {boolLabel(card.release1Required)}</li>
         </ul>
       </div>
 
@@ -147,7 +156,7 @@ function CandidateReviewCard({ card }: { card: StyleLibraryCandidateReviewCard }
         data-testid={`style-library-candidate-actions-${card.assetId}`}
       >
         <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
-          Actions (disabled)
+          待启用操作（当前只读）
         </p>
         <div className="flex flex-wrap gap-2">
           {card.disabledActions.map((action) => (
@@ -194,23 +203,20 @@ export function StyleLibraryAdminShell({ viewModel }: Props) {
       >
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-indigo-600">
-              Style Asset Management Workbench
-            </p>
             <h2
               id="style-library-workbench-heading"
-              className="mt-1 text-2xl font-semibold text-slate-900"
+              className="text-2xl font-semibold text-slate-900"
             >
               {workbench.title}
             </h2>
+            <p className="mt-1 text-base font-medium text-slate-700">
+              {workbench.subtitle}
+            </p>
             <p className="mt-2 text-sm text-slate-600">
-              Read-only governance shell for Style Library v0 assets.
+              面向运营管理人员的样式候选池工作台 · 当前仅支持查看与审查，不支持写入。
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
-            <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700">
-              Sprint {workbench.sprint}
-            </span>
             <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-medium text-amber-900">
               {workbench.mode}
             </span>
@@ -219,11 +225,11 @@ export function StyleLibraryAdminShell({ viewModel }: Props) {
 
         <dl className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <div>
-            <dt className="text-xs text-slate-500">libraryId</dt>
+            <dt className="text-xs text-slate-500">样式库 ID libraryId</dt>
             <dd className="font-mono text-sm text-slate-900">{workbench.libraryId}</dd>
           </div>
           <div>
-            <dt className="text-xs text-slate-500">schemaVersion</dt>
+            <dt className="text-xs text-slate-500">结构版本 schemaVersion</dt>
             <dd
               className="text-sm font-semibold text-slate-900"
               data-testid="style-library-schema-version"
@@ -232,11 +238,11 @@ export function StyleLibraryAdminShell({ viewModel }: Props) {
             </dd>
           </div>
           <div>
-            <dt className="text-xs text-slate-500">updatedAt</dt>
+            <dt className="text-xs text-slate-500">最近更新 updatedAt</dt>
             <dd className="text-sm text-slate-900">{workbench.updatedAt}</dd>
           </div>
           <div>
-            <dt className="text-xs text-slate-500">runtime status</dt>
+            <dt className="text-xs text-slate-500">线上接入 runtime status</dt>
             <dd
               className="text-sm font-medium text-rose-700"
               data-testid="style-library-runtime-status"
@@ -255,7 +261,7 @@ export function StyleLibraryAdminShell({ viewModel }: Props) {
           id="style-library-status-summary-heading"
           className="mb-4 text-sm font-semibold uppercase tracking-wide text-slate-700"
         >
-          Status Summary
+          Status Summary · 状态概览
         </h2>
         <dl className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7">
           <SummaryCard
@@ -269,7 +275,7 @@ export function StyleLibraryAdminShell({ viewModel }: Props) {
             testId="style-library-seed-count"
           />
           <SummaryCard
-            label="Paste QA passed"
+            label="Candidate / Paste QA passed"
             value={statusSummary.pasteQaPassed}
             testId="style-library-paste-qa-passed"
           />
@@ -304,7 +310,7 @@ export function StyleLibraryAdminShell({ viewModel }: Props) {
           id="style-library-lifecycle-pipeline-heading"
           className="mb-4 text-sm font-semibold uppercase tracking-wide text-slate-700"
         >
-          Lifecycle Pipeline
+          Lifecycle Pipeline · 生命周期看板
         </h2>
         <div className="flex gap-3 overflow-x-auto pb-2">
           {lifecycleGroups.map((group) => (
@@ -321,7 +327,7 @@ export function StyleLibraryAdminShell({ viewModel }: Props) {
           id="style-library-candidate-review-heading"
           className="mb-4 text-sm font-semibold uppercase tracking-wide text-slate-700"
         >
-          Candidate Review
+          Candidate Review · 候选样式审查
         </h2>
         <div className="grid gap-4 lg:grid-cols-2">
           {candidateReviewCards.map((card) => (
@@ -339,10 +345,10 @@ export function StyleLibraryAdminShell({ viewModel }: Props) {
           id="style-library-diagnostics-heading"
           className="text-sm font-semibold uppercase tracking-wide text-slate-600"
         >
-          Details / Diagnostics
+          Diagnostics / Advanced · 高级诊断
         </h2>
         <p className="mt-1 text-sm text-slate-500">
-          Raw manifest tables for inspection. Not the primary workbench view.
+          面向工程排查的原始清单与校验结果，不作为运营主界面。
         </p>
 
         <div

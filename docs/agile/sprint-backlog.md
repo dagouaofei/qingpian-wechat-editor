@@ -3858,33 +3858,31 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 
 ## S9-STORY-003 Style Library Admin Shell
 
-**优先级：** P0 · **状态：** **Done**（2026-06-05 · DECISION-096）· **工作分支：** `feature/s9-story-003-style-library-admin-shell`
+**优先级：** P0 · **状态：** **In Review**（S9-STORY-003-FIX-A · operator workbench reframe · DECISION-096 · **DECISION-097**）· **工作分支：** `feature/s9-story-003-style-library-admin-shell`（**未 merge sprint**）
 
-**目标：** `/dev/style-library` 只读 Admin Shell；浏览 Style Library manifest · assets · registry patches · evidence · validation 结果。
+**目标：** `/dev/style-library` 面向**运营管理人员**的样式管理工作台 v0（只读）；Workbench Header · Status Summary · Lifecycle Pipeline · Candidate Review · Diagnostics。
 
-**非目标：** 不做 CRUD · 不做权限 · 不激活 patch · 不 promote · 不启动 S9-STORY-004 · 不改 runtime StyleRegistry / Gallery / Preview / Copy
+**非目标：** 不做 CRUD · 不做权限 · 不激活 patch · 不 promote · 不启动 S9-STORY-004 · 不改 runtime StyleRegistry / Gallery / Preview / Copy · 不做 manifest 技术浏览器主视觉
 
 **验收标准：**
 
 - [x] AC-1 工作分支 `feature/s9-story-003-style-library-admin-shell` 已创建
 - [x] AC-2 `/dev/style-library` 页面已实现
 - [x] AC-3 页面读取 `STYLE_LIBRARY_MANIFEST`
-- [x] AC-4 Overview metrics 已展示
-- [x] AC-5 Asset list 已展示
-- [x] AC-6 006D 两个 seed asset 可见
-- [x] AC-7 Registry patch list 已展示
-- [x] AC-8 Evidence refs 已展示
-- [x] AC-9 Manifest validation result 已展示
-- [x] AC-10 seed distribution flags 全 false 且明确标注
-- [x] AC-11 无写操作
-- [x] AC-12 未改 runtime StyleRegistry 默认路径
-- [x] AC-13 未改 Gallery / Preview / Copy
-- [x] AC-14 [`style-library-admin-shell.md`](../architecture/style-library-admin-shell.md) 已新增
-- [x] AC-15 敏捷文档已同步 · DECISION-096
-- [x] AC-16 view model + shell 测试已覆盖
-- [x] AC-17 `corepack pnpm lint` PASS
-- [x] AC-18 `corepack pnpm test` PASS
-- [x] AC-19 `corepack pnpm build` PASS
+- [x] AC-4 Workbench Header：Style Library Workbench · 样式资产管理后台 v0 · libraryId · schemaVersion · updatedAt · runtime status · mode
+- [x] AC-5 Status Summary Cards（含 Candidate / Paste QA passed）
+- [x] AC-6 Lifecycle Pipeline 分栏；006D seed 在 paste_qa_pass
+- [x] AC-7 Candidate Review Cards（006D 两 seed · 当前结论 · disabled actions）
+- [x] AC-8 Diagnostics 区保留 asset / patch / evidence / validation · 非主视觉
+- [x] AC-9 seed distribution flags 全 false
+- [x] AC-10 无写操作
+- [x] AC-11 未改 runtime StyleRegistry / Gallery / Preview / Copy
+- [x] AC-12 [`style-library-admin-shell.md`](../architecture/style-library-admin-shell.md) 已更新为 operator workbench 口径
+- [x] AC-13 DECISION-097 运营验收场景 1~3 只读雏形可演示
+- [x] AC-14 view model + shell 测试已覆盖
+- [x] AC-15 `corepack pnpm lint` PASS
+- [x] AC-16 `corepack pnpm test` PASS
+- [x] AC-17 `corepack pnpm build` PASS
 
 ---
 
@@ -3892,9 +3890,9 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 
 **优先级：** P0 · **状态：** Planned
 
-**目标：** 展示与转换规则：`draft` → `candidate` → `validator_pass` → `paste_qa_pass` → `user_selectable` → `default_eligible` → `deprecated`；与 Matrix / Drift / Session 证据挂钩。
+**目标（DECISION-097 调整后）：** **运营可见 lifecycle pipeline + 最小状态流转**；运营人员能看懂候选样式在各阶段的状态，并完成最小 lifecycle 写操作（非纯状态机技术规则文档）。
 
-**非目标：** 不自动 promote 无证据 variant · 不绕过 PO Paste QA
+**非目标：** 不自动 promote 无证据 variant · 不绕过 PO Paste QA · 不以工程师 manifest 表格为主界面
 
 ---
 
@@ -3902,9 +3900,9 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 
 **优先级：** P0 · **状态：** Planned
 
-**目标：** 输入真实公众号 HTML → 解析为 candidate variant；展示原始 HTML · normalized candidate · Preview · Copy HTML · validator 结果。
+**目标（DECISION-097 调整后）：** **新增候选样式向导** — 粘贴 HTML / 采集片段 → candidate review；展示原始 HTML · normalized candidate · 进入 Pipeline。
 
-**非目标：** 不做批量 URL 抓取 · 不要求用户手填 DOM 摘要 · 不 preview-only 直出
+**非目标：** 不做批量 URL 抓取 · 不要求用户手填 DOM 摘要 · 不以 HTML parser 技术实现为唯一验收口径
 
 **Seed：** `heading_purple_chapter_label_candidate` · `info_card_reading_path_candidate`（006D candidate-paste-pass）
 
@@ -3914,9 +3912,9 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 
 **优先级：** P0 · **状态：** Planned
 
-**目标：** 后台候选样式必须复用项目 **Preview Renderer · Copy Renderer · `validateWechatCopyHtml`**；禁止旁路或原始 HTML 直出用户侧。
+**目标（DECISION-097 调整后）：** **候选样式 Preview · Copy HTML · validator 结果的运营可读面板**；运营人员能看懂验证结论，而非只看技术日志。
 
-**非目标：** 不新建第二套 renderer · 不修改 Contract v1 分级（除非独立 Decision）
+**非目标：** 不新建第二套 renderer · 不修改 Contract v1 分级（除非独立 Decision）· 不以 engineer-only debug 页为验收
 
 ---
 
@@ -3924,19 +3922,19 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 
 **优先级：** P0 · **状态：** Planned
 
-**目标：** candidate 经 validator + paste QA 证据后可进入 **user-selectable** variant pool；**默认不**进入 default preset / `release1_required`。
+**目标（DECISION-097 调整后）：** **运营人员可执行的 promote review** — 经 validator + paste QA 证据后进入 **user-selectable** pool；**默认不**进入 default preset / `release1_required`。
 
-**非目标：** 不自动 default · 不让 AI 默认选择未 promote 的 candidate
+**非目标：** 不自动 default · 不以 registry patch 技术细节为唯一验收 · 不让 AI 默认选择未 promote 的 candidate
 
 ---
 
 ## S9-STORY-008 Style / Palette / Rule Management v0
 
-**优先级：** P1 · **状态：** Planned
+**优先级：** **P0**（自 P1 提升 · DECISION-097）· **状态：** Planned
 
-**目标：** 风格 · 配色 · selection rule · copy-safe rule 的最小管理能力；为自动样式选择与主题化打基础。
+**目标（DECISION-097 调整后）：** 至少提供 style / palette / rule 的**运营可读列表与基础管理入口**；支撑 S10 批量样式扩展；复杂主题编辑器仍不做。
 
-**非目标：** 不做完整主题编辑器 · 不做市场级风格包交易
+**非目标：** 不做完整主题编辑器 · 不做市场级风格包交易 · 不以工程师配置文件浏览为验收
 
 ---
 
@@ -3944,9 +3942,9 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 
 **优先级：** P0 · **状态：** Planned
 
-**目标：** 审计样式管理后台 v0 是否形成「新增 → 验证 → 上线 → 分发」闭环；输出 S10 进入条件。
+**目标（DECISION-097 调整后）：** **运营验收 audit + 技术 audit** — 对照 DECISION-097 七项运营场景；审计样式管理后台 v0 是否形成「新增 → 验证 → 上线 → 分发」闭环；输出 S10 进入条件。
 
-**非目标：** 不自行关闭 Sprint 9 · 不 merge `main` 除非用户确认
+**非目标：** 不自行关闭 Sprint 9 · 不 merge `main` 除非用户确认 · 不以纯技术 checklist 代替运营验收
 
 ---
 

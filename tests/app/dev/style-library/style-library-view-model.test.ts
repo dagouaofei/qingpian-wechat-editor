@@ -25,11 +25,11 @@ describe("buildStyleLibraryAdminViewModel", () => {
   it("builds workbench header metadata", () => {
     const viewModel = buildStyleLibraryAdminViewModel();
 
-    expect(viewModel.workbench.title).toBe("Style Library v0");
+    expect(viewModel.workbench.title).toBe("Style Library Workbench");
+    expect(viewModel.workbench.subtitle).toBe("样式资产管理后台 v0");
     expect(viewModel.workbench.libraryId).toBe("qingpian-style-library-v0");
     expect(viewModel.workbench.schemaVersion).toBe(1);
     expect(viewModel.workbench.runtimeStatus).toBe("Not connected to runtime");
-    expect(viewModel.workbench.sprint).toBe("S9");
     expect(viewModel.workbench.mode).toBe("Read-only governance shell");
   });
 
@@ -78,6 +78,9 @@ describe("buildStyleLibraryAdminViewModel", () => {
       expect(card.defaultEligible).toBe(false);
       expect(card.release1Required).toBe(false);
       expect(card.lifecycle).toBe("paste_qa_pass");
+      expect(card.currentConclusion).toBe(
+        "Not user selectable / Not default eligible",
+      );
       expect(card.nextStepHint).toBe("Needs lifecycle / promote review");
       expect(card.disabledActions).toEqual(CANDIDATE_DISABLED_ACTIONS);
     }
@@ -163,9 +166,10 @@ describe("buildStyleLibraryAdminViewModel", () => {
     );
   });
 
-  it("states runtime patches are not applied", () => {
+  it("states runtime is not connected for operators", () => {
     const viewModel = buildStyleLibraryAdminViewModel();
-    expect(viewModel.runtimeNotice).toContain("not applied");
     expect(viewModel.runtimeNotice).toContain("Gallery");
+    expect(viewModel.runtimeNotice).toContain("Preview");
+    expect(viewModel.runtimeNotice).toContain("Copy");
   });
 });

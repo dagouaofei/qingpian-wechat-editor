@@ -70,11 +70,11 @@ export type StyleLibraryAdminValidationPanel = {
 
 export type StyleLibraryWorkbenchHeader = {
   title: string;
+  subtitle: string;
   libraryId: string;
   schemaVersion: number;
   updatedAt: string;
   runtimeStatus: string;
-  sprint: string;
   mode: string;
 };
 
@@ -102,6 +102,7 @@ export type StyleLibraryCandidateDisabledAction = {
 };
 
 export type StyleLibraryCandidateReviewCard = StyleLibraryAdminAssetRow & {
+  currentConclusion: string;
   nextStepHint: string;
   disabledActions: StyleLibraryCandidateDisabledAction[];
 };
@@ -124,25 +125,25 @@ export const CANDIDATE_DISABLED_ACTIONS: StyleLibraryCandidateDisabledAction[] =
     {
       actionId: "validate",
       label: "Validate",
-      disabledReason: "Renderer / validator integration not connected",
+      disabledReason: "renderer / validator integration",
       deferredStory: "S9-STORY-006",
     },
     {
       actionId: "review-evidence",
       label: "Review Evidence",
-      disabledReason: "Lifecycle write operations not available",
+      disabledReason: "lifecycle write",
       deferredStory: "S9-STORY-004",
     },
     {
       actionId: "promote-user-selectable",
       label: "Promote to User Selectable",
-      disabledReason: "Promote workflow not available",
+      disabledReason: "promote",
       deferredStory: "S9-STORY-007",
     },
     {
       actionId: "mark-default-eligible",
       label: "Mark Default Eligible",
-      disabledReason: "Promote workflow not available",
+      disabledReason: "promote",
       deferredStory: "S9-STORY-007",
     },
   ];
@@ -158,13 +159,13 @@ const LIFECYCLE_STATES: StyleLibraryLifecycleState[] = [
 ];
 
 const LIFECYCLE_LABELS: Record<StyleLibraryLifecycleState, string> = {
-  draft: "Draft",
-  candidate: "Candidate",
-  validator_pass: "Validator Pass",
-  paste_qa_pass: "Paste QA Pass",
-  user_selectable: "User Selectable",
-  default_eligible: "Default Eligible",
-  deprecated: "Deprecated",
+  draft: "Draft · 草稿",
+  candidate: "Candidate · 候选",
+  validator_pass: "Validator Pass · 校验通过",
+  paste_qa_pass: "Paste QA Pass · 粘贴验收通过",
+  user_selectable: "User Selectable · 用户可选",
+  default_eligible: "Default Eligible · 默认可用",
+  deprecated: "Deprecated · 已废弃",
 };
 
 function emptyLifecycleDistribution(): Record<
@@ -279,6 +280,7 @@ function buildCandidateReviewCards(
     .filter((asset) => asset.isSeedAsset)
     .map((asset) => ({
       ...asset,
+      currentConclusion: "Not user selectable / Not default eligible",
       nextStepHint: "Needs lifecycle / promote review",
       disabledActions: CANDIDATE_DISABLED_ACTIONS,
     }));
@@ -329,12 +331,12 @@ export function buildStyleLibraryAdminViewModel(
 
   return {
     workbench: {
-      title: "Style Library v0",
+      title: "Style Library Workbench",
+      subtitle: "样式资产管理后台 v0",
       libraryId: manifest.libraryId,
       schemaVersion: manifest.schemaVersion,
       updatedAt: manifest.updatedAt,
       runtimeStatus: "Not connected to runtime",
-      sprint: "S9",
       mode: "Read-only governance shell",
     },
     statusSummary: buildStatusSummary(overview, validation),
@@ -346,6 +348,6 @@ export function buildStyleLibraryAdminViewModel(
     evidence: manifest.evidenceRefs.map(toEvidenceRow),
     validation,
     runtimeNotice:
-      "Registry patches are not applied to runtime StyleRegistry in S9-STORY-003. Gallery, Preview, Copy, and default preset are unchanged.",
+      "样式尚未接入线上 Gallery / Preview / Copy。当前工作台仅用于查看候选样式与治理状态，不会影响用户侧默认样式。",
   };
 }

@@ -926,3 +926,34 @@
 - **关联：** S9-STORY-003、DECISION-095、S9-STORY-004、S9-STORY-007
 - **状态：** **已确认**（2026-06-05 · S9-STORY-003）
 
+### DECISION-097 详情（Sprint 9 operator-facing acceptance）
+
+- **日期：** 2026-06-05
+- **背景：**
+  - Sprint 9 审查发现产品口径偏技术化 — 当前输出易被理解为 manifest / patch / evidence 数据浏览器
+  - S9 最终目标应为**面向运营管理人员**可用的 Style Management Workbench v0
+  - S9-STORY-003-FIX-A 已将 `/dev/style-library` reframe 为 operator workbench 只读雏形
+- **决策：**
+  1. **Sprint 9 关闭标准** — 不是 manifest / storage / validator 技术闭环 alone
+  2. **必须形成** 运营人员可理解、可操作的 **Style Management Workbench v0**
+  3. **S9 关闭前运营验收场景（七项）：**
+     - 能打开后台入口
+     - 能看到候选样式池
+     - 能看懂候选样式状态
+     - 能看到 preview / copy / validator 结果
+     - 能完成或模拟完成 promote 路径
+     - 能清楚区分 user_selectable 与 default_eligible
+     - 能支撑 S10 批量样式扩展
+  4. **后续 Story 验收口径调整：**
+     - **S9-STORY-004** — 运营可见 lifecycle pipeline + 最小状态流转
+     - **S9-STORY-005** — 新增候选样式向导（粘贴 HTML / 采集片段 → candidate review）
+     - **S9-STORY-006** — 候选 Preview · Copy HTML · validator 运营可读面板
+     - **S9-STORY-007** — 运营 promote review（进 user-selectable · 默认不进 default preset）
+     - **S9-STORY-008** — 优先级 **P0**；style / palette / rule 运营可读列表与基础管理入口
+     - **S9-STORY-009** — 运营验收 audit + 技术 audit
+  5. **S9-STORY-003** 标记 **In Review**；**未 merge sprint** 直至 operator reframe 验收通过
+  6. **本轮不启动 S9-STORY-004** · 不关闭 Sprint 9 · 不 merge `release/1` / `main`
+- **影响范围：** `sprint9-style-management-system-v0.md`、`sprint-backlog.md`、`sprint-plan.md`、`style-library-admin-shell.md`、`changelog.md`、`decisions.md`
+- **关联：** S9-STORY-003-FIX-A、S9-PLANNING-REFRAME、DECISION-096、S9-STORY-004~009
+- **状态：** **已确认**（2026-06-05 · S9-PLANNING-REFRAME）
+
