@@ -1,4 +1,8 @@
-import type { StyleLibraryLifecycleState } from "@/core/style-library";
+import { LIFECYCLE_BLOCK_REASON_CODES } from "@/core/style-library";
+import type {
+  StyleLibraryAsset,
+  StyleLibraryLifecycleState,
+} from "@/core/style-library";
 
 export type StyleLibraryLocale = "zh" | "en";
 
@@ -67,6 +71,24 @@ export type StyleLibraryUiCopy = {
   boolFalse: string;
   lifecycleRawKeyHint: (lifecycle: StyleLibraryLifecycleState) => string;
   seedBadge: (lifecycle: StyleLibraryLifecycleState) => string;
+  sectionLifecycleManagement: string;
+  lifecycleCurrentState: string;
+  lifecycleStatusExplanation: string;
+  lifecycleNextStepSuggestion: string;
+  lifecycleBlockedReason: string;
+  lifecycleRequiredEvidence: string;
+  lifecycleLinkedStory: string;
+  lifecycleRuntimeImpact: string;
+  lifecycleAllowedTransitions: string;
+  lifecycleBlockedTransitions: string;
+  lifecycleProposalPreview: string;
+  lifecycleDistributionImpact: string;
+  lifecycleTransitionPanelHint: string;
+  lifecycleColumnMeaning: string;
+  lifecycleColumnNextAction: string;
+  lifecycleProposalAllowed: string;
+  lifecycleProposalBlocked: string;
+  lifecycleNoRuntimeChange: string;
 };
 
 const LIFECYCLE_STATES: StyleLibraryLifecycleState[] = [
@@ -162,6 +184,25 @@ const UI_COPY: Record<StyleLibraryLocale, StyleLibraryUiCopy> = {
     boolFalse: "否",
     lifecycleRawKeyHint: (lifecycle) => lifecycle,
     seedBadge: (lifecycle) => `种子样式 · 候选 · ${lifecycle}`,
+    sectionLifecycleManagement: "生命周期管理",
+    lifecycleCurrentState: "当前状态",
+    lifecycleStatusExplanation: "状态说明",
+    lifecycleNextStepSuggestion: "下一步建议",
+    lifecycleBlockedReason: "当前限制",
+    lifecycleRequiredEvidence: "关联证据",
+    lifecycleLinkedStory: "后续 Story",
+    lifecycleRuntimeImpact: "运行时影响",
+    lifecycleAllowedTransitions: "允许的流转（提案预览）",
+    lifecycleBlockedTransitions: "受阻的流转",
+    lifecycleProposalPreview: "Lifecycle Change Proposal 预览",
+    lifecycleDistributionImpact: "分发影响",
+    lifecycleTransitionPanelHint:
+      "以下为模拟提案预览，不会写入 manifest，也不会修改 runtime。",
+    lifecycleColumnMeaning: "业务含义",
+    lifecycleColumnNextAction: "下一步动作",
+    lifecycleProposalAllowed: "可生成提案",
+    lifecycleProposalBlocked: "当前受阻",
+    lifecycleNoRuntimeChange: "无运行时影响",
   },
   en: {
     workbenchTitle: "Style Library Workbench",
@@ -222,6 +263,25 @@ const UI_COPY: Record<StyleLibraryLocale, StyleLibraryUiCopy> = {
     boolFalse: "false",
     lifecycleRawKeyHint: (lifecycle) => lifecycle,
     seedBadge: (lifecycle) => `seed · candidate · ${lifecycle}`,
+    sectionLifecycleManagement: "Lifecycle Management",
+    lifecycleCurrentState: "Current state",
+    lifecycleStatusExplanation: "Status explanation",
+    lifecycleNextStepSuggestion: "Next step",
+    lifecycleBlockedReason: "Current restriction",
+    lifecycleRequiredEvidence: "Linked evidence",
+    lifecycleLinkedStory: "Future story",
+    lifecycleRuntimeImpact: "Runtime impact",
+    lifecycleAllowedTransitions: "Allowed transitions (proposal preview)",
+    lifecycleBlockedTransitions: "Blocked transitions",
+    lifecycleProposalPreview: "Lifecycle Change Proposal preview",
+    lifecycleDistributionImpact: "Distribution impact",
+    lifecycleTransitionPanelHint:
+      "Proposal preview only. Does not write manifest or change runtime.",
+    lifecycleColumnMeaning: "Business meaning",
+    lifecycleColumnNextAction: "Next action",
+    lifecycleProposalAllowed: "Proposal can be generated",
+    lifecycleProposalBlocked: "Currently blocked",
+    lifecycleNoRuntimeChange: "No runtime impact",
   },
 };
 
@@ -239,7 +299,7 @@ const DISABLED_ACTIONS: Record<
     {
       actionId: "review-evidence",
       label: "查看证据",
-      disabledReason: "生命周期写入将在 S9-STORY-004 实现",
+      disabledReason: "生命周期提案预览已在 S9-STORY-004 提供；持久化写入待后续 Story",
       deferredStory: "S9-STORY-004",
     },
     {
@@ -316,4 +376,205 @@ export function getCandidateDisabledActions(
 
 export function getAllLifecycleStates(): StyleLibraryLifecycleState[] {
   return [...LIFECYCLE_STATES];
+}
+
+export type StyleLibraryLifecycleColumnMetaCopy = {
+  label: string;
+  businessMeaning: string;
+  nextAction: string;
+};
+
+export type StyleLibraryLifecycleStatusCopy = {
+  currentStateDescription: string;
+  statusExplanation: string;
+  nextStepSuggestion: string;
+  blockedReason: string | null;
+  linkedFutureStory: string | null;
+  runtimeImpactSummary: string;
+};
+
+const LIFECYCLE_COLUMN_META: Record<
+  StyleLibraryLocale,
+  Record<StyleLibraryLifecycleState, StyleLibraryLifecycleColumnMetaCopy>
+> = {
+  zh: {
+    draft: {
+      label: "草稿",
+      businessMeaning: "样式尚未进入候选审查。",
+      nextAction: "完善样式并进入候选池。",
+    },
+    candidate: {
+      label: "候选",
+      businessMeaning: "已进入候选池，等待校验。",
+      nextAction: "补充 validator 证据后进入校验通过。",
+    },
+    validator_pass: {
+      label: "校验通过",
+      businessMeaning: "已通过渲染/校验检查。",
+      nextAction: "完成粘贴 QA 后进入 paste_qa_pass。",
+    },
+    paste_qa_pass: {
+      label: "粘贴 QA 通过",
+      businessMeaning: "已通过公众号粘贴验收，可进入上线审核。",
+      nextAction: "进入上线审核（S9-STORY-007）。",
+    },
+    user_selectable: {
+      label: "用户可选",
+      businessMeaning: "已进入用户可选池，可被用户挑选。",
+      nextAction: "如需默认推荐，需独立 PO 决策。",
+    },
+    default_eligible: {
+      label: "可进默认推荐",
+      businessMeaning: "可作为默认推荐样式候选。",
+      nextAction: "维护默认策略或废弃。",
+    },
+    deprecated: {
+      label: "已废弃",
+      businessMeaning: "不再对用户分发。",
+      nextAction: "无后续流转。",
+    },
+  },
+  en: {
+    draft: {
+      label: "Draft",
+      businessMeaning: "Style not yet in candidate review.",
+      nextAction: "Prepare and move to candidate.",
+    },
+    candidate: {
+      label: "Candidate",
+      businessMeaning: "In candidate pool awaiting validation.",
+      nextAction: "Add validator evidence to reach validator_pass.",
+    },
+    validator_pass: {
+      label: "Validator Pass",
+      businessMeaning: "Passed renderer/validator checks.",
+      nextAction: "Complete paste QA to reach paste_qa_pass.",
+    },
+    paste_qa_pass: {
+      label: "Paste QA Pass",
+      businessMeaning: "Passed WeChat paste QA; ready for promote review.",
+      nextAction: "Promote review (S9-STORY-007).",
+    },
+    user_selectable: {
+      label: "User Selectable",
+      businessMeaning: "Available in user-selectable pool.",
+      nextAction: "Default eligibility requires separate PO decision.",
+    },
+    default_eligible: {
+      label: "Default Eligible",
+      businessMeaning: "Eligible for default recommendation.",
+      nextAction: "Maintain default policy or deprecate.",
+    },
+    deprecated: {
+      label: "Deprecated",
+      businessMeaning: "No longer distributed to users.",
+      nextAction: "Terminal state.",
+    },
+  },
+};
+
+const BLOCK_REASON_COPY: Record<
+  StyleLibraryLocale,
+  Record<string, string>
+> = {
+  zh: {
+    [LIFECYCLE_BLOCK_REASON_CODES.MISSING_VALIDATOR_EVIDENCE]:
+      "缺少 validator 证据或 validator pending 证据。",
+    [LIFECYCLE_BLOCK_REASON_CODES.MISSING_PASTE_QA_EVIDENCE]:
+      "缺少 paste QA 证据。",
+    [LIFECYCLE_BLOCK_REASON_CODES.REQUIRES_PROMOTE_REVIEW]:
+      "需要上线审核（promote review）。",
+    [LIFECYCLE_BLOCK_REASON_CODES.SEED_REQUIRES_PROMOTE_REVIEW]:
+      "种子样式在 S9-STORY-007 前不能加入用户可选池。",
+    [LIFECYCLE_BLOCK_REASON_CODES.REQUIRES_PO_DEFAULT_DECISION]:
+      "进入默认推荐需要独立 PO 决策，不能从 user_selectable 自动进入。",
+    [LIFECYCLE_BLOCK_REASON_CODES.DEPRECATION_REASON_REQUIRED]:
+      "废弃流转需要运营人员填写原因。",
+    [LIFECYCLE_BLOCK_REASON_CODES.NOT_FORWARD_TRANSITION]:
+      "不是支持的正向流转路径。",
+    [LIFECYCLE_BLOCK_REASON_CODES.PROPOSAL_ONLY_NO_PERSISTENCE]:
+      "S9-STORY-004 仅生成提案预览，不会写入 manifest。",
+  },
+  en: {
+    [LIFECYCLE_BLOCK_REASON_CODES.MISSING_VALIDATOR_EVIDENCE]:
+      "Validator or validator-pending evidence is missing.",
+    [LIFECYCLE_BLOCK_REASON_CODES.MISSING_PASTE_QA_EVIDENCE]:
+      "Paste QA evidence is missing.",
+    [LIFECYCLE_BLOCK_REASON_CODES.REQUIRES_PROMOTE_REVIEW]:
+      "Promote review is required.",
+    [LIFECYCLE_BLOCK_REASON_CODES.SEED_REQUIRES_PROMOTE_REVIEW]:
+      "Seed assets cannot enter user_selectable before S9-STORY-007.",
+    [LIFECYCLE_BLOCK_REASON_CODES.REQUIRES_PO_DEFAULT_DECISION]:
+      "default_eligible requires an independent PO decision.",
+    [LIFECYCLE_BLOCK_REASON_CODES.DEPRECATION_REASON_REQUIRED]:
+      "Deprecation requires an operator reason.",
+    [LIFECYCLE_BLOCK_REASON_CODES.NOT_FORWARD_TRANSITION]:
+      "Not a supported forward transition.",
+    [LIFECYCLE_BLOCK_REASON_CODES.PROPOSAL_ONLY_NO_PERSISTENCE]:
+      "S9-STORY-004 proposal preview only; manifest is not written.",
+  },
+};
+
+export function getLifecycleColumnMeta(
+  locale: StyleLibraryLocale,
+  lifecycle: StyleLibraryLifecycleState,
+): StyleLibraryLifecycleColumnMetaCopy {
+  return LIFECYCLE_COLUMN_META[locale][lifecycle];
+}
+
+export function translateLifecycleBlockReasonCode(
+  locale: StyleLibraryLocale,
+  code: string,
+): string {
+  return BLOCK_REASON_COPY[locale][code] ?? code;
+}
+
+export function getLifecycleStatusCopy(
+  locale: StyleLibraryLocale,
+  lifecycle: StyleLibraryLifecycleState,
+  asset: StyleLibraryAsset,
+): StyleLibraryLifecycleStatusCopy {
+  const meta = getLifecycleColumnMeta(locale, lifecycle);
+  const isSeed =
+    asset.assetType === "variant" &&
+    (asset.isSeedAsset === true || lifecycle === "paste_qa_pass");
+
+  if (lifecycle === "paste_qa_pass" && isSeed) {
+    return locale === "zh"
+      ? {
+          currentStateDescription: "粘贴 QA 通过",
+          statusExplanation: "已通过粘贴 QA，等待上线审核。",
+          nextStepSuggestion: "进入上线审核",
+          blockedReason: "S9-STORY-007 前不能加入用户可选池",
+          linkedFutureStory: "S9-STORY-007",
+          runtimeImpactSummary: "无",
+        }
+      : {
+          currentStateDescription: "Paste QA Pass",
+          statusExplanation: "Paste QA passed; awaiting promote review.",
+          nextStepSuggestion: "Enter promote review",
+          blockedReason: "Cannot enter user-selectable pool before S9-STORY-007",
+          linkedFutureStory: "S9-STORY-007",
+          runtimeImpactSummary: "None",
+        };
+  }
+
+  return {
+    currentStateDescription: meta.label,
+    statusExplanation: meta.businessMeaning,
+    nextStepSuggestion: meta.nextAction,
+    blockedReason:
+      lifecycle === "paste_qa_pass"
+        ? locale === "zh"
+          ? "进入 user_selectable 需要 S9-STORY-007 promote review"
+          : "user_selectable requires S9-STORY-007 promote review"
+        : null,
+    linkedFutureStory:
+      lifecycle === "paste_qa_pass"
+        ? "S9-STORY-007"
+        : lifecycle === "candidate" || lifecycle === "validator_pass"
+          ? "S9-STORY-006"
+          : null,
+    runtimeImpactSummary: locale === "zh" ? "无" : "None",
+  };
 }

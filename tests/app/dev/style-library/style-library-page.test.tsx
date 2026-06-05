@@ -25,6 +25,10 @@ describe("StyleLibraryAdminShell", () => {
     expect(html).toContain('href="?lang=zh"');
     expect(html).toContain('href="?lang=en"');
     expect(html).toContain('data-testid="style-library-lifecycle-column-paste_qa_pass"');
+    expect(html).toContain('data-testid="style-library-lifecycle-management"');
+    expect(html).toContain('data-testid="style-library-lifecycle-panel-seed-variant-heading-purple-chapter-label"');
+    expect(html).toContain('data-testid="style-library-blocked-transition-user_selectable-seed-variant-heading-purple-chapter-label"');
+    expect(html).toContain('data-testid="style-library-candidate-review"');
     expect(html).toContain("粘贴 QA 通过");
     expect(html).toContain("paste_qa_pass");
     expect(html).toContain('data-testid="style-library-candidate-card-seed-variant-heading-purple-chapter-label"');

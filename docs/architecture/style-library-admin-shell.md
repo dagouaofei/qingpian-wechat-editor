@@ -86,11 +86,11 @@ Workbench Header 明确：**Not connected to runtime**；不影响 Gallery / Pre
 
 ## 7. 运营验收场景（DECISION-097）
 
-| 场景 | S9-STORY-003-FIX-A 覆盖 |
+| 场景 | S9-STORY-003 / 004 覆盖 |
 |------|-------------------------|
 | 打开后台入口 | ✅ `/dev/style-library` |
 | 看到候选样式池 | ✅ Candidate Review + Pipeline |
-| 看懂候选样式状态 | ✅ 卡片结论 + lifecycle 看板 |
+| 看懂候选样式状态 | ✅ 卡片结论 + lifecycle 看板 + **S9-STORY-004 proposal panel** |
 | preview / copy / validator 结果 | ⏳ S9-STORY-006 |
 | promote 路径 | ⏳ S9-STORY-007 |
 | 区分 user_selectable / default_eligible | ⏳ 部分（只读展示 flags） |
@@ -98,7 +98,19 @@ Workbench Header 明确：**Not connected to runtime**；不影响 Gallery / Pre
 
 ---
 
-## 8. 双语切换（DECISION-098 · S9-STORY-003-FIX-B）
+## 8. Lifecycle Management（S9-STORY-004 · DECISION-099）
+
+Workbench 集成 lifecycle transition engine 与 **Lifecycle Change Proposal** 预览：
+
+- Candidate Review 卡片内 **生命周期管理** panel
+- 允许 / 受阻流转列表 + proposal preview（`<details>` · 无 submit）
+- Pipeline 列头展示业务含义与下一步动作
+
+详见 [`style-library-lifecycle-management.md`](style-library-lifecycle-management.md)。
+
+---
+
+## 9. 双语切换（DECISION-098 · S9-STORY-003-FIX-B）
 
 | 项 | 内容 |
 |----|------|
@@ -112,31 +124,31 @@ Workbench Header 明确：**Not connected to runtime**；不影响 Gallery / Pre
 
 ---
 
-## 9. 代码结构
+## 10. 代码结构
 
 ```text
 src/app/dev/style-library/
-  page.tsx                      # searchParams.lang → locale
-  style-library-i18n.ts         # zh/en dictionary
+  page.tsx
+  style-library-i18n.ts
   style-library-view-model.ts
+  style-library-lifecycle-view-model.ts
   style-library-admin-shell.tsx
 ```
 
-数据**仅**来自 `@/core/style-library`；**禁止**从 `@/core/styles` 读取 runtime registry。
-
 ---
 
-## 10. 测试
+## 11. 测试
 
+- `tests/core/style-library/style-library-lifecycle.test.ts`
+- `tests/app/dev/style-library/style-library-lifecycle-view-model.test.ts`
 - `tests/app/dev/style-library/style-library-i18n.test.ts`
 - `tests/app/dev/style-library/style-library-view-model.test.ts`
 - `tests/app/dev/style-library/style-library-page.test.tsx`
 
-覆盖：默认 zh · `?lang=en` 英文标题 · lifecycle 中文 label · actions 双语 · 技术 ID 不翻译 · 无写操作 · diagnostics 区
-
 ---
 
-## 11. 参考
+## 12. 参考
 
-- **DECISION-098** · **DECISION-097** · DECISION-096 · DECISION-095
+- **DECISION-099** · **DECISION-098** · **DECISION-097** · DECISION-096
+- [`style-library-lifecycle-management.md`](style-library-lifecycle-management.md)
 - [`sprint9-style-management-system-v0.md`](../agile/sprint9-style-management-system-v0.md)

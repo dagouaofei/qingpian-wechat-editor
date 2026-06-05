@@ -975,3 +975,19 @@
 - **关联：** S9-STORY-003-FIX-B、DECISION-097、DECISION-096
 - **状态：** **已确认**（2026-06-05 · S9-STORY-003-FIX-B）
 
+### DECISION-099 详情（S9-STORY-004 · proposal-based lifecycle v0）
+
+- **日期：** 2026-06-05
+- **背景：**
+  - S9-STORY-004 需让运营人员在 Workbench 中理解 lifecycle 状态与流转边界
+  - file-backed manifest 不应被浏览器直接写入；promote / runtime 仍由后续 Story 承接
+- **决策：**
+  1. S9-STORY-004 lifecycle v0 采用 **Lifecycle Change Proposal** — 运营可见、可模拟、可审查
+  2. **不做**浏览器直接写 `STYLE_LIBRARY_MANIFEST` · 不激活 registry patch · 不修改 runtime
+  3. `paste_qa_pass → user_selectable` 与 `user_selectable → default_eligible` 在 v0 **blocked**，分别指向 **S9-STORY-007** 与 PO 决策
+  4. deprecated 流转 proposal 必须带 operator reason
+  5. 真实 persist / promote / runtime pool → **S9-STORY-007** 及后续 Story
+- **影响范围：** `src/core/style-library/lifecycle.ts`、`style-library-lifecycle-management.md`、`style-library-admin-shell.md`
+- **关联：** S9-STORY-004、DECISION-097、S9-STORY-007
+- **状态：** **已确认**（2026-06-05 · S9-STORY-004）
+

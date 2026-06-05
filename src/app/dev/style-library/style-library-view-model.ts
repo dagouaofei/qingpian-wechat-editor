@@ -18,12 +18,19 @@ import {
   STYLE_LIBRARY_DEFAULT_LOCALE,
   getAllLifecycleStates,
   getCandidateDisabledActions,
+  getLifecycleColumnMeta,
   getLifecycleDisplayLabel,
   getStyleLibraryUiCopy,
   type StyleLibraryDisabledActionCopy,
   type StyleLibraryLocale,
   type StyleLibraryUiCopy,
 } from "./style-library-i18n";
+import {
+  buildCandidateLifecyclePanels,
+  buildLifecycleColumnMetaList,
+  type StyleLibraryCandidateLifecyclePanel,
+  type StyleLibraryLifecycleColumnMeta,
+} from "./style-library-lifecycle-view-model";
 
 export type StyleLibraryAdminAssetRow = {
   assetId: string;
@@ -104,6 +111,8 @@ export type StyleLibraryLifecycleGroup = {
   lifecycle: StyleLibraryLifecycleState;
   label: string;
   rawKey: string;
+  businessMeaning: string;
+  nextAction: string;
   assets: StyleLibraryAdminAssetRow[];
 };
 
@@ -112,6 +121,7 @@ export type StyleLibraryCandidateReviewCard = StyleLibraryAdminAssetRow & {
   currentConclusion: string;
   nextStepHint: string;
   disabledActions: StyleLibraryDisabledActionCopy[];
+  lifecyclePanel: StyleLibraryCandidateLifecyclePanel;
 };
 
 export type StyleLibraryAdminViewModel = {
@@ -120,7 +130,9 @@ export type StyleLibraryAdminViewModel = {
   workbench: StyleLibraryWorkbenchHeader;
   statusSummary: StyleLibraryStatusSummary;
   lifecycleGroups: StyleLibraryLifecycleGroup[];
+  lifecycleColumnMeta: StyleLibraryLifecycleColumnMeta[];
   candidateReviewCards: StyleLibraryCandidateReviewCard[];
+  candidateLifecyclePanels: StyleLibraryCandidateLifecyclePanel[];
   overview: StyleLibraryAdminOverview;
   assets: StyleLibraryAdminAssetRow[];
   patches: StyleLibraryAdminPatchRow[];
@@ -129,6 +141,7 @@ export type StyleLibraryAdminViewModel = {
   runtimeNotice: string;
 };
 
+export type { StyleLibraryCandidateLifecyclePanel, StyleLibraryLifecycleColumnMeta };
 export type { StyleLibraryDisabledActionCopy, StyleLibraryLocale, StyleLibraryUiCopy };
 
 function emptyLifecycleDistribution(): Record<
@@ -234,28 +247,46 @@ function buildLifecycleGroups(
   assets: StyleLibraryAdminAssetRow[],
   locale: StyleLibraryLocale,
 ): StyleLibraryLifecycleGroup[] {
-  return getAllLifecycleStates().map((lifecycle) => ({
-    lifecycle,
-    label: getLifecycleDisplayLabel(locale, lifecycle),
-    rawKey: lifecycle,
-    assets: assets.filter((asset) => asset.lifecycle === lifecycle),
-  }));
+  return getAllLifecycleStates().map((lifecycle) => {
+    const meta = getLifecycleColumnMeta(locale, lifecycle);
+    return {
+      lifecycle,
+      label: meta.label,
+      rawKey: lifecycle,
+      businessMeaning: meta.businessMeaning,
+      nextAction: meta.nextAction,
+      assets: assets.filter((asset) => asset.lifecycle === lifecycle),
+    };
+  });
 }
 
 function buildCandidateReviewCards(
   assets: StyleLibraryAdminAssetRow[],
+  manifest: StyleLibraryManifest,
   locale: StyleLibraryLocale,
   ui: StyleLibraryUiCopy,
+  lifecyclePanels: StyleLibraryCandidateLifecyclePanel[],
 ): StyleLibraryCandidateReviewCard[] {
+  const panelByAssetId = new Map(
+    lifecyclePanels.map((panel) => [panel.assetId, panel]),
+  );
+
   return assets
     .filter((asset) => asset.isSeedAsset)
-    .map((asset) => ({
-      ...asset,
-      lifecycleLabel: getLifecycleDisplayLabel(locale, asset.lifecycle),
-      currentConclusion: ui.candidateCurrentConclusionValue,
-      nextStepHint: ui.candidateNextStepHint,
-      disabledActions: getCandidateDisabledActions(locale),
-    }));
+    .map((asset) => {
+      const panel = panelByAssetId.get(asset.assetId);
+      if (!panel) {
+        throw new Error(`Missing lifecycle panel for seed asset ${asset.assetId}`);
+      }
+      return {
+        ...asset,
+        lifecycleLabel: getLifecycleDisplayLabel(locale, asset.lifecycle),
+        currentConclusion: ui.candidateCurrentConclusionValue,
+        nextStepHint: panel.nextStepSuggestion,
+        disabledActions: getCandidateDisabledActions(locale),
+        lifecyclePanel: panel,
+      };
+    });
 }
 
 function buildStatusSummary(
@@ -305,6 +336,9 @@ export function buildStyleLibraryAdminViewModel(
     lifecycleDistribution: buildLifecycleDistribution(manifest),
   };
 
+  const lifecycleColumnMeta = buildLifecycleColumnMetaList(manifest, locale);
+  const candidateLifecyclePanels = buildCandidateLifecyclePanels(manifest, locale);
+
   return {
     locale,
     ui,
@@ -320,7 +354,15 @@ export function buildStyleLibraryAdminViewModel(
     },
     statusSummary: buildStatusSummary(overview, validation),
     lifecycleGroups: buildLifecycleGroups(assets, locale),
-    candidateReviewCards: buildCandidateReviewCards(assets, locale, ui),
+    lifecycleColumnMeta,
+    candidateReviewCards: buildCandidateReviewCards(
+      assets,
+      manifest,
+      locale,
+      ui,
+      candidateLifecyclePanels,
+    ),
+    candidateLifecyclePanels,
     overview,
     assets,
     patches: manifest.registryPatches.map((patch) => toPatchRow(manifest, patch)),
