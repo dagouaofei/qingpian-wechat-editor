@@ -98,7 +98,7 @@
 
 ## 14. Commit
 
-- Commit hash：（commit 后填写）
+- Commit hash：`ee8cd35` — `feat: add read-only style library admin shell at /dev/style-library`
 
 ## 15. 越界检查
 
