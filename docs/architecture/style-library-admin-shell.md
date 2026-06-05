@@ -1,7 +1,7 @@
 # Style Library Admin Shell
 
 > 轻篇公众号排版 · qingpian-wechat-editor  
-> **Sprint 9 · S9-STORY-003** · Read-only Style Library Admin Shell v0  
+> **Sprint 9 · S9-STORY-003 / S9-STORY-003-FIX-A** · Read-only Style Library Admin Shell v0  
 > **路由：** `/dev/style-library` · **DECISION-096**  
 > **关联：** [`style-library-storage.md`](style-library-storage.md) · [`style-management-domain-model.md`](style-management-domain-model.md)
 
@@ -9,13 +9,15 @@
 
 ## 1. 定位
 
-Style Library Admin Shell v0 是主项目内的**只读、内部治理浏览页**，用于开发者 / PO 查看 Style Library v0 资产状态。
+Style Library Admin Shell v0 是主项目内的**只读、内部样式资产管理工作台雏形**，用于开发者 / PO 查看 Style Library v0 资产状态与治理进度。
 
 | 是 | 不是 |
 |----|------|
-| 只读 manifest 浏览器 | 正式 SaaS 运营后台 |
-| `/dev/` 内部工具 | `/admin/` 权限后台 |
+| 样式资产管理工作台 v0（只读） | raw manifest 数据浏览器 |
+| `/dev/` 内部工具 | 正式 SaaS 运营后台 |
 | S9 治理层 UI 骨架 | runtime StyleRegistry 编辑器 |
+
+**Admin Shell v0 的目标不是 raw manifest browser。** 页面优先呈现 Workbench 视角（状态摘要、生命周期管道、候选审查），manifest 表格仅作为 Diagnostics 辅助区块。
 
 ---
 
@@ -39,30 +41,48 @@ Style Library Admin Shell v0 是主项目内的**只读、内部治理浏览页*
 - promote · 激活 registry patch
 - API 写 route · 数据库
 - 修改 `createFirstWaveRequiredVariantRegistry` · Gallery · Preview · Copy
+- Preview / Copy / Validator runtime 集成（S9-STORY-006）
 
-页面顶部 **Runtime Notice** 明确：registry patch **未接入** runtime，不影响 Gallery / Preview / Copy / default preset。
+页面 Workbench Header 明确：**Not connected to runtime**；registry patch **未接入** runtime，不影响 Gallery / Preview / Copy / default preset。
 
 ---
 
 ## 4. 页面信息架构
 
-| 区块 | 内容 |
-|------|------|
-| **Overview** | libraryId · schemaVersion · updatedAt · asset/patch/evidence 计数 · lifecycle 分布 |
-| **Validation Panel** | `validateStyleLibraryManifest` 结果 · issue 列表 |
-| **Asset List** | 全部 assets · seed badge · distribution flags |
-| **Registry Patch List** | patchId · operation · active · evidence/lifecycle 要求 · per-patch validation issue count |
-| **Evidence List** | evidenceId · kind · refPath · matrixRowId · sessionId |
+| 区块 | 角色 | 内容 |
+|------|------|------|
+| **Workbench Header** | 主视觉 | Style Library v0 · libraryId · schemaVersion · updatedAt · runtime status · Sprint S9 · Read-only governance shell |
+| **Status Summary Cards** | 主视觉 | Total assets · Seed candidates · Paste QA passed · User selectable · Default eligible · Active patches · Validation issues |
+| **Lifecycle Pipeline** | 主视觉 | 按 lifecycle 分栏：draft → candidate → validator_pass → paste_qa_pass → user_selectable → default_eligible → deprecated |
+| **Candidate Review** | 主视觉 | 006D seed asset 卡片 · lifecycle / seed badge · distribution flags · disabled actions |
+| **Details / Diagnostics** | 辅助 | Validation Panel · Asset List · Registry Patch List · Evidence List · Runtime Notice |
+
+Diagnostics 区块使用 dashed 边框与次级标题，**不应是页面第一视觉重点**。
 
 ---
 
-## 5. 代码结构
+## 5. Disabled Actions 与后续 Story
+
+Candidate Review 卡片展示 disabled 操作按钮，明确后续 Story 承接：
+
+| Action | 禁用原因 | 承接 Story |
+|--------|----------|------------|
+| Validate | renderer / validator 未接入 | **S9-STORY-006** |
+| Review Evidence | lifecycle 写操作不可用 | **S9-STORY-004** |
+| Promote to User Selectable | promote 流程不可用 | **S9-STORY-007** |
+| Mark Default Eligible | promote 流程不可用 | **S9-STORY-007** |
+
+按钮均为 `disabled`，页面无 form submit / 写操作。
+
+---
+
+## 6. 代码结构
 
 ```text
 src/app/dev/style-library/
   page.tsx                      # 薄页面 · 组装 view model
-  style-library-view-model.ts   # manifest → view model（业务逻辑）
-  style-library-admin-shell.tsx # 只读 UI  presentation
+  style-library-view-model.ts   # manifest → workbench view model
+  style-library-admin-shell.tsx # Workbench + Diagnostics UI
 ```
 
 **原则：**
@@ -73,7 +93,7 @@ src/app/dev/style-library/
 
 ---
 
-## 6. 数据来源
+## 7. 数据来源
 
 ```typescript
 import {
@@ -89,47 +109,48 @@ import {
 
 ---
 
-## 7. 与 S9-STORY-002 Storage 的关系
+## 8. 与 S9-STORY-002 Storage 的关系
 
 | S9-STORY-002 | S9-STORY-003 |
 |--------------|--------------|
 | `STYLE_LIBRARY_MANIFEST` 定义 | 页面读取并展示 manifest |
-| validation helpers | Validation Panel 调用 |
-| seed / patch / evidence 资产 | 对应列表区块 |
+| validation helpers | Diagnostics Validation Panel 调用 |
+| seed / patch / evidence 资产 | Pipeline / Candidate Review / Diagnostics 展示 |
 
 Storage 仍是 source of truth；Admin Shell 不复制或改写资产。
 
 ---
 
-## 8. 与后续 Story 关系
+## 9. 与后续 Story 关系
 
 | Story | Admin Shell 承接 |
 |-------|------------------|
-| **S9-STORY-004 Lifecycle** | 可扩展 lifecycle 状态展示与（未来）转换 UI |
-| **S9-STORY-005 Harvest** | 可展示新 harvest candidate assets |
-| **S9-STORY-007 Promote** | 可展示 active patch · promote 操作（本轮不做） |
+| **S9-STORY-004 Lifecycle** | Review Evidence · lifecycle 转换 UI |
+| **S9-STORY-005 Harvest** | 新 harvest candidate 进入 Pipeline / Candidate Review |
+| **S9-STORY-006 Validator** | Validate 按钮 · renderer / validator 集成 |
+| **S9-STORY-007 Promote** | Promote / Mark Default Eligible · active patch |
 
 ---
 
-## 9. 006D Seed 展示要求
+## 10. 006D Seed 展示要求
 
-两个 seed asset 必须在 Asset List 可见：
+两个 seed asset 必须出现在 **paste_qa_pass** Pipeline 列与 **Candidate Review** 卡片：
 
 - `heading_purple_chapter_label_candidate`
 - `info_card_reading_path_candidate`
 
-显示为 **seed · candidate · paste_qa_pass**；`userSelectable` / `defaultEligible` / `release1Required` 均为 **false**。
+显示为 **seed · candidate · paste_qa_pass**；`userSelectable` / `defaultEligible` / `release1Required` 均为 **false**；下一步提示 **Needs lifecycle / promote review**。
 
 ---
 
-## 10. 测试
+## 11. 测试
 
-- `tests/app/dev/style-library/style-library-view-model.test.ts` — overview · seed · patch · validation
-- `tests/app/dev/style-library/style-library-page.test.tsx` — shell 静态渲染 · 无 form/submit
+- `tests/app/dev/style-library/style-library-view-model.test.ts` — workbench · status summary · lifecycle groups · candidate cards · disabled actions
+- `tests/app/dev/style-library/style-library-page.test.tsx` — shell 静态渲染 · workbench 结构 · 无 form/submit
 
 ---
 
-## 11. 参考
+## 12. 参考
 
 - DECISION-095 · **DECISION-096**
 - [`style-library-storage.md`](style-library-storage.md)
