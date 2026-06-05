@@ -3968,7 +3968,7 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 - [x] AC-8 [`style-library-promote-user-selectable.md`](../architecture/style-library-promote-user-selectable.md) · DECISION-101
 - [x] AC-9 测试覆盖 promote / view model
 - [x] AC-10 lint / test / build PASS
-- [ ] AC-11 用户确认 merge sprint
+- [x] AC-11 用户确认 merge sprint
 
 ---
 
