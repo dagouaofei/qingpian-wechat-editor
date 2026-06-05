@@ -90,6 +90,7 @@
 | DECISION-092 | 2026-06-05 | Style Management System v0 独立为 Sprint 9；主项目内 file-backed 子系统；采集入库仅为入口之一 | 已确认 |
 | DECISION-093 | 2026-06-05 | 关闭 Sprint 8；接受 Contract & Fidelity Audit Grade A- · P0=0；merge `sprint/s8-wechat-safe-css-contract` → `release/1`；不 merge `main`；Sprint 9 可从 `release/1` 启动 | 已确认 |
 | DECISION-094 | 2026-06-05 | 正式启动 Sprint 9：Style Management System v0；从 `release/1` 创建 `sprint/s9-style-management-system-v0`；首轮执行 S9-STORY-001 Style Management Domain Model | 已确认 |
+| DECISION-095 | 2026-06-05 | Style Library v0 采用 code-backed TypeScript manifest；独立 `@/core/style-library`；不接入 runtime StyleRegistry 默认加载路径 | 已确认 |
 
 ### DECISION-019 详情
 
@@ -888,4 +889,22 @@
 - **影响范围：** `style-management-domain-model.md`、`sprint-backlog.md`、`sprint-plan.md`、`sprint9-style-management-system-v0.md`、`changelog.md`、`decisions.md`
 - **关联：** S9-STORY-001、DECISION-092、DECISION-093、S8-STORY-006D、WX-HARVEST-EVIDENCE-001
 - **状态：** **已确认**（2026-06-05 · S9-STORY-001）
+
+### DECISION-095 详情（Style Library v0 · Code-backed TS Manifest）
+
+- **日期：** 2026-06-05
+- **背景：**
+  - S9-STORY-002 需建立 file-backed / code-backed Style Library Storage
+  - 项目已有 TS registry 惯例（VisualAssetRegistry · harvest candidates）
+  - 须与 runtime StyleRegistry 解耦，不改动 `createFirstWaveRequiredVariantRegistry` 默认路径
+- **决策：**
+  1. Style Library v0 采用 **code-backed TypeScript manifest**（`STYLE_LIBRARY_MANIFEST`），Git 可审查
+  2. 独立模块 **`@/core/style-library`** — **不** re-export 到 `@/core/styles`
+  3. `manifest.ts` **无 import-time assert**；一致性由 validation helper + 单元测试覆盖
+  4. 006D seed assets 登记为 seed metadata；**禁止** S9-STORY-002 经 registry patch 进入 user-selectable / default preset
+  5. registry patch v0 均为 **inactive**；promote 接入 runtime → **S9-STORY-007**
+  6. 后续可迁移 JSON / CMS / DB；manifest 保留 `sourceType` 预留
+- **影响范围：** `src/core/style-library/`、`style-library-storage.md`、`sprint-backlog.md`、`changelog.md`
+- **关联：** S9-STORY-002、DECISION-092、DECISION-094、S8-STORY-006D
+- **状态：** **已确认**（2026-06-05 · S9-STORY-002）
 

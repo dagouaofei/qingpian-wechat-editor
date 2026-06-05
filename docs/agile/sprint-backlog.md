@@ -3833,11 +3833,26 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 
 ## S9-STORY-002 File-backed Style Library Storage
 
-**优先级：** P0 · **状态：** Planned
+**优先级：** P0 · **状态：** **Done**（2026-06-05 · DECISION-095）· **工作分支：** `feature/s9-story-002-file-backed-style-library-storage`
 
 **目标：** 建立 file-backed / code-backed 资产目录结构；明确 source of truth、metadata 格式、registry patch 方式、Git review / rollback 边界。
 
-**非目标：** 不上数据库 · 不做对象存储服务 · 不替换现有 registry 加载路径（直至 promote 故事）
+**非目标：** 不上数据库 · 不做对象存储服务 · 不替换现有 registry 加载路径 · 不启动 S9-STORY-003 · seed 不得经 patch 进入 user pool / default
+
+**验收标准：**
+
+- [x] AC-1 工作分支 `feature/s9-story-002-file-backed-style-library-storage` 已创建
+- [x] AC-2 `src/core/style-library/` 目录结构已建立
+- [x] AC-3 StyleLibraryManifest / Asset / RegistryPatch 类型与 schema 已实现
+- [x] AC-4 006D 两 candidate 已登记为 seed asset
+- [x] AC-5 seed 未进入 user_selectable / default_eligible / default preset
+- [x] AC-6 registry patch 已定义 · inactive · 未接入 runtime
+- [x] AC-7 [`style-library-storage.md`](../architecture/style-library-storage.md) 已新增
+- [x] AC-8 敏捷文档已同步 · DECISION-095
+- [x] AC-9 单元测试覆盖 manifest / seed / patch / helper
+- [x] AC-10 `corepack pnpm lint` PASS
+- [x] AC-11 `corepack pnpm test` PASS
+- [x] AC-12 `corepack pnpm build` PASS
 
 ---
 

@@ -494,3 +494,4 @@
 | 2026-06-05 | Sprint 9 | **Sprint 9 启动**：从 `release/1` 创建 `sprint/s9-style-management-system-v0` · DECISION-094 | Git / 文档 | DECISION-094 |
 | 2026-06-05 | Sprint 9 | **S9-STORY-001 Done**：Style Management Domain Model · [`style-management-domain-model.md`](../architecture/style-management-domain-model.md) | 文档 / 架构 | S9-STORY-001 · DECISION-094 |
 | 2026-06-05 | Sprint 9 | merge `docs/s9-story-001-domain-model` → `sprint/s9-style-management-system-v0` @ `263227b` | Git | S9-STORY-001 |
+| 2026-06-05 | Sprint 9 | **S9-STORY-002 Done**：File-backed Style Library Storage · `src/core/style-library/` · DECISION-095 | 代码 / 文档 | S9-STORY-002 · DECISION-095 |
