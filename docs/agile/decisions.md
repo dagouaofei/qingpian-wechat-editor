@@ -89,6 +89,7 @@
 | DECISION-091 | 2026-06-04 | Copy-safe Pattern Library v0.1（文档）；Drift triage；006C/007/S9 路由；本轮不改 Contract/Renderer | 已确认 |
 | DECISION-092 | 2026-06-05 | Style Management System v0 独立为 Sprint 9；主项目内 file-backed 子系统；采集入库仅为入口之一 | 已确认 |
 | DECISION-093 | 2026-06-05 | 关闭 Sprint 8；接受 Contract & Fidelity Audit Grade A- · P0=0；merge `sprint/s8-wechat-safe-css-contract` → `release/1`；不 merge `main`；Sprint 9 可从 `release/1` 启动 | 已确认 |
+| DECISION-094 | 2026-06-05 | 正式启动 Sprint 9：Style Management System v0；从 `release/1` 创建 `sprint/s9-style-management-system-v0`；首轮执行 S9-STORY-001 Style Management Domain Model | 已确认 |
 
 ### DECISION-019 详情
 
@@ -869,4 +870,22 @@
 - **影响范围：** `sprint-backlog.md`、`sprint-plan.md`、`release-plan.md`、`sprint8-wechat-safe-css-contract.md`、`changelog.md`
 - **关联：** S8-STORY-009、DECISION-088~092、[`sprint8-wechat-contract-fidelity-audit.md`](../architecture/audits/sprint8-wechat-contract-fidelity-audit.md)
 - **状态：** **已确认**（2026-06-05 · 用户确认 Sprint 8 关闭）
+
+### DECISION-094 详情（Sprint 9 启动 · S9-STORY-001 Domain Model）
+
+- **日期：** 2026-06-05
+- **背景：**
+  - Sprint 8 已关闭并 merge 至 `release/1`（DECISION-093）
+  - DECISION-092 已将 Style Management System v0 规划为 Sprint 9
+  - S8 启动条件（Contract v1 · Matrix · Paste QA · 006D seed assets · story map）均已满足
+- **决策：**
+  1. **正式启动 Sprint 9** — Style Management System v0（样式管理后台 v0）
+  2. 从 `release/1` 创建 sprint 分支 **`sprint/s9-style-management-system-v0`**
+  3. 首轮执行 **S9-STORY-001 Style Management Domain Model**；工作分支 `docs/s9-story-001-domain-model`
+  4. 产出 [`style-management-domain-model.md`](../architecture/style-management-domain-model.md) — 定义 style · family · palette · variant · preset · rule · lifecycle · QA evidence · promote/rollback 边界
+  5. **006D harvest candidates** 保持 seed asset；文档明确不得直接 user_selectable / default preset
+  6. **本轮不启动 S9-STORY-002** · 不改 StyleRegistry 运行时 · 不 merge `main` · 不关闭 Sprint 9 / Release 1
+- **影响范围：** `style-management-domain-model.md`、`sprint-backlog.md`、`sprint-plan.md`、`sprint9-style-management-system-v0.md`、`changelog.md`、`decisions.md`
+- **关联：** S9-STORY-001、DECISION-092、DECISION-093、S8-STORY-006D、WX-HARVEST-EVIDENCE-001
+- **状态：** **已确认**（2026-06-05 · S9-STORY-001）
 

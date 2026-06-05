@@ -484,3 +484,12 @@
 | 2026-06-05 | Sprint 8 | **S8-DRIFT-003 Done**：`title_plain_minimal` 产品澄清 · NOT renderer bug · NO S8 code change | 文档 / Matrix | S8-DRIFT-003 |
 | 2026-06-05 | Sprint 8 | **S8-STORY-009 In Review**：Contract & Fidelity audit · Grade A- · P0=0 · S9 启动条件清单 | 文档 | S8-STORY-009 |
 | 2026-06-05 | Sprint 8 | **Sprint 8 Closed**：merge `sprint/s8-wechat-safe-css-contract` → `release/1` @ `806fa47` · DECISION-093 | Git / 文档 | DECISION-093 |
+
+---
+
+## 2026-06-05 · Sprint 9
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-05 | Sprint 9 | **Sprint 9 启动**：从 `release/1` 创建 `sprint/s9-style-management-system-v0` · DECISION-094 | Git / 文档 | DECISION-094 |
+| 2026-06-05 | Sprint 9 | **S9-STORY-001 Done**：Style Management Domain Model · [`style-management-domain-model.md`](../architecture/style-management-domain-model.md) | 文档 / 架构 | S9-STORY-001 · DECISION-094 |

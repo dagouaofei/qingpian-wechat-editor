@@ -62,8 +62,9 @@
 | **Sprint 6** | **Closed**（2026-06-02；DECISION-078；merge `release/1`） |
 | **Sprint 7** | **Done**（2026-06-03 · S7-STORY-008 关闭 · merge `release/1`） |
 | **Sprint 8** | **Closed**（2026-06-05 · DECISION-093 · merged `release/1`） |
+| **Sprint 9** | **In Progress**（2026-06-05 · DECISION-094 · S9-STORY-001 Done） |
 | **Release 1 主干** | `release/1` |
-| **下一步** | **S8-STORY-007** Preview/Copy 审计（006 In Review） |
+| **下一步** | **S9-STORY-002** File-backed Style Library Storage |
 
 ---
 
@@ -593,7 +594,7 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 **遗留（非阻塞）：** 006B-FIX-B Planned · P1-S8-001~004
 
-**下一 Sprint：** Sprint 9 可从 `release/1` 启动（DECISION-092 · **未启动**）
+**下一 Sprint：** Sprint 9 **已启动**（DECISION-094 · `sprint/s9-style-management-system-v0`）
 
 **不做：**
 
@@ -607,13 +608,15 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 ---
 
-### Sprint 9：Style Management System v0 — **Planned**（2026-06-05）
+### Sprint 9：Style Management System v0 — **In Progress**（2026-06-05 · DECISION-094）
 
 **中文名：** 样式管理后台 v0
 
-**分支（启动时）：** `sprint/s9-style-management-system-v0`（从 `release/1` · S8 merge 后）
+**分支：** `sprint/s9-style-management-system-v0`（从 `release/1` · S8 merge 后 · 2026-06-05 创建）
 
-**文档：** [`sprint9-style-management-system-v0.md`](sprint9-style-management-system-v0.md) · **DECISION-092**
+**文档：** [`sprint9-style-management-system-v0.md`](sprint9-style-management-system-v0.md) · [`style-management-domain-model.md`](../architecture/style-management-domain-model.md) · **DECISION-092** · **DECISION-094**
+
+**进度：** S9-STORY-001 **Done** · S9-STORY-002~009 Planned
 
 **Sprint Goal：**
 
