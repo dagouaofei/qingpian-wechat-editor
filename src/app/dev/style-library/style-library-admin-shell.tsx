@@ -301,6 +301,167 @@ function InspectionPanel({
   );
 }
 
+function PromoteReviewPanel({
+  card,
+  viewModel,
+}: {
+  card: StyleLibraryCandidateReviewCard;
+  viewModel: StyleLibraryAdminViewModel;
+}) {
+  const { ui } = viewModel;
+  const panel = card.promotePanel;
+  const badgeClass =
+    panel.eligibilityStatus === "blocked"
+      ? "bg-rose-100 text-rose-800"
+      : panel.eligibilityStatus === "ready_with_warnings"
+        ? "bg-amber-100 text-amber-900"
+        : "bg-emerald-100 text-emerald-800";
+
+  return (
+    <div
+      className="mt-4 space-y-4 rounded-lg border border-violet-100 bg-violet-50/40 px-3 py-3"
+      data-testid={`style-library-promote-panel-${card.assetId}`}
+    >
+      <div>
+        <p className="text-xs font-semibold uppercase tracking-wide text-violet-900">
+          {ui.sectionPromoteReview}
+        </p>
+        <p className="mt-1 text-[11px] text-violet-800">{ui.promoteReviewHint}</p>
+      </div>
+
+      <div className="flex flex-wrap items-center gap-2">
+        <span
+          className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${badgeClass}`}
+          data-testid={`style-library-promote-badge-${card.assetId}`}
+        >
+          {panel.badgeLabel}
+        </span>
+        <span className="text-sm font-medium text-slate-800">
+          {panel.eligibilityStatusLabel}
+        </span>
+      </div>
+
+      <dl className="grid gap-2 text-sm sm:grid-cols-2">
+        <div>
+          <dt className="text-xs text-slate-500">{ui.promoteEligibilityStatus}</dt>
+          <dd>{panel.eligibilityStatusLabel}</dd>
+        </div>
+        <div>
+          <dt className="text-xs text-slate-500">{ui.promoteValidatorStatus}</dt>
+          <dd>{panel.validatorStatus}</dd>
+        </div>
+        <div>
+          <dt className="text-xs text-slate-500">{ui.promotePasteQaStatus}</dt>
+          <dd>{panel.pasteQaStatus}</dd>
+        </div>
+        <div>
+          <dt className="text-xs text-slate-500">{ui.promoteTargetLabel}</dt>
+          <dd className="font-mono text-xs">{panel.promoteTarget}</dd>
+        </div>
+      </dl>
+
+      {panel.blockedReasons.length > 0 ? (
+        <div>
+          <p className="text-xs font-medium text-slate-600">{ui.promoteBlockedReasons}</p>
+          <ul className="mt-1 space-y-1 text-xs text-rose-700">
+            {panel.blockedReasons.map((reason) => (
+              <li key={reason}>{reason}</li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+
+      {panel.warningReasons.length > 0 ? (
+        <div>
+          <p className="text-xs font-medium text-slate-600">{ui.promoteWarningReasons}</p>
+          <ul className="mt-1 space-y-1 text-xs text-amber-800">
+            {panel.warningReasons.map((reason) => (
+              <li key={reason}>{reason}</li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+
+      <div>
+        <p className="text-xs font-medium text-slate-600">{ui.promoteEvidenceChecklist}</p>
+        <ul className="mt-1 space-y-1 font-mono text-xs text-slate-700">
+          {panel.evidenceChecklist.map((row) => (
+            <li key={row.evidenceId}>
+              {row.label} {row.evidenceId}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <dl className="space-y-2 text-sm">
+        <div>
+          <dt className="text-xs text-slate-500">{ui.promoteDistributionImpact}</dt>
+          <dd>{panel.distributionImpactSummary}</dd>
+        </div>
+        <div>
+          <dt className="text-xs text-slate-500">{ui.promoteRuntimeImpact}</dt>
+          <dd>{panel.runtimeImpactSummary}</dd>
+        </div>
+        <div>
+          <dt className="text-xs text-slate-500">{ui.promoteDefaultPresetImpact}</dt>
+          <dd>{panel.defaultPresetImpactSummary}</dd>
+        </div>
+        <div>
+          <dt className="text-xs text-slate-500">{ui.promoteNextDecision}</dt>
+          <dd>{panel.nextDecisionRequired}</dd>
+        </div>
+      </dl>
+
+      {panel.eligible ? (
+        <details
+          open={panel.proposalPreviewOpen}
+          data-testid={`style-library-promote-proposal-${card.assetId}`}
+        >
+          <summary className="cursor-pointer text-sm font-medium text-violet-800">
+            {ui.promoteGenerateProposal}
+          </summary>
+          <div className="mt-3 rounded-lg border border-slate-200 bg-white px-3 py-3 text-sm">
+            <p className="text-xs font-medium text-slate-600">{ui.promoteProposalPreview}</p>
+            <dl className="mt-2 space-y-1 text-xs">
+              <div>
+                <dt className="text-slate-500">{ui.promoteProposalId}</dt>
+                <dd className="font-mono">{panel.proposal.proposalId}</dd>
+              </div>
+              <div>
+                <dt className="text-slate-500">{ui.promoteTargetLabel}</dt>
+                <dd className="font-mono">{panel.promoteTarget}</dd>
+              </div>
+              <div>
+                <dt className="text-slate-500">{ui.promotePatchPreview}</dt>
+                <dd className="mt-1 rounded border border-slate-100 bg-slate-50 p-2 font-mono text-[10px] leading-relaxed">
+                  patchId: {panel.proposal.patchPreview.patchId}
+                  <br />
+                  operation: {panel.proposal.patchPreview.operation}
+                  <br />
+                  variantId: {panel.proposal.patchPreview.variantId}
+                  <br />
+                  active: {String(panel.proposal.patchPreview.active)}
+                  <br />
+                  status: {panel.proposal.patchPreview.status}
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </details>
+      ) : (
+        <button
+          type="button"
+          disabled
+          className="cursor-not-allowed rounded-md border border-slate-200 bg-slate-100 px-3 py-1.5 text-xs font-medium text-slate-400"
+          data-testid={`style-library-promote-generate-disabled-${card.assetId}`}
+        >
+          {ui.promoteGenerateProposal}
+        </button>
+      )}
+    </div>
+  );
+}
+
 function LifecycleTransitionPanel({
   card,
   viewModel,
@@ -535,6 +696,7 @@ function CandidateReviewCard({
 
       <LifecycleTransitionPanel card={card} viewModel={viewModel} />
       <InspectionPanel card={card} viewModel={viewModel} />
+      <PromoteReviewPanel card={card} viewModel={viewModel} />
 
       <div
         className="mt-4 space-y-2"
@@ -718,6 +880,35 @@ export function StyleLibraryAdminShell({ viewModel }: Props) {
             label={ui.summaryCompatibilityWarnings}
             value={statusSummary.compatibilityWarnings}
             testId="style-library-compatibility-warnings"
+          />
+        </dl>
+
+        <h3 className="mb-3 mt-6 text-xs font-semibold uppercase tracking-wide text-slate-600">
+          {ui.sectionPromoteSummary}
+        </h3>
+        <dl
+          className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4"
+          data-testid="style-library-promote-summary"
+        >
+          <SummaryCard
+            label={ui.summaryReadyForPromoteReview}
+            value={statusSummary.readyForPromoteReview}
+            testId="style-library-promote-ready-count"
+          />
+          <SummaryCard
+            label={ui.summaryCompatibilityWarnings}
+            value={statusSummary.compatibilityWarnings}
+            testId="style-library-promote-warnings-count"
+          />
+          <SummaryCard
+            label={ui.summaryBlockedCandidates}
+            value={statusSummary.blockedCandidates}
+            testId="style-library-promote-blocked-count"
+          />
+          <SummaryCard
+            label={ui.summaryPromoteProposalsAvailable}
+            value={statusSummary.promoteProposalsAvailable}
+            testId="style-library-promote-proposals-available"
           />
         </dl>
       </section>

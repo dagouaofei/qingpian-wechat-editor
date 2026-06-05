@@ -29,6 +29,11 @@ describe("StyleLibraryAdminShell", () => {
     expect(html).toContain('data-testid="style-library-blocked-transition-user_selectable-seed-variant-heading-purple-chapter-label"');
     expect(html).toContain('data-testid="style-library-inspection-panel-seed-variant-heading-purple-chapter-label"');
     expect(html).toContain('data-testid="style-library-inspection-summary"');
+    expect(html).toContain('data-testid="style-library-promote-summary"');
+    expect(html).toContain('data-testid="style-library-promote-panel-seed-variant-heading-purple-chapter-label"');
+    expect(html).toContain('data-testid="style-library-promote-proposal-seed-variant-heading-purple-chapter-label"');
+    expect(html).toContain("上线审核");
+    expect(html).toContain("可生成上线提案");
     expect(html).toContain("自动校验通过");
     expect(html).toContain("有兼容性提醒");
     expect(html).toContain('data-testid="style-library-candidate-review"');
@@ -61,6 +66,7 @@ describe("StyleLibraryAdminShell", () => {
     expect(html).toContain("Candidate / Paste QA passed");
     expect(html).toContain("Ready for promote review with compatibility warnings");
     expect(html).toContain("Warnings");
+    expect(html).toContain("Promote proposals available");
     expect(html).toContain("Paste QA Pass");
     expect(html).not.toContain("样式管理工作台");
   });

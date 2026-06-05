@@ -3950,11 +3950,25 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 
 ## S9-STORY-007 Promote to User-selectable Variant
 
-**优先级：** P0 · **状态：** Planned
+**优先级：** P0 · **状态：** In Review · **分支：** `feature/s9-story-007-promote-user-selectable-variant`
 
-**目标（DECISION-097 调整后）：** **运营人员可执行的 promote review** — 经 validator + paste QA 证据后进入 **user-selectable** pool；**默认不**进入 default preset / `release1_required`。
+**目标（DECISION-101）：** **运营 promote review** — 生成 user_selectable Promote Proposal + inactive patch preview；**不**进入 default preset / runtime。
 
-**非目标：** 不自动 default · 不以 registry patch 技术细节为唯一验收 · 不让 AI 默认选择未 promote 的 candidate
+**非目标：** 不写 manifest · 不激活 patch · 不自动 default_eligible · 不修改 Gallery / runtime 默认路径
+
+**验收：**
+
+- [x] AC-1 promote eligibility engine
+- [x] AC-2 Promote Proposal 格式与 validate
+- [x] AC-3 `/dev/style-library` promote panel + proposal preview
+- [x] AC-4 user_selectable only · 明确 no default / no runtime
+- [x] AC-5 WARNING 可 review · FAIL/blocking blocked
+- [x] AC-6 不修改 manifest / seed distribution flags
+- [x] AC-7 zh/en 文案
+- [x] AC-8 [`style-library-promote-user-selectable.md`](../architecture/style-library-promote-user-selectable.md) · DECISION-101
+- [x] AC-9 测试覆盖 promote / view model
+- [x] AC-10 lint / test / build PASS
+- [ ] AC-11 用户确认 merge sprint
 
 ---
 

@@ -1,4 +1,4 @@
-import { LIFECYCLE_BLOCK_REASON_CODES } from "@/core/style-library";
+import { LIFECYCLE_BLOCK_REASON_CODES, PROMOTE_BLOCK_REASON_CODES } from "@/core/style-library";
 import type {
   StyleLibraryAsset,
   StyleLibraryLifecycleState,
@@ -122,6 +122,25 @@ export type StyleLibraryUiCopy = {
   promoteReadyLabel: string;
   promoteReadyWithWarningsLabel: string;
   promoteNotReadyLabel: string;
+  sectionPromoteReview: string;
+  promoteReviewHint: string;
+  promoteEligibilityStatus: string;
+  promoteBlockedReasons: string;
+  promoteWarningReasons: string;
+  promoteEvidenceChecklist: string;
+  promoteValidatorStatus: string;
+  promotePasteQaStatus: string;
+  promoteDistributionImpact: string;
+  promoteRuntimeImpact: string;
+  promoteDefaultPresetImpact: string;
+  promoteNextDecision: string;
+  promoteGenerateProposal: string;
+  promoteProposalPreview: string;
+  promoteProposalId: string;
+  promoteTargetLabel: string;
+  promotePatchPreview: string;
+  summaryPromoteProposalsAvailable: string;
+  sectionPromoteSummary: string;
 };
 
 const LIFECYCLE_STATES: StyleLibraryLifecycleState[] = [
@@ -270,6 +289,26 @@ const UI_COPY: Record<StyleLibraryLocale, StyleLibraryUiCopy> = {
     promoteReadyWithWarningsLabel:
       "可进入上线审核（有兼容性提醒，需保留 Paste QA 证据）",
     promoteNotReadyLabel: "暂不可进入上线审核",
+    sectionPromoteReview: "上线审核",
+    promoteReviewHint:
+      "生成上线提案仅用于审查与 code-backed 变更准备；不会写入 manifest，不会激活 patch，不会修改 runtime。",
+    promoteEligibilityStatus: "上线审核资格",
+    promoteBlockedReasons: "阻塞原因",
+    promoteWarningReasons: "兼容性提醒",
+    promoteEvidenceChecklist: "证据清单",
+    promoteValidatorStatus: "校验状态",
+    promotePasteQaStatus: "粘贴 QA",
+    promoteDistributionImpact: "分发影响",
+    promoteRuntimeImpact: "Runtime 影响",
+    promoteDefaultPresetImpact: "默认 preset 影响",
+    promoteNextDecision: "后续决策",
+    promoteGenerateProposal: "生成上线提案",
+    promoteProposalPreview: "上线提案预览",
+    promoteProposalId: "proposalId",
+    promoteTargetLabel: "上线目标",
+    promotePatchPreview: "Registry patch 预览（proposed · inactive）",
+    summaryPromoteProposalsAvailable: "可生成上线提案",
+    sectionPromoteSummary: "上线审核概览",
   },
   en: {
     workbenchTitle: "Style Library Workbench",
@@ -383,6 +422,26 @@ const UI_COPY: Record<StyleLibraryLocale, StyleLibraryUiCopy> = {
     promoteReadyWithWarningsLabel:
       "Ready for promote review with compatibility warnings",
     promoteNotReadyLabel: "Not ready for promote review",
+    sectionPromoteReview: "Promote Review",
+    promoteReviewHint:
+      "Generate promote proposal for review and code-backed change prep only; no manifest write, no patch activation, no runtime change.",
+    promoteEligibilityStatus: "Promote eligibility",
+    promoteBlockedReasons: "Blocked reasons",
+    promoteWarningReasons: "Compatibility warnings",
+    promoteEvidenceChecklist: "Evidence checklist",
+    promoteValidatorStatus: "Validator status",
+    promotePasteQaStatus: "Paste QA",
+    promoteDistributionImpact: "Distribution impact",
+    promoteRuntimeImpact: "Runtime impact",
+    promoteDefaultPresetImpact: "Default preset impact",
+    promoteNextDecision: "Next decision",
+    promoteGenerateProposal: "Generate Promote Proposal",
+    promoteProposalPreview: "Promote proposal preview",
+    promoteProposalId: "proposalId",
+    promoteTargetLabel: "Promote target",
+    promotePatchPreview: "Registry patch preview (proposed · inactive)",
+    summaryPromoteProposalsAvailable: "Promote proposals available",
+    sectionPromoteSummary: "Promote review summary",
   },
 };
 
@@ -406,7 +465,7 @@ const DISABLED_ACTIONS: Record<
     {
       actionId: "promote-user-selectable",
       label: "加入用户可选",
-      disabledReason: "上线到用户可选将在 S9-STORY-007 实现",
+      disabledReason: "请使用下方「上线审核」区生成提案预览；本按钮不写入 manifest",
       deferredStory: "S9-STORY-007",
     },
     {
@@ -432,7 +491,7 @@ const DISABLED_ACTIONS: Record<
     {
       actionId: "promote-user-selectable",
       label: "Promote to User Selectable",
-      disabledReason: "promote · S9-STORY-007",
+      disabledReason: "Use Promote Review panel below for proposal preview; no manifest write",
       deferredStory: "S9-STORY-007",
     },
     {
@@ -805,4 +864,153 @@ export function translatePromoteBlockedReason(
   code: string,
 ): string {
   return PROMOTE_BLOCKED_REASON_COPY[locale][code] ?? code;
+}
+
+const PROMOTE_WARNING_COPY: Record<StyleLibraryLocale, Record<string, string>> = {
+  zh: {
+    [PROMOTE_BLOCK_REASON_CODES.COMPATIBILITY_WARNING]:
+      "存在兼容性提醒；需保留 Paste QA 证据",
+  },
+  en: {
+    [PROMOTE_BLOCK_REASON_CODES.COMPATIBILITY_WARNING]:
+      "Compatibility warnings present; retain Paste QA evidence",
+  },
+};
+
+export function translatePromoteWarningCode(
+  locale: StyleLibraryLocale,
+  code: string,
+): string {
+  return PROMOTE_WARNING_COPY[locale][code] ?? code;
+}
+
+const PROMOTE_ELIGIBILITY_STATUS_LABELS: Record<
+  StyleLibraryLocale,
+  Record<"ready" | "ready_with_warnings" | "blocked", string>
+> = {
+  zh: {
+    ready: "可进入上线审核",
+    ready_with_warnings: "可进入上线审核（有兼容性提醒）",
+    blocked: "阻塞",
+  },
+  en: {
+    ready: "Ready for promote review",
+    ready_with_warnings: "Ready with compatibility warnings",
+    blocked: "Blocked",
+  },
+};
+
+export function getPromoteEligibilityStatusLabel(
+  locale: StyleLibraryLocale,
+  status: "ready" | "ready_with_warnings" | "blocked",
+): string {
+  return PROMOTE_ELIGIBILITY_STATUS_LABELS[locale][status];
+}
+
+const PROMOTE_BADGE_LABELS: Record<
+  StyleLibraryLocale,
+  Record<"ready" | "ready_with_warnings" | "blocked", string>
+> = {
+  zh: {
+    ready: "Ready",
+    ready_with_warnings: "Warning",
+    blocked: "Blocked",
+  },
+  en: {
+    ready: "Ready",
+    ready_with_warnings: "Warning",
+    blocked: "Blocked",
+  },
+};
+
+export function getPromoteBadgeLabel(
+  locale: StyleLibraryLocale,
+  status: "ready" | "ready_with_warnings" | "blocked",
+): string {
+  return PROMOTE_BADGE_LABELS[locale][status];
+}
+
+const PROMOTE_BLOCK_REASON_COPY: Record<StyleLibraryLocale, Record<string, string>> = {
+  zh: {
+    [PROMOTE_BLOCK_REASON_CODES.NOT_VARIANT_ASSET]: "资产类型不是 variant",
+    [PROMOTE_BLOCK_REASON_CODES.LIFECYCLE_TOO_LOW]:
+      "lifecycle 未达到 paste_qa_pass",
+    [PROMOTE_BLOCK_REASON_CODES.ALREADY_USER_SELECTABLE]: "已是 user_selectable",
+    [PROMOTE_BLOCK_REASON_CODES.ALREADY_DEFAULT_ELIGIBLE]:
+      "已是 default_eligible",
+    [PROMOTE_BLOCK_REASON_CODES.ALREADY_RELEASE1_REQUIRED]:
+      "已是 release1_required",
+    [PROMOTE_BLOCK_REASON_CODES.VALIDATOR_FAIL]: "自动校验失败",
+    [PROMOTE_BLOCK_REASON_CODES.BLOCKING_ISSUES]: "存在阻塞级校验问题",
+    [PROMOTE_BLOCK_REASON_CODES.MISSING_PASTE_QA_EVIDENCE]:
+      "缺少粘贴 QA 证据",
+    [PROMOTE_BLOCK_REASON_CODES.MISSING_EVIDENCE_REFS]:
+      "证据引用不可追溯",
+    [PROMOTE_BLOCK_REASON_CODES.MISSING_RUNTIME_VARIANT_ID]:
+      "缺少 runtimeVariantId",
+    [PROMOTE_BLOCK_REASON_CODES.DEPRECATED]: "资产已废弃",
+  },
+  en: {
+    [PROMOTE_BLOCK_REASON_CODES.NOT_VARIANT_ASSET]: "Asset is not a variant",
+    [PROMOTE_BLOCK_REASON_CODES.LIFECYCLE_TOO_LOW]:
+      "Lifecycle below paste_qa_pass",
+    [PROMOTE_BLOCK_REASON_CODES.ALREADY_USER_SELECTABLE]:
+      "Already user_selectable",
+    [PROMOTE_BLOCK_REASON_CODES.ALREADY_DEFAULT_ELIGIBLE]:
+      "Already default_eligible",
+    [PROMOTE_BLOCK_REASON_CODES.ALREADY_RELEASE1_REQUIRED]:
+      "Already release1_required",
+    [PROMOTE_BLOCK_REASON_CODES.VALIDATOR_FAIL]: "Auto validation failed",
+    [PROMOTE_BLOCK_REASON_CODES.BLOCKING_ISSUES]: "Blocking validation issues",
+    [PROMOTE_BLOCK_REASON_CODES.MISSING_PASTE_QA_EVIDENCE]:
+      "Paste QA evidence missing",
+    [PROMOTE_BLOCK_REASON_CODES.MISSING_EVIDENCE_REFS]:
+      "Evidence refs not traceable",
+    [PROMOTE_BLOCK_REASON_CODES.MISSING_RUNTIME_VARIANT_ID]:
+      "Missing runtimeVariantId",
+    [PROMOTE_BLOCK_REASON_CODES.DEPRECATED]: "Asset is deprecated",
+  },
+};
+
+export function translatePromoteBlockReasonCode(
+  locale: StyleLibraryLocale,
+  code: string,
+): string {
+  return PROMOTE_BLOCK_REASON_COPY[locale][code] ?? code;
+}
+
+const PROMOTE_IMPACT_COPY: Record<
+  StyleLibraryLocale,
+  {
+    distributionImpact: string;
+    runtimeImpact: string;
+    defaultPresetImpact: string;
+    nextDecisionRequired: string;
+    promoteTarget: string;
+  }
+> = {
+  zh: {
+    distributionImpact:
+      "userSelectable: false → true · defaultEligible: false → false · release1Required: false → false",
+    runtimeImpact:
+      "S9-STORY-007 v0 不修改 runtime registry · 不修改 Gallery 默认 · 不修改 default preset · 不修改 release1_required",
+    defaultPresetImpact:
+      "不进入默认 preset · 不影响 AI 默认选择 · 不影响 Release 1 required variants",
+    nextDecisionRequired: "如需 default_eligible，需单独 PO 决策 / 后续动作",
+    promoteTarget: "user_selectable",
+  },
+  en: {
+    distributionImpact:
+      "userSelectable: false → true · defaultEligible: false → false · release1Required: false → false",
+    runtimeImpact:
+      "No runtime registry change in S9-STORY-007 v0 · No Gallery default change · No default preset change · No release1_required change",
+    defaultPresetImpact:
+      "Does not enter default preset · does not affect AI default selection · does not affect Release 1 required variants",
+    nextDecisionRequired: "default_eligible requires separate PO decision",
+    promoteTarget: "user_selectable",
+  },
+};
+
+export function getPromoteImpactCopy(locale: StyleLibraryLocale) {
+  return PROMOTE_IMPACT_COPY[locale];
 }

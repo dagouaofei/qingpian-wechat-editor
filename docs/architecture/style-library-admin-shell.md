@@ -91,9 +91,9 @@ Workbench Header 明确：**Not connected to runtime**；不影响 Gallery / Pre
 | 打开后台入口 | ✅ `/dev/style-library` |
 | 看到候选样式池 | ✅ Candidate Review + Pipeline |
 | 看懂候选样式状态 | ✅ 卡片结论 + lifecycle 看板 + **S9-STORY-004 proposal panel** |
-| preview / copy / validator 结果 | ⏳ S9-STORY-006 |
-| promote 路径 | ⏳ S9-STORY-007 |
-| 区分 user_selectable / default_eligible | ⏳ 部分（只读展示 flags） |
+| preview / copy / validator 结果 | ✅ S9-STORY-006 |
+| promote 路径 | ✅ S9-STORY-007 proposal review |
+| 区分 user_selectable / default_eligible | ✅ promote panel + distribution impact |
 | 支撑 S10 批量扩展 | ⏳ S9-STORY-008 · 009 |
 
 ---
@@ -124,7 +124,19 @@ Workbench 集成 lifecycle transition engine 与 **Lifecycle Change Proposal** �
 
 ---
 
-## 10. 双语切换（DECISION-098 · S9-STORY-003-FIX-B）
+## 10. Promote Review（S9-STORY-007 · DECISION-101）
+
+**proposal-based user_selectable review** — 运营可生成上线提案，目标仅为 `user_selectable`：
+
+- Status Summary：**上线审核概览**（可进入上线审核 · 有兼容性提醒 · 阻塞候选样式 · 可生成上线提案）
+- Candidate Review：**上线审核** panel — eligibility · evidence checklist · distribution / runtime / default preset impact · proposal preview（`<details>` · 无 submit）
+- **不**写入 manifest · **不**激活 patch · **不**修改 runtime / default preset
+
+详见 [`style-library-promote-user-selectable.md`](style-library-promote-user-selectable.md)。
+
+---
+
+## 11. 双语切换（DECISION-098 · S9-STORY-003-FIX-B）
 
 | 项 | 内容 |
 |----|------|
@@ -147,6 +159,7 @@ src/app/dev/style-library/
   style-library-view-model.ts
   style-library-lifecycle-view-model.ts
   style-library-inspection-view-model.ts
+  style-library-promote-view-model.ts
   style-library-inspection-preview.tsx
   style-library-admin-shell.tsx
 ```
@@ -157,8 +170,10 @@ src/app/dev/style-library/
 
 - `tests/core/style-library/style-library-lifecycle.test.ts`
 - `tests/core/style-library/style-library-inspection.test.ts`
+- `tests/core/style-library/style-library-promote.test.ts`
 - `tests/app/dev/style-library/style-library-lifecycle-view-model.test.ts`
 - `tests/app/dev/style-library/style-library-inspection-view-model.test.ts`
+- `tests/app/dev/style-library/style-library-promote-view-model.test.ts`
 - `tests/app/dev/style-library/style-library-i18n.test.ts`
 - `tests/app/dev/style-library/style-library-view-model.test.ts`
 - `tests/app/dev/style-library/style-library-page.test.tsx`
@@ -167,7 +182,8 @@ src/app/dev/style-library/
 
 ## 13. 参考
 
-- **DECISION-100** · **DECISION-099** · **DECISION-098** · **DECISION-097** · DECISION-096
+- **DECISION-101** · **DECISION-100** · **DECISION-099** · **DECISION-098** · **DECISION-097** · DECISION-096
 - [`style-library-lifecycle-management.md`](style-library-lifecycle-management.md)
 - [`style-library-preview-copy-validator-integration.md`](style-library-preview-copy-validator-integration.md)
+- [`style-library-promote-user-selectable.md`](style-library-promote-user-selectable.md)
 - [`sprint9-style-management-system-v0.md`](../agile/sprint9-style-management-system-v0.md)
