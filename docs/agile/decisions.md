@@ -87,6 +87,7 @@
 | DECISION-089 | 2026-06-04 | WeChat-safe Contract v1（`wechat-safe-contract-v1`）为后续 Copy HTML 约束依据 | 已确认 |
 | DECISION-090 | 2026-06-04 | Contract v1 代码化：`src/core/wechat-compat` 为默认 `WECHAT_MP_COMPATIBILITY_PROFILE` | 已确认 |
 | DECISION-091 | 2026-06-04 | Copy-safe Pattern Library v0.1（文档）；Drift triage；006C/007/S9 路由；本轮不改 Contract/Renderer | 已确认 |
+| DECISION-092 | 2026-06-05 | Style Management System v0 独立为 Sprint 9；主项目内 file-backed 子系统；采集入库仅为入口之一 | 已确认 |
 
 ### DECISION-019 详情
 
@@ -825,6 +826,27 @@
   5. **本轮不** 修改 renderer · Contract v1 分级 · Profile · Validator · 不新增 variant · **不启动** 006C/007 实现
   6. 视觉升级与非保真装饰 **延后 S9**
   7. **006B-FIX-A（2026-06-04）：** Published article harvest 须区分 **L0 hypothesis** 与 **L1–L4 evidence**；用户仅提供 **URL** 或 **URL+HTML**，DOM/CSS/pattern 由 AI/Cursor 按 extraction guide 提取；**不** 要求用户手填摘要；**不** 虚构 URL；HARVEST-001~015 无 URL 者标 L0
-- **关联：** S8-STORY-006B、S8-STORY-006B-FIX-A、S8-STORY-006C（Done）、S8-STORY-006D（Ready for PO · Mode A）、DECISION-088/089/090
+- **关联：** S8-STORY-006B、S8-STORY-006B-FIX-A、S8-STORY-006C（Done）、S8-STORY-006D（Done）、DECISION-088/089/090
 - **状态：** 已确认
+
+### DECISION-092 详情（Sprint 9 · Style Management System v0 Replanning）
+
+- **日期：** 2026-06-05
+- **背景：**
+  - S8-STORY-006D 完成：006C copy-safe 修复经实机验证（8/8 re-test PASS）；harvest 2/2 candidate-paste-pass
+  - 「采集样式入库 / 样式管理后台」若继续塞进 S8，会污染 WeChat Fidelity Reset 收口
+  - 轻篇需要可持续的样式资产治理，而非一次性 harvest 脚本
+- **决策：**
+  1. **Style Management System v0** 独立成为 **Sprint 9**（中文：样式管理后台 v0），**不**继续作为 S8 story 扩展
+  2. **主项目内独立子系统** — 同一仓库 `qingpian-wechat-editor`；**不**新建独立仓库；**不**独立部署项目
+  3. **v0 存储：** file-backed / code-backed（Git 可审查）；**不上**数据库
+  4. **产品定位：** **不是**临时 dev-only 工具；是正式样式管理后台的 **v0**
+  5. **管理范围：** style / style family · palette · variant · preset · copy-safe rule · style selection rule · WeChat compatibility metadata · lifecycle · QA evidence · promote · rollback
+  6. **真实公众号 HTML 采集** 仅为**新增 variant 的一种方式**，不是系统全部
+  7. **S8 继续收口：** 007（HEAD-002）· DRIFT-003 澄清 · 009 audit/closeout · merge S8 → `release/1`；**不**在 S8 扩展后台
+  8. **006D harvest candidates**（`heading_purple_chapter_label_candidate` · `info_card_reading_path_candidate`）保持 candidate-paste-pass；作为 **S9 seed assets**；**不**在本轮直接 user-selectable / default preset
+  9. **Sprint 10（初步）：** Style Expansion & Visual Quality Upgrade — 基于 S9 批量扩展样式（本轮仅记方向）
+- **影响范围：** `sprint9-style-management-system-v0.md`、`sprint-plan.md`、`product-backlog.md`、`sprint-backlog.md`、`release-plan.md`、`decisions.md`
+- **关联：** S8-STORY-008、S8-STORY-006D、DECISION-088、DECISION-091、WX-HARVEST-EVIDENCE-001
+- **状态：** **已确认**（2026-06-05 · S8-STORY-008）
 

@@ -56,8 +56,19 @@
 
 | 步骤 | 用户行为 | 负责 Sprint | 状态 |
 |------|----------|-------------|------|
-| 评审样式 | Style Gallery / 样例 / 整篇观感 | **Sprint 7** | Planned |
-| 粘贴保真 | 135 + 公众号后台全量 QA | **Sprint 8** | Planned |
+| 评审样式 | Style Gallery / 样例 / 整篇观感 | **Sprint 7** | Done |
+| 粘贴保真 | Contract · Matrix · 实机 Paste QA | **Sprint 8** | In Progress |
+
+---
+
+## Post-S8 Roadmap（DECISION-092）
+
+| Sprint | 名称 | 用户/团队价值 | 状态 |
+|--------|------|---------------|------|
+| **Sprint 9** | Style Management System v0（样式管理后台 v0） | 团队可治理 style · palette · variant · preset · 规则与生命周期；harvest 为入口之一 | **Planned** |
+| **Sprint 10** | Style Expansion & Visual Quality Upgrade | 批量扩展真实公众号启发样式与自动匹配 | **Planned（方向 only）** |
+
+006D harvest candidates（`heading_purple_chapter_label_candidate` · `info_card_reading_path_candidate`）为 **S9 seed assets**，不直接对用户开放。
 
 ---
 

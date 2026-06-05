@@ -95,7 +95,7 @@
 | TECH-ARCH-025 | Real Model Provider Integration | EPIC-002 / EPIC-007 | **Sprint 5 Done**：Volcengine / Doubao provider + dev smoke PASSED；**Sprint 6 主流程必须走真实 AI**，mock-only 不作为 Sprint 6 验收 |
 | TECH-ARCH-026 | Release 1 Visible Main Flow Acceptance | EPIC-001 / EPIC-005 / EPIC-007 | **Sprint 6 Done**（DECISION-078）：`/` → `/preview` → 风格 / 配色 → 复制 · PB-R1-01~08 |
 
-状态：文档契约 S1-STORY-021~028；代码 Sprint 2 + 3-A/B/C + 4-A/B + 5 + **6** + **7** **Done** 并 merge `release/1`。**Release 1 未关闭**。Release 1 尾声按 **方案 B（DECISION-070）** 重排；**Sprint 8**（**In Progress** · **003 Done** · 下一步 **S8-STORY-004** Copy HTML Validator）。详见 [`release-plan.md`](release-plan.md) · [`sprint8-wechat-safe-css-contract.md`](sprint8-wechat-safe-css-contract.md)。
+状态：文档契约 S1-STORY-021~028；代码 Sprint 2 + 3-A/B/C + 4-A/B + 5 + **6** + **7** **Done** 并 merge `release/1`。**Release 1 未关闭**。Release 1 尾声按 **方案 B（DECISION-070）** 重排；**Sprint 8** In Progress（006D Done · S9 重排 Done）；**Sprint 9** Planned（样式管理后台 v0）。详见 [`release-plan.md`](release-plan.md) · [`sprint8-wechat-safe-css-contract.md`](sprint8-wechat-safe-css-contract.md) · [`sprint9-style-management-system-v0.md`](sprint9-style-management-system-v0.md)。
 
 ---
 
@@ -144,9 +144,15 @@
 |--------|------|-------|--------|
 | **Sprint 6** | Release 1 Visible AI Main Flow | S6-STORY-001 ~ S6-STORY-006 | **P0 · Closed**（DECISION-078） |
 | **Sprint 7** | WeChat Article Experience & Style Richness | S7-STORY-001 ~ S7-STORY-008 | **P0 · Done**（2026-06-03 · merge `release/1`） |
-| **Sprint 8** | WeChat-safe CSS Contract & Fidelity Test System | S8-STORY-001 ~ S8-STORY-008 | **P0 · In Progress**（**001~003 Done** · 004 下一步） |
+| **Sprint 8** | WeChat-safe CSS Contract & Fidelity Test System | S8-STORY-001 ~ S8-STORY-009 | **P0 · In Progress**（**006D Done** · **008 Done** · 007/009 收口） |
+| **Sprint 9** | Style Management System v0（样式管理后台 v0） | S9-STORY-001 ~ S9-STORY-009 | **P0 · Planned**（DECISION-092 · **未启动**） |
+| **Sprint 10** | Style Expansion & Visual Quality Upgrade | TBD | **P1 · Planned（方向 only）** |
 
-Story 详情见 [`sprint-backlog.md`](sprint-backlog.md)。**不要把 Sprint 7/8 Story 放入当前执行中。**
+Story 详情见 [`sprint-backlog.md`](sprint-backlog.md) · S9 见 [`sprint9-style-management-system-v0.md`](sprint9-style-management-system-v0.md)。
+
+**Sprint 9 定位（DECISION-092）：** 主项目内独立子系统 · file-backed · harvest 入库仅为入口之一 · 006D 两 candidate 为 seed assets。
+
+**不要把未启动 Sprint 的 Story 混入当前执行分支。**
 
 ---
 

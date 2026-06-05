@@ -9,7 +9,8 @@
 | **Release** | Release 1 — **进行中（未关闭）** |
 | **主干分支** | `release/1` |
 | **已完成 Sprint** | Sprint 1-A/B · Sprint 2 · Sprint 3-A/B/C · Sprint 4-A/B · Sprint 5 · **Sprint 6** |
-| **当前 Sprint** | **Sprint 8** — **WeChat-safe CSS Contract & Fidelity Test System**（**In Progress** · S8-STORY-001 · DECISION-088） |
+| **当前 Sprint** | **Sprint 8** — **WeChat-safe CSS Contract & Fidelity Test System**（**In Progress** · 006D/008 Done · 007/009 收口 · DECISION-088~092） |
+| **下一 Sprint** | **Sprint 9** — Style Management System v0（**Planned** · DECISION-092） |
 | **上一 Sprint** | **Sprint 7** — **Done**（2026-06-03 · merge `release/1`） |
 | **merge `main`** | **未执行** — Release 1 整体验收通过后才 merge |
 
@@ -40,7 +41,9 @@
 |--------|------|----------|------|
 | **Sprint 6** | **Release 1 Visible AI Main Flow** | 真实 AI 用户侧最小闭环：首页 → 真实 AI 生成 → 带样式预览 → 风格 / 配色 → 复制 → 最小粘贴 QA | **Closed**（DECISION-078） |
 | **Sprint 7** | **WeChat Article Experience & Style Richness** | 整篇文章像公众号文章；Style Gallery；样式丰富度；miaopian 协作对齐；**8 套**完整视觉样例 | **Done**（2026-06-03） |
-| **Sprint 8** | **WeChat-safe CSS Contract & Fidelity Test System** | 公众号安全样式 contract；Preview/Copy 一致性原则；Compatibility Profile + Validator；多控件 Fidelity Matrix；失真诊断与实机粘贴 QA；为 S9 视觉升级打地基 | **In Progress**（DECISION-088） |
+| **Sprint 8** | **WeChat-safe CSS Contract & Fidelity Test System** | Contract · Validator · Matrix · Paste QA · Copy-safe 修复（006C/006D）；**收口** 007/009 → merge `release/1` | **In Progress**（DECISION-088） |
+| **Sprint 9** | **Style Management System v0**（样式管理后台 v0） | 主项目内样式资产新增/验证/上线/分发闭环；file-backed；harvest 为入口之一 | **Planned**（DECISION-092） |
+| **Sprint 10** | **Style Expansion & Visual Quality Upgrade** | 基于 S9 批量扩展样式与自动匹配 | **Planned（方向 only）** |
 
 **Sprint 分支（启动时从 `release/1` 切出）：**
 
@@ -85,7 +88,9 @@ Release 1 **不再**仅以 `lint` / `test` / `build` / renderer snapshot 作为�
 
 - **Sprint 6：** S6-STORY-001 ~ S6-STORY-006
 - **Sprint 7：** S7-STORY-001 ~ S7-STORY-007
-- **Sprint 8：** S8-STORY-001 ~ S8-STORY-008 · [`sprint8-wechat-safe-css-contract.md`](sprint8-wechat-safe-css-contract.md)
+- **Sprint 8：** S8-STORY-001 ~ S8-STORY-009 · [`sprint8-wechat-safe-css-contract.md`](sprint8-wechat-safe-css-contract.md)
+- **Sprint 9：** S9-STORY-001 ~ S9-STORY-009 · [`sprint9-style-management-system-v0.md`](sprint9-style-management-system-v0.md)
+- **Sprint 10：** 方向见 [`product-backlog.md`](product-backlog.md)（无 story 清单）
 
 ---
 

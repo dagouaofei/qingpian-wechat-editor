@@ -59,8 +59,8 @@
 
 | matrixRowId | variantId | sourceEvidenceId | validatorStatus | currentPasteStatus | currentPasteEvidence | candidateAssessment | candidateNextAction | PO notes |
 |-------------|-----------|------------------|-----------------|--------------------|----------------------|---------------------|---------------------|----------|
-| S8M-HARVEST-001 | heading_purple_chapter_label_candidate | WX-HARVEST-EVIDENCE-001 | PASS | **PASS** | MP editor 2026-06-05 · 维多 | **candidate-paste-pass** | Keep candidate; S9 pool review; not default preset | |
-| S8M-HARVEST-002 | info_card_reading_path_candidate | WX-HARVEST-EVIDENCE-001 | PASS | **PASS** | MP editor 2026-06-05 · 维多 | **candidate-paste-pass** | Keep candidate; S9 pool review; not default preset | |
+| S8M-HARVEST-001 | heading_purple_chapter_label_candidate | WX-HARVEST-EVIDENCE-001 | PASS | **PASS** | MP editor 2026-06-05 · 维多 | **candidate-paste-pass** | **S9 seed asset**（DECISION-092）· pool review · not default preset | |
+| S8M-HARVEST-002 | info_card_reading_path_candidate | WX-HARVEST-EVIDENCE-001 | PASS | **PASS** | MP editor 2026-06-05 · 维多 | **candidate-paste-pass** | **S9 seed asset**（DECISION-092）· pool review · not default preset | |
 
 ---
 

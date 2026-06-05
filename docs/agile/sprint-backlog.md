@@ -10,7 +10,8 @@
 > **Sprint 5：** Generation / Streaming + Release 1 真实 UI 主流程闭环 · **Closed**（2026-06-02；DECISION-069；audit Grade A- · P0=0 · P1=4 · P2=3；`sprint/s5-generation-ui-main-flow` 已 merge 至 `release/1`）
 > **Sprint 6：** Release 1 Visible AI Main Flow · **Closed**（2026-06-02；DECISION-078；audit Grade A- · P0=0 · P1=5 · P2=4；`sprint/s6-visible-ai-main-flow` 已 merge 至 `release/1`）
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
-> **当前 Sprint：** **Sprint 8** — **S8：WeChat-safe CSS Contract & Fidelity Test System**（**In Progress** · **S8-STORY-006D Done**（merge sprint · 2026-06-05）· **007 未启动** · DECISION-088/089/090/091）
+> **当前 Sprint：** **Sprint 8** — **S8：WeChat-safe CSS Contract & Fidelity Test System**（**In Progress** · **006D Done** · **008 Done**（S9 重排）· **007/009 收口待启动** · DECISION-088~092）
+> **下一 Sprint（Planned）：** **Sprint 9** — **Style Management System v0**（样式管理后台 v0 · DECISION-092 · **未启动**）
 > **上一 Sprint：** **Sprint 7** — **Done**（2026-06-03 收口 · merge `release/1`）；**S7-STORY-007B** 承接至 S8 Paste / Fidelity 体系
 > **当前 Chore：** **Visible Progress & Legacy Convergence** — **Done**（DECISION-080 · 用户验收 2026-06-02 · merged @ `a5704d6`）
 > **Sprint 8 分支：** `sprint/s8-wechat-safe-css-contract`（从 `release/1` 切出 · 2026-06-04）
@@ -3401,8 +3402,9 @@ S8-STORY-006B-FIX-A 已发布文章 evidence 提取工作流 — **Done**（merg
 S8-STORY-006B-FIX-B 批量补 5–10 篇 article evidence — Planned（**未启动**）
 S8-STORY-006C 共性 Copy-safe renderer / fallback 修复 — **Done**（merge sprint · 2026-06-04）
 S8-STORY-006D Matrix 回归与 Paste 复测 — **Done**（merge sprint · 2026-06-05 · 分支 `docs/s8-story-006d-matrix-regression-paste-retest`）
-S8-STORY-007 Preview / Copy 统一渲染方案审计 — Planned（**未启动**）
-S8-STORY-008 S8 Contract Audit 与关闭准备 — Planned
+S8-STORY-007 Preview / Copy 统一渲染方案审计 — Planned（**未启动** · HEAD-002 · DRIFT-003 澄清）
+S8-STORY-008 Sprint 9 Style Management System v0 Replanning — **Done**（2026-06-05 · DECISION-092）
+S8-STORY-009 S8 Contract Audit 与关闭准备 — Planned（**未启动**）
 ```
 
 ---
@@ -3701,21 +3703,165 @@ S8-STORY-008 S8 Contract Audit 与关闭准备 — Planned
 
 ---
 
-## S8-STORY-008 S8 Contract Audit 与关闭准备
+## S8-STORY-008 Sprint 9 Style Management System v0 Replanning
 
-**优先级：** P0 · **状态：** Planned · **工作分支：** `docs/s8-story-008-contract-audit-close`
+**优先级：** P0 · **状态：** **Done**（2026-06-05 · 用户确认 · DECISION-092）· **工作分支：** `docs/s8-story-008-s9-style-management-replanning`
+
+**目标：** 将「采集样式入库 / 样式管理后台」从 S8 扩展中剥离，重排为 **Sprint 9：Style Management System v0**；定义 S9 story map 与 S10 初步方向；006D harvest candidates 标为 S9 seed assets。
+
+**非目标：** 不写样式管理代码 · 不新增页面 · 不改 renderer · 不改 registry · 不把 harvest candidate 直接上线 user-selectable
+
+**验收标准：**
+
+- [x] AC-1 敏捷文档明确 Sprint 9：Style Management System v0
+- [x] AC-2 明确主项目内子系统 · 非独立仓库/部署
+- [x] AC-3 明确 file-backed / code-backed · 不上数据库
+- [x] AC-4 采集入库仅为系统入口之一
+- [x] AC-5 S9 九条 story 草案（目标 + 非目标）
+- [x] AC-6 S8 收口项保留（007 · DRIFT-003 · 009 closeout）
+- [x] AC-7 006D harvest → S9 seed assets · 不直接上线
+- [x] AC-8 DECISION-092 记录
+- [x] AC-9 仅文档 · 无业务代码
+- [x] AC-10~12 lint / test / build PASS
+
+**交付物：** [`sprint9-style-management-system-v0.md`](sprint9-style-management-system-v0.md) · `sprint-plan.md` · `product-backlog.md` · `release-plan.md`
+
+---
+
+## S8-STORY-009 S8 Contract Audit 与关闭准备
+
+**优先级：** P0 · **状态：** Planned · **工作分支：** `docs/s8-story-009-contract-audit-close`
 
 **目标：**
 
 - 审计 contract、validator、matrix、QA 是否形成闭环
-- 判断 S9 是否可进入文章视觉升级
-- 登记遗留问题；**不自行关闭 Sprint 8 / Release 1**
+- S8 收口：merge `sprint/s8-wechat-safe-css-contract` → `release/1`（须用户确认）
+- 登记遗留（HEAD-002 · DRIFT-003 · 006B-FIX-B 等）；**不自行关闭 Release 1 / merge `main`**
 
 **验收标准：**
 
 - [ ] AC-1 contract ↔ profile ↔ validator ↔ matrix ↔ paste QA 链路图完整
-- [ ] AC-2 S9 进入条件清单（或阻塞项）已写
-- [ ] AC-3 Release 1 关闭与 S8 关闭分离说明（R1 关闭仍须用户确认）
+- [ ] AC-2 S9 启动条件清单（DECISION-092 已满足规划前提）
+- [ ] AC-3 Release 1 关闭与 S8 关闭分离说明
 - [ ] AC-4 未 merge `main`
+
+---
+
+# Sprint 9 — Style Management System v0（样式管理后台 v0）
+
+> **状态：** **Planned**（2026-06-05 进入 roadmap · **未启动**）  
+> **文档：** [`sprint9-style-management-system-v0.md`](sprint9-style-management-system-v0.md) · **DECISION-092**  
+> **分支（启动时）：** `sprint/s9-style-management-system-v0`（从 `release/1` · S8 merge 后）
+
+## S9 建议执行顺序
+
+```text
+S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
+```
+
+---
+
+## S9-STORY-001 Style Management Domain Model
+
+**优先级：** P0 · **状态：** Planned
+
+**目标：** 定义 style · style family · palette · variant · preset · copy-safe rule · style selection rule · lifecycle · QA evidence · `user_selectable` · `default_eligible` 等核心模型与关系。
+
+**非目标：** 不实现 UI · 不改动现有 `StyleRegistry` 运行时行为 · 不新增 variant 到用户侧
+
+**验收标准（草案）：** 领域模型文档 + 与现有 `style-system.md` / Contract v1 映射表
+
+---
+
+## S9-STORY-002 File-backed Style Library Storage
+
+**优先级：** P0 · **状态：** Planned
+
+**目标：** 建立 file-backed / code-backed 资产目录结构；明确 source of truth、metadata 格式、registry patch 方式、Git review / rollback 边界。
+
+**非目标：** 不上数据库 · 不做对象存储服务 · 不替换现有 registry 加载路径（直至 promote 故事）
+
+---
+
+## S9-STORY-003 Style Library Admin Shell
+
+**优先级：** P0 · **状态：** Planned
+
+**目标：** `/admin/style-library` 或 `/dev/style-library` 后台页面骨架；浏览 style · palette · variant · rule · candidate 列表与详情占位。
+
+**非目标：** 不做完整 CRUD 表单 · 不做权限系统 · 不替代 Gallery 用户侧体验
+
+---
+
+## S9-STORY-004 Variant Lifecycle Management
+
+**优先级：** P0 · **状态：** Planned
+
+**目标：** 展示与转换规则：`draft` → `candidate` → `validator_pass` → `paste_qa_pass` → `user_selectable` → `default_eligible` → `deprecated`；与 Matrix / Drift / Session 证据挂钩。
+
+**非目标：** 不自动 promote 无证据 variant · 不绕过 PO Paste QA
+
+---
+
+## S9-STORY-005 Harvest HTML to Candidate Workflow
+
+**优先级：** P0 · **状态：** Planned
+
+**目标：** 输入真实公众号 HTML → 解析为 candidate variant；展示原始 HTML · normalized candidate · Preview · Copy HTML · validator 结果。
+
+**非目标：** 不做批量 URL 抓取 · 不要求用户手填 DOM 摘要 · 不 preview-only 直出
+
+**Seed：** `heading_purple_chapter_label_candidate` · `info_card_reading_path_candidate`（006D candidate-paste-pass）
+
+---
+
+## S9-STORY-006 Preview / Copy / Validator Integration
+
+**优先级：** P0 · **状态：** Planned
+
+**目标：** 后台候选样式必须复用项目 **Preview Renderer · Copy Renderer · `validateWechatCopyHtml`**；禁止旁路或原始 HTML 直出用户侧。
+
+**非目标：** 不新建第二套 renderer · 不修改 Contract v1 分级（除非独立 Decision）
+
+---
+
+## S9-STORY-007 Promote to User-selectable Variant
+
+**优先级：** P0 · **状态：** Planned
+
+**目标：** candidate 经 validator + paste QA 证据后可进入 **user-selectable** variant pool；**默认不**进入 default preset / `release1_required`。
+
+**非目标：** 不自动 default · 不让 AI 默认选择未 promote 的 candidate
+
+---
+
+## S9-STORY-008 Style / Palette / Rule Management v0
+
+**优先级：** P1 · **状态：** Planned
+
+**目标：** 风格 · 配色 · selection rule · copy-safe rule 的最小管理能力；为自动样式选择与主题化打基础。
+
+**非目标：** 不做完整主题编辑器 · 不做市场级风格包交易
+
+---
+
+## S9-STORY-009 S9 Audit / Closeout
+
+**优先级：** P0 · **状态：** Planned
+
+**目标：** 审计样式管理后台 v0 是否形成「新增 → 验证 → 上线 → 分发」闭环；输出 S10 进入条件。
+
+**非目标：** 不自行关闭 Sprint 9 · 不 merge `main` 除非用户确认
+
+---
+
+# Sprint 10（初步定位 · Planned）
+
+> **名称：** Style Expansion & Visual Quality Upgrade  
+> **状态：** 方向记录 only · **无详细 story**（S8-STORY-008 本轮不展开）
+
+**目标：** 基于 S9 Style Management System v0，批量扩展真实公众号启发样式、风格包、配色包、更多 block variants，并优化自动样式匹配与视觉质量。
+
+**非目标：** 不在 S10 重复建设后台基础设施（应由 S9 交付）
 
 ---

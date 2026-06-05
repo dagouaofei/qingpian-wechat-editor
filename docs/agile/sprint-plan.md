@@ -585,20 +585,57 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 3. **Compatibility Profile** + **Copy HTML Validator**（可校验、可豁免）
 4. **多控件 × 多 variant** Fidelity Matrix + 公众号实机粘贴 QA 流程
 5. **Copy 失真诊断**与 contract 修正闭环
-6. 为 **S9 文章视觉升级** 打地基（S8 不是视觉 Sprint）
+6. 为后续样式扩展打地基（**样式管理后台归 Sprint 9** · DECISION-092）
 
-**Stories：** S8-STORY-001 ~ S8-STORY-008 — 见 `sprint-backlog.md`
+**Stories：** S8-STORY-001 ~ S8-STORY-009 — 见 `sprint-backlog.md`
 
-**当前：** **S8-STORY-006C Done**（merge sprint · 2026-06-04）· **006D/007** 未启动（006D 待用户确认启动）
+**当前：** **006D Done**（2026-06-05）· **008 Done**（S9 重排）· **007 / 009 收口待启动**
+
+**S8 收口项（不被 S9 扩张污染）：**
+
+- **S8-STORY-007** — Preview/Copy 审计 · HEAD-002 validator vs paste
+- **DRIFT-003** — observation · 产品澄清
+- **S8-STORY-009** — Contract audit · merge Sprint 8 → `release/1`
 
 **不做：**
 
 - 大规模视觉美化、网站 UI 改版、streaming、配图/小程序
+- **样式管理后台 / 采集入库**（→ **Sprint 9**）
 - 单 heading 反复修、复杂样式进默认池
 - 仅用自动化替代实机粘贴 QA
 - 不自行关闭 Sprint 8 / Release 1；不 merge `main`
 
-**承接：** S7-STORY-007B · 原 DECISION-070 Sprint 8「关闭」叙事由 contract 体系细化后再做 Release 1 关闭验收（S8-STORY-008）
+**承接：** S7-STORY-007B · Release 1 关闭验收在 S8-STORY-009
+
+---
+
+### Sprint 9：Style Management System v0 — **Planned**（2026-06-05）
+
+**中文名：** 样式管理后台 v0
+
+**分支（启动时）：** `sprint/s9-style-management-system-v0`（从 `release/1` · S8 merge 后）
+
+**文档：** [`sprint9-style-management-system-v0.md`](sprint9-style-management-system-v0.md) · **DECISION-092**
+
+**Sprint Goal：**
+
+建立轻篇主项目内的样式管理后台 v0，打通样式资产从**新增 → 验证 → 上线 → 用户侧分发**的最小闭环。
+
+**管理范围：** style / style family · palette · variant · preset · copy-safe rule · selection rule · WeChat compatibility metadata · lifecycle / QA evidence / promote / rollback
+
+**Stories：** S9-STORY-001 ~ S9-STORY-009 — 见 `sprint-backlog.md`
+
+**Seed assets：** 006D harvest candidates（`heading_purple_chapter_label_candidate` · `info_card_reading_path_candidate`）· candidate-paste-pass · **不**直接 user-selectable
+
+**不做：** 独立仓库 · 独立部署 · 数据库 · 多用户权限 · 样式市场 · 批量 URL 抓取 · 完整 SaaS 运营后台
+
+---
+
+### Sprint 10：Style Expansion & Visual Quality Upgrade — **Planned（方向 only）**
+
+**目标：** 基于 S9 v0 批量扩展真实公众号启发样式、风格包、配色包、block variants；优化自动样式匹配与视觉质量。
+
+**本轮：** 仅写入 `product-backlog.md` / `release-plan.md` · **不拆 story**
 
 ---
 

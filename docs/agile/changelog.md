@@ -478,3 +478,4 @@
 | 2026-06-05 | Sprint 8 | **S8-STORY-006D**（Mode A）：006D QA pack · Session 模板 · Matrix 006D queue · overlay `20260605_006D` · 15 snapshots | 文档 / 测试 | S8-STORY-006D |
 | 2026-06-05 | Sprint 8 | **S8-STORY-006D Done**（Mode B）：PO 15 行 PASS · 8 Drift resolved · 2 harvest candidate-paste-pass · merge sprint | 文档 / 测试 / Git | S8-STORY-006D |
 | 2026-06-05 | Sprint 8 | merge `docs/s8-story-006d-matrix-regression-paste-retest` → sprint @ `f6d8d06` | Git | S8-STORY-006D |
+| 2026-06-05 | Sprint 8 / 9 | **S8-STORY-008 Done**：Sprint 9 Style Management System v0 重排 · S9-STORY-001~009 草案 · S10 方向 · DECISION-092 | 文档 | S8-STORY-008 |

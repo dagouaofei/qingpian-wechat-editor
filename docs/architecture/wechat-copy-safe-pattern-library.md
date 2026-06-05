@@ -28,9 +28,9 @@
 | `copy-safe-card` | **已落地** | `info-card-copy` · `text-block-copy` · `highlight-copy` · `quote-copy` | **006D PASS** |
 | `copy-safe-left-border` | **已落地** | `text-block-copy` · `info-card-copy`（warning_note） | **006D PASS** |
 | `copy-safe-title-divider` | **已落地** | `title-block-copy` · `heading-publish-copy-html` | **006D PASS** |
-| Harvest candidates | **2 条** | `heading_purple_chapter_label_candidate` · `info_card_reading_path_candidate` → Matrix `S8M-HARVEST-001/002` | **candidate-paste-pass**（006D） |
+| Harvest candidates | **2 条** | `heading_purple_chapter_label_candidate` · `info_card_reading_path_candidate` → Matrix `S8M-HARVEST-001/002` | **candidate-paste-pass**（006D）· **S9 seed assets**（DECISION-092） |
 
-- **未改** Contract v1 分级 · Validator 放宽 · 默认 preset。
+- **未改** Contract v1 分级 · Validator 放宽 · harvest **不**直接 default preset / user-selectable（→ S9 promote）。
 - Drift 001–002、004–009 → **`RESOLVED_BY_006C_REPASTE_PASS`**（006D · 2026-06-05）；Drift 003 保持 observation。
 
 ### 1.2 S8-STORY-006D 复测结果（2026-06-05 · Done）
@@ -42,6 +42,12 @@
 | Overlay | `S8_FIDELITY_PASTE_QA_OVERLAY_20260605_006D` |
 
 **006D 结果：** copy-safe-card / left-border / title-divider 实机 **PASS**（8/8 re-test）；Harvest **candidate-paste-pass**（2/2）；不入 default preset。
+
+### 1.3 Sprint 9 路由（DECISION-092）
+
+- 样式管理后台 v0 → **Sprint 9**（[`sprint9-style-management-system-v0.md`](../agile/sprint9-style-management-system-v0.md)）
+- 006D 两 harvest candidate → **S9 首批 seed assets** · 经 S9-STORY-005/007 promote 流程后再考虑 user-selectable
+- 批量视觉扩展 → **Sprint 10**（方向 only）
 
 ---
 

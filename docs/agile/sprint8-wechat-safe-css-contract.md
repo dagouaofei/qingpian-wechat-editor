@@ -15,7 +15,7 @@
 |----|------|
 | **名称** | S8：WeChat-safe CSS Contract & Fidelity Test System |
 | **定位** | 建立轻篇自己的公众号安全样式规范、复制一致性验证体系、失真诊断机制、多控件 variant 粘贴测试矩阵 |
-| **为谁服务** | **S9** 文章视觉升级与后续样式开发（不再靠猜、不再单点试错） |
+| **为谁服务** | 后续 **Sprint 9** 样式管理后台与 **Sprint 10** 样式扩展（DECISION-092） |
 | **不是什么** | 视觉美化 Sprint、网站 UI 改版、streaming/配图/小程序 |
 
 ---
@@ -58,9 +58,10 @@
 | S8-STORY-006B-FIX-A | 已发布文章 evidence 提取工作流 | docs | **Done**（2026-06-04 · merge sprint） |
 | S8-STORY-006B-FIX-B | 批量补 article evidence（5–10） | docs | Planned |
 | S8-STORY-006C | 共性 Copy-safe renderer / fallback 修复 | feature | **Done**（2026-06-04 · merge sprint） |
-| S8-STORY-006D | Matrix 回归与 Paste 复测 | docs + QA | Planned（**未启动**） |
-| S8-STORY-007 | Preview / Copy 统一渲染方案审计 | docs | Planned（**未启动**） |
-| S8-STORY-008 | S8 Contract Audit 与关闭准备 | docs | Planned |
+| S8-STORY-006D | Matrix 回归与 Paste 复测 | docs + QA | **Done**（2026-06-05） |
+| S8-STORY-007 | Preview / Copy 统一渲染方案审计 | docs | Planned |
+| S8-STORY-008 | Sprint 9 Style Management Replanning | docs | **Done**（DECISION-092） |
+| S8-STORY-009 | S8 Contract Audit 与关闭准备 | docs | Planned |
 
 详情见 [`sprint-backlog.md`](sprint-backlog.md) Sprint 8 章节。
 
@@ -90,7 +91,8 @@
 - **S7** 已完成样式丰富度与 heading 发布池（DECISION-087）；S8 **不继续**单点 heading 修图。
 - **S7-STORY-007B**（R1 golden 全文粘贴）承接至 S8 的 Matrix + 实机 QA，不阻塞 S7 关闭。
 - **Release 1 关闭** 仍须满足 [`release-plan.md`](release-plan.md) 用户可见条件；S8 建立保真体系 **不等于** 自动关闭 Release 1。
-- **S9**（规划外本文档）拟在 S8 contract 闭环后进入「文章视觉升级」。
+- **Sprint 9**（DECISION-092）：Style Management System v0 — 见 [`sprint9-style-management-system-v0.md`](sprint9-style-management-system-v0.md)
+- **Sprint 10（初步）：** Style Expansion & Visual Quality Upgrade
 
 ---
 
@@ -120,7 +122,8 @@ Sprint 8 关闭须用户确认，且至少满足：
 - [ ] Fidelity Matrix 覆盖 10 类控件、每类 2–4 variant（005）
 - [ ] 实机粘贴 QA 流程与记录模板可用（006）
 - [ ] Preview/Copy 审计结论与后续 Story 拆分（007）
-- [ ] S8 audit 报告与 S9 进入条件（008）
+- [x] S9 规划重排（008 · DECISION-092）
+- [ ] S8 audit 报告与 merge `release/1`（009）
 
 ---
 

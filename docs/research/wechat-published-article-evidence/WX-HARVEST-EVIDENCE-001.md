@@ -94,3 +94,4 @@ supporting-evidence
 
 - `pasteStatus`: **PASS**（006D · 2026-06-05 · S8M-HARVEST-001/002 · candidate-paste-pass）
 - **006D QA Pack：** [`wechat-paste-qa-pack-2026-06-05-s8-story-006d.md`](../../agile/paste-qa/wechat-paste-qa-pack-2026-06-05-s8-story-006d.md) · Session [`wechat-paste-qa-session-2026-06-05-s8-story-006d.md`](../../agile/paste-qa/wechat-paste-qa-session-2026-06-05-s8-story-006d.md)
+- **S9 角色（DECISION-092）：** 两 candidate 为 **Style Management System v0 首批 seed assets** · pool review 输入 · **不**直接 user-selectable / default preset · 见 [`sprint9-style-management-system-v0.md`](../../agile/sprint9-style-management-system-v0.md)
