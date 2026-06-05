@@ -38,6 +38,12 @@ import {
   type StyleLibraryCandidateInspectionPanel,
   type StyleLibraryInspectionSummaryCounts,
 } from "./style-library-inspection-view-model";
+import {
+  buildStyleLibraryPromotePanels,
+  buildStyleLibraryPromoteSummaryCounts,
+  type StyleLibraryCandidatePromotePanel,
+  type StyleLibraryPromoteSummaryCounts,
+} from "./style-library-promote-view-model";
 
 export type StyleLibraryAdminAssetRow = {
   assetId: string;
@@ -117,6 +123,7 @@ export type StyleLibraryStatusSummary = {
   readyForPromoteReview: number;
   blockedCandidates: number;
   compatibilityWarnings: number;
+  promoteProposalsAvailable: number;
 };
 
 export type StyleLibraryLifecycleGroup = {
@@ -135,6 +142,7 @@ export type StyleLibraryCandidateReviewCard = StyleLibraryAdminAssetRow & {
   disabledActions: StyleLibraryDisabledActionCopy[];
   lifecyclePanel: StyleLibraryCandidateLifecyclePanel;
   inspectionPanel: StyleLibraryCandidateInspectionPanel;
+  promotePanel: StyleLibraryCandidatePromotePanel;
 };
 
 export type StyleLibraryAdminViewModel = {
@@ -148,6 +156,8 @@ export type StyleLibraryAdminViewModel = {
   candidateLifecyclePanels: StyleLibraryCandidateLifecyclePanel[];
   candidateInspectionPanels: StyleLibraryCandidateInspectionPanel[];
   inspectionSummaryCounts: StyleLibraryInspectionSummaryCounts;
+  promoteSummaryCounts: StyleLibraryPromoteSummaryCounts;
+  candidatePromotePanels: StyleLibraryCandidatePromotePanel[];
   overview: StyleLibraryAdminOverview;
   assets: StyleLibraryAdminAssetRow[];
   patches: StyleLibraryAdminPatchRow[];
@@ -160,6 +170,10 @@ export type { StyleLibraryCandidateLifecyclePanel, StyleLibraryLifecycleColumnMe
 export type {
   StyleLibraryCandidateInspectionPanel,
   StyleLibraryInspectionSummaryCounts,
+};
+export type {
+  StyleLibraryCandidatePromotePanel,
+  StyleLibraryPromoteSummaryCounts,
 };
 export type { StyleLibraryDisabledActionCopy, StyleLibraryLocale, StyleLibraryUiCopy };
 
@@ -284,6 +298,7 @@ function buildCandidateReviewCards(
   locale: StyleLibraryLocale,
   lifecyclePanels: StyleLibraryCandidateLifecyclePanel[],
   inspectionPanels: StyleLibraryCandidateInspectionPanel[],
+  promotePanels: StyleLibraryCandidatePromotePanel[],
 ): StyleLibraryCandidateReviewCard[] {
   const panelByAssetId = new Map(
     lifecyclePanels.map((panel) => [panel.assetId, panel]),
@@ -291,14 +306,18 @@ function buildCandidateReviewCards(
   const inspectionByAssetId = new Map(
     inspectionPanels.map((panel) => [panel.assetId, panel]),
   );
+  const promoteByAssetId = new Map(
+    promotePanels.map((panel) => [panel.assetId, panel]),
+  );
 
   return assets
     .filter((asset) => asset.isSeedAsset)
     .map((asset) => {
       const panel = panelByAssetId.get(asset.assetId);
       const inspectionPanel = inspectionByAssetId.get(asset.assetId);
-      if (!panel || !inspectionPanel) {
-        throw new Error(`Missing lifecycle/inspection panel for seed asset ${asset.assetId}`);
+      const promotePanel = promoteByAssetId.get(asset.assetId);
+      if (!panel || !inspectionPanel || !promotePanel) {
+        throw new Error(`Missing lifecycle/inspection/promote panel for seed asset ${asset.assetId}`);
       }
       return {
         ...asset,
@@ -308,6 +327,7 @@ function buildCandidateReviewCards(
         disabledActions: getCandidateDisabledActions(locale),
         lifecyclePanel: panel,
         inspectionPanel,
+        promotePanel,
       };
     });
 }
@@ -316,6 +336,7 @@ function buildStatusSummary(
   overview: StyleLibraryAdminOverview,
   validation: StyleLibraryAdminValidationPanel,
   inspectionSummaryCounts: StyleLibraryInspectionSummaryCounts,
+  promoteSummaryCounts: StyleLibraryPromoteSummaryCounts,
 ): StyleLibraryStatusSummary {
   const { lifecycleDistribution } = overview;
   return {
@@ -328,9 +349,10 @@ function buildStatusSummary(
     validationIssues: validation.issueCount,
     autoValidationPassed: inspectionSummaryCounts.autoValidationPassed,
     needsPasteQa: inspectionSummaryCounts.needsPasteQa,
-    readyForPromoteReview: inspectionSummaryCounts.readyForPromoteReview,
-    blockedCandidates: inspectionSummaryCounts.blockedCandidates,
-    compatibilityWarnings: inspectionSummaryCounts.compatibilityWarnings,
+    readyForPromoteReview: promoteSummaryCounts.readyForPromoteReview,
+    blockedCandidates: promoteSummaryCounts.blockedCandidates,
+    compatibilityWarnings: promoteSummaryCounts.compatibilityWarnings,
+    promoteProposalsAvailable: promoteSummaryCounts.proposalsAvailable,
   };
 }
 
@@ -368,9 +390,11 @@ export function buildStyleLibraryAdminViewModel(
   const lifecycleColumnMeta = buildLifecycleColumnMetaList(manifest, locale);
   const candidateLifecyclePanels = buildCandidateLifecyclePanels(manifest, locale);
   const candidateInspectionPanels = buildStyleLibraryInspectionPanels(manifest, locale);
+  const candidatePromotePanels = buildStyleLibraryPromotePanels(manifest, locale);
   const inspectionSummaryCounts = buildStyleLibraryInspectionSummaryCounts(
     getStyleLibraryInspectionSummaries(manifest),
   );
+  const promoteSummaryCounts = buildStyleLibraryPromoteSummaryCounts(manifest);
 
   return {
     locale,
@@ -385,7 +409,12 @@ export function buildStyleLibraryAdminViewModel(
       runtimeStatus: ui.runtimeStatus,
       mode: ui.mode,
     },
-    statusSummary: buildStatusSummary(overview, validation, inspectionSummaryCounts),
+    statusSummary: buildStatusSummary(
+      overview,
+      validation,
+      inspectionSummaryCounts,
+      promoteSummaryCounts,
+    ),
     lifecycleGroups: buildLifecycleGroups(assets, locale),
     lifecycleColumnMeta,
     candidateReviewCards: buildCandidateReviewCards(
@@ -393,10 +422,13 @@ export function buildStyleLibraryAdminViewModel(
       locale,
       candidateLifecyclePanels,
       candidateInspectionPanels,
+      candidatePromotePanels,
     ),
     candidateLifecyclePanels,
     candidateInspectionPanels,
     inspectionSummaryCounts,
+    promoteSummaryCounts,
+    candidatePromotePanels,
     overview,
     assets,
     patches: manifest.registryPatches.map((patch) => toPatchRow(manifest, patch)),

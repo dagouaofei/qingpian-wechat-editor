@@ -64,7 +64,7 @@
 | **Sprint 8** | **Closed**（2026-06-05 · DECISION-093 · merged `release/1`） |
 | **Sprint 9** | **In Progress**（2026-06-05 · DECISION-094 · S9-STORY-001 Done） |
 | **Release 1 主干** | `release/1` |
-| **下一步** | **S9-STORY-004** In Review（`feature/s9-story-004-variant-lifecycle-management` · 待 merge sprint） |
+| **下一步** | **S9-STORY-007** In Review（`feature/s9-story-007-promote-user-selectable-variant` · 待 merge sprint） |
 
 ---
 
@@ -616,7 +616,7 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 **文档：** [`sprint9-style-management-system-v0.md`](sprint9-style-management-system-v0.md) · [`style-management-domain-model.md`](../architecture/style-management-domain-model.md) · [`style-library-storage.md`](../architecture/style-library-storage.md) · [`style-library-admin-shell.md`](../architecture/style-library-admin-shell.md) · **DECISION-092** · **DECISION-094** · **DECISION-095** · **DECISION-096** · **DECISION-097** · **DECISION-098**
 
-**进度：** S9-STORY-001 **Done** · S9-STORY-002 **Done** · S9-STORY-003 **Done** · S9-STORY-004 **In Review** · S9-STORY-005~009 Planned
+**进度：** S9-STORY-001 **Done** · S9-STORY-002 **Done** · S9-STORY-003 **Done** · S9-STORY-004 **Done** · S9-STORY-006 **Done** · S9-STORY-007 **In Review** · S9-STORY-005 · 008~009 Planned
 
 **Sprint Goal：**
 

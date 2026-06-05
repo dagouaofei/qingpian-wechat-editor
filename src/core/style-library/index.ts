@@ -124,6 +124,32 @@ export type {
 } from "./inspection-result";
 
 export {
+  checkPromoteEligibility,
+  createPromoteProposal,
+  createUserSelectablePatchProposal,
+  getPromoteBlockedReasons,
+  validatePromoteProposal,
+} from "./promote";
+export {
+  PROMOTE_BLOCK_REASON_CODES,
+  PROMOTE_DEFAULT_ELIGIBLE_DECISION,
+  PROMOTE_MIN_LIFECYCLE,
+  PROMOTE_PROPOSAL_STORY,
+  PROMOTE_PROPOSED_PATCH_PRESET_ID,
+  PROMOTE_TARGET_LIFECYCLE,
+} from "./promote-rules";
+export type {
+  PromoteDefaultPresetImpact,
+  PromoteDistributionImpact,
+  PromoteEligibilityResult,
+  PromoteEligibilityStatus,
+  PromotePasteQaStatus,
+  PromotePatchPreview,
+  PromoteProposal,
+  PromoteRuntimeImpact,
+} from "./promote-proposal";
+
+export {
   StyleLibraryError,
   getStyleLibraryAssetById,
   getStyleLibrarySeedAssets,

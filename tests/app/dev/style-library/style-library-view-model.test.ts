@@ -132,6 +132,20 @@ describe("buildStyleLibraryAdminViewModel", () => {
     }
   });
 
+  it("includes promote summary counts and panels on candidate cards", () => {
+    const viewModel = buildStyleLibraryAdminViewModel(undefined, "zh");
+
+    expect(viewModel.promoteSummaryCounts.readyForPromoteReview).toBe(2);
+    expect(viewModel.statusSummary.promoteProposalsAvailable).toBe(2);
+    expect(viewModel.candidatePromotePanels).toHaveLength(2);
+    expect(viewModel.candidateReviewCards[0]?.promotePanel.eligible).toBe(true);
+    expect(viewModel.candidateReviewCards[0]?.promotePanel.proposal.toDistribution).toEqual({
+      userSelectable: true,
+      defaultEligible: false,
+      release1Required: false,
+    });
+  });
+
   it("shows inactive registry patch with zero active patch count", () => {
     const viewModel = buildStyleLibraryAdminViewModel();
 

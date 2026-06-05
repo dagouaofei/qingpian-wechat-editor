@@ -1007,3 +1007,19 @@
 - **关联：** S9-STORY-006、DECISION-097、DECISION-099、S9-STORY-007
 - **状态：** **已确认**（2026-06-05 · S9-STORY-006）
 
+### DECISION-101 详情（S9-STORY-007 proposal-based user_selectable promote review）
+
+- **日期：** 2026-06-05
+- **背景：**
+  - S9-STORY-007 需建立运营可理解的 promote review 闭环
+  - 目标为 user_selectable，非 default preset / runtime 默认路径
+- **决策：**
+  1. S9-STORY-007 promote v0 采用 **proposal-based user_selectable review**
+  2. 运营可在 Workbench 生成 **Promote Proposal** + inactive patch preview
+  3. **不**自动进入 `default_eligible` / default preset / `release1_required`
+  4. **不**修改 runtime registry · **不**激活 registry patch · **不**写 manifest
+  5. 真实 default 推荐需 **独立 PO 决策**
+- **影响范围：** `src/core/style-library/promote*.ts`、`style-library-promote-user-selectable.md`
+- **关联：** S9-STORY-007、DECISION-100、DECISION-099、S9-STORY-008
+- **状态：** **已确认**（2026-06-05 · S9-STORY-007）
+

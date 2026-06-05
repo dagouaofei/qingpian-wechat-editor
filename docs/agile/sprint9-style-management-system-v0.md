@@ -75,7 +75,7 @@
 | S9-STORY-004 | Variant Lifecycle Management | **Done**（2026-06-05 · DECISION-099 · merged sprint @ `7300b9f`） |
 | S9-STORY-005 | Harvest HTML to Candidate Workflow | Planned · **新增候选样式向导：粘贴 HTML / 采集片段 → candidate review** |
 | S9-STORY-006 | Preview / Copy / Validator Integration | **In Review**（inspection-only · DECISION-100 · `feature/s9-story-006-preview-copy-validator-integration`） |
-| S9-STORY-007 | Promote to User-selectable Variant | Planned · **运营 promote review：进入 user-selectable · 默认不进 default preset** |
+| S9-STORY-007 | Promote to User-selectable Variant | In Review · **proposal-based user_selectable promote · DECISION-101** |
 | S9-STORY-008 | Style / Palette / Rule Management v0 | Planned · **P0** · 运营可读列表与基础管理入口 |
 | S9-STORY-009 | S9 Audit / Closeout | Planned · **运营验收 audit + 技术 audit** |
 
