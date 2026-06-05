@@ -1,4 +1,6 @@
 import { STYLE_LIBRARY_EVIDENCE_REFS } from "./assets/evidence-refs";
+import { STYLE_LIBRARY_PALETTE_ASSETS } from "./palette-assets";
+import { STYLE_LIBRARY_RULE_ASSETS } from "./rule-assets";
 import { STYLE_LIBRARY_SAMPLE_REGISTRY_PATCHES } from "./assets/sample-registry-patch";
 import {
   STYLE_LIBRARY_SEED_ASSET_IDS,
@@ -26,7 +28,11 @@ export const STYLE_LIBRARY_MANIFEST: StyleLibraryManifest = {
   schemaVersion: STYLE_LIBRARY_SCHEMA_VERSION,
   libraryId: STYLE_LIBRARY_ID,
   updatedAt: "2026-06-05",
-  assets: [...STYLE_LIBRARY_SEED_VARIANT_ASSETS],
+  assets: [
+    ...STYLE_LIBRARY_SEED_VARIANT_ASSETS,
+    ...STYLE_LIBRARY_PALETTE_ASSETS,
+    ...STYLE_LIBRARY_RULE_ASSETS,
+  ],
   seedAssetIds: [...STYLE_LIBRARY_SEED_ASSET_IDS],
   registryPatches: [...STYLE_LIBRARY_SAMPLE_REGISTRY_PATCHES],
   evidenceRefs: [...STYLE_LIBRARY_EVIDENCE_REFS],

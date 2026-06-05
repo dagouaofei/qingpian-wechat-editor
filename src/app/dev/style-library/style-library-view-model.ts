@@ -44,6 +44,19 @@ import {
   type StyleLibraryCandidatePromotePanel,
   type StyleLibraryPromoteSummaryCounts,
 } from "./style-library-promote-view-model";
+import {
+  buildStyleLibraryCandidateStyleLinks,
+  buildStyleLibraryPaletteCards,
+  buildStyleLibraryRuleCards,
+  buildStyleLibraryStyleCards,
+  buildStyleLibraryStyleRuleSummaryCounts,
+  getStyleManagementDisabledActions,
+  type StyleLibraryCandidateStyleLinks,
+  type StyleLibraryPaletteCard,
+  type StyleLibraryRuleCard,
+  type StyleLibraryStyleCard,
+  type StylePaletteRuleSummaryCounts,
+} from "./style-library-style-rule-view-model";
 
 export type StyleLibraryAdminAssetRow = {
   assetId: string;
@@ -124,6 +137,14 @@ export type StyleLibraryStatusSummary = {
   blockedCandidates: number;
   compatibilityWarnings: number;
   promoteProposalsAvailable: number;
+  styleCount: number;
+  paletteCount: number;
+  ruleCount: number;
+  copySafeRuleCount: number;
+  selectionRuleCount: number;
+  stylesReadyForExpansion: number;
+  stylesMissingPalette: number;
+  rulesWithWarnings: number;
 };
 
 export type StyleLibraryLifecycleGroup = {
@@ -143,6 +164,7 @@ export type StyleLibraryCandidateReviewCard = StyleLibraryAdminAssetRow & {
   lifecyclePanel: StyleLibraryCandidateLifecyclePanel;
   inspectionPanel: StyleLibraryCandidateInspectionPanel;
   promotePanel: StyleLibraryCandidatePromotePanel;
+  styleLinks: StyleLibraryCandidateStyleLinks;
 };
 
 export type StyleLibraryAdminViewModel = {
@@ -158,6 +180,11 @@ export type StyleLibraryAdminViewModel = {
   inspectionSummaryCounts: StyleLibraryInspectionSummaryCounts;
   promoteSummaryCounts: StyleLibraryPromoteSummaryCounts;
   candidatePromotePanels: StyleLibraryCandidatePromotePanel[];
+  styleRuleSummaryCounts: StylePaletteRuleSummaryCounts;
+  styleCards: StyleLibraryStyleCard[];
+  paletteCards: StyleLibraryPaletteCard[];
+  ruleCards: StyleLibraryRuleCard[];
+  styleManagementDisabledActions: StyleLibraryDisabledActionCopy[];
   overview: StyleLibraryAdminOverview;
   assets: StyleLibraryAdminAssetRow[];
   patches: StyleLibraryAdminPatchRow[];
@@ -174,6 +201,13 @@ export type {
 export type {
   StyleLibraryCandidatePromotePanel,
   StyleLibraryPromoteSummaryCounts,
+};
+export type {
+  StyleLibraryCandidateStyleLinks,
+  StyleLibraryPaletteCard,
+  StyleLibraryRuleCard,
+  StyleLibraryStyleCard,
+  StylePaletteRuleSummaryCounts,
 };
 export type { StyleLibraryDisabledActionCopy, StyleLibraryLocale, StyleLibraryUiCopy };
 
@@ -299,6 +333,7 @@ function buildCandidateReviewCards(
   lifecyclePanels: StyleLibraryCandidateLifecyclePanel[],
   inspectionPanels: StyleLibraryCandidateInspectionPanel[],
   promotePanels: StyleLibraryCandidatePromotePanel[],
+  styleLinksByAssetId: Map<string, StyleLibraryCandidateStyleLinks>,
 ): StyleLibraryCandidateReviewCard[] {
   const panelByAssetId = new Map(
     lifecyclePanels.map((panel) => [panel.assetId, panel]),
@@ -316,8 +351,9 @@ function buildCandidateReviewCards(
       const panel = panelByAssetId.get(asset.assetId);
       const inspectionPanel = inspectionByAssetId.get(asset.assetId);
       const promotePanel = promoteByAssetId.get(asset.assetId);
-      if (!panel || !inspectionPanel || !promotePanel) {
-        throw new Error(`Missing lifecycle/inspection/promote panel for seed asset ${asset.assetId}`);
+      const styleLinks = styleLinksByAssetId.get(asset.assetId);
+      if (!panel || !inspectionPanel || !promotePanel || !styleLinks) {
+        throw new Error(`Missing lifecycle/inspection/promote/style panel for seed asset ${asset.assetId}`);
       }
       return {
         ...asset,
@@ -328,6 +364,7 @@ function buildCandidateReviewCards(
         lifecyclePanel: panel,
         inspectionPanel,
         promotePanel,
+        styleLinks,
       };
     });
 }
@@ -337,6 +374,7 @@ function buildStatusSummary(
   validation: StyleLibraryAdminValidationPanel,
   inspectionSummaryCounts: StyleLibraryInspectionSummaryCounts,
   promoteSummaryCounts: StyleLibraryPromoteSummaryCounts,
+  styleRuleSummaryCounts: StylePaletteRuleSummaryCounts,
 ): StyleLibraryStatusSummary {
   const { lifecycleDistribution } = overview;
   return {
@@ -353,6 +391,14 @@ function buildStatusSummary(
     blockedCandidates: promoteSummaryCounts.blockedCandidates,
     compatibilityWarnings: promoteSummaryCounts.compatibilityWarnings,
     promoteProposalsAvailable: promoteSummaryCounts.proposalsAvailable,
+    styleCount: styleRuleSummaryCounts.styleCount,
+    paletteCount: styleRuleSummaryCounts.paletteCount,
+    ruleCount: styleRuleSummaryCounts.ruleCount,
+    copySafeRuleCount: styleRuleSummaryCounts.copySafeRuleCount,
+    selectionRuleCount: styleRuleSummaryCounts.selectionRuleCount,
+    stylesReadyForExpansion: styleRuleSummaryCounts.stylesReadyForExpansion,
+    stylesMissingPalette: styleRuleSummaryCounts.stylesMissingPalette,
+    rulesWithWarnings: styleRuleSummaryCounts.rulesWithWarnings,
   };
 }
 
@@ -395,6 +441,14 @@ export function buildStyleLibraryAdminViewModel(
     getStyleLibraryInspectionSummaries(manifest),
   );
   const promoteSummaryCounts = buildStyleLibraryPromoteSummaryCounts(manifest);
+  const styleRuleSummaryCounts = buildStyleLibraryStyleRuleSummaryCounts(manifest);
+  const styleCards = buildStyleLibraryStyleCards(locale);
+  const paletteCards = buildStyleLibraryPaletteCards(locale);
+  const ruleCards = buildStyleLibraryRuleCards(locale);
+  const candidateStyleLinks = buildStyleLibraryCandidateStyleLinks(manifest, locale);
+  const styleLinksByAssetId = new Map(
+    candidateStyleLinks.map((links) => [links.assetId, links]),
+  );
 
   return {
     locale,
@@ -414,6 +468,7 @@ export function buildStyleLibraryAdminViewModel(
       validation,
       inspectionSummaryCounts,
       promoteSummaryCounts,
+      styleRuleSummaryCounts,
     ),
     lifecycleGroups: buildLifecycleGroups(assets, locale),
     lifecycleColumnMeta,
@@ -423,12 +478,18 @@ export function buildStyleLibraryAdminViewModel(
       candidateLifecyclePanels,
       candidateInspectionPanels,
       candidatePromotePanels,
+      styleLinksByAssetId,
     ),
     candidateLifecyclePanels,
     candidateInspectionPanels,
     inspectionSummaryCounts,
     promoteSummaryCounts,
     candidatePromotePanels,
+    styleRuleSummaryCounts,
+    styleCards,
+    paletteCards,
+    ruleCards,
+    styleManagementDisabledActions: getStyleManagementDisabledActions(locale),
     overview,
     assets,
     patches: manifest.registryPatches.map((patch) => toPatchRow(manifest, patch)),

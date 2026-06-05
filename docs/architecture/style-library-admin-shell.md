@@ -150,7 +150,20 @@ Workbench 集成 lifecycle transition engine 与 **Lifecycle Change Proposal** �
 
 ---
 
-## 11. 代码结构
+## 14. Style / Palette / Rule Management（S9-STORY-008 · DECISION-102）
+
+Workbench 扩展 Style / Palette / Rule metadata 管理：
+
+- Summary：**风格 / 配色 / 规则概览**
+- **风格管理** · **配色管理** · **规则管理** 区
+- Candidate Review：linked style / palette / rules
+- disabled 管理动作（新建风格 / 配色 / 规则 · S10 扩展标记）
+
+详见 [`style-palette-rule-management-v0.md`](style-palette-rule-management-v0.md)。
+
+---
+
+## 15. 代码结构
 
 ```text
 src/app/dev/style-library/
@@ -160,30 +173,34 @@ src/app/dev/style-library/
   style-library-lifecycle-view-model.ts
   style-library-inspection-view-model.ts
   style-library-promote-view-model.ts
+  style-library-style-rule-view-model.ts
   style-library-inspection-preview.tsx
   style-library-admin-shell.tsx
 ```
 
 ---
 
-## 12. 测试
+## 16. 测试
 
 - `tests/core/style-library/style-library-lifecycle.test.ts`
 - `tests/core/style-library/style-library-inspection.test.ts`
 - `tests/core/style-library/style-library-promote.test.ts`
+- `tests/core/style-library/style-palette-rule-management.test.ts`
 - `tests/app/dev/style-library/style-library-lifecycle-view-model.test.ts`
 - `tests/app/dev/style-library/style-library-inspection-view-model.test.ts`
 - `tests/app/dev/style-library/style-library-promote-view-model.test.ts`
+- `tests/app/dev/style-library/style-library-style-rule-view-model.test.ts`
 - `tests/app/dev/style-library/style-library-i18n.test.ts`
 - `tests/app/dev/style-library/style-library-view-model.test.ts`
 - `tests/app/dev/style-library/style-library-page.test.tsx`
 
 ---
 
-## 13. 参考
+## 17. 参考
 
-- **DECISION-101** · **DECISION-100** · **DECISION-099** · **DECISION-098** · **DECISION-097** · DECISION-096
+- **DECISION-102** · **DECISION-101** · **DECISION-100** · **DECISION-099** · **DECISION-098** · **DECISION-097** · DECISION-096
 - [`style-library-lifecycle-management.md`](style-library-lifecycle-management.md)
 - [`style-library-preview-copy-validator-integration.md`](style-library-preview-copy-validator-integration.md)
 - [`style-library-promote-user-selectable.md`](style-library-promote-user-selectable.md)
+- [`style-palette-rule-management-v0.md`](style-palette-rule-management-v0.md)
 - [`sprint9-style-management-system-v0.md`](../agile/sprint9-style-management-system-v0.md)

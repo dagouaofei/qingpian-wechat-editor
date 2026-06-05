@@ -1023,3 +1023,19 @@
 - **关联：** S9-STORY-007、DECISION-100、DECISION-099、S9-STORY-008
 - **状态：** **已确认**（2026-06-05 · S9-STORY-007）
 
+### DECISION-102 详情（S9-STORY-008 Style / Palette / Rule Management v0）
+
+- **日期：** 2026-06-05
+- **背景：**
+  - S9-STORY-008 需将 Workbench 扩展为 Style / Palette / Rule 运营可读管理入口
+  - 需支撑 S10 批量样式扩展规划，但不修改 runtime
+- **决策：**
+  1. S9-STORY-008 采用 **operator-facing metadata management**
+  2. Style definitions + palette/rule manifest assets + 关联 graph
+  3. Workbench 展示 Style / Palette / Rule 管理区与 summary metrics
+  4. **不**做在线编辑 · **不**写数据库 · **不**修改 runtime registry
+  5. 管理动作均为 disabled / proposal-only；真实变更通过 code-backed PR
+- **影响范围：** `style-assets.ts` · `palette-assets.ts` · `rule-assets.ts` · `style-palette-rule.ts`
+- **关联：** S9-STORY-008、DECISION-101、DECISION-095、S10
+- **状态：** **已确认**（2026-06-05 · S9-STORY-008）
+

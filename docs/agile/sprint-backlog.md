@@ -3950,7 +3950,7 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 
 ## S9-STORY-007 Promote to User-selectable Variant
 
-**优先级：** P0 · **状态：** In Review · **分支：** `feature/s9-story-007-promote-user-selectable-variant`
+**优先级：** P0 · **状态：** Done · **merge：** sprint @ `54e266c`
 
 **目标（DECISION-101）：** **运营 promote review** — 生成 user_selectable Promote Proposal + inactive patch preview；**不**进入 default preset / runtime。
 
@@ -3974,11 +3974,27 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 
 ## S9-STORY-008 Style / Palette / Rule Management v0
 
-**优先级：** **P0**（自 P1 提升 · DECISION-097）· **状态：** Planned
+**优先级：** **P0** · **状态：** In Review · **分支：** `feature/s9-story-008-style-palette-rule-management-v0`
 
-**目标（DECISION-097 调整后）：** 至少提供 style / palette / rule 的**运营可读列表与基础管理入口**；支撑 S10 批量样式扩展；复杂主题编辑器仍不做。
+**目标（DECISION-102）：** Style / Palette / Rule 运营可读 metadata 管理 · 关联 006D seeds · S10 扩展入口。
 
-**非目标：** 不做完整主题编辑器 · 不做市场级风格包交易 · 不以工程师配置文件浏览为验收
+**非目标：** 在线编辑器 · 数据库 · runtime registry 修改 · Gallery 变更
+
+**验收：**
+
+- [x] AC-1 Style / Palette / Rule metadata 结构
+- [x] AC-2 manifest 登记 palette / rule assets
+- [x] AC-3 Style / Palette / Rule 管理区 UI
+- [x] AC-4 Summary metrics
+- [x] AC-5 006D seed 关联
+- [x] AC-6 Candidate card linked style/palette/rules
+- [x] AC-7 disabled 管理动作
+- [x] AC-8 不修改 runtime / distribution flags
+- [x] AC-9 zh/en 文案
+- [x] AC-10 文档 · DECISION-102
+- [x] AC-11 测试
+- [x] AC-12 lint / test / build PASS
+- [ ] AC-13 用户确认 merge sprint
 
 ---
 

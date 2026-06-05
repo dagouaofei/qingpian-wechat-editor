@@ -12,7 +12,7 @@ describe("style library schema", () => {
   it("parses the canonical manifest", () => {
     const manifest = parseStyleLibraryManifest(STYLE_LIBRARY_MANIFEST);
     expect(manifest.libraryId).toBe("qingpian-style-library-v0");
-    expect(manifest.assets).toHaveLength(2);
+    expect(manifest.assets).toHaveLength(8);
   });
 
   it("rejects invalid schemaVersion", () => {

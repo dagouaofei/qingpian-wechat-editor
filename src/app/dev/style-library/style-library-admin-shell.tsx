@@ -462,6 +462,97 @@ function PromoteReviewPanel({
   );
 }
 
+function ColorSwatch({ color, label }: { color: string; label: string }) {
+  return (
+    <div className="flex items-center gap-2 text-xs">
+      <span
+        className="inline-block h-4 w-4 rounded border border-slate-200"
+        style={{ backgroundColor: color }}
+        aria-hidden
+      />
+      <span className="text-slate-600">{label}</span>
+      <span className="font-mono text-[10px] text-slate-400">{color}</span>
+    </div>
+  );
+}
+
+function CandidateStyleLinksPanel({
+  card,
+  viewModel,
+}: {
+  card: StyleLibraryCandidateReviewCard;
+  viewModel: StyleLibraryAdminViewModel;
+}) {
+  const { ui } = viewModel;
+  const links = card.styleLinks;
+
+  return (
+    <div
+      className="mt-4 rounded-lg border border-sky-100 bg-sky-50/40 px-3 py-3"
+      data-testid={`style-library-candidate-style-links-${card.assetId}`}
+    >
+      <p className="text-xs font-semibold uppercase tracking-wide text-sky-900">
+        {ui.sectionCandidateStyleLinks}
+      </p>
+      <dl className="mt-3 space-y-2 text-sm">
+        <div>
+          <dt className="text-xs text-slate-500">{ui.candidateLinkedStyle}</dt>
+          <dd>
+            {links.linkedStyleName ? (
+              <>
+                {links.linkedStyleName}{" "}
+                <span className="font-mono text-[10px] text-slate-400">
+                  ({links.linkedStyleId})
+                </span>
+              </>
+            ) : (
+              <span className="text-amber-800">{links.unlinkedStyleLabel}</span>
+            )}
+          </dd>
+        </div>
+        <div>
+          <dt className="text-xs text-slate-500">{ui.candidateLinkedPalette}</dt>
+          <dd>
+            {links.linkedPaletteNames.length > 0 ? (
+              <ul className="space-y-0.5">
+                {links.linkedPaletteNames.map((name, index) => (
+                  <li key={links.linkedPaletteIds[index]}>
+                    {name}{" "}
+                    <span className="font-mono text-[10px] text-slate-400">
+                      ({links.linkedPaletteIds[index]})
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <span className="text-amber-800">{links.unlinkedPaletteLabel}</span>
+            )}
+          </dd>
+        </div>
+        <div>
+          <dt className="text-xs text-slate-500">{ui.candidateLinkedRules}</dt>
+          <dd>
+            {links.linkedRuleNames.length > 0 ? (
+              <ul className="space-y-0.5">
+                {links.linkedRuleNames.map((name, index) => (
+                  <li key={links.linkedRuleIds[index]}>
+                    {name}{" "}
+                    <span className="font-mono text-[10px] text-slate-400">
+                      ({links.linkedRuleIds[index]})
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <span className="text-amber-800">{links.unlinkedRuleLabel}</span>
+            )}
+          </dd>
+        </div>
+      </dl>
+    </div>
+  );
+}
+
 function LifecycleTransitionPanel({
   card,
   viewModel,
@@ -694,6 +785,8 @@ function CandidateReviewCard({
         </ul>
       </div>
 
+      <CandidateStyleLinksPanel card={card} viewModel={viewModel} />
+
       <LifecycleTransitionPanel card={card} viewModel={viewModel} />
       <InspectionPanel card={card} viewModel={viewModel} />
       <PromoteReviewPanel card={card} viewModel={viewModel} />
@@ -740,6 +833,10 @@ export function StyleLibraryAdminShell({ viewModel }: Props) {
     patches,
     evidence,
     validation,
+    styleCards,
+    paletteCards,
+    ruleCards,
+    styleManagementDisabledActions,
     runtimeNotice,
   } = viewModel;
 
@@ -911,6 +1008,23 @@ export function StyleLibraryAdminShell({ viewModel }: Props) {
             testId="style-library-promote-proposals-available"
           />
         </dl>
+
+        <h3 className="mb-3 mt-6 text-xs font-semibold uppercase tracking-wide text-slate-600">
+          {ui.sectionStyleRuleSummary}
+        </h3>
+        <dl
+          className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-8"
+          data-testid="style-library-style-rule-summary"
+        >
+          <SummaryCard label={ui.summaryStyleCount} value={statusSummary.styleCount} testId="style-library-style-count" />
+          <SummaryCard label={ui.summaryPaletteCount} value={statusSummary.paletteCount} testId="style-library-palette-count" />
+          <SummaryCard label={ui.summaryRuleCount} value={statusSummary.ruleCount} testId="style-library-rule-count" />
+          <SummaryCard label={ui.summaryCopySafeRules} value={statusSummary.copySafeRuleCount} testId="style-library-copy-safe-rule-count" />
+          <SummaryCard label={ui.summarySelectionRules} value={statusSummary.selectionRuleCount} testId="style-library-selection-rule-count" />
+          <SummaryCard label={ui.summaryStylesReadyForExpansion} value={statusSummary.stylesReadyForExpansion} testId="style-library-styles-ready-expansion" />
+          <SummaryCard label={ui.summaryStylesMissingPalette} value={statusSummary.stylesMissingPalette} testId="style-library-styles-missing-palette" />
+          <SummaryCard label={ui.summaryRulesWithWarnings} value={statusSummary.rulesWithWarnings} testId="style-library-rules-with-warnings" />
+        </dl>
       </section>
 
       <section
@@ -946,6 +1060,213 @@ export function StyleLibraryAdminShell({ viewModel }: Props) {
           {ui.sectionLifecycleManagement}
         </h2>
         <p className="text-sm text-slate-600">{ui.lifecycleTransitionPanelHint}</p>
+      </section>
+
+      <section
+        aria-labelledby="style-library-style-management-heading"
+        data-testid="style-library-style-management"
+        className="space-y-6"
+      >
+        <div>
+          <h2
+            id="style-library-style-management-heading"
+            className="text-sm font-semibold uppercase tracking-wide text-slate-700"
+          >
+            {ui.sectionStyleManagement}
+          </h2>
+          <p className="mt-1 text-sm text-slate-600">{ui.styleManagementHint}</p>
+        </div>
+        <div className="grid gap-4 lg:grid-cols-2">
+          {styleCards.map((style) => (
+            <article
+              key={style.styleId}
+              className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm"
+              data-testid={`style-library-style-card-${style.styleId}`}
+            >
+              <div className="flex flex-wrap items-start justify-between gap-2">
+                <h3 className="text-base font-semibold text-slate-900">{style.name}</h3>
+                <span className="font-mono text-[10px] text-slate-400">{style.styleId}</span>
+              </div>
+              <p className="mt-2 text-sm text-slate-700">{style.description}</p>
+              <dl className="mt-3 grid gap-2 text-sm sm:grid-cols-2">
+                <div>
+                  <dt className="text-xs text-slate-500">{ui.styleTone}</dt>
+                  <dd>{style.tone}</dd>
+                </div>
+                <div>
+                  <dt className="text-xs text-slate-500">{ui.styleDensity}</dt>
+                  <dd>{style.density}</dd>
+                </div>
+                <div className="sm:col-span-2">
+                  <dt className="text-xs text-slate-500">{ui.styleIntendedUseCases}</dt>
+                  <dd>{style.intendedUseCases.join(" · ")}</dd>
+                </div>
+                <div className="sm:col-span-2">
+                  <dt className="text-xs text-slate-500">{ui.styleTargetArticleTypes}</dt>
+                  <dd className="font-mono text-xs">{style.targetArticleTypes.join(", ")}</dd>
+                </div>
+                <div>
+                  <dt className="text-xs text-slate-500">{ui.styleLinkedPalettes}</dt>
+                  <dd className="font-mono text-xs">{style.linkedPaletteIds.join(", ") || "—"}</dd>
+                </div>
+                <div>
+                  <dt className="text-xs text-slate-500">{ui.styleLinkedVariants}</dt>
+                  <dd className="font-mono text-xs">{style.linkedVariantAssetIds.join(", ") || "—"}</dd>
+                </div>
+                <div className="sm:col-span-2">
+                  <dt className="text-xs text-slate-500">{ui.styleLinkedRules}</dt>
+                  <dd className="font-mono text-xs">{style.linkedRuleIds.join(", ") || "—"}</dd>
+                </div>
+                <div className="sm:col-span-2">
+                  <dt className="text-xs text-slate-500">{ui.styleS10Hint}</dt>
+                  <dd className="text-sky-800">{style.s10ExpansionHint}</dd>
+                </div>
+              </dl>
+              <p className="mt-2 text-xs font-medium text-emerald-800">
+                {style.readyForExpansion ? ui.styleReadyForExpansion : ui.styleNotReadyForExpansion}
+              </p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section
+        aria-labelledby="style-library-palette-management-heading"
+        data-testid="style-library-palette-management"
+      >
+        <h2
+          id="style-library-palette-management-heading"
+          className="mb-4 text-sm font-semibold uppercase tracking-wide text-slate-700"
+        >
+          {ui.sectionPaletteManagement}
+        </h2>
+        <div className="grid gap-4 lg:grid-cols-2">
+          {paletteCards.map((palette) => (
+            <article
+              key={palette.paletteId}
+              className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm"
+              data-testid={`style-library-palette-card-${palette.paletteId}`}
+            >
+              <div className="flex flex-wrap items-start justify-between gap-2">
+                <h3 className="text-base font-semibold text-slate-900">{palette.name}</h3>
+                <span className="font-mono text-[10px] text-slate-400">{palette.paletteId}</span>
+              </div>
+              <p className="mt-2 text-sm text-slate-700">{palette.description}</p>
+              <div className="mt-3 space-y-1">
+                <ColorSwatch color={palette.primaryColor} label={ui.palettePrimaryColor} />
+                <ColorSwatch color={palette.accentColor} label={ui.paletteAccentColor} />
+                <ColorSwatch color={palette.backgroundColor} label={ui.paletteBackgroundColor} />
+                <ColorSwatch color={palette.textColor} label={ui.paletteTextColor} />
+                <ColorSwatch color={palette.borderColor} label={ui.paletteBorderColor} />
+              </div>
+              <dl className="mt-3 space-y-1 text-sm">
+                <div>
+                  <dt className="text-xs text-slate-500">{ui.paletteCopySafeNotes}</dt>
+                  <dd>{palette.copySafeNotes}</dd>
+                </div>
+                <div>
+                  <dt className="text-xs text-slate-500">{ui.paletteContrastNotes}</dt>
+                  <dd>{palette.contrastNotes}</dd>
+                </div>
+                <div>
+                  <dt className="text-xs text-slate-500">{ui.paletteCompatibleStyles}</dt>
+                  <dd className="font-mono text-xs">{palette.compatibleStyleIds.join(", ") || "—"}</dd>
+                </div>
+                <div>
+                  <dt className="text-xs text-slate-500">{ui.paletteLinkedVariants}</dt>
+                  <dd className="font-mono text-xs">{palette.linkedVariantAssetIds.join(", ") || "—"}</dd>
+                </div>
+              </dl>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section
+        aria-labelledby="style-library-rule-management-heading"
+        data-testid="style-library-rule-management"
+      >
+        <h2
+          id="style-library-rule-management-heading"
+          className="mb-4 text-sm font-semibold uppercase tracking-wide text-slate-700"
+        >
+          {ui.sectionRuleManagement}
+        </h2>
+        <div className="grid gap-4">
+          {ruleCards.map((rule) => (
+            <article
+              key={rule.ruleId}
+              className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm"
+              data-testid={`style-library-rule-card-${rule.ruleId}`}
+            >
+              <div className="flex flex-wrap items-start justify-between gap-2">
+                <div>
+                  <h3 className="text-base font-semibold text-slate-900">{rule.name}</h3>
+                  <p className="mt-1 font-mono text-[10px] text-slate-400">{rule.ruleId}</p>
+                </div>
+                <div className="flex gap-2 text-xs">
+                  <span className="rounded-full bg-slate-100 px-2 py-0.5">{rule.ruleTypeLabel}</span>
+                  <span
+                    className={
+                      rule.hasWarning
+                        ? "rounded-full bg-amber-100 px-2 py-0.5 text-amber-900"
+                        : "rounded-full bg-slate-100 px-2 py-0.5"
+                    }
+                  >
+                    {rule.severityLabel}
+                  </span>
+                </div>
+              </div>
+              <p className="mt-2 text-sm font-medium text-slate-800">{rule.operatorSummary}</p>
+              <p className="mt-1 text-sm text-slate-600">{rule.description}</p>
+              <dl className="mt-3 grid gap-2 text-sm sm:grid-cols-2">
+                <div>
+                  <dt className="text-xs text-slate-500">{ui.ruleAppliesTo}</dt>
+                  <dd>{rule.appliesTo}</dd>
+                </div>
+                <div>
+                  <dt className="text-xs text-slate-500">{ui.ruleRelatedContract}</dt>
+                  <dd className="font-mono text-xs">{rule.relatedContract}</dd>
+                </div>
+                <div>
+                  <dt className="text-xs text-slate-500">{ui.ruleLinkedStyles}</dt>
+                  <dd className="font-mono text-xs">{rule.linkedStyleIds.join(", ") || "—"}</dd>
+                </div>
+                <div>
+                  <dt className="text-xs text-slate-500">{ui.ruleLinkedVariants}</dt>
+                  <dd className="font-mono text-xs">{rule.linkedVariantAssetIds.join(", ") || "—"}</dd>
+                </div>
+                <div className="sm:col-span-2">
+                  <dt className="text-xs text-slate-500">{ui.ruleEvidenceRefs}</dt>
+                  <dd className="font-mono text-xs">{rule.evidenceRefs.join(", ") || "—"}</dd>
+                </div>
+                {rule.relatedStory ? (
+                  <div>
+                    <dt className="text-xs text-slate-500">{ui.ruleRelatedStory}</dt>
+                    <dd>{rule.relatedStory}</dd>
+                  </div>
+                ) : null}
+              </dl>
+            </article>
+          ))}
+        </div>
+        <div className="mt-4 flex flex-wrap gap-2" data-testid="style-library-style-management-actions">
+          <p className="w-full text-xs font-medium uppercase tracking-wide text-slate-500">
+            {ui.styleManagementDisabledActionsTitle}
+          </p>
+          {styleManagementDisabledActions.map((action) => (
+            <button
+              key={action.actionId}
+              type="button"
+              disabled
+              className="cursor-not-allowed rounded-md border border-slate-200 bg-slate-100 px-3 py-1.5 text-xs font-medium text-slate-400"
+              data-testid={`style-library-disabled-action-${action.actionId}`}
+              title={`${action.disabledReason} · ${action.deferredStory}`}
+            >
+              {action.label}
+            </button>
+          ))}
+        </div>
       </section>
 
       <section

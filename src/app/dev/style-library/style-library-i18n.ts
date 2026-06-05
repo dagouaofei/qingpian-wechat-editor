@@ -141,6 +141,59 @@ export type StyleLibraryUiCopy = {
   promotePatchPreview: string;
   summaryPromoteProposalsAvailable: string;
   sectionPromoteSummary: string;
+  sectionStyleRuleSummary: string;
+  summaryStyleCount: string;
+  summaryPaletteCount: string;
+  summaryRuleCount: string;
+  summaryCopySafeRules: string;
+  summarySelectionRules: string;
+  summaryStylesReadyForExpansion: string;
+  summaryStylesMissingPalette: string;
+  summaryRulesWithWarnings: string;
+  sectionStyleManagement: string;
+  sectionPaletteManagement: string;
+  sectionRuleManagement: string;
+  styleManagementHint: string;
+  styleManagementDisabledActionsTitle: string;
+  styleManagementDisabledActions: StyleLibraryDisabledActionCopy[];
+  styleIntendedUseCases: string;
+  styleTargetArticleTypes: string;
+  styleTone: string;
+  styleDensity: string;
+  styleLinkedPalettes: string;
+  styleLinkedVariants: string;
+  styleLinkedRules: string;
+  styleS10Hint: string;
+  styleReadyForExpansion: string;
+  styleNotReadyForExpansion: string;
+  styleOperatorNotes: string;
+  palettePrimaryColor: string;
+  paletteAccentColor: string;
+  paletteBackgroundColor: string;
+  paletteTextColor: string;
+  paletteBorderColor: string;
+  paletteCopySafeNotes: string;
+  paletteContrastNotes: string;
+  paletteCompatibleStyles: string;
+  paletteLinkedVariants: string;
+  ruleTypeCopySafe: string;
+  ruleTypeSelection: string;
+  ruleSeverityBlocking: string;
+  ruleSeverityWarning: string;
+  ruleSeverityInfo: string;
+  ruleAppliesTo: string;
+  ruleRelatedContract: string;
+  ruleRelatedStory: string;
+  ruleLinkedStyles: string;
+  ruleLinkedVariants: string;
+  ruleEvidenceRefs: string;
+  sectionCandidateStyleLinks: string;
+  candidateLinkedStyle: string;
+  candidateLinkedPalette: string;
+  candidateLinkedRules: string;
+  candidateUnlinkedStyle: string;
+  candidateUnlinkedPalette: string;
+  candidateUnlinkedRule: string;
 };
 
 const LIFECYCLE_STATES: StyleLibraryLifecycleState[] = [
@@ -309,6 +362,91 @@ const UI_COPY: Record<StyleLibraryLocale, StyleLibraryUiCopy> = {
     promotePatchPreview: "Registry patch 预览（proposed · inactive）",
     summaryPromoteProposalsAvailable: "可生成上线提案",
     sectionPromoteSummary: "上线审核概览",
+    sectionStyleRuleSummary: "风格 / 配色 / 规则概览",
+    summaryStyleCount: "风格数",
+    summaryPaletteCount: "配色数",
+    summaryRuleCount: "规则数",
+    summaryCopySafeRules: "复制安全规则",
+    summarySelectionRules: "样式选择规则",
+    summaryStylesReadyForExpansion: "可进入扩展的风格",
+    summaryStylesMissingPalette: "缺少配色的风格",
+    summaryRulesWithWarnings: "有提醒的规则",
+    sectionStyleManagement: "风格管理",
+    sectionPaletteManagement: "配色管理",
+    sectionRuleManagement: "规则管理",
+    styleManagementHint:
+      "当前为 code-backed v0 · 仅运营可读 metadata · 在线编辑 / 写入将在后续版本处理",
+    styleManagementDisabledActionsTitle: "管理动作（disabled）",
+    styleManagementDisabledActions: [
+      {
+        actionId: "create-style",
+        label: "新建风格",
+        disabledReason: "code-backed v0 · 需通过 PR 登记 style metadata",
+        deferredStory: "S10",
+      },
+      {
+        actionId: "create-palette",
+        label: "新建配色",
+        disabledReason: "code-backed v0 · 需通过 PR 登记 palette metadata",
+        deferredStory: "S10",
+      },
+      {
+        actionId: "create-rule",
+        label: "新建规则",
+        disabledReason: "code-backed v0 · 需通过 PR 登记 rule metadata",
+        deferredStory: "S10",
+      },
+      {
+        actionId: "link-candidate",
+        label: "关联候选样式",
+        disabledReason: "关联关系当前由 code-backed metadata 维护",
+        deferredStory: "S10",
+      },
+      {
+        actionId: "mark-s10-ready",
+        label: "标记可进入 S10 扩展",
+        disabledReason: "S10 扩展标记为只读展示 · 需 PO / 架构评审",
+        deferredStory: "S10",
+      },
+    ],
+    styleIntendedUseCases: "适用场景",
+    styleTargetArticleTypes: "适用文章类型",
+    styleTone: "tone",
+    styleDensity: "density",
+    styleLinkedPalettes: "关联 palette",
+    styleLinkedVariants: "关联 variants / candidates",
+    styleLinkedRules: "关联 rules",
+    styleS10Hint: "S10 扩展提示",
+    styleReadyForExpansion: "可用于批量扩展",
+    styleNotReadyForExpansion: "暂不可批量扩展",
+    styleOperatorNotes: "运营备注",
+    palettePrimaryColor: "主色",
+    paletteAccentColor: "强调色",
+    paletteBackgroundColor: "背景色",
+    paletteTextColor: "文字色",
+    paletteBorderColor: "边框色",
+    paletteCopySafeNotes: "copy-safe 说明",
+    paletteContrastNotes: "对比度说明",
+    paletteCompatibleStyles: "兼容风格",
+    paletteLinkedVariants: "关联候选样式",
+    ruleTypeCopySafe: "copy_safe",
+    ruleTypeSelection: "selection",
+    ruleSeverityBlocking: "阻塞",
+    ruleSeverityWarning: "提醒",
+    ruleSeverityInfo: "信息",
+    ruleAppliesTo: "适用范围",
+    ruleRelatedContract: "关联合约",
+    ruleRelatedStory: "关联 Story",
+    ruleLinkedStyles: "关联风格",
+    ruleLinkedVariants: "关联 variant",
+    ruleEvidenceRefs: "证据引用",
+    sectionCandidateStyleLinks: "风格 / 配色 / 规则关联",
+    candidateLinkedStyle: "关联风格",
+    candidateLinkedPalette: "关联配色",
+    candidateLinkedRules: "关联规则",
+    candidateUnlinkedStyle: "未关联风格",
+    candidateUnlinkedPalette: "未关联配色",
+    candidateUnlinkedRule: "未关联规则",
   },
   en: {
     workbenchTitle: "Style Library Workbench",
@@ -442,6 +580,91 @@ const UI_COPY: Record<StyleLibraryLocale, StyleLibraryUiCopy> = {
     promotePatchPreview: "Registry patch preview (proposed · inactive)",
     summaryPromoteProposalsAvailable: "Promote proposals available",
     sectionPromoteSummary: "Promote review summary",
+    sectionStyleRuleSummary: "Style / Palette / Rule summary",
+    summaryStyleCount: "Styles",
+    summaryPaletteCount: "Palettes",
+    summaryRuleCount: "Rules",
+    summaryCopySafeRules: "Copy-safe rules",
+    summarySelectionRules: "Selection rules",
+    summaryStylesReadyForExpansion: "Styles ready for expansion",
+    summaryStylesMissingPalette: "Styles missing palette",
+    summaryRulesWithWarnings: "Rules with warnings",
+    sectionStyleManagement: "Style Management",
+    sectionPaletteManagement: "Palette Management",
+    sectionRuleManagement: "Rule Management",
+    styleManagementHint:
+      "Code-backed v0 · operator-readable metadata only · online editing/writes deferred",
+    styleManagementDisabledActionsTitle: "Management actions (disabled)",
+    styleManagementDisabledActions: [
+      {
+        actionId: "create-style",
+        label: "Create Style",
+        disabledReason: "Code-backed v0 · register style metadata via PR",
+        deferredStory: "S10",
+      },
+      {
+        actionId: "create-palette",
+        label: "Create Palette",
+        disabledReason: "Code-backed v0 · register palette metadata via PR",
+        deferredStory: "S10",
+      },
+      {
+        actionId: "create-rule",
+        label: "Create Rule",
+        disabledReason: "Code-backed v0 · register rule metadata via PR",
+        deferredStory: "S10",
+      },
+      {
+        actionId: "link-candidate",
+        label: "Link Candidate",
+        disabledReason: "Associations maintained in code-backed metadata",
+        deferredStory: "S10",
+      },
+      {
+        actionId: "mark-s10-ready",
+        label: "Mark S10 Ready",
+        disabledReason: "S10 readiness is read-only · requires PO/architecture review",
+        deferredStory: "S10",
+      },
+    ],
+    styleIntendedUseCases: "Intended use cases",
+    styleTargetArticleTypes: "Target article types",
+    styleTone: "tone",
+    styleDensity: "density",
+    styleLinkedPalettes: "Linked palettes",
+    styleLinkedVariants: "Linked variants / candidates",
+    styleLinkedRules: "Linked rules",
+    styleS10Hint: "S10 expansion hint",
+    styleReadyForExpansion: "Ready for batch expansion",
+    styleNotReadyForExpansion: "Not ready for batch expansion",
+    styleOperatorNotes: "Operator notes",
+    palettePrimaryColor: "Primary",
+    paletteAccentColor: "Accent",
+    paletteBackgroundColor: "Background",
+    paletteTextColor: "Text",
+    paletteBorderColor: "Border",
+    paletteCopySafeNotes: "Copy-safe notes",
+    paletteContrastNotes: "Contrast notes",
+    paletteCompatibleStyles: "Compatible styles",
+    paletteLinkedVariants: "Linked candidates",
+    ruleTypeCopySafe: "copy_safe",
+    ruleTypeSelection: "selection",
+    ruleSeverityBlocking: "Blocking",
+    ruleSeverityWarning: "Warning",
+    ruleSeverityInfo: "Info",
+    ruleAppliesTo: "Applies to",
+    ruleRelatedContract: "Related contract",
+    ruleRelatedStory: "Related story",
+    ruleLinkedStyles: "Linked styles",
+    ruleLinkedVariants: "Linked variants",
+    ruleEvidenceRefs: "Evidence refs",
+    sectionCandidateStyleLinks: "Style / Palette / Rule links",
+    candidateLinkedStyle: "Linked style",
+    candidateLinkedPalette: "Linked palette",
+    candidateLinkedRules: "Linked rules",
+    candidateUnlinkedStyle: "No linked style",
+    candidateUnlinkedPalette: "No linked palette",
+    candidateUnlinkedRule: "No linked rules",
   },
 };
 
