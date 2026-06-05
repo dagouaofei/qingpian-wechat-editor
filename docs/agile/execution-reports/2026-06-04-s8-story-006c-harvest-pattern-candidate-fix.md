@@ -147,7 +147,8 @@ Drift 001、002、004、005、006、007、008、009（状态 `IMPLEMENTED_PENDIN
 
 ## 17. Merge
 
-- Commits：`3a6750a` · `07f7a88`
-- Merge：`feature/s8-story-006c-harvest-pattern-candidate-fix` → `sprint/s8-wechat-safe-css-contract`（见 closeout commit）
+- Commits：`3a6750a`（fix）· `07f7a88`（report hash）· `72e8405`（Done closeout）
+- Sprint HEAD（fast-forward）：`72e8405`
+- Merge：`feature/s8-story-006c-harvest-pattern-candidate-fix` → `sprint/s8-wechat-safe-css-contract`
 - **未 merge** `release/1` · `main`
 - **006D 未启动**（待用户确认）
