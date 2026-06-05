@@ -73,6 +73,32 @@ export {
 } from "./registry-patch";
 
 export {
+  LIFECYCLE_BLOCK_REASON_CODES,
+  STYLE_LIBRARY_LIFECYCLE_ORDER,
+  canTransitionLifecycle,
+  createLifecycleChangeProposal,
+  getAllowedLifecycleTransitions,
+  getBlockedLifecycleTransitions,
+  getLifecycleTransitionTargets,
+  validateLifecycleTransition,
+} from "./lifecycle";
+export type {
+  LifecycleChangeProposal,
+  LifecycleDistributionImpact,
+  LifecycleRuntimeImpact,
+  LifecycleTransitionEvaluation,
+  LifecycleTransitionOptions,
+} from "./lifecycle";
+
+export {
+  LIFECYCLE_FORWARD_PATH,
+  LIFECYCLE_PROMOTE_STORY,
+  LIFECYCLE_VALIDATOR_STORY,
+  isEvidenceGatedTransition,
+  isPromoteTransition,
+} from "./lifecycle-rules";
+
+export {
   StyleLibraryError,
   getStyleLibraryAssetById,
   getStyleLibrarySeedAssets,

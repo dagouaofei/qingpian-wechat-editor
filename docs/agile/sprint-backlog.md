@@ -3895,11 +3895,30 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 
 ## S9-STORY-004 Variant Lifecycle Management
 
-**优先级：** P0 · **状态：** Planned
+**优先级：** P0 · **状态：** **In Review**（2026-06-05 · DECISION-099 · proposal-based transition v0）· **工作分支：** `feature/s9-story-004-variant-lifecycle-management`（**未 merge sprint**）
 
-**目标（DECISION-097 调整后）：** **运营可见 lifecycle pipeline + 最小状态流转**；运营人员能看懂候选样式在各阶段的状态，并完成最小 lifecycle 写操作（非纯状态机技术规则文档）。
+**目标（DECISION-097 / DECISION-099）：** **运营可见 lifecycle pipeline + Lifecycle Change Proposal 预览**；运营人员能看懂状态、blocked reason、下一步与 promote 边界。
 
-**非目标：** 不自动 promote 无证据 variant · 不绕过 PO Paste QA · 不以工程师 manifest 表格为主界面
+**非目标：** 不写 manifest · 不激活 patch · 不 promote · 不进入 user_selectable / default_eligible · 不改 runtime
+
+**验收标准：**
+
+- [x] AC-1 工作分支 `feature/s9-story-004-variant-lifecycle-management` 已创建
+- [x] AC-2 lifecycle transition engine（`lifecycle.ts`）
+- [x] AC-3 Lifecycle Change Proposal
+- [x] AC-4 `/dev/style-library` Lifecycle Management 区块
+- [x] AC-5 006D seed 为 paste_qa_pass · blocked → user_selectable（S9-STORY-007）
+- [x] AC-6 user_selectable → default_eligible 需 PO 决策
+- [x] AC-7 evidence-gated transitions blocked 规则
+- [x] AC-8 deprecated 需 reason
+- [x] AC-9 zh/en lifecycle 文案
+- [x] AC-10 无 manifest 写入 · 无 form submit
+- [x] AC-11 [`style-library-lifecycle-management.md`](../architecture/style-library-lifecycle-management.md) 已新增
+- [x] AC-12 DECISION-099 · 敏捷文档已同步
+- [x] AC-13 测试覆盖 transition / proposal / view model
+- [x] AC-14 `corepack pnpm lint` PASS
+- [x] AC-15 `corepack pnpm test` PASS
+- [x] AC-16 `corepack pnpm build` PASS
 
 ---
 

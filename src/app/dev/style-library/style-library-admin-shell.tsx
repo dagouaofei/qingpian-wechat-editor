@@ -118,6 +118,14 @@ function LifecyclePipelineColumn({
         <p className="mt-0.5 text-xs text-slate-500">
           {ui.pipelineAssetsCount(group.assets.length)}
         </p>
+        <p className="mt-2 text-[11px] leading-snug text-slate-600">
+          <span className="font-medium text-slate-500">{ui.lifecycleColumnMeaning}: </span>
+          {group.businessMeaning}
+        </p>
+        <p className="mt-1 text-[11px] leading-snug text-slate-600">
+          <span className="font-medium text-slate-500">{ui.lifecycleColumnNextAction}: </span>
+          {group.nextAction}
+        </p>
       </div>
       <ul className="flex flex-1 flex-col gap-2 p-2">
         {group.assets.length === 0 ? (
@@ -144,6 +152,164 @@ function LifecyclePipelineColumn({
           ))
         )}
       </ul>
+    </div>
+  );
+}
+
+function LifecycleTransitionPanel({
+  card,
+  viewModel,
+}: {
+  card: StyleLibraryCandidateReviewCard;
+  viewModel: StyleLibraryAdminViewModel;
+}) {
+  const { ui } = viewModel;
+  const panel = card.lifecyclePanel;
+
+  return (
+    <div
+      className="mt-4 rounded-lg border border-indigo-100 bg-indigo-50/40 px-3 py-3"
+      data-testid={`style-library-lifecycle-panel-${card.assetId}`}
+    >
+      <p className="text-xs font-semibold uppercase tracking-wide text-indigo-800">
+        {ui.sectionLifecycleManagement}
+      </p>
+      <p className="mt-1 text-[11px] text-indigo-700">{ui.lifecycleTransitionPanelHint}</p>
+
+      <dl className="mt-3 grid gap-2 text-sm sm:grid-cols-2">
+        <div>
+          <dt className="text-xs text-slate-500">{ui.lifecycleCurrentState}</dt>
+          <dd>{panel.currentStateDescription}</dd>
+        </div>
+        <div>
+          <dt className="text-xs text-slate-500">{ui.lifecycleStatusExplanation}</dt>
+          <dd>{panel.statusExplanation}</dd>
+        </div>
+        <div>
+          <dt className="text-xs text-slate-500">{ui.lifecycleNextStepSuggestion}</dt>
+          <dd className="text-amber-800">{panel.nextStepSuggestion}</dd>
+        </div>
+        <div>
+          <dt className="text-xs text-slate-500">{ui.lifecycleRuntimeImpact}</dt>
+          <dd>{panel.runtimeImpactSummary}</dd>
+        </div>
+        {panel.blockedReason ? (
+          <div className="sm:col-span-2">
+            <dt className="text-xs text-slate-500">{ui.lifecycleBlockedReason}</dt>
+            <dd className="font-medium text-rose-800">{panel.blockedReason}</dd>
+          </div>
+        ) : null}
+        <div>
+          <dt className="text-xs text-slate-500">{ui.lifecycleRequiredEvidence}</dt>
+          <dd className="font-mono text-xs">
+            {panel.requiredEvidenceIds.join(", ") || "—"}
+          </dd>
+        </div>
+        <div>
+          <dt className="text-xs text-slate-500">{ui.lifecycleLinkedStory}</dt>
+          <dd>{panel.linkedFutureStory ?? "—"}</dd>
+        </div>
+      </dl>
+
+      <div className="mt-4 grid gap-4 lg:grid-cols-2">
+        <div>
+          <p className="text-xs font-medium text-slate-600">{ui.lifecycleBlockedTransitions}</p>
+          <ul className="mt-2 space-y-2">
+            {panel.blockedTransitions.map((transition) => (
+              <li
+                key={transition.targetState}
+                className="rounded border border-rose-100 bg-white px-2 py-2 text-xs"
+                data-testid={`style-library-blocked-transition-${transition.targetState}-${card.assetId}`}
+              >
+                <p className="font-medium text-slate-800">
+                  {transition.targetLabel}{" "}
+                  <span className="font-mono text-[10px] text-slate-400">
+                    ({transition.rawKey})
+                  </span>
+                </p>
+                <ul className="mt-1 space-y-0.5 text-rose-700">
+                  {transition.blockedReasons.map((reason) => (
+                    <li key={reason}>{reason}</li>
+                  ))}
+                </ul>
+                {transition.requiredStory ? (
+                  <p className="mt-1 text-slate-500">{transition.requiredStory}</p>
+                ) : null}
+                <details className="mt-2">
+                  <summary className="cursor-pointer text-indigo-700">
+                    {ui.lifecycleProposalPreview}
+                  </summary>
+                  <ProposalPreview proposal={transition.proposal} ui={ui} />
+                </details>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <p className="text-xs font-medium text-slate-600">{ui.lifecycleAllowedTransitions}</p>
+          {panel.allowedTransitions.length === 0 ? (
+            <p className="mt-2 text-xs text-slate-500">—</p>
+          ) : (
+            <ul className="mt-2 space-y-2">
+              {panel.allowedTransitions.map((transition) => (
+                <li
+                  key={transition.targetState}
+                  className="rounded border border-emerald-100 bg-white px-2 py-2 text-xs"
+                  data-testid={`style-library-allowed-transition-${transition.targetState}-${card.assetId}`}
+                >
+                  <p className="font-medium text-slate-800">
+                    {transition.targetLabel}{" "}
+                    <span className="font-mono text-[10px] text-slate-400">
+                      ({transition.rawKey})
+                    </span>
+                  </p>
+                  <details className="mt-2" open>
+                    <summary className="cursor-pointer text-indigo-700">
+                      {ui.lifecycleProposalPreview}
+                    </summary>
+                    <ProposalPreview proposal={transition.proposal} ui={ui} />
+                  </details>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ProposalPreview({
+  proposal,
+  ui,
+}: {
+  proposal: StyleLibraryCandidateReviewCard["lifecyclePanel"]["blockedTransitions"][number]["proposal"];
+  ui: StyleLibraryAdminViewModel["ui"];
+}) {
+  return (
+    <div
+      className="mt-2 rounded border border-slate-200 bg-slate-50 p-2 text-[11px] text-slate-700"
+      data-testid={`style-library-proposal-${proposal.proposalId}`}
+    >
+      <p className="font-mono text-[10px] text-slate-500">{proposal.proposalId}</p>
+      <p className="mt-1">
+        {proposal.fromLifecycle} → {proposal.toLifecycle}
+      </p>
+      <p className="mt-1">
+        {proposal.allowed ? ui.lifecycleProposalAllowed : ui.lifecycleProposalBlocked}
+      </p>
+      <p className="mt-1">
+        {ui.lifecycleDistributionImpact}: userSelectable=
+        {String(proposal.distributionImpact.userSelectable)}, defaultEligible=
+        {String(proposal.distributionImpact.defaultEligible)}, release1Required=
+        {String(proposal.distributionImpact.release1Required)}
+      </p>
+      <p className="mt-1">
+        {ui.lifecycleRuntimeImpact}: {ui.lifecycleNoRuntimeChange}
+      </p>
+      {proposal.requiredStory ? (
+        <p className="mt-1">{ui.lifecycleLinkedStory}: {proposal.requiredStory}</p>
+      ) : null}
     </div>
   );
 }
@@ -221,6 +387,8 @@ function CandidateReviewCard({
           </li>
         </ul>
       </div>
+
+      <LifecycleTransitionPanel card={card} viewModel={viewModel} />
 
       <div
         className="mt-4 space-y-2"
@@ -392,6 +560,20 @@ export function StyleLibraryAdminShell({ viewModel }: Props) {
             />
           ))}
         </div>
+      </section>
+
+      <section
+        aria-labelledby="style-library-lifecycle-management-heading"
+        data-testid="style-library-lifecycle-management"
+        className="space-y-4"
+      >
+        <h2
+          id="style-library-lifecycle-management-heading"
+          className="text-sm font-semibold uppercase tracking-wide text-slate-700"
+        >
+          {ui.sectionLifecycleManagement}
+        </h2>
+        <p className="text-sm text-slate-600">{ui.lifecycleTransitionPanelHint}</p>
       </section>
 
       <section
