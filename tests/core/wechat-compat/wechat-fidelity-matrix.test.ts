@@ -76,6 +76,18 @@ describe("S8 WeChat Fidelity Matrix", () => {
     }
   });
 
+  it("S8M-HEAD-002 reflects S8-STORY-007 validator false positive audit", () => {
+    const row = buildWechatFidelityMatrix().find(
+      (r) => r.matrixRowId === "S8M-HEAD-002",
+    );
+    expect(row).toBeDefined();
+    expect(row!.validatorStatus).toBe("FAIL");
+    expect(row!.pasteStatus).toBe("PASS");
+    expect(row!.contractAction).toContain("VALIDATOR_FALSE_POSITIVE");
+    expect(row!.contractAction).toContain("font-variant-numeric");
+    expect(row!.notes).toContain("007 audit");
+  });
+
   it("includes 006C harvest candidates and 006D PO paste results (Mode B)", () => {
     const rows = buildWechatFidelityMatrix();
     for (const id of S8_006D_HARVEST_MATRIX_ROW_IDS) {

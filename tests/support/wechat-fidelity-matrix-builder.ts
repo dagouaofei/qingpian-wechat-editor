@@ -162,6 +162,7 @@ export function applyFidelityPasteOverlay(
     pasteStatus: overlay.pasteStatus,
     pasteEvidence: overlay.pasteEvidence,
     contractAction: overlay.contractAction,
+    ...(overlay.notes != null ? { notes: overlay.notes } : {}),
   };
 }
 

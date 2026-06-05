@@ -253,7 +253,7 @@
 |------------|------|
 | **S8-STORY-006C** | card · left-border · title-divider · info-box（P0 Drift 簇） |
 | **S8-STORY-006D** | Matrix 16 未测行 + 19 行 re-paste |
-| **S8-STORY-007** | HEAD-002 validator false positive · Preview/Copy 分叉 |
+| **S8-STORY-007** | HEAD-002 **Done** — validator false positive（`font-variant-numeric` uncatalogued）· Preview/Copy 同源 · no S8 code change |
 | **S9** | 主题视觉升级、丰富装饰、非保真优先的版式探索 |
 
 ---

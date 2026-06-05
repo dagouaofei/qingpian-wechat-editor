@@ -59,7 +59,7 @@
 | S8-STORY-006B-FIX-B | 批量补 article evidence（5–10） | docs | Planned |
 | S8-STORY-006C | 共性 Copy-safe renderer / fallback 修复 | feature | **Done**（2026-06-04 · merge sprint） |
 | S8-STORY-006D | Matrix 回归与 Paste 复测 | docs + QA | **Done**（2026-06-05） |
-| S8-STORY-007 | Preview / Copy 统一渲染方案审计 | docs | Planned |
+| S8-STORY-007 | Preview / Copy / Validator 审计（HEAD-002） | docs | **Done**（2026-06-05） |
 | S8-STORY-008 | Sprint 9 Style Management Replanning | docs | **Done**（DECISION-092） |
 | S8-STORY-009 | S8 Contract Audit 与关闭准备 | docs | Planned |
 
@@ -121,7 +121,7 @@ Sprint 8 关闭须用户确认，且至少满足：
 - [ ] Profile + Validator 可运行（003、004）
 - [ ] Fidelity Matrix 覆盖 10 类控件、每类 2–4 variant（005）
 - [ ] 实机粘贴 QA 流程与记录模板可用（006）
-- [ ] Preview/Copy 审计结论与后续 Story 拆分（007）
+- [x] HEAD-002 Preview/Copy/Validator 审计（007 · no S8 code change）
 - [x] S9 规划重排（008 · DECISION-092）
 - [ ] S8 audit 报告与 merge `release/1`（009）
 

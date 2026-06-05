@@ -589,11 +589,11 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 **Stories：** S8-STORY-001 ~ S8-STORY-009 — 见 `sprint-backlog.md`
 
-**当前：** **006D Done**（2026-06-05）· **008 Done**（S9 重排）· **007 / 009 收口待启动**
+**当前：** **006D/007/008 Done** · **009 closeout 待启动**
 
 **S8 收口项（不被 S9 扩张污染）：**
 
-- **S8-STORY-007** — Preview/Copy 审计 · HEAD-002 validator vs paste
+- **S8-STORY-009** — Contract audit · merge S8 → `release/1`
 - **DRIFT-003** — observation · 产品澄清
 - **S8-STORY-009** — Contract audit · merge Sprint 8 → `release/1`
 
