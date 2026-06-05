@@ -71,7 +71,7 @@
 |-------|------|------|
 | S9-STORY-001 | Style Management Domain Model | **Done**（2026-06-05 · [`style-management-domain-model.md`](../architecture/style-management-domain-model.md)） |
 | S9-STORY-002 | File-backed Style Library Storage | **Done**（2026-06-05 · [`style-library-storage.md`](../architecture/style-library-storage.md) · DECISION-095） |
-| S9-STORY-003 | Style Library Admin Shell | **In Review**（FIX-A operator workbench · FIX-B zh/en i18n · `/dev/style-library` · DECISION-096 · **DECISION-097** · **DECISION-098**） |
+| S9-STORY-003 | Style Library Admin Shell | **Done**（2026-06-05 · FIX-A/B · `/dev/style-library` · merged sprint @ `35000ab` · DECISION-096 · **DECISION-097** · **DECISION-098**） |
 | S9-STORY-004 | Variant Lifecycle Management | Planned · **运营可见 lifecycle pipeline + 最小状态流转** |
 | S9-STORY-005 | Harvest HTML to Candidate Workflow | Planned · **新增候选样式向导：粘贴 HTML / 采集片段 → candidate review** |
 | S9-STORY-006 | Preview / Copy / Validator Integration | Planned · **候选样式 Preview · Copy HTML · validator 运营可读面板** |

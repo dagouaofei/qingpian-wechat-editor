@@ -501,3 +501,4 @@
 | 2026-06-05 | Sprint 9 | **S9-PLANNING-REFRAME**：DECISION-097 operator-facing acceptance · 调整 S9 Story 004~009 验收口径 | 文档 / 敏捷 | DECISION-097 · S9-STORY-003-FIX-A |
 | 2026-06-05 | Sprint 9 | **S9-STORY-003-FIX-A**：Style Library Workbench operator UX reframe · `/dev/style-library` | 代码 / 文档 | S9-STORY-003-FIX-A · DECISION-097 |
 | 2026-06-05 | Sprint 9 | **S9-STORY-003-FIX-B**：Style Library Workbench zh/en i18n toggle · DECISION-098 | 代码 / 文档 | S9-STORY-003-FIX-B · DECISION-098 |
+| 2026-06-05 | Sprint 9 | merge `feature/s9-story-003-style-library-admin-shell` → `sprint/s9-style-management-system-v0` @ `35000ab` · 用户确认接受 S9-STORY-003 / FIX-A / FIX-B | Git | S9-STORY-003 |

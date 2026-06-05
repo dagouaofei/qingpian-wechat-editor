@@ -3858,7 +3858,7 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 
 ## S9-STORY-003 Style Library Admin Shell
 
-**优先级：** P0 · **状态：** **In Review**（S9-STORY-003-FIX-A/B · operator workbench + zh/en i18n · DECISION-096 · **DECISION-097** · **DECISION-098**）· **工作分支：** `feature/s9-story-003-style-library-admin-shell`（**未 merge sprint**）
+**优先级：** P0 · **状态：** **Done**（2026-06-05 · 用户确认接受 S9-STORY-003 / FIX-A / FIX-B · DECISION-096 · **DECISION-097** · **DECISION-098** · merged sprint @ `35000ab`）· **工作分支：** `feature/s9-story-003-style-library-admin-shell`（已 merge 至 `sprint/s9-style-management-system-v0`）
 
 **目标：** `/dev/style-library` 面向**运营管理人员**的样式管理工作台 v0（只读）；Workbench Header · Status Summary · Lifecycle Pipeline · Candidate Review · Diagnostics。
 
