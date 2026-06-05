@@ -497,3 +497,7 @@
 | 2026-06-05 | Sprint 9 | **S9-STORY-002 Done**：File-backed Style Library Storage · `src/core/style-library/` · DECISION-095 | 代码 / 文档 | S9-STORY-002 · DECISION-095 |
 | 2026-06-05 | Sprint 9 | merge `feature/s9-story-002-file-backed-style-library-storage` → `sprint/s9-style-management-system-v0` @ `859c0ed` | Git | S9-STORY-002 |
 | 2026-06-05 | Sprint 9 | 新增跨项目迁移指导 [`preview-copy-fidelity-implementation-guide.md`](../architecture/preview-copy-fidelity-implementation-guide.md)（Preview/Copy 一致性萃取） | 文档 / 架构 | — |
+| 2026-06-05 | Sprint 9 | **S9-STORY-003 Done**：Style Library Admin Shell · `/dev/style-library` · DECISION-096 | 代码 / 文档 | S9-STORY-003 · DECISION-096 |
+| 2026-06-05 | Sprint 9 | **S9-PLANNING-REFRAME**：DECISION-097 operator-facing acceptance · 调整 S9 Story 004~009 验收口径 | 文档 / 敏捷 | DECISION-097 · S9-STORY-003-FIX-A |
+| 2026-06-05 | Sprint 9 | **S9-STORY-003-FIX-A**：Style Library Workbench operator UX reframe · `/dev/style-library` | 代码 / 文档 | S9-STORY-003-FIX-A · DECISION-097 |
+| 2026-06-05 | Sprint 9 | **S9-STORY-003-FIX-B**：Style Library Workbench zh/en i18n toggle · DECISION-098 | 代码 / 文档 | S9-STORY-003-FIX-B · DECISION-098 |

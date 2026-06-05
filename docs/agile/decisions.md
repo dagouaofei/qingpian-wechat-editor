@@ -91,6 +91,7 @@
 | DECISION-093 | 2026-06-05 | 关闭 Sprint 8；接受 Contract & Fidelity Audit Grade A- · P0=0；merge `sprint/s8-wechat-safe-css-contract` → `release/1`；不 merge `main`；Sprint 9 可从 `release/1` 启动 | 已确认 |
 | DECISION-094 | 2026-06-05 | 正式启动 Sprint 9：Style Management System v0；从 `release/1` 创建 `sprint/s9-style-management-system-v0`；首轮执行 S9-STORY-001 Style Management Domain Model | 已确认 |
 | DECISION-095 | 2026-06-05 | Style Library v0 采用 code-backed TypeScript manifest；独立 `@/core/style-library`；不接入 runtime StyleRegistry 默认加载路径 | 已确认 |
+| DECISION-096 | 2026-06-05 | Style Library Admin Shell v0 使用 `/dev/style-library`；内部只读治理工具；无权限系统；非正式 SaaS 后台 | 已确认 |
 
 ### DECISION-019 详情
 
@@ -907,4 +908,70 @@
 - **影响范围：** `src/core/style-library/`、`style-library-storage.md`、`sprint-backlog.md`、`changelog.md`
 - **关联：** S9-STORY-002、DECISION-092、DECISION-094、S8-STORY-006D
 - **状态：** **已确认**（2026-06-05 · S9-STORY-002）
+
+### DECISION-096 详情（Style Library Admin Shell v0 · `/dev/style-library`）
+
+- **日期：** 2026-06-05
+- **背景：**
+  - S9-STORY-003 需只读 Admin Shell 浏览 Style Library v0
+  - S9 v0 无权限系统 · 无写操作 · 非正式 SaaS 运营后台
+  - 项目已有 `/dev/style-fidelity` 内部 debug 页惯例
+- **决策：**
+  1. Admin Shell v0 路由为 **`/dev/style-library`**（非 `/admin/style-library`）
+  2. **只读** — 浏览 manifest · assets · patches · evidence · validation；无 CRUD / promote / patch 激活
+  3. 数据**仅**来自 `@/core/style-library`；不读取 runtime `@/core/styles` registry
+  4. 页面明确提示 registry patch **未接入** runtime · 不影响 Gallery / Preview / Copy
+  5. 正式 `/admin` + 权限 + 写操作留待后续 Story 评估
+- **影响范围：** `src/app/dev/style-library/`、`style-library-admin-shell.md`、`sprint-backlog.md`、`decisions.md`
+- **关联：** S9-STORY-003、DECISION-095、S9-STORY-004、S9-STORY-007
+- **状态：** **已确认**（2026-06-05 · S9-STORY-003）
+
+### DECISION-097 详情（Sprint 9 operator-facing acceptance）
+
+- **日期：** 2026-06-05
+- **背景：**
+  - Sprint 9 审查发现产品口径偏技术化 — 当前输出易被理解为 manifest / patch / evidence 数据浏览器
+  - S9 最终目标应为**面向运营管理人员**可用的 Style Management Workbench v0
+  - S9-STORY-003-FIX-A 已将 `/dev/style-library` reframe 为 operator workbench 只读雏形
+- **决策：**
+  1. **Sprint 9 关闭标准** — 不是 manifest / storage / validator 技术闭环 alone
+  2. **必须形成** 运营人员可理解、可操作的 **Style Management Workbench v0**
+  3. **S9 关闭前运营验收场景（七项）：**
+     - 能打开后台入口
+     - 能看到候选样式池
+     - 能看懂候选样式状态
+     - 能看到 preview / copy / validator 结果
+     - 能完成或模拟完成 promote 路径
+     - 能清楚区分 user_selectable 与 default_eligible
+     - 能支撑 S10 批量样式扩展
+  4. **后续 Story 验收口径调整：**
+     - **S9-STORY-004** — 运营可见 lifecycle pipeline + 最小状态流转
+     - **S9-STORY-005** — 新增候选样式向导（粘贴 HTML / 采集片段 → candidate review）
+     - **S9-STORY-006** — 候选 Preview · Copy HTML · validator 运营可读面板
+     - **S9-STORY-007** — 运营 promote review（进 user-selectable · 默认不进 default preset）
+     - **S9-STORY-008** — 优先级 **P0**；style / palette / rule 运营可读列表与基础管理入口
+     - **S9-STORY-009** — 运营验收 audit + 技术 audit
+  5. **S9-STORY-003** 标记 **In Review**；**未 merge sprint** 直至 operator reframe 验收通过
+  6. **本轮不启动 S9-STORY-004** · 不关闭 Sprint 9 · 不 merge `release/1` / `main`
+- **影响范围：** `sprint9-style-management-system-v0.md`、`sprint-backlog.md`、`sprint-plan.md`、`style-library-admin-shell.md`、`changelog.md`、`decisions.md`
+- **关联：** S9-STORY-003-FIX-A、S9-PLANNING-REFRAME、DECISION-096、S9-STORY-004~009
+- **状态：** **已确认**（2026-06-05 · S9-PLANNING-REFRAME）
+
+### DECISION-098 详情（Style Library Workbench v0 · zh/en 双语）
+
+- **日期：** 2026-06-05
+- **背景：**
+  - S9-STORY-003-FIX-B 需让运营工作台支持中文 / English 切换
+  - 默认面向中文运营人员，但需保留英文以便技术协作与 review
+  - 不引入全站 i18n 框架或大型依赖
+- **决策：**
+  1. `/dev/style-library` 支持 **zh / en** 双语切换（**DECISION-098**）
+  2. **默认语言：中文（`zh`）**；`?lang=en` 切换英文；无 `lang` 参数时默认 `zh`
+  3. 实现方式：页面内轻量 dictionary（`style-library-i18n.ts`）· Header 语言链接 · **无**全站 i18n
+  4. **不翻译** assetId · runtimeVariantId · patchId · evidenceId · matrixRowId；lifecycle raw key 可保留于 tooltip / 小字
+  5. i18n **不影响** manifest · runtime StyleRegistry · Gallery / Preview / Copy
+  6. **范围限定** 当前 Workbench 页面；不启动 S9-STORY-004 · 不 merge sprint（本轮）
+- **影响范围：** `src/app/dev/style-library/style-library-i18n.ts`、`style-library-admin-shell.md`、`sprint-backlog.md`、`decisions.md`
+- **关联：** S9-STORY-003-FIX-B、DECISION-097、DECISION-096
+- **状态：** **已确认**（2026-06-05 · S9-STORY-003-FIX-B）
 
