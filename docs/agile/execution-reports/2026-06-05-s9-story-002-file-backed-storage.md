@@ -127,7 +127,7 @@
 
 ## 14. Commit
 
-- Commit hash：（commit 后填写）
+- Commit hash：`ef71dbb` — `feat: add S9 style library code-backed storage layer`
 
 ## 15. 越界检查
 
