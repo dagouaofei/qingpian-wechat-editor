@@ -91,6 +91,7 @@
 | DECISION-093 | 2026-06-05 | 关闭 Sprint 8；接受 Contract & Fidelity Audit Grade A- · P0=0；merge `sprint/s8-wechat-safe-css-contract` → `release/1`；不 merge `main`；Sprint 9 可从 `release/1` 启动 | 已确认 |
 | DECISION-094 | 2026-06-05 | 正式启动 Sprint 9：Style Management System v0；从 `release/1` 创建 `sprint/s9-style-management-system-v0`；首轮执行 S9-STORY-001 Style Management Domain Model | 已确认 |
 | DECISION-095 | 2026-06-05 | Style Library v0 采用 code-backed TypeScript manifest；独立 `@/core/style-library`；不接入 runtime StyleRegistry 默认加载路径 | 已确认 |
+| DECISION-096 | 2026-06-05 | Style Library Admin Shell v0 使用 `/dev/style-library`；内部只读治理工具；无权限系统；非正式 SaaS 后台 | 已确认 |
 
 ### DECISION-019 详情
 
@@ -907,4 +908,21 @@
 - **影响范围：** `src/core/style-library/`、`style-library-storage.md`、`sprint-backlog.md`、`changelog.md`
 - **关联：** S9-STORY-002、DECISION-092、DECISION-094、S8-STORY-006D
 - **状态：** **已确认**（2026-06-05 · S9-STORY-002）
+
+### DECISION-096 详情（Style Library Admin Shell v0 · `/dev/style-library`）
+
+- **日期：** 2026-06-05
+- **背景：**
+  - S9-STORY-003 需只读 Admin Shell 浏览 Style Library v0
+  - S9 v0 无权限系统 · 无写操作 · 非正式 SaaS 运营后台
+  - 项目已有 `/dev/style-fidelity` 内部 debug 页惯例
+- **决策：**
+  1. Admin Shell v0 路由为 **`/dev/style-library`**（非 `/admin/style-library`）
+  2. **只读** — 浏览 manifest · assets · patches · evidence · validation；无 CRUD / promote / patch 激活
+  3. 数据**仅**来自 `@/core/style-library`；不读取 runtime `@/core/styles` registry
+  4. 页面明确提示 registry patch **未接入** runtime · 不影响 Gallery / Preview / Copy
+  5. 正式 `/admin` + 权限 + 写操作留待后续 Story 评估
+- **影响范围：** `src/app/dev/style-library/`、`style-library-admin-shell.md`、`sprint-backlog.md`、`decisions.md`
+- **关联：** S9-STORY-003、DECISION-095、S9-STORY-004、S9-STORY-007
+- **状态：** **已确认**（2026-06-05 · S9-STORY-003）
 

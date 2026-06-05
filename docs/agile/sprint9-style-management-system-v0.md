@@ -6,7 +6,8 @@
 > **分支：** `sprint/s9-style-management-system-v0`（从 `release/1` 切出 · 2026-06-05）  
 > **领域模型：** [`style-management-domain-model.md`](../architecture/style-management-domain-model.md)  
 > **存储：** [`style-library-storage.md`](../architecture/style-library-storage.md)  
-> **决策：** DECISION-092 · **DECISION-094** · **DECISION-095**
+> **Admin Shell：** [`style-library-admin-shell.md`](../architecture/style-library-admin-shell.md) · `/dev/style-library`  
+> **决策：** DECISION-092 · **DECISION-094** · **DECISION-095** · **DECISION-096**
 
 ---
 
@@ -67,7 +68,7 @@
 |-------|------|------|
 | S9-STORY-001 | Style Management Domain Model | **Done**（2026-06-05 · [`style-management-domain-model.md`](../architecture/style-management-domain-model.md)） |
 | S9-STORY-002 | File-backed Style Library Storage | **Done**（2026-06-05 · [`style-library-storage.md`](../architecture/style-library-storage.md) · DECISION-095） |
-| S9-STORY-003 | Style Library Admin Shell | Planned |
+| S9-STORY-003 | Style Library Admin Shell | **Done**（2026-06-05 · `/dev/style-library` · [`style-library-admin-shell.md`](../architecture/style-library-admin-shell.md) · DECISION-096） |
 | S9-STORY-004 | Variant Lifecycle Management | Planned |
 | S9-STORY-005 | Harvest HTML to Candidate Workflow | Planned |
 | S9-STORY-006 | Preview / Copy / Validator Integration | Planned |
@@ -117,6 +118,7 @@ S9-STORY-001 Domain Model
 
 ## 9. 相关决策
 
+- **DECISION-096** — Admin Shell v0 路由 `/dev/style-library`；内部只读 · 无权限
 - **DECISION-095** — Style Library v0 code-backed TS manifest · 独立 `@/core/style-library`
 - **DECISION-094** — 正式启动 Sprint 9；创建 `sprint/s9-style-management-system-v0`；S9-STORY-001 Domain Model Done
 - **DECISION-092** — Style Management System v0 独立为 Sprint 9；file-backed；非独立仓库/部署

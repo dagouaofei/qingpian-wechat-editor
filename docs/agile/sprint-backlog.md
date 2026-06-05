@@ -3858,11 +3858,33 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 
 ## S9-STORY-003 Style Library Admin Shell
 
-**优先级：** P0 · **状态：** Planned
+**优先级：** P0 · **状态：** **Done**（2026-06-05 · DECISION-096）· **工作分支：** `feature/s9-story-003-style-library-admin-shell`
 
-**目标：** `/admin/style-library` 或 `/dev/style-library` 后台页面骨架；浏览 style · palette · variant · rule · candidate 列表与详情占位。
+**目标：** `/dev/style-library` 只读 Admin Shell；浏览 Style Library manifest · assets · registry patches · evidence · validation 结果。
 
-**非目标：** 不做完整 CRUD 表单 · 不做权限系统 · 不替代 Gallery 用户侧体验
+**非目标：** 不做 CRUD · 不做权限 · 不激活 patch · 不 promote · 不启动 S9-STORY-004 · 不改 runtime StyleRegistry / Gallery / Preview / Copy
+
+**验收标准：**
+
+- [x] AC-1 工作分支 `feature/s9-story-003-style-library-admin-shell` 已创建
+- [x] AC-2 `/dev/style-library` 页面已实现
+- [x] AC-3 页面读取 `STYLE_LIBRARY_MANIFEST`
+- [x] AC-4 Overview metrics 已展示
+- [x] AC-5 Asset list 已展示
+- [x] AC-6 006D 两个 seed asset 可见
+- [x] AC-7 Registry patch list 已展示
+- [x] AC-8 Evidence refs 已展示
+- [x] AC-9 Manifest validation result 已展示
+- [x] AC-10 seed distribution flags 全 false 且明确标注
+- [x] AC-11 无写操作
+- [x] AC-12 未改 runtime StyleRegistry 默认路径
+- [x] AC-13 未改 Gallery / Preview / Copy
+- [x] AC-14 [`style-library-admin-shell.md`](../architecture/style-library-admin-shell.md) 已新增
+- [x] AC-15 敏捷文档已同步 · DECISION-096
+- [x] AC-16 view model + shell 测试已覆盖
+- [x] AC-17 `corepack pnpm lint` PASS
+- [x] AC-18 `corepack pnpm test` PASS
+- [x] AC-19 `corepack pnpm build` PASS
 
 ---
 
