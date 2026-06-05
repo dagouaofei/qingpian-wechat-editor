@@ -113,4 +113,4 @@ PO 澄清 user-selectable 验收须包含用户预览页手动选择器。实现
 
 ## 14. Commit
 
-- Commit hash：（commit 后更新）
+- Commit hash：`f68581f` — feat(s9): expose user_selectable variants in user preview picker (007C)
