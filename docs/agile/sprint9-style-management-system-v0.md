@@ -2,9 +2,10 @@
 
 > 轻篇公众号排版 · qingpian-wechat-editor  
 > **中文名：** 样式管理后台 v0  
-> **状态：** **Planned**（2026-06-05 经 S8-STORY-008 重排进入 roadmap · DECISION-092）  
-> **计划分支（启动时）：** `sprint/s9-style-management-system-v0`（从 `release/1` 切出 · **Sprint 8 收口 merge 后**）  
-> **决策：** DECISION-092
+> **状态：** **In Progress**（2026-06-05 启动 · **DECISION-094**）  
+> **分支：** `sprint/s9-style-management-system-v0`（从 `release/1` 切出 · 2026-06-05）  
+> **领域模型：** [`style-management-domain-model.md`](../architecture/style-management-domain-model.md)  
+> **决策：** DECISION-092 · **DECISION-094**
 
 ---
 
@@ -63,7 +64,7 @@
 
 | Story | 名称 | 状态 |
 |-------|------|------|
-| S9-STORY-001 | Style Management Domain Model | Planned |
+| S9-STORY-001 | Style Management Domain Model | **Done**（2026-06-05 · [`style-management-domain-model.md`](../architecture/style-management-domain-model.md)） |
 | S9-STORY-002 | File-backed Style Library Storage | Planned |
 | S9-STORY-003 | Style Library Admin Shell | Planned |
 | S9-STORY-004 | Variant Lifecycle Management | Planned |
@@ -115,6 +116,8 @@ S9-STORY-001 Domain Model
 
 ## 9. 相关决策
 
+- **DECISION-094** — 正式启动 Sprint 9；创建 `sprint/s9-style-management-system-v0`；S9-STORY-001 Domain Model Done
 - **DECISION-092** — Style Management System v0 独立为 Sprint 9；file-backed；非独立仓库/部署
+- **DECISION-093** — Sprint 8 关闭；S9 启动条件满足
 - **DECISION-088** — S8 为 fidelity 体系；不扩展后台
 - **DECISION-091** — 视觉升级与 harvest 入库路由调整

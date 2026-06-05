@@ -11,8 +11,8 @@
 > **Sprint 6：** Release 1 Visible AI Main Flow · **Closed**（2026-06-02；DECISION-078；audit Grade A- · P0=0 · P1=5 · P2=4；`sprint/s6-visible-ai-main-flow` 已 merge 至 `release/1`）
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
 > **Sprint 8：** **Closed**（2026-06-05 · DECISION-093 · audit Grade A- · P0=0 · merged `release/1` @ `806fa47`）
-> **当前 Sprint：** **无**（Sprint 9 **Planned** · 未启动）
-> **下一 Sprint（Planned）：** **Sprint 9** — **Style Management System v0**（DECISION-092 · 从 `release/1` 启动）
+> **当前 Sprint：** **Sprint 9** — **Style Management System v0**（**In Progress** · DECISION-094 · 从 `release/1` 启动）
+> **Sprint 9 分支：** `sprint/s9-style-management-system-v0`（从 `release/1` · 2026-06-05）
 > **上一 Sprint：** **Sprint 8** — **Closed**（2026-06-05）；**Sprint 7** — **Done**（2026-06-03 · merge `release/1`）
 > **当前 Chore：** **Visible Progress & Legacy Convergence** — **Done**（DECISION-080 · 用户验收 2026-06-02 · merged @ `a5704d6`）
 > **Sprint 8 分支：** `sprint/s8-wechat-safe-css-contract`（已 merge `release/1` · 2026-06-05）
@@ -3795,9 +3795,9 @@ S8-STORY-009 S8 Contract Audit 与关闭准备 — **Done**（2026-06-05 · DECI
 
 # Sprint 9 — Style Management System v0（样式管理后台 v0）
 
-> **状态：** **Planned**（2026-06-05 进入 roadmap · **未启动**）  
-> **文档：** [`sprint9-style-management-system-v0.md`](sprint9-style-management-system-v0.md) · **DECISION-092**  
-> **分支（启动时）：** `sprint/s9-style-management-system-v0`（从 `release/1` · S8 merge 后）
+> **状态：** **In Progress**（2026-06-05 启动 · **DECISION-094**）  
+> **文档：** [`sprint9-style-management-system-v0.md`](sprint9-style-management-system-v0.md) · [`style-management-domain-model.md`](../architecture/style-management-domain-model.md) · **DECISION-092** · **DECISION-094**  
+> **分支：** `sprint/s9-style-management-system-v0`（从 `release/1` · S8 merge 后）
 
 ## S9 建议执行顺序
 
@@ -3809,13 +3809,25 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 
 ## S9-STORY-001 Style Management Domain Model
 
-**优先级：** P0 · **状态：** Planned
+**优先级：** P0 · **状态：** **Done**（2026-06-05 · DECISION-094）· **工作分支：** `docs/s9-story-001-domain-model`
 
 **目标：** 定义 style · style family · palette · variant · preset · copy-safe rule · style selection rule · lifecycle · QA evidence · `user_selectable` · `default_eligible` 等核心模型与关系。
 
-**非目标：** 不实现 UI · 不改动现有 `StyleRegistry` 运行时行为 · 不新增 variant 到用户侧
+**非目标：** 不实现 UI · 不改动现有 `StyleRegistry` 运行时行为 · 不新增 variant 到用户侧 · 不启动 S9-STORY-002
 
-**验收标准（草案）：** 领域模型文档 + 与现有 `style-system.md` / Contract v1 映射表
+**验收标准：**
+
+- [x] AC-1 已从 `release/1` 创建 `sprint/s9-style-management-system-v0`
+- [x] AC-2 已从 sprint 分支创建 `docs/s9-story-001-domain-model`
+- [x] AC-3 已完成 [`style-management-domain-model.md`](../architecture/style-management-domain-model.md)
+- [x] AC-4 文档覆盖 style / family / palette / variant / preset / rule / lifecycle / QA evidence / promote / rollback
+- [x] AC-5 文档明确 candidate · user_selectable · default_eligible · release1_required 区别
+- [x] AC-6 文档明确 006D 两个 harvest candidate 仅 seed asset · 不得直接 user_selectable / default preset
+- [x] AC-7 文档明确 S9-STORY-001 不实现 UI · file storage · 不改 StyleRegistry 运行时 · 不新增用户侧 variant
+- [x] AC-8 已同步 sprint-backlog · sprint-plan · changelog · decisions
+- [x] AC-9 `corepack pnpm lint` PASS
+- [x] AC-10 `corepack pnpm test` PASS
+- [x] AC-11 `corepack pnpm build` PASS
 
 ---
 
