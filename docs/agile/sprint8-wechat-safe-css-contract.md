@@ -2,7 +2,7 @@
 
 > 轻篇公众号排版 · qingpian-wechat-editor
 >
-> **状态：** In Progress（2026-06-04 启动）
+> **状态：** **In Review**（2026-06-05 · S8-STORY-009 audit 完成 · 待用户确认关闭）
 > **Sprint 分支：** `sprint/s8-wechat-safe-css-contract`
 > **来源分支：** `release/1`
 > **决策：** DECISION-088
@@ -62,7 +62,7 @@
 | S8-STORY-007 | Preview / Copy / Validator 审计（HEAD-002） | docs | **Done**（2026-06-05） |
 | S8-STORY-008 | Sprint 9 Style Management Replanning | docs | **Done**（DECISION-092） |
 | S8-DRIFT-003 | title_plain_minimal 产品澄清 | docs | **Done**（2026-06-05） |
-| S8-STORY-009 | S8 Contract Audit 与关闭准备 | docs | Planned |
+| S8-STORY-009 | S8 Contract Audit 与关闭准备 | docs | **In Review**（2026-06-05 · Grade A- · P0=0） |
 
 详情见 [`sprint-backlog.md`](sprint-backlog.md) Sprint 8 章节。
 
@@ -83,6 +83,7 @@
 | Contract v1 | [`docs/architecture/wechat-safe-html-css-contract.md`](../architecture/wechat-safe-html-css-contract.md) · `wechat-safe-contract-v1` | 002 Done · DECISION-089 |
 | 失真诊断 | [`docs/architecture/copy-drift-diagnostics.md`](../architecture/copy-drift-diagnostics.md) | 001 占位 → 006 流程 |
 | Fidelity Matrix | [`docs/agile/paste-qa/wechat-fidelity-matrix.md`](paste-qa/wechat-fidelity-matrix.md) | 005 |
+| S8 Audit | [`docs/architecture/audits/sprint8-wechat-contract-fidelity-audit.md`](../architecture/audits/sprint8-wechat-contract-fidelity-audit.md) | 009 |
 | 历史复制规则 | [`docs/architecture/wechat-copy-style-rules.md`](../architecture/wechat-copy-style-rules.md) | 对齐 002 |
 
 ---
@@ -118,14 +119,15 @@ release/1
 
 Sprint 8 关闭须用户确认，且至少满足：
 
-- [ ] Contract 文档定稿（002）
-- [ ] Profile + Validator 可运行（003、004）
-- [ ] Fidelity Matrix 覆盖 10 类控件、每类 2–4 variant（005）
-- [ ] 实机粘贴 QA 流程与记录模板可用（006）
+- [x] Contract 文档定稿（002）
+- [x] Profile + Validator 可运行（003、004）
+- [x] Fidelity Matrix 覆盖 10 类控件、每类 2–4 variant（005 · 37 行）
+- [x] 实机粘贴 QA 流程与记录模板可用（006 · 21 行 PO 实机）
 - [x] HEAD-002 Preview/Copy/Validator 审计（007 · no S8 code change）
 - [x] S9 规划重排（008 · DECISION-092）
 - [x] DRIFT-003 产品澄清（`title_plain_minimal` · no S8 code change）
-- [ ] S8 audit 报告与 merge `release/1`（009）
+- [x] S8 audit 报告（009 · Grade A- · P0=0）
+- [ ] merge `release/1` + Sprint 8 用户确认关闭（**待用户**）
 
 ---
 
