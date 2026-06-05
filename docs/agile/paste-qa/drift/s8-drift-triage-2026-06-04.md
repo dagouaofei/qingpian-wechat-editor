@@ -223,37 +223,44 @@ PO 粘贴后 **看不到卡片边框与背景色**（及 probe 横幅类组合�
 
 ---
 
-## 6. E 类 — 测试口径 / 预期待确认
+## 6. E 类 — 测试口径 / 预期待确认 → **已澄清（2026-06-05）**
 
 ### 问题描述
 
-`title_plain_minimal` Paste **WARNING**：「没有卡片边框和背景」。该 variant 语义为 **极简标题**，可能 **不应** 预期卡片视觉。
+`title_plain_minimal` Paste **WARNING**：「没有卡片边框和背景」。
+
+### 产品澄清结论（S8-DRIFT-003）
+
+| 项 | 结论 |
+|----|------|
+| variant 语义 | `cardTitle` 轻量框 + 星标胶囊 · `plain` = layoutMode 非「无卡片」 |
+| Copy HTML | **含** bg/border（snapshot 可证）· Preview/Copy 同源 |
+| Paste 现象 | 平台剥离 `h1` 卡片 chrome · **非 renderer 漏输出** |
+| S8 修复 | **不需要** · 006C `no effect` 成立 |
+| 判据 | PO 用 Preview 卡片一致性作 FAIL 口径 → **QA rubric 不匹配** |
+| 关闭标签 | `PRODUCT_EXPECTATION_CLARIFIED` · `NOT_A_COPY_RENDERER_BUG` · `NO_CODE_CHANGE_REQUIRED` |
 
 ### 涉及 Matrix 行
 
-- **S8M-TITLE-001**
+- **S8M-TITLE-001** — pasteStatus 保留 WARNING（历史观察）· contractAction / notes 已更新
 
 ### 涉及 Drift
 
-- **DRIFT-S8-20260604-003** — **OBSERVATION · Needs product clarification**
-
-### 可能根因
-
-1. PO 观察项与 variant 命名/设计不一致。  
-2. 若确有 section 壳：可能并入 A 类，但 **不归因 renderer bug** 直至澄清。
+- **DRIFT-S8-20260604-003** — **CLOSED** · 详见 [`DRIFT-S8-20260604-003.md`](DRIFT-S8-20260604-003.md)
 
 ### 与 Contract v1 的关系
 
-- 无分级变更；澄清前 **不** 进入 006C 修复队列。
+- 无分级变更 · 不为本行降 Contract · 不为本行放宽 Validator
 
 ### 后续处理方式
 
 | 项 | 说明 |
 |----|------|
-| **006C** | **阻塞** — 待产品确认后决定：关 Drift / 改 QA 口径 / 并入 A 类 |
-| **006D** | TITLE-001 可能改测法 |
+| **006C / 006D** | 不适用 · 已 `no effect` · 未 re-paste |
 | **007** | 否 |
-| **S9** | 否 |
+| **009 closeout** | **不阻塞** |
+| **S9** | compatibility metadata / lifecycle 可承接 QA evidence |
+| **S10** | P2-S10-001 卡片 chrome 分级 · 更强 cardTitle variants |
 
 ---
 

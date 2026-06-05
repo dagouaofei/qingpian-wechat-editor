@@ -61,6 +61,7 @@
 | S8-STORY-006D | Matrix 回归与 Paste 复测 | docs + QA | **Done**（2026-06-05） |
 | S8-STORY-007 | Preview / Copy / Validator 审计（HEAD-002） | docs | **Done**（2026-06-05） |
 | S8-STORY-008 | Sprint 9 Style Management Replanning | docs | **Done**（DECISION-092） |
+| S8-DRIFT-003 | title_plain_minimal 产品澄清 | docs | **Done**（2026-06-05） |
 | S8-STORY-009 | S8 Contract Audit 与关闭准备 | docs | Planned |
 
 详情见 [`sprint-backlog.md`](sprint-backlog.md) Sprint 8 章节。
@@ -123,6 +124,7 @@ Sprint 8 关闭须用户确认，且至少满足：
 - [ ] 实机粘贴 QA 流程与记录模板可用（006）
 - [x] HEAD-002 Preview/Copy/Validator 审计（007 · no S8 code change）
 - [x] S9 规划重排（008 · DECISION-092）
+- [x] DRIFT-003 产品澄清（`title_plain_minimal` · no S8 code change）
 - [ ] S8 audit 报告与 merge `release/1`（009）
 
 ---

@@ -67,7 +67,7 @@ Fixture 使用 preset `s8_fidelity_matrix_test`（test-only）；probe variant �
 
 | matrixRowId | blockType | variantId | variantType | fixtureId | cssCapability | domStructure | contractLevel | validatorStatus | validatorErrors | validatorWarnings | validatorNotes | pasteStatus | pasteEvidence | contractAction | notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| S8M-TITLE-001 | title | title_plain_minimal | existing | s8-title-plain-minimal | font-size, font-weight, color, line-height, text-align | section > h1[style*=inline] | green | WARNING | — | WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER | — | WARNING | 没有显示卡片边框和背景色 | See DRIFT-S8-20260604-003 (observation · needs product clarification; not renderer bug) | — |
+| S8M-TITLE-001 | title | title_plain_minimal | existing | s8-title-plain-minimal | font-size, font-weight, color, line-height, text-align | section > h1[style*=inline] | green | WARNING | — | WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER | — | WARNING | 没有显示卡片边框和背景色 | DRIFT-003 clarified: PRODUCT_EXPECTATION · NOT renderer bug · NO S8 code change | plain=layoutMode not no-card · Copy HTML has bg/border · WeChat strips h1 chrome · typography-first tier acceptable · card title users → title_left_bar / info_card / S10 |
 | S8M-TITLE-002 | title | title_left_bar_classic | candidate | s8-title-left-bar | border-left, padding, margin, background-color | section > h1[style*=border-left] | mixed | FAIL | WECHAT_COPY_RED_CSS | WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER, … | — | PASS | MP editor 2026-06-05 · 维多 | Resolved by 006C; paste PASS in 006D | candidate: not in default preset until Matrix PASS · 006D-session-2026-06-05 · prev=FAIL (错误的显示成了左右三等分，最左侧的方框和竖线分别显示到了第一等分和第二等分区域) |
 | S8M-TITLE-003 | title | title_bottom_line_editorial | existing | s8-title-bottom-line | text-align:center, border, padding, font-size | section > h1[style*=border-bottom] | mixed | WARNING | — | WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER | — | PASS | MP editor 2026-06-05 · 维多 | Resolved by 006C; paste PASS in 006D | 006D-session-2026-06-05 · prev=FAIL (标题文字下面的线显示成了很高度很高的贯穿左右的长方形，而且错误的显示了边框) |
 | S8M-HEAD-001 | heading | heading_short_line | existing | s8-heading-short-line | font-size, font-weight, margin, border | section > h3[style*=inline] | green | WARNING | — | WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_TAG, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER, WECHAT_COPY_MAX_NESTING_DEPTH_EXCEEDED, WECHAT_COPY_YELLOW_CSS_WITHOUT_WAIVER, WECHAT_COPY_MAX_NESTING_DEPTH_EXCEEDED | — | PASS | MP editor 2026-06-04 · 维多 | No action; paste PASS | — |
@@ -143,7 +143,7 @@ Fixture 使用 preset `s8_fidelity_matrix_test`（test-only）；probe variant �
 | Overlay | `S8_FIDELITY_PASTE_QA_OVERLAY_20260605_006D` |
 
 **006D 结果：** Re-test **8/8 PASS**（Drift 001/002/004–009 resolved）· Harvest **2/2 candidate-paste-pass** · Control **5/5 no_regression**  
-**未纳入：** DRIFT-003 observation · HEAD-002 → 007
+**未纳入 006D：** DRIFT-003（产品已澄清 · WARNING 保留）· HEAD-002（007 已审计）
 
 ---
 

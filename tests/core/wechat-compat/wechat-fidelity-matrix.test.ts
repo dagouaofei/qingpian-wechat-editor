@@ -76,6 +76,17 @@ describe("S8 WeChat Fidelity Matrix", () => {
     }
   });
 
+  it("S8M-TITLE-001 reflects DRIFT-003 product clarification", () => {
+    const row = buildWechatFidelityMatrix().find(
+      (r) => r.matrixRowId === "S8M-TITLE-001",
+    );
+    expect(row).toBeDefined();
+    expect(row!.pasteStatus).toBe("WARNING");
+    expect(row!.contractAction).toContain("DRIFT-003 clarified");
+    expect(row!.contractAction).toContain("NOT renderer bug");
+    expect(row!.notes).toContain("typography-first");
+  });
+
   it("S8M-HEAD-002 reflects S8-STORY-007 validator false positive audit", () => {
     const row = buildWechatFidelityMatrix().find(
       (r) => r.matrixRowId === "S8M-HEAD-002",

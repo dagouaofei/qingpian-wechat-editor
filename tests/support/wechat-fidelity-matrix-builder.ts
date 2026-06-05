@@ -297,7 +297,7 @@ export function formatMatrix006dPasteQaAppendix(): string {
 | Overlay | \`S8_FIDELITY_PASTE_QA_OVERLAY_20260605_006D\` |
 
 **006D 结果：** Re-test **8/8 PASS**（Drift 001/002/004–009 resolved）· Harvest **2/2 candidate-paste-pass** · Control **5/5 no_regression**  
-**未纳入：** DRIFT-003 observation · HEAD-002 → 007`;
+**未纳入 006D：** DRIFT-003（产品已澄清 · WARNING 保留）· HEAD-002（007 已审计）`;
 }
 
 export function buildWechatFidelityMatrixDocument(): string {

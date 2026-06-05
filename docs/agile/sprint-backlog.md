@@ -10,7 +10,7 @@
 > **Sprint 5：** Generation / Streaming + Release 1 真实 UI 主流程闭环 · **Closed**（2026-06-02；DECISION-069；audit Grade A- · P0=0 · P1=4 · P2=3；`sprint/s5-generation-ui-main-flow` 已 merge 至 `release/1`）
 > **Sprint 6：** Release 1 Visible AI Main Flow · **Closed**（2026-06-02；DECISION-078；audit Grade A- · P0=0 · P1=5 · P2=4；`sprint/s6-visible-ai-main-flow` 已 merge 至 `release/1`）
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
-> **当前 Sprint：** **Sprint 8** — **S8：WeChat-safe CSS Contract & Fidelity Test System**（**In Progress** · **006D/007/008 Done** · **009 closeout 待启动** · DECISION-088~092）
+> **当前 Sprint：** **Sprint 8** — **S8：WeChat-safe CSS Contract & Fidelity Test System**（**In Progress** · **006D/007/008 Done** · **DRIFT-003 已澄清** · **009 closeout 待启动** · DECISION-088~092）
 > **下一 Sprint（Planned）：** **Sprint 9** — **Style Management System v0**（样式管理后台 v0 · DECISION-092 · **未启动**）
 > **上一 Sprint：** **Sprint 7** — **Done**（2026-06-03 收口 · merge `release/1`）；**S7-STORY-007B** 承接至 S8 Paste / Fidelity 体系
 > **当前 Chore：** **Visible Progress & Legacy Convergence** — **Done**（DECISION-080 · 用户验收 2026-06-02 · merged @ `a5704d6`）
@@ -3741,6 +3741,28 @@ S8-STORY-009 S8 Contract Audit 与关闭准备 — Planned（**未启动**）
 
 ---
 
+## S8-DRIFT-003 产品澄清（title_plain_minimal）
+
+**优先级：** P0 · **状态：** **Done**（2026-06-05）· **工作分支：** `docs/s8-drift-003-product-clarification`
+
+**目标：** 澄清 S8M-TITLE-001 / `title_plain_minimal` Paste WARNING「没有显示卡片边框和背景色」为产品口径问题，消除 S8-STORY-009 closeout 前置未澄清项。
+
+**结论摘要：**
+
+- `plain` = layoutMode · variant 设计含轻量 cardTitle 框（Copy HTML 可证）
+- Paste 无卡片 chrome = 平台剥离 · **非 Copy Renderer bug**
+- **NO_CODE_CHANGE_REQUIRED_IN_S8**
+- 可靠卡片标题 → `title_left_bar_classic` / info_card / S10
+
+**验收标准：**
+
+- [x] AC-1~AC-9 文档澄清 · Matrix / triage 同步 · 无业务代码
+- [x] AC-10~AC-12 lint / test / build PASS
+
+**交付物：** [`DRIFT-S8-20260604-003.md`](paste-qa/drift/DRIFT-S8-20260604-003.md) · triage §6 · Matrix overlay
+
+---
+
 ## S8-STORY-009 S8 Contract Audit 与关闭准备
 
 **优先级：** P0 · **状态：** Planned · **工作分支：** `docs/s8-story-009-contract-audit-close`
@@ -3749,7 +3771,7 @@ S8-STORY-009 S8 Contract Audit 与关闭准备 — Planned（**未启动**）
 
 - 审计 contract、validator、matrix、QA 是否形成闭环
 - S8 收口：merge `sprint/s8-wechat-safe-css-contract` → `release/1`（须用户确认）
-- 登记遗留（HEAD-002 · DRIFT-003 · 006B-FIX-B 等）；**不自行关闭 Release 1 / merge `main`**
+- 登记遗留（HEAD-002 Done · DRIFT-003 Done · 006B-FIX-B 等）；**不自行关闭 Release 1 / merge `main`**
 
 **验收标准：**
 
