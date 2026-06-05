@@ -13,6 +13,10 @@ import {
   createStyleLibraryInspectionStyleRegistry,
   getStyleLibraryInspectionFixture,
 } from "./inspection-fixtures";
+import {
+  isStyleLibraryHtmlPasteCandidateVariant,
+  renderStyleLibraryHtmlPasteCandidateBlock,
+} from "./inspection-render-adapter";
 import type {
   PromoteReadiness,
   StyleLibraryCopyInspectionResult,
@@ -189,15 +193,20 @@ function renderInspectionBlock(
   const article = createCandidatePreviewFixture(asset);
   const resolved = resolveArticleStyle(article, INSPECTION_STYLE_REGISTRY);
   const block = article.blocks[0]!;
+  const input = {
+    article,
+    block,
+    resolvedArticleStyle: resolved,
+    mode,
+    target: renderTargetForMode(mode),
+  };
+
+  if (isStyleLibraryHtmlPasteCandidateVariant(asset.runtimeVariantId)) {
+    return renderStyleLibraryHtmlPasteCandidateBlock(input);
+  }
 
   return renderBlock({
-    input: {
-      article,
-      block,
-      resolvedArticleStyle: resolved,
-      mode,
-      target: renderTargetForMode(mode),
-    },
+    input,
     registry: mode === "preview" ? PREVIEW_REGISTRY : COPY_REGISTRY,
   });
 }
@@ -308,6 +317,9 @@ export function getStyleLibraryInspectionSummaries(
 ): StyleLibraryInspectionSummary[] {
   return manifest.assets
     .filter((asset): asset is StyleLibraryVariantAsset => asset.assetType === "variant")
-    .filter((asset) => asset.isSeedAsset === true)
+    .filter(
+      (asset) =>
+        asset.isSeedAsset === true || asset.lifecycle === "user_selectable",
+    )
     .map((asset) => getStyleLibraryInspectionSummary(asset, manifest));
 }

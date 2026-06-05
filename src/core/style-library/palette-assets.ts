@@ -65,9 +65,32 @@ export const READING_PATH_PALETTE_ASSET: StyleLibraryPaletteAsset = {
   tags: ["palette", "006d", "reading-path"],
 };
 
+export const TEAL_SECTION_PALETTE_ASSET: StyleLibraryPaletteAsset = {
+  assetId: "palette-teal-section-editorial",
+  assetType: "palette",
+  paletteId: "palette_teal_section_editorial",
+  label: "Teal Section Editorial",
+  description:
+    "S9-STORY-007B HTML paste teal section label palette · metadata only · not runtime theme",
+  sourceType: "code",
+  lifecycle: "candidate",
+  distribution: { ...PALETTE_DISTRIBUTION },
+  updatedAt: "2026-06-05",
+  tokenRefs: {
+    primary: "#0D9488",
+    accent: "#14B8A6",
+    background: "#F0FDFA",
+    text: "#1F2937",
+    border: "#99F6E4",
+  },
+  compatibleThemeIds: ["html-paste-candidate"],
+  tags: ["palette", "007b", "html-paste"],
+};
+
 export const STYLE_LIBRARY_PALETTE_ASSETS = [
   PURPLE_CHAPTER_PALETTE_ASSET,
   READING_PATH_PALETTE_ASSET,
+  TEAL_SECTION_PALETTE_ASSET,
 ] as const;
 
 export const STYLE_LIBRARY_PALETTE_METADATA: Record<string, PaletteMetadata> = {
@@ -124,5 +147,32 @@ export const STYLE_LIBRARY_PALETTE_METADATA: Record<string, PaletteMetadata> = {
       en: "Metadata only · not connected to runtime theme",
     },
     linkedVariantAssetIds: ["seed-variant-info-card-reading-path"],
+  },
+  palette_teal_section_editorial: {
+    paletteId: "palette_teal_section_editorial",
+    name: { zh: "青绿章节编辑", en: "Teal Section Editorial" },
+    description: {
+      zh: "S9-STORY-007B HTML paste 青绿章节标签配色方向。",
+      en: "Teal editorial palette for HTML paste section label candidates.",
+    },
+    primaryColor: "#0D9488",
+    accentColor: "#14B8A6",
+    backgroundColor: "#F0FDFA",
+    textColor: "#1F2937",
+    borderColor: "#99F6E4",
+    compatibleStyleIds: ["style-teal-section-label"],
+    copySafeNotes: {
+      zh: "inline 青绿标签 + 深字 · 已通过 validator · Paste QA E2E 007B",
+      en: "Inline teal label + dark text · validator pass · Paste QA E2E 007B",
+    },
+    contrastNotes: {
+      zh: "青绿底白字对比度在 E2E paste QA 中已确认",
+      en: "Teal-on-white contrast confirmed in E2E paste QA",
+    },
+    operatorNotes: {
+      zh: "S9-STORY-007B apply patch · 仅 metadata · 未接入 runtime theme",
+      en: "S9-STORY-007B apply patch · metadata only · not runtime theme",
+    },
+    linkedVariantAssetIds: ["variant-html-paste-teal-section-label"],
   },
 };

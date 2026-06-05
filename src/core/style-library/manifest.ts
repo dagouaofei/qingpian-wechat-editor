@@ -1,4 +1,6 @@
 import { STYLE_LIBRARY_EVIDENCE_REFS } from "./assets/evidence-refs";
+import { STYLE_LIBRARY_APPLIED_REGISTRY_PATCHES } from "./assets/applied-registry-patch";
+import { STYLE_LIBRARY_HTML_PASTE_VARIANT_ASSETS } from "./assets/html-paste-variant-assets";
 import { STYLE_LIBRARY_PALETTE_ASSETS } from "./palette-assets";
 import { STYLE_LIBRARY_RULE_ASSETS } from "./rule-assets";
 import { STYLE_LIBRARY_SAMPLE_REGISTRY_PATCHES } from "./assets/sample-registry-patch";
@@ -8,6 +10,7 @@ import {
 } from "./assets/seed-variant-assets";
 import { STYLE_LIBRARY_ID, STYLE_LIBRARY_SCHEMA_VERSION } from "./tokens";
 import type { StyleLibraryLifecycleRef, StyleLibraryManifest } from "./types";
+import { HEADING_TEAL_SECTION_LABEL_HTML_PASTE_VARIANT_ID } from "@/core/styles/variants/html-paste-candidate-variants";
 
 export const STYLE_LIBRARY_LIFECYCLE_REFS: StyleLibraryLifecycleRef[] = [
   {
@@ -22,6 +25,12 @@ export const STYLE_LIBRARY_LIFECYCLE_REFS: StyleLibraryLifecycleRef[] = [
     lifecycle: "paste_qa_pass",
     recordedAt: "2026-06-05",
   },
+  {
+    refId: "lifecycle-html-paste-teal-section-label",
+    variantId: HEADING_TEAL_SECTION_LABEL_HTML_PASTE_VARIANT_ID,
+    lifecycle: "user_selectable",
+    recordedAt: "2026-06-05",
+  },
 ];
 
 export const STYLE_LIBRARY_MANIFEST: StyleLibraryManifest = {
@@ -30,11 +39,15 @@ export const STYLE_LIBRARY_MANIFEST: StyleLibraryManifest = {
   updatedAt: "2026-06-05",
   assets: [
     ...STYLE_LIBRARY_SEED_VARIANT_ASSETS,
+    ...STYLE_LIBRARY_HTML_PASTE_VARIANT_ASSETS,
     ...STYLE_LIBRARY_PALETTE_ASSETS,
     ...STYLE_LIBRARY_RULE_ASSETS,
   ],
   seedAssetIds: [...STYLE_LIBRARY_SEED_ASSET_IDS],
-  registryPatches: [...STYLE_LIBRARY_SAMPLE_REGISTRY_PATCHES],
+  registryPatches: [
+    ...STYLE_LIBRARY_SAMPLE_REGISTRY_PATCHES,
+    ...STYLE_LIBRARY_APPLIED_REGISTRY_PATCHES,
+  ],
   evidenceRefs: [...STYLE_LIBRARY_EVIDENCE_REFS],
   lifecycleRefs: STYLE_LIBRARY_LIFECYCLE_REFS,
 };

@@ -43,7 +43,8 @@ describe("StyleLibraryAdminShell", () => {
     expect(html).toContain('data-testid="style-library-candidate-card-seed-variant-heading-purple-chapter-label"');
     expect(html).toContain("heading_purple_chapter_label_candidate");
     expect(html).toContain("info_card_reading_path_candidate");
-    expect(html).toContain("seed-variant-heading-purple-chapter-label");
+    expect(html).toContain("heading_teal_section_label_html_paste_candidate");
+    expect(html).toContain('data-testid="style-library-lifecycle-column-user_selectable"');
     expect(html).toContain('data-testid="style-library-disabled-action-validate-seed-variant-heading-purple-chapter-label"');
     expect(html).toContain("S9-STORY-004");
     expect(html).toContain("S9-STORY-006");

@@ -3924,33 +3924,50 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 
 ## S9-STORY-005 HTML Paste to Candidate Variant Proposal
 
-**优先级：** P0 · **状态：** In Review · **分支：** `feature/s9-story-005-html-paste-to-candidate-proposal`
+**优先级：** P0 · **状态：** Done · **merge：** sprint @ `a9a3a00`
 
 **目标（DECISION-104）：** 粘贴 HTML → candidate proposal · evidence draft · Cursor patch summary · proposal inspection
 
-**非目标：** 不写 manifest · 不 apply patch · 不进入 user_selectable · 不启动 007B
+**非目标：** 不写 manifest · 不 apply patch · 不进入 user_selectable（由 007B 执行）
+
+**验收：** AC-1~AC-11 完成 · merge sprint @ `a9a3a00`
+
+---
+
+## S9-STORY-007B Apply Candidate Promote Patch via Cursor
+
+**优先级：** P0 · **状态：** In Review · **分支：** `feature/s9-story-007b-apply-candidate-promote-patch`
+
+**目标（DECISION-105）：** HTML paste proposal → Cursor code-backed apply patch → `user_selectable` asset · 不进入 default preset / release1_required
+
+**E2E sample：** `heading_teal_section_label_html_paste_candidate` · `WX-HTML-PASTE-E2E-001`
+
+**非目标：** 浏览器写文件 · default preset · release1_required · merge main
 
 **验收：**
 
-- [x] AC-1 HTML paste UI
-- [x] AC-2 candidate proposal engine
-- [x] AC-3 style feature extraction
-- [x] AC-4 proposal inspection
-- [x] AC-5 evidence draft + Cursor patch summary
-- [x] AC-6 distribution/lifecycle boundaries
-- [x] AC-7 zh/en
-- [x] AC-8 文档 · DECISION-104
-- [x] AC-9 测试
-- [x] AC-10 lint / test / build PASS
-- [ ] AC-11 用户确认 merge sprint
+- [x] AC-1 工作分支
+- [x] AC-2 新 HTML sample（非 006D seed）
+- [x] AC-3 candidate variant definition
+- [x] AC-4 style-library asset metadata
+- [x] AC-5 lifecycle user_selectable
+- [x] AC-6~AC-8 distribution 边界
+- [x] AC-9~AC-11 default preset / release1 / runtime 未污染
+- [x] AC-12 Workbench 可见 user_selectable
+- [x] AC-13~AC-14 evidence + style/palette/rule 关联
+- [x] AC-15 测试
+- [x] AC-16~AC-18 lint / test / build PASS
+- [x] AC-19 execution report
+- [x] AC-20 commit
+- [ ] AC-21 用户确认 merge sprint
 
 ---
 
 ## S9-STORY-006 Preview / Copy / Validator Integration
 
-**优先级：** P0 · **状态：** In Review · **分支：** `feature/s9-story-006-preview-copy-validator-integration`
+**优先级：** P0 · **状态：** Done · **merge：** sprint
 
-**目标（DECISION-097 · DECISION-100）：** inspection-only Preview / Copy / Validator 集成；Workbench 展示运营可读验证结论与 promote readiness。
+**目标（DECISION-097 · DECISION-100）：** inspection-only Preview / Copy / Validator 集成
 
 **验收：** 006D seed candidates 可 preview · copy · validate · promote readiness；不修改 runtime registry / Gallery / 用户侧 Preview·Copy。
 
@@ -3986,7 +4003,7 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 
 ## S9-STORY-008 Style / Palette / Rule Management v0
 
-**优先级：** **P0** · **状态：** In Review · **分支：** `feature/s9-story-008-style-palette-rule-management-v0`
+**优先级：** **P0** · **状态：** Done · **merge：** sprint @ `e5f6db6`
 
 **目标（DECISION-102）：** Style / Palette / Rule 运营可读 metadata 管理 · 关联 006D seeds · S10 扩展入口。
 
@@ -4006,7 +4023,7 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 - [x] AC-10 文档 · DECISION-102
 - [x] AC-11 测试
 - [x] AC-12 lint / test / build PASS
-- [ ] AC-13 用户确认 merge sprint
+- [x] AC-13 用户确认 merge sprint
 
 ---
 

@@ -64,7 +64,7 @@
 | **Sprint 8** | **Closed**（2026-06-05 · DECISION-093 · merged `release/1`） |
 | **Sprint 9** | **In Progress**（2026-06-05 · DECISION-094 · S9-STORY-001 Done） |
 | **Release 1 主干** | `release/1` |
-| **下一步** | **S9-STORY-005** In Review（`feature/s9-story-005-html-paste-to-candidate-proposal` · 待 merge sprint） |
+| **下一步** | **S9-STORY-007B** In Review（`feature/s9-story-007b-apply-candidate-promote-patch` · 待 merge sprint） |
 
 ---
 

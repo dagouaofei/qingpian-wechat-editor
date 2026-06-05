@@ -165,9 +165,47 @@ export const BUSINESS_PROFESSIONAL_STYLE: StyleDefinition = {
   readyForExpansion: false,
 };
 
+export const TEAL_SECTION_LABEL_STYLE: StyleDefinition = {
+  styleId: "style-teal-section-label",
+  name: {
+    zh: "青绿章节标签",
+    en: "Teal Section Label",
+  },
+  description: {
+    zh: "S9-STORY-007B HTML paste 应用后的 user_selectable heading 样式，青绿章节标签视觉。",
+    en: "User-selectable heading style from S9-STORY-007B HTML paste apply patch with teal section label visuals.",
+  },
+  intendedUseCases: {
+    zh: ["章节分隔", "小节标题", "运营增长类长文"],
+    en: ["Section breaks", "Subsection headings", "Growth editorial content"],
+  },
+  targetArticleTypes: ["heading", "growth_editorial"],
+  tone: { zh: "清晰 · 现代", en: "Clear · Modern" },
+  density: { zh: "中等", en: "Medium" },
+  linkedPaletteIds: ["palette_teal_section_editorial"],
+  linkedVariantAssetIds: ["variant-html-paste-teal-section-label"],
+  linkedRuleIds: [
+    "RULE_PASTE_QA_BEFORE_DEFAULT",
+    "RULE_WARNING_PROMOTE_WITH_EVIDENCE",
+    "RULE_USER_SELECTABLE_NOT_DEFAULT",
+    "RULE_HARVEST_NOT_RELEASE1",
+  ],
+  lifecycle: "user_selectable",
+  operatorNotes: {
+    zh: "S9-STORY-007B Cursor apply patch · user_selectable · 未进入 default preset",
+    en: "S9-STORY-007B Cursor apply patch · user_selectable · not in default preset",
+  },
+  s10ExpansionHints: {
+    zh: "可作为 HTML paste 批量导入模板；保持 copy-safe inline 约束。",
+    en: "Template for batch HTML paste imports under copy-safe inline constraints.",
+  },
+  readyForExpansion: true,
+};
+
 export const STYLE_LIBRARY_STYLE_DEFINITIONS = [
   CHAPTER_LABEL_STYLE,
   READING_PATH_STYLE,
+  TEAL_SECTION_LABEL_STYLE,
   KNOWLEDGE_EDITORIAL_STYLE,
   BUSINESS_PROFESSIONAL_STYLE,
 ] as const;

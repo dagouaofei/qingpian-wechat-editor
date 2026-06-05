@@ -12,20 +12,29 @@ import {
 import { STYLE_LIBRARY_MANIFEST } from "@/core/style-library";
 
 describe("style-library promote view model", () => {
-  it("builds promote panels for both seed candidates", () => {
+  it("builds promote panels for seed candidates and applied user_selectable asset", () => {
     const panels = buildStyleLibraryPromotePanels(STYLE_LIBRARY_MANIFEST, "zh");
-    expect(panels).toHaveLength(2);
-    expect(panels.every((panel) => panel.eligible)).toBe(true);
-    expect(panels.every((panel) => panel.eligibilityStatus === "ready_with_warnings")).toBe(
-      true,
+    expect(panels).toHaveLength(3);
+    const seedPanels = panels.filter((panel) =>
+      ["heading_purple_chapter_label_candidate", "info_card_reading_path_candidate"].includes(
+        panel.runtimeVariantId,
+      ),
     );
+    expect(seedPanels).toHaveLength(2);
+    expect(seedPanels.every((panel) => panel.eligible)).toBe(true);
+    expect(
+      panels.find(
+        (panel) =>
+          panel.runtimeVariantId === "heading_teal_section_label_html_paste_candidate",
+      )?.eligible,
+    ).toBe(false);
   });
 
   it("counts ready proposals and warnings from manifest", () => {
     const counts = buildStyleLibraryPromoteSummaryCounts(STYLE_LIBRARY_MANIFEST);
     expect(counts.readyForPromoteReview).toBe(2);
     expect(counts.compatibilityWarnings).toBe(2);
-    expect(counts.blockedCandidates).toBe(0);
+    expect(counts.blockedCandidates).toBe(1);
     expect(counts.proposalsAvailable).toBe(2);
   });
 

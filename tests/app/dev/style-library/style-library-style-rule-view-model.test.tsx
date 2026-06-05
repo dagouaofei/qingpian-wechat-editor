@@ -22,7 +22,7 @@ describe("style-library style rule view model", () => {
   });
 
   it("builds palette and rule cards", () => {
-    expect(buildStyleLibraryPaletteCards("zh")).toHaveLength(2);
+    expect(buildStyleLibraryPaletteCards("zh")).toHaveLength(3);
     expect(buildStyleLibraryRuleCards("zh")).toHaveLength(4);
   });
 
@@ -36,9 +36,9 @@ describe("style-library style rule view model", () => {
 
   it("wires style rule data into admin view model", () => {
     const viewModel = buildStyleLibraryAdminViewModel(undefined, "zh");
-    expect(viewModel.styleRuleSummaryCounts.styleCount).toBe(4);
-    expect(viewModel.statusSummary.paletteCount).toBe(2);
-    expect(viewModel.styleCards.length).toBe(4);
+    expect(viewModel.styleRuleSummaryCounts.styleCount).toBe(5);
+    expect(viewModel.statusSummary.paletteCount).toBe(3);
+    expect(viewModel.styleCards.length).toBe(5);
     expect(viewModel.candidateReviewCards[0]?.styleLinks.linkedStyleId).toBeTruthy();
   });
 

@@ -64,7 +64,7 @@ describe("style library manifest", () => {
 
   it("returns stable helper query results", () => {
     const variantAssets = getStyleLibraryVariantAssets(STYLE_LIBRARY_MANIFEST);
-    expect(variantAssets).toHaveLength(2);
+    expect(variantAssets).toHaveLength(3);
 
     const heading = getStyleLibraryAssetById(
       STYLE_LIBRARY_MANIFEST,

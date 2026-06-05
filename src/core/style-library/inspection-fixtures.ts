@@ -8,6 +8,10 @@ import {
   type StyleRegistry,
 } from "@/core/styles";
 import { HARVEST_CANDIDATE_VARIANTS } from "@/core/styles/variants/harvest-candidate-variants";
+import {
+  HEADING_TEAL_SECTION_LABEL_HTML_PASTE_VARIANT_ID,
+  HTML_PASTE_CANDIDATE_VARIANTS,
+} from "@/core/styles/variants/html-paste-candidate-variants";
 
 import type { StyleLibraryVariantAsset } from "./types";
 
@@ -36,6 +40,12 @@ const INFO_CARD_FIXTURE: StyleLibraryInspectionFixture = {
   fixtureText: "阅读路径：要点一 / 要点二 / 要点三",
 };
 
+const TEAL_SECTION_FIXTURE: StyleLibraryInspectionFixture = {
+  fixtureId: "style-library-inspection-html-paste-teal-section-label",
+  fixtureLabel: "青绿章节标签 + 标题（007B E2E 样本）",
+  fixtureText: "运营增长指南 · html paste user_selectable",
+};
+
 export function getStyleLibraryInspectionFixture(
   asset: StyleLibraryVariantAsset,
 ): StyleLibraryInspectionFixture {
@@ -44,6 +54,9 @@ export function getStyleLibraryInspectionFixture(
   }
   if (asset.runtimeVariantId === "info_card_reading_path_candidate") {
     return INFO_CARD_FIXTURE;
+  }
+  if (asset.runtimeVariantId === HEADING_TEAL_SECTION_LABEL_HTML_PASTE_VARIANT_ID) {
+    return TEAL_SECTION_FIXTURE;
   }
 
   return {
@@ -92,9 +105,16 @@ export function createCandidatePreviewFixture(
       fixture,
     ),
     ...(asset.blockType === "heading" &&
-    asset.runtimeVariantId === "heading_purple_chapter_label_candidate"
+    (asset.runtimeVariantId === "heading_purple_chapter_label_candidate" ||
+      asset.runtimeVariantId === HEADING_TEAL_SECTION_LABEL_HTML_PASTE_VARIANT_ID)
       ? {
-          meta: { sourceIndex: 1, label: "CHAPTER 01" },
+          meta: {
+            sourceIndex: asset.runtimeVariantId === HEADING_TEAL_SECTION_LABEL_HTML_PASTE_VARIANT_ID ? 2 : 1,
+            label:
+              asset.runtimeVariantId === HEADING_TEAL_SECTION_LABEL_HTML_PASTE_VARIANT_ID
+                ? "SECTION 02"
+                : "CHAPTER 01",
+          },
         }
       : {}),
   };
@@ -157,6 +177,7 @@ export function createStyleLibraryInspectionStyleRegistry(): StyleRegistry {
       ...TITLE_BLOCK_FIRST_WAVE_VARIANTS,
       ...INFO_CARD_FIRST_WAVE_VARIANTS,
       ...HARVEST_CANDIDATE_VARIANTS,
+      ...HTML_PASTE_CANDIDATE_VARIANTS,
     ],
   };
 }
