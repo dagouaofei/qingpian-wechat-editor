@@ -30,7 +30,7 @@
 
 ## 5. Commit
 
-- Commit hash：（commit 后更新）
+- Commit hash：`43d3aec` — fix: align user preview renderer for user-selectable html paste variant
 
 ## 6. 未完成
 
