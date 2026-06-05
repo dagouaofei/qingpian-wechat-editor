@@ -474,3 +474,4 @@
 | 2026-06-04 | Sprint 8 | **S8-STORY-006B-FIX-A**：harvest evidence L0–L4 · URL/HTML 输入模板 · AI extraction guide · HARVEST 标 L0 | 文档 | S8-STORY-006B-FIX-A |
 | 2026-06-04 | Sprint 8 | **S8-STORY-006B / 006B-FIX-A Done**（用户确认）：merge `docs/s8-story-006b-fix-harvest-extraction-workflow` → sprint；首条 L2 `WX-HARVEST-EVIDENCE-001` | 文档 / Git | S8-STORY-006B, S8-STORY-006B-FIX-A |
 | 2026-06-04 | Sprint 8 | **S8-STORY-006C**：copy-safe primitives · A/B/C Copy 修复 · harvest candidates · Matrix/Drift 更新 | 代码 / 测试 | S8-STORY-006C |
+| 2026-06-04 | Sprint 8 | **S8-STORY-006C Done**（用户确认）：merge `feature/s8-story-006c-harvest-pattern-candidate-fix` → sprint；paste 修复待 006D | 代码 / Git | S8-STORY-006C |

@@ -589,7 +589,7 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 **Stories：** S8-STORY-001 ~ S8-STORY-008 — 见 `sprint-backlog.md`
 
-**当前：** **S8-STORY-006C** In Review（copy-safe pattern fix + harvest candidates）· **006D/007** 未启动
+**当前：** **S8-STORY-006C Done**（merge sprint · 2026-06-04）· **006D/007** 未启动（006D 待用户确认启动）
 
 **不做：**
 

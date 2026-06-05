@@ -9,7 +9,7 @@
 - Sprint：Sprint 8
 - 关联 Story：S8-STORY-006C · DECISION-091 · WX-HARVEST-EVIDENCE-001
 - 执行者：Cursor
-- 状态：In Review
+- 状态：**Done**（用户审查通过 · merge sprint · 2026-06-04）
 
 ## 2. 本轮目标
 
@@ -134,12 +134,20 @@ Drift 001、002、004、005、006、007、008、009（状态 `IMPLEMENTED_PENDIN
 | `npm run lint` | PASS |
 | `npm run build` | PASS |
 
-## 16. 是否建议 merge → sprint
+## 16. 审查结论（用户确认）
 
-**建议 merge**（代码 + Matrix + 测试 PASS · paste 未宣称修复）— **待用户审查**。
+- 本轮已产生实际代码作用（非纯文档）
+- 已落地 `copy-safe-card` / `copy-safe-left-border` / `copy-safe-title-divider`
+- 已建立 harvest → candidate 最小闭环（2 条 experimental variant）
+- Candidate **不**进入默认 preset / `release1_required`；**不**虚构 Paste PASS
+- 修复仅代表 Copy HTML 结构变更与部分 validator 改善；**不代表**公众号实机已修复
+- Affected Drift 保持 `IMPLEMENTED_PENDING_006D_REPASTE`；TITLE-002 / HEAD-004 / LEAD-003 仍 validator FAIL；HEAD-002 → 007；DRIFT-003 → observation
 
-## 17. Commit
+**006C is code-level implementation only; paste-level fix requires S8-STORY-006D re-paste.**
 
-- Message：`fix: apply harvest-driven copy-safe patterns`
-- Hash：`3a6750a`
-- **未 merge** sprint / release / main
+## 17. Merge
+
+- Commits：`3a6750a` · `07f7a88`
+- Merge：`feature/s8-story-006c-harvest-pattern-candidate-fix` → `sprint/s8-wechat-safe-css-contract`（见 closeout commit）
+- **未 merge** `release/1` · `main`
+- **006D 未启动**（待用户确认）
