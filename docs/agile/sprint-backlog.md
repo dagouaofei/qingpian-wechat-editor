@@ -10,11 +10,12 @@
 > **Sprint 5：** Generation / Streaming + Release 1 真实 UI 主流程闭环 · **Closed**（2026-06-02；DECISION-069；audit Grade A- · P0=0 · P1=4 · P2=3；`sprint/s5-generation-ui-main-flow` 已 merge 至 `release/1`）
 > **Sprint 6：** Release 1 Visible AI Main Flow · **Closed**（2026-06-02；DECISION-078；audit Grade A- · P0=0 · P1=5 · P2=4；`sprint/s6-visible-ai-main-flow` 已 merge 至 `release/1`）
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
-> **当前 Sprint：** **Sprint 8** — **S8：WeChat-safe CSS Contract & Fidelity Test System**（**In Review** · **009 audit Done** · 待用户确认关闭 + merge `release/1` · DECISION-088~092）
-> **下一 Sprint（Planned）：** **Sprint 9** — **Style Management System v0**（样式管理后台 v0 · DECISION-092 · **未启动**）
-> **上一 Sprint：** **Sprint 7** — **Done**（2026-06-03 收口 · merge `release/1`）；**S7-STORY-007B** 承接至 S8 Paste / Fidelity 体系
+> **Sprint 8：** **Closed**（2026-06-05 · DECISION-093 · audit Grade A- · P0=0 · merged `release/1` @ `806fa47`）
+> **当前 Sprint：** **无**（Sprint 9 **Planned** · 未启动）
+> **下一 Sprint（Planned）：** **Sprint 9** — **Style Management System v0**（DECISION-092 · 从 `release/1` 启动）
+> **上一 Sprint：** **Sprint 8** — **Closed**（2026-06-05）；**Sprint 7** — **Done**（2026-06-03 · merge `release/1`）
 > **当前 Chore：** **Visible Progress & Legacy Convergence** — **Done**（DECISION-080 · 用户验收 2026-06-02 · merged @ `a5704d6`）
-> **Sprint 8 分支：** `sprint/s8-wechat-safe-css-contract`（从 `release/1` 切出 · 2026-06-04）
+> **Sprint 8 分支：** `sprint/s8-wechat-safe-css-contract`（已 merge `release/1` · 2026-06-05）
 > **Sprint 7 分支：** `sprint/s7-wechat-article-experience`（已 merge `release/1`）
 > **miaopian 对齐：** [`docs/agile/miaopian-alignment/s7-workflow-and-ux-gap.md`](miaopian-alignment/s7-workflow-and-ux-gap.md)
 > **Release 1 主干：** `release/1`
@@ -3404,7 +3405,7 @@ S8-STORY-006C 共性 Copy-safe renderer / fallback 修复 — **Done**（merge s
 S8-STORY-006D Matrix 回归与 Paste 复测 — **Done**（merge sprint · 2026-06-05 · 分支 `docs/s8-story-006d-matrix-regression-paste-retest`）
 S8-STORY-007 Preview / Copy 统一渲染方案审计 — **Done**（2026-06-05 · HEAD-002 审计 · 分支 `docs/s8-story-007-head-002-preview-copy-audit`）
 S8-STORY-008 Sprint 9 Style Management System v0 Replanning — **Done**（2026-06-05 · DECISION-092）
-S8-STORY-009 S8 Contract Audit 与关闭准备 — **In Review**（2026-06-05 · audit Grade A- · P0=0）
+S8-STORY-009 S8 Contract Audit 与关闭准备 — **Done**（2026-06-05 · DECISION-093 · merged `release/1`）
 ```
 
 ---
@@ -3765,7 +3766,7 @@ S8-STORY-009 S8 Contract Audit 与关闭准备 — **In Review**（2026-06-05 ·
 
 ## S8-STORY-009 S8 Contract Audit 与关闭准备
 
-**优先级：** P0 · **状态：** **In Review**（2026-06-05）· **工作分支：** `docs/s8-story-009-contract-audit-close`
+**优先级：** P0 · **状态：** **Done**（2026-06-05 · DECISION-093）· **工作分支：** `docs/s8-story-009-contract-audit-close`（已 merge）
 
 **目标：**
 

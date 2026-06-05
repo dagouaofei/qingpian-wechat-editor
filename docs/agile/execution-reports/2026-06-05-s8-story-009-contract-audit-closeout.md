@@ -7,7 +7,7 @@
 - 来源分支：`sprint/s8-wechat-safe-css-contract`
 - 目标合并分支：`sprint/s8-wechat-safe-css-contract`
 - Story：S8-STORY-009
-- 状态：**In Review**（audit 完成 · 待用户确认 merge `release/1` + Sprint 8 关闭）
+- 状态：**Done**（DECISION-093 · Sprint 8 Closed · merged `release/1` @ `806fa47`）
 
 ## 2. 审计结论
 
@@ -18,9 +18,9 @@
 | P1 | 4 |
 | P2 | 3 |
 | 闭环 | Contract ↔ Profile ↔ Validator ↔ Matrix ↔ Paste QA **成立** |
-| merge `release/1` | **建议** · **待用户确认** |
+| merge `release/1` | **Done** · `806fa47` |
 | merge `main` | **未执行** |
-| Sprint 8 关闭 | **未自行宣布** |
+| Sprint 8 关闭 | **Done** · DECISION-093（用户确认） |
 
 ## 3. 修改文件
 
@@ -60,4 +60,7 @@
 
 ## 8. Commit
 
-- 未提交 / not committed
+- 工作分支：`2778420`
+- sprint merge：`0227ac2`
+- release/1 merge：`806fa47`
+- 关闭状态：见 `2026-06-05-s8-sprint-closeout-merge-release1.md`

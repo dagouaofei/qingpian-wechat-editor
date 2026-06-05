@@ -2,7 +2,7 @@
 
 > 轻篇公众号排版 · qingpian-wechat-editor
 >
-> **状态：** **In Review**（2026-06-05 · S8-STORY-009 audit 完成 · 待用户确认关闭）
+> **状态：** **Closed**（2026-06-05 · DECISION-093 · merged `release/1` @ `806fa47`）
 > **Sprint 分支：** `sprint/s8-wechat-safe-css-contract`
 > **来源分支：** `release/1`
 > **决策：** DECISION-088
@@ -62,7 +62,7 @@
 | S8-STORY-007 | Preview / Copy / Validator 审计（HEAD-002） | docs | **Done**（2026-06-05） |
 | S8-STORY-008 | Sprint 9 Style Management Replanning | docs | **Done**（DECISION-092） |
 | S8-DRIFT-003 | title_plain_minimal 产品澄清 | docs | **Done**（2026-06-05） |
-| S8-STORY-009 | S8 Contract Audit 与关闭准备 | docs | **In Review**（2026-06-05 · Grade A- · P0=0） |
+| S8-STORY-009 | S8 Contract Audit 与关闭准备 | docs | **Done**（2026-06-05 · DECISION-093） |
 
 详情见 [`sprint-backlog.md`](sprint-backlog.md) Sprint 8 章节。
 
@@ -127,7 +127,7 @@ Sprint 8 关闭须用户确认，且至少满足：
 - [x] S9 规划重排（008 · DECISION-092）
 - [x] DRIFT-003 产品澄清（`title_plain_minimal` · no S8 code change）
 - [x] S8 audit 报告（009 · Grade A- · P0=0）
-- [ ] merge `release/1` + Sprint 8 用户确认关闭（**待用户**）
+- [x] merge `release/1` + Sprint 8 关闭（DECISION-093 · `806fa47`）
 
 ---
 

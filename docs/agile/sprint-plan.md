@@ -61,7 +61,7 @@
 | **Sprint 5** | **Closed**（2026-06-02；DECISION-069；S5-STORY-001~008 Done；audit Grade A- · P0=0；merged `release/1`） |
 | **Sprint 6** | **Closed**（2026-06-02；DECISION-078；merge `release/1`） |
 | **Sprint 7** | **Done**（2026-06-03 · S7-STORY-008 关闭 · merge `release/1`） |
-| **Sprint 8** | **In Progress**（2026-06-04 · S8-STORY-001 · DECISION-088） |
+| **Sprint 8** | **Closed**（2026-06-05 · DECISION-093 · merged `release/1`） |
 | **Release 1 主干** | `release/1` |
 | **下一步** | **S8-STORY-007** Preview/Copy 审计（006 In Review） |
 
@@ -572,7 +572,7 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 ---
 
-### Sprint 8：WeChat-safe CSS Contract & Fidelity Test System — **In Progress**（2026-06-04）
+### Sprint 8：WeChat-safe CSS Contract & Fidelity Test System — **Closed**（2026-06-05 · DECISION-093）
 
 **分支：** `sprint/s8-wechat-safe-css-contract`（从 `release/1` 切出）
 
@@ -589,13 +589,11 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 **Stories：** S8-STORY-001 ~ S8-STORY-009 — 见 `sprint-backlog.md`
 
-**当前：** **009 audit In Review** · 待用户确认 Sprint 8 关闭 + merge `release/1`
+**状态：** **Closed** · merge `release/1` @ `806fa47` · DECISION-093
 
-**S8 收口项（不被 S9 扩张污染）：**
+**遗留（非阻塞）：** 006B-FIX-B Planned · P1-S8-001~004
 
-- **S8-STORY-009** — audit **Done（In Review）** · merge sprint → `release/1` **待用户确认**
-- **006B-FIX-B** — Planned · 非阻塞
-- **Sprint 9** — S8 merge `release/1` 后启动
+**下一 Sprint：** Sprint 9 可从 `release/1` 启动（DECISION-092 · **未启动**）
 
 **不做：**
 

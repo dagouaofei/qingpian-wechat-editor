@@ -144,7 +144,7 @@
 |--------|------|-------|--------|
 | **Sprint 6** | Release 1 Visible AI Main Flow | S6-STORY-001 ~ S6-STORY-006 | **P0 · Closed**（DECISION-078） |
 | **Sprint 7** | WeChat Article Experience & Style Richness | S7-STORY-001 ~ S7-STORY-008 | **P0 · Done**（2026-06-03 · merge `release/1`） |
-| **Sprint 8** | WeChat-safe CSS Contract & Fidelity Test System | S8-STORY-001 ~ S8-STORY-009 | **P0 · In Review**（009 audit Done · 待关闭 + merge `release/1`） |
+| **Sprint 8** | WeChat-safe CSS Contract & Fidelity Test System | S8-STORY-001 ~ S8-STORY-009 | **P0 · Closed**（DECISION-093 · 2026-06-05 · merged `release/1`） |
 | **Sprint 9** | Style Management System v0（样式管理后台 v0） | S9-STORY-001 ~ S9-STORY-009 | **P0 · Planned**（DECISION-092 · **未启动**） |
 | **Sprint 10** | Style Expansion & Visual Quality Upgrade | TBD | **P1 · Planned（方向 only）** |
 

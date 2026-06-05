@@ -109,7 +109,7 @@ S9-STORY-001 Domain Model
 | 4 | Harvest seed assets（006D） | **满足** |
 | 5 | DECISION-092 story map | **满足** |
 | 6 | S8 audit 报告 | **满足** · [`sprint8-wechat-contract-fidelity-audit.md`](../architecture/audits/sprint8-wechat-contract-fidelity-audit.md) |
-| 7 | `sprint/s8-wechat-safe-css-contract` merge `release/1` | **待用户确认** |
+| 7 | `sprint/s8-wechat-safe-css-contract` merge `release/1` | **满足** · DECISION-093 · `806fa47` |
 
 ---
 

@@ -88,6 +88,7 @@
 | DECISION-090 | 2026-06-04 | Contract v1 代码化：`src/core/wechat-compat` 为默认 `WECHAT_MP_COMPATIBILITY_PROFILE` | 已确认 |
 | DECISION-091 | 2026-06-04 | Copy-safe Pattern Library v0.1（文档）；Drift triage；006C/007/S9 路由；本轮不改 Contract/Renderer | 已确认 |
 | DECISION-092 | 2026-06-05 | Style Management System v0 独立为 Sprint 9；主项目内 file-backed 子系统；采集入库仅为入口之一 | 已确认 |
+| DECISION-093 | 2026-06-05 | 关闭 Sprint 8；接受 Contract & Fidelity Audit Grade A- · P0=0；merge `sprint/s8-wechat-safe-css-contract` → `release/1`；不 merge `main`；Sprint 9 可从 `release/1` 启动 | 已确认 |
 
 ### DECISION-019 详情
 
@@ -849,4 +850,23 @@
 - **影响范围：** `sprint9-style-management-system-v0.md`、`sprint-plan.md`、`product-backlog.md`、`sprint-backlog.md`、`release-plan.md`、`decisions.md`
 - **关联：** S8-STORY-008、S8-STORY-006D、DECISION-088、DECISION-091、WX-HARVEST-EVIDENCE-001
 - **状态：** **已确认**（2026-06-05 · S8-STORY-008）
+
+### DECISION-093 详情（Sprint 8 关闭）
+
+- **日期：** 2026-06-05
+- **背景：**
+  - S8-STORY-009 Contract & Fidelity Audit 完成：Grade **A-** · **P0=0**
+  - Contract ↔ Profile ↔ Validator ↔ Matrix ↔ Paste QA 闭环成立
+  - 用户确认接受 audit 结论并执行 Sprint 8 closeout merge
+- **决策：**
+  1. **关闭 Sprint 8** — S8：WeChat-safe CSS Contract & Fidelity Test System
+  2. **接受审计结论** — Grade A- · P0=0 · 建议进入 S8 Close Readiness **已满足**
+  3. **merge** `sprint/s8-wechat-safe-css-contract` → `release/1`（`--no-ff` · @ `806fa47`）
+  4. **不 merge `main`** — Release 1 整体验收通过后才 merge
+  5. **不宣布 Release 1 关闭** — S8 交付 fidelity 体系 ≠ Release 1 用户可见关闭标准全部满足
+  6. **Sprint 9 可从 `release/1` 启动** — `sprint/s9-style-management-system-v0`（DECISION-092）；**本轮不启动**
+  7. **006B-FIX-B** 保留 Planned · 非阻塞
+- **影响范围：** `sprint-backlog.md`、`sprint-plan.md`、`release-plan.md`、`sprint8-wechat-safe-css-contract.md`、`changelog.md`
+- **关联：** S8-STORY-009、DECISION-088~092、[`sprint8-wechat-contract-fidelity-audit.md`](../architecture/audits/sprint8-wechat-contract-fidelity-audit.md)
+- **状态：** **已确认**（2026-06-05 · 用户确认 Sprint 8 关闭）
 
