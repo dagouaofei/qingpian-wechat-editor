@@ -4,6 +4,7 @@ import {
   TITLE_BLOCK_FIRST_WAVE_VARIANT_IDS,
 } from "@/core/styles";
 
+import { HARVEST_CANDIDATE_VARIANT_IDS } from "@/core/copy/harvest-candidate-copy";
 import { renderTitleBlockCopyHtml } from "@/core/copy/title-block-copy";
 import { createRendererIssue, partitionRendererIssues } from "./issues";
 import { renderTitleBlockPreview } from "./title-block-preview";
@@ -16,7 +17,10 @@ import type {
   TitleBlockPreviewOutput,
 } from "./types";
 
-export const TITLE_BLOCK_SUPPORTED_VARIANT_IDS = TITLE_BLOCK_FIRST_WAVE_VARIANT_IDS;
+export const TITLE_BLOCK_SUPPORTED_VARIANT_IDS = [
+  ...TITLE_BLOCK_FIRST_WAVE_VARIANT_IDS,
+  ...HARVEST_CANDIDATE_VARIANT_IDS.filter((id) => id.startsWith("heading_")),
+] as string[];
 
 const FORBIDDEN_COPY_LAYOUT_MODES = new Set(["overlay", "offset_background"]);
 

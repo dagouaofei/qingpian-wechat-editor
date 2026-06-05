@@ -450,3 +450,36 @@
 | 2026-06-03 | Sprint 7 | **S7-STORY-008 Done**：heading publish 8 款；第六轮公众号粘贴 **8/8 PASS**；荧光笔 `h3`+`linear-gradient`（`7d8e38c`） | Heading / Copy / Preview | S7-STORY-008, DECISION-087 |
 | 2026-06-03 | Sprint 7 | **Sprint 7 Closed**（用户确认）；`feature/s7-story-007a-r1-style-fidelity` → `sprint/s7-wechat-article-experience` → `release/1` | 敏捷 / Git | Sprint 7 |
 | 2026-06-03 | Sprint 7 | S7-STORY-007B（R1 golden 全文粘贴）移交 Sprint 8；不阻塞 S7 关闭 | 敏捷 | S7-STORY-007B |
+
+## 2026-06-04 · Sprint 8 启动 · S8-STORY-001
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-04 | Sprint 8 | **DECISION-088**：S8 重定义为 WeChat-safe CSS Contract & Fidelity Test System（8 stories） | 敏捷 / 架构 | DECISION-088 |
+| 2026-06-04 | Sprint 8 | 创建分支 `sprint/s8-wechat-safe-css-contract`、`docs/s8-story-001-compatibility-research` | Git | S8-STORY-001 |
+| 2026-06-04 | Sprint 8 | 新增 `sprint8-wechat-safe-css-contract.md`、调研与 contract/失真诊断草案 | 敏捷 / 架构 / 调研 | S8-STORY-001 |
+| 2026-06-04 | Sprint 8 | 替换 sprint-backlog Sprint 8 章节（S8-STORY-001~008）；**未改业务代码** | 敏捷 | S8-STORY-001 |
+| 2026-06-04 | Sprint 8 | **S8-STORY-001 Done**（用户确认 DECISION-088）；调研详表待补；merge → `sprint/s8-wechat-safe-css-contract` | 敏捷 / Git | S8-STORY-001, DECISION-088 |
+| 2026-06-04 | Sprint 8 | **Contract v1 定稿**（`wechat-safe-contract-v1`）；HTML/CSS 分级 · waiver · fallback · DOM/inline；DECISION-089 待确认 | 架构 / 敏捷 | S8-STORY-002, DECISION-089 |
+| 2026-06-04 | Sprint 8 | **DECISION-089 已确认**；**S8-STORY-002 Done**；Clipboard 禁 class（Copy 剥离）· gradient waiver 不外推；merge → sprint | 架构 / 敏捷 / Git | S8-STORY-002, DECISION-089 |
+| 2026-06-04 | Sprint 8 | **S8-STORY-003**：`src/core/wechat-compat` · Contract v1 profile + waivers；DECISION-090 | 代码 / 架构 | S8-STORY-003, DECISION-090 |
+| 2026-06-04 | Sprint 8 | **S8-STORY-003 Done**：`profileId`=`wechat-mp-editor-v1` · `contractVersionId`=`wechat-safe-contract-v1`；merge → sprint | 代码 / Git | S8-STORY-003 |
+| 2026-06-04 | Sprint 8 | **S8-STORY-004**：Copy HTML Validator（`validateWechatCopyHtml` · Contract v1 · waiver 非全局） | 代码 / 架构 | S8-STORY-004, DECISION-090 |
+| 2026-06-04 | Sprint 8 | **S8-STORY-004 Done**（用户审查通过）；merge `feature/s8-story-004-copy-html-validator` → sprint | 代码 / Git | S8-STORY-004 |
+| 2026-06-04 | Sprint 8 | **S8-STORY-005**：35 行 Fidelity Matrix + fixture/validator 流水线 | 测试 / 文档 | S8-STORY-005 |
+| 2026-06-04 | Sprint 8 | **S8-STORY-005 Done**；merge `feature/s8-story-005-fidelity-matrix` → sprint | 测试 / Git | S8-STORY-005 |
+| 2026-06-04 | Sprint 8 | **S8-STORY-006 Done**：Paste QA · PO 19 行 Matrix/Drift 同步 · overlay · Drift 001–009 | 文档 / 测试 | S8-STORY-006 |
+| 2026-06-04 | Sprint 8 | **S8-STORY-006B**：结构化样式调研 · 文章采集 · Pattern Library v0.1 · Drift triage · DECISION-091 | 文档 / 研究 | S8-STORY-006B |
+| 2026-06-04 | Sprint 8 | **S8-STORY-006B Done**（用户确认）：结构化调研 · L0 HARVEST · Pattern v0.1 · Drift triage | 文档 | S8-STORY-006B |
+| 2026-06-04 | Sprint 8 | **S8-STORY-006B-FIX-A**：harvest evidence L0–L4 · URL/HTML 输入模板 · AI extraction guide · HARVEST 标 L0 | 文档 | S8-STORY-006B-FIX-A |
+| 2026-06-04 | Sprint 8 | **S8-STORY-006B / 006B-FIX-A Done**（用户确认）：merge `docs/s8-story-006b-fix-harvest-extraction-workflow` → sprint；首条 L2 `WX-HARVEST-EVIDENCE-001` | 文档 / Git | S8-STORY-006B, S8-STORY-006B-FIX-A |
+| 2026-06-04 | Sprint 8 | **S8-STORY-006C**：copy-safe primitives · A/B/C Copy 修复 · harvest candidates · Matrix/Drift 更新 | 代码 / 测试 | S8-STORY-006C |
+| 2026-06-04 | Sprint 8 | **S8-STORY-006C Done**（用户确认）：merge `feature/s8-story-006c-harvest-pattern-candidate-fix` → sprint；paste 修复待 006D | 代码 / Git | S8-STORY-006C |
+| 2026-06-05 | Sprint 8 | **S8-STORY-006D**（Mode A）：006D QA pack · Session 模板 · Matrix 006D queue · overlay `20260605_006D` · 15 snapshots | 文档 / 测试 | S8-STORY-006D |
+| 2026-06-05 | Sprint 8 | **S8-STORY-006D Done**（Mode B）：PO 15 行 PASS · 8 Drift resolved · 2 harvest candidate-paste-pass · merge sprint | 文档 / 测试 / Git | S8-STORY-006D |
+| 2026-06-05 | Sprint 8 | merge `docs/s8-story-006d-matrix-regression-paste-retest` → sprint @ `f6d8d06` | Git | S8-STORY-006D |
+| 2026-06-05 | Sprint 8 / 9 | **S8-STORY-008 Done**：Sprint 9 Style Management System v0 重排 · S9-STORY-001~009 草案 · S10 方向 · DECISION-092 | 文档 | S8-STORY-008 |
+| 2026-06-05 | Sprint 8 | merge `docs/s8-story-008-s9-style-management-replanning` → sprint @ `301f73a` | Git | S8-STORY-008 |
+| 2026-06-05 | Sprint 8 | **S8-STORY-007 Done**：HEAD-002 validator false positive 审计 · no S8 code change | 文档 | S8-STORY-007 |
+| 2026-06-05 | Sprint 8 | **S8-DRIFT-003 Done**：`title_plain_minimal` 产品澄清 · NOT renderer bug · NO S8 code change | 文档 / Matrix | S8-DRIFT-003 |
+| 2026-06-05 | Sprint 8 | **S8-STORY-009 In Review**：Contract & Fidelity audit · Grade A- · P0=0 · S9 启动条件清单 | 文档 | S8-STORY-009 |

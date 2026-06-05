@@ -91,6 +91,7 @@ export const INFO_CARD_VARIANT_LAYOUT: Record<string, InfoCardLayoutKind> = {
   info_card_checklist: "steps",
   info_card_data_snapshot: "key_takeaway",
   info_card_soft_banner: "warning_note",
+  info_card_reading_path_candidate: "key_takeaway",
 };
 
 export const CTA_VARIANT_LAYOUT: Record<string, CtaLayoutKind> = {

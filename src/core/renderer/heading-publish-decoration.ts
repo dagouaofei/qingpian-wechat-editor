@@ -83,11 +83,12 @@ export const HEADING_PUBLISH_COPY_CONTRACT: Record<
     mustNotMatch: [/<table/i, /display:\s*inline-block/i, /border-bottom:\s*[0-9]+px/i],
   },
   heading_magazine_left_bar: {
-    mustMatch: [/border-left:\s*1px/i, /border-left:\s*3px/i],
+    mustMatch: [/<h3\b/i, /border-left:\s*3px/i],
     mustNotMatch: [/<table/i, /width:\s*100%/i],
   },
   heading_magazine_offset: {
     mustMatch: [
+      /<h3\b/i,
       /border-radius:\s*8px/i,
       /border-left:\s*4px/i,
       /background-color:transparent/i,
@@ -103,7 +104,7 @@ export const HEADING_PUBLISH_COPY_CONTRACT: Record<
     ],
   },
   heading_card_centered: {
-    mustMatch: [/text-align:\s*center/i, /border-radius:\s*8px/i],
+    mustMatch: [/<h3\b/i, /text-align:\s*center/i, /border-top:\s*1px/i, /border-bottom:\s*1px/i],
     mustNotMatch: [/border-radius:\s*999px/i, /话题/],
   },
   heading_icon_prefix: {
@@ -354,16 +355,25 @@ export function copySafeNumberedSectionBadgeStyle(
   };
 }
 
-/** 卡片居中：外框 + 居中编号 + 标题（透明底，避免误用灰 card 底） */
+/** 卡片居中：section 仅 margin；视觉边框在 h3 */
 export function copySafeCardCenteredFrameStyle(
   palette: ThemePaletteTokens,
 ): Record<string, string> {
   return {
     margin: "28px 0 12px",
+    padding: "0",
+  };
+}
+
+export function copySafeCardCenteredHeadingStyle(
+  palette: ThemePaletteTokens,
+): Record<string, string> {
+  return {
+    margin: "0",
     padding: "16px 18px",
     textAlign: "center",
-    borderRadius: "8px",
-    border: `1px solid ${palette.borderSoft}`,
+    borderTop: `1px solid ${palette.borderSoft}`,
+    borderBottom: `1px solid ${palette.borderSoft}`,
     backgroundColor: "transparent",
   };
 }

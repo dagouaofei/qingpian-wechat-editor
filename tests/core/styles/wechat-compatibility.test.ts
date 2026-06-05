@@ -1,8 +1,12 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  WECHAT_SAFE_CONTRACT_VERSION_ID,
+} from "@/core/wechat-compat";
+import {
   STYLE_SCHEMA_VERSION,
   WECHAT_MP_COMPATIBILITY_PROFILE,
+  WECHAT_SAFE_CONTRACT_V1_PROFILE,
   variantDefinitionSchema,
   weChatCompatibilityProfileSchema,
   validateCssDeclarationCompatibility,
@@ -23,13 +27,37 @@ const baseVariant = {
 describe("wechat compatibility profile", () => {
   describe("WECHAT_MP_COMPATIBILITY_PROFILE", () => {
     it("default profile schema is valid", () => {
-      expect(
-        weChatCompatibilityProfileSchema.parse(WECHAT_MP_COMPATIBILITY_PROFILE),
-      ).toMatchObject({
+      const {
+        contractVersionId: _cv,
+        dom: _dom,
+        htmlTags: _html,
+        yellowWaivers: _waivers,
+        cssFallbackPolicies: _fallbacks,
+        ...base
+      } = WECHAT_SAFE_CONTRACT_V1_PROFILE;
+      void _cv;
+      void _dom;
+      void _html;
+      void _waivers;
+      void _fallbacks;
+      expect(weChatCompatibilityProfileSchema.parse(base)).toMatchObject({
         id: "wechat-mp-editor-v1",
         schemaVersion: 1,
         target: "wechat_mp_editor",
       });
+      expect(WECHAT_SAFE_CONTRACT_V1_PROFILE.id).toBe("wechat-mp-editor-v1");
+      expect(WECHAT_SAFE_CONTRACT_V1_PROFILE.contractVersionId).toBe(
+        WECHAT_SAFE_CONTRACT_VERSION_ID,
+      );
+    });
+
+    it("aligns border-radius with Contract Yellow not Green", () => {
+      expect(
+        WECHAT_MP_COMPATIBILITY_PROFILE.cssRules.allowed,
+      ).not.toContain("border-radius");
+      expect(
+        WECHAT_MP_COMPATIBILITY_PROFILE.cssRules.risky,
+      ).toContain("border-radius");
     });
 
     it("has Release 1 fallback policy defaults", () => {
@@ -63,11 +91,27 @@ describe("wechat compatibility profile", () => {
       expect(result.issues.some((i) => i.severity === "error")).toBe(true);
     });
 
-    it("does not silent allow unknown properties", () => {
+    it("marks filter as forbidden (Contract Red)", () => {
       const result = validateCssPropertyCompatibility("filter");
       expect(result.ok).toBe(false);
-      expect(result.level).toBe("unknown");
-      expect(result.issues.length).toBeGreaterThan(0);
+      expect(result.level).toBe("forbidden");
+    });
+
+    it("applies heading_highlight_marker waiver for linear-gradient declaration", () => {
+      const result = validateCssDeclarationCompatibility(
+        "background: linear-gradient(180deg, transparent, #2563eb33)",
+        {
+          waiverContext: {
+            blockType: "heading",
+            variantId: "heading_highlight_marker",
+          },
+        },
+      );
+      expect(result.ok).toBe(true);
+      expect(result.level).toBe("risky");
+      expect(
+        result.issues.some((i) => i.code === "css_yellow_waiver_applied"),
+      ).toBe(true);
     });
   });
 
@@ -78,12 +122,10 @@ describe("wechat compatibility profile", () => {
       expect(result.level).toBe("allowed");
     });
 
-    it("marks display:flex as risky", () => {
+    it("marks display:flex as forbidden (Contract Red)", () => {
       const result = validateCssDeclarationCompatibility("display: flex");
-      expect(result.level).toBe("risky");
-      expect(result.issues.some((i) => i.code === "css_declaration_risky")).toBe(
-        true,
-      );
+      expect(result.level).toBe("forbidden");
+      expect(result.issues.some((i) => i.severity === "error")).toBe(true);
     });
 
     it("marks position:absolute as forbidden", () => {
@@ -110,11 +152,19 @@ describe("wechat compatibility profile", () => {
       expect(result.issues.some((i) => i.code === "pseudo_selector")).toBe(true);
     });
 
-    it("forbids Tailwind className dependency", () => {
+    it("forbids className in clipboard-style snippets", () => {
       const result = validateCssDeclarationCompatibility('className="flex p-4"');
       expect(result.level).toBe("forbidden");
       expect(
         result.issues.some((i) => i.code === "tailwind_class_dependency"),
+      ).toBe(true);
+    });
+
+    it("forbids class attribute in clipboard payload", () => {
+      const result = validateCssDeclarationCompatibility('class="foo"');
+      expect(result.level).toBe("forbidden");
+      expect(
+        result.issues.some((i) => i.code === "clipboard_class_attribute"),
       ).toBe(true);
     });
   });
@@ -186,7 +236,7 @@ describe("wechat compatibility profile", () => {
         compatibility: {
           copySafety: "balanced",
           wechat: {
-            riskyCssProperties: ["display: flex"],
+            riskyCssProperties: ["box-shadow: 0 2px 4px rgba(0,0,0,0.1)"],
           },
         },
       });
@@ -195,6 +245,22 @@ describe("wechat compatibility profile", () => {
         result.issues.some((i) => i.code === "variant_declared_risky_css"),
       ).toBe(true);
       expect(result.issues.some((i) => i.severity === "warning")).toBe(true);
+    });
+
+    it("captures variant declared display:flex as forbidden", () => {
+      const variant = variantDefinitionSchema.parse({
+        ...baseVariant,
+        compatibility: {
+          copySafety: "balanced",
+          wechat: {
+            riskyCssProperties: ["display: flex"],
+          },
+        },
+      });
+      const result = validateVariantWechatCompatibility(variant);
+      expect(
+        result.issues.some((i) => i.code === "variant_declared_forbidden_css"),
+      ).toBe(true);
     });
   });
 

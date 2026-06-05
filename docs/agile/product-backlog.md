@@ -95,7 +95,7 @@
 | TECH-ARCH-025 | Real Model Provider Integration | EPIC-002 / EPIC-007 | **Sprint 5 Done**：Volcengine / Doubao provider + dev smoke PASSED；**Sprint 6 主流程必须走真实 AI**，mock-only 不作为 Sprint 6 验收 |
 | TECH-ARCH-026 | Release 1 Visible Main Flow Acceptance | EPIC-001 / EPIC-005 / EPIC-007 | **Sprint 6 Done**（DECISION-078）：`/` → `/preview` → 风格 / 配色 → 复制 · PB-R1-01~08 |
 
-状态：文档契约 S1-STORY-021~028；代码 Sprint 2 + 3-A/B/C + 4-A/B + 5 + **6** **Done** 并 merge `release/1`。**Release 1 未关闭**。Release 1 尾声按 **方案 B（DECISION-070）** 重排：**Sprint 6 Closed** · **Sprint 7 In Progress** · **Sprint 8 Planned**。详见 [`release-plan.md`](release-plan.md)。
+状态：文档契约 S1-STORY-021~028；代码 Sprint 2 + 3-A/B/C + 4-A/B + 5 + **6** + **7** **Done** 并 merge `release/1`。**Release 1 未关闭**。Release 1 尾声按 **方案 B（DECISION-070）** 重排；**Sprint 8** In Progress（006D Done · S9 重排 Done）；**Sprint 9** Planned（样式管理后台 v0）。详见 [`release-plan.md`](release-plan.md) · [`sprint8-wechat-safe-css-contract.md`](sprint8-wechat-safe-css-contract.md) · [`sprint9-style-management-system-v0.md`](sprint9-style-management-system-v0.md)。
 
 ---
 
@@ -143,10 +143,40 @@
 | Sprint | 名称 | Story | 优先级 |
 |--------|------|-------|--------|
 | **Sprint 6** | Release 1 Visible AI Main Flow | S6-STORY-001 ~ S6-STORY-006 | **P0 · Closed**（DECISION-078） |
-| **Sprint 7** | WeChat Article Experience & Style Richness | S7-STORY-001 ~ S7-STORY-007 | **P0 · In Progress**（DECISION-081 · S7-STORY-002） |
-| Sprint 8 | Copy Fidelity & Release 1 Closure | S8-STORY-001 ~ S8-STORY-007 | P0 · 后续 |
+| **Sprint 7** | WeChat Article Experience & Style Richness | S7-STORY-001 ~ S7-STORY-008 | **P0 · Done**（2026-06-03 · merge `release/1`） |
+| **Sprint 8** | WeChat-safe CSS Contract & Fidelity Test System | S8-STORY-001 ~ S8-STORY-009 | **P0 · In Review**（009 audit Done · 待关闭 + merge `release/1`） |
+| **Sprint 9** | Style Management System v0（样式管理后台 v0） | S9-STORY-001 ~ S9-STORY-009 | **P0 · Planned**（DECISION-092 · **未启动**） |
+| **Sprint 10** | Style Expansion & Visual Quality Upgrade | TBD | **P1 · Planned（方向 only）** |
 
-Story 详情见 [`sprint-backlog.md`](sprint-backlog.md)。**不要把 Sprint 7/8 Story 放入当前执行中。**
+Story 详情见 [`sprint-backlog.md`](sprint-backlog.md) · S9 见 [`sprint9-style-management-system-v0.md`](sprint9-style-management-system-v0.md)。
+
+**Sprint 9 定位（DECISION-092）：** 主项目内独立子系统 · file-backed · harvest 入库仅为入口之一 · 006D 两 candidate 为 seed assets。
+
+**不要把未启动 Sprint 的 Story 混入当前执行分支。**
+
+---
+
+## Sprint 8 Audit 遗留（S8-STORY-009 登记 · 2026-06-05）
+
+> 来源：[`sprint8-wechat-contract-fidelity-audit.md`](../architecture/audits/sprint8-wechat-contract-fidelity-audit.md)；**不阻塞 S8 closeout**。
+
+| ID | 问题 | 建议 Sprint | 说明 |
+|----|------|-------------|------|
+| **P1-S8-001** | Matrix 16 行 Paste UNTESTED | Release 1 hardening / S9 | 21/37 已 PO 实机 |
+| **P1-S8-002** | Validator catalog 缺口（如 `font-variant-numeric`） | post-S8 / S9 metadata | HEAD-002 已审计 |
+| **P1-S8-003** | S8-STORY-006B-FIX-B 批量 article evidence | S8 非阻塞 | 增强 harvest 输入 |
+| **P1-S8-004** | `title_left_bar_classic` validator FAIL · paste PASS | S9 promote 前 | candidate 未入 default preset |
+
+---
+
+## Sprint 10 方向登记（S8-DRIFT-003 澄清衍生 · 2026-06-05）
+
+> 来源：DRIFT-003 产品澄清；**不进入 S8** · **不阻塞 Release 1 关闭**。
+
+| ID | 问题 | 建议 Sprint | 说明 |
+|----|------|-------------|------|
+| **P2-S10-001** | title / cardTitle 家族 paste QA rubric 分级（typography-first vs card-chrome-required） | Sprint 10 | 避免 `plain minimal` 命名与卡片判据混淆 |
+| **P2-S10-002** | 更强 WeChat-safe cardTitle variants（catalog 如 `card_bg_icon_corner`） | Sprint 10 | 需实机 evidence · 不经 S8 扩展现有 variant |
 
 ---
 

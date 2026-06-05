@@ -18,6 +18,11 @@ export {
   collectCopySafeHtmlViolations,
   isCopySafeHtmlSnapshot,
 } from "./copy-safe-html";
+export {
+  validateWechatCopyHtml,
+  type ValidateWechatCopyHtmlInput,
+  type WechatCopyValidationResult,
+} from "@/core/wechat-compat";
 export type {
   CopySafeHtmlViolation,
   CopySafeHtmlViolationCode,

@@ -140,11 +140,22 @@ export {
 
 export {
   WECHAT_MP_COMPATIBILITY_PROFILE,
+  WECHAT_SAFE_CONTRACT_V1_PROFILE,
+  WECHAT_SAFE_CONTRACT_VERSION_ID,
+  getWeChatSafeContractProfile,
   parseWeChatCompatibilityProfile,
   validateCssDeclarationCompatibility,
   validateCssPropertyCompatibility,
   validateVariantWechatCompatibility,
+  type CssCompatibilityValidateOptions,
 } from "./compatibility";
+
+export {
+  classifyHtmlTag,
+  findYellowWaiverForVariant,
+  isHtmlTagAllowedForCopy,
+  isYellowCapabilityWaived,
+} from "@/core/wechat-compat";
 
 export {
   RELEASE1_FALLBACK_VARIANT_POLICY,

@@ -13,23 +13,26 @@ import type {
   RendererIssue,
 } from "@/core/renderer/types";
 
+import {
+  copySafeCardContentStyle,
+  copySafeLeftBorderContentStyle,
+  mergeInlineStyles,
+  wrapCopySafeMarginSection,
+} from "./copy-safe-primitives";
 import { assertCopySafeHtml, escapeHtml } from "./html-escape";
 import { wrapInlineElement } from "./inline-style";
 import type { ThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
 import { resolveThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
 
-function labelHtml(
-  label: string | undefined,
+function labelSpanHtml(
+  label: string,
   typography: ReturnType<typeof resolveHighlightTypography>,
   palette: ThemePaletteTokens,
 ): string {
-  if (label == null) {
-    return "";
-  }
-
   return wrapInlineElement(
-    "p",
+    "span",
     {
+      display: "block",
       margin: "0 0 6px",
       color: palette.textAccent,
       fontSize: typography.labelFontSize,
@@ -41,25 +44,15 @@ function labelHtml(
   );
 }
 
-function bodyHtml(
-  content: NormalizedHighlightContent,
+function bodyBase(
   typography: ReturnType<typeof resolveHighlightTypography>,
-  palette: ThemePaletteTokens,
-): string {
-  return (
-    labelHtml(content.label, typography, palette) +
-    wrapInlineElement(
-      "p",
-      {
-        margin: "0",
-        color: typography.color,
-        fontSize: typography.fontSize,
-        lineHeight: typography.lineHeight,
-        fontFamily: typography.fontFamily,
-      },
-      escapeHtml(content.text),
-    )
-  );
+): Record<string, string> {
+  return {
+    color: typography.color,
+    fontSize: typography.fontSize,
+    lineHeight: typography.lineHeight,
+    fontFamily: typography.fontFamily,
+  };
 }
 
 function wrapHighlightLayoutHtml(
@@ -68,41 +61,49 @@ function wrapHighlightLayoutHtml(
   typography: ReturnType<typeof resolveHighlightTypography>,
   palette: ThemePaletteTokens,
 ): string {
-  const innerHtml = bodyHtml(content, typography, palette);
+  const margin = `${typography.marginBlock} 0`;
+  const base = bodyBase(typography);
+  const inner =
+    (content.label != null ? labelSpanHtml(content.label, typography, palette) : "") +
+    escapeHtml(content.text);
 
   switch (layout) {
     case "inline_emphasis":
-      return wrapInlineElement(
-        "section",
-        {
-          margin: `${typography.marginBlock} 0`,
-          paddingLeft: "8px",
-          borderLeft: `2px solid ${typography.accentColor}`,
-        },
-        innerHtml,
+      return wrapCopySafeMarginSection(
+        margin,
+        wrapInlineElement(
+          "p",
+          copySafeLeftBorderContentStyle(base, `2px solid ${typography.accentColor}`, {
+            paddingLeft: "8px",
+          }),
+          inner,
+        ),
       );
     case "accent_band":
-      return wrapInlineElement(
-        "section",
-        {
-          margin: `${typography.marginBlock} 0`,
-          padding: "10px 14px",
-          backgroundColor: palette.bgBandBlue,
-          borderLeft: `4px solid ${typography.accentColor}`,
-        },
-        innerHtml,
+      return wrapCopySafeMarginSection(
+        margin,
+        wrapInlineElement(
+          "p",
+          copySafeLeftBorderContentStyle(base, `4px solid ${typography.accentColor}`, {
+            paddingLeft: "12px",
+            padding: "10px 14px",
+            backgroundColor: palette.bgBandBlue,
+          }),
+          inner,
+        ),
       );
     case "soft_card":
-      return wrapInlineElement(
-        "section",
-        {
-          margin: `${typography.marginBlock} 0`,
-          padding: "12px 16px",
-          backgroundColor: palette.bgSoft,
-          border: `1px solid ${palette.borderSoft}`,
-          borderRadius: "8px",
-        },
-        innerHtml,
+      return wrapCopySafeMarginSection(
+        margin,
+        wrapInlineElement(
+          "p",
+          copySafeCardContentStyle(base, {
+            backgroundColor: palette.bgSoft,
+            border: `1px solid ${palette.borderSoft}`,
+            padding: "12px 16px",
+          }),
+          inner,
+        ),
       );
     default:
       throw new Error(`unsupported highlight layout: ${layout satisfies never}`);

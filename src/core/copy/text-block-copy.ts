@@ -1,6 +1,12 @@
 import type { LeadBlock, ParagraphBlock } from "@/core/blocks";
 import { normalizeInlineContent } from "@/core/article";
 
+import {
+  copySafeCardContentStyle,
+  copySafeLeftBorderContentStyle,
+  mergeInlineStyles,
+  wrapCopySafeMarginSection,
+} from "./copy-safe-primitives";
 import { assertCopySafeHtml } from "./html-escape";
 import { renderInlineContentToCopyHtml } from "./inline-content-html";
 import { wrapInlineElement } from "./inline-style";
@@ -18,24 +24,14 @@ import {
 import type { ThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
 import { resolveThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
 
-function paragraphShell(
-  innerHtml: string,
-  typography: TextBlockTypography,
-  extra?: Record<string, string>,
-): string {
-  return wrapInlineElement(
-    "p",
-    {
-      margin: "0",
-      color: typography.color,
-      fontSize: typography.fontSize,
-      fontWeight: typography.fontWeight,
-      lineHeight: typography.lineHeight,
-      fontFamily: typography.fontFamily,
-      ...extra,
-    },
-    innerHtml,
-  );
+function paragraphBaseStyle(typography: TextBlockTypography): Record<string, string> {
+  return {
+    color: typography.color,
+    fontSize: typography.fontSize,
+    fontWeight: typography.fontWeight,
+    lineHeight: typography.lineHeight,
+    fontFamily: typography.fontFamily,
+  };
 }
 
 function wrapLayoutHtml(
@@ -44,57 +40,65 @@ function wrapLayoutHtml(
   typography: TextBlockTypography,
   palette: ThemePaletteTokens,
 ): string {
-  const margin = typography.marginBlock;
+  const margin = `${typography.marginBlock} 0`;
+  const base = paragraphBaseStyle(typography);
 
   switch (layout) {
     case "plain":
-      return wrapInlineElement(
-        "section",
-        { margin: `${margin} 0` },
-        paragraphShell(innerHtml, typography),
+      return wrapCopySafeMarginSection(
+        margin,
+        wrapInlineElement("p", mergeInlineStyles(base, { margin: "0" }), innerHtml),
       );
     case "accent_band":
-      return wrapInlineElement(
-        "section",
-        {
-          margin: `${margin} 0`,
-          padding: "12px 16px",
-          backgroundColor: palette.bgBand,
-          borderLeft: `4px solid ${palette.textAccent}`,
-        },
-        paragraphShell(innerHtml, typography),
+      return wrapCopySafeMarginSection(
+        margin,
+        wrapInlineElement(
+          "p",
+          copySafeLeftBorderContentStyle(base, `4px solid ${palette.textAccent}`, {
+            paddingLeft: "12px",
+            padding: "12px 16px",
+            backgroundColor: palette.bgBand,
+          }),
+          innerHtml,
+        ),
       );
     case "quote_intro":
-      return wrapInlineElement(
-        "section",
-        {
-          margin: `${margin} 0`,
-          paddingLeft: "12px",
-          borderLeft: `3px solid ${palette.borderLight}`,
-        },
-        paragraphShell(innerHtml, typography, { fontStyle: "italic" }),
+      return wrapCopySafeMarginSection(
+        margin,
+        wrapInlineElement(
+          "p",
+          mergeInlineStyles(
+            copySafeLeftBorderContentStyle(base, `3px solid ${palette.borderLight}`, {
+              paddingLeft: "12px",
+            }),
+            { fontStyle: "italic" },
+          ),
+          innerHtml,
+        ),
       );
     case "accent_left":
-      return wrapInlineElement(
-        "section",
-        {
-          margin: `${margin} 0`,
-          paddingLeft: "12px",
-          borderLeft: `3px solid ${palette.textAccent}`,
-        },
-        paragraphShell(innerHtml, typography),
+      return wrapCopySafeMarginSection(
+        margin,
+        wrapInlineElement(
+          "p",
+          copySafeLeftBorderContentStyle(base, `3px solid ${palette.textAccent}`, {
+            paddingLeft: "12px",
+          }),
+          innerHtml,
+        ),
       );
     case "soft_card":
-      return wrapInlineElement(
-        "section",
-        {
-          margin: `${margin} 0`,
-          padding: "12px 16px",
-          backgroundColor: palette.bgSoft,
-          border: `1px solid ${palette.borderSoft}`,
-          borderRadius: "8px",
-        },
-        paragraphShell(innerHtml, typography),
+      return wrapCopySafeMarginSection(
+        margin,
+        wrapInlineElement(
+          "p",
+          copySafeCardContentStyle(base, {
+            backgroundColor: palette.bgSoft,
+            border: `1px solid ${palette.borderSoft}`,
+            padding: "12px 16px",
+          }),
+          innerHtml,
+        ),
       );
     default:
       throw new Error(`unsupported text block layout: ${layout satisfies never}`);

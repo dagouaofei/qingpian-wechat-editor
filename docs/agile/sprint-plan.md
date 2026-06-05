@@ -61,8 +61,9 @@
 | **Sprint 5** | **Closed**（2026-06-02；DECISION-069；S5-STORY-001~008 Done；audit Grade A- · P0=0；merged `release/1`） |
 | **Sprint 6** | **Closed**（2026-06-02；DECISION-078；merge `release/1`） |
 | **Sprint 7** | **Done**（2026-06-03 · S7-STORY-008 关闭 · merge `release/1`） |
+| **Sprint 8** | **In Progress**（2026-06-04 · S8-STORY-001 · DECISION-088） |
 | **Release 1 主干** | `release/1` |
-| **下一步** | **S7-STORY-002** 文章 fixture 样例集 → Style Gallery |
+| **下一步** | **S8-STORY-007** Preview/Copy 审计（006 In Review） |
 
 ---
 
@@ -571,30 +572,70 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 ---
 
-### Sprint 8：Copy Fidelity & Release 1 Closure — **Planned（后续）**
+### Sprint 8：WeChat-safe CSS Contract & Fidelity Test System — **In Progress**（2026-06-04）
 
-**分支（启动时）：** `sprint/s8-copy-fidelity-closure`（名称可在 S8-STORY-001 最终确认）
+**分支：** `sprint/s8-wechat-safe-css-contract`（从 `release/1` 切出）
+
+**文档：** [`sprint8-wechat-safe-css-contract.md`](sprint8-wechat-safe-css-contract.md) · **DECISION-088**
 
 **Sprint Goal：**
 
-1. 验证 Preview / Copy / 微信公众号粘贴**一致性**
-2. 完成 **135 编辑器**与**公众号后台**最小 Paste QA
-3. 建立 / 完善 **PasteTestRecord**、fixture triple 与 QA 归档（承接原 Sprint 6-A/B 中 Paste 相关目标）
-4. 明确 **fallback** 与已知问题
-5. **Release 1 手动验收记录**与关闭准备（**不自动 merge `main`**）
+1. 建立 **WeChat-safe HTML/CSS Contract**（Green / Yellow / Red）
+2. 建立 **Preview / Copy** 一致性原则与统一渲染审计（S8-STORY-007）
+3. **Compatibility Profile** + **Copy HTML Validator**（可校验、可豁免）
+4. **多控件 × 多 variant** Fidelity Matrix + 公众号实机粘贴 QA 流程
+5. **Copy 失真诊断**与 contract 修正闭环
+6. 为后续样式扩展打地基（**样式管理后台归 Sprint 9** · DECISION-092）
 
-**Stories：** S8-STORY-001 ~ S8-STORY-007 — 见 `sprint-backlog.md`
+**Stories：** S8-STORY-001 ~ S8-STORY-009 — 见 `sprint-backlog.md`
+
+**当前：** **009 audit In Review** · 待用户确认 Sprint 8 关闭 + merge `release/1`
+
+**S8 收口项（不被 S9 扩张污染）：**
+
+- **S8-STORY-009** — audit **Done（In Review）** · merge sprint → `release/1` **待用户确认**
+- **006B-FIX-B** — Planned · 非阻塞
+- **Sprint 9** — S8 merge `release/1` 后启动
 
 **不做：**
 
-- 不宣称 Release 1 完成，除非满足 [`release-plan.md`](release-plan.md) 关闭标准且用户确认
-- 不 merge 至 `main`（须 Release 1 整体验收后用户确认）
+- 大规模视觉美化、网站 UI 改版、streaming、配图/小程序
+- **样式管理后台 / 采集入库**（→ **Sprint 9**）
+- 单 heading 反复修、复杂样式进默认池
+- 仅用自动化替代实机粘贴 QA
+- 不自行关闭 Sprint 8 / Release 1；不 merge `main`
 
-**原则（DECISION-045 历史 · DECISION-070 方案 B）：**
+**承接：** S7-STORY-007B · Release 1 关闭验收在 S8-STORY-009
 
-- Release 1 尾声由 Sprint **6 → 7 → 8** 顺序推进：可见主链路 → 样式体验 → 复制保真与关闭
-- 拆分保证可执行性，**不降低** Release 1 样式丰富度与复制一致性 P0 目标
-- First wave 11×3；expansion 仍分后续批次
+---
+
+### Sprint 9：Style Management System v0 — **Planned**（2026-06-05）
+
+**中文名：** 样式管理后台 v0
+
+**分支（启动时）：** `sprint/s9-style-management-system-v0`（从 `release/1` · S8 merge 后）
+
+**文档：** [`sprint9-style-management-system-v0.md`](sprint9-style-management-system-v0.md) · **DECISION-092**
+
+**Sprint Goal：**
+
+建立轻篇主项目内的样式管理后台 v0，打通样式资产从**新增 → 验证 → 上线 → 用户侧分发**的最小闭环。
+
+**管理范围：** style / style family · palette · variant · preset · copy-safe rule · selection rule · WeChat compatibility metadata · lifecycle / QA evidence / promote / rollback
+
+**Stories：** S9-STORY-001 ~ S9-STORY-009 — 见 `sprint-backlog.md`
+
+**Seed assets：** 006D harvest candidates（`heading_purple_chapter_label_candidate` · `info_card_reading_path_candidate`）· candidate-paste-pass · **不**直接 user-selectable
+
+**不做：** 独立仓库 · 独立部署 · 数据库 · 多用户权限 · 样式市场 · 批量 URL 抓取 · 完整 SaaS 运营后台
+
+---
+
+### Sprint 10：Style Expansion & Visual Quality Upgrade — **Planned（方向 only）**
+
+**目标：** 基于 S9 v0 批量扩展真实公众号启发样式、风格包、配色包、block variants；优化自动样式匹配与视觉质量。
+
+**本轮：** 仅写入 `product-backlog.md` / `release-plan.md` · **不拆 story**
 
 ---
 
