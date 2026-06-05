@@ -15,7 +15,7 @@
 | S8-STORY-009 commit | `2778420` | `docs: audit sprint 8 wechat contract fidelity` |
 | 009 → sprint merge | `0227ac2` | `--no-ff` |
 | sprint → release/1 merge | `806fa47` | `--no-ff` Sprint 8 closeout |
-| 关闭状态文档 commit | 见 §14 | DECISION-093 |
+| 关闭状态文档 commit | `63776f9` | `docs: close sprint 8 and record decision 093` |
 
 ## 3. 审计结论（用户已确认）
 
