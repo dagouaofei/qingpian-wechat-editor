@@ -476,3 +476,4 @@
 | 2026-06-04 | Sprint 8 | **S8-STORY-006C**：copy-safe primitives · A/B/C Copy 修复 · harvest candidates · Matrix/Drift 更新 | 代码 / 测试 | S8-STORY-006C |
 | 2026-06-04 | Sprint 8 | **S8-STORY-006C Done**（用户确认）：merge `feature/s8-story-006c-harvest-pattern-candidate-fix` → sprint；paste 修复待 006D | 代码 / Git | S8-STORY-006C |
 | 2026-06-05 | Sprint 8 | **S8-STORY-006D**（Mode A）：006D QA pack · Session 模板 · Matrix 006D queue · overlay `20260605_006D` · 15 snapshots | 文档 / 测试 | S8-STORY-006D |
+| 2026-06-05 | Sprint 8 | **S8-STORY-006D Done**（Mode B）：PO 15 行 PASS · 8 Drift resolved · 2 harvest candidate-paste-pass · merge sprint | 文档 / 测试 / Git | S8-STORY-006D |

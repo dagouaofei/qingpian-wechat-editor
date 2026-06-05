@@ -26,7 +26,8 @@ describe("S8-STORY-006C copy-safe patterns", () => {
     );
     for (const row of harvest) {
       expect(row.variantType).toBe("candidate");
-      expect(row.pasteStatus).toBe("UNTESTED");
+      expect(row.pasteStatus).toBe("PASS");
+      expect(row.contractAction).toContain("candidate-paste-pass");
       expect(row.notes).toContain(HARVEST_CANDIDATE_SOURCE_EVIDENCE_ID);
     }
   });

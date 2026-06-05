@@ -9,7 +9,7 @@
 - Sprint：Sprint 8 — WeChat-safe CSS Contract
 - 关联 Story / Bug / Decision：S8-STORY-006D · S8-STORY-006C（Done · `db185bf`）· DECISION-088/089/090/091
 - 执行者：Cursor
-- 状态：**Ready for PO Paste QA**（Mode A）
+- 状态：**Done**（Mode B · merge sprint · 2026-06-05）
 
 ## 2. 本轮目标
 
@@ -120,27 +120,27 @@
 
 PARA-001 · LEAD-001 · LIST-001 · CTA-001 · DIV-001 — 006 均为 PASS · 006D 待回归确认无倒退。
 
-## 11. Matrix / Drift / Candidate 状态
+## 11. Matrix / Drift / Candidate 状态（Mode B）
 
 | 类别 | 数量 | 说明 |
 |------|------|------|
-| Resolved | 0 | 无 PO 复测 |
-| Warning（新） | 0 | — |
-| Still Fail（新） | 0 | — |
-| Untested（006D） | 15 | 待 PO |
-| Drift pending | 8 | `IMPLEMENTED_PENDING_006D_REPASTE` |
+| Resolved | 8 | Drift 001/002/004–009 |
+| Warning（006D） | 0 | — |
+| Still Fail（006D） | 0 | — |
+| Harvest candidate-paste-pass | 2 | 不入 default preset |
+| Control no_regression | 5 | — |
 | Drift-003 | — | observation · 不纳入修复统计 |
 | HEAD-002 | — | 留给 007 |
 
 ## 12. 是否建议 merge story → sprint
 
-**Mode A：暂不 merge。** PO 完成实机粘贴并 Mode B 回填后，经用户审查再 merge。
+**Mode B：已 merge** → `sprint/s8-wechat-safe-css-contract`（用户确认 · 2026-06-05）
 
 ## 13. 未完成事项
 
-- PO 微信公众号实机粘贴 15 行
-- Mode B：回填 overlay · Session · Matrix paste 列 · Drift 终态 · Harvest candidate 判定
-- S8-STORY-006D 用户确认 Done
+- S8-STORY-007（HEAD-002 · Preview/Copy 审计）
+- DRIFT-003 产品澄清
+- Harvest S9 pool 人工评审
 
 ## 14. 风险与阻塞
 
@@ -160,4 +160,4 @@ PARA-001 · LEAD-001 · LIST-001 · CTA-001 · DIV-001 — 006 均为 PASS · 00
 
 ## 17. Commit
 
-- Commit hash：`b5f0e5a`
+- Mode A commit：`b5f0e5a` · Mode B + merge：见 closeout report

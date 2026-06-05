@@ -287,19 +287,16 @@ export function formatMatrixStory006PasteQaAppendix(): string {
 export function formatMatrix006dPasteQaAppendix(): string {
   return `---
 
-## 7.2 S8-STORY-006D Matrix Regression + Re-paste（Ready for PO）
+## 7.2 S8-STORY-006D Matrix Regression + Re-paste（Done · 2026-06-05）
 
 | 文档 | 用途 |
 |------|------|
 | [\`wechat-paste-qa-pack-2026-06-05-s8-story-006d.md\`](wechat-paste-qa-pack-2026-06-05-s8-story-006d.md) | 006D Re-test / Harvest / Control 样本包（15 行） |
-| [\`wechat-paste-qa-session-2026-06-05-s8-story-006d.md\`](wechat-paste-qa-session-2026-06-05-s8-story-006d.md) | 006D Session 模板 · PO 回填 |
+| [\`wechat-paste-qa-session-2026-06-05-s8-story-006d.md\`](wechat-paste-qa-session-2026-06-05-s8-story-006d.md) | PO 已填 · 15 行 PASS |
 | Overlay | \`S8_FIDELITY_PASTE_QA_OVERLAY_20260605_006D\` |
 
-**006D Re-test Set（8）：** TITLE-002/003 · HEAD-004 · CARD-001 · PARA-004 · SUM-004 · CARD-004 · LEAD-003  
-**Harvest（2）：** S8M-HARVEST-001/002 · \`WX-HARVEST-EVIDENCE-001\`  
-**Control（5）：** PARA-001 · LEAD-001 · LIST-001 · CTA-001 · DIV-001
-
-**Mode A：** 上表 \`pasteStatus\` 仍反映 Session 2026-06-04；\`contractAction\` / \`notes\` 标 **queued for 006D re-paste**；**禁止**无 PO 证据改 PASS。`;
+**006D 结果：** Re-test **8/8 PASS**（Drift 001/002/004–009 resolved）· Harvest **2/2 candidate-paste-pass** · Control **5/5 no_regression**  
+**未纳入：** DRIFT-003 observation · HEAD-002 → 007`;
 }
 
 export function buildWechatFidelityMatrixDocument(): string {
@@ -319,7 +316,7 @@ export function buildWechatFidelityMatrixDocument(): string {
 > 轻篇公众号排版 · qingpian-wechat-editor  
 > **Contract：** \`wechat-safe-contract-v1\` · **Profile：** \`wechat-mp-editor-v1\`  
 > **Story：** S8-STORY-005 · **生成：** \`tests/support/wechat-fidelity-matrix-builder.ts\`  
-> **状态：** Validator 已跑 · Session 2026-06-04 已回填 ${pasteTested} 行 · **006D** Ready for PO（15 行 queued · overlay \`20260605_006D\`）
+> **状态：** Validator 已跑 · Session 2026-06-04 已回填 19 行 · **006D Done**（15 行 PASS · overlay \`20260605_006D\`）· Matrix paste 已测 ${pasteTested} 行
 
 ---
 
@@ -396,6 +393,7 @@ ${formatMatrix006dPasteQaAppendix()}
 | 2026-06-04 | §7 Paste QA 入口 · Risk Set 说明（paste 仍 UNTESTED） | S8-STORY-006 |
 | 2026-06-04 | Session 2026-06-04 回填 paste 列 · Drift 001–009 | S8-STORY-006 |
 | 2026-06-04 | S8-STORY-006C copy-safe pattern fix · harvest candidates S8M-HARVEST-001/002 | S8-STORY-006C |
-| 2026-06-05 | §7.2 006D QA pack · 15 行 queued re-paste · Mode A（无虚构 PASS） | S8-STORY-006D |
+| 2026-06-05 | §7.2 006D QA pack · Mode A Ready for PO | S8-STORY-006D |
+| 2026-06-05 | 006D Session 回填 · 8 Drift resolved · 2 harvest candidate-paste-pass | S8-STORY-006D |
 `;
 }

@@ -10,7 +10,7 @@
 > **Sprint 5：** Generation / Streaming + Release 1 真实 UI 主流程闭环 · **Closed**（2026-06-02；DECISION-069；audit Grade A- · P0=0 · P1=4 · P2=3；`sprint/s5-generation-ui-main-flow` 已 merge 至 `release/1`）
 > **Sprint 6：** Release 1 Visible AI Main Flow · **Closed**（2026-06-02；DECISION-078；audit Grade A- · P0=0 · P1=5 · P2=4；`sprint/s6-visible-ai-main-flow` 已 merge 至 `release/1`）
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
-> **当前 Sprint：** **Sprint 8** — **S8：WeChat-safe CSS Contract & Fidelity Test System**（**In Progress** · **S8-STORY-006C Done** · **S8-STORY-006D Ready for PO Paste QA**（Mode A · 2026-06-05）· **007 未启动** · DECISION-088/089/090/091）
+> **当前 Sprint：** **Sprint 8** — **S8：WeChat-safe CSS Contract & Fidelity Test System**（**In Progress** · **S8-STORY-006D Done**（merge sprint · 2026-06-05）· **007 未启动** · DECISION-088/089/090/091）
 > **上一 Sprint：** **Sprint 7** — **Done**（2026-06-03 收口 · merge `release/1`）；**S7-STORY-007B** 承接至 S8 Paste / Fidelity 体系
 > **当前 Chore：** **Visible Progress & Legacy Convergence** — **Done**（DECISION-080 · 用户验收 2026-06-02 · merged @ `a5704d6`）
 > **Sprint 8 分支：** `sprint/s8-wechat-safe-css-contract`（从 `release/1` 切出 · 2026-06-04）
@@ -3400,7 +3400,7 @@ S8-STORY-006B 结构化样式调研与 Drift 归类 — **Done**（merge sprint 
 S8-STORY-006B-FIX-A 已发布文章 evidence 提取工作流 — **Done**（merge sprint · 2026-06-04）
 S8-STORY-006B-FIX-B 批量补 5–10 篇 article evidence — Planned（**未启动**）
 S8-STORY-006C 共性 Copy-safe renderer / fallback 修复 — **Done**（merge sprint · 2026-06-04）
-S8-STORY-006D Matrix 回归与 Paste 复测 — **Ready for PO Paste QA**（Mode A · 分支 `docs/s8-story-006d-matrix-regression-paste-retest`）
+S8-STORY-006D Matrix 回归与 Paste 复测 — **Done**（merge sprint · 2026-06-05 · 分支 `docs/s8-story-006d-matrix-regression-paste-retest`）
 S8-STORY-007 Preview / Copy 统一渲染方案审计 — Planned（**未启动**）
 S8-STORY-008 S8 Contract Audit 与关闭准备 — Planned
 ```
@@ -3658,7 +3658,7 @@ S8-STORY-008 S8 Contract Audit 与关闭准备 — Planned
 
 ## S8-STORY-006D Matrix 回归与 Paste 复测
 
-**优先级：** P0 · **状态：** **Ready for PO Paste QA**（Mode A · 未标 Done）
+**优先级：** P0 · **状态：** **Done**（用户确认 · merge sprint · 2026-06-05）
 
 **工作分支：** `docs/s8-story-006d-matrix-regression-paste-retest`
 
@@ -3666,16 +3666,18 @@ S8-STORY-008 S8 Contract Audit 与关闭准备 — Planned
 
 **依赖：** S8-STORY-006C **Done**
 
-**验收标准（Mode A — 本轮）：**
+**验收标准：**
 
-- [x] AC-1 006D QA Pack（8 re-test + 2 harvest + 5 control = 15 行）
-- [x] AC-2 006D Session 模板（`UNTESTED` / `pending` · 不虚构 PASS）
-- [x] AC-3 Matrix 重生成 · affected rows `queued for 006D re-paste` · 保留 006 paste 列
-- [x] AC-4 overlay `S8_FIDELITY_PASTE_QA_OVERLAY_20260605_006D`（空 · 待 PO 回填）
-- [x] AC-5 Drift 001/002/004–009 仍 `IMPLEMENTED_PENDING_006D_REPASTE`
-- [x] AC-6 test / lint / build PASS
-- [ ] AC-7 PO 实机粘贴 + Mode B 回填（待 PO）
-- [ ] AC-8 用户确认 Done · merge sprint
+- [x] AC-1 006D QA Pack（15 行）
+- [x] AC-2 PO 实机粘贴 · Session 回填（15/15 PASS）
+- [x] AC-3 overlay `S8_FIDELITY_PASTE_QA_OVERLAY_20260605_006D` 同步
+- [x] AC-4 Matrix paste 列更新 · 8 Drift → `RESOLVED_BY_006C_REPASTE_PASS`
+- [x] AC-5 Harvest 2 条 → `candidate-paste-pass`（不入 default preset）
+- [x] AC-6 Control 5 条 → `no_regression`
+- [x] AC-7 test / lint / build PASS
+- [x] AC-8 merge sprint
+
+**结果摘要：** Re-test 8/8 PASS · Harvest 2/2 candidate-paste-pass · Control 5/5 no_regression · DRIFT-003 observation · HEAD-002 → 007
 
 **交付物：** [`wechat-paste-qa-pack-2026-06-05-s8-story-006d.md`](paste-qa/wechat-paste-qa-pack-2026-06-05-s8-story-006d.md) · [`wechat-paste-qa-session-2026-06-05-s8-story-006d.md`](paste-qa/wechat-paste-qa-session-2026-06-05-s8-story-006d.md)
 

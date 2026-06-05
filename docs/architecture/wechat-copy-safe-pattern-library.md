@@ -25,15 +25,15 @@
 
 | patternId | Copy 落地 | 代码路径 | 006D |
 |-----------|-----------|----------|------|
-| `copy-safe-card` | **已落地** | `info-card-copy` · `text-block-copy` · `highlight-copy` · `quote-copy` | 待 re-paste |
-| `copy-safe-left-border` | **已落地** | `text-block-copy` · `info-card-copy`（warning_note） | 待 re-paste |
-| `copy-safe-title-divider` | **已落地** | `title-block-copy` · `heading-publish-copy-html` | 待 re-paste |
-| Harvest candidates | **2 条** | `heading_purple_chapter_label_candidate` · `info_card_reading_path_candidate` → Matrix `S8M-HARVEST-001/002` | UNTESTED |
+| `copy-safe-card` | **已落地** | `info-card-copy` · `text-block-copy` · `highlight-copy` · `quote-copy` | **006D PASS** |
+| `copy-safe-left-border` | **已落地** | `text-block-copy` · `info-card-copy`（warning_note） | **006D PASS** |
+| `copy-safe-title-divider` | **已落地** | `title-block-copy` · `heading-publish-copy-html` | **006D PASS** |
+| Harvest candidates | **2 条** | `heading_purple_chapter_label_candidate` · `info_card_reading_path_candidate` → Matrix `S8M-HARVEST-001/002` | **candidate-paste-pass**（006D） |
 
 - **未改** Contract v1 分级 · Validator 放宽 · 默认 preset。
-- Drift 001–002、004–009 → `IMPLEMENTED_PENDING_006D_REPASTE`；Drift 003 保持 observation。
+- Drift 001–002、004–009 → **`RESOLVED_BY_006C_REPASTE_PASS`**（006D · 2026-06-05）；Drift 003 保持 observation。
 
-### 1.2 S8-STORY-006D 复测入口（2026-06-05 · Ready for PO）
+### 1.2 S8-STORY-006D 复测结果（2026-06-05 · Done）
 
 | 文档 | 用途 |
 |------|------|
@@ -41,7 +41,7 @@
 | [`wechat-paste-qa-session-2026-06-05-s8-story-006d.md`](../agile/paste-qa/wechat-paste-qa-session-2026-06-05-s8-story-006d.md) | PO 回填模板 |
 | Overlay | `S8_FIDELITY_PASTE_QA_OVERLAY_20260605_006D` |
 
-**Mode A：** Matrix `pasteStatus` 仍反映 Session 2026-06-04；`contractAction` / `notes` 标 queued for 006D；**禁止**无 PO 证据改 PASS。
+**006D 结果：** copy-safe-card / left-border / title-divider 实机 **PASS**（8/8 re-test）；Harvest **candidate-paste-pass**（2/2）；不入 default preset。
 
 ---
 

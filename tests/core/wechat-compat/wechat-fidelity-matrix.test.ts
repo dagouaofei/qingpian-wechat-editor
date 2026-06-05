@@ -14,6 +14,7 @@ import {
   S8_006D_RETEST_MATRIX_ROW_IDS,
 } from "../../support/wechat-fidelity-matrix-006d-retest";
 import { S8_FIDELITY_PASTE_QA_OVERLAY_20260604 } from "../../support/wechat-fidelity-matrix-paste-overlay";
+import { S8_FIDELITY_PASTE_QA_OVERLAY_20260605_006D } from "../../support/wechat-fidelity-matrix-paste-overlay-006d";
 
 const MATRIX_DOC_PATH = join(
   dirname(fileURLToPath(import.meta.url)),
@@ -50,7 +51,10 @@ describe("S8 WeChat Fidelity Matrix", () => {
     for (const row of rows) {
       expect(row.clipboardHtmlSummary.length).toBeGreaterThan(0);
       expect(row.validation.contractVersionId).toBe("wechat-safe-contract-v1");
-      if (S8_FIDELITY_PASTE_QA_OVERLAY_20260604[row.matrixRowId] != null) {
+      const hasPasteOverlay =
+        S8_FIDELITY_PASTE_QA_OVERLAY_20260604[row.matrixRowId] != null ||
+        S8_FIDELITY_PASTE_QA_OVERLAY_20260605_006D[row.matrixRowId] != null;
+      if (hasPasteOverlay) {
         expect(["PASS", "WARNING", "FAIL"]).toContain(row.pasteStatus);
       } else {
         expect(row.pasteStatus).toBe("UNTESTED");
@@ -72,18 +76,19 @@ describe("S8 WeChat Fidelity Matrix", () => {
     }
   });
 
-  it("includes 006C harvest candidate rows and 006D queue markers", () => {
+  it("includes 006C harvest candidates and 006D PO paste results (Mode B)", () => {
     const rows = buildWechatFidelityMatrix();
     for (const id of S8_006D_HARVEST_MATRIX_ROW_IDS) {
       const row = rows.find((r) => r.matrixRowId === id);
       expect(row).toBeDefined();
       expect(row!.variantType).toBe("candidate");
-      expect(row!.contractAction).toContain("queued for 006D re-paste");
+      expect(row!.pasteStatus).toBe("PASS");
+      expect(row!.contractAction).toContain("candidate-paste-pass");
     }
     for (const id of S8_006D_RETEST_MATRIX_ROW_IDS) {
       const row = rows.find((r) => r.matrixRowId === id)!;
-      expect(row.contractAction).toContain("queued for 006D re-paste");
-      expect(row.notes).toContain("006D-session-2026-06-05");
+      expect(row.pasteStatus).toBe("PASS");
+      expect(row.contractAction).toBe("Resolved by 006C; paste PASS in 006D");
     }
   });
 

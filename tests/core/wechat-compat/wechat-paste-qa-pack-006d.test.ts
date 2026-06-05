@@ -68,35 +68,39 @@ describe("S8 WeChat Paste QA pack 006D", () => {
       expect(row!.variantType).toBe("candidate");
       expect(row!.notes).toContain("release1Eligible: false");
       expect(["PASS", "WARNING"]).toContain(row!.validatorStatus);
-      expect(row!.pasteStatus).toBe("UNTESTED");
+      expect(row!.pasteStatus).toBe("PASS");
     }
   });
 
-  it("006D overlay does not overwrite 006 paste data without 006D results (Mode A)", () => {
+  it("006D overlay applies PO results and traces previous 006 session (Mode B)", () => {
     expect(Object.keys(S8_FIDELITY_PASTE_QA_OVERLAY_20260605_006D)).toHaveLength(
-      0,
+      15,
     );
 
     const matrix = buildWechatFidelityMatrix();
     for (const id of S8_006D_RETEST_MATRIX_ROW_IDS) {
       const row = matrix.find((r) => r.matrixRowId === id)!;
-      const prev = S8_FIDELITY_PASTE_QA_OVERLAY_20260604[id]!;
-      expect(row.pasteStatus).toBe(prev.pasteStatus);
-      expect(row.pasteEvidence).toBe(prev.pasteEvidence);
-      expect(row.contractAction).toContain("queued for 006D re-paste");
-      expect(row.notes).toContain("006D-session-2026-06-05");
-      expect(row.notes).toContain(`prev=${prev.pasteStatus}`);
+      const overlay = S8_FIDELITY_PASTE_QA_OVERLAY_20260605_006D[id]!;
+      expect(row.pasteStatus).toBe("PASS");
+      expect(row.pasteEvidence).toBe(overlay.pasteEvidence);
+      expect(row.contractAction).toBe(
+        "Resolved by 006C; paste PASS in 006D",
+      );
+      expect(row.notes).toContain(`prev=${overlay.previousPasteStatus}`);
     }
   });
 
-  it("006D session rows trace previous 006 overlay for control PASS rows", () => {
+  it("006D drift rows resolve PASS; harvest candidates paste-pass; controls no regression", () => {
     const matrix = buildWechatFidelityMatrix();
+    for (const id of S8_006D_HARVEST_MATRIX_ROW_IDS) {
+      const row = matrix.find((r) => r.matrixRowId === id)!;
+      expect(row.pasteStatus).toBe("PASS");
+      expect(row.contractAction).toContain("candidate-paste-pass");
+    }
     for (const id of S8_006D_CONTROL_MATRIX_ROW_IDS) {
       const row = matrix.find((r) => r.matrixRowId === id)!;
-      const prev = S8_FIDELITY_PASTE_QA_OVERLAY_20260604[id]!;
       expect(row.pasteStatus).toBe("PASS");
-      expect(prev.pasteStatus).toBe("PASS");
-      expect(row.contractAction).toContain("queued for 006D re-paste");
+      expect(row.contractAction).toContain("006D control regression PASS");
     }
   });
 
