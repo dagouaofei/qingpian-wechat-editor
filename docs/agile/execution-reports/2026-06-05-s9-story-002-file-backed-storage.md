@@ -3,13 +3,13 @@
 ## 1. 基本信息
 
 - 日期：2026-06-05
-- 当前分支：`feature/s9-story-002-file-backed-style-library-storage`
+- 当前分支：`sprint/s9-style-management-system-v0`（merge 后）
 - 来源分支：`sprint/s9-style-management-system-v0`
-- 目标合并分支：`sprint/s9-style-management-system-v0`（**待用户确认 · 本轮未 merge**）
+- 目标合并分支：`sprint/s9-style-management-system-v0`（**已 merge** @ `859c0ed`）
 - Sprint：Sprint 9 — Style Management System v0（**In Progress**）
 - 关联 Story / Decision：S9-STORY-002 · **DECISION-095** · DECISION-094 · DECISION-092
 - 执行者：Cursor
-- 状态：**Done**（待用户审查）
+- 状态：**Done**（已 merge sprint · 2026-06-05）
 
 ## 2. 本轮目标
 
@@ -106,7 +106,6 @@
 
 ## 10. 未完成事项
 
-- 工作分支 **未 merge** 至 sprint（待用户确认）
 - S9-STORY-003~009 仍为 Planned
 
 ## 11. 风险与阻塞
@@ -117,17 +116,15 @@
 ## 12. 需要用户 / ChatGPT 审查的问题
 
 1. code-backed TS manifest 是否可接受作为 v0 source of truth？
-2. 是否批准 merge 工作分支 → `sprint/s9-style-management-system-v0`？
 
 ## 13. 建议下一步
 
-1. 用户审查本 report 与 [`style-library-storage.md`](../architecture/style-library-storage.md)
-2. 确认后 merge 至 sprint 分支
-3. 启动 **S9-STORY-003** Style Library Admin Shell
+1. 启动 **S9-STORY-003** Style Library Admin Shell
 
 ## 14. Commit
 
-- Commit hash：`ef71dbb` — `feat: add S9 style library code-backed storage layer`
+- Story commit：`ef71dbb` — `feat: add S9 style library code-backed storage layer`
+- Sprint merge：`859c0ed` — merge `feature/s9-story-002-file-backed-style-library-storage` → `sprint/s9-style-management-system-v0`
 
 ## 15. 越界检查
 

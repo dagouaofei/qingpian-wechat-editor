@@ -3833,7 +3833,7 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 
 ## S9-STORY-002 File-backed Style Library Storage
 
-**优先级：** P0 · **状态：** **Done**（2026-06-05 · DECISION-095）· **工作分支：** `feature/s9-story-002-file-backed-style-library-storage`
+**优先级：** P0 · **状态：** **Done**（2026-06-05 · DECISION-095 · merged sprint @ `859c0ed`）· **工作分支：** `feature/s9-story-002-file-backed-style-library-storage`（已 merge 至 `sprint/s9-style-management-system-v0`）
 
 **目标：** 建立 file-backed / code-backed 资产目录结构；明确 source of truth、metadata 格式、registry patch 方式、Git review / rollback 边界。
 
