@@ -5,6 +5,8 @@ export type FidelityPasteOverlay = {
   pasteStatus: FidelityPasteStatus;
   pasteEvidence: string;
   contractAction: string;
+  /** Optional Matrix notes override (S8-STORY-007 audit rows). */
+  notes?: string;
 };
 
 export const S8_FIDELITY_PASTE_QA_OVERLAY_20260604: Record<
@@ -40,7 +42,9 @@ export const S8_FIDELITY_PASTE_QA_OVERLAY_20260604: Record<
     pasteStatus: "PASS",
     pasteEvidence: "MP editor 2026-06-04 · 维多",
     contractAction:
-      "Validator false positive · paste PASS; track (no Contract change S8-006)",
+      "S8-STORY-007: VALIDATOR_FALSE_POSITIVE (font-variant-numeric uncatalogued) · paste PASS · no S8 code change",
+    notes:
+      "007 audit: validator RED=uncatalogued CSS fail-safe · Preview/Copy share copySafeNumberedSectionBadgeStyle · S9 compatibility metadata + future validator catalog",
   },
   "S8M-HEAD-004": {
     pasteStatus: "WARNING",

@@ -10,7 +10,7 @@
 > **Sprint 5：** Generation / Streaming + Release 1 真实 UI 主流程闭环 · **Closed**（2026-06-02；DECISION-069；audit Grade A- · P0=0 · P1=4 · P2=3；`sprint/s5-generation-ui-main-flow` 已 merge 至 `release/1`）
 > **Sprint 6：** Release 1 Visible AI Main Flow · **Closed**（2026-06-02；DECISION-078；audit Grade A- · P0=0 · P1=5 · P2=4；`sprint/s6-visible-ai-main-flow` 已 merge 至 `release/1`）
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
-> **当前 Sprint：** **Sprint 8** — **S8：WeChat-safe CSS Contract & Fidelity Test System**（**In Progress** · **006D Done** · **008 Done**（S9 重排）· **007/009 收口待启动** · DECISION-088~092）
+> **当前 Sprint：** **Sprint 8** — **S8：WeChat-safe CSS Contract & Fidelity Test System**（**In Progress** · **006D/007/008 Done** · **009 closeout 待启动** · DECISION-088~092）
 > **下一 Sprint（Planned）：** **Sprint 9** — **Style Management System v0**（样式管理后台 v0 · DECISION-092 · **未启动**）
 > **上一 Sprint：** **Sprint 7** — **Done**（2026-06-03 收口 · merge `release/1`）；**S7-STORY-007B** 承接至 S8 Paste / Fidelity 体系
 > **当前 Chore：** **Visible Progress & Legacy Convergence** — **Done**（DECISION-080 · 用户验收 2026-06-02 · merged @ `a5704d6`）
@@ -3402,7 +3402,7 @@ S8-STORY-006B-FIX-A 已发布文章 evidence 提取工作流 — **Done**（merg
 S8-STORY-006B-FIX-B 批量补 5–10 篇 article evidence — Planned（**未启动**）
 S8-STORY-006C 共性 Copy-safe renderer / fallback 修复 — **Done**（merge sprint · 2026-06-04）
 S8-STORY-006D Matrix 回归与 Paste 复测 — **Done**（merge sprint · 2026-06-05 · 分支 `docs/s8-story-006d-matrix-regression-paste-retest`）
-S8-STORY-007 Preview / Copy 统一渲染方案审计 — Planned（**未启动** · HEAD-002 · DRIFT-003 澄清）
+S8-STORY-007 Preview / Copy 统一渲染方案审计 — **Done**（2026-06-05 · HEAD-002 审计 · 分支 `docs/s8-story-007-head-002-preview-copy-audit`）
 S8-STORY-008 Sprint 9 Style Management System v0 Replanning — **Done**（2026-06-05 · DECISION-092）
 S8-STORY-009 S8 Contract Audit 与关闭准备 — Planned（**未启动**）
 ```
@@ -3687,19 +3687,32 @@ S8-STORY-009 S8 Contract Audit 与关闭准备 — Planned（**未启动**）
 
 ## S8-STORY-007 Preview / Copy 统一渲染方案审计
 
-**优先级：** P0 · **状态：** Planned · **工作分支：** `docs/s8-story-007-preview-copy-audit`
+**优先级：** P0 · **状态：** **Done**（2026-06-05 · 用户确认审计结论）· **工作分支：** `docs/s8-story-007-head-002-preview-copy-audit`
 
-**目标：**
+**目标：** 审计 S8M-HEAD-002 / `heading_numbered_section` 的 Validator FAIL · Paste PASS 分歧；判断 Preview/Copy/Validator 三角关系。
 
-- 审计 Preview Renderer 与 Copy Renderer 是否分叉
-- 判断 Preview 是否应复用 Copy-safe HTML
-- 提出统一渲染方案：**用户侧正式 Preview 应尽量预览最终 Copy HTML**
+**范围（本轮）：** HEAD-002 深度审计（D 类）；**未**扩至全量 heading 池或用户侧 Preview 改造。
+
+**结论摘要：**
+
+- **VALIDATOR_FALSE_POSITIVE_WITH_PASTE_EVIDENCE** — `font-variant-numeric` 未编目 → unknown → fail-safe RED
+- Preview/Copy **同源** `copySafeNumberedSectionBadgeStyle` · **无结构分叉**
+- **NO_CODE_CHANGE_REQUIRED_IN_S8**
+- 后续：validator catalog refinement（post-S8）· S9 compatibility metadata
+
+**交付物：** [`docs/architecture/audits/s8-story-007-head-002-preview-copy-validator-audit.md`](../architecture/audits/s8-story-007-head-002-preview-copy-validator-audit.md)
 
 **验收标准：**
 
-- [ ] AC-1 差异清单与 P0/P1 分级
-- [ ] AC-2 统一方案写入 architecture 文档（待 DECISION 确认）
-- [ ] AC-3 不在本 Story 强行改代码（除非后续 Story 拆分）
+- [x] AC-1 HEAD-002 Preview/Copy/Validator 审计完成
+- [x] AC-2 validator FAIL 触发原因明确（`font-variant-numeric` uncatalogued）
+- [x] AC-3 paste PASS 证据来源明确（Session 2026-06-04）
+- [x] AC-4 Preview/Copy 结构性一致结论明确
+- [x] AC-5 S8 无需代码修复结论明确
+- [x] AC-6 后续承接：S9 metadata · post-S8 validator catalog
+- [x] AC-7 Matrix S8M-HEAD-002 contractAction/notes 更新
+- [x] AC-8 S8 文档 Story 状态同步
+- [x] AC-9~13 无虚构 paste · 无 renderer 改动 · lint/test/build PASS
 
 ---
 

@@ -290,3 +290,4 @@ PO 粘贴后 **看不到卡片边框与背景色**（及 probe 横幅类组合�
 | 2026-06-04 | FIX-A：006C 不因 L0 harvest 阻塞 · 006D 须实机验证 |
 | 2026-06-05 | **S8-STORY-006D** 启动（Mode A）：QA pack 15 行 · Session 模板 · overlay `20260605_006D` |
 | 2026-06-05 | **S8-STORY-006D Done**（Mode B）：PO 15/15 PASS · Drift 001/002/004–009 → `RESOLVED_BY_006C_REPASTE_PASS` · Harvest candidate-paste-pass |
+| 2026-06-05 | **S8-STORY-007 Done**：HEAD-002 · validator false positive（`font-variant-numeric` uncatalogued）· paste PASS · no S8 code change |
