@@ -37,7 +37,8 @@ describe("StyleLibraryAdminShell", () => {
     expect(html).toContain("自动校验通过");
     expect(html).toContain("有兼容性提醒");
     expect(html).toContain('data-testid="style-library-candidate-review"');
-    expect(html).toContain("粘贴 QA 通过");
+    expect(html).toContain('data-testid="style-library-html-proposal-panel"');
+    expect(html).toContain("新增候选样式");
     expect(html).toContain("paste_qa_pass");
     expect(html).toContain('data-testid="style-library-candidate-card-seed-variant-heading-purple-chapter-label"');
     expect(html).toContain("heading_purple_chapter_label_candidate");
@@ -61,7 +62,7 @@ describe("StyleLibraryAdminShell", () => {
     );
 
     expect(html).toContain("Style Library Workbench");
-    expect(html).toContain("Not connected to runtime");
+    expect(html).toContain("Create Candidate Variant");
     expect(html).toContain("Read-only governance shell");
     expect(html).toContain("Candidate / Paste QA passed");
     expect(html).toContain("Ready for promote review with compatibility warnings");

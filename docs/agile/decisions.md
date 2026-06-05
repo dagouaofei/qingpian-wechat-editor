@@ -1039,3 +1039,18 @@
 - **关联：** S9-STORY-008、DECISION-101、DECISION-095、S10
 - **状态：** **已确认**（2026-06-05 · S9-STORY-008）
 
+### DECISION-104 详情（S9-STORY-005 proposal-first HTML paste workflow）
+
+- **日期：** 2026-06-05
+- **背景：**
+  - S9-STORY-005 需支持运营粘贴 HTML 生成 candidate proposal
+  - 不得由浏览器直接写 code-backed manifest / variant 文件
+- **决策：**
+  1. S9-STORY-005 采用 **proposal-first HTML paste workflow**
+  2. 运营粘贴 HTML → client-side proposal + inspection + evidence draft + Cursor patch summary
+  3. **不**写 manifest · **不**激活 runtime · **不**进入 user_selectable
+  4. 真实 code-backed apply 由 **S9-STORY-007B** 执行
+- **影响范围：** `html-candidate-proposal.ts` · `html-style-extractor.ts` · `style-library-html-proposal-panel.tsx`
+- **关联：** S9-STORY-005、DECISION-100、DECISION-101、S9-STORY-007B
+- **状态：** **已确认**（2026-06-05 · S9-STORY-005）
+

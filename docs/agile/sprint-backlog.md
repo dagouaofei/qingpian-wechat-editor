@@ -3922,15 +3922,27 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 
 ---
 
-## S9-STORY-005 Harvest HTML to Candidate Workflow
+## S9-STORY-005 HTML Paste to Candidate Variant Proposal
 
-**优先级：** P0 · **状态：** Planned
+**优先级：** P0 · **状态：** In Review · **分支：** `feature/s9-story-005-html-paste-to-candidate-proposal`
 
-**目标（DECISION-097 调整后）：** **新增候选样式向导** — 粘贴 HTML / 采集片段 → candidate review；展示原始 HTML · normalized candidate · 进入 Pipeline。
+**目标（DECISION-104）：** 粘贴 HTML → candidate proposal · evidence draft · Cursor patch summary · proposal inspection
 
-**非目标：** 不做批量 URL 抓取 · 不要求用户手填 DOM 摘要 · 不以 HTML parser 技术实现为唯一验收口径
+**非目标：** 不写 manifest · 不 apply patch · 不进入 user_selectable · 不启动 007B
 
-**Seed：** `heading_purple_chapter_label_candidate` · `info_card_reading_path_candidate`（006D candidate-paste-pass）
+**验收：**
+
+- [x] AC-1 HTML paste UI
+- [x] AC-2 candidate proposal engine
+- [x] AC-3 style feature extraction
+- [x] AC-4 proposal inspection
+- [x] AC-5 evidence draft + Cursor patch summary
+- [x] AC-6 distribution/lifecycle boundaries
+- [x] AC-7 zh/en
+- [x] AC-8 文档 · DECISION-104
+- [x] AC-9 测试
+- [x] AC-10 lint / test / build PASS
+- [ ] AC-11 用户确认 merge sprint
 
 ---
 

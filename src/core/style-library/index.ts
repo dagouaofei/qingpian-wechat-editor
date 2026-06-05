@@ -172,6 +172,28 @@ export type {
 } from "./style-palette-rule";
 
 export {
+  createHtmlCandidateProposal,
+  validateHtmlCandidateProposal,
+} from "./html-candidate-proposal";
+export type {
+  CreateHtmlCandidateProposalInput,
+  HtmlCandidateEvidenceDraft,
+  HtmlCandidateProposal,
+  HtmlCandidateProposalInspection,
+} from "./html-candidate-proposal";
+
+export {
+  extractStyleFeaturesFromHtml,
+  hashSourceHtml,
+  inferBlockTypeFromHtml,
+  previewSourceHtml,
+} from "./html-style-extractor";
+export type {
+  ExtractedStyleFeature,
+  HtmlStyleExtractionResult,
+} from "./html-style-extractor";
+
+export {
   checkPromoteEligibility,
   createPromoteProposal,
   createUserSelectablePatchProposal,

@@ -73,10 +73,10 @@
 | S9-STORY-002 | File-backed Style Library Storage | **Done**（2026-06-05 · [`style-library-storage.md`](../architecture/style-library-storage.md) · DECISION-095） |
 | S9-STORY-003 | Style Library Admin Shell | **Done**（2026-06-05 · FIX-A/B · `/dev/style-library` · merged sprint @ `35000ab` · DECISION-096 · **DECISION-097** · **DECISION-098**） |
 | S9-STORY-004 | Variant Lifecycle Management | **Done**（2026-06-05 · DECISION-099 · merged sprint @ `7300b9f`） |
-| S9-STORY-005 | Harvest HTML to Candidate Workflow | Planned · **新增候选样式向导：粘贴 HTML / 采集片段 → candidate review** |
-| S9-STORY-006 | Preview / Copy / Validator Integration | **In Review**（inspection-only · DECISION-100 · `feature/s9-story-006-preview-copy-validator-integration`） |
-| S9-STORY-007 | Promote to User-selectable Variant | In Review · **proposal-based user_selectable promote · DECISION-101** |
-| S9-STORY-008 | Style / Palette / Rule Management v0 | In Review · **P0** · operator metadata management · DECISION-102 |
+| S9-STORY-005 | HTML Paste to Candidate Proposal | In Review · **proposal-first paste · DECISION-104** |
+| S9-STORY-006 | Preview / Copy / Validator Integration | **Done** · DECISION-100 |
+| S9-STORY-007 | Promote to User-selectable Variant | **Done** · DECISION-101 |
+| S9-STORY-008 | Style / Palette / Rule Management v0 | **Done** · DECISION-102 |
 | S9-STORY-009 | S9 Audit / Closeout | Planned · **运营验收 audit + 技术 audit** |
 
 详情见 [`sprint-backlog.md`](sprint-backlog.md) Sprint 9 章节。
