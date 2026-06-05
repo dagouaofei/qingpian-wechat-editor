@@ -25,10 +25,15 @@ import {
   S8_FIDELITY_STYLE_REGISTRY,
 } from "../fixtures/fidelity/s8-wechat-fidelity-registry";
 import { S8_WECHAT_FIDELITY_FIXTURE_SPECS } from "../fixtures/fidelity/s8-wechat-fidelity-spec";
+import { is006dMatrixRow } from "./wechat-fidelity-matrix-006d-retest";
 import {
   S8_FIDELITY_PASTE_QA_OVERLAY_20260604,
   type FidelityPasteOverlay,
 } from "./wechat-fidelity-matrix-paste-overlay";
+import {
+  S8_FIDELITY_PASTE_QA_OVERLAY_20260605_006D,
+  type FidelityPasteOverlay006d,
+} from "./wechat-fidelity-matrix-paste-overlay-006d";
 
 import type {
   FidelityValidatorStatus,
@@ -160,10 +165,73 @@ export function applyFidelityPasteOverlay(
   };
 }
 
+const QUEUED_006D_CONTRACT_SUFFIX =
+  "006C changed Copy HTML; queued for 006D re-paste";
+
+function appendQueued006dContractAction(contractAction: string): string {
+  if (
+    contractAction.includes("queued for 006D") ||
+    contractAction.includes(QUEUED_006D_CONTRACT_SUFFIX)
+  ) {
+    return contractAction;
+  }
+  return `${contractAction} · ${QUEUED_006D_CONTRACT_SUFFIX}`;
+}
+
+function appendQueued006dNotes(
+  notes: string,
+  previousPasteStatus: string,
+  previousPasteEvidence: string,
+): string {
+  const trace = `006D-session-2026-06-05 · prev=${previousPasteStatus} (${previousPasteEvidence})`;
+  if (notes === "—") return trace;
+  if (notes.includes("006D-session-2026-06-05")) return notes;
+  return `${notes} · ${trace}`;
+}
+
+/** S8-STORY-006D overlay — Mode B updates paste; Mode A only queues without overwriting 006. */
+export function apply006dPasteOverlay(
+  row: WechatFidelityMatrixRow,
+): WechatFidelityMatrixRow {
+  if (!is006dMatrixRow(row.matrixRowId)) return row;
+
+  const overlay006: FidelityPasteOverlay | undefined =
+    S8_FIDELITY_PASTE_QA_OVERLAY_20260604[row.matrixRowId];
+  const previousPasteStatus = overlay006?.pasteStatus ?? row.pasteStatus;
+  const previousPasteEvidence = overlay006?.pasteEvidence ?? row.pasteEvidence;
+
+  const overlay006d: FidelityPasteOverlay006d | undefined =
+    S8_FIDELITY_PASTE_QA_OVERLAY_20260605_006D[row.matrixRowId];
+
+  if (overlay006d != null) {
+    return {
+      ...row,
+      pasteStatus: overlay006d.pasteStatus,
+      pasteEvidence: overlay006d.pasteEvidence,
+      contractAction: overlay006d.contractAction,
+      notes: appendQueued006dNotes(
+        row.notes,
+        overlay006d.previousPasteStatus ?? previousPasteStatus,
+        overlay006d.previousPasteEvidence ?? previousPasteEvidence,
+      ),
+    };
+  }
+
+  return {
+    ...row,
+    contractAction: appendQueued006dContractAction(row.contractAction),
+    notes: appendQueued006dNotes(
+      row.notes,
+      previousPasteStatus,
+      previousPasteEvidence,
+    ),
+  };
+}
+
 export function buildWechatFidelityMatrix(): WechatFidelityMatrixRow[] {
-  return S8_WECHAT_FIDELITY_FIXTURE_SPECS.map(buildWechatFidelityMatrixRow).map(
-    applyFidelityPasteOverlay,
-  );
+  return S8_WECHAT_FIDELITY_FIXTURE_SPECS.map(buildWechatFidelityMatrixRow)
+    .map(applyFidelityPasteOverlay)
+    .map(apply006dPasteOverlay);
 }
 
 function escapeMdCell(value: string): string {
@@ -216,6 +284,24 @@ export function formatMatrixStory006PasteQaAppendix(): string {
 实机粘贴若 FAIL → \`DRIFT-S8-YYYYMMDD-###\`（见 [\`copy-drift-diagnostics.md\`](../../architecture/copy-drift-diagnostics.md)）。`;
 }
 
+export function formatMatrix006dPasteQaAppendix(): string {
+  return `---
+
+## 7.2 S8-STORY-006D Matrix Regression + Re-paste（Ready for PO）
+
+| 文档 | 用途 |
+|------|------|
+| [\`wechat-paste-qa-pack-2026-06-05-s8-story-006d.md\`](wechat-paste-qa-pack-2026-06-05-s8-story-006d.md) | 006D Re-test / Harvest / Control 样本包（15 行） |
+| [\`wechat-paste-qa-session-2026-06-05-s8-story-006d.md\`](wechat-paste-qa-session-2026-06-05-s8-story-006d.md) | 006D Session 模板 · PO 回填 |
+| Overlay | \`S8_FIDELITY_PASTE_QA_OVERLAY_20260605_006D\` |
+
+**006D Re-test Set（8）：** TITLE-002/003 · HEAD-004 · CARD-001 · PARA-004 · SUM-004 · CARD-004 · LEAD-003  
+**Harvest（2）：** S8M-HARVEST-001/002 · \`WX-HARVEST-EVIDENCE-001\`  
+**Control（5）：** PARA-001 · LEAD-001 · LIST-001 · CTA-001 · DIV-001
+
+**Mode A：** 上表 \`pasteStatus\` 仍反映 Session 2026-06-04；\`contractAction\` / \`notes\` 标 **queued for 006D re-paste**；**禁止**无 PO 证据改 PASS。`;
+}
+
 export function buildWechatFidelityMatrixDocument(): string {
   const rows = buildWechatFidelityMatrix();
   const table = formatWechatFidelityMatrixMarkdown(rows);
@@ -233,7 +319,7 @@ export function buildWechatFidelityMatrixDocument(): string {
 > 轻篇公众号排版 · qingpian-wechat-editor  
 > **Contract：** \`wechat-safe-contract-v1\` · **Profile：** \`wechat-mp-editor-v1\`  
 > **Story：** S8-STORY-005 · **生成：** \`tests/support/wechat-fidelity-matrix-builder.ts\`  
-> **状态：** Validator 已跑 · Paste QA Session 2026-06-04 已回填 ${pasteTested} 行（Matrix 其余 ${rows.length - pasteTested} 行 UNTESTED）
+> **状态：** Validator 已跑 · Session 2026-06-04 已回填 ${pasteTested} 行 · **006D** Ready for PO（15 行 queued · overlay \`20260605_006D\`）
 
 ---
 
@@ -298,6 +384,7 @@ Fixture 使用 preset \`s8_fidelity_matrix_test\`（test-only）；probe variant
 ${table}
 
 ${formatMatrixStory006PasteQaAppendix()}
+${formatMatrix006dPasteQaAppendix()}
 
 ---
 
@@ -309,5 +396,6 @@ ${formatMatrixStory006PasteQaAppendix()}
 | 2026-06-04 | §7 Paste QA 入口 · Risk Set 说明（paste 仍 UNTESTED） | S8-STORY-006 |
 | 2026-06-04 | Session 2026-06-04 回填 paste 列 · Drift 001–009 | S8-STORY-006 |
 | 2026-06-04 | S8-STORY-006C copy-safe pattern fix · harvest candidates S8M-HARVEST-001/002 | S8-STORY-006C |
+| 2026-06-05 | §7.2 006D QA pack · 15 行 queued re-paste · Mode A（无虚构 PASS） | S8-STORY-006D |
 `;
 }

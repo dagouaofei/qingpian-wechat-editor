@@ -21,7 +21,7 @@
 - 已发布文章部分 **目前以 L0 归纳为主**；后续 L2/L3/L4 通过 AI 提取 workflow 逐步写入。
 - L0 **不删除** Pattern，但 **不得** 在 006C 中写成「已实采验证」。
 
-### 1.1 S8-STORY-006C 落地状态（2026-06-04 · In Review）
+### 1.1 S8-STORY-006C 落地状态（2026-06-04 · Done）
 
 | patternId | Copy 落地 | 代码路径 | 006D |
 |-----------|-----------|----------|------|
@@ -32,6 +32,16 @@
 
 - **未改** Contract v1 分级 · Validator 放宽 · 默认 preset。
 - Drift 001–002、004–009 → `IMPLEMENTED_PENDING_006D_REPASTE`；Drift 003 保持 observation。
+
+### 1.2 S8-STORY-006D 复测入口（2026-06-05 · Ready for PO）
+
+| 文档 | 用途 |
+|------|------|
+| [`wechat-paste-qa-pack-2026-06-05-s8-story-006d.md`](../agile/paste-qa/wechat-paste-qa-pack-2026-06-05-s8-story-006d.md) | 8 re-test + 2 harvest + 5 control |
+| [`wechat-paste-qa-session-2026-06-05-s8-story-006d.md`](../agile/paste-qa/wechat-paste-qa-session-2026-06-05-s8-story-006d.md) | PO 回填模板 |
+| Overlay | `S8_FIDELITY_PASTE_QA_OVERLAY_20260605_006D` |
+
+**Mode A：** Matrix `pasteStatus` 仍反映 Session 2026-06-04；`contractAction` / `notes` 标 queued for 006D；**禁止**无 PO 证据改 PASS。
 
 ---
 

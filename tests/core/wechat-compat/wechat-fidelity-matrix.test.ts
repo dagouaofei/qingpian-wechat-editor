@@ -9,6 +9,10 @@ import {
   buildWechatFidelityMatrix,
   buildWechatFidelityMatrixDocument,
 } from "../../support/wechat-fidelity-matrix-builder";
+import {
+  S8_006D_HARVEST_MATRIX_ROW_IDS,
+  S8_006D_RETEST_MATRIX_ROW_IDS,
+} from "../../support/wechat-fidelity-matrix-006d-retest";
 import { S8_FIDELITY_PASTE_QA_OVERLAY_20260604 } from "../../support/wechat-fidelity-matrix-paste-overlay";
 
 const MATRIX_DOC_PATH = join(
@@ -65,6 +69,21 @@ describe("S8 WeChat Fidelity Matrix", () => {
     }, {});
     for (const blockType of REQUIRED_MATRIX_BLOCK_TYPES) {
       expect(byBlock[blockType] ?? 0).toBeGreaterThanOrEqual(2);
+    }
+  });
+
+  it("includes 006C harvest candidate rows and 006D queue markers", () => {
+    const rows = buildWechatFidelityMatrix();
+    for (const id of S8_006D_HARVEST_MATRIX_ROW_IDS) {
+      const row = rows.find((r) => r.matrixRowId === id);
+      expect(row).toBeDefined();
+      expect(row!.variantType).toBe("candidate");
+      expect(row!.contractAction).toContain("queued for 006D re-paste");
+    }
+    for (const id of S8_006D_RETEST_MATRIX_ROW_IDS) {
+      const row = rows.find((r) => r.matrixRowId === id)!;
+      expect(row.contractAction).toContain("queued for 006D re-paste");
+      expect(row.notes).toContain("006D-session-2026-06-05");
     }
   });
 

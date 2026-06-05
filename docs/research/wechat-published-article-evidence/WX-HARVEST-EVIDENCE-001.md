@@ -93,3 +93,4 @@ supporting-evidence
 | S8M-HARVEST-002 | `info_card_reading_path_candidate` | `copy-safe-info-box`（阅读路径单 `p` 信息块） |
 
 - `pasteStatus`: **UNTESTED**（006D 实机复测）
+- **006D QA Pack：** [`wechat-paste-qa-pack-2026-06-05-s8-story-006d.md`](../../agile/paste-qa/wechat-paste-qa-pack-2026-06-05-s8-story-006d.md) · Session [`wechat-paste-qa-session-2026-06-05-s8-story-006d.md`](../../agile/paste-qa/wechat-paste-qa-session-2026-06-05-s8-story-006d.md)

@@ -825,6 +825,6 @@
   5. **本轮不** 修改 renderer · Contract v1 分级 · Profile · Validator · 不新增 variant · **不启动** 006C/007 实现
   6. 视觉升级与非保真装饰 **延后 S9**
   7. **006B-FIX-A（2026-06-04）：** Published article harvest 须区分 **L0 hypothesis** 与 **L1–L4 evidence**；用户仅提供 **URL** 或 **URL+HTML**，DOM/CSS/pattern 由 AI/Cursor 按 extraction guide 提取；**不** 要求用户手填摘要；**不** 虚构 URL；HARVEST-001~015 无 URL 者标 L0
-- **关联：** S8-STORY-006B、S8-STORY-006B-FIX-A、S8-STORY-006C（Planned）、S8-STORY-006D（Planned）、DECISION-088/089/090
+- **关联：** S8-STORY-006B、S8-STORY-006B-FIX-A、S8-STORY-006C（Done）、S8-STORY-006D（Ready for PO · Mode A）、DECISION-088/089/090
 - **状态：** 已确认
 
