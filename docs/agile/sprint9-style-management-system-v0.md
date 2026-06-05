@@ -99,7 +99,21 @@ S9-STORY-001 Domain Model
 
 ---
 
-## 8. 相关决策
+## 8. 启动条件（S8-STORY-009 审计 · 2026-06-05）
+
+| # | 条件 | 状态 |
+|---|------|------|
+| 1 | Contract v1 + Profile + Validator 可运行 | **满足** |
+| 2 | Fidelity Matrix + Paste QA 流程 | **满足** |
+| 3 | Drift / Pattern Library 文档 | **满足** |
+| 4 | Harvest seed assets（006D） | **满足** |
+| 5 | DECISION-092 story map | **满足** |
+| 6 | S8 audit 报告 | **满足** · [`sprint8-wechat-contract-fidelity-audit.md`](../architecture/audits/sprint8-wechat-contract-fidelity-audit.md) |
+| 7 | `sprint/s8-wechat-safe-css-contract` merge `release/1` | **待用户确认** |
+
+---
+
+## 9. 相关决策
 
 - **DECISION-092** — Style Management System v0 独立为 Sprint 9；file-backed；非独立仓库/部署
 - **DECISION-088** — S8 为 fidelity 体系；不扩展后台

@@ -589,12 +589,13 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 **Stories：** S8-STORY-001 ~ S8-STORY-009 — 见 `sprint-backlog.md`
 
-**当前：** **006D/007/008 Done** · **DRIFT-003 已澄清** · **009 closeout 待启动**
+**当前：** **009 audit In Review** · 待用户确认 Sprint 8 关闭 + merge `release/1`
 
 **S8 收口项（不被 S9 扩张污染）：**
 
-- **S8-STORY-009** — Contract audit · merge Sprint 8 → `release/1`
+- **S8-STORY-009** — audit **Done（In Review）** · merge sprint → `release/1` **待用户确认**
 - **006B-FIX-B** — Planned · 非阻塞
+- **Sprint 9** — S8 merge `release/1` 后启动
 
 **不做：**
 

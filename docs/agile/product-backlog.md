@@ -144,7 +144,7 @@
 |--------|------|-------|--------|
 | **Sprint 6** | Release 1 Visible AI Main Flow | S6-STORY-001 ~ S6-STORY-006 | **P0 · Closed**（DECISION-078） |
 | **Sprint 7** | WeChat Article Experience & Style Richness | S7-STORY-001 ~ S7-STORY-008 | **P0 · Done**（2026-06-03 · merge `release/1`） |
-| **Sprint 8** | WeChat-safe CSS Contract & Fidelity Test System | S8-STORY-001 ~ S8-STORY-009 | **P0 · In Progress**（**006D/007/008 Done** · **DRIFT-003 已澄清** · 009 closeout） |
+| **Sprint 8** | WeChat-safe CSS Contract & Fidelity Test System | S8-STORY-001 ~ S8-STORY-009 | **P0 · In Review**（009 audit Done · 待关闭 + merge `release/1`） |
 | **Sprint 9** | Style Management System v0（样式管理后台 v0） | S9-STORY-001 ~ S9-STORY-009 | **P0 · Planned**（DECISION-092 · **未启动**） |
 | **Sprint 10** | Style Expansion & Visual Quality Upgrade | TBD | **P1 · Planned（方向 only）** |
 
@@ -153,6 +153,19 @@ Story 详情见 [`sprint-backlog.md`](sprint-backlog.md) · S9 见 [`sprint9-sty
 **Sprint 9 定位（DECISION-092）：** 主项目内独立子系统 · file-backed · harvest 入库仅为入口之一 · 006D 两 candidate 为 seed assets。
 
 **不要把未启动 Sprint 的 Story 混入当前执行分支。**
+
+---
+
+## Sprint 8 Audit 遗留（S8-STORY-009 登记 · 2026-06-05）
+
+> 来源：[`sprint8-wechat-contract-fidelity-audit.md`](../architecture/audits/sprint8-wechat-contract-fidelity-audit.md)；**不阻塞 S8 closeout**。
+
+| ID | 问题 | 建议 Sprint | 说明 |
+|----|------|-------------|------|
+| **P1-S8-001** | Matrix 16 行 Paste UNTESTED | Release 1 hardening / S9 | 21/37 已 PO 实机 |
+| **P1-S8-002** | Validator catalog 缺口（如 `font-variant-numeric`） | post-S8 / S9 metadata | HEAD-002 已审计 |
+| **P1-S8-003** | S8-STORY-006B-FIX-B 批量 article evidence | S8 非阻塞 | 增强 harvest 输入 |
+| **P1-S8-004** | `title_left_bar_classic` validator FAIL · paste PASS | S9 promote 前 | candidate 未入 default preset |
 
 ---
 

@@ -482,3 +482,4 @@
 | 2026-06-05 | Sprint 8 | merge `docs/s8-story-008-s9-style-management-replanning` → sprint @ `301f73a` | Git | S8-STORY-008 |
 | 2026-06-05 | Sprint 8 | **S8-STORY-007 Done**：HEAD-002 validator false positive 审计 · no S8 code change | 文档 | S8-STORY-007 |
 | 2026-06-05 | Sprint 8 | **S8-DRIFT-003 Done**：`title_plain_minimal` 产品澄清 · NOT renderer bug · NO S8 code change | 文档 / Matrix | S8-DRIFT-003 |
+| 2026-06-05 | Sprint 8 | **S8-STORY-009 In Review**：Contract & Fidelity audit · Grade A- · P0=0 · S9 启动条件清单 | 文档 | S8-STORY-009 |
