@@ -991,3 +991,19 @@
 - **关联：** S9-STORY-004、DECISION-097、S9-STORY-007
 - **状态：** **已确认**（2026-06-05 · S9-STORY-004）
 
+### DECISION-100 详情（S9-STORY-006 inspection-only Preview / Copy / Validator）
+
+- **日期：** 2026-06-05
+- **背景：**
+  - S9-STORY-006 需在 Workbench 展示候选样式 Preview / Copy / Validator 结果
+  - 006D seed assets 不能进入 runtime 默认 registry / Gallery / default preset
+- **决策：**
+  1. S9-STORY-006 采用 **inspection-only integration** — 后台可检查候选样式
+  2. 使用独立 `createStyleLibraryInspectionStyleRegistry()`（preset `style_library_inspection_v0`）
+  3. 复用现有 Preview Renderer · Copy Renderer · `validateWechatCopyHtml`
+  4. **不修改** runtime StyleRegistry 默认路径 · 不激活 registry patch · 不进入 Gallery
+  5. Promote readiness 仅作运营结论；真实 promote → **S9-STORY-007**
+- **影响范围：** `src/core/style-library/inspection*.ts`、`style-library-preview-copy-validator-integration.md`
+- **关联：** S9-STORY-006、DECISION-097、DECISION-099、S9-STORY-007
+- **状态：** **已确认**（2026-06-05 · S9-STORY-006）
+

@@ -20,14 +20,17 @@ describe("StyleLibraryAdminShell", () => {
     expect(html).toContain("样式资产管理后台 v0");
     expect(html).toContain("未接入运行时");
     expect(html).toContain("只读治理模式");
-    expect(html).toContain("已通过粘贴 QA 的候选样式");
-    expect(html).toContain("尚未用户可选 / 尚不可进入默认推荐");
+    expect(html).toContain("可进入上线审核：自动校验通过/警告");
     expect(html).toContain('href="?lang=zh"');
     expect(html).toContain('href="?lang=en"');
     expect(html).toContain('data-testid="style-library-lifecycle-column-paste_qa_pass"');
     expect(html).toContain('data-testid="style-library-lifecycle-management"');
     expect(html).toContain('data-testid="style-library-lifecycle-panel-seed-variant-heading-purple-chapter-label"');
     expect(html).toContain('data-testid="style-library-blocked-transition-user_selectable-seed-variant-heading-purple-chapter-label"');
+    expect(html).toContain('data-testid="style-library-inspection-panel-seed-variant-heading-purple-chapter-label"');
+    expect(html).toContain('data-testid="style-library-inspection-summary"');
+    expect(html).toContain("自动校验通过");
+    expect(html).toContain("可进入上线审核");
     expect(html).toContain('data-testid="style-library-candidate-review"');
     expect(html).toContain("粘贴 QA 通过");
     expect(html).toContain("paste_qa_pass");
@@ -56,7 +59,7 @@ describe("StyleLibraryAdminShell", () => {
     expect(html).toContain("Not connected to runtime");
     expect(html).toContain("Read-only governance shell");
     expect(html).toContain("Candidate / Paste QA passed");
-    expect(html).toContain("Not user selectable / Not default eligible");
+    expect(html).toContain("Ready for promote review");
     expect(html).toContain("Paste QA Pass");
     expect(html).not.toContain("样式管理工作台");
   });

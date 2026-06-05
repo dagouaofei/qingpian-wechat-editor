@@ -502,4 +502,5 @@
 | 2026-06-05 | Sprint 9 | **S9-STORY-003-FIX-A**：Style Library Workbench operator UX reframe · `/dev/style-library` | 代码 / 文档 | S9-STORY-003-FIX-A · DECISION-097 |
 | 2026-06-05 | Sprint 9 | **S9-STORY-003-FIX-B**：Style Library Workbench zh/en i18n toggle · DECISION-098 | 代码 / 文档 | S9-STORY-003-FIX-B · DECISION-098 |
 | 2026-06-05 | Sprint 9 | merge `feature/s9-story-003-style-library-admin-shell` → `sprint/s9-style-management-system-v0` @ `35000ab` · 用户确认接受 S9-STORY-003 / FIX-A / FIX-B | Git | S9-STORY-003 |
-| 2026-06-05 | Sprint 9 | **S9-STORY-004 In Review**：Variant Lifecycle Management · proposal engine · `/dev/style-library` lifecycle panel · DECISION-099 | 代码 / 文档 | S9-STORY-004 · DECISION-099 |
+| 2026-06-05 | Sprint 9 | **S9-STORY-004 Done**：merge lifecycle management → sprint @ `7300b9f` | Git | S9-STORY-004 |
+| 2026-06-05 | Sprint 9 | **S9-STORY-006 In Review**：inspection-only Preview / Copy / Validator · Workbench panels · DECISION-100 | 代码 / 文档 | S9-STORY-006 · DECISION-100 |

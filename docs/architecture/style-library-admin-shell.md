@@ -110,7 +110,21 @@ Workbench 集成 lifecycle transition engine 与 **Lifecycle Change Proposal** �
 
 ---
 
-## 9. 双语切换（DECISION-098 · S9-STORY-003-FIX-B）
+## 9. Preview / Copy / Validator（S9-STORY-006 · DECISION-100）
+
+**inspection-only** 集成 — 复用 Preview / Copy Renderer 与 `validateWechatCopyHtml`：
+
+- Status Summary：**检查概览**（自动校验通过 · 需要粘贴 QA · 可进入上线审核 · 阻塞候选样式）
+- Candidate Review：**Preview / Copy / Validator / Promote readiness** 面板
+- Diagnostics / Advanced：raw Copy HTML · raw validator issues
+
+独立 registry：`createStyleLibraryInspectionStyleRegistry()` · preset `style_library_inspection_v0` — **不**接入 runtime 默认路径。
+
+详见 [`style-library-preview-copy-validator-integration.md`](style-library-preview-copy-validator-integration.md)。
+
+---
+
+## 10. 双语切换（DECISION-098 · S9-STORY-003-FIX-B）
 
 | 项 | 内容 |
 |----|------|
@@ -124,7 +138,7 @@ Workbench 集成 lifecycle transition engine 与 **Lifecycle Change Proposal** �
 
 ---
 
-## 10. 代码结构
+## 11. 代码结构
 
 ```text
 src/app/dev/style-library/
@@ -132,23 +146,28 @@ src/app/dev/style-library/
   style-library-i18n.ts
   style-library-view-model.ts
   style-library-lifecycle-view-model.ts
+  style-library-inspection-view-model.ts
+  style-library-inspection-preview.tsx
   style-library-admin-shell.tsx
 ```
 
 ---
 
-## 11. 测试
+## 12. 测试
 
 - `tests/core/style-library/style-library-lifecycle.test.ts`
+- `tests/core/style-library/style-library-inspection.test.ts`
 - `tests/app/dev/style-library/style-library-lifecycle-view-model.test.ts`
+- `tests/app/dev/style-library/style-library-inspection-view-model.test.ts`
 - `tests/app/dev/style-library/style-library-i18n.test.ts`
 - `tests/app/dev/style-library/style-library-view-model.test.ts`
 - `tests/app/dev/style-library/style-library-page.test.tsx`
 
 ---
 
-## 12. 参考
+## 13. 参考
 
-- **DECISION-099** · **DECISION-098** · **DECISION-097** · DECISION-096
+- **DECISION-100** · **DECISION-099** · **DECISION-098** · **DECISION-097** · DECISION-096
 - [`style-library-lifecycle-management.md`](style-library-lifecycle-management.md)
+- [`style-library-preview-copy-validator-integration.md`](style-library-preview-copy-validator-integration.md)
 - [`sprint9-style-management-system-v0.md`](../agile/sprint9-style-management-system-v0.md)

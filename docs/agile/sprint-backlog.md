@@ -3895,7 +3895,7 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 
 ## S9-STORY-004 Variant Lifecycle Management
 
-**优先级：** P0 · **状态：** **In Review**（2026-06-05 · DECISION-099 · proposal-based transition v0）· **工作分支：** `feature/s9-story-004-variant-lifecycle-management`（**未 merge sprint**）
+**优先级：** P0 · **状态：** **Done**（2026-06-05 · DECISION-099 · merged sprint @ `7300b9f`）
 
 **目标（DECISION-097 / DECISION-099）：** **运营可见 lifecycle pipeline + Lifecycle Change Proposal 预览**；运营人员能看懂状态、blocked reason、下一步与 promote 边界。
 
@@ -3936,11 +3936,13 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 
 ## S9-STORY-006 Preview / Copy / Validator Integration
 
-**优先级：** P0 · **状态：** Planned
+**优先级：** P0 · **状态：** In Review · **分支：** `feature/s9-story-006-preview-copy-validator-integration`
 
-**目标（DECISION-097 调整后）：** **候选样式 Preview · Copy HTML · validator 结果的运营可读面板**；运营人员能看懂验证结论，而非只看技术日志。
+**目标（DECISION-097 · DECISION-100）：** inspection-only Preview / Copy / Validator 集成；Workbench 展示运营可读验证结论与 promote readiness。
 
-**非目标：** 不新建第二套 renderer · 不修改 Contract v1 分级（除非独立 Decision）· 不以 engineer-only debug 页为验收
+**验收：** 006D seed candidates 可 preview · copy · validate · promote readiness；不修改 runtime registry / Gallery / 用户侧 Preview·Copy。
+
+**非目标：** 不 promote · 不写 manifest · 不新建 renderer · 不做 harvest parser
 
 ---
 

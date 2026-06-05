@@ -83,11 +83,11 @@ describe("buildStyleLibraryAdminViewModel", () => {
       ]);
     }
 
-    expect(zhViewModel.candidateReviewCards[0]?.currentConclusion).toBe(
-      "尚未用户可选 / 尚不可进入默认推荐",
+    expect(zhViewModel.candidateReviewCards[0]?.currentConclusion).toContain(
+      "上线审核",
     );
-    expect(enViewModel.candidateReviewCards[0]?.currentConclusion).toBe(
-      "Not user selectable / Not default eligible",
+    expect(enViewModel.candidateReviewCards[0]?.currentConclusion).toContain(
+      "promote review",
     );
     expect(zhViewModel.candidateReviewCards[0]?.disabledActions[0]?.label).toBe(
       "校验",
