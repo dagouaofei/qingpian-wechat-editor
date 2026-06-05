@@ -957,3 +957,21 @@
 - **关联：** S9-STORY-003-FIX-A、S9-PLANNING-REFRAME、DECISION-096、S9-STORY-004~009
 - **状态：** **已确认**（2026-06-05 · S9-PLANNING-REFRAME）
 
+### DECISION-098 详情（Style Library Workbench v0 · zh/en 双语）
+
+- **日期：** 2026-06-05
+- **背景：**
+  - S9-STORY-003-FIX-B 需让运营工作台支持中文 / English 切换
+  - 默认面向中文运营人员，但需保留英文以便技术协作与 review
+  - 不引入全站 i18n 框架或大型依赖
+- **决策：**
+  1. `/dev/style-library` 支持 **zh / en** 双语切换（**DECISION-098**）
+  2. **默认语言：中文（`zh`）**；`?lang=en` 切换英文；无 `lang` 参数时默认 `zh`
+  3. 实现方式：页面内轻量 dictionary（`style-library-i18n.ts`）· Header 语言链接 · **无**全站 i18n
+  4. **不翻译** assetId · runtimeVariantId · patchId · evidenceId · matrixRowId；lifecycle raw key 可保留于 tooltip / 小字
+  5. i18n **不影响** manifest · runtime StyleRegistry · Gallery / Preview / Copy
+  6. **范围限定** 当前 Workbench 页面；不启动 S9-STORY-004 · 不 merge sprint（本轮）
+- **影响范围：** `src/app/dev/style-library/style-library-i18n.ts`、`style-library-admin-shell.md`、`sprint-backlog.md`、`decisions.md`
+- **关联：** S9-STORY-003-FIX-B、DECISION-097、DECISION-096
+- **状态：** **已确认**（2026-06-05 · S9-STORY-003-FIX-B）
+

@@ -3858,7 +3858,7 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 
 ## S9-STORY-003 Style Library Admin Shell
 
-**优先级：** P0 · **状态：** **In Review**（S9-STORY-003-FIX-A · operator workbench reframe · DECISION-096 · **DECISION-097**）· **工作分支：** `feature/s9-story-003-style-library-admin-shell`（**未 merge sprint**）
+**优先级：** P0 · **状态：** **In Review**（S9-STORY-003-FIX-A/B · operator workbench + zh/en i18n · DECISION-096 · **DECISION-097** · **DECISION-098**）· **工作分支：** `feature/s9-story-003-style-library-admin-shell`（**未 merge sprint**）
 
 **目标：** `/dev/style-library` 面向**运营管理人员**的样式管理工作台 v0（只读）；Workbench Header · Status Summary · Lifecycle Pipeline · Candidate Review · Diagnostics。
 
@@ -3883,6 +3883,13 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 - [x] AC-15 `corepack pnpm lint` PASS
 - [x] AC-16 `corepack pnpm test` PASS
 - [x] AC-17 `corepack pnpm build` PASS
+- [x] AC-18 默认 locale 为 zh（`style-library-i18n.ts`）
+- [x] AC-19 `?lang=en` / `?lang=zh` 切换 UI 文案
+- [x] AC-20 lifecycle / summary / actions 中文化或英文化 display label
+- [x] AC-21 assetId / runtimeVariantId 等技术 ID 不翻译
+- [x] AC-22 Header 语言切换链接（无复杂状态管理）
+- [x] AC-23 DECISION-098 文档已同步
+- [x] AC-24 i18n 单元 + shell 测试已覆盖
 
 ---
 

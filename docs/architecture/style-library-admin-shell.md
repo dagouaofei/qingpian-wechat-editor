@@ -1,8 +1,8 @@
 # Style Library Admin Shell
 
 > 轻篇公众号排版 · qingpian-wechat-editor  
-> **Sprint 9 · S9-STORY-003 / S9-STORY-003-FIX-A** · Operator-facing Style Management Workbench v0（只读）  
-> **路由：** `/dev/style-library` · **DECISION-096** · **DECISION-097**  
+> **Sprint 9 · S9-STORY-003 / FIX-A / FIX-B** · Operator-facing Style Management Workbench v0（只读）  
+> **路由：** `/dev/style-library` · **DECISION-096** · **DECISION-097** · **DECISION-098**  
 > **关联：** [`style-library-storage.md`](style-library-storage.md) · [`style-management-domain-model.md`](style-management-domain-model.md)
 
 ---
@@ -98,11 +98,26 @@ Workbench Header 明确：**Not connected to runtime**；不影响 Gallery / Pre
 
 ---
 
-## 8. 代码结构
+## 8. 双语切换（DECISION-098 · S9-STORY-003-FIX-B）
+
+| 项 | 内容 |
+|----|------|
+| **默认语言** | 中文（`zh`） |
+| **支持语言** | 中文 · English（`en`） |
+| **切换方式** | URL query：`/dev/style-library?lang=zh` · `?lang=en`；页面 Header 语言切换链接 |
+| **实现** | [`style-library-i18n.ts`](../src/app/dev/style-library/style-library-i18n.ts) 轻量 dictionary · **无**全站 i18n 框架 |
+| **范围** | **仅** `/dev/style-library` · 不影响 manifest / runtime / StyleRegistry |
+| **不翻译** | assetId · runtimeVariantId · patchId · evidenceId · matrixRowId · diagnostics 表头技术字段 |
+| **lifecycle** | UI 显示中文/英文 label；raw key（如 `paste_qa_pass`）保留在看板小字 / tooltip |
+
+---
+
+## 9. 代码结构
 
 ```text
 src/app/dev/style-library/
-  page.tsx
+  page.tsx                      # searchParams.lang → locale
+  style-library-i18n.ts         # zh/en dictionary
   style-library-view-model.ts
   style-library-admin-shell.tsx
 ```
@@ -111,16 +126,17 @@ src/app/dev/style-library/
 
 ---
 
-## 9. 测试
+## 10. 测试
 
+- `tests/app/dev/style-library/style-library-i18n.test.ts`
 - `tests/app/dev/style-library/style-library-view-model.test.ts`
 - `tests/app/dev/style-library/style-library-page.test.tsx`
 
-覆盖：lifecycle groups · paste_qa_pass seeds · candidate cards · disabled actions · distribution false · 无写操作 · diagnostics 区
+覆盖：默认 zh · `?lang=en` 英文标题 · lifecycle 中文 label · actions 双语 · 技术 ID 不翻译 · 无写操作 · diagnostics 区
 
 ---
 
-## 10. 参考
+## 11. 参考
 
-- **DECISION-097** · DECISION-096 · DECISION-095
+- **DECISION-098** · **DECISION-097** · DECISION-096 · DECISION-095
 - [`sprint9-style-management-system-v0.md`](../agile/sprint9-style-management-system-v0.md)

@@ -14,6 +14,17 @@ import type {
   StyleLibraryVariantAsset,
 } from "@/core/style-library";
 
+import {
+  STYLE_LIBRARY_DEFAULT_LOCALE,
+  getAllLifecycleStates,
+  getCandidateDisabledActions,
+  getLifecycleDisplayLabel,
+  getStyleLibraryUiCopy,
+  type StyleLibraryDisabledActionCopy,
+  type StyleLibraryLocale,
+  type StyleLibraryUiCopy,
+} from "./style-library-i18n";
+
 export type StyleLibraryAdminAssetRow = {
   assetId: string;
   assetType: string;
@@ -71,6 +82,7 @@ export type StyleLibraryAdminValidationPanel = {
 export type StyleLibraryWorkbenchHeader = {
   title: string;
   subtitle: string;
+  description: string;
   libraryId: string;
   schemaVersion: number;
   updatedAt: string;
@@ -91,23 +103,20 @@ export type StyleLibraryStatusSummary = {
 export type StyleLibraryLifecycleGroup = {
   lifecycle: StyleLibraryLifecycleState;
   label: string;
+  rawKey: string;
   assets: StyleLibraryAdminAssetRow[];
 };
 
-export type StyleLibraryCandidateDisabledAction = {
-  actionId: string;
-  label: string;
-  disabledReason: string;
-  deferredStory: string;
-};
-
 export type StyleLibraryCandidateReviewCard = StyleLibraryAdminAssetRow & {
+  lifecycleLabel: string;
   currentConclusion: string;
   nextStepHint: string;
-  disabledActions: StyleLibraryCandidateDisabledAction[];
+  disabledActions: StyleLibraryDisabledActionCopy[];
 };
 
 export type StyleLibraryAdminViewModel = {
+  locale: StyleLibraryLocale;
+  ui: StyleLibraryUiCopy;
   workbench: StyleLibraryWorkbenchHeader;
   statusSummary: StyleLibraryStatusSummary;
   lifecycleGroups: StyleLibraryLifecycleGroup[];
@@ -120,59 +129,13 @@ export type StyleLibraryAdminViewModel = {
   runtimeNotice: string;
 };
 
-export const CANDIDATE_DISABLED_ACTIONS: StyleLibraryCandidateDisabledAction[] =
-  [
-    {
-      actionId: "validate",
-      label: "Validate",
-      disabledReason: "renderer / validator integration",
-      deferredStory: "S9-STORY-006",
-    },
-    {
-      actionId: "review-evidence",
-      label: "Review Evidence",
-      disabledReason: "lifecycle write",
-      deferredStory: "S9-STORY-004",
-    },
-    {
-      actionId: "promote-user-selectable",
-      label: "Promote to User Selectable",
-      disabledReason: "promote",
-      deferredStory: "S9-STORY-007",
-    },
-    {
-      actionId: "mark-default-eligible",
-      label: "Mark Default Eligible",
-      disabledReason: "promote",
-      deferredStory: "S9-STORY-007",
-    },
-  ];
-
-const LIFECYCLE_STATES: StyleLibraryLifecycleState[] = [
-  "draft",
-  "candidate",
-  "validator_pass",
-  "paste_qa_pass",
-  "user_selectable",
-  "default_eligible",
-  "deprecated",
-];
-
-const LIFECYCLE_LABELS: Record<StyleLibraryLifecycleState, string> = {
-  draft: "Draft · 草稿",
-  candidate: "Candidate · 候选",
-  validator_pass: "Validator Pass · 校验通过",
-  paste_qa_pass: "Paste QA Pass · 粘贴验收通过",
-  user_selectable: "User Selectable · 用户可选",
-  default_eligible: "Default Eligible · 默认可用",
-  deprecated: "Deprecated · 已废弃",
-};
+export type { StyleLibraryDisabledActionCopy, StyleLibraryLocale, StyleLibraryUiCopy };
 
 function emptyLifecycleDistribution(): Record<
   StyleLibraryLifecycleState,
   number
 > {
-  return LIFECYCLE_STATES.reduce(
+  return getAllLifecycleStates().reduce(
     (acc, state) => {
       acc[state] = 0;
       return acc;
@@ -191,13 +154,17 @@ function buildLifecycleDistribution(
   return distribution;
 }
 
-function seedBadgeForAsset(asset: StyleLibraryVariantAsset): string {
-  return `seed · candidate · ${asset.lifecycle}`;
+function seedBadgeForAsset(
+  asset: StyleLibraryVariantAsset,
+  locale: StyleLibraryLocale,
+): string {
+  return getStyleLibraryUiCopy(locale).seedBadge(asset.lifecycle);
 }
 
 function toAssetRow(
   asset: StyleLibraryManifest["assets"][number],
   seedAssetIds: Set<string>,
+  locale: StyleLibraryLocale,
 ): StyleLibraryAdminAssetRow {
   if (asset.assetType === "variant") {
     const isSeed =
@@ -215,7 +182,7 @@ function toAssetRow(
       release1Required: asset.distribution.release1Required,
       isSeedAsset: isSeed,
       evidenceCount: asset.evidenceIds?.length ?? 0,
-      seedBadge: isSeed ? seedBadgeForAsset(asset) : null,
+      seedBadge: isSeed ? seedBadgeForAsset(asset, locale) : null,
     };
   }
 
@@ -265,24 +232,29 @@ function toEvidenceRow(ref: StyleLibraryEvidenceRef): StyleLibraryAdminEvidenceR
 
 function buildLifecycleGroups(
   assets: StyleLibraryAdminAssetRow[],
+  locale: StyleLibraryLocale,
 ): StyleLibraryLifecycleGroup[] {
-  return LIFECYCLE_STATES.map((lifecycle) => ({
+  return getAllLifecycleStates().map((lifecycle) => ({
     lifecycle,
-    label: LIFECYCLE_LABELS[lifecycle],
+    label: getLifecycleDisplayLabel(locale, lifecycle),
+    rawKey: lifecycle,
     assets: assets.filter((asset) => asset.lifecycle === lifecycle),
   }));
 }
 
 function buildCandidateReviewCards(
   assets: StyleLibraryAdminAssetRow[],
+  locale: StyleLibraryLocale,
+  ui: StyleLibraryUiCopy,
 ): StyleLibraryCandidateReviewCard[] {
   return assets
     .filter((asset) => asset.isSeedAsset)
     .map((asset) => ({
       ...asset,
-      currentConclusion: "Not user selectable / Not default eligible",
-      nextStepHint: "Needs lifecycle / promote review",
-      disabledActions: CANDIDATE_DISABLED_ACTIONS,
+      lifecycleLabel: getLifecycleDisplayLabel(locale, asset.lifecycle),
+      currentConclusion: ui.candidateCurrentConclusionValue,
+      nextStepHint: ui.candidateNextStepHint,
+      disabledActions: getCandidateDisabledActions(locale),
     }));
 }
 
@@ -304,12 +276,16 @@ function buildStatusSummary(
 
 export function buildStyleLibraryAdminViewModel(
   manifest: StyleLibraryManifest = STYLE_LIBRARY_MANIFEST,
+  locale: StyleLibraryLocale = STYLE_LIBRARY_DEFAULT_LOCALE,
 ): StyleLibraryAdminViewModel {
+  const ui = getStyleLibraryUiCopy(locale);
   const seedAssetIds = new Set(manifest.seedAssetIds);
   const validationResult = validateStyleLibraryManifest(manifest);
   const variantAssets = getStyleLibraryVariantAssets(manifest);
   const seedAssets = getStyleLibrarySeedAssets(manifest);
-  const assets = manifest.assets.map((asset) => toAssetRow(asset, seedAssetIds));
+  const assets = manifest.assets.map((asset) =>
+    toAssetRow(asset, seedAssetIds, locale),
+  );
   const validation: StyleLibraryAdminValidationPanel = {
     ok: validationResult.ok,
     issueCount: validationResult.ok ? 0 : validationResult.issues.length,
@@ -330,24 +306,26 @@ export function buildStyleLibraryAdminViewModel(
   };
 
   return {
+    locale,
+    ui,
     workbench: {
-      title: "Style Library Workbench",
-      subtitle: "样式资产管理后台 v0",
+      title: ui.workbenchTitle,
+      subtitle: ui.workbenchSubtitle,
+      description: ui.workbenchDescription,
       libraryId: manifest.libraryId,
       schemaVersion: manifest.schemaVersion,
       updatedAt: manifest.updatedAt,
-      runtimeStatus: "Not connected to runtime",
-      mode: "Read-only governance shell",
+      runtimeStatus: ui.runtimeStatus,
+      mode: ui.mode,
     },
     statusSummary: buildStatusSummary(overview, validation),
-    lifecycleGroups: buildLifecycleGroups(assets),
-    candidateReviewCards: buildCandidateReviewCards(assets),
+    lifecycleGroups: buildLifecycleGroups(assets, locale),
+    candidateReviewCards: buildCandidateReviewCards(assets, locale, ui),
     overview,
     assets,
     patches: manifest.registryPatches.map((patch) => toPatchRow(manifest, patch)),
     evidence: manifest.evidenceRefs.map(toEvidenceRow),
     validation,
-    runtimeNotice:
-      "样式尚未接入线上 Gallery / Preview / Copy。当前工作台仅用于查看候选样式与治理状态，不会影响用户侧默认样式。",
+    runtimeNotice: ui.runtimeNotice,
   };
 }

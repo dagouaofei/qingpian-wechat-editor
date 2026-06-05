@@ -7,7 +7,7 @@
 > **领域模型：** [`style-management-domain-model.md`](../architecture/style-management-domain-model.md)  
 > **存储：** [`style-library-storage.md`](../architecture/style-library-storage.md)  
 > **Admin Shell：** [`style-library-admin-shell.md`](../architecture/style-library-admin-shell.md) · `/dev/style-library`  
-> **决策：** DECISION-092 · **DECISION-094** · **DECISION-095** · **DECISION-096** · **DECISION-097**
+> **决策：** DECISION-092 · **DECISION-094** · **DECISION-095** · **DECISION-096** · **DECISION-097** · **DECISION-098**
 
 ---
 
@@ -71,7 +71,7 @@
 |-------|------|------|
 | S9-STORY-001 | Style Management Domain Model | **Done**（2026-06-05 · [`style-management-domain-model.md`](../architecture/style-management-domain-model.md)） |
 | S9-STORY-002 | File-backed Style Library Storage | **Done**（2026-06-05 · [`style-library-storage.md`](../architecture/style-library-storage.md) · DECISION-095） |
-| S9-STORY-003 | Style Library Admin Shell | **In Review**（S9-STORY-003-FIX-A · operator workbench reframe · `/dev/style-library` · DECISION-096 · **DECISION-097**） |
+| S9-STORY-003 | Style Library Admin Shell | **In Review**（FIX-A operator workbench · FIX-B zh/en i18n · `/dev/style-library` · DECISION-096 · **DECISION-097** · **DECISION-098**） |
 | S9-STORY-004 | Variant Lifecycle Management | Planned · **运营可见 lifecycle pipeline + 最小状态流转** |
 | S9-STORY-005 | Harvest HTML to Candidate Workflow | Planned · **新增候选样式向导：粘贴 HTML / 采集片段 → candidate review** |
 | S9-STORY-006 | Preview / Copy / Validator Integration | Planned · **候选样式 Preview · Copy HTML · validator 运营可读面板** |
@@ -139,6 +139,7 @@ S9 关闭前，运营人员应能完成或模拟完成以下场景：
 
 ## 9. 相关决策
 
+- **DECISION-098** — Workbench v0 支持 zh/en 双语；默认中文；范围限定 `/dev/style-library`
 - **DECISION-097** — Sprint 9 operator-facing acceptance；关闭标准以运营 Workbench 为准
 - **DECISION-096** — Admin Shell v0 路由 `/dev/style-library`；内部只读 · 无权限
 - **DECISION-095** — Style Library v0 code-backed TS manifest · 独立 `@/core/style-library`

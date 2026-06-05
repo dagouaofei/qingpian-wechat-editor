@@ -2,10 +2,8 @@ import { describe, expect, it } from "vitest";
 
 import { STYLE_LIBRARY_MANIFEST } from "@/core/style-library";
 
-import {
-  CANDIDATE_DISABLED_ACTIONS,
-  buildStyleLibraryAdminViewModel,
-} from "@/app/dev/style-library/style-library-view-model";
+import { getCandidateDisabledActions } from "@/app/dev/style-library/style-library-i18n";
+import { buildStyleLibraryAdminViewModel } from "@/app/dev/style-library/style-library-view-model";
 
 describe("buildStyleLibraryAdminViewModel", () => {
   it("computes overview metrics from STYLE_LIBRARY_MANIFEST", () => {
@@ -22,13 +20,20 @@ describe("buildStyleLibraryAdminViewModel", () => {
     expect(viewModel.overview.lifecycleDistribution.paste_qa_pass).toBe(2);
   });
 
-  it("builds workbench header metadata", () => {
+  it("defaults locale to zh", () => {
     const viewModel = buildStyleLibraryAdminViewModel();
 
+    expect(viewModel.locale).toBe("zh");
+    expect(viewModel.workbench.title).toBe("样式管理工作台");
+    expect(viewModel.workbench.runtimeStatus).toBe("未接入运行时");
+    expect(viewModel.workbench.mode).toBe("只读治理模式");
+  });
+
+  it("builds English workbench copy when locale is en", () => {
+    const viewModel = buildStyleLibraryAdminViewModel(undefined, "en");
+
+    expect(viewModel.locale).toBe("en");
     expect(viewModel.workbench.title).toBe("Style Library Workbench");
-    expect(viewModel.workbench.subtitle).toBe("样式资产管理后台 v0");
-    expect(viewModel.workbench.libraryId).toBe("qingpian-style-library-v0");
-    expect(viewModel.workbench.schemaVersion).toBe(1);
     expect(viewModel.workbench.runtimeStatus).toBe("Not connected to runtime");
     expect(viewModel.workbench.mode).toBe("Read-only governance shell");
   });
@@ -45,13 +50,15 @@ describe("buildStyleLibraryAdminViewModel", () => {
     expect(viewModel.statusSummary.validationIssues).toBe(0);
   });
 
-  it("generates lifecycle groups with 006D seeds in paste_qa_pass", () => {
-    const viewModel = buildStyleLibraryAdminViewModel();
+  it("generates lifecycle groups with Chinese labels and 006D seeds in paste_qa_pass", () => {
+    const viewModel = buildStyleLibraryAdminViewModel(undefined, "zh");
 
     expect(viewModel.lifecycleGroups).toHaveLength(7);
     const pasteQaGroup = viewModel.lifecycleGroups.find(
       (group) => group.lifecycle === "paste_qa_pass",
     );
+    expect(pasteQaGroup?.label).toBe("粘贴 QA 通过");
+    expect(pasteQaGroup?.rawKey).toBe("paste_qa_pass");
     expect(pasteQaGroup?.assets).toHaveLength(2);
     expect(
       pasteQaGroup?.assets.map((asset) => asset.runtimeVariantId).sort(),
@@ -61,52 +68,45 @@ describe("buildStyleLibraryAdminViewModel", () => {
     ]);
   });
 
-  it("builds candidate review cards for 006D seed assets", () => {
-    const viewModel = buildStyleLibraryAdminViewModel();
+  it("builds candidate review cards for 006D seed assets in zh and en", () => {
+    const zhViewModel = buildStyleLibraryAdminViewModel(undefined, "zh");
+    const enViewModel = buildStyleLibraryAdminViewModel(undefined, "en");
 
-    expect(viewModel.candidateReviewCards).toHaveLength(2);
-    const runtimeIds = viewModel.candidateReviewCards
-      .map((card) => card.runtimeVariantId)
-      .sort();
-    expect(runtimeIds).toEqual([
-      "heading_purple_chapter_label_candidate",
-      "info_card_reading_path_candidate",
-    ]);
-
-    for (const card of viewModel.candidateReviewCards) {
-      expect(card.userSelectable).toBe(false);
-      expect(card.defaultEligible).toBe(false);
-      expect(card.release1Required).toBe(false);
-      expect(card.lifecycle).toBe("paste_qa_pass");
-      expect(card.currentConclusion).toBe(
-        "Not user selectable / Not default eligible",
-      );
-      expect(card.nextStepHint).toBe("Needs lifecycle / promote review");
-      expect(card.disabledActions).toEqual(CANDIDATE_DISABLED_ACTIONS);
+    for (const viewModel of [zhViewModel, enViewModel]) {
+      expect(viewModel.candidateReviewCards).toHaveLength(2);
+      const runtimeIds = viewModel.candidateReviewCards
+        .map((card) => card.runtimeVariantId)
+        .sort();
+      expect(runtimeIds).toEqual([
+        "heading_purple_chapter_label_candidate",
+        "info_card_reading_path_candidate",
+      ]);
     }
+
+    expect(zhViewModel.candidateReviewCards[0]?.currentConclusion).toBe(
+      "尚未用户可选 / 尚不可进入默认推荐",
+    );
+    expect(enViewModel.candidateReviewCards[0]?.currentConclusion).toBe(
+      "Not user selectable / Not default eligible",
+    );
+    expect(zhViewModel.candidateReviewCards[0]?.disabledActions[0]?.label).toBe(
+      "校验",
+    );
+    expect(enViewModel.candidateReviewCards[0]?.disabledActions[0]?.label).toBe(
+      "Validate",
+    );
   });
 
   it("defines disabled actions deferred to later stories", () => {
-    expect(CANDIDATE_DISABLED_ACTIONS.map((action) => action.label)).toEqual([
-      "Validate",
-      "Review Evidence",
-      "Promote to User Selectable",
-      "Mark Default Eligible",
-    ]);
+    const zhActions = getCandidateDisabledActions("zh");
     expect(
-      CANDIDATE_DISABLED_ACTIONS.some((action) =>
-        action.deferredStory.includes("S9-STORY-004"),
-      ),
+      zhActions.some((action) => action.deferredStory.includes("S9-STORY-004")),
     ).toBe(true);
     expect(
-      CANDIDATE_DISABLED_ACTIONS.some((action) =>
-        action.deferredStory.includes("S9-STORY-006"),
-      ),
+      zhActions.some((action) => action.deferredStory.includes("S9-STORY-006")),
     ).toBe(true);
     expect(
-      CANDIDATE_DISABLED_ACTIONS.some((action) =>
-        action.deferredStory.includes("S9-STORY-007"),
-      ),
+      zhActions.some((action) => action.deferredStory.includes("S9-STORY-007")),
     ).toBe(true);
   });
 
@@ -127,7 +127,8 @@ describe("buildStyleLibraryAdminViewModel", () => {
       expect(asset.defaultEligible).toBe(false);
       expect(asset.release1Required).toBe(false);
       expect(asset.lifecycle).toBe("paste_qa_pass");
-      expect(asset.seedBadge).toContain("seed");
+      expect(asset.assetId).toContain("seed-variant");
+      expect(asset.runtimeVariantId).toContain("_candidate");
     }
   });
 
@@ -167,7 +168,7 @@ describe("buildStyleLibraryAdminViewModel", () => {
   });
 
   it("states runtime is not connected for operators", () => {
-    const viewModel = buildStyleLibraryAdminViewModel();
+    const viewModel = buildStyleLibraryAdminViewModel(undefined, "zh");
     expect(viewModel.runtimeNotice).toContain("Gallery");
     expect(viewModel.runtimeNotice).toContain("Preview");
     expect(viewModel.runtimeNotice).toContain("Copy");

@@ -8,8 +8,8 @@ type Props = {
   viewModel: StyleLibraryAdminViewModel;
 };
 
-function boolLabel(value: boolean): string {
-  return value ? "true" : "false";
+function boolLabel(viewModel: StyleLibraryAdminViewModel, value: boolean): string {
+  return value ? viewModel.ui.boolTrue : viewModel.ui.boolFalse;
 }
 
 function SummaryCard({
@@ -36,10 +36,54 @@ function SummaryCard({
   );
 }
 
-function LifecycleBadge({ lifecycle }: { lifecycle: string }) {
+function LanguageToggle({ viewModel }: { viewModel: StyleLibraryAdminViewModel }) {
+  const { ui, locale } = viewModel;
+
   return (
-    <span className="rounded-full bg-sky-100 px-2.5 py-0.5 text-xs font-medium text-sky-800">
-      {lifecycle}
+    <div
+      className="flex items-center gap-2"
+      data-testid="style-library-language-toggle"
+    >
+      <span className="text-xs text-slate-500">{ui.languageToggleLabel}</span>
+      <a
+        href="?lang=zh"
+        className={
+          locale === "zh"
+            ? "rounded-full bg-indigo-100 px-3 py-1 text-xs font-medium text-indigo-800"
+            : "rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600 hover:bg-slate-200"
+        }
+        data-testid="style-library-language-zh"
+      >
+        {ui.languageZh}
+      </a>
+      <a
+        href="?lang=en"
+        className={
+          locale === "en"
+            ? "rounded-full bg-indigo-100 px-3 py-1 text-xs font-medium text-indigo-800"
+            : "rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600 hover:bg-slate-200"
+        }
+        data-testid="style-library-language-en"
+      >
+        {ui.languageEn}
+      </a>
+    </div>
+  );
+}
+
+function LifecycleBadge({
+  label,
+  rawKey,
+}: {
+  label: string;
+  rawKey: string;
+}) {
+  return (
+    <span
+      className="rounded-full bg-sky-100 px-2.5 py-0.5 text-xs font-medium text-sky-800"
+      title={rawKey}
+    >
+      {label}
     </span>
   );
 }
@@ -52,22 +96,33 @@ function SeedBadge({ badge }: { badge: string }) {
   );
 }
 
-function LifecyclePipelineColumn({ group }: { group: StyleLibraryLifecycleGroup }) {
+function LifecyclePipelineColumn({
+  group,
+  viewModel,
+}: {
+  group: StyleLibraryLifecycleGroup;
+  viewModel: StyleLibraryAdminViewModel;
+}) {
+  const { ui } = viewModel;
+
   return (
     <div
       className="flex min-w-[10rem] flex-1 flex-col rounded-xl border border-slate-200 bg-slate-50"
       data-testid={`style-library-lifecycle-column-${group.lifecycle}`}
     >
       <div className="border-b border-slate-200 px-3 py-2">
-        <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-600">
+        <h3 className="text-xs font-semibold tracking-wide text-slate-700">
           {group.label}
         </h3>
-        <p className="mt-0.5 text-xs text-slate-500">{group.assets.length} assets</p>
+        <p className="font-mono text-[10px] text-slate-400">{group.rawKey}</p>
+        <p className="mt-0.5 text-xs text-slate-500">
+          {ui.pipelineAssetsCount(group.assets.length)}
+        </p>
       </div>
       <ul className="flex flex-1 flex-col gap-2 p-2">
         {group.assets.length === 0 ? (
           <li className="rounded-lg border border-dashed border-slate-200 bg-white px-2 py-3 text-center text-xs text-slate-400">
-            Empty
+            {ui.pipelineEmpty}
           </li>
         ) : (
           group.assets.map((asset) => (
@@ -82,7 +137,7 @@ function LifecyclePipelineColumn({ group }: { group: StyleLibraryLifecycleGroup 
               </p>
               {asset.isSeedAsset ? (
                 <span className="mt-1 inline-block rounded bg-violet-50 px-1.5 py-0.5 text-[10px] text-violet-700">
-                  seed
+                  {ui.pipelineSeedBadge}
                 </span>
               ) : null}
             </li>
@@ -93,7 +148,15 @@ function LifecyclePipelineColumn({ group }: { group: StyleLibraryLifecycleGroup 
   );
 }
 
-function CandidateReviewCard({ card }: { card: StyleLibraryCandidateReviewCard }) {
+function CandidateReviewCard({
+  card,
+  viewModel,
+}: {
+  card: StyleLibraryCandidateReviewCard;
+  viewModel: StyleLibraryAdminViewModel;
+}) {
+  const { ui } = viewModel;
+
   return (
     <article
       className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm"
@@ -107,28 +170,28 @@ function CandidateReviewCard({ card }: { card: StyleLibraryCandidateReviewCard }
           </p>
         </div>
         <div className="flex flex-wrap gap-1.5">
-          <LifecycleBadge lifecycle={card.lifecycle} />
+          <LifecycleBadge label={card.lifecycleLabel} rawKey={card.lifecycle} />
           {card.seedBadge ? <SeedBadge badge={card.seedBadge} /> : null}
         </div>
       </div>
 
       <dl className="mt-4 grid gap-2 text-sm sm:grid-cols-2">
         <div>
-          <dt className="text-xs text-slate-500">样式类型 blockType</dt>
+          <dt className="text-xs text-slate-500">{ui.candidateBlockType}</dt>
           <dd>{card.blockType ?? "—"}</dd>
         </div>
         <div>
-          <dt className="text-xs text-slate-500">风格族 styleFamily</dt>
+          <dt className="text-xs text-slate-500">{ui.candidateStyleFamily}</dt>
           <dd>{card.styleFamily ?? "—"}</dd>
         </div>
         <div>
-          <dt className="text-xs text-slate-500">证据数量 evidence</dt>
+          <dt className="text-xs text-slate-500">{ui.candidateEvidenceCount}</dt>
           <dd data-testid={`style-library-candidate-evidence-${card.assetId}`}>
             {card.evidenceCount}
           </dd>
         </div>
         <div>
-          <dt className="text-xs text-slate-500">当前结论</dt>
+          <dt className="text-xs text-slate-500">{ui.candidateCurrentConclusion}</dt>
           <dd
             className="font-medium text-rose-800"
             data-testid={`style-library-candidate-conclusion-${card.assetId}`}
@@ -137,17 +200,25 @@ function CandidateReviewCard({ card }: { card: StyleLibraryCandidateReviewCard }
           </dd>
         </div>
         <div className="sm:col-span-2">
-          <dt className="text-xs text-slate-500">下一步</dt>
+          <dt className="text-xs text-slate-500">{ui.candidateNextStep}</dt>
           <dd className="text-amber-800">{card.nextStepHint}</dd>
         </div>
       </dl>
 
       <div className="mt-4 rounded-lg border border-slate-100 bg-slate-50 px-3 py-2 text-xs">
-        <p className="font-medium text-slate-600">分发状态 distribution</p>
+        <p className="font-medium text-slate-600">{ui.candidateDistributionFlags}</p>
         <ul className="mt-1 space-y-0.5 text-slate-700">
-          <li>用户可选 userSelectable: {boolLabel(card.userSelectable)}</li>
-          <li>默认可用 defaultEligible: {boolLabel(card.defaultEligible)}</li>
-          <li>Release 1 必需 release1Required: {boolLabel(card.release1Required)}</li>
+          <li>
+            {ui.candidateUserSelectable}: {boolLabel(viewModel, card.userSelectable)}
+          </li>
+          <li>
+            {ui.candidateDefaultEligible}:{" "}
+            {boolLabel(viewModel, card.defaultEligible)}
+          </li>
+          <li>
+            {ui.candidateRelease1Required}:{" "}
+            {boolLabel(viewModel, card.release1Required)}
+          </li>
         </ul>
       </div>
 
@@ -156,7 +227,7 @@ function CandidateReviewCard({ card }: { card: StyleLibraryCandidateReviewCard }
         data-testid={`style-library-candidate-actions-${card.assetId}`}
       >
         <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
-          待启用操作（当前只读）
+          {ui.candidateDisabledActionsTitle}
         </p>
         <div className="flex flex-wrap gap-2">
           {card.disabledActions.map((action) => (
@@ -171,7 +242,7 @@ function CandidateReviewCard({ card }: { card: StyleLibraryCandidateReviewCard }
                 {action.label}
               </button>
               <span className="max-w-[12rem] text-[10px] leading-snug text-slate-500">
-                {action.disabledReason} · {action.deferredStory}
+                {action.disabledReason}
               </span>
             </div>
           ))}
@@ -183,6 +254,7 @@ function CandidateReviewCard({ card }: { card: StyleLibraryCandidateReviewCard }
 
 export function StyleLibraryAdminShell({ viewModel }: Props) {
   const {
+    ui,
     workbench,
     statusSummary,
     lifecycleGroups,
@@ -212,11 +284,10 @@ export function StyleLibraryAdminShell({ viewModel }: Props) {
             <p className="mt-1 text-base font-medium text-slate-700">
               {workbench.subtitle}
             </p>
-            <p className="mt-2 text-sm text-slate-600">
-              面向运营管理人员的样式候选池工作台 · 当前仅支持查看与审查，不支持写入。
-            </p>
+            <p className="mt-2 text-sm text-slate-600">{workbench.description}</p>
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-col items-end gap-3">
+            <LanguageToggle viewModel={viewModel} />
             <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-medium text-amber-900">
               {workbench.mode}
             </span>
@@ -225,11 +296,11 @@ export function StyleLibraryAdminShell({ viewModel }: Props) {
 
         <dl className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <div>
-            <dt className="text-xs text-slate-500">样式库 ID libraryId</dt>
+            <dt className="text-xs text-slate-500">{ui.libraryIdLabel}</dt>
             <dd className="font-mono text-sm text-slate-900">{workbench.libraryId}</dd>
           </div>
           <div>
-            <dt className="text-xs text-slate-500">结构版本 schemaVersion</dt>
+            <dt className="text-xs text-slate-500">{ui.schemaVersionLabel}</dt>
             <dd
               className="text-sm font-semibold text-slate-900"
               data-testid="style-library-schema-version"
@@ -238,11 +309,11 @@ export function StyleLibraryAdminShell({ viewModel }: Props) {
             </dd>
           </div>
           <div>
-            <dt className="text-xs text-slate-500">最近更新 updatedAt</dt>
+            <dt className="text-xs text-slate-500">{ui.updatedAtLabel}</dt>
             <dd className="text-sm text-slate-900">{workbench.updatedAt}</dd>
           </div>
           <div>
-            <dt className="text-xs text-slate-500">线上接入 runtime status</dt>
+            <dt className="text-xs text-slate-500">{ui.runtimeStatusLabel}</dt>
             <dd
               className="text-sm font-medium text-rose-700"
               data-testid="style-library-runtime-status"
@@ -261,41 +332,41 @@ export function StyleLibraryAdminShell({ viewModel }: Props) {
           id="style-library-status-summary-heading"
           className="mb-4 text-sm font-semibold uppercase tracking-wide text-slate-700"
         >
-          Status Summary · 状态概览
+          {ui.sectionStatusSummary}
         </h2>
         <dl className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7">
           <SummaryCard
-            label="Total assets"
+            label={ui.summaryTotalAssets}
             value={statusSummary.totalAssets}
             testId="style-library-total-assets"
           />
           <SummaryCard
-            label="Seed candidates"
+            label={ui.summarySeedCandidates}
             value={statusSummary.seedCandidates}
             testId="style-library-seed-count"
           />
           <SummaryCard
-            label="Candidate / Paste QA passed"
+            label={ui.summaryPasteQaPassed}
             value={statusSummary.pasteQaPassed}
             testId="style-library-paste-qa-passed"
           />
           <SummaryCard
-            label="User selectable"
+            label={ui.summaryUserSelectable}
             value={statusSummary.userSelectable}
             testId="style-library-user-selectable"
           />
           <SummaryCard
-            label="Default eligible"
+            label={ui.summaryDefaultEligible}
             value={statusSummary.defaultEligible}
             testId="style-library-default-eligible"
           />
           <SummaryCard
-            label="Active patches"
+            label={ui.summaryActivePatches}
             value={statusSummary.activePatches}
             testId="style-library-active-patches"
           />
           <SummaryCard
-            label="Validation issues"
+            label={ui.summaryValidationIssues}
             value={statusSummary.validationIssues}
             testId="style-library-validation-issue-count"
           />
@@ -310,11 +381,15 @@ export function StyleLibraryAdminShell({ viewModel }: Props) {
           id="style-library-lifecycle-pipeline-heading"
           className="mb-4 text-sm font-semibold uppercase tracking-wide text-slate-700"
         >
-          Lifecycle Pipeline · 生命周期看板
+          {ui.sectionLifecyclePipeline}
         </h2>
         <div className="flex gap-3 overflow-x-auto pb-2">
           {lifecycleGroups.map((group) => (
-            <LifecyclePipelineColumn key={group.lifecycle} group={group} />
+            <LifecyclePipelineColumn
+              key={group.lifecycle}
+              group={group}
+              viewModel={viewModel}
+            />
           ))}
         </div>
       </section>
@@ -327,11 +402,11 @@ export function StyleLibraryAdminShell({ viewModel }: Props) {
           id="style-library-candidate-review-heading"
           className="mb-4 text-sm font-semibold uppercase tracking-wide text-slate-700"
         >
-          Candidate Review · 候选样式审查
+          {ui.sectionCandidateReview}
         </h2>
         <div className="grid gap-4 lg:grid-cols-2">
           {candidateReviewCards.map((card) => (
-            <CandidateReviewCard key={card.assetId} card={card} />
+            <CandidateReviewCard key={card.assetId} card={card} viewModel={viewModel} />
           ))}
         </div>
       </section>
@@ -345,18 +420,19 @@ export function StyleLibraryAdminShell({ viewModel }: Props) {
           id="style-library-diagnostics-heading"
           className="text-sm font-semibold uppercase tracking-wide text-slate-600"
         >
-          Diagnostics / Advanced · 高级诊断
+          {ui.sectionDiagnostics}
         </h2>
-        <p className="mt-1 text-sm text-slate-500">
-          面向工程排查的原始清单与校验结果，不作为运营主界面。
-        </p>
+        <p className="mt-1 text-sm text-slate-500">{ui.sectionDiagnosticsDescription}</p>
 
         <div
           aria-labelledby="style-library-runtime-notice"
           className="mt-4 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900"
           data-testid="style-library-runtime-notice"
         >
-          <p id="style-library-runtime-notice">{runtimeNotice}</p>
+          <p className="text-xs font-medium text-amber-800">{ui.sectionRuntimeNotice}</p>
+          <p id="style-library-runtime-notice" className="mt-1">
+            {runtimeNotice}
+          </p>
         </div>
 
         <div className="mt-8 space-y-8">
@@ -365,14 +441,14 @@ export function StyleLibraryAdminShell({ viewModel }: Props) {
               id="style-library-validation-heading"
               className="mb-4 text-sm font-semibold text-slate-800"
             >
-              Validation Panel
+              {ui.sectionValidationPanel}
             </h3>
             <div
               className="rounded-lg border border-slate-200 bg-white p-4"
               data-testid="style-library-validation-panel"
             >
               <p className="text-sm">
-                Status:{" "}
+                {ui.validationStatus}:{" "}
                 <span
                   className={
                     validation.ok
@@ -381,10 +457,10 @@ export function StyleLibraryAdminShell({ viewModel }: Props) {
                   }
                   data-testid="style-library-validation-status"
                 >
-                  {validation.ok ? "valid" : "invalid"}
+                  {validation.ok ? ui.validationValid : ui.validationInvalid}
                 </span>
                 {" · "}
-                Issue count: {validation.issueCount}
+                {ui.validationIssueCount}: {validation.issueCount}
               </p>
               {validation.issues.length > 0 ? (
                 <ul className="mt-3 space-y-2">
@@ -400,9 +476,7 @@ export function StyleLibraryAdminShell({ viewModel }: Props) {
                   ))}
                 </ul>
               ) : (
-                <p className="mt-2 text-sm text-slate-600">
-                  No validation issues. Manifest passes schema and semantic checks.
-                </p>
+                <p className="mt-2 text-sm text-slate-600">{ui.validationNoIssues}</p>
               )}
             </div>
           </section>
@@ -412,7 +486,7 @@ export function StyleLibraryAdminShell({ viewModel }: Props) {
               id="style-library-assets-heading"
               className="mb-4 text-sm font-semibold text-slate-800"
             >
-              Asset List
+              {ui.sectionAssetList}
             </h3>
             <div className="overflow-x-auto rounded-lg border border-slate-200 bg-white">
               <table className="min-w-full divide-y divide-slate-200 text-sm">
@@ -447,16 +521,22 @@ export function StyleLibraryAdminShell({ viewModel }: Props) {
                       <td className="px-3 py-2">{asset.blockType ?? "—"}</td>
                       <td className="px-3 py-2">{asset.styleFamily ?? "—"}</td>
                       <td className="px-3 py-2">{asset.lifecycle}</td>
-                      <td className="px-3 py-2">{boolLabel(asset.userSelectable)}</td>
-                      <td className="px-3 py-2">{boolLabel(asset.defaultEligible)}</td>
-                      <td className="px-3 py-2">{boolLabel(asset.release1Required)}</td>
+                      <td className="px-3 py-2">
+                        {boolLabel(viewModel, asset.userSelectable)}
+                      </td>
+                      <td className="px-3 py-2">
+                        {boolLabel(viewModel, asset.defaultEligible)}
+                      </td>
+                      <td className="px-3 py-2">
+                        {boolLabel(viewModel, asset.release1Required)}
+                      </td>
                       <td className="px-3 py-2">
                         {asset.seedBadge ? (
                           <span className="rounded bg-violet-100 px-2 py-0.5 text-xs text-violet-800">
                             {asset.seedBadge}
                           </span>
                         ) : (
-                          boolLabel(asset.isSeedAsset)
+                          boolLabel(viewModel, asset.isSeedAsset)
                         )}
                       </td>
                       <td className="px-3 py-2">{asset.evidenceCount}</td>
@@ -472,7 +552,7 @@ export function StyleLibraryAdminShell({ viewModel }: Props) {
               id="style-library-patches-heading"
               className="mb-4 text-sm font-semibold text-slate-800"
             >
-              Registry Patch List
+              {ui.sectionPatchList}
             </h3>
             <div className="overflow-x-auto rounded-lg border border-slate-200 bg-white">
               <table className="min-w-full divide-y divide-slate-200 text-sm">
@@ -496,7 +576,7 @@ export function StyleLibraryAdminShell({ viewModel }: Props) {
                       <td className="px-3 py-2 font-mono text-xs">{patch.patchId}</td>
                       <td className="px-3 py-2">{patch.operation}</td>
                       <td className="px-3 py-2 font-mono text-xs">{patch.variantId}</td>
-                      <td className="px-3 py-2">{boolLabel(patch.active)}</td>
+                      <td className="px-3 py-2">{boolLabel(viewModel, patch.active)}</td>
                       <td className="px-3 py-2">{patch.requiresLifecycle ?? "—"}</td>
                       <td className="px-3 py-2 font-mono text-xs">
                         {patch.requiresEvidenceIds.join(", ") || "—"}
@@ -514,7 +594,7 @@ export function StyleLibraryAdminShell({ viewModel }: Props) {
               id="style-library-evidence-heading"
               className="mb-4 text-sm font-semibold text-slate-800"
             >
-              Evidence List
+              {ui.sectionEvidenceList}
             </h3>
             <div className="overflow-x-auto rounded-lg border border-slate-200 bg-white">
               <table className="min-w-full divide-y divide-slate-200 text-sm">
