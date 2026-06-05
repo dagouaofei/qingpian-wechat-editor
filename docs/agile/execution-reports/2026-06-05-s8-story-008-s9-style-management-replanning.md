@@ -72,8 +72,8 @@
 
 ## 9. Commit
 
-- Story commit：待记录
-- Sprint merge：待记录
+- Story commit：`301f73a`
+- Sprint merge：fast-forward `b016c69` → `301f73a` on `sprint/s8-wechat-safe-css-contract`
 
 ## 10. 建议下一步
 
