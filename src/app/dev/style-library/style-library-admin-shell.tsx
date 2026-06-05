@@ -3,6 +3,7 @@ import type {
   StyleLibraryCandidateReviewCard,
   StyleLibraryLifecycleGroup,
 } from "./style-library-view-model";
+import { StyleLibraryInspectionPreviewShell } from "./style-library-inspection-preview";
 
 type Props = {
   viewModel: StyleLibraryAdminViewModel;
@@ -152,6 +153,150 @@ function LifecyclePipelineColumn({
           ))
         )}
       </ul>
+    </div>
+  );
+}
+
+function InspectionPanel({
+  card,
+  viewModel,
+}: {
+  card: StyleLibraryCandidateReviewCard;
+  viewModel: StyleLibraryAdminViewModel;
+}) {
+  const { ui } = viewModel;
+  const panel = card.inspectionPanel;
+
+  return (
+    <div
+      className="mt-4 space-y-4 rounded-lg border border-emerald-100 bg-emerald-50/40 px-3 py-3"
+      data-testid={`style-library-inspection-panel-${card.assetId}`}
+    >
+      <p className="text-xs font-semibold uppercase tracking-wide text-emerald-900">
+        {ui.sectionPreviewCopyValidator}
+      </p>
+
+      <div className="grid gap-4 lg:grid-cols-2">
+        <div data-testid={`style-library-inspection-preview-${card.assetId}`}>
+          <p className="text-xs font-medium text-slate-600">{ui.inspectionPreviewTitle}</p>
+          <dl className="mt-2 space-y-1 text-sm">
+            <div>
+              <dt className="text-xs text-slate-500">{ui.inspectionFixtureLabel}</dt>
+              <dd>{panel.fixtureLabel}</dd>
+            </div>
+            <div>
+              <dt className="text-xs text-slate-500">{ui.candidateBlockType}</dt>
+              <dd>{panel.blockType}</dd>
+            </div>
+            <div>
+              <dt className="text-xs text-slate-500">variantId</dt>
+              <dd className="font-mono text-xs">{panel.runtimeVariantId}</dd>
+            </div>
+            <div>
+              <dt className="text-xs text-slate-500">{ui.inspectionPreviewStatus}</dt>
+              <dd>{panel.previewStatus}</dd>
+            </div>
+          </dl>
+          <div className="mt-3">
+            <StyleLibraryInspectionPreviewShell
+              previewBlock={panel.previewBlock}
+              fallbackText={panel.previewStatus}
+            />
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          <div data-testid={`style-library-inspection-copy-${card.assetId}`}>
+            <p className="text-xs font-medium text-slate-600">{ui.inspectionCopyTitle}</p>
+            <dl className="mt-2 space-y-1 text-sm">
+              <div>
+                <dt className="text-xs text-slate-500">{ui.inspectionCopyStatus}</dt>
+                <dd>{panel.copyStatus}</dd>
+              </div>
+              <div>
+                <dt className="text-xs text-slate-500">{ui.inspectionInlineStyle}</dt>
+                <dd>{boolLabel(viewModel, panel.usesInlineStyle)}</dd>
+              </div>
+              <div>
+                <dt className="text-xs text-slate-500">{ui.inspectionForbiddenCapability}</dt>
+                <dd>{boolLabel(viewModel, panel.hasForbiddenCapability)}</dd>
+              </div>
+              <div>
+                <dt className="text-xs text-slate-500">{ui.inspectionRiskyCapability}</dt>
+                <dd>{boolLabel(viewModel, panel.hasRiskyCapability)}</dd>
+              </div>
+            </dl>
+            {panel.copyHtmlSnippet ? (
+              <p className="mt-2 rounded border border-slate-200 bg-white px-2 py-2 font-mono text-[10px] leading-relaxed text-slate-600">
+                {panel.copyHtmlSnippet}
+              </p>
+            ) : null}
+          </div>
+
+          <div data-testid={`style-library-inspection-validator-${card.assetId}`}>
+            <p className="text-xs font-medium text-slate-600">{ui.inspectionValidatorTitle}</p>
+            <dl className="mt-2 grid gap-1 text-sm sm:grid-cols-2">
+              <div>
+                <dt className="text-xs text-slate-500">{ui.validationStatus}</dt>
+                <dd className="font-semibold">{panel.validatorStatusLabel}</dd>
+              </div>
+              <div>
+                <dt className="text-xs text-slate-500">{ui.inspectionIssueCount}</dt>
+                <dd>{panel.issueCount}</dd>
+              </div>
+              <div>
+                <dt className="text-xs text-slate-500">{ui.inspectionBlockerCount}</dt>
+                <dd>{panel.blockerCount}</dd>
+              </div>
+              <div>
+                <dt className="text-xs text-slate-500">{ui.inspectionWarningCount}</dt>
+                <dd>{panel.warningCount}</dd>
+              </div>
+            </dl>
+            {panel.validatorIssueSummaries.length > 0 ? (
+              <ul className="mt-2 space-y-1 text-xs text-slate-700">
+                {panel.validatorIssueSummaries.map((issue) => (
+                  <li key={issue} className="rounded border border-slate-200 bg-white px-2 py-1">
+                    {issue}
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
+        </div>
+      </div>
+
+      <div
+        className="rounded-lg border border-amber-100 bg-white px-3 py-3"
+        data-testid={`style-library-promote-readiness-${card.assetId}`}
+      >
+        <p className="text-xs font-medium text-slate-600">{ui.inspectionPromoteReadinessTitle}</p>
+        <p
+          className={
+            panel.promoteReadiness.readyForPromoteReview
+              ? "mt-2 text-sm font-semibold text-emerald-800"
+              : "mt-2 text-sm font-semibold text-amber-800"
+          }
+        >
+          {panel.promoteReadinessLabel}
+        </p>
+        <p className="mt-2 text-sm text-slate-800">
+          <span className="font-medium text-slate-500">{ui.inspectionOperatorConclusion}: </span>
+          {panel.operatorConclusion}
+        </p>
+        {panel.promoteBlockedReasons.length > 0 ? (
+          <ul className="mt-2 space-y-1 text-xs text-rose-700">
+            {panel.promoteBlockedReasons.map((reason) => (
+              <li key={reason}>{reason}</li>
+            ))}
+          </ul>
+        ) : null}
+        {panel.nextRequiredStory ? (
+          <p className="mt-2 text-xs text-slate-600">
+            {ui.inspectionNextStory}: {panel.nextRequiredStory}
+          </p>
+        ) : null}
+      </div>
     </div>
   );
 }
@@ -389,6 +534,7 @@ function CandidateReviewCard({
       </div>
 
       <LifecycleTransitionPanel card={card} viewModel={viewModel} />
+      <InspectionPanel card={card} viewModel={viewModel} />
 
       <div
         className="mt-4 space-y-2"
@@ -427,6 +573,7 @@ export function StyleLibraryAdminShell({ viewModel }: Props) {
     statusSummary,
     lifecycleGroups,
     candidateReviewCards,
+    candidateInspectionPanels,
     assets,
     patches,
     evidence,
@@ -539,6 +686,40 @@ export function StyleLibraryAdminShell({ viewModel }: Props) {
             testId="style-library-validation-issue-count"
           />
         </dl>
+
+        <h3 className="mb-3 mt-6 text-xs font-semibold uppercase tracking-wide text-slate-600">
+          {ui.sectionInspectionSummary}
+        </h3>
+        <dl
+          className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
+          data-testid="style-library-inspection-summary"
+        >
+          <SummaryCard
+            label={ui.summaryAutoValidationPassed}
+            value={statusSummary.autoValidationPassed}
+            testId="style-library-auto-validation-passed"
+          />
+          <SummaryCard
+            label={ui.summaryNeedsPasteQa}
+            value={statusSummary.needsPasteQa}
+            testId="style-library-needs-paste-qa"
+          />
+          <SummaryCard
+            label={ui.summaryReadyForPromoteReview}
+            value={statusSummary.readyForPromoteReview}
+            testId="style-library-ready-for-promote-review"
+          />
+          <SummaryCard
+            label={ui.summaryBlockedCandidates}
+            value={statusSummary.blockedCandidates}
+            testId="style-library-blocked-candidates"
+          />
+          <SummaryCard
+            label={ui.summaryCompatibilityWarnings}
+            value={statusSummary.compatibilityWarnings}
+            testId="style-library-compatibility-warnings"
+          />
+        </dl>
       </section>
 
       <section
@@ -618,6 +799,44 @@ export function StyleLibraryAdminShell({ viewModel }: Props) {
         </div>
 
         <div className="mt-8 space-y-8">
+          <section aria-labelledby="style-library-inspection-advanced-heading">
+            <h3
+              id="style-library-inspection-advanced-heading"
+              className="mb-4 text-sm font-semibold text-slate-800"
+            >
+              {ui.sectionPreviewCopyValidator} · Advanced
+            </h3>
+            <div className="space-y-4">
+              {candidateInspectionPanels.map((panel) => (
+                <details
+                  key={panel.assetId}
+                  className="rounded-lg border border-slate-200 bg-white p-4"
+                  data-testid={`style-library-inspection-advanced-${panel.assetId}`}
+                >
+                  <summary className="cursor-pointer text-sm font-medium text-slate-800">
+                    {panel.runtimeVariantId}
+                  </summary>
+                  <div className="mt-3 space-y-3">
+                    <div>
+                      <p className="text-xs font-medium text-slate-500">{ui.inspectionRawCopyHtml}</p>
+                      <pre className="mt-1 max-h-48 overflow-auto rounded border border-slate-100 bg-slate-50 p-2 text-[10px] text-slate-700">
+                        {panel.rawCopyHtml ?? "—"}
+                      </pre>
+                    </div>
+                    <div>
+                      <p className="text-xs font-medium text-slate-500">
+                        {ui.inspectionRawValidatorIssues}
+                      </p>
+                      <pre className="mt-1 max-h-48 overflow-auto rounded border border-slate-100 bg-slate-50 p-2 text-[10px] text-slate-700">
+                        {panel.rawValidatorIssues.join("\n") || "—"}
+                      </pre>
+                    </div>
+                  </div>
+                </details>
+              ))}
+            </div>
+          </section>
+
           <section aria-labelledby="style-library-validation-heading">
             <h3
               id="style-library-validation-heading"

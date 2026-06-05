@@ -89,6 +89,39 @@ export type StyleLibraryUiCopy = {
   lifecycleProposalAllowed: string;
   lifecycleProposalBlocked: string;
   lifecycleNoRuntimeChange: string;
+  sectionInspectionSummary: string;
+  summaryAutoValidationPassed: string;
+  summaryNeedsPasteQa: string;
+  summaryReadyForPromoteReview: string;
+  summaryBlockedCandidates: string;
+  summaryCompatibilityWarnings: string;
+  sectionPreviewCopyValidator: string;
+  inspectionPreviewTitle: string;
+  inspectionCopyTitle: string;
+  inspectionValidatorTitle: string;
+  inspectionPromoteReadinessTitle: string;
+  inspectionFixtureLabel: string;
+  inspectionPreviewStatus: string;
+  inspectionCopyStatus: string;
+  inspectionInlineStyle: string;
+  inspectionForbiddenCapability: string;
+  inspectionRiskyCapability: string;
+  inspectionIssueCount: string;
+  inspectionBlockerCount: string;
+  inspectionWarningCount: string;
+  inspectionOperatorConclusion: string;
+  inspectionPromoteReady: string;
+  inspectionPromoteNotReady: string;
+  inspectionNextStory: string;
+  inspectionRawCopyHtml: string;
+  inspectionRawValidatorIssues: string;
+  previewStatusOk: string;
+  previewStatusError: string;
+  copyStatusOk: string;
+  copyStatusError: string;
+  promoteReadyLabel: string;
+  promoteReadyWithWarningsLabel: string;
+  promoteNotReadyLabel: string;
 };
 
 const LIFECYCLE_STATES: StyleLibraryLifecycleState[] = [
@@ -203,6 +236,40 @@ const UI_COPY: Record<StyleLibraryLocale, StyleLibraryUiCopy> = {
     lifecycleProposalAllowed: "可生成提案",
     lifecycleProposalBlocked: "当前受阻",
     lifecycleNoRuntimeChange: "无运行时影响",
+    sectionInspectionSummary: "检查概览",
+    summaryAutoValidationPassed: "自动校验通过",
+    summaryNeedsPasteQa: "需要粘贴 QA",
+    summaryReadyForPromoteReview: "可进入上线审核",
+    summaryBlockedCandidates: "阻塞候选样式",
+    summaryCompatibilityWarnings: "有兼容性提醒",
+    sectionPreviewCopyValidator: "Preview / Copy / Validator",
+    inspectionPreviewTitle: "样式预览",
+    inspectionCopyTitle: "Copy HTML",
+    inspectionValidatorTitle: "WeChat 校验",
+    inspectionPromoteReadinessTitle: "上线审核就绪度",
+    inspectionFixtureLabel: "检查样本",
+    inspectionPreviewStatus: "预览状态",
+    inspectionCopyStatus: "Copy 状态",
+    inspectionInlineStyle: "使用 inline style",
+    inspectionForbiddenCapability: "命中 forbidden 能力",
+    inspectionRiskyCapability: "命中 risky 能力",
+    inspectionIssueCount: "问题总数",
+    inspectionBlockerCount: "阻塞项",
+    inspectionWarningCount: "警告项",
+    inspectionOperatorConclusion: "运营结论",
+    inspectionPromoteReady: "可进入 S9-STORY-007 上线审核",
+    inspectionPromoteNotReady: "暂不可进入上线审核",
+    inspectionNextStory: "下一步 Story",
+    inspectionRawCopyHtml: "原始 Copy HTML",
+    inspectionRawValidatorIssues: "原始校验问题",
+    previewStatusOk: "预览成功",
+    previewStatusError: "预览失败",
+    copyStatusOk: "Copy 生成成功",
+    copyStatusError: "Copy 生成失败",
+    promoteReadyLabel: "可进入上线审核",
+    promoteReadyWithWarningsLabel:
+      "可进入上线审核（有兼容性提醒，需保留 Paste QA 证据）",
+    promoteNotReadyLabel: "暂不可进入上线审核",
   },
   en: {
     workbenchTitle: "Style Library Workbench",
@@ -282,6 +349,40 @@ const UI_COPY: Record<StyleLibraryLocale, StyleLibraryUiCopy> = {
     lifecycleProposalAllowed: "Proposal can be generated",
     lifecycleProposalBlocked: "Currently blocked",
     lifecycleNoRuntimeChange: "No runtime impact",
+    sectionInspectionSummary: "Inspection Summary",
+    summaryAutoValidationPassed: "Auto validation passed",
+    summaryNeedsPasteQa: "Needs paste QA",
+    summaryReadyForPromoteReview: "Ready for promote review",
+    summaryBlockedCandidates: "Blocked candidates",
+    summaryCompatibilityWarnings: "Warnings",
+    sectionPreviewCopyValidator: "Preview / Copy / Validator",
+    inspectionPreviewTitle: "Style Preview",
+    inspectionCopyTitle: "Copy HTML",
+    inspectionValidatorTitle: "WeChat Validation",
+    inspectionPromoteReadinessTitle: "Promote Readiness",
+    inspectionFixtureLabel: "Inspection fixture",
+    inspectionPreviewStatus: "Preview status",
+    inspectionCopyStatus: "Copy status",
+    inspectionInlineStyle: "Uses inline style",
+    inspectionForbiddenCapability: "Forbidden capability hit",
+    inspectionRiskyCapability: "Risky capability hit",
+    inspectionIssueCount: "Issue count",
+    inspectionBlockerCount: "Blockers",
+    inspectionWarningCount: "Warnings",
+    inspectionOperatorConclusion: "Operator conclusion",
+    inspectionPromoteReady: "Ready for S9-STORY-007 promote review",
+    inspectionPromoteNotReady: "Not ready for promote review",
+    inspectionNextStory: "Next story",
+    inspectionRawCopyHtml: "Raw Copy HTML",
+    inspectionRawValidatorIssues: "Raw validator issues",
+    previewStatusOk: "Preview OK",
+    previewStatusError: "Preview failed",
+    copyStatusOk: "Copy OK",
+    copyStatusError: "Copy failed",
+    promoteReadyLabel: "Ready for promote review",
+    promoteReadyWithWarningsLabel:
+      "Ready for promote review with compatibility warnings",
+    promoteNotReadyLabel: "Not ready for promote review",
   },
 };
 
@@ -293,7 +394,7 @@ const DISABLED_ACTIONS: Record<
     {
       actionId: "validate",
       label: "校验",
-      disabledReason: "预览 / 复制 / 校验集成将在 S9-STORY-006 实现",
+      disabledReason: "自动校验结果见下方 Preview / Copy / Validator 面板；本按钮不触发写入",
       deferredStory: "S9-STORY-006",
     },
     {
@@ -319,7 +420,7 @@ const DISABLED_ACTIONS: Record<
     {
       actionId: "validate",
       label: "Validate",
-      disabledReason: "renderer / validator integration · S9-STORY-006",
+      disabledReason: "Auto validation shown below; button does not write",
       deferredStory: "S9-STORY-006",
     },
     {
@@ -577,4 +678,131 @@ export function getLifecycleStatusCopy(
           : null,
     runtimeImpactSummary: locale === "zh" ? "无" : "None",
   };
+}
+
+export type StyleLibraryInspectionUiCopy = Pick<
+  StyleLibraryUiCopy,
+  | "previewStatusOk"
+  | "previewStatusError"
+  | "copyStatusOk"
+  | "copyStatusError"
+  | "promoteReadyLabel"
+  | "promoteReadyWithWarningsLabel"
+  | "promoteNotReadyLabel"
+>;
+
+export function getInspectionUiCopy(
+  locale: StyleLibraryLocale,
+): StyleLibraryInspectionUiCopy {
+  const ui = getStyleLibraryUiCopy(locale);
+  return {
+    previewStatusOk: ui.previewStatusOk,
+    previewStatusError: ui.previewStatusError,
+    copyStatusOk: ui.copyStatusOk,
+    copyStatusError: ui.copyStatusError,
+    promoteReadyLabel: ui.promoteReadyLabel,
+    promoteReadyWithWarningsLabel: ui.promoteReadyWithWarningsLabel,
+    promoteNotReadyLabel: ui.promoteNotReadyLabel,
+  };
+}
+
+const VALIDATOR_STATUS_LABELS: Record<
+  StyleLibraryLocale,
+  Record<"PASS" | "WARNING" | "FAIL", string>
+> = {
+  zh: { PASS: "通过", WARNING: "警告", FAIL: "失败" },
+  en: { PASS: "PASS", WARNING: "WARNING", FAIL: "FAIL" },
+};
+
+export function getValidatorStatusLabel(
+  locale: StyleLibraryLocale,
+  status: "PASS" | "WARNING" | "FAIL",
+): string {
+  return VALIDATOR_STATUS_LABELS[locale][status];
+}
+
+const INSPECTION_CONCLUSION_COPY: Record<
+  StyleLibraryLocale,
+  Record<
+    | "ready_for_promote_review"
+    | "ready_for_promote_review_with_warnings"
+    | "needs_paste_qa"
+    | "has_blocking_issues"
+    | "validator_fail",
+    string
+  >
+> = {
+  zh: {
+    ready_for_promote_review:
+      "可进入上线审核：自动校验通过，已有粘贴 QA 证据；真实 promote 由 S9-STORY-007 执行。",
+    ready_for_promote_review_with_warnings:
+      "可进入上线审核（有兼容性提醒，需保留 Paste QA 证据）",
+    needs_paste_qa:
+      "需要人工粘贴复测：当前仅完成自动校验，仍缺 paste QA 证据。",
+    has_blocking_issues:
+      "存在阻塞问题，不能进入上线审核。",
+    validator_fail:
+      "校验失败：Copy HTML 不符合 WeChat-safe Contract，不能进入上线审核。",
+  },
+  en: {
+    ready_for_promote_review:
+      "Ready for promote review: auto validation passed with paste QA evidence; actual promote is S9-STORY-007.",
+    ready_for_promote_review_with_warnings:
+      "Ready for promote review with compatibility warnings",
+    needs_paste_qa:
+      "Needs manual paste re-test: auto validation only; paste QA evidence missing.",
+    has_blocking_issues:
+      "Blocking issues present; not ready for promote review.",
+    validator_fail:
+      "Validation failed: Copy HTML violates WeChat-safe Contract; not ready for promote review.",
+  },
+};
+
+export function getPromoteReadinessLabel(
+  locale: StyleLibraryLocale,
+  options: {
+    readyForPromoteReview: boolean;
+    validatorStatus: "PASS" | "WARNING" | "FAIL";
+  },
+): string {
+  const ui = getInspectionUiCopy(locale);
+  if (!options.readyForPromoteReview) {
+    return ui.promoteNotReadyLabel;
+  }
+  if (options.validatorStatus === "WARNING") {
+    return ui.promoteReadyWithWarningsLabel;
+  }
+  return ui.promoteReadyLabel;
+}
+
+export function getInspectionConclusionCopy(
+  locale: StyleLibraryLocale,
+  key:
+    | "ready_for_promote_review"
+    | "ready_for_promote_review_with_warnings"
+    | "needs_paste_qa"
+    | "has_blocking_issues"
+    | "validator_fail",
+): string {
+  return INSPECTION_CONCLUSION_COPY[locale][key];
+}
+
+const PROMOTE_BLOCKED_REASON_COPY: Record<StyleLibraryLocale, Record<string, string>> = {
+  zh: {
+    VALIDATOR_FAIL: "自动校验失败",
+    BLOCKING_ISSUES: "存在阻塞级校验问题",
+    NEEDS_PASTE_QA: "缺少粘贴 QA 证据",
+  },
+  en: {
+    VALIDATOR_FAIL: "Auto validation failed",
+    BLOCKING_ISSUES: "Blocking validation issues",
+    NEEDS_PASTE_QA: "Paste QA evidence missing",
+  },
+};
+
+export function translatePromoteBlockedReason(
+  locale: StyleLibraryLocale,
+  code: string,
+): string {
+  return PROMOTE_BLOCKED_REASON_COPY[locale][code] ?? code;
 }

@@ -1,5 +1,6 @@
 import {
   STYLE_LIBRARY_MANIFEST,
+  getStyleLibraryInspectionSummaries,
   getStyleLibrarySeedAssets,
   getStyleLibraryVariantAssets,
   validateStyleLibraryManifest,
@@ -31,6 +32,12 @@ import {
   type StyleLibraryCandidateLifecyclePanel,
   type StyleLibraryLifecycleColumnMeta,
 } from "./style-library-lifecycle-view-model";
+import {
+  buildStyleLibraryInspectionPanels,
+  buildStyleLibraryInspectionSummaryCounts,
+  type StyleLibraryCandidateInspectionPanel,
+  type StyleLibraryInspectionSummaryCounts,
+} from "./style-library-inspection-view-model";
 
 export type StyleLibraryAdminAssetRow = {
   assetId: string;
@@ -105,6 +112,11 @@ export type StyleLibraryStatusSummary = {
   defaultEligible: number;
   activePatches: number;
   validationIssues: number;
+  autoValidationPassed: number;
+  needsPasteQa: number;
+  readyForPromoteReview: number;
+  blockedCandidates: number;
+  compatibilityWarnings: number;
 };
 
 export type StyleLibraryLifecycleGroup = {
@@ -122,6 +134,7 @@ export type StyleLibraryCandidateReviewCard = StyleLibraryAdminAssetRow & {
   nextStepHint: string;
   disabledActions: StyleLibraryDisabledActionCopy[];
   lifecyclePanel: StyleLibraryCandidateLifecyclePanel;
+  inspectionPanel: StyleLibraryCandidateInspectionPanel;
 };
 
 export type StyleLibraryAdminViewModel = {
@@ -133,6 +146,8 @@ export type StyleLibraryAdminViewModel = {
   lifecycleColumnMeta: StyleLibraryLifecycleColumnMeta[];
   candidateReviewCards: StyleLibraryCandidateReviewCard[];
   candidateLifecyclePanels: StyleLibraryCandidateLifecyclePanel[];
+  candidateInspectionPanels: StyleLibraryCandidateInspectionPanel[];
+  inspectionSummaryCounts: StyleLibraryInspectionSummaryCounts;
   overview: StyleLibraryAdminOverview;
   assets: StyleLibraryAdminAssetRow[];
   patches: StyleLibraryAdminPatchRow[];
@@ -142,6 +157,10 @@ export type StyleLibraryAdminViewModel = {
 };
 
 export type { StyleLibraryCandidateLifecyclePanel, StyleLibraryLifecycleColumnMeta };
+export type {
+  StyleLibraryCandidateInspectionPanel,
+  StyleLibraryInspectionSummaryCounts,
+};
 export type { StyleLibraryDisabledActionCopy, StyleLibraryLocale, StyleLibraryUiCopy };
 
 function emptyLifecycleDistribution(): Record<
@@ -262,29 +281,33 @@ function buildLifecycleGroups(
 
 function buildCandidateReviewCards(
   assets: StyleLibraryAdminAssetRow[],
-  manifest: StyleLibraryManifest,
   locale: StyleLibraryLocale,
-  ui: StyleLibraryUiCopy,
   lifecyclePanels: StyleLibraryCandidateLifecyclePanel[],
+  inspectionPanels: StyleLibraryCandidateInspectionPanel[],
 ): StyleLibraryCandidateReviewCard[] {
   const panelByAssetId = new Map(
     lifecyclePanels.map((panel) => [panel.assetId, panel]),
+  );
+  const inspectionByAssetId = new Map(
+    inspectionPanels.map((panel) => [panel.assetId, panel]),
   );
 
   return assets
     .filter((asset) => asset.isSeedAsset)
     .map((asset) => {
       const panel = panelByAssetId.get(asset.assetId);
-      if (!panel) {
-        throw new Error(`Missing lifecycle panel for seed asset ${asset.assetId}`);
+      const inspectionPanel = inspectionByAssetId.get(asset.assetId);
+      if (!panel || !inspectionPanel) {
+        throw new Error(`Missing lifecycle/inspection panel for seed asset ${asset.assetId}`);
       }
       return {
         ...asset,
         lifecycleLabel: getLifecycleDisplayLabel(locale, asset.lifecycle),
-        currentConclusion: ui.candidateCurrentConclusionValue,
+        currentConclusion: inspectionPanel.operatorConclusion,
         nextStepHint: panel.nextStepSuggestion,
         disabledActions: getCandidateDisabledActions(locale),
         lifecyclePanel: panel,
+        inspectionPanel,
       };
     });
 }
@@ -292,6 +315,7 @@ function buildCandidateReviewCards(
 function buildStatusSummary(
   overview: StyleLibraryAdminOverview,
   validation: StyleLibraryAdminValidationPanel,
+  inspectionSummaryCounts: StyleLibraryInspectionSummaryCounts,
 ): StyleLibraryStatusSummary {
   const { lifecycleDistribution } = overview;
   return {
@@ -302,6 +326,11 @@ function buildStatusSummary(
     defaultEligible: lifecycleDistribution.default_eligible,
     activePatches: overview.activePatchCount,
     validationIssues: validation.issueCount,
+    autoValidationPassed: inspectionSummaryCounts.autoValidationPassed,
+    needsPasteQa: inspectionSummaryCounts.needsPasteQa,
+    readyForPromoteReview: inspectionSummaryCounts.readyForPromoteReview,
+    blockedCandidates: inspectionSummaryCounts.blockedCandidates,
+    compatibilityWarnings: inspectionSummaryCounts.compatibilityWarnings,
   };
 }
 
@@ -338,6 +367,10 @@ export function buildStyleLibraryAdminViewModel(
 
   const lifecycleColumnMeta = buildLifecycleColumnMetaList(manifest, locale);
   const candidateLifecyclePanels = buildCandidateLifecyclePanels(manifest, locale);
+  const candidateInspectionPanels = buildStyleLibraryInspectionPanels(manifest, locale);
+  const inspectionSummaryCounts = buildStyleLibraryInspectionSummaryCounts(
+    getStyleLibraryInspectionSummaries(manifest),
+  );
 
   return {
     locale,
@@ -352,17 +385,18 @@ export function buildStyleLibraryAdminViewModel(
       runtimeStatus: ui.runtimeStatus,
       mode: ui.mode,
     },
-    statusSummary: buildStatusSummary(overview, validation),
+    statusSummary: buildStatusSummary(overview, validation, inspectionSummaryCounts),
     lifecycleGroups: buildLifecycleGroups(assets, locale),
     lifecycleColumnMeta,
     candidateReviewCards: buildCandidateReviewCards(
       assets,
-      manifest,
       locale,
-      ui,
       candidateLifecyclePanels,
+      candidateInspectionPanels,
     ),
     candidateLifecyclePanels,
+    candidateInspectionPanels,
+    inspectionSummaryCounts,
     overview,
     assets,
     patches: manifest.registryPatches.map((patch) => toPatchRow(manifest, patch)),

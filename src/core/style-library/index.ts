@@ -99,6 +99,31 @@ export {
 } from "./lifecycle-rules";
 
 export {
+  buildStyleLibraryInspectionTarget,
+  createCandidatePreviewFixture,
+  getStyleLibraryInspectionSummaries,
+  getStyleLibraryInspectionSummary,
+  renderStyleLibraryCandidateCopyHtml,
+  renderStyleLibraryCandidatePreview,
+  validateStyleLibraryCandidateCopyHtml,
+} from "./inspection";
+export {
+  STYLE_LIBRARY_INSPECTION_CONTEXT,
+  STYLE_LIBRARY_INSPECTION_PRESET_ID,
+  createStyleLibraryInspectionStyleRegistry,
+  getStyleLibraryInspectionFixture,
+} from "./inspection-fixtures";
+export type {
+  PromoteReadiness,
+  StyleLibraryCopyInspectionResult,
+  StyleLibraryInspectionSummary,
+  StyleLibraryInspectionTarget,
+  StyleLibraryInspectionValidatorStatus,
+  StyleLibraryPreviewInspectionResult,
+  StyleLibraryValidatorInspectionResult,
+} from "./inspection-result";
+
+export {
   StyleLibraryError,
   getStyleLibraryAssetById,
   getStyleLibrarySeedAssets,
