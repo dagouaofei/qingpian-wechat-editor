@@ -3809,7 +3809,7 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 
 ## S9-STORY-001 Style Management Domain Model
 
-**优先级：** P0 · **状态：** **Done**（2026-06-05 · DECISION-094）· **工作分支：** `docs/s9-story-001-domain-model`
+**优先级：** P0 · **状态：** **Done**（2026-06-05 · DECISION-094 · merged sprint @ `263227b`）· **工作分支：** `docs/s9-story-001-domain-model`（已 merge 至 `sprint/s9-style-management-system-v0`）
 
 **目标：** 定义 style · style family · palette · variant · preset · copy-safe rule · style selection rule · lifecycle · QA evidence · `user_selectable` · `default_eligible` 等核心模型与关系。
 

@@ -3,13 +3,13 @@
 ## 1. 基本信息
 
 - 日期：2026-06-05
-- 当前分支：`docs/s9-story-001-domain-model`
+- 当前分支：`sprint/s9-style-management-system-v0`（merge 后）
 - 来源分支：`sprint/s9-style-management-system-v0`（从 `release/1` 创建）
-- 目标合并分支：`sprint/s9-style-management-system-v0`（**待用户确认**）
+- 目标合并分支：`sprint/s9-style-management-system-v0`（**已 merge** @ `263227b`）
 - Sprint：Sprint 9 — Style Management System v0（**In Progress**）
 - 关联 Story / Bug / Decision：S9-STORY-001 · **DECISION-094** · DECISION-092 · DECISION-093
 - 执行者：Cursor
-- 状态：**Done**（待用户审查 · 未 merge sprint）
+- 状态：**Done**（已 merge sprint · 2026-06-05）
 
 ## 2. 本轮目标
 
@@ -92,8 +92,6 @@
 
 ## 10. 未完成事项
 
-- 工作分支 **未 merge** 至 `sprint/s9-style-management-system-v0`（待用户确认）
-- **未 commit**
 - S9-STORY-002~009 仍为 Planned
 
 ## 11. 风险与阻塞
@@ -105,14 +103,12 @@
 
 1. 领域模型 lifecycle 与 `VariantStatus` 双轨映射是否可接受？
 2. promote 默认仅进 user-selectable pool、不进 default preset — 是否与产品预期一致？
-3. 是否批准 merge `docs/s9-story-001-domain-model` → `sprint/s9-style-management-system-v0`？
 
 ## 13. 建议下一步
 
-1. 用户审查本 execution report 与 [`style-management-domain-model.md`](../architecture/style-management-domain-model.md)
-2. 确认后 merge 工作分支至 sprint 分支
-3. 启动 **S9-STORY-002** File-backed Style Library Storage
+1. 启动 **S9-STORY-002** File-backed Style Library Storage
 
 ## 14. Commit
 
-- Commit hash：**未提交 / not committed**
+- Story commit：`6490de6` — `docs: define S9 style management domain model and start Sprint 9`
+- Sprint merge：`263227b` — merge `docs/s9-story-001-domain-model` → `sprint/s9-style-management-system-v0`
