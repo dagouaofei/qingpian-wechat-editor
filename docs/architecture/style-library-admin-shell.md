@@ -173,7 +173,16 @@ Workbench 扩展 Style / Palette / Rule metadata 管理：
 
 ---
 
-## 17. 代码结构
+## 17. Apply Candidate Promote Patch（S9-STORY-007B · DECISION-105）
+
+- Cursor code-backed apply：`heading_teal_section_label_html_paste_candidate` → `user_selectable`
+- evidence `WX-HTML-PASTE-E2E-001` · 不进入 default preset / release1_required
+
+详见 [`style-library-apply-candidate-promote-patch.md`](style-library-apply-candidate-promote-patch.md)。
+
+---
+
+## 18. 代码结构
 
 ```text
 src/app/dev/style-library/

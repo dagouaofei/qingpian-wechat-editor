@@ -64,12 +64,13 @@ function mockSummary(
 }
 
 describe("style-library inspection view model", () => {
-  it("builds inspection panels for both seed candidates", () => {
+  it("builds inspection panels for seed candidates and applied user_selectable asset", () => {
     const panels = buildStyleLibraryInspectionPanels(STYLE_LIBRARY_MANIFEST, "zh");
-    expect(panels).toHaveLength(2);
+    expect(panels).toHaveLength(3);
     expect(panels.map((panel) => panel.runtimeVariantId)).toEqual([
       "heading_purple_chapter_label_candidate",
       "info_card_reading_path_candidate",
+      "heading_teal_section_label_html_paste_candidate",
     ]);
   });
 
@@ -106,12 +107,12 @@ describe("style-library inspection view model", () => {
     );
   });
 
-  it("does not count WARNING-only candidates as blocked", () => {
+  it("does not count WARNING-only seed candidates as blocked in inspection counts", () => {
     const counts = buildStyleLibraryInspectionSummaryCounts(
       getStyleLibraryInspectionSummaries(STYLE_LIBRARY_MANIFEST),
     );
     expect(counts.blockedCandidates).toBe(0);
-    expect(counts.compatibilityWarnings).toBe(2);
+    expect(counts.compatibilityWarnings).toBe(3);
   });
 
   it("counts FAIL candidates as blocked but not as compatibility warnings", () => {
@@ -123,21 +124,21 @@ describe("style-library inspection view model", () => {
     expect(counts.compatibilityWarnings).toBe(1);
   });
 
-  it("aggregates inspection summary counts for seeds", () => {
+  it("aggregates inspection summary counts for seeds and applied asset", () => {
     const counts = buildStyleLibraryInspectionSummaryCounts(
       getStyleLibraryInspectionSummaries(STYLE_LIBRARY_MANIFEST),
     );
-    expect(counts.autoValidationPassed).toBe(2);
+    expect(counts.autoValidationPassed).toBe(3);
     expect(counts.readyForPromoteReview).toBe(2);
     expect(counts.needsPasteQa).toBe(0);
   });
 
   it("integrates inspection panels into admin view model", () => {
     const viewModel = buildStyleLibraryAdminViewModel(STYLE_LIBRARY_MANIFEST, "zh");
-    expect(viewModel.candidateInspectionPanels).toHaveLength(2);
+    expect(viewModel.candidateInspectionPanels).toHaveLength(3);
     expect(viewModel.inspectionSummaryCounts.readyForPromoteReview).toBe(2);
     expect(viewModel.statusSummary.compatibilityWarnings).toBe(2);
-    expect(viewModel.statusSummary.blockedCandidates).toBe(0);
+    expect(viewModel.statusSummary.blockedCandidates).toBe(1);
     expect(viewModel.candidateReviewCards[0]?.currentConclusion).toContain(
       "有兼容性提醒",
     );

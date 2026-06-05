@@ -8,6 +8,7 @@ import {
   wrapTitleHeadingElement,
 } from "./copy-safe-primitives";
 import { renderHarvestChapterLabelHeadingCopy } from "./harvest-candidate-copy";
+import { renderHtmlPasteTealSectionLabelHeadingCopy } from "./html-paste-candidate-copy";
 import { assertCopySafeHtml, escapeHtml } from "./html-escape";
 import { wrapInlineElement } from "./inline-style";
 import type { ThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
@@ -598,6 +599,9 @@ export function renderTitleBlockCopyHtml(
 
   if (variantId === "heading_purple_chapter_label_candidate") {
     return renderHarvestChapterLabelHeadingCopy(context);
+  }
+  if (variantId === "heading_teal_section_label_html_paste_candidate") {
+    return renderHtmlPasteTealSectionLabelHeadingCopy(context);
   }
 
   const isPublishHeading =

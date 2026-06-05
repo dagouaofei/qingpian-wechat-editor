@@ -26,7 +26,7 @@ describe("style palette rule management", () => {
   });
 
   it("reads palette and rule assets from manifest", () => {
-    expect(getStyleLibraryPaletteAssets()).toHaveLength(2);
+    expect(getStyleLibraryPaletteAssets()).toHaveLength(3);
     expect(getStyleLibraryRuleAssets()).toHaveLength(4);
     expect(validateStyleLibraryManifest(STYLE_LIBRARY_MANIFEST).ok).toBe(true);
   });
@@ -45,12 +45,12 @@ describe("style palette rule management", () => {
 
   it("computes summary metrics", () => {
     const counts = buildStylePaletteRuleSummaryCounts(STYLE_LIBRARY_MANIFEST);
-    expect(counts.styleCount).toBe(4);
-    expect(counts.paletteCount).toBe(2);
+    expect(counts.styleCount).toBe(5);
+    expect(counts.paletteCount).toBe(3);
     expect(counts.ruleCount).toBe(4);
     expect(counts.copySafeRuleCount).toBe(2);
     expect(counts.selectionRuleCount).toBe(2);
-    expect(counts.stylesReadyForExpansion).toBe(2);
+    expect(counts.stylesReadyForExpansion).toBe(3);
     expect(counts.stylesMissingPalette).toBe(1);
     expect(counts.rulesWithWarnings).toBe(1);
   });

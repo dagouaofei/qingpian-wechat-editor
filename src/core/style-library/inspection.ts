@@ -308,6 +308,9 @@ export function getStyleLibraryInspectionSummaries(
 ): StyleLibraryInspectionSummary[] {
   return manifest.assets
     .filter((asset): asset is StyleLibraryVariantAsset => asset.assetType === "variant")
-    .filter((asset) => asset.isSeedAsset === true)
+    .filter(
+      (asset) =>
+        asset.isSeedAsset === true || asset.lifecycle === "user_selectable",
+    )
     .map((asset) => getStyleLibraryInspectionSummary(asset, manifest));
 }

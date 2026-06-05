@@ -1054,3 +1054,19 @@
 - **关联：** S9-STORY-005、DECISION-100、DECISION-101、S9-STORY-007B
 - **状态：** **已确认**（2026-06-05 · S9-STORY-005）
 
+### DECISION-105 详情（S9-STORY-007B Cursor-applied code-backed patch）
+
+- **日期：** 2026-06-05
+- **背景：**
+  - S9-STORY-005 生成 HTML paste proposal，但不写 code-backed 文件
+  - 需闭环 apply patch 使样式进入 `user_selectable`
+- **决策：**
+  1. S9-STORY-007B 采用 **Cursor-applied code-backed patch**
+  2. HTML paste candidate 经 proposal / inspection / promote review 后，由 **Cursor** 修改 variant · manifest · evidence 并 commit
+  3. 目标 lifecycle = `user_selectable` · distribution：`userSelectable=true` · `defaultEligible=false` · `release1Required=false`
+  4. **不得**自动进入 defaultEligible / default preset / release1_required
+  5. 浏览器 **不**写 code-backed 文件
+- **影响范围：** `html-paste-candidate-variants.ts` · `html-paste-variant-assets.ts` · `manifest.ts` · `WX-HTML-PASTE-E2E-001`
+- **关联：** S9-STORY-005、DECISION-104、DECISION-101、S9-STORY-009
+- **状态：** **已确认**（2026-06-05 · S9-STORY-007B）
+

@@ -11,13 +11,14 @@ describe("buildStyleLibraryAdminViewModel", () => {
 
     expect(viewModel.overview.libraryId).toBe("qingpian-style-library-v0");
     expect(viewModel.overview.schemaVersion).toBe(1);
-    expect(viewModel.overview.totalAssets).toBe(8);
-    expect(viewModel.overview.variantAssetCount).toBe(2);
+    expect(viewModel.overview.totalAssets).toBe(10);
+    expect(viewModel.overview.variantAssetCount).toBe(3);
     expect(viewModel.overview.seedAssetCount).toBe(2);
-    expect(viewModel.overview.registryPatchCount).toBe(1);
+    expect(viewModel.overview.registryPatchCount).toBe(2);
     expect(viewModel.overview.activePatchCount).toBe(0);
-    expect(viewModel.overview.evidenceRefCount).toBe(4);
+    expect(viewModel.overview.evidenceRefCount).toBe(7);
     expect(viewModel.overview.lifecycleDistribution.paste_qa_pass).toBe(2);
+    expect(viewModel.overview.lifecycleDistribution.user_selectable).toBe(1);
   });
 
   it("defaults locale to zh", () => {
@@ -41,13 +42,13 @@ describe("buildStyleLibraryAdminViewModel", () => {
   it("builds status summary cards from manifest metrics", () => {
     const viewModel = buildStyleLibraryAdminViewModel();
 
-    expect(viewModel.statusSummary.totalAssets).toBe(8);
-    expect(viewModel.statusSummary.styleCount).toBe(4);
-    expect(viewModel.statusSummary.paletteCount).toBe(2);
+    expect(viewModel.statusSummary.totalAssets).toBe(10);
+    expect(viewModel.statusSummary.styleCount).toBe(5);
+    expect(viewModel.statusSummary.paletteCount).toBe(3);
     expect(viewModel.statusSummary.ruleCount).toBe(4);
     expect(viewModel.statusSummary.seedCandidates).toBe(2);
     expect(viewModel.statusSummary.pasteQaPassed).toBe(2);
-    expect(viewModel.statusSummary.userSelectable).toBe(0);
+    expect(viewModel.statusSummary.userSelectable).toBe(1);
     expect(viewModel.statusSummary.defaultEligible).toBe(0);
     expect(viewModel.statusSummary.activePatches).toBe(0);
     expect(viewModel.statusSummary.validationIssues).toBe(0);
@@ -140,7 +141,7 @@ describe("buildStyleLibraryAdminViewModel", () => {
 
     expect(viewModel.promoteSummaryCounts.readyForPromoteReview).toBe(2);
     expect(viewModel.statusSummary.promoteProposalsAvailable).toBe(2);
-    expect(viewModel.candidatePromotePanels).toHaveLength(2);
+    expect(viewModel.candidatePromotePanels).toHaveLength(3);
     expect(viewModel.candidateReviewCards[0]?.promotePanel.eligible).toBe(true);
     expect(viewModel.candidateReviewCards[0]?.promotePanel.proposal.toDistribution).toEqual({
       userSelectable: true,
@@ -149,12 +150,11 @@ describe("buildStyleLibraryAdminViewModel", () => {
     });
   });
 
-  it("shows inactive registry patch with zero active patch count", () => {
+  it("shows inactive registry patches with zero active patch count", () => {
     const viewModel = buildStyleLibraryAdminViewModel();
 
-    expect(viewModel.patches).toHaveLength(1);
-    expect(viewModel.patches[0]?.active).toBe(false);
-    expect(viewModel.patches[0]?.validationIssueCount).toBe(0);
+    expect(viewModel.patches).toHaveLength(2);
+    expect(viewModel.patches.every((patch) => patch.active === false)).toBe(true);
     expect(viewModel.overview.activePatchCount).toBe(0);
   });
 
@@ -174,6 +174,19 @@ describe("buildStyleLibraryAdminViewModel", () => {
     expect(evidenceIds).toContain("S8M-HARVEST-001");
     expect(evidenceIds).toContain("S8M-HARVEST-002");
     expect(evidenceIds).toContain("PASTE-QA-SESSION-006D");
+    expect(evidenceIds).toContain("WX-HTML-PASTE-E2E-001");
+  });
+
+  it("includes user_selectable html paste asset in lifecycle pipeline", () => {
+    const viewModel = buildStyleLibraryAdminViewModel(undefined, "zh");
+    const userSelectableGroup = viewModel.lifecycleGroups.find(
+      (group) => group.lifecycle === "user_selectable",
+    );
+    expect(userSelectableGroup?.assets).toHaveLength(1);
+    expect(userSelectableGroup?.assets[0]?.runtimeVariantId).toBe(
+      "heading_teal_section_label_html_paste_candidate",
+    );
+    expect(userSelectableGroup?.assets[0]?.userSelectable).toBe(true);
   });
 
   it("does not depend on runtime StyleRegistry exports", () => {
