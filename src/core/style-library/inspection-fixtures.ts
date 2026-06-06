@@ -42,7 +42,7 @@ const INFO_CARD_FIXTURE: StyleLibraryInspectionFixture = {
 
 const TEAL_SECTION_FIXTURE: StyleLibraryInspectionFixture = {
   fixtureId: "style-library-inspection-html-paste-teal-section-label",
-  fixtureLabel: "青绿章节标签 + 标题（007B E2E 样本）",
+  fixtureLabel: "章节标签 + 标题（007B E2E 样本）",
   fixtureText: "运营增长指南 · html paste user_selectable",
 };
 
@@ -105,15 +105,11 @@ export function createCandidatePreviewFixture(
       fixture,
     ),
     ...(asset.blockType === "heading" &&
-    (asset.runtimeVariantId === "heading_purple_chapter_label_candidate" ||
-      asset.runtimeVariantId === HEADING_TEAL_SECTION_LABEL_HTML_PASTE_VARIANT_ID)
+    asset.runtimeVariantId === "heading_purple_chapter_label_candidate"
       ? {
           meta: {
-            sourceIndex: asset.runtimeVariantId === HEADING_TEAL_SECTION_LABEL_HTML_PASTE_VARIANT_ID ? 2 : 1,
-            label:
-              asset.runtimeVariantId === HEADING_TEAL_SECTION_LABEL_HTML_PASTE_VARIANT_ID
-                ? "SECTION 02"
-                : "CHAPTER 01",
+            sourceIndex: 1,
+            label: "CHAPTER 01",
           },
         }
       : {}),
@@ -155,7 +151,11 @@ export function createStyleLibraryInspectionStyleRegistry(): StyleRegistry {
         name: "商务蓝",
         schemaVersion: STYLE_SCHEMA_VERSION,
         tokens: {
-          color: { "text.default": "#333333", "brand.primary": "#576b95" },
+          color: {
+            "text.default": "#333333",
+            "text.accent": "#2563eb",
+            "brand.primary": "#576b95",
+          },
           fontSize: { body: "16px" },
         },
       },

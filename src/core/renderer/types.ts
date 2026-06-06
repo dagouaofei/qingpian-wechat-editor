@@ -102,7 +102,9 @@ export type TitleBlockPreviewOutput = {
     iconCapsuleLabel?: string;
     cardTitleFrame?: boolean;
     cornerAccent?: boolean;
-    /** HTML paste user-selectable heading: teal section label row above title */
+    /** HTML paste user-selectable heading: section label row above title */
+    htmlPasteSectionLabel?: boolean;
+    /** @deprecated Use htmlPasteSectionLabel */
     htmlPasteTealSectionLabel?: boolean;
   };
   typography?: {

@@ -511,4 +511,4 @@
 | 2026-06-05 | Sprint 9 | merge S9-STORY-005 → sprint @ `a9a3a00` | Git | S9-STORY-005 |
 | 2026-06-05 | Sprint 9 | merge S9-STORY-007B → sprint @ `634709d` | Git | S9-STORY-007B |
 | 2026-06-05 | Sprint 9 | **S9-STORY-009 On Hold**：PO 要求 user-selectable 须进用户预览页选择器 · audit 分支暂不 merge | 文档 / 敏捷 | S9-STORY-009 |
-| 2026-06-05 | Sprint 9 | **S9-STORY-007C In Review**：User Preview Style Picker · DECISION-107 · [`style-library-user-selectable-preview-picker.md`](../architecture/style-library-user-selectable-preview-picker.md) | 代码 / 文档 | S9-STORY-007C · DECISION-107 |
+| 2026-06-05 | Sprint 9 | **S9-STORY-007C-FIX-B**：html paste section label 动态序号 + theme token 色 · 采集色仅作 source hint | 代码 / 文档 | S9-STORY-007C |

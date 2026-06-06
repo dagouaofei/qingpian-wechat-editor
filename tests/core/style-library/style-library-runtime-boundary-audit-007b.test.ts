@@ -71,7 +71,8 @@ describe("S9-STORY-007B-AUDIT-A runtime boundary", () => {
     const copy = renderStyleLibraryCandidateCopyHtml(HTML_PASTE_TEAL_SECTION_LABEL_ASSET);
     expect(preview.ok).toBe(true);
     expect(copy.ok).toBe(true);
-    expect(copy.html).toContain("#0d9488");
-    expect(copy.html).toContain("SECTION 02");
+    expect(copy.html).toContain("SECTION 01");
+    expect(copy.html).toContain("#2563eb");
+    expect(copy.html).not.toContain("#0d9488");
   });
 });

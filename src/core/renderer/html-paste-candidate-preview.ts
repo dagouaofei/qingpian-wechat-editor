@@ -1,6 +1,6 @@
 /**
- * HTML paste candidate preview (S9-STORY-007C-FIX-A).
- * Mirrors copy structure for user preview explicit-selection path.
+ * HTML paste candidate preview (S9-STORY-007C-FIX-A / FIX-B).
+ * Dynamic section index + theme-aware accent (explicit user-selectable path only).
  */
 
 import type { HeadingBlock } from "@/core/blocks";
@@ -11,10 +11,7 @@ import {
 import type { BlockRenderContext, TitleBlockPreviewOutput } from "@/core/renderer/types";
 import { HEADING_TEAL_SECTION_LABEL_HTML_PASTE_VARIANT_ID } from "@/core/styles/variants/html-paste-candidate-variants";
 
-import {
-  HTML_PASTE_TEAL_SECTION_COLOR,
-  resolveHtmlPasteTealSectionLabel,
-} from "./html-paste-teal-section-label-shared";
+import { resolveHtmlPasteSectionLabelStyleTokens } from "./html-paste-teal-section-label-shared";
 
 export function renderHtmlPasteTealSectionLabelHeadingPreview(
   context: BlockRenderContext,
@@ -25,7 +22,7 @@ export function renderHtmlPasteTealSectionLabelHeadingPreview(
     "heading",
   );
   const text = extractTitleBlockText(block);
-  const sectionLabel = resolveHtmlPasteTealSectionLabel(block);
+  const styleTokens = resolveHtmlPasteSectionLabelStyleTokens(context);
 
   return {
     kind: "title_block_preview",
@@ -37,8 +34,8 @@ export function renderHtmlPasteTealSectionLabelHeadingPreview(
     text,
     headingLevel: block.content.level,
     presentation: {
-      badgeText: sectionLabel,
-      htmlPasteTealSectionLabel: true,
+      badgeText: styleTokens.sectionLabelText,
+      htmlPasteSectionLabel: true,
     },
     typography: {
       fontSize: typography.fontSize ?? "17px",
@@ -46,7 +43,7 @@ export function renderHtmlPasteTealSectionLabelHeadingPreview(
       lineHeight: typography.lineHeight,
       fontFamily: typography.fontFamily,
       color: typography.color ?? "#1f2937",
-      accentColor: HTML_PASTE_TEAL_SECTION_COLOR,
+      accentColor: styleTokens.accentColor,
     },
     slots: {},
   };

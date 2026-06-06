@@ -7,7 +7,7 @@ export const HTML_PASTE_TEAL_SECTION_LABEL_ASSET_ID =
 export const HTML_PASTE_TEAL_SECTION_LABEL_ASSET: StyleLibraryVariantAsset = {
   assetId: HTML_PASTE_TEAL_SECTION_LABEL_ASSET_ID,
   assetType: "variant",
-  label: "Teal Section Label (HTML Paste · User Selectable)",
+  label: "章节标签标题（HTML 采集 · 用户可选）",
   description:
     "S9-STORY-007B Cursor-applied HTML paste candidate · user_selectable · not default preset",
   sourceType: "code",

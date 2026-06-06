@@ -59,6 +59,19 @@ Generation path still uses `createFirstWaveRequiredVariantRegistry()` only.
 - assetId: `variant-html-paste-teal-section-label`
 - evidence: `WX-HTML-PASTE-E2E-001`
 
+## Dynamic structure (007C-FIX-B)
+
+HTML paste user-selectable heading is a **tokenized structure style**, not a fixed teal skin:
+
+| Concern | Rule |
+|---------|------|
+| Section number | `SECTION 01` … from heading ordinal in article (`resolveHeadingIndexLabel`) |
+| Accent color | `resolveThemePaletteTokens(...).textAccent` from current article theme |
+| Source `#0d9488` | Evidence / fixture reference only — never final render color |
+| Preview / Copy | Shared helpers in `html-paste-teal-section-label-shared.ts` |
+
+Display label (UI): **章节标签标题（HTML 采集 · 用户可选）** / Section Label Heading (HTML Paste · User Selectable)
+
 ## S9-STORY-009 impact
 
 Prior closeout audit validated Workbench + style-library metadata only. PO clarified acceptance requires **user preview picker** visibility. S9-STORY-009 audit branch remains unmerged until 007C merges and closeout re-runs.

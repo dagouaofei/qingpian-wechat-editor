@@ -1,6 +1,6 @@
 /**
- * HTML paste candidate copy (S9-STORY-007B).
- * Visual intent from pasted WeChat-safe HTML · WX-HTML-PASTE-E2E-001.
+ * HTML paste candidate copy (S9-STORY-007B / 007C-FIX-B).
+ * Dynamic section index + theme-aware accent · source HTML color is reference only.
  */
 
 import type { HeadingBlock } from "@/core/blocks";
@@ -10,6 +10,8 @@ import {
   resolveTitleBlockTypography,
 } from "@/core/renderer/text-style";
 import type { BlockRenderContext, TitleBlockCopyOutput } from "@/core/renderer/types";
+import { resolveHtmlPasteSectionLabelStyleTokens } from "@/core/renderer/html-paste-teal-section-label-shared";
+import { HEADING_TEAL_SECTION_LABEL_HTML_PASTE_VARIANT_ID } from "@/core/styles/variants/html-paste-candidate-variants";
 
 import {
   wrapCopySafeMarginSection,
@@ -17,11 +19,6 @@ import {
 } from "./copy-safe-primitives";
 import { assertCopySafeHtml, escapeHtml } from "./html-escape";
 import { wrapInlineElement } from "./inline-style";
-import {
-  HTML_PASTE_TEAL_SECTION_COLOR,
-  resolveHtmlPasteTealSectionLabel,
-} from "@/core/renderer/html-paste-teal-section-label-shared";
-import { HEADING_TEAL_SECTION_LABEL_HTML_PASTE_VARIANT_ID } from "@/core/styles/variants/html-paste-candidate-variants";
 
 export const HTML_PASTE_CANDIDATE_SOURCE_EVIDENCE_ID = "WX-HTML-PASTE-E2E-001";
 
@@ -39,8 +36,6 @@ export const HTML_PASTE_CANDIDATE_METADATA = {
   requiresPasteQa: true,
 };
 
-const TEAL_SECTION = HTML_PASTE_TEAL_SECTION_COLOR;
-
 export function renderHtmlPasteTealSectionLabelHeadingCopy(
   context: BlockRenderContext,
 ): TitleBlockCopyOutput {
@@ -50,7 +45,7 @@ export function renderHtmlPasteTealSectionLabelHeadingCopy(
     "heading",
   );
   const text = extractTitleBlockText(block);
-  const sectionLabel = resolveHtmlPasteTealSectionLabel(block);
+  const styleTokens = resolveHtmlPasteSectionLabelStyleTokens(context);
 
   const labelRow = wrapInlineElement(
     "p",
@@ -59,15 +54,15 @@ export function renderHtmlPasteTealSectionLabelHeadingCopy(
       "span",
       {
         display: "inline-block",
-        backgroundColor: TEAL_SECTION,
-        color: "#ffffff",
+        backgroundColor: styleTokens.accentColor,
+        color: styleTokens.labelTextColor,
         fontSize: "11px",
         fontWeight: "700",
         padding: "2px 10px",
         letterSpacing: "1px",
         lineHeight: "1.5",
       },
-      escapeHtml(sectionLabel),
+      escapeHtml(styleTokens.sectionLabelText),
     ),
   );
 

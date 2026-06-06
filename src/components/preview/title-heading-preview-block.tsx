@@ -46,17 +46,17 @@ import {
 } from "@/core/renderer/title-heading-visual";
 import type { ThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
 import type { TitleBlockPreviewOutput } from "@/core/renderer/types";
-import { HTML_PASTE_TEAL_SECTION_COLOR } from "@/core/renderer/html-paste-teal-section-label-shared";
 import { HEADING_TEAL_SECTION_LABEL_HTML_PASTE_VARIANT_ID } from "@/core/styles/variants/html-paste-candidate-variants";
 
-function isHtmlPasteTealSectionLabelOutput(output: TitleBlockPreviewOutput): boolean {
+function isHtmlPasteSectionLabelOutput(output: TitleBlockPreviewOutput): boolean {
   return (
     output.variantId === HEADING_TEAL_SECTION_LABEL_HTML_PASTE_VARIANT_ID ||
+    output.presentation.htmlPasteSectionLabel === true ||
     output.presentation.htmlPasteTealSectionLabel === true
   );
 }
 
-function HtmlPasteTealSectionLabelPreview({
+function HtmlPasteSectionLabelPreview({
   output,
   showStreamingCaret,
   caret,
@@ -65,8 +65,8 @@ function HtmlPasteTealSectionLabelPreview({
   showStreamingCaret?: boolean;
   caret?: ReactNode;
 }) {
-  const sectionLabel = output.presentation.badgeText ?? "SECTION 02";
-  const teal = output.typography?.accentColor ?? HTML_PASTE_TEAL_SECTION_COLOR;
+  const sectionLabel = output.presentation.badgeText ?? "SECTION 01";
+  const accentColor = output.typography?.accentColor ?? "var(--preview-text-accent, #576b95)";
 
   return (
     <PreviewShell
@@ -77,7 +77,7 @@ function HtmlPasteTealSectionLabelPreview({
         <span
           style={{
             display: "inline-block",
-            backgroundColor: teal,
+            backgroundColor: accentColor,
             color: "#ffffff",
             fontSize: "11px",
             fontWeight: 700,
@@ -311,9 +311,9 @@ export function TitleHeadingPreviewBlock({
   showStreamingCaret?: boolean;
   caret?: ReactNode;
 }) {
-  if (isHtmlPasteTealSectionLabelOutput(output)) {
+  if (isHtmlPasteSectionLabelOutput(output)) {
     return (
-      <HtmlPasteTealSectionLabelPreview
+      <HtmlPasteSectionLabelPreview
         output={output}
         showStreamingCaret={showStreamingCaret}
         caret={caret}
