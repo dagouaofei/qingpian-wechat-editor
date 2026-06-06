@@ -1,5 +1,4 @@
 import type { Article } from "@/core/article";
-import { buildClipboardPayload } from "@/core/copy/clipboard-payload";
 import {
   createRelease1FirstWaveCopyRendererRegistry,
   RELEASE1_FIRST_WAVE_COPY_BLOCK_TYPES,
@@ -9,7 +8,6 @@ import { generateDeterministicStyleSelection } from "@/core/generation/style-sel
 import {
   createRelease1FirstWavePreviewRendererRegistry,
   RELEASE1_FIRST_WAVE_PREVIEW_BLOCK_TYPES,
-  renderArticleBlocks,
   renderTargetForMode,
   type RendererOutputPlaceholder,
 } from "@/core/renderer";
@@ -27,11 +25,16 @@ import {
 } from "./preview-style-controls";
 import {
   applyHeadingVariantToArticle,
-  type HeadingPublishVariantId,
+  type PreviewHeadingVariantId,
 } from "./preview-heading-style";
+import { createUserPreviewStyleRegistry } from "./user-preview-style-registry";
+import {
+  buildUserPreviewClipboardPayload,
+  renderUserPreviewArticleBlocks,
+} from "./user-preview-render";
 
 function serializePreviewBlocks(
-  results: ReturnType<typeof renderArticleBlocks>,
+  results: ReturnType<typeof renderUserPreviewArticleBlocks>,
 ): SerializedPreviewBlock[] {
   return results.map((result) => ({
     blockId: result.blockId,
@@ -66,14 +69,15 @@ export function renderArticlePreviewClient(
     postStyleSelectionPatch?: (article: Article) => Article;
   },
 ): RenderArticlePreviewClientResult {
-  const registry = createFirstWaveRequiredVariantRegistry();
+  const generationRegistry = createFirstWaveRequiredVariantRegistry();
+  const previewStyleRegistry = createUserPreviewStyleRegistry();
   const themedArticle = applyPreviewThemeToArticle(article, control.colorPalette);
   const styleInput = buildNormalizedInputForPreviewControl(normalizedInput, control);
 
   const styleResult = generateDeterministicStyleSelection({
     article: themedArticle,
     normalizedInput: styleInput,
-    registry,
+    registry: generationRegistry,
   });
 
   const styledArticleBase = styleResult.applied
@@ -87,13 +91,13 @@ export function renderArticlePreviewClient(
   if (control.headingVariantId) {
     styledArticle = applyHeadingVariantToArticle(
       styledArticle,
-      control.headingVariantId as HeadingPublishVariantId,
+      control.headingVariantId as PreviewHeadingVariantId,
     );
   }
 
-  const resolvedArticleStyle = resolveArticleStyle(styledArticle, registry);
+  const resolvedArticleStyle = resolveArticleStyle(styledArticle, previewStyleRegistry);
   const previewRegistry = createRelease1FirstWavePreviewRendererRegistry();
-  const previewResults = renderArticleBlocks({
+  const previewResults = renderUserPreviewArticleBlocks({
     article: styledArticle,
     resolvedArticleStyle,
     mode: "preview",
@@ -103,7 +107,7 @@ export function renderArticlePreviewClient(
   });
 
   const copyRegistry = createRelease1FirstWaveCopyRendererRegistry();
-  const clipboardPayload = buildClipboardPayload({
+  const clipboardPayload = buildUserPreviewClipboardPayload({
     article: styledArticle,
     resolvedArticleStyle,
     registry: copyRegistry,

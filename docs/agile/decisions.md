@@ -89,6 +89,11 @@
 | DECISION-091 | 2026-06-04 | Copy-safe Pattern Library v0.1（文档）；Drift triage；006C/007/S9 路由；本轮不改 Contract/Renderer | 已确认 |
 | DECISION-092 | 2026-06-05 | Style Management System v0 独立为 Sprint 9；主项目内 file-backed 子系统；采集入库仅为入口之一 | 已确认 |
 | DECISION-093 | 2026-06-05 | 关闭 Sprint 8；接受 Contract & Fidelity Audit Grade A- · P0=0；merge `sprint/s8-wechat-safe-css-contract` → `release/1`；不 merge `main`；Sprint 9 可从 `release/1` 启动 | 已确认 |
+| DECISION-094 | 2026-06-05 | 正式启动 Sprint 9：Style Management System v0；从 `release/1` 创建 `sprint/s9-style-management-system-v0`；首轮执行 S9-STORY-001 Style Management Domain Model | 已确认 |
+| DECISION-095 | 2026-06-05 | Style Library v0 采用 code-backed TypeScript manifest；独立 `@/core/style-library`；不接入 runtime StyleRegistry 默认加载路径 | 已确认 |
+| DECISION-096 | 2026-06-05 | Style Library Admin Shell v0 使用 `/dev/style-library`；内部只读治理工具；无权限系统；非正式 SaaS 后台 | 已确认 |
+| DECISION-106 | 2026-06-05 | 关闭 Sprint 9：Style Management System v0 · 接受 v2 audit Grade A- · P0=0 · HTML→user preview picker E2E PASS · Preview/Copy parity PASS · default/release1 未污染 · **不 merge `main`** · sprint→`release/1` 需另行确认 | **已确认** |
+| DECISION-107 | 2026-06-05 | S9-STORY-007C：user_selectable 暴露至用户预览页样式选择器；Gallery/AI/release1 边界不变 | **已确认** · merged sprint @ `da5be1e` |
 
 ### DECISION-019 详情
 
@@ -869,4 +874,246 @@
 - **影响范围：** `sprint-backlog.md`、`sprint-plan.md`、`release-plan.md`、`sprint8-wechat-safe-css-contract.md`、`changelog.md`
 - **关联：** S8-STORY-009、DECISION-088~092、[`sprint8-wechat-contract-fidelity-audit.md`](../architecture/audits/sprint8-wechat-contract-fidelity-audit.md)
 - **状态：** **已确认**（2026-06-05 · 用户确认 Sprint 8 关闭）
+
+### DECISION-094 详情（Sprint 9 启动 · S9-STORY-001 Domain Model）
+
+- **日期：** 2026-06-05
+- **背景：**
+  - Sprint 8 已关闭并 merge 至 `release/1`（DECISION-093）
+  - DECISION-092 已将 Style Management System v0 规划为 Sprint 9
+  - S8 启动条件（Contract v1 · Matrix · Paste QA · 006D seed assets · story map）均已满足
+- **决策：**
+  1. **正式启动 Sprint 9** — Style Management System v0（样式管理后台 v0）
+  2. 从 `release/1` 创建 sprint 分支 **`sprint/s9-style-management-system-v0`**
+  3. 首轮执行 **S9-STORY-001 Style Management Domain Model**；工作分支 `docs/s9-story-001-domain-model`
+  4. 产出 [`style-management-domain-model.md`](../architecture/style-management-domain-model.md) — 定义 style · family · palette · variant · preset · rule · lifecycle · QA evidence · promote/rollback 边界
+  5. **006D harvest candidates** 保持 seed asset；文档明确不得直接 user_selectable / default preset
+  6. **本轮不启动 S9-STORY-002** · 不改 StyleRegistry 运行时 · 不 merge `main` · 不关闭 Sprint 9 / Release 1
+- **影响范围：** `style-management-domain-model.md`、`sprint-backlog.md`、`sprint-plan.md`、`sprint9-style-management-system-v0.md`、`changelog.md`、`decisions.md`
+- **关联：** S9-STORY-001、DECISION-092、DECISION-093、S8-STORY-006D、WX-HARVEST-EVIDENCE-001
+- **状态：** **已确认**（2026-06-05 · S9-STORY-001）
+
+### DECISION-095 详情（Style Library v0 · Code-backed TS Manifest）
+
+- **日期：** 2026-06-05
+- **背景：**
+  - S9-STORY-002 需建立 file-backed / code-backed Style Library Storage
+  - 项目已有 TS registry 惯例（VisualAssetRegistry · harvest candidates）
+  - 须与 runtime StyleRegistry 解耦，不改动 `createFirstWaveRequiredVariantRegistry` 默认路径
+- **决策：**
+  1. Style Library v0 采用 **code-backed TypeScript manifest**（`STYLE_LIBRARY_MANIFEST`），Git 可审查
+  2. 独立模块 **`@/core/style-library`** — **不** re-export 到 `@/core/styles`
+  3. `manifest.ts` **无 import-time assert**；一致性由 validation helper + 单元测试覆盖
+  4. 006D seed assets 登记为 seed metadata；**禁止** S9-STORY-002 经 registry patch 进入 user-selectable / default preset
+  5. registry patch v0 均为 **inactive**；promote 接入 runtime → **S9-STORY-007**
+  6. 后续可迁移 JSON / CMS / DB；manifest 保留 `sourceType` 预留
+- **影响范围：** `src/core/style-library/`、`style-library-storage.md`、`sprint-backlog.md`、`changelog.md`
+- **关联：** S9-STORY-002、DECISION-092、DECISION-094、S8-STORY-006D
+- **状态：** **已确认**（2026-06-05 · S9-STORY-002）
+
+### DECISION-096 详情（Style Library Admin Shell v0 · `/dev/style-library`）
+
+- **日期：** 2026-06-05
+- **背景：**
+  - S9-STORY-003 需只读 Admin Shell 浏览 Style Library v0
+  - S9 v0 无权限系统 · 无写操作 · 非正式 SaaS 运营后台
+  - 项目已有 `/dev/style-fidelity` 内部 debug 页惯例
+- **决策：**
+  1. Admin Shell v0 路由为 **`/dev/style-library`**（非 `/admin/style-library`）
+  2. **只读** — 浏览 manifest · assets · patches · evidence · validation；无 CRUD / promote / patch 激活
+  3. 数据**仅**来自 `@/core/style-library`；不读取 runtime `@/core/styles` registry
+  4. 页面明确提示 registry patch **未接入** runtime · 不影响 Gallery / Preview / Copy
+  5. 正式 `/admin` + 权限 + 写操作留待后续 Story 评估
+- **影响范围：** `src/app/dev/style-library/`、`style-library-admin-shell.md`、`sprint-backlog.md`、`decisions.md`
+- **关联：** S9-STORY-003、DECISION-095、S9-STORY-004、S9-STORY-007
+- **状态：** **已确认**（2026-06-05 · S9-STORY-003）
+
+### DECISION-097 详情（Sprint 9 operator-facing acceptance）
+
+- **日期：** 2026-06-05
+- **背景：**
+  - Sprint 9 审查发现产品口径偏技术化 — 当前输出易被理解为 manifest / patch / evidence 数据浏览器
+  - S9 最终目标应为**面向运营管理人员**可用的 Style Management Workbench v0
+  - S9-STORY-003-FIX-A 已将 `/dev/style-library` reframe 为 operator workbench 只读雏形
+- **决策：**
+  1. **Sprint 9 关闭标准** — 不是 manifest / storage / validator 技术闭环 alone
+  2. **必须形成** 运营人员可理解、可操作的 **Style Management Workbench v0**
+  3. **S9 关闭前运营验收场景（七项）：**
+     - 能打开后台入口
+     - 能看到候选样式池
+     - 能看懂候选样式状态
+     - 能看到 preview / copy / validator 结果
+     - 能完成或模拟完成 promote 路径
+     - 能清楚区分 user_selectable 与 default_eligible
+     - 能支撑 S10 批量样式扩展
+  4. **后续 Story 验收口径调整：**
+     - **S9-STORY-004** — 运营可见 lifecycle pipeline + 最小状态流转
+     - **S9-STORY-005** — 新增候选样式向导（粘贴 HTML / 采集片段 → candidate review）
+     - **S9-STORY-006** — 候选 Preview · Copy HTML · validator 运营可读面板
+     - **S9-STORY-007** — 运营 promote review（进 user-selectable · 默认不进 default preset）
+     - **S9-STORY-008** — 优先级 **P0**；style / palette / rule 运营可读列表与基础管理入口
+     - **S9-STORY-009** — 运营验收 audit + 技术 audit
+  5. **S9-STORY-003** 标记 **In Review**；**未 merge sprint** 直至 operator reframe 验收通过
+  6. **本轮不启动 S9-STORY-004** · 不关闭 Sprint 9 · 不 merge `release/1` / `main`
+- **影响范围：** `sprint9-style-management-system-v0.md`、`sprint-backlog.md`、`sprint-plan.md`、`style-library-admin-shell.md`、`changelog.md`、`decisions.md`
+- **关联：** S9-STORY-003-FIX-A、S9-PLANNING-REFRAME、DECISION-096、S9-STORY-004~009
+- **状态：** **已确认**（2026-06-05 · S9-PLANNING-REFRAME）
+
+### DECISION-098 详情（Style Library Workbench v0 · zh/en 双语）
+
+- **日期：** 2026-06-05
+- **背景：**
+  - S9-STORY-003-FIX-B 需让运营工作台支持中文 / English 切换
+  - 默认面向中文运营人员，但需保留英文以便技术协作与 review
+  - 不引入全站 i18n 框架或大型依赖
+- **决策：**
+  1. `/dev/style-library` 支持 **zh / en** 双语切换（**DECISION-098**）
+  2. **默认语言：中文（`zh`）**；`?lang=en` 切换英文；无 `lang` 参数时默认 `zh`
+  3. 实现方式：页面内轻量 dictionary（`style-library-i18n.ts`）· Header 语言链接 · **无**全站 i18n
+  4. **不翻译** assetId · runtimeVariantId · patchId · evidenceId · matrixRowId；lifecycle raw key 可保留于 tooltip / 小字
+  5. i18n **不影响** manifest · runtime StyleRegistry · Gallery / Preview / Copy
+  6. **范围限定** 当前 Workbench 页面；不启动 S9-STORY-004 · 不 merge sprint（本轮）
+- **影响范围：** `src/app/dev/style-library/style-library-i18n.ts`、`style-library-admin-shell.md`、`sprint-backlog.md`、`decisions.md`
+- **关联：** S9-STORY-003-FIX-B、DECISION-097、DECISION-096
+- **状态：** **已确认**（2026-06-05 · S9-STORY-003-FIX-B）
+
+### DECISION-099 详情（S9-STORY-004 · proposal-based lifecycle v0）
+
+- **日期：** 2026-06-05
+- **背景：**
+  - S9-STORY-004 需让运营人员在 Workbench 中理解 lifecycle 状态与流转边界
+  - file-backed manifest 不应被浏览器直接写入；promote / runtime 仍由后续 Story 承接
+- **决策：**
+  1. S9-STORY-004 lifecycle v0 采用 **Lifecycle Change Proposal** — 运营可见、可模拟、可审查
+  2. **不做**浏览器直接写 `STYLE_LIBRARY_MANIFEST` · 不激活 registry patch · 不修改 runtime
+  3. `paste_qa_pass → user_selectable` 与 `user_selectable → default_eligible` 在 v0 **blocked**，分别指向 **S9-STORY-007** 与 PO 决策
+  4. deprecated 流转 proposal 必须带 operator reason
+  5. 真实 persist / promote / runtime pool → **S9-STORY-007** 及后续 Story
+- **影响范围：** `src/core/style-library/lifecycle.ts`、`style-library-lifecycle-management.md`、`style-library-admin-shell.md`
+- **关联：** S9-STORY-004、DECISION-097、S9-STORY-007
+- **状态：** **已确认**（2026-06-05 · S9-STORY-004）
+
+### DECISION-100 详情（S9-STORY-006 inspection-only Preview / Copy / Validator）
+
+- **日期：** 2026-06-05
+- **背景：**
+  - S9-STORY-006 需在 Workbench 展示候选样式 Preview / Copy / Validator 结果
+  - 006D seed assets 不能进入 runtime 默认 registry / Gallery / default preset
+- **决策：**
+  1. S9-STORY-006 采用 **inspection-only integration** — 后台可检查候选样式
+  2. 使用独立 `createStyleLibraryInspectionStyleRegistry()`（preset `style_library_inspection_v0`）
+  3. 复用现有 Preview Renderer · Copy Renderer · `validateWechatCopyHtml`
+  4. **不修改** runtime StyleRegistry 默认路径 · 不激活 registry patch · 不进入 Gallery
+  5. Promote readiness 仅作运营结论；真实 promote → **S9-STORY-007**
+- **影响范围：** `src/core/style-library/inspection*.ts`、`style-library-preview-copy-validator-integration.md`
+- **关联：** S9-STORY-006、DECISION-097、DECISION-099、S9-STORY-007
+- **状态：** **已确认**（2026-06-05 · S9-STORY-006）
+
+### DECISION-101 详情（S9-STORY-007 proposal-based user_selectable promote review）
+
+- **日期：** 2026-06-05
+- **背景：**
+  - S9-STORY-007 需建立运营可理解的 promote review 闭环
+  - 目标为 user_selectable，非 default preset / runtime 默认路径
+- **决策：**
+  1. S9-STORY-007 promote v0 采用 **proposal-based user_selectable review**
+  2. 运营可在 Workbench 生成 **Promote Proposal** + inactive patch preview
+  3. **不**自动进入 `default_eligible` / default preset / `release1_required`
+  4. **不**修改 runtime registry · **不**激活 registry patch · **不**写 manifest
+  5. 真实 default 推荐需 **独立 PO 决策**
+- **影响范围：** `src/core/style-library/promote*.ts`、`style-library-promote-user-selectable.md`
+- **关联：** S9-STORY-007、DECISION-100、DECISION-099、S9-STORY-008
+- **状态：** **已确认**（2026-06-05 · S9-STORY-007）
+
+### DECISION-102 详情（S9-STORY-008 Style / Palette / Rule Management v0）
+
+- **日期：** 2026-06-05
+- **背景：**
+  - S9-STORY-008 需将 Workbench 扩展为 Style / Palette / Rule 运营可读管理入口
+  - 需支撑 S10 批量样式扩展规划，但不修改 runtime
+- **决策：**
+  1. S9-STORY-008 采用 **operator-facing metadata management**
+  2. Style definitions + palette/rule manifest assets + 关联 graph
+  3. Workbench 展示 Style / Palette / Rule 管理区与 summary metrics
+  4. **不**做在线编辑 · **不**写数据库 · **不**修改 runtime registry
+  5. 管理动作均为 disabled / proposal-only；真实变更通过 code-backed PR
+- **影响范围：** `style-assets.ts` · `palette-assets.ts` · `rule-assets.ts` · `style-palette-rule.ts`
+- **关联：** S9-STORY-008、DECISION-101、DECISION-095、S10
+- **状态：** **已确认**（2026-06-05 · S9-STORY-008）
+
+### DECISION-104 详情（S9-STORY-005 proposal-first HTML paste workflow）
+
+- **日期：** 2026-06-05
+- **背景：**
+  - S9-STORY-005 需支持运营粘贴 HTML 生成 candidate proposal
+  - 不得由浏览器直接写 code-backed manifest / variant 文件
+- **决策：**
+  1. S9-STORY-005 采用 **proposal-first HTML paste workflow**
+  2. 运营粘贴 HTML → client-side proposal + inspection + evidence draft + Cursor patch summary
+  3. **不**写 manifest · **不**激活 runtime · **不**进入 user_selectable
+  4. 真实 code-backed apply 由 **S9-STORY-007B** 执行
+- **影响范围：** `html-candidate-proposal.ts` · `html-style-extractor.ts` · `style-library-html-proposal-panel.tsx`
+- **关联：** S9-STORY-005、DECISION-100、DECISION-101、S9-STORY-007B
+- **状态：** **已确认**（2026-06-05 · S9-STORY-005）
+
+### DECISION-105 详情（S9-STORY-007B Cursor-applied code-backed patch）
+
+- **日期：** 2026-06-05
+- **背景：**
+  - S9-STORY-005 生成 HTML paste proposal，但不写 code-backed 文件
+  - 需闭环 apply patch 使样式进入 `user_selectable`
+- **决策：**
+  1. S9-STORY-007B 采用 **Cursor-applied code-backed patch**
+  2. HTML paste candidate 经 proposal / inspection / promote review 后，由 **Cursor** 修改 variant · manifest · evidence 并 commit
+  3. 目标 lifecycle = `user_selectable` · distribution：`userSelectable=true` · `defaultEligible=false` · `release1Required=false`
+  4. **不得**自动进入 defaultEligible / default preset / release1_required
+  5. 浏览器 **不**写 code-backed 文件
+- **影响范围：** `html-paste-candidate-variants.ts` · `html-paste-variant-assets.ts` · `manifest.ts` · `WX-HTML-PASTE-E2E-001`
+- **关联：** S9-STORY-005、DECISION-104、DECISION-101、S9-STORY-009
+- **状态：** **已确认**（2026-06-05 · S9-STORY-007B）
+
+### DECISION-107 详情（S9-STORY-007C User Preview Style Picker）
+
+- **背景：**
+  - S9-STORY-007B 使 HTML paste 样式进入 `user_selectable` 且 Workbench 可见
+  - PO 明确：**user-selectable 验收须包含用户预览页手动样式选择器**，而非仅 `/dev/style-library`
+  - S9-STORY-009 closeout 暂停；DECISION-106 不确认；audit 分支暂不 merge
+- **决策：**
+  1. 新增 **S9-STORY-007C**：从 style-library manifest 读取 `user_selectable` pool，暴露到**用户预览页** heading 样式选择器
+  2. 用户手动选择后，Preview / Copy 经 **user-preview adapter** 渲染；**不**扩展 `createFirstWaveRequiredVariantRegistry()` / Gallery pools / AI generation
+  3. Gallery `PreviewStyleControls` **不**暴露 user_selectable 选项（`includeUserSelectableHeadingOptions=false`）
+  4. distribution 边界保持：`userSelectable=true` · `defaultEligible=false` · `release1Required=false`
+  5. S9-STORY-009 在 007C merge 后**重跑** closeout
+- **影响范围：** `user-selectable-preview-pool.ts` · `user-preview-style-registry.ts` · `user-preview-render.ts` · `render-article-preview-client.ts` · `preview-heading-style.ts`
+- **关联：** S9-STORY-007B、S9-STORY-009、DECISION-105
+- **状态：** **已确认**（2026-06-05 · S9-STORY-007C · merged sprint @ `da5be1e` · FIX-A `43d3aec` · FIX-B `d8cee56`）
+
+### DECISION-106 详情（Sprint 9 Closeout v2 · S9-STORY-009）
+
+- **背景：**
+  - v1 audit（`docs/s9-story-009-end-to-end-audit-closeout`）仅验证 Workbench `userSelectable` metadata；**DECISION-106 v1 不确认**
+  - PO 要求 closeout 必须包含 **用户预览页手动样式选择器** 及 Preview/Copy 一致（DECISION-107）
+  - S9-STORY-007C + FIX-A + FIX-B merged @ `da5be1e` 后重跑 S9-STORY-009 v2
+- **决策（接受 Sprint 9 端到端运营闭环）：**
+  1. **HTML paste** → candidate proposal → inspection → promote proposal → **Cursor apply code-backed patch**
+  2. **userSelectable metadata** 登记于 style-library manifest
+  3. **用户预览页**（`/preview`）小标题样式选择器可见并可手动选择（`章节标签标题（HTML 采集 · 用户可选）`）
+  4. 显式选择后 **Preview 生效** · **Copy HTML 生效** · 公众号粘贴生效
+  5. **Preview / Copy 一致**（共用 `resolveHtmlPasteSectionLabelStyleTokens` · FIX-A）
+  6. **动态 section 编号** SECTION 01/02/03（非固定数字 · FIX-B）
+  7. **主题色 token 化**（`textAccent` · 采集色 `#0d9488` 仅作 source reference · FIX-B）
+  8. **Runtime 边界**：不进入 default preset · defaultEligible · release1_required · Gallery 默认池 · AI 默认路径 · `createFirstWaveRequiredVariantRegistry()`
+- **关闭决策（2026-06-05 · 用户确认）：**
+  1. **关闭 Sprint 9** — Style Management System v0
+  2. **接受 v2 audit 结论** — Grade **A-** · **P0=0** · HTML→user preview picker E2E **PASS** · Preview/Copy parity **PASS**
+  3. **确认边界** — default preset **未污染** · release1_required **未污染**
+  4. **不 merge `main`** · **不宣布 Release 1 关闭**
+  5. **sprint → `release/1`** — 需用户另行确认（本轮未执行）
+- **Audit 结论（v2）：** Grade **A-** · **P0=0** · P1=4 · P2=5 · HTML→user preview picker E2E **PASS** · Preview/Copy parity **PASS** · default preset **未污染** · release1_required **未污染**
+- **Sprint 9 关闭：** **已确认**（2026-06-05 · 用户确认 DECISION-106 v2 · S9-STORY-009 v2 merged sprint @ `b906343`）
+- **sprint → `release/1` merge：** **需用户另行确认**（本轮未执行）
+- **Release 1：** **仍未关闭**
+- **merge `main`：** **不执行**
+- **关联：** S9-STORY-009 · DECISION-107 · DECISION-105 · DECISION-101 · [`sprint9-closeout.md`](sprint9-closeout.md)
+- **状态：** **已确认**（2026-06-05 · 用户确认 Sprint 9 关闭）
 

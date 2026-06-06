@@ -62,8 +62,9 @@
 | **Sprint 6** | **Closed**（2026-06-02；DECISION-078；merge `release/1`） |
 | **Sprint 7** | **Done**（2026-06-03 · S7-STORY-008 关闭 · merge `release/1`） |
 | **Sprint 8** | **Closed**（2026-06-05 · DECISION-093 · merged `release/1`） |
+| **Sprint 9** | **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · P0=0 · S9-STORY-001~009 Done · **未 merge `release/1`**） |
 | **Release 1 主干** | `release/1` |
-| **下一步** | **S8-STORY-007** Preview/Copy 审计（006 In Review） |
+| **下一步** | Sprint 10 规划 / 启动（Planned）· sprint → `release/1` merge **需用户另行确认** |
 
 ---
 
@@ -593,7 +594,7 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 **遗留（非阻塞）：** 006B-FIX-B Planned · P1-S8-001~004
 
-**下一 Sprint：** Sprint 9 可从 `release/1` 启动（DECISION-092 · **未启动**）
+**下一 Sprint：** Sprint 9 **已启动**（DECISION-094 · `sprint/s9-style-management-system-v0`）
 
 **不做：**
 
@@ -607,17 +608,21 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 ---
 
-### Sprint 9：Style Management System v0 — **Planned**（2026-06-05）
+### Sprint 9：Style Management System v0 — **Closed**（2026-06-05 · **DECISION-106**）
 
 **中文名：** 样式管理后台 v0
 
-**分支（启动时）：** `sprint/s9-style-management-system-v0`（从 `release/1` · S8 merge 后）
+**分支：** `sprint/s9-style-management-system-v0`（从 `release/1` · 2026-06-05 · @ `b906343` closeout merge）
 
-**文档：** [`sprint9-style-management-system-v0.md`](sprint9-style-management-system-v0.md) · **DECISION-092**
+**文档：** [`sprint9-style-management-system-v0.md`](sprint9-style-management-system-v0.md) · [`sprint9-closeout.md`](sprint9-closeout.md) · [`sprint9-style-management-system-audit.md`](../architecture/audits/sprint9-style-management-system-audit.md) · **DECISION-106**
+
+**Closeout：** Grade **A-** · **P0=0** · HTML→user preview picker E2E **PASS** · Preview/Copy parity **PASS** · default preset / release1_required **未污染** · **未 merge `release/1`** · **未 merge `main`**
+
+**进度：** S9-STORY-001~009 **Done**
 
 **Sprint Goal：**
 
-建立轻篇主项目内的样式管理后台 v0，打通样式资产从**新增 → 验证 → 上线 → 用户侧分发**的最小闭环。
+建立轻篇主项目内、**面向运营管理人员**的样式管理后台 v0，打通样式资产从**新增 → 验证 → 上线 → 用户侧分发**的最小闭环（**DECISION-097**）。
 
 **管理范围：** style / style family · palette · variant · preset · copy-safe rule · selection rule · WeChat compatibility metadata · lifecycle / QA evidence / promote / rollback
 

@@ -2,9 +2,12 @@
 
 > 轻篇公众号排版 · qingpian-wechat-editor  
 > **中文名：** 样式管理后台 v0  
-> **状态：** **Planned**（2026-06-05 经 S8-STORY-008 重排进入 roadmap · DECISION-092）  
-> **计划分支（启动时）：** `sprint/s9-style-management-system-v0`（从 `release/1` 切出 · **Sprint 8 收口 merge 后**）  
-> **决策：** DECISION-092
+> **状态：** **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · P0=0 · S9-STORY-009 v2 Done）
+> **分支：** `sprint/s9-style-management-system-v0`（从 `release/1` 切出 · closeout @ `b906343` · **未 merge `release/1`**）  
+> **领域模型：** [`style-management-domain-model.md`](../architecture/style-management-domain-model.md)  
+> **存储：** [`style-library-storage.md`](../architecture/style-library-storage.md)  
+> **Admin Shell：** [`style-library-admin-shell.md`](../architecture/style-library-admin-shell.md) · `/dev/style-library`  
+> **决策：** DECISION-092 · **DECISION-094** · **DECISION-095** · **DECISION-096** · **DECISION-097** · **DECISION-098**
 
 ---
 
@@ -23,12 +26,15 @@
 
 1. **领域模型** — style / style family · palette · variant · preset · copy-safe rule · selection rule · lifecycle · QA evidence
 2. **File-backed 存储** — Git 可审查的 source of truth；metadata · registry patch · rollback 边界
-3. **Admin Shell** — `/admin/style-library` 或 `/dev/style-library` 浏览与操作骨架
-4. **Variant 生命周期** — draft → candidate → validator_pass → paste_qa_pass → user_selectable → default_eligible → deprecated
-5. **Harvest 入口** — 真实公众号 HTML → candidate variant（**一种**新增方式，非系统全部）
-6. **渲染集成** — 候选必须走现有 Preview / Copy Renderer + `validateWechatCopyHtml`
-7. **Promote 规则** — 可进 user-selectable pool；**默认不**进 default preset
-8. **S9 审计收口** — 判断是否具备进入 S10 批量扩展的基础
+3. **Operator Workbench** — `/dev/style-library` 面向**运营管理人员**的样式管理工作台 v0（非 manifest 技术浏览器）
+4. **Variant 生命周期** — 运营可见 lifecycle pipeline + 最小状态流转（S9-STORY-004）
+5. **Harvest 入口** — 新增候选样式向导：粘贴 HTML / 采集片段 → candidate review（S9-STORY-005）
+6. **运营可读验证面板** — 候选样式 Preview · Copy HTML · validator 结果（S9-STORY-006）
+7. **Promote 审查** — 运营可执行 promote review：进入 user-selectable；**默认不**进 default preset（S9-STORY-007）
+8. **Style / Palette / Rule 运营入口** — 至少可读列表与基础管理入口（S9-STORY-008 · **P0**）
+9. **S9 运营验收 audit** — 判断是否具备进入 S10 批量扩展的基础（S9-STORY-009）
+
+**Sprint 9 关闭标准（DECISION-097）：** 不是 manifest / storage / validator 技术闭环 alone；必须形成运营人员可理解、可操作的 **Style Management Workbench v0**，并通过运营验收场景（见 §10）。
 
 ---
 
@@ -63,15 +69,17 @@
 
 | Story | 名称 | 状态 |
 |-------|------|------|
-| S9-STORY-001 | Style Management Domain Model | Planned |
-| S9-STORY-002 | File-backed Style Library Storage | Planned |
-| S9-STORY-003 | Style Library Admin Shell | Planned |
-| S9-STORY-004 | Variant Lifecycle Management | Planned |
-| S9-STORY-005 | Harvest HTML to Candidate Workflow | Planned |
-| S9-STORY-006 | Preview / Copy / Validator Integration | Planned |
-| S9-STORY-007 | Promote to User-selectable Variant | Planned |
-| S9-STORY-008 | Style / Palette / Rule Management v0 | Planned |
-| S9-STORY-009 | S9 Audit / Closeout | Planned |
+| S9-STORY-001 | Style Management Domain Model | **Done**（2026-06-05 · [`style-management-domain-model.md`](../architecture/style-management-domain-model.md)） |
+| S9-STORY-002 | File-backed Style Library Storage | **Done**（2026-06-05 · [`style-library-storage.md`](../architecture/style-library-storage.md) · DECISION-095） |
+| S9-STORY-003 | Style Library Admin Shell | **Done**（2026-06-05 · FIX-A/B · `/dev/style-library` · merged sprint @ `35000ab` · DECISION-096 · **DECISION-097** · **DECISION-098**） |
+| S9-STORY-004 | Variant Lifecycle Management | **Done**（2026-06-05 · DECISION-099 · merged sprint @ `7300b9f`） |
+| S9-STORY-005 | HTML Paste to Candidate Proposal | **Done** · DECISION-104 |
+| S9-STORY-006 | Preview / Copy / Validator Integration | **Done** · DECISION-100 |
+| S9-STORY-007 | Promote to User-selectable Variant | **Done** · DECISION-101 |
+| S9-STORY-007B | Apply Candidate Promote Patch via Cursor | **Done** · DECISION-105 · merged @ `634709d` |
+| S9-STORY-007C | Expose User-selectable Variant to User Preview Style Picker | **Done** · DECISION-107 · merged @ `da5be1e` · FIX-A/B |
+| S9-STORY-008 | Style / Palette / Rule Management v0 | **Done** · DECISION-102 |
+| S9-STORY-009 | S9 Audit / Closeout v2 | **Done** · Grade **A-** · DECISION-106 · [`sprint9-closeout.md`](sprint9-closeout.md) |
 
 详情见 [`sprint-backlog.md`](sprint-backlog.md) Sprint 9 章节。
 
@@ -82,14 +90,49 @@
 ```text
 S9-STORY-001 Domain Model
   → S9-STORY-002 File-backed Storage
-  → S9-STORY-003 Admin Shell（只读浏览）
-  → S9-STORY-004 Lifecycle
-  → S9-STORY-006 Renderer/Validator 集成（与 005 并行准备）
-  → S9-STORY-005 Harvest → Candidate
-  → S9-STORY-007 Promote
-  → S9-STORY-008 Style / Palette / Rule v0
-  → S9-STORY-009 Audit / Closeout
+  → S9-STORY-003 Admin Shell（operator workbench · 只读）
+  → S9-STORY-004 Lifecycle（运营 pipeline + 最小流转）
+  → S9-STORY-006 运营可读 Preview / Copy / Validator 面板
+  → S9-STORY-005 Harvest 候选样式向导
+  → S9-STORY-007 Promote review
+  → S9-STORY-007B Cursor apply patch
+  → S9-STORY-007C User preview style picker
+  → S9-STORY-008 Style / Palette / Rule 运营入口（P0）
+  → S9-STORY-009 运营 + 技术 audit / closeout（007C 后重跑）
 ```
+
+---
+
+## 10. 运营验收场景（DECISION-097 · Sprint 9 关闭前必须通过）
+
+S9 关闭前，运营人员应能完成或模拟完成以下场景：
+
+| # | 场景 | 承接 Story |
+|---|------|------------|
+| 1 | 能打开后台入口 | S9-STORY-003 |
+| 2 | 能看到候选样式池 | S9-STORY-003 · 004 |
+| 3 | 能看懂候选样式状态 | S9-STORY-003 · 004 |
+| 4 | 能看到 preview / copy / validator 结果 | S9-STORY-006 |
+| 5 | 能完成或模拟完成 promote 路径 | S9-STORY-007 |
+| 6 | 能清楚区分 user_selectable 与 default_eligible | S9-STORY-003 · 007 · 008 |
+| 7 | 能支撑 S10 批量样式扩展 | S9-STORY-008 · 009 |
+
+当前 S9-STORY-003-FIX-A 仅覆盖场景 1~3 的**只读雏形**；场景 4~7 由后续 Story 承接。
+
+---
+
+## 11. Closeout（S9-STORY-009 v2 · 2026-06-05 · **Closed**）
+
+- **Audit grade：** **A-** · **P0=0** · P1=4 · P2=5
+- **HTML → user preview picker E2E：** **PASS**
+- **Preview / Copy parity：** **PASS**
+- **default preset：** **未污染**
+- **release1_required：** **未污染**
+- **Closeout 文档：** [`sprint9-closeout.md`](sprint9-closeout.md)
+- **Audit 报告：** [`sprint9-style-management-system-audit.md`](../architecture/audits/sprint9-style-management-system-audit.md)
+- **DECISION-106：** **已确认**（2026-06-05）
+- **Release 1：** **仍未关闭** · **未 merge `main`**
+- **sprint → `release/1`：** 需用户另行确认
 
 ---
 
@@ -115,6 +158,12 @@ S9-STORY-001 Domain Model
 
 ## 9. 相关决策
 
+- **DECISION-098** — Workbench v0 支持 zh/en 双语；默认中文；范围限定 `/dev/style-library`
+- **DECISION-097** — Sprint 9 operator-facing acceptance；关闭标准以运营 Workbench 为准
+- **DECISION-096** — Admin Shell v0 路由 `/dev/style-library`；内部只读 · 无权限
+- **DECISION-095** — Style Library v0 code-backed TS manifest · 独立 `@/core/style-library`
+- **DECISION-094** — 正式启动 Sprint 9；创建 `sprint/s9-style-management-system-v0`；S9-STORY-001 Domain Model Done
 - **DECISION-092** — Style Management System v0 独立为 Sprint 9；file-backed；非独立仓库/部署
+- **DECISION-093** — Sprint 8 关闭；S9 启动条件满足
 - **DECISION-088** — S8 为 fidelity 体系；不扩展后台
 - **DECISION-091** — 视觉升级与 harvest 入库路由调整

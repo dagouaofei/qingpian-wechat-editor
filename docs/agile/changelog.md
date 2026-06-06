@@ -484,3 +484,35 @@
 | 2026-06-05 | Sprint 8 | **S8-DRIFT-003 Done**：`title_plain_minimal` 产品澄清 · NOT renderer bug · NO S8 code change | 文档 / Matrix | S8-DRIFT-003 |
 | 2026-06-05 | Sprint 8 | **S8-STORY-009 In Review**：Contract & Fidelity audit · Grade A- · P0=0 · S9 启动条件清单 | 文档 | S8-STORY-009 |
 | 2026-06-05 | Sprint 8 | **Sprint 8 Closed**：merge `sprint/s8-wechat-safe-css-contract` → `release/1` @ `806fa47` · DECISION-093 | Git / 文档 | DECISION-093 |
+
+---
+
+## 2026-06-05 · Sprint 9
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-05 | Sprint 9 | **Sprint 9 启动**：从 `release/1` 创建 `sprint/s9-style-management-system-v0` · DECISION-094 | Git / 文档 | DECISION-094 |
+| 2026-06-05 | Sprint 9 | **S9-STORY-001 Done**：Style Management Domain Model · [`style-management-domain-model.md`](../architecture/style-management-domain-model.md) | 文档 / 架构 | S9-STORY-001 · DECISION-094 |
+| 2026-06-05 | Sprint 9 | merge `docs/s9-story-001-domain-model` → `sprint/s9-style-management-system-v0` @ `263227b` | Git | S9-STORY-001 |
+| 2026-06-05 | Sprint 9 | **S9-STORY-002 Done**：File-backed Style Library Storage · `src/core/style-library/` · DECISION-095 | 代码 / 文档 | S9-STORY-002 · DECISION-095 |
+| 2026-06-05 | Sprint 9 | merge `feature/s9-story-002-file-backed-style-library-storage` → `sprint/s9-style-management-system-v0` @ `859c0ed` | Git | S9-STORY-002 |
+| 2026-06-05 | Sprint 9 | 新增跨项目迁移指导 [`preview-copy-fidelity-implementation-guide.md`](../architecture/preview-copy-fidelity-implementation-guide.md)（Preview/Copy 一致性萃取） | 文档 / 架构 | — |
+| 2026-06-05 | Sprint 9 | **S9-STORY-003 Done**：Style Library Admin Shell · `/dev/style-library` · DECISION-096 | 代码 / 文档 | S9-STORY-003 · DECISION-096 |
+| 2026-06-05 | Sprint 9 | **S9-PLANNING-REFRAME**：DECISION-097 operator-facing acceptance · 调整 S9 Story 004~009 验收口径 | 文档 / 敏捷 | DECISION-097 · S9-STORY-003-FIX-A |
+| 2026-06-05 | Sprint 9 | **S9-STORY-003-FIX-A**：Style Library Workbench operator UX reframe · `/dev/style-library` | 代码 / 文档 | S9-STORY-003-FIX-A · DECISION-097 |
+| 2026-06-05 | Sprint 9 | **S9-STORY-003-FIX-B**：Style Library Workbench zh/en i18n toggle · DECISION-098 | 代码 / 文档 | S9-STORY-003-FIX-B · DECISION-098 |
+| 2026-06-05 | Sprint 9 | merge `feature/s9-story-003-style-library-admin-shell` → `sprint/s9-style-management-system-v0` @ `35000ab` · 用户确认接受 S9-STORY-003 / FIX-A / FIX-B | Git | S9-STORY-003 |
+| 2026-06-05 | Sprint 9 | **S9-STORY-004 Done**：merge lifecycle management → sprint @ `7300b9f` | Git | S9-STORY-004 |
+| 2026-06-05 | Sprint 9 | **S9-STORY-006-FIX-A**：WARNING readiness 运营文案 · blocked/warnings summary 计数 refinement | 代码 / 文档 | S9-STORY-006 |
+| 2026-06-05 | Sprint 9 | **S9-STORY-007 In Review**：Promote to user_selectable · proposal-based review · DECISION-101 · [`style-library-promote-user-selectable.md`](../architecture/style-library-promote-user-selectable.md) | 代码 / 文档 | S9-STORY-007 · DECISION-101 |
+| 2026-06-05 | Sprint 9 | **S9-STORY-008 In Review**：Style / Palette / Rule Management v0 · DECISION-102 | 代码 / 文档 | S9-STORY-008 · DECISION-102 |
+| 2026-06-05 | Sprint 9 | merge S9-STORY-008 → sprint @ `e5f6db6` | Git | S9-STORY-008 |
+| 2026-06-05 | Sprint 9 | **S9-STORY-007B In Review**：Apply Candidate Promote Patch · DECISION-105 · [`style-library-apply-candidate-promote-patch.md`](../architecture/style-library-apply-candidate-promote-patch.md) | 代码 / 文档 | S9-STORY-007B · DECISION-105 |
+| 2026-06-05 | Sprint 9 | merge S9-STORY-005 → sprint @ `a9a3a00` | Git | S9-STORY-005 |
+| 2026-06-05 | Sprint 9 | merge S9-STORY-007B → sprint @ `634709d` | Git | S9-STORY-007B |
+| 2026-06-05 | Sprint 9 | merge S9-STORY-009 v2 audit → sprint @ `b906343` | Git | S9-STORY-009 |
+| 2026-06-05 | Sprint 9 | **Sprint 9 Closed**：DECISION-106 已确认 · Grade **A-** · P0=0 · HTML→user preview picker E2E PASS · Preview/Copy parity PASS · default preset / release1_required 未污染 · **未 merge `release/1` / `main`** | 文档 / 敏捷 | DECISION-106 · S9-STORY-009 |
+| 2026-06-05 | Sprint 9 | merge S9-STORY-007C + FIX-A/B → sprint @ `da5be1e` | Git | S9-STORY-007C |
+| 2026-06-05 | Sprint 9 | **S9-STORY-009 v2**：End-to-End Audit / Closeout · Grade A- · P0=0 · DECISION-106 v2 草案 | 文档 / 测试 | S9-STORY-009 · DECISION-106 |
+| 2026-06-05 | Sprint 9 | **S9-STORY-009 On Hold**：PO 要求 user-selectable 须进用户预览页选择器 · audit 分支暂不 merge | 文档 / 敏捷 | S9-STORY-009 |
+| 2026-06-05 | Sprint 9 | **S9-STORY-007C-FIX-B**：html paste section label 动态序号 + theme token 色 · 采集色仅作 source hint | 代码 / 文档 | S9-STORY-007C |

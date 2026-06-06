@@ -1,0 +1,500 @@
+import {
+  STYLE_LIBRARY_MANIFEST,
+  getStyleLibraryInspectionSummaries,
+  getStyleLibrarySeedAssets,
+  getStyleLibraryVariantAssets,
+  validateStyleLibraryManifest,
+  validateStyleLibraryRegistryPatch,
+} from "@/core/style-library";
+import type {
+  StyleLibraryEvidenceRef,
+  StyleLibraryLifecycleState,
+  StyleLibraryManifest,
+  StyleLibraryRegistryPatch,
+  StyleLibraryValidationIssue,
+  StyleLibraryVariantAsset,
+} from "@/core/style-library";
+
+import {
+  STYLE_LIBRARY_DEFAULT_LOCALE,
+  getAllLifecycleStates,
+  getCandidateDisabledActions,
+  getLifecycleColumnMeta,
+  getLifecycleDisplayLabel,
+  getStyleLibraryUiCopy,
+  type StyleLibraryDisabledActionCopy,
+  type StyleLibraryLocale,
+  type StyleLibraryUiCopy,
+} from "./style-library-i18n";
+import {
+  buildCandidateLifecyclePanels,
+  buildLifecycleColumnMetaList,
+  type StyleLibraryCandidateLifecyclePanel,
+  type StyleLibraryLifecycleColumnMeta,
+} from "./style-library-lifecycle-view-model";
+import {
+  buildStyleLibraryInspectionPanels,
+  buildStyleLibraryInspectionSummaryCounts,
+  type StyleLibraryCandidateInspectionPanel,
+  type StyleLibraryInspectionSummaryCounts,
+} from "./style-library-inspection-view-model";
+import {
+  buildStyleLibraryPromotePanels,
+  buildStyleLibraryPromoteSummaryCounts,
+  type StyleLibraryCandidatePromotePanel,
+  type StyleLibraryPromoteSummaryCounts,
+} from "./style-library-promote-view-model";
+import {
+  buildStyleLibraryCandidateStyleLinks,
+  buildStyleLibraryPaletteCards,
+  buildStyleLibraryRuleCards,
+  buildStyleLibraryStyleCards,
+  buildStyleLibraryStyleRuleSummaryCounts,
+  getStyleManagementDisabledActions,
+  type StyleLibraryCandidateStyleLinks,
+  type StyleLibraryPaletteCard,
+  type StyleLibraryRuleCard,
+  type StyleLibraryStyleCard,
+  type StylePaletteRuleSummaryCounts,
+} from "./style-library-style-rule-view-model";
+
+export type StyleLibraryAdminAssetRow = {
+  assetId: string;
+  assetType: string;
+  label: string;
+  runtimeVariantId: string | null;
+  blockType: string | null;
+  styleFamily: string | null;
+  lifecycle: StyleLibraryLifecycleState;
+  userSelectable: boolean;
+  defaultEligible: boolean;
+  release1Required: boolean;
+  isSeedAsset: boolean;
+  evidenceCount: number;
+  seedBadge: string | null;
+};
+
+export type StyleLibraryAdminPatchRow = {
+  patchId: string;
+  operation: string;
+  variantId: string;
+  active: boolean;
+  requiresLifecycle: string | null;
+  requiresEvidenceIds: string[];
+  validationIssueCount: number;
+  validationIssues: StyleLibraryValidationIssue[];
+};
+
+export type StyleLibraryAdminEvidenceRow = {
+  evidenceId: string;
+  kind: string;
+  refPath: string;
+  matrixRowId: string | null;
+  sessionId: string | null;
+};
+
+export type StyleLibraryAdminOverview = {
+  libraryId: string;
+  schemaVersion: number;
+  updatedAt: string;
+  totalAssets: number;
+  variantAssetCount: number;
+  seedAssetCount: number;
+  registryPatchCount: number;
+  activePatchCount: number;
+  evidenceRefCount: number;
+  lifecycleDistribution: Record<StyleLibraryLifecycleState, number>;
+};
+
+export type StyleLibraryAdminValidationPanel = {
+  ok: boolean;
+  issueCount: number;
+  issues: StyleLibraryValidationIssue[];
+};
+
+export type StyleLibraryWorkbenchHeader = {
+  title: string;
+  subtitle: string;
+  description: string;
+  libraryId: string;
+  schemaVersion: number;
+  updatedAt: string;
+  runtimeStatus: string;
+  mode: string;
+};
+
+export type StyleLibraryStatusSummary = {
+  totalAssets: number;
+  seedCandidates: number;
+  pasteQaPassed: number;
+  userSelectable: number;
+  defaultEligible: number;
+  activePatches: number;
+  validationIssues: number;
+  autoValidationPassed: number;
+  needsPasteQa: number;
+  readyForPromoteReview: number;
+  blockedCandidates: number;
+  compatibilityWarnings: number;
+  promoteProposalsAvailable: number;
+  styleCount: number;
+  paletteCount: number;
+  ruleCount: number;
+  copySafeRuleCount: number;
+  selectionRuleCount: number;
+  stylesReadyForExpansion: number;
+  stylesMissingPalette: number;
+  rulesWithWarnings: number;
+};
+
+export type StyleLibraryLifecycleGroup = {
+  lifecycle: StyleLibraryLifecycleState;
+  label: string;
+  rawKey: string;
+  businessMeaning: string;
+  nextAction: string;
+  assets: StyleLibraryAdminAssetRow[];
+};
+
+export type StyleLibraryCandidateReviewCard = StyleLibraryAdminAssetRow & {
+  lifecycleLabel: string;
+  currentConclusion: string;
+  nextStepHint: string;
+  disabledActions: StyleLibraryDisabledActionCopy[];
+  lifecyclePanel: StyleLibraryCandidateLifecyclePanel;
+  inspectionPanel: StyleLibraryCandidateInspectionPanel;
+  promotePanel: StyleLibraryCandidatePromotePanel;
+  styleLinks: StyleLibraryCandidateStyleLinks;
+};
+
+export type StyleLibraryAdminViewModel = {
+  locale: StyleLibraryLocale;
+  ui: StyleLibraryUiCopy;
+  workbench: StyleLibraryWorkbenchHeader;
+  statusSummary: StyleLibraryStatusSummary;
+  lifecycleGroups: StyleLibraryLifecycleGroup[];
+  lifecycleColumnMeta: StyleLibraryLifecycleColumnMeta[];
+  candidateReviewCards: StyleLibraryCandidateReviewCard[];
+  candidateLifecyclePanels: StyleLibraryCandidateLifecyclePanel[];
+  candidateInspectionPanels: StyleLibraryCandidateInspectionPanel[];
+  inspectionSummaryCounts: StyleLibraryInspectionSummaryCounts;
+  promoteSummaryCounts: StyleLibraryPromoteSummaryCounts;
+  candidatePromotePanels: StyleLibraryCandidatePromotePanel[];
+  styleRuleSummaryCounts: StylePaletteRuleSummaryCounts;
+  styleCards: StyleLibraryStyleCard[];
+  paletteCards: StyleLibraryPaletteCard[];
+  ruleCards: StyleLibraryRuleCard[];
+  styleManagementDisabledActions: StyleLibraryDisabledActionCopy[];
+  overview: StyleLibraryAdminOverview;
+  assets: StyleLibraryAdminAssetRow[];
+  patches: StyleLibraryAdminPatchRow[];
+  evidence: StyleLibraryAdminEvidenceRow[];
+  validation: StyleLibraryAdminValidationPanel;
+  runtimeNotice: string;
+};
+
+export type { StyleLibraryCandidateLifecyclePanel, StyleLibraryLifecycleColumnMeta };
+export type {
+  StyleLibraryCandidateInspectionPanel,
+  StyleLibraryInspectionSummaryCounts,
+};
+export type {
+  StyleLibraryCandidatePromotePanel,
+  StyleLibraryPromoteSummaryCounts,
+};
+export type {
+  StyleLibraryCandidateStyleLinks,
+  StyleLibraryPaletteCard,
+  StyleLibraryRuleCard,
+  StyleLibraryStyleCard,
+  StylePaletteRuleSummaryCounts,
+};
+export type { StyleLibraryDisabledActionCopy, StyleLibraryLocale, StyleLibraryUiCopy };
+
+function emptyLifecycleDistribution(): Record<
+  StyleLibraryLifecycleState,
+  number
+> {
+  return getAllLifecycleStates().reduce(
+    (acc, state) => {
+      acc[state] = 0;
+      return acc;
+    },
+    {} as Record<StyleLibraryLifecycleState, number>,
+  );
+}
+
+function buildLifecycleDistribution(
+  manifest: StyleLibraryManifest,
+): Record<StyleLibraryLifecycleState, number> {
+  const distribution = emptyLifecycleDistribution();
+  for (const asset of manifest.assets) {
+    distribution[asset.lifecycle] += 1;
+  }
+  return distribution;
+}
+
+function seedBadgeForAsset(
+  asset: StyleLibraryVariantAsset,
+  locale: StyleLibraryLocale,
+): string {
+  return getStyleLibraryUiCopy(locale).seedBadge(asset.lifecycle);
+}
+
+function toAssetRow(
+  asset: StyleLibraryManifest["assets"][number],
+  seedAssetIds: Set<string>,
+  locale: StyleLibraryLocale,
+): StyleLibraryAdminAssetRow {
+  if (asset.assetType === "variant") {
+    const isSeed =
+      asset.isSeedAsset === true || seedAssetIds.has(asset.assetId);
+    return {
+      assetId: asset.assetId,
+      assetType: asset.assetType,
+      label: asset.label,
+      runtimeVariantId: asset.runtimeVariantId,
+      blockType: asset.blockType,
+      styleFamily: asset.styleFamily,
+      lifecycle: asset.lifecycle,
+      userSelectable: asset.distribution.userSelectable,
+      defaultEligible: asset.distribution.defaultEligible,
+      release1Required: asset.distribution.release1Required,
+      isSeedAsset: isSeed,
+      evidenceCount: asset.evidenceIds?.length ?? 0,
+      seedBadge: isSeed ? seedBadgeForAsset(asset, locale) : null,
+    };
+  }
+
+  return {
+    assetId: asset.assetId,
+    assetType: asset.assetType,
+    label: asset.label,
+    runtimeVariantId: null,
+    blockType: null,
+    styleFamily: null,
+    lifecycle: asset.lifecycle,
+    userSelectable: asset.distribution.userSelectable,
+    defaultEligible: asset.distribution.defaultEligible,
+    release1Required: asset.distribution.release1Required,
+    isSeedAsset: seedAssetIds.has(asset.assetId),
+    evidenceCount: 0,
+    seedBadge: null,
+  };
+}
+
+function toPatchRow(
+  manifest: StyleLibraryManifest,
+  patch: StyleLibraryRegistryPatch,
+): StyleLibraryAdminPatchRow {
+  const validationIssues = validateStyleLibraryRegistryPatch(manifest, patch);
+  return {
+    patchId: patch.patchId,
+    operation: patch.operation,
+    variantId: patch.variantId,
+    active: patch.active,
+    requiresLifecycle: patch.requiresLifecycle ?? null,
+    requiresEvidenceIds: patch.requiresEvidenceIds ?? [],
+    validationIssueCount: validationIssues.length,
+    validationIssues,
+  };
+}
+
+function toEvidenceRow(ref: StyleLibraryEvidenceRef): StyleLibraryAdminEvidenceRow {
+  return {
+    evidenceId: ref.evidenceId,
+    kind: ref.kind,
+    refPath: ref.refPath,
+    matrixRowId: ref.matrixRowId ?? null,
+    sessionId: ref.sessionId ?? null,
+  };
+}
+
+function buildLifecycleGroups(
+  assets: StyleLibraryAdminAssetRow[],
+  locale: StyleLibraryLocale,
+): StyleLibraryLifecycleGroup[] {
+  return getAllLifecycleStates().map((lifecycle) => {
+    const meta = getLifecycleColumnMeta(locale, lifecycle);
+    return {
+      lifecycle,
+      label: meta.label,
+      rawKey: lifecycle,
+      businessMeaning: meta.businessMeaning,
+      nextAction: meta.nextAction,
+      assets: assets.filter((asset) => asset.lifecycle === lifecycle),
+    };
+  });
+}
+
+function buildCandidateReviewCards(
+  assets: StyleLibraryAdminAssetRow[],
+  locale: StyleLibraryLocale,
+  lifecyclePanels: StyleLibraryCandidateLifecyclePanel[],
+  inspectionPanels: StyleLibraryCandidateInspectionPanel[],
+  promotePanels: StyleLibraryCandidatePromotePanel[],
+  styleLinksByAssetId: Map<string, StyleLibraryCandidateStyleLinks>,
+): StyleLibraryCandidateReviewCard[] {
+  const panelByAssetId = new Map(
+    lifecyclePanels.map((panel) => [panel.assetId, panel]),
+  );
+  const inspectionByAssetId = new Map(
+    inspectionPanels.map((panel) => [panel.assetId, panel]),
+  );
+  const promoteByAssetId = new Map(
+    promotePanels.map((panel) => [panel.assetId, panel]),
+  );
+
+  return assets
+    .filter((asset) => asset.isSeedAsset)
+    .map((asset) => {
+      const panel = panelByAssetId.get(asset.assetId);
+      const inspectionPanel = inspectionByAssetId.get(asset.assetId);
+      const promotePanel = promoteByAssetId.get(asset.assetId);
+      const styleLinks = styleLinksByAssetId.get(asset.assetId);
+      if (!panel || !inspectionPanel || !promotePanel || !styleLinks) {
+        throw new Error(`Missing lifecycle/inspection/promote/style panel for seed asset ${asset.assetId}`);
+      }
+      return {
+        ...asset,
+        lifecycleLabel: getLifecycleDisplayLabel(locale, asset.lifecycle),
+        currentConclusion: inspectionPanel.operatorConclusion,
+        nextStepHint: panel.nextStepSuggestion,
+        disabledActions: getCandidateDisabledActions(locale),
+        lifecyclePanel: panel,
+        inspectionPanel,
+        promotePanel,
+        styleLinks,
+      };
+    });
+}
+
+function buildStatusSummary(
+  overview: StyleLibraryAdminOverview,
+  validation: StyleLibraryAdminValidationPanel,
+  inspectionSummaryCounts: StyleLibraryInspectionSummaryCounts,
+  promoteSummaryCounts: StyleLibraryPromoteSummaryCounts,
+  styleRuleSummaryCounts: StylePaletteRuleSummaryCounts,
+): StyleLibraryStatusSummary {
+  const { lifecycleDistribution } = overview;
+  return {
+    totalAssets: overview.totalAssets,
+    seedCandidates: overview.seedAssetCount,
+    pasteQaPassed: lifecycleDistribution.paste_qa_pass,
+    userSelectable: lifecycleDistribution.user_selectable,
+    defaultEligible: lifecycleDistribution.default_eligible,
+    activePatches: overview.activePatchCount,
+    validationIssues: validation.issueCount,
+    autoValidationPassed: inspectionSummaryCounts.autoValidationPassed,
+    needsPasteQa: inspectionSummaryCounts.needsPasteQa,
+    readyForPromoteReview: promoteSummaryCounts.readyForPromoteReview,
+    blockedCandidates: promoteSummaryCounts.blockedCandidates,
+    compatibilityWarnings: promoteSummaryCounts.compatibilityWarnings,
+    promoteProposalsAvailable: promoteSummaryCounts.proposalsAvailable,
+    styleCount: styleRuleSummaryCounts.styleCount,
+    paletteCount: styleRuleSummaryCounts.paletteCount,
+    ruleCount: styleRuleSummaryCounts.ruleCount,
+    copySafeRuleCount: styleRuleSummaryCounts.copySafeRuleCount,
+    selectionRuleCount: styleRuleSummaryCounts.selectionRuleCount,
+    stylesReadyForExpansion: styleRuleSummaryCounts.stylesReadyForExpansion,
+    stylesMissingPalette: styleRuleSummaryCounts.stylesMissingPalette,
+    rulesWithWarnings: styleRuleSummaryCounts.rulesWithWarnings,
+  };
+}
+
+export function buildStyleLibraryAdminViewModel(
+  manifest: StyleLibraryManifest = STYLE_LIBRARY_MANIFEST,
+  locale: StyleLibraryLocale = STYLE_LIBRARY_DEFAULT_LOCALE,
+): StyleLibraryAdminViewModel {
+  const ui = getStyleLibraryUiCopy(locale);
+  const seedAssetIds = new Set(manifest.seedAssetIds);
+  const validationResult = validateStyleLibraryManifest(manifest);
+  const variantAssets = getStyleLibraryVariantAssets(manifest);
+  const seedAssets = getStyleLibrarySeedAssets(manifest);
+  const assets = manifest.assets.map((asset) =>
+    toAssetRow(asset, seedAssetIds, locale),
+  );
+  const validation: StyleLibraryAdminValidationPanel = {
+    ok: validationResult.ok,
+    issueCount: validationResult.ok ? 0 : validationResult.issues.length,
+    issues: validationResult.ok ? [] : validationResult.issues,
+  };
+  const overview: StyleLibraryAdminOverview = {
+    libraryId: manifest.libraryId,
+    schemaVersion: manifest.schemaVersion,
+    updatedAt: manifest.updatedAt,
+    totalAssets: manifest.assets.length,
+    variantAssetCount: variantAssets.length,
+    seedAssetCount: seedAssets.length,
+    registryPatchCount: manifest.registryPatches.length,
+    activePatchCount: manifest.registryPatches.filter((patch) => patch.active)
+      .length,
+    evidenceRefCount: manifest.evidenceRefs.length,
+    lifecycleDistribution: buildLifecycleDistribution(manifest),
+  };
+
+  const lifecycleColumnMeta = buildLifecycleColumnMetaList(manifest, locale);
+  const candidateLifecyclePanels = buildCandidateLifecyclePanels(manifest, locale);
+  const candidateInspectionPanels = buildStyleLibraryInspectionPanels(manifest, locale);
+  const candidatePromotePanels = buildStyleLibraryPromotePanels(manifest, locale);
+  const inspectionSummaryCounts = buildStyleLibraryInspectionSummaryCounts(
+    getStyleLibraryInspectionSummaries(manifest),
+  );
+  const promoteSummaryCounts = buildStyleLibraryPromoteSummaryCounts(manifest);
+  const styleRuleSummaryCounts = buildStyleLibraryStyleRuleSummaryCounts(manifest);
+  const styleCards = buildStyleLibraryStyleCards(locale);
+  const paletteCards = buildStyleLibraryPaletteCards(locale);
+  const ruleCards = buildStyleLibraryRuleCards(locale);
+  const candidateStyleLinks = buildStyleLibraryCandidateStyleLinks(manifest, locale);
+  const styleLinksByAssetId = new Map(
+    candidateStyleLinks.map((links) => [links.assetId, links]),
+  );
+
+  return {
+    locale,
+    ui,
+    workbench: {
+      title: ui.workbenchTitle,
+      subtitle: ui.workbenchSubtitle,
+      description: ui.workbenchDescription,
+      libraryId: manifest.libraryId,
+      schemaVersion: manifest.schemaVersion,
+      updatedAt: manifest.updatedAt,
+      runtimeStatus: ui.runtimeStatus,
+      mode: ui.mode,
+    },
+    statusSummary: buildStatusSummary(
+      overview,
+      validation,
+      inspectionSummaryCounts,
+      promoteSummaryCounts,
+      styleRuleSummaryCounts,
+    ),
+    lifecycleGroups: buildLifecycleGroups(assets, locale),
+    lifecycleColumnMeta,
+    candidateReviewCards: buildCandidateReviewCards(
+      assets,
+      locale,
+      candidateLifecyclePanels,
+      candidateInspectionPanels,
+      candidatePromotePanels,
+      styleLinksByAssetId,
+    ),
+    candidateLifecyclePanels,
+    candidateInspectionPanels,
+    inspectionSummaryCounts,
+    promoteSummaryCounts,
+    candidatePromotePanels,
+    styleRuleSummaryCounts,
+    styleCards,
+    paletteCards,
+    ruleCards,
+    styleManagementDisabledActions: getStyleManagementDisabledActions(locale),
+    overview,
+    assets,
+    patches: manifest.registryPatches.map((patch) => toPatchRow(manifest, patch)),
+    evidence: manifest.evidenceRefs.map(toEvidenceRow),
+    validation,
+    runtimeNotice: ui.runtimeNotice,
+  };
+}

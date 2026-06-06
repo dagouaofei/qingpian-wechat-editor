@@ -11,8 +11,9 @@
 > **Sprint 6：** Release 1 Visible AI Main Flow · **Closed**（2026-06-02；DECISION-078；audit Grade A- · P0=0 · P1=5 · P2=4；`sprint/s6-visible-ai-main-flow` 已 merge 至 `release/1`）
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
 > **Sprint 8：** **Closed**（2026-06-05 · DECISION-093 · audit Grade A- · P0=0 · merged `release/1` @ `806fa47`）
-> **当前 Sprint：** **无**（Sprint 9 **Planned** · 未启动）
-> **下一 Sprint（Planned）：** **Sprint 9** — **Style Management System v0**（DECISION-092 · 从 `release/1` 启动）
+> **Sprint 9：** **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · **P0=0** · HTML→user preview picker E2E PASS · Preview/Copy parity PASS · default preset / release1_required 未污染 · **未 merge `release/1`** · **未 merge `main`**）
+> **当前 Sprint：** **无**（**Sprint 10** — Style Expansion · **Planned** · 未启动）
+> **Sprint 9 分支：** `sprint/s9-style-management-system-v0`（从 `release/1` · 2026-06-05）
 > **上一 Sprint：** **Sprint 8** — **Closed**（2026-06-05）；**Sprint 7** — **Done**（2026-06-03 · merge `release/1`）
 > **当前 Chore：** **Visible Progress & Legacy Convergence** — **Done**（DECISION-080 · 用户验收 2026-06-02 · merged @ `a5704d6`）
 > **Sprint 8 分支：** `sprint/s8-wechat-safe-css-contract`（已 merge `release/1` · 2026-06-05）
@@ -3795,9 +3796,9 @@ S8-STORY-009 S8 Contract Audit 与关闭准备 — **Done**（2026-06-05 · DECI
 
 # Sprint 9 — Style Management System v0（样式管理后台 v0）
 
-> **状态：** **Planned**（2026-06-05 进入 roadmap · **未启动**）  
-> **文档：** [`sprint9-style-management-system-v0.md`](sprint9-style-management-system-v0.md) · **DECISION-092**  
-> **分支（启动时）：** `sprint/s9-style-management-system-v0`（从 `release/1` · S8 merge 后）
+> **状态：** **In Progress**（2026-06-05 启动 · **DECISION-094**）  
+> **文档：** [`sprint9-style-management-system-v0.md`](sprint9-style-management-system-v0.md) · [`style-management-domain-model.md`](../architecture/style-management-domain-model.md) · **DECISION-092** · **DECISION-094**  
+> **分支：** `sprint/s9-style-management-system-v0`（从 `release/1` · S8 merge 后）
 
 ## S9 建议执行顺序
 
@@ -3809,95 +3810,281 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 
 ## S9-STORY-001 Style Management Domain Model
 
-**优先级：** P0 · **状态：** Planned
+**优先级：** P0 · **状态：** **Done**（2026-06-05 · DECISION-094 · merged sprint @ `263227b`）· **工作分支：** `docs/s9-story-001-domain-model`（已 merge 至 `sprint/s9-style-management-system-v0`）
 
 **目标：** 定义 style · style family · palette · variant · preset · copy-safe rule · style selection rule · lifecycle · QA evidence · `user_selectable` · `default_eligible` 等核心模型与关系。
 
-**非目标：** 不实现 UI · 不改动现有 `StyleRegistry` 运行时行为 · 不新增 variant 到用户侧
+**非目标：** 不实现 UI · 不改动现有 `StyleRegistry` 运行时行为 · 不新增 variant 到用户侧 · 不启动 S9-STORY-002
 
-**验收标准（草案）：** 领域模型文档 + 与现有 `style-system.md` / Contract v1 映射表
+**验收标准：**
+
+- [x] AC-1 已从 `release/1` 创建 `sprint/s9-style-management-system-v0`
+- [x] AC-2 已从 sprint 分支创建 `docs/s9-story-001-domain-model`
+- [x] AC-3 已完成 [`style-management-domain-model.md`](../architecture/style-management-domain-model.md)
+- [x] AC-4 文档覆盖 style / family / palette / variant / preset / rule / lifecycle / QA evidence / promote / rollback
+- [x] AC-5 文档明确 candidate · user_selectable · default_eligible · release1_required 区别
+- [x] AC-6 文档明确 006D 两个 harvest candidate 仅 seed asset · 不得直接 user_selectable / default preset
+- [x] AC-7 文档明确 S9-STORY-001 不实现 UI · file storage · 不改 StyleRegistry 运行时 · 不新增用户侧 variant
+- [x] AC-8 已同步 sprint-backlog · sprint-plan · changelog · decisions
+- [x] AC-9 `corepack pnpm lint` PASS
+- [x] AC-10 `corepack pnpm test` PASS
+- [x] AC-11 `corepack pnpm build` PASS
 
 ---
 
 ## S9-STORY-002 File-backed Style Library Storage
 
-**优先级：** P0 · **状态：** Planned
+**优先级：** P0 · **状态：** **Done**（2026-06-05 · DECISION-095 · merged sprint @ `859c0ed`）· **工作分支：** `feature/s9-story-002-file-backed-style-library-storage`（已 merge 至 `sprint/s9-style-management-system-v0`）
 
 **目标：** 建立 file-backed / code-backed 资产目录结构；明确 source of truth、metadata 格式、registry patch 方式、Git review / rollback 边界。
 
-**非目标：** 不上数据库 · 不做对象存储服务 · 不替换现有 registry 加载路径（直至 promote 故事）
+**非目标：** 不上数据库 · 不做对象存储服务 · 不替换现有 registry 加载路径 · 不启动 S9-STORY-003 · seed 不得经 patch 进入 user pool / default
+
+**验收标准：**
+
+- [x] AC-1 工作分支 `feature/s9-story-002-file-backed-style-library-storage` 已创建
+- [x] AC-2 `src/core/style-library/` 目录结构已建立
+- [x] AC-3 StyleLibraryManifest / Asset / RegistryPatch 类型与 schema 已实现
+- [x] AC-4 006D 两 candidate 已登记为 seed asset
+- [x] AC-5 seed 未进入 user_selectable / default_eligible / default preset
+- [x] AC-6 registry patch 已定义 · inactive · 未接入 runtime
+- [x] AC-7 [`style-library-storage.md`](../architecture/style-library-storage.md) 已新增
+- [x] AC-8 敏捷文档已同步 · DECISION-095
+- [x] AC-9 单元测试覆盖 manifest / seed / patch / helper
+- [x] AC-10 `corepack pnpm lint` PASS
+- [x] AC-11 `corepack pnpm test` PASS
+- [x] AC-12 `corepack pnpm build` PASS
 
 ---
 
 ## S9-STORY-003 Style Library Admin Shell
 
-**优先级：** P0 · **状态：** Planned
+**优先级：** P0 · **状态：** **Done**（2026-06-05 · 用户确认接受 S9-STORY-003 / FIX-A / FIX-B · DECISION-096 · **DECISION-097** · **DECISION-098** · merged sprint @ `35000ab`）· **工作分支：** `feature/s9-story-003-style-library-admin-shell`（已 merge 至 `sprint/s9-style-management-system-v0`）
 
-**目标：** `/admin/style-library` 或 `/dev/style-library` 后台页面骨架；浏览 style · palette · variant · rule · candidate 列表与详情占位。
+**目标：** `/dev/style-library` 面向**运营管理人员**的样式管理工作台 v0（只读）；Workbench Header · Status Summary · Lifecycle Pipeline · Candidate Review · Diagnostics。
 
-**非目标：** 不做完整 CRUD 表单 · 不做权限系统 · 不替代 Gallery 用户侧体验
+**非目标：** 不做 CRUD · 不做权限 · 不激活 patch · 不 promote · 不启动 S9-STORY-004 · 不改 runtime StyleRegistry / Gallery / Preview / Copy · 不做 manifest 技术浏览器主视觉
+
+**验收标准：**
+
+- [x] AC-1 工作分支 `feature/s9-story-003-style-library-admin-shell` 已创建
+- [x] AC-2 `/dev/style-library` 页面已实现
+- [x] AC-3 页面读取 `STYLE_LIBRARY_MANIFEST`
+- [x] AC-4 Workbench Header：Style Library Workbench · 样式资产管理后台 v0 · libraryId · schemaVersion · updatedAt · runtime status · mode
+- [x] AC-5 Status Summary Cards（含 Candidate / Paste QA passed）
+- [x] AC-6 Lifecycle Pipeline 分栏；006D seed 在 paste_qa_pass
+- [x] AC-7 Candidate Review Cards（006D 两 seed · 当前结论 · disabled actions）
+- [x] AC-8 Diagnostics 区保留 asset / patch / evidence / validation · 非主视觉
+- [x] AC-9 seed distribution flags 全 false
+- [x] AC-10 无写操作
+- [x] AC-11 未改 runtime StyleRegistry / Gallery / Preview / Copy
+- [x] AC-12 [`style-library-admin-shell.md`](../architecture/style-library-admin-shell.md) 已更新为 operator workbench 口径
+- [x] AC-13 DECISION-097 运营验收场景 1~3 只读雏形可演示
+- [x] AC-14 view model + shell 测试已覆盖
+- [x] AC-15 `corepack pnpm lint` PASS
+- [x] AC-16 `corepack pnpm test` PASS
+- [x] AC-17 `corepack pnpm build` PASS
+- [x] AC-18 默认 locale 为 zh（`style-library-i18n.ts`）
+- [x] AC-19 `?lang=en` / `?lang=zh` 切换 UI 文案
+- [x] AC-20 lifecycle / summary / actions 中文化或英文化 display label
+- [x] AC-21 assetId / runtimeVariantId 等技术 ID 不翻译
+- [x] AC-22 Header 语言切换链接（无复杂状态管理）
+- [x] AC-23 DECISION-098 文档已同步
+- [x] AC-24 i18n 单元 + shell 测试已覆盖
 
 ---
 
 ## S9-STORY-004 Variant Lifecycle Management
 
-**优先级：** P0 · **状态：** Planned
+**优先级：** P0 · **状态：** **Done**（2026-06-05 · DECISION-099 · merged sprint @ `7300b9f`）
 
-**目标：** 展示与转换规则：`draft` → `candidate` → `validator_pass` → `paste_qa_pass` → `user_selectable` → `default_eligible` → `deprecated`；与 Matrix / Drift / Session 证据挂钩。
+**目标（DECISION-097 / DECISION-099）：** **运营可见 lifecycle pipeline + Lifecycle Change Proposal 预览**；运营人员能看懂状态、blocked reason、下一步与 promote 边界。
 
-**非目标：** 不自动 promote 无证据 variant · 不绕过 PO Paste QA
+**非目标：** 不写 manifest · 不激活 patch · 不 promote · 不进入 user_selectable / default_eligible · 不改 runtime
+
+**验收标准：**
+
+- [x] AC-1 工作分支 `feature/s9-story-004-variant-lifecycle-management` 已创建
+- [x] AC-2 lifecycle transition engine（`lifecycle.ts`）
+- [x] AC-3 Lifecycle Change Proposal
+- [x] AC-4 `/dev/style-library` Lifecycle Management 区块
+- [x] AC-5 006D seed 为 paste_qa_pass · blocked → user_selectable（S9-STORY-007）
+- [x] AC-6 user_selectable → default_eligible 需 PO 决策
+- [x] AC-7 evidence-gated transitions blocked 规则
+- [x] AC-8 deprecated 需 reason
+- [x] AC-9 zh/en lifecycle 文案
+- [x] AC-10 无 manifest 写入 · 无 form submit
+- [x] AC-11 [`style-library-lifecycle-management.md`](../architecture/style-library-lifecycle-management.md) 已新增
+- [x] AC-12 DECISION-099 · 敏捷文档已同步
+- [x] AC-13 测试覆盖 transition / proposal / view model
+- [x] AC-14 `corepack pnpm lint` PASS
+- [x] AC-15 `corepack pnpm test` PASS
+- [x] AC-16 `corepack pnpm build` PASS
 
 ---
 
-## S9-STORY-005 Harvest HTML to Candidate Workflow
+## S9-STORY-005 HTML Paste to Candidate Variant Proposal
 
-**优先级：** P0 · **状态：** Planned
+**优先级：** P0 · **状态：** Done · **merge：** sprint @ `a9a3a00`
 
-**目标：** 输入真实公众号 HTML → 解析为 candidate variant；展示原始 HTML · normalized candidate · Preview · Copy HTML · validator 结果。
+**目标（DECISION-104）：** 粘贴 HTML → candidate proposal · evidence draft · Cursor patch summary · proposal inspection
 
-**非目标：** 不做批量 URL 抓取 · 不要求用户手填 DOM 摘要 · 不 preview-only 直出
+**非目标：** 不写 manifest · 不 apply patch · 不进入 user_selectable（由 007B 执行）
 
-**Seed：** `heading_purple_chapter_label_candidate` · `info_card_reading_path_candidate`（006D candidate-paste-pass）
+**验收：** AC-1~AC-11 完成 · merge sprint @ `a9a3a00`
+
+---
+
+## S9-STORY-007B Apply Candidate Promote Patch via Cursor
+
+**优先级：** P0 · **状态：** Done · **merge：** sprint @ `634709d` · AUDIT-A @ `3a1e8a3`
+
+**目标（DECISION-105）：** HTML paste proposal → Cursor code-backed apply patch → `user_selectable` asset · 不进入 default preset / release1_required
+
+**E2E sample：** `heading_teal_section_label_html_paste_candidate` · `WX-HTML-PASTE-E2E-001`
+
+**非目标：** 浏览器写文件 · default preset · release1_required · merge main
+
+**验收：**
+
+- [x] AC-1 工作分支
+- [x] AC-2 新 HTML sample（非 006D seed）
+- [x] AC-3 candidate variant definition
+- [x] AC-4 style-library asset metadata
+- [x] AC-5 lifecycle user_selectable
+- [x] AC-6~AC-8 distribution 边界
+- [x] AC-9~AC-11 default preset / release1 / runtime 未污染
+- [x] AC-12 Workbench 可见 user_selectable
+- [x] AC-13~AC-14 evidence + style/palette/rule 关联
+- [x] AC-15 测试
+- [x] AC-16~AC-18 lint / test / build PASS
+- [x] AC-19 execution report
+- [x] AC-20 commit
+- [x] AC-21 merge sprint @ `634709d`
+
+---
+
+## S9-STORY-007C Expose User-selectable Variant to User Preview Style Picker
+
+**优先级：** P0 · **状态：** Done · **merge：** sprint @ `da5be1e` · FIX-A `43d3aec` · FIX-B `d8cee56`
+
+**背景：** PO 明确 user-selectable 须出现在**用户预览页**样式选择器；S9-STORY-009 closeout 暂停 · audit 分支暂不 merge。
+
+**目标（DECISION-107）：** 007B `user_selectable` variant 进入用户预览页手动选择池 · Preview / Copy 可用 · 不污染 default / release1 / AI 路径。
+
+**文档：** [`style-library-user-selectable-preview-picker.md`](../architecture/style-library-user-selectable-preview-picker.md)
+
+**验收：**
+
+- [x] AC-1~AC-4 预览页选择 · Preview · Copy
+- [x] AC-5~AC-9 default preset / defaultEligible / release1 / AI / 默认生成边界
+- [x] AC-10 Workbench metadata 不变
+- [x] AC-11 Gallery 不暴露 user_selectable
+- [x] AC-12 lint / test / build PASS
+- [ ] AC-13 用户确认 merge sprint
+
+**FIX-A（2026-06-05）：** Preview / Copy 不一致 — 专用 preview renderer + UI 分支
+
+**FIX-B（2026-06-05）：** 动态 section 序号 + theme token accent · `#0d9488` 仅 evidence 参考 · 显示名改为「章节标签标题（HTML 采集 · 用户可选）」
 
 ---
 
 ## S9-STORY-006 Preview / Copy / Validator Integration
 
-**优先级：** P0 · **状态：** Planned
+**优先级：** P0 · **状态：** Done · **merge：** sprint
 
-**目标：** 后台候选样式必须复用项目 **Preview Renderer · Copy Renderer · `validateWechatCopyHtml`**；禁止旁路或原始 HTML 直出用户侧。
+**目标（DECISION-097 · DECISION-100）：** inspection-only Preview / Copy / Validator 集成
 
-**非目标：** 不新建第二套 renderer · 不修改 Contract v1 分级（除非独立 Decision）
+**验收：** 006D seed candidates 可 preview · copy · validate · promote readiness；不修改 runtime registry / Gallery / 用户侧 Preview·Copy。
+
+**FIX-A（2026-06-05）：** WARNING + paste_qa_pass 显示带兼容性提醒的 readiness 文案；Summary「阻塞候选样式」仅计 FAIL/blocking；新增「有兼容性提醒」计数。
+
+**非目标：** 不 promote · 不写 manifest · 不新建 renderer · 不做 harvest parser
 
 ---
 
 ## S9-STORY-007 Promote to User-selectable Variant
 
-**优先级：** P0 · **状态：** Planned
+**优先级：** P0 · **状态：** Done · **merge：** sprint @ `54e266c`
 
-**目标：** candidate 经 validator + paste QA 证据后可进入 **user-selectable** variant pool；**默认不**进入 default preset / `release1_required`。
+**目标（DECISION-101）：** **运营 promote review** — 生成 user_selectable Promote Proposal + inactive patch preview；**不**进入 default preset / runtime。
 
-**非目标：** 不自动 default · 不让 AI 默认选择未 promote 的 candidate
+**非目标：** 不写 manifest · 不激活 patch · 不自动 default_eligible · 不修改 Gallery / runtime 默认路径
+
+**验收：**
+
+- [x] AC-1 promote eligibility engine
+- [x] AC-2 Promote Proposal 格式与 validate
+- [x] AC-3 `/dev/style-library` promote panel + proposal preview
+- [x] AC-4 user_selectable only · 明确 no default / no runtime
+- [x] AC-5 WARNING 可 review · FAIL/blocking blocked
+- [x] AC-6 不修改 manifest / seed distribution flags
+- [x] AC-7 zh/en 文案
+- [x] AC-8 [`style-library-promote-user-selectable.md`](../architecture/style-library-promote-user-selectable.md) · DECISION-101
+- [x] AC-9 测试覆盖 promote / view model
+- [x] AC-10 lint / test / build PASS
+- [x] AC-11 用户确认 merge sprint
 
 ---
 
 ## S9-STORY-008 Style / Palette / Rule Management v0
 
-**优先级：** P1 · **状态：** Planned
+**优先级：** **P0** · **状态：** Done · **merge：** sprint @ `e5f6db6`
 
-**目标：** 风格 · 配色 · selection rule · copy-safe rule 的最小管理能力；为自动样式选择与主题化打基础。
+**目标（DECISION-102）：** Style / Palette / Rule 运营可读 metadata 管理 · 关联 006D seeds · S10 扩展入口。
 
-**非目标：** 不做完整主题编辑器 · 不做市场级风格包交易
+**非目标：** 在线编辑器 · 数据库 · runtime registry 修改 · Gallery 变更
+
+**验收：**
+
+- [x] AC-1 Style / Palette / Rule metadata 结构
+- [x] AC-2 manifest 登记 palette / rule assets
+- [x] AC-3 Style / Palette / Rule 管理区 UI
+- [x] AC-4 Summary metrics
+- [x] AC-5 006D seed 关联
+- [x] AC-6 Candidate card linked style/palette/rules
+- [x] AC-7 disabled 管理动作
+- [x] AC-8 不修改 runtime / distribution flags
+- [x] AC-9 zh/en 文案
+- [x] AC-10 文档 · DECISION-102
+- [x] AC-11 测试
+- [x] AC-12 lint / test / build PASS
+- [x] AC-13 用户确认 merge sprint
 
 ---
 
 ## S9-STORY-009 S9 Audit / Closeout
 
-**优先级：** P0 · **状态：** Planned
+**优先级：** P0 · **状态：** **Done** · **merge：** sprint @ `b906343`（009 v2 audit · `--no-ff`）· **DECISION-106** 已确认
 
-**目标：** 审计样式管理后台 v0 是否形成「新增 → 验证 → 上线 → 分发」闭环；输出 S10 进入条件。
+**说明：** v1 audit 分支 `docs/s9-story-009-end-to-end-audit-closeout` **不得复用**；007C merge 后重跑 v2。
 
-**非目标：** 不自行关闭 Sprint 9 · 不 merge `main` 除非用户确认
+**Audit grade（v2）：** **A-** · P0=0 · P1=4 · P2=5
+
+**文档：** [`sprint9-style-management-system-audit.md`](../architecture/audits/sprint9-style-management-system-audit.md) · [`sprint9-closeout.md`](sprint9-closeout.md)
+
+**v2 关闭口径：** HTML paste → candidate → inspection → promote → Cursor apply → userSelectable → **用户预览页选择器** → Preview/Copy 一致 → 动态编号 → theme token · 不污染 default/release1
+
+**验收：**
+
+- [x] AC-1 v2 audit 分支
+- [x] AC-2 audit 文档 v2
+- [x] AC-3 全部 Story 含 007C/FIX-A/FIX-B
+- [x] AC-4 HTML → user preview picker E2E
+- [x] AC-5 Preview / Copy parity
+- [x] AC-6 动态 section 编号
+- [x] AC-7 theme token 化
+- [x] AC-8 runtime boundary
+- [x] AC-9 Workbench / style-palette-rule
+- [x] AC-10 P0/P1/P2 + closeout 建议
+- [x] AC-11 DECISION-106 v2 草案
+- [x] AC-12~14 lint / test / build PASS
+- [x] AC-15 execution report
+- [x] AC-16 commit
+- [x] AC-17 用户确认 merge audit 分支
+- [x] AC-18 用户确认关闭 Sprint 9（DECISION-106 v2）
+
+**非目标：** 不 merge `release/1` / `main`（本轮）· 不复用 v1 audit 分支
 
 ---
 

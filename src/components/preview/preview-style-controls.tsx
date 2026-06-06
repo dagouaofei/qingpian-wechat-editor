@@ -7,18 +7,27 @@ import {
   type PreviewStyleControlState,
 } from "@/lib/preview-style-controls";
 import { PREVIEW_COLOR_PALETTE_OPTIONS } from "@/lib/preview-color-palette";
-import { PREVIEW_HEADING_STYLE_OPTIONS } from "@/lib/preview-heading-style";
+import {
+  PREVIEW_HEADING_PUBLISH_STYLE_OPTIONS,
+  PREVIEW_HEADING_STYLE_OPTIONS,
+} from "@/lib/preview-heading-style";
 import { ShellFieldLabel, ShellSelect } from "@/components/ui-shell/primitives";
 
 export function PreviewStyleControls({
   value,
   disabled,
+  includeUserSelectableHeadingOptions = true,
   onChange,
 }: {
   value: PreviewStyleControlState;
   disabled?: boolean;
+  /** Gallery keeps release1 publish pool only; user preview page enables user_selectable pool. */
+  includeUserSelectableHeadingOptions?: boolean;
   onChange: (next: PreviewStyleControlState) => void;
 }) {
+  const headingStyleOptions = includeUserSelectableHeadingOptions
+    ? PREVIEW_HEADING_STYLE_OPTIONS
+    : PREVIEW_HEADING_PUBLISH_STYLE_OPTIONS;
   return (
     <div
       className="space-y-3 rounded-xl border border-slate-200 bg-slate-50/80 p-3"
@@ -78,8 +87,14 @@ export function PreviewStyleControls({
           }
         >
           <option value="">跟随生成结果</option>
-          {PREVIEW_HEADING_STYLE_OPTIONS.map((option) => (
-            <option key={option.id} value={option.id}>
+          {headingStyleOptions.map((option) => (
+            <option
+              key={option.id}
+              value={option.id}
+              data-user-selectable={
+                "source" in option && option.source === "user_selectable" ? "true" : undefined
+              }
+            >
               {option.label}
             </option>
           ))}
