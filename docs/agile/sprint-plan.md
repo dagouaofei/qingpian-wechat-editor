@@ -62,9 +62,9 @@
 | **Sprint 6** | **Closed**（2026-06-02；DECISION-078；merge `release/1`） |
 | **Sprint 7** | **Done**（2026-06-03 · S7-STORY-008 关闭 · merge `release/1`） |
 | **Sprint 8** | **Closed**（2026-06-05 · DECISION-093 · merged `release/1`） |
-| **Sprint 9** | **In Progress**（2026-06-05 · DECISION-094 · S9-STORY-001 Done） |
+| **Sprint 9** | **In Progress** → **Closeout Recommended**（2026-06-05 · S9-STORY-009 v2 audit A- · DECISION-106 v2 草案） |
 | **Release 1 主干** | `release/1` |
-| **下一步** | **S9-STORY-007C** In Review（`feature/s9-story-007c-expose-user-selectable-preview-picker` · 待 merge sprint · 009 On Hold） |
+| **下一步** | 用户审查 **S9-STORY-009 v2** · 确认 **DECISION-106 v2** · merge audit 分支 → sprint · 确认关闭 Sprint 9 |
 
 ---
 
@@ -608,15 +608,15 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 ---
 
-### Sprint 9：Style Management System v0 — **In Progress**（2026-06-05 · DECISION-094）
+### Sprint 9：Style Management System v0 — **Closeout Recommended**（2026-06-05 · S9-STORY-009 v2）
 
 **中文名：** 样式管理后台 v0
 
-**分支：** `sprint/s9-style-management-system-v0`（从 `release/1` · S8 merge 后 · 2026-06-05 创建）
+**分支：** `sprint/s9-style-management-system-v0`（从 `release/1` · S8 merge 后 · 2026-06-05 创建 · @ `da5be1e`）
 
-**文档：** [`sprint9-style-management-system-v0.md`](sprint9-style-management-system-v0.md) · [`style-management-domain-model.md`](../architecture/style-management-domain-model.md) · [`style-library-storage.md`](../architecture/style-library-storage.md) · [`style-library-admin-shell.md`](../architecture/style-library-admin-shell.md) · **DECISION-092** · **DECISION-094** · **DECISION-095** · **DECISION-096** · **DECISION-097** · **DECISION-098**
+**文档：** [`sprint9-style-management-system-v0.md`](sprint9-style-management-system-v0.md) · [`sprint9-closeout.md`](sprint9-closeout.md) · [`sprint9-style-management-system-audit.md`](../architecture/audits/sprint9-style-management-system-audit.md) · **DECISION-106 v2（草案）**
 
-**进度：** S9-STORY-001~008 · 007B **Done** · **007C In Review** · **009 On Hold**（待 007C 后重跑 closeout）
+**进度：** S9-STORY-001~008 · 007B · **007C + FIX-A/B Done** @ `da5be1e` · **009 v2 In Review**（`docs/s9-story-009-end-to-end-audit-closeout-v2`）
 
 **Sprint Goal：**
 

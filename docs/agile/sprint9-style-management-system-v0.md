@@ -2,7 +2,7 @@
 
 > 轻篇公众号排版 · qingpian-wechat-editor  
 > **中文名：** 样式管理后台 v0  
-> **状态：** **In Progress**（2026-06-05 启动 · **DECISION-094**）  
+> **状态：** **Closeout Recommended**（2026-06-05 · S9-STORY-009 v2 audit · **DECISION-106 v2 草案** · 待用户确认关闭）  
 > **分支：** `sprint/s9-style-management-system-v0`（从 `release/1` 切出 · 2026-06-05）  
 > **领域模型：** [`style-management-domain-model.md`](../architecture/style-management-domain-model.md)  
 > **存储：** [`style-library-storage.md`](../architecture/style-library-storage.md)  
@@ -77,9 +77,9 @@
 | S9-STORY-006 | Preview / Copy / Validator Integration | **Done** · DECISION-100 |
 | S9-STORY-007 | Promote to User-selectable Variant | **Done** · DECISION-101 |
 | S9-STORY-007B | Apply Candidate Promote Patch via Cursor | **Done** · DECISION-105 · merged @ `634709d` |
-| S9-STORY-007C | Expose User-selectable Variant to User Preview Style Picker | **In Review** · DECISION-107 |
+| S9-STORY-007C | Expose User-selectable Variant to User Preview Style Picker | **Done** · DECISION-107 · merged @ `da5be1e` · FIX-A/B |
 | S9-STORY-008 | Style / Palette / Rule Management v0 | **Done** · DECISION-102 |
-| S9-STORY-009 | S9 Audit / Closeout | **On Hold** · 待 007C merge 后重跑 closeout · audit 分支暂不 merge |
+| S9-STORY-009 | S9 Audit / Closeout v2 | **In Review** · Grade **A-** · [`sprint9-closeout.md`](sprint9-closeout.md) |
 
 详情见 [`sprint-backlog.md`](sprint-backlog.md) Sprint 9 章节。
 
@@ -118,6 +118,17 @@ S9 关闭前，运营人员应能完成或模拟完成以下场景：
 | 7 | 能支撑 S10 批量样式扩展 | S9-STORY-008 · 009 |
 
 当前 S9-STORY-003-FIX-A 仅覆盖场景 1~3 的**只读雏形**；场景 4~7 由后续 Story 承接。
+
+---
+
+## 11. Closeout（S9-STORY-009 v2 · 2026-06-05）
+
+- **Audit grade：** A- · P0=0 · P1=4 · P2=5
+- **Closeout 文档：** [`sprint9-closeout.md`](sprint9-closeout.md)
+- **Audit 报告：** [`sprint9-style-management-system-audit.md`](../architecture/audits/sprint9-style-management-system-audit.md)
+- **DECISION-106 v2：** 草案 · 待用户确认
+- **007C 为 closeout 前置：** 用户预览页选择器 + Preview/Copy parity + 动态编号 + theme token
+- **default preset / release1_required 未被污染**
 
 ---
 
