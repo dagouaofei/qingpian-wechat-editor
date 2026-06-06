@@ -30,4 +30,4 @@
 
 ## 5. Commit
 
-- `fix: make html paste section label dynamic and theme-aware`
+- Commit hash：`d8cee56` — fix: make html paste section label dynamic and theme-aware
