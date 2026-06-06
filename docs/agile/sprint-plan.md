@@ -62,9 +62,9 @@
 | **Sprint 6** | **Closed**（2026-06-02；DECISION-078；merge `release/1`） |
 | **Sprint 7** | **Done**（2026-06-03 · S7-STORY-008 关闭 · merge `release/1`） |
 | **Sprint 8** | **Closed**（2026-06-05 · DECISION-093 · merged `release/1`） |
-| **Sprint 9** | **In Progress** → **Closeout Recommended**（2026-06-05 · S9-STORY-009 v2 audit A- · DECISION-106 v2 草案） |
+| **Sprint 9** | **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · P0=0 · S9-STORY-001~009 Done · **未 merge `release/1`**） |
 | **Release 1 主干** | `release/1` |
-| **下一步** | 用户审查 **S9-STORY-009 v2** · 确认 **DECISION-106 v2** · merge audit 分支 → sprint · 确认关闭 Sprint 9 |
+| **下一步** | Sprint 10 规划 / 启动（Planned）· sprint → `release/1` merge **需用户另行确认** |
 
 ---
 
@@ -608,15 +608,17 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 ---
 
-### Sprint 9：Style Management System v0 — **Closeout Recommended**（2026-06-05 · S9-STORY-009 v2）
+### Sprint 9：Style Management System v0 — **Closed**（2026-06-05 · **DECISION-106**）
 
 **中文名：** 样式管理后台 v0
 
-**分支：** `sprint/s9-style-management-system-v0`（从 `release/1` · S8 merge 后 · 2026-06-05 创建 · @ `da5be1e`）
+**分支：** `sprint/s9-style-management-system-v0`（从 `release/1` · 2026-06-05 · @ `b906343` closeout merge）
 
-**文档：** [`sprint9-style-management-system-v0.md`](sprint9-style-management-system-v0.md) · [`sprint9-closeout.md`](sprint9-closeout.md) · [`sprint9-style-management-system-audit.md`](../architecture/audits/sprint9-style-management-system-audit.md) · **DECISION-106 v2（草案）**
+**文档：** [`sprint9-style-management-system-v0.md`](sprint9-style-management-system-v0.md) · [`sprint9-closeout.md`](sprint9-closeout.md) · [`sprint9-style-management-system-audit.md`](../architecture/audits/sprint9-style-management-system-audit.md) · **DECISION-106**
 
-**进度：** S9-STORY-001~008 · 007B · **007C + FIX-A/B Done** @ `da5be1e` · **009 v2 In Review**（`docs/s9-story-009-end-to-end-audit-closeout-v2`）
+**Closeout：** Grade **A-** · **P0=0** · HTML→user preview picker E2E **PASS** · Preview/Copy parity **PASS** · default preset / release1_required **未污染** · **未 merge `release/1`** · **未 merge `main`**
+
+**进度：** S9-STORY-001~009 **Done**
 
 **Sprint Goal：**
 

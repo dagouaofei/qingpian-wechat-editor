@@ -92,7 +92,7 @@
 | DECISION-094 | 2026-06-05 | 正式启动 Sprint 9：Style Management System v0；从 `release/1` 创建 `sprint/s9-style-management-system-v0`；首轮执行 S9-STORY-001 Style Management Domain Model | 已确认 |
 | DECISION-095 | 2026-06-05 | Style Library v0 采用 code-backed TypeScript manifest；独立 `@/core/style-library`；不接入 runtime StyleRegistry 默认加载路径 | 已确认 |
 | DECISION-096 | 2026-06-05 | Style Library Admin Shell v0 使用 `/dev/style-library`；内部只读治理工具；无权限系统；非正式 SaaS 后台 | 已确认 |
-| DECISION-106 | 2026-06-05 | Sprint 9 Closeout v2：接受 HTML→user preview picker E2E · Preview/Copy 一致 · 动态编号 · theme token · 未污染 default/release1；**Sprint 9 关闭需用户确认** | **草案 · 待用户确认** |
+| DECISION-106 | 2026-06-05 | 关闭 Sprint 9：Style Management System v0 · 接受 v2 audit Grade A- · P0=0 · HTML→user preview picker E2E PASS · Preview/Copy parity PASS · default/release1 未污染 · **不 merge `main`** · sprint→`release/1` 需另行确认 | **已确认** |
 | DECISION-107 | 2026-06-05 | S9-STORY-007C：user_selectable 暴露至用户预览页样式选择器；Gallery/AI/release1 边界不变 | **已确认** · merged sprint @ `da5be1e` |
 
 ### DECISION-019 详情
@@ -1103,11 +1103,17 @@
   6. **动态 section 编号** SECTION 01/02/03（非固定数字 · FIX-B）
   7. **主题色 token 化**（`textAccent` · 采集色 `#0d9488` 仅作 source reference · FIX-B）
   8. **Runtime 边界**：不进入 default preset · defaultEligible · release1_required · Gallery 默认池 · AI 默认路径 · `createFirstWaveRequiredVariantRegistry()`
-- **Audit 结论（v2）：** Grade **A-** · P0=0 · P1=4 · P2=5 · [`sprint9-style-management-system-audit.md`](../architecture/audits/sprint9-style-management-system-audit.md)
-- **Sprint 9 关闭：** **需用户确认**（本决策确认后生效）
-- **sprint → `release/1` merge：** **需用户另行确认**
+- **关闭决策（2026-06-05 · 用户确认）：**
+  1. **关闭 Sprint 9** — Style Management System v0
+  2. **接受 v2 audit 结论** — Grade **A-** · **P0=0** · HTML→user preview picker E2E **PASS** · Preview/Copy parity **PASS**
+  3. **确认边界** — default preset **未污染** · release1_required **未污染**
+  4. **不 merge `main`** · **不宣布 Release 1 关闭**
+  5. **sprint → `release/1`** — 需用户另行确认（本轮未执行）
+- **Audit 结论（v2）：** Grade **A-** · **P0=0** · P1=4 · P2=5 · HTML→user preview picker E2E **PASS** · Preview/Copy parity **PASS** · default preset **未污染** · release1_required **未污染**
+- **Sprint 9 关闭：** **已确认**（2026-06-05 · 用户确认 DECISION-106 v2 · S9-STORY-009 v2 merged sprint @ `b906343`）
+- **sprint → `release/1` merge：** **需用户另行确认**（本轮未执行）
 - **Release 1：** **仍未关闭**
 - **merge `main`：** **不执行**
 - **关联：** S9-STORY-009 · DECISION-107 · DECISION-105 · DECISION-101 · [`sprint9-closeout.md`](sprint9-closeout.md)
-- **状态：** **草案 · 待用户确认**（2026-06-05 · audit 分支 `docs/s9-story-009-end-to-end-audit-closeout-v2` · 未 merge sprint）
+- **状态：** **已确认**（2026-06-05 · 用户确认 Sprint 9 关闭）
 

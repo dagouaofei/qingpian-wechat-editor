@@ -11,7 +11,8 @@
 > **Sprint 6：** Release 1 Visible AI Main Flow · **Closed**（2026-06-02；DECISION-078；audit Grade A- · P0=0 · P1=5 · P2=4；`sprint/s6-visible-ai-main-flow` 已 merge 至 `release/1`）
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
 > **Sprint 8：** **Closed**（2026-06-05 · DECISION-093 · audit Grade A- · P0=0 · merged `release/1` @ `806fa47`）
-> **当前 Sprint：** **Sprint 9** — **Style Management System v0**（**Closeout Recommended** · S9-STORY-009 v2 audit · 待用户确认 DECISION-106 v2）
+> **Sprint 9：** **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · **P0=0** · HTML→user preview picker E2E PASS · Preview/Copy parity PASS · default preset / release1_required 未污染 · **未 merge `release/1`** · **未 merge `main`**）
+> **当前 Sprint：** **无**（**Sprint 10** — Style Expansion · **Planned** · 未启动）
 > **Sprint 9 分支：** `sprint/s9-style-management-system-v0`（从 `release/1` · 2026-06-05）
 > **上一 Sprint：** **Sprint 8** — **Closed**（2026-06-05）；**Sprint 7** — **Done**（2026-06-03 · merge `release/1`）
 > **当前 Chore：** **Visible Progress & Legacy Convergence** — **Done**（DECISION-080 · 用户验收 2026-06-02 · merged @ `a5704d6`）
@@ -4054,7 +4055,7 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 
 ## S9-STORY-009 S9 Audit / Closeout
 
-**优先级：** P0 · **状态：** In Review · **分支：** `docs/s9-story-009-end-to-end-audit-closeout-v2`
+**优先级：** P0 · **状态：** **Done** · **merge：** sprint @ `b906343`（009 v2 audit · `--no-ff`）· **DECISION-106** 已确认
 
 **说明：** v1 audit 分支 `docs/s9-story-009-end-to-end-audit-closeout` **不得复用**；007C merge 后重跑 v2。
 
@@ -4080,10 +4081,10 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 - [x] AC-12~14 lint / test / build PASS
 - [x] AC-15 execution report
 - [x] AC-16 commit
-- [ ] AC-17 用户确认 merge audit 分支
-- [ ] AC-18 用户确认关闭 Sprint 9（DECISION-106 v2）
+- [x] AC-17 用户确认 merge audit 分支
+- [x] AC-18 用户确认关闭 Sprint 9（DECISION-106 v2）
 
-**非目标：** 不自行关闭 Sprint 9 · 不 merge `release/1` / `main` · 不复用 v1 audit 分支
+**非目标：** 不 merge `release/1` / `main`（本轮）· 不复用 v1 audit 分支
 
 ---
 

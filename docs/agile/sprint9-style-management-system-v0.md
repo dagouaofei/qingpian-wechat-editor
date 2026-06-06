@@ -2,8 +2,8 @@
 
 > 轻篇公众号排版 · qingpian-wechat-editor  
 > **中文名：** 样式管理后台 v0  
-> **状态：** **Closeout Recommended**（2026-06-05 · S9-STORY-009 v2 audit · **DECISION-106 v2 草案** · 待用户确认关闭）  
-> **分支：** `sprint/s9-style-management-system-v0`（从 `release/1` 切出 · 2026-06-05）  
+> **状态：** **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · P0=0 · S9-STORY-009 v2 Done）
+> **分支：** `sprint/s9-style-management-system-v0`（从 `release/1` 切出 · closeout @ `b906343` · **未 merge `release/1`**）  
 > **领域模型：** [`style-management-domain-model.md`](../architecture/style-management-domain-model.md)  
 > **存储：** [`style-library-storage.md`](../architecture/style-library-storage.md)  
 > **Admin Shell：** [`style-library-admin-shell.md`](../architecture/style-library-admin-shell.md) · `/dev/style-library`  
@@ -79,7 +79,7 @@
 | S9-STORY-007B | Apply Candidate Promote Patch via Cursor | **Done** · DECISION-105 · merged @ `634709d` |
 | S9-STORY-007C | Expose User-selectable Variant to User Preview Style Picker | **Done** · DECISION-107 · merged @ `da5be1e` · FIX-A/B |
 | S9-STORY-008 | Style / Palette / Rule Management v0 | **Done** · DECISION-102 |
-| S9-STORY-009 | S9 Audit / Closeout v2 | **In Review** · Grade **A-** · [`sprint9-closeout.md`](sprint9-closeout.md) |
+| S9-STORY-009 | S9 Audit / Closeout v2 | **Done** · Grade **A-** · DECISION-106 · [`sprint9-closeout.md`](sprint9-closeout.md) |
 
 详情见 [`sprint-backlog.md`](sprint-backlog.md) Sprint 9 章节。
 
@@ -121,14 +121,18 @@ S9 关闭前，运营人员应能完成或模拟完成以下场景：
 
 ---
 
-## 11. Closeout（S9-STORY-009 v2 · 2026-06-05）
+## 11. Closeout（S9-STORY-009 v2 · 2026-06-05 · **Closed**）
 
-- **Audit grade：** A- · P0=0 · P1=4 · P2=5
+- **Audit grade：** **A-** · **P0=0** · P1=4 · P2=5
+- **HTML → user preview picker E2E：** **PASS**
+- **Preview / Copy parity：** **PASS**
+- **default preset：** **未污染**
+- **release1_required：** **未污染**
 - **Closeout 文档：** [`sprint9-closeout.md`](sprint9-closeout.md)
 - **Audit 报告：** [`sprint9-style-management-system-audit.md`](../architecture/audits/sprint9-style-management-system-audit.md)
-- **DECISION-106 v2：** 草案 · 待用户确认
-- **007C 为 closeout 前置：** 用户预览页选择器 + Preview/Copy parity + 动态编号 + theme token
-- **default preset / release1_required 未被污染**
+- **DECISION-106：** **已确认**（2026-06-05）
+- **Release 1：** **仍未关闭** · **未 merge `main`**
+- **sprint → `release/1`：** 需用户另行确认
 
 ---
 

@@ -1,9 +1,9 @@
 # Sprint 9 Closeout
 
 > **Sprint:** Style Management System v0  
-> **Branch:** `sprint/s9-style-management-system-v0` @ `da5be1e`  
+> **Branch:** `sprint/s9-style-management-system-v0` @ `b906343`  
 > **Audit:** [`sprint9-style-management-system-audit.md`](../architecture/audits/sprint9-style-management-system-audit.md) (v2)  
-> **Status:** **Closeout Recommended** · 待用户确认 DECISION-106 v2
+> **Status:** **Closed**（2026-06-05 · **DECISION-106**）
 
 ---
 
@@ -47,7 +47,25 @@
 
 ---
 
-## 4. user-selectable Asset Result
+## 4. Closeout Audit Summary（DECISION-106）
+
+| 项 | 结果 |
+|----|------|
+| **Audit grade** | **A-** |
+| **P0** | **0** |
+| **HTML → user preview picker E2E** | **PASS** |
+| **Preview / Copy parity** | **PASS** |
+| **Dynamic section numbering** | **PASS** |
+| **Theme-aware color tokens** | **PASS** |
+| **default preset** | **未污染** |
+| **release1_required** | **未污染** |
+| **Release 1** | **仍未关闭** |
+| **merge `main`** | **未执行** |
+| **sprint → `release/1`** | **未执行**（需用户另行确认） |
+
+---
+
+## 5. user-selectable Asset Result
 
 | Field | Value |
 |-------|-------|
@@ -62,7 +80,7 @@
 
 ---
 
-## 5. Known Limitations
+## 6. Known Limitations
 
 - HTML extraction regex 最小实现
 - user_selectable 需 Cursor apply patch
@@ -72,29 +90,29 @@
 
 ---
 
-## 6. S10 Readiness
+## 7. S10 Readiness
 
 具备批量扩展样式的基础设施；S10 重点：更多 block types · 更多真实 HTML 样本 · 视觉质量 · 自动匹配增强。
 
 ---
 
-## 7. Closeout Checklist
+## 8. Closeout Checklist
 
 - [x] S9-STORY-001 ~ 008 Done
 - [x] S9-STORY-007B + AUDIT-A Done
 - [x] S9-STORY-007C + FIX-A + FIX-B Done · merged @ `da5be1e`
-- [x] S9-STORY-009 v2 audit 完成
+- [x] S9-STORY-009 v2 audit 完成 · merged @ `b906343`
 - [x] lint / test / build PASS
-- [ ] 用户确认 DECISION-106 v2
-- [ ] merge audit 分支 → sprint
-- [ ] 用户确认关闭 Sprint 9
+- [x] 用户确认 DECISION-106 v2
+- [x] merge audit 分支 → sprint
+- [x] **Sprint 9 Closed**（DECISION-106 · 2026-06-05）
 - [ ] sprint → `release/1`（单独决策）
 - [ ] Release 1 关闭（未执行）
 - [ ] merge `main`（未执行）
 
 ---
 
-## 8. 007C 前置说明
+## 9. 007C 前置说明
 
 | Fix | 内容 |
 |-----|------|
