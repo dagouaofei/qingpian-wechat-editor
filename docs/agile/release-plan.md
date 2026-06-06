@@ -9,8 +9,8 @@
 | **Release** | Release 1 — **进行中（未关闭）** |
 | **主干分支** | `release/1` |
 | **已完成 Sprint** | Sprint 1-A/B · Sprint 2 · Sprint 3-A/B/C · Sprint 4-A/B · Sprint 5 · Sprint 6 · Sprint 7 · **Sprint 8** |
-| **当前 Sprint** | **无**（Sprint 9 **Planned** · 未启动） |
-| **下一 Sprint** | **Sprint 9** — Style Management System v0（**Planned** · DECISION-092 · 从 `release/1` 启动） |
+| **当前 Sprint** | **Sprint 9** — Style Management System v0（**Closeout Recommended** · S9-STORY-009 v2 · 待用户确认关闭） |
+| **下一 Sprint** | **Sprint 10** — Style Expansion（Planned · 未启动） |
 | **上一 Sprint** | **Sprint 8** — **Closed**（2026-06-05 · DECISION-093 · merged `release/1`） |
 | **merge `main`** | **未执行** — Release 1 整体验收通过后才 merge |
 
@@ -42,7 +42,7 @@
 | **Sprint 6** | **Release 1 Visible AI Main Flow** | 真实 AI 用户侧最小闭环：首页 → 真实 AI 生成 → 带样式预览 → 风格 / 配色 → 复制 → 最小粘贴 QA | **Closed**（DECISION-078） |
 | **Sprint 7** | **WeChat Article Experience & Style Richness** | 整篇文章像公众号文章；Style Gallery；样式丰富度；miaopian 协作对齐；**8 套**完整视觉样例 | **Done**（2026-06-03） |
 | **Sprint 8** | **WeChat-safe CSS Contract & Fidelity Test System** | Contract · Validator · Matrix · Paste QA · Copy-safe 修复（006C/006D）；009 audit → merge `release/1` | **Closed**（DECISION-093 · 2026-06-05 · audit Grade A- · P0=0） |
-| **Sprint 9** | **Style Management System v0**（样式管理后台 v0） | 主项目内样式资产新增/验证/上线/分发闭环；file-backed；harvest 为入口之一 | **Planned**（DECISION-092） |
+| **Sprint 9** | **Style Management System v0**（样式管理后台 v0） | 主项目内样式资产新增/验证/上线/分发闭环；file-backed；harvest 为入口之一 | **Closeout Recommended**（S9-STORY-009 v2 audit A- · DECISION-106 v2 草案 · 待用户确认关闭） |
 | **Sprint 10** | **Style Expansion & Visual Quality Upgrade** | 基于 S9 批量扩展样式与自动匹配 | **Planned（方向 only）** |
 
 **Sprint 分支（启动时从 `release/1` 切出）：**
@@ -50,7 +50,7 @@
 - Sprint 6：`sprint/s6-visible-ai-main-flow`
 - Sprint 7：`sprint/s7-wechat-article-experience`（名称可在 Sprint 7 启动 Story 中最终确认）
 - Sprint 8：`sprint/s8-wechat-safe-css-contract`（DECISION-088 · 已 merge `release/1` · DECISION-093）
-- Sprint 9：`sprint/s9-style-management-system-v0`（启动时从 `release/1` 切出 · **未启动**）
+- Sprint 9：`sprint/s9-style-management-system-v0`（从 `release/1` 启动 · **Closeout Recommended** · @ `da5be1e`）
 
 **原 Release 1 尾声计划变更说明：**
 

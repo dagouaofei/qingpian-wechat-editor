@@ -11,7 +11,7 @@
 > **Sprint 6：** Release 1 Visible AI Main Flow · **Closed**（2026-06-02；DECISION-078；audit Grade A- · P0=0 · P1=5 · P2=4；`sprint/s6-visible-ai-main-flow` 已 merge 至 `release/1`）
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
 > **Sprint 8：** **Closed**（2026-06-05 · DECISION-093 · audit Grade A- · P0=0 · merged `release/1` @ `806fa47`）
-> **当前 Sprint：** **Sprint 9** — **Style Management System v0**（**In Progress** · DECISION-094 · 从 `release/1` 启动）
+> **当前 Sprint：** **Sprint 9** — **Style Management System v0**（**Closeout Recommended** · S9-STORY-009 v2 audit · 待用户确认 DECISION-106 v2）
 > **Sprint 9 分支：** `sprint/s9-style-management-system-v0`（从 `release/1` · 2026-06-05）
 > **上一 Sprint：** **Sprint 8** — **Closed**（2026-06-05）；**Sprint 7** — **Done**（2026-06-03 · merge `release/1`）
 > **当前 Chore：** **Visible Progress & Legacy Convergence** — **Done**（DECISION-080 · 用户验收 2026-06-02 · merged @ `a5704d6`）
@@ -3965,7 +3965,7 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 
 ## S9-STORY-007C Expose User-selectable Variant to User Preview Style Picker
 
-**优先级：** P0 · **状态：** In Review · **分支：** `feature/s9-story-007c-expose-user-selectable-preview-picker`
+**优先级：** P0 · **状态：** Done · **merge：** sprint @ `da5be1e` · FIX-A `43d3aec` · FIX-B `d8cee56`
 
 **背景：** PO 明确 user-selectable 须出现在**用户预览页**样式选择器；S9-STORY-009 closeout 暂停 · audit 分支暂不 merge。
 
@@ -4054,13 +4054,36 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 
 ## S9-STORY-009 S9 Audit / Closeout
 
-**优先级：** P0 · **状态：** **On Hold** · **分支：** `docs/s9-story-009-end-to-end-audit-closeout`（**暂不 merge**）
+**优先级：** P0 · **状态：** In Review · **分支：** `docs/s9-story-009-end-to-end-audit-closeout-v2`
 
-**暂停原因：** 初版 audit 仅验证 Workbench metadata；须先完成 **S9-STORY-007C**（用户预览页样式选择器）。
+**说明：** v1 audit 分支 `docs/s9-story-009-end-to-end-audit-closeout` **不得复用**；007C merge 后重跑 v2。
 
-**目标：** 007C merge 后重跑 closeout · 再评估 Sprint 9 关闭
+**Audit grade（v2）：** **A-** · P0=0 · P1=4 · P2=5
 
-**非目标：** 本轮不确认 DECISION-106 · 不 merge audit 分支 · 不关闭 Sprint 9 · 不 merge `release/1` / `main`
+**文档：** [`sprint9-style-management-system-audit.md`](../architecture/audits/sprint9-style-management-system-audit.md) · [`sprint9-closeout.md`](sprint9-closeout.md)
+
+**v2 关闭口径：** HTML paste → candidate → inspection → promote → Cursor apply → userSelectable → **用户预览页选择器** → Preview/Copy 一致 → 动态编号 → theme token · 不污染 default/release1
+
+**验收：**
+
+- [x] AC-1 v2 audit 分支
+- [x] AC-2 audit 文档 v2
+- [x] AC-3 全部 Story 含 007C/FIX-A/FIX-B
+- [x] AC-4 HTML → user preview picker E2E
+- [x] AC-5 Preview / Copy parity
+- [x] AC-6 动态 section 编号
+- [x] AC-7 theme token 化
+- [x] AC-8 runtime boundary
+- [x] AC-9 Workbench / style-palette-rule
+- [x] AC-10 P0/P1/P2 + closeout 建议
+- [x] AC-11 DECISION-106 v2 草案
+- [x] AC-12~14 lint / test / build PASS
+- [x] AC-15 execution report
+- [x] AC-16 commit
+- [ ] AC-17 用户确认 merge audit 分支
+- [ ] AC-18 用户确认关闭 Sprint 9（DECISION-106 v2）
+
+**非目标：** 不自行关闭 Sprint 9 · 不 merge `release/1` / `main` · 不复用 v1 audit 分支
 
 ---
 

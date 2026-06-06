@@ -510,5 +510,7 @@
 | 2026-06-05 | Sprint 9 | **S9-STORY-007B In Review**：Apply Candidate Promote Patch · DECISION-105 · [`style-library-apply-candidate-promote-patch.md`](../architecture/style-library-apply-candidate-promote-patch.md) | 代码 / 文档 | S9-STORY-007B · DECISION-105 |
 | 2026-06-05 | Sprint 9 | merge S9-STORY-005 → sprint @ `a9a3a00` | Git | S9-STORY-005 |
 | 2026-06-05 | Sprint 9 | merge S9-STORY-007B → sprint @ `634709d` | Git | S9-STORY-007B |
+| 2026-06-05 | Sprint 9 | merge S9-STORY-007C + FIX-A/B → sprint @ `da5be1e` | Git | S9-STORY-007C |
+| 2026-06-05 | Sprint 9 | **S9-STORY-009 v2**：End-to-End Audit / Closeout · Grade A- · P0=0 · DECISION-106 v2 草案 | 文档 / 测试 | S9-STORY-009 · DECISION-106 |
 | 2026-06-05 | Sprint 9 | **S9-STORY-009 On Hold**：PO 要求 user-selectable 须进用户预览页选择器 · audit 分支暂不 merge | 文档 / 敏捷 | S9-STORY-009 |
 | 2026-06-05 | Sprint 9 | **S9-STORY-007C-FIX-B**：html paste section label 动态序号 + theme token 色 · 采集色仅作 source hint | 代码 / 文档 | S9-STORY-007C |
