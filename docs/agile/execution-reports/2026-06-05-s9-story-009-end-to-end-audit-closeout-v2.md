@@ -127,4 +127,4 @@ v2 closeout 口径在 v1 基础上强制包含 **用户预览页手动选择**�
 
 ## 14. Commit
 
-- Commit hash：（见本轮 commit 后更新）
+- Commit hash：`5f1a578`
