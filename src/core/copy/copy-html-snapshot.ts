@@ -8,6 +8,7 @@ import {
   type BlockRendererRegistry,
   type RendererIssue,
   type RendererOutputPlaceholder,
+  type RendererResult,
 } from "@/core/renderer";
 
 import { HEADING_HIGHLIGHT_MARKER_COPY_SAFE_OPTIONS } from "@/core/renderer/heading-publish-decoration";
@@ -47,6 +48,17 @@ export type BuildCopyHtmlSnapshotOptions = {
   resolvedArticleStyle: ResolvedArticleStyle;
   registry?: BlockRendererRegistry;
   supportedBlockTypes?: readonly BlockType[];
+  renderBlockFn?: (options: {
+    input: {
+      article: Article;
+      block: Article["blocks"][number];
+      resolvedArticleStyle: ResolvedArticleStyle;
+      mode: "copy";
+      target: ReturnType<typeof renderTargetForMode>;
+    };
+    registry: BlockRendererRegistry;
+    supportedBlockTypes: readonly BlockType[];
+  }) => RendererResult<RendererOutputPlaceholder>;
 };
 
 type CopyHtmlRendererOutput = Extract<
@@ -78,7 +90,8 @@ export function buildCopyHtmlSnapshot(
   const warnings: RendererIssue[] = [];
 
   for (const block of options.article.blocks) {
-    const result = renderBlock({
+    const render = options.renderBlockFn ?? renderBlock;
+    const result = render({
       input: {
         article: options.article,
         block,

@@ -3,8 +3,8 @@ import {
   renderHtmlPasteTealSectionLabelHeadingCopy,
 } from "@/core/copy/html-paste-candidate-copy";
 import { buildBlockRenderContext } from "@/core/renderer/context";
+import { renderHtmlPasteTealSectionLabelHeadingPreview } from "@/core/renderer/html-paste-candidate-preview";
 import { partitionRendererIssues } from "@/core/renderer/issues";
-import { renderTitleBlockPreview } from "@/core/renderer/title-block-preview";
 import type {
   BlockRenderInput,
   RendererOutputPlaceholder,
@@ -50,7 +50,7 @@ export function renderStyleLibraryHtmlPasteCandidateBlock(
   const output =
     input.mode === "copy"
       ? renderHtmlPasteTealSectionLabelHeadingCopy(context)
-      : renderTitleBlockPreview(context);
+      : renderHtmlPasteTealSectionLabelHeadingPreview(context);
 
   return {
     ok: true,

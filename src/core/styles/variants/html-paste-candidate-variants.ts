@@ -15,7 +15,7 @@ export const headingTealSectionLabelHtmlPasteCandidate: VariantDefinition = {
   blockType: "heading",
   family: "htmlPasteCandidate",
   name: "heading-teal-section-label-html-paste-candidate",
-  label: "Teal Section Label (HTML Paste · User Selectable)",
+  label: "Section Label Heading (HTML Paste · User Selectable)",
   description: "S9-STORY-007B HTML paste E2E · WX-HTML-PASTE-E2E-001",
   status: "experimental",
   componentProtocol: {

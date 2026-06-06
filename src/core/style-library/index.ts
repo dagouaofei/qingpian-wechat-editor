@@ -78,6 +78,16 @@ export {
 } from "./manifest";
 
 export {
+  getUserSelectablePreviewVariantAssets,
+  getUserSelectablePreviewVariantAssetsForBlockType,
+  getUserSelectablePreviewVariantDefinition,
+  getUserSelectablePreviewVariantIds,
+  getUserSelectablePreviewVariantLabel,
+  isUserSelectablePreviewVariantId,
+} from "./user-selectable-preview-pool";
+export type { UserSelectablePreviewHeadingVariantId } from "./user-selectable-preview-pool";
+
+export {
   validateAllStyleLibraryRegistryPatches,
   validateStyleLibraryRegistryPatch,
 } from "./registry-patch";

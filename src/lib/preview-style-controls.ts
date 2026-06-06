@@ -1,7 +1,7 @@
 import type { Article } from "@/core/article";
 import type { NormalizedInput } from "@/core/generation/input";
 import type { InputStyleIntent } from "@/core/generation/input";
-import type { HeadingPublishVariantId } from "@/core/styles/variants/heading-publish-pool";
+import type { PreviewHeadingVariantId } from "@/lib/preview-heading-style";
 import {
   DEFAULT_THEME_FOR_PRESET,
   LEGACY_PRESET_ID_ALIASES,
@@ -24,7 +24,7 @@ export type PreviewStyleControlState = {
   /** When false, switching article style resets palette to preset default */
   lockColorPalette?: boolean;
   /** Overrides all heading blocks; empty = use style-selection assignment */
-  headingVariantId?: HeadingPublishVariantId | "";
+  headingVariantId?: PreviewHeadingVariantId | "";
 };
 
 const DENSITY_BY_PRESET: Record<

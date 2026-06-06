@@ -76,9 +76,10 @@
 | S9-STORY-005 | HTML Paste to Candidate Proposal | **Done** · DECISION-104 |
 | S9-STORY-006 | Preview / Copy / Validator Integration | **Done** · DECISION-100 |
 | S9-STORY-007 | Promote to User-selectable Variant | **Done** · DECISION-101 |
-| S9-STORY-007B | Apply Candidate Promote Patch via Cursor | **In Review** · DECISION-105 |
+| S9-STORY-007B | Apply Candidate Promote Patch via Cursor | **Done** · DECISION-105 · merged @ `634709d` |
+| S9-STORY-007C | Expose User-selectable Variant to User Preview Style Picker | **In Review** · DECISION-107 |
 | S9-STORY-008 | Style / Palette / Rule Management v0 | **Done** · DECISION-102 |
-| S9-STORY-009 | S9 Audit / Closeout | Planned · **运营验收 audit + 技术 audit** |
+| S9-STORY-009 | S9 Audit / Closeout | **On Hold** · 待 007C merge 后重跑 closeout · audit 分支暂不 merge |
 
 详情见 [`sprint-backlog.md`](sprint-backlog.md) Sprint 9 章节。
 
@@ -94,8 +95,10 @@ S9-STORY-001 Domain Model
   → S9-STORY-006 运营可读 Preview / Copy / Validator 面板
   → S9-STORY-005 Harvest 候选样式向导
   → S9-STORY-007 Promote review
+  → S9-STORY-007B Cursor apply patch
+  → S9-STORY-007C User preview style picker
   → S9-STORY-008 Style / Palette / Rule 运营入口（P0）
-  → S9-STORY-009 运营 + 技术 audit / closeout
+  → S9-STORY-009 运营 + 技术 audit / closeout（007C 后重跑）
 ```
 
 ---

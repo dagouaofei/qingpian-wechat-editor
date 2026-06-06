@@ -1070,3 +1070,19 @@
 - **关联：** S9-STORY-005、DECISION-104、DECISION-101、S9-STORY-009
 - **状态：** **已确认**（2026-06-05 · S9-STORY-007B）
 
+### DECISION-107 详情（S9-STORY-007C User Preview Style Picker）
+
+- **背景：**
+  - S9-STORY-007B 使 HTML paste 样式进入 `user_selectable` 且 Workbench 可见
+  - PO 明确：**user-selectable 验收须包含用户预览页手动样式选择器**，而非仅 `/dev/style-library`
+  - S9-STORY-009 closeout 暂停；DECISION-106 不确认；audit 分支暂不 merge
+- **决策：**
+  1. 新增 **S9-STORY-007C**：从 style-library manifest 读取 `user_selectable` pool，暴露到**用户预览页** heading 样式选择器
+  2. 用户手动选择后，Preview / Copy 经 **user-preview adapter** 渲染；**不**扩展 `createFirstWaveRequiredVariantRegistry()` / Gallery pools / AI generation
+  3. Gallery `PreviewStyleControls` **不**暴露 user_selectable 选项（`includeUserSelectableHeadingOptions=false`）
+  4. distribution 边界保持：`userSelectable=true` · `defaultEligible=false` · `release1Required=false`
+  5. S9-STORY-009 在 007C merge 后**重跑** closeout
+- **影响范围：** `user-selectable-preview-pool.ts` · `user-preview-style-registry.ts` · `user-preview-render.ts` · `render-article-preview-client.ts` · `preview-heading-style.ts`
+- **关联：** S9-STORY-007B、S9-STORY-009、DECISION-105
+- **状态：** **已确认**（2026-06-05 · S9-STORY-007C · 待 merge sprint）
+

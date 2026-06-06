@@ -93,3 +93,27 @@ S9-STORY-007B 初版在 shared runtime 路径中注册了 html-paste candidate�
 ### 与 006D harvest candidate 的差异说明
 
 006D harvest heading candidate **仍**通过 shared title-block allowlist（S8 既有决策）。S9-STORY-007B html-paste candidate **不再**扩展 shared allowlist；仅 inspection adapter 渲染。
+
+---
+
+## Tokenized render rules（S9-STORY-007C-FIX-B · 2026-06-05）
+
+### 采集颜色不等于最终样式
+
+- 来源 HTML 中的 `#0d9488` 仅保留在 evidence / fixture（`WX-HTML-PASTE-E2E-001` · `S9_STORY_007B_HTML_PASTE_E2E_SOURCE_HTML`）
+- **不得**作为 Preview / Copy 最终 `background-color` 写死
+
+### 动态 section label
+
+- `SECTION NN` 由文章内 heading 顺序生成（`resolveHeadingIndexLabel`）
+- Preview / Copy 共用 `resolveHtmlPasteSectionLabelStyleTokens(context)`
+
+### 动态 accent
+
+- 最终 label 背景色 = 当前 `ResolvedBlockStyle` theme 的 `textAccent` token
+- 用户切换预览配色后 section label 主色随之变化
+
+### user preview path（007C）
+
+- 用户于 `/preview` 手动选择后，经 `user-preview-render` adapter 调用同一 token 解析逻辑
+- 仍不进入 `createFirstWaveRequiredVariantRegistry()` / Gallery / AI 默认路径
