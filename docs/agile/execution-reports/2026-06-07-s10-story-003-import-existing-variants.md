@@ -9,7 +9,7 @@
 - Sprint：Sprint 10 — Database-backed Style Management Admin v1
 - 关联 Story / Bug / Decision：S10-STORY-003 · DECISION-108
 - 执行者：Cursor
-- 状态：**In Review**（FIX-A 已修复 · 待 merge 确认）
+- 状态：**Done**（FIX-A PASS · 已 merge sprint @ `daa1a0a`）
 
 ## 2. 本轮目标
 
@@ -133,4 +133,4 @@
 
 ## 15. Commit
 
-- Commit hash：`15e01f5`
+- Commit hash：`daa1a0a`（fast-forward merge 至 sprint · 无独立 merge commit）

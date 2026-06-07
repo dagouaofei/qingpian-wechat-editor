@@ -555,3 +555,4 @@
 | 2026-06-07 | Sprint 10 | dry-run：collected=100 · release1_required=92 · historical_33=33 · user_selectable=1 · deprecated=5 | 文档 / 报告 | S10-STORY-003 |
 | 2026-06-07 | Sprint 10 | 工作分支 `feature/s10-story-003-import-existing-variants` · **未 merge sprint** · **未连接生产 RDS** | Git | S10-STORY-003 |
 | 2026-06-07 | Sprint 10 | **S10-STORY-003 FIX-A**：registry `release1_required` → lifecycle `release1_required`（非 `default_eligible`）· Prisma enum migration | 代码 / 数据库 | S10-STORY-003 |
+| 2026-06-07 | Sprint 10 | **S10-STORY-003 Done**：merge `feature/s10-story-003-import-existing-variants` → `sprint/s10-db-backed-style-admin-v1` @ `daa1a0a` | Git / 代码 | S10-STORY-003 |

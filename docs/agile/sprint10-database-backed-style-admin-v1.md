@@ -1,7 +1,7 @@
 # Sprint 10：Database-backed Style Management Admin v1（数据库版正式样式管理后台 v1）
 
 > 轻篇公众号排版 · qingpian-wechat-editor  
-> **状态：** **In Progress**（2026-06-07 · **DECISION-108** · S10-STORY-001~002 Done · S10-STORY-003 In Review）  
+> **状态：** **In Progress**（2026-06-07 · **DECISION-108** · S10-STORY-001~003 Done）  
 > **分支：** `sprint/s10-db-backed-style-admin-v1`（从 `release/1` · @ `c96e869`）  
 > **架构：** [`style-management-admin-v1.md`](../architecture/style-management-admin-v1.md)  
 > **决策：** **DECISION-108**
@@ -59,7 +59,7 @@ Next.js · Prisma · PostgreSQL · 阿里云 RDS / OSS / ECS · SLS / CloudMonit
 |-------|------|------|
 | S10-STORY-001 | S10 架构与技术选型定稿 | **Done**（2026-06-07 · DECISION-108） |
 | S10-STORY-002 | Prisma + PostgreSQL DB Schema + Repository | **Done**（2026-06-07） |
-| S10-STORY-003 | 既有 Variant 全量导入数据库 | **In Review**（2026-06-07 · `feature/s10-story-003-import-existing-variants`） |
+| S10-STORY-003 | 既有 Variant 全量导入数据库 | **Done**（2026-06-07 · merge @ `daa1a0a` · FIX-A PASS） |
 | S10-STORY-004 | 正式后台 Variant 管理页 | Planned |
 | S10-STORY-005 | 用户侧 Variant Pool DB 接入 | Planned |
 | S10-STORY-006 | 上下架 / 回滚 / 报警最小闭环 | Planned |

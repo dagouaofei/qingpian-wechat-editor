@@ -12,7 +12,7 @@
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
 > **Sprint 8：** **Closed**（2026-06-05 · DECISION-093 · audit Grade A- · P0=0 · merged `release/1` @ `806fa47`）
 > **Sprint 9：** **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · **P0=0** · HTML→user preview picker E2E PASS · Preview/Copy parity PASS · default preset / release1_required 未污染 · **已 merge `release/1`** @ `c96e869` · **未 merge `main`**）
-> **当前 Sprint：** **Sprint 10** — Database-backed Style Management Admin v1 · **In Progress**（2026-06-07 · **DECISION-108** · S10-STORY-001~003 In Review）
+> **当前 Sprint：** **Sprint 10** — Database-backed Style Management Admin v1 · **In Progress**（2026-06-07 · **DECISION-108** · S10-STORY-001~003 Done）
 > **Sprint 10 分支：** `sprint/s10-db-backed-style-admin-v1`（从 `release/1` · 2026-06-07 · @ `c96e869`）
 > **Sprint 9 分支：** `sprint/s9-style-management-system-v0`（已 merge `release/1` · 2026-06-05）
 > **上一 Sprint：** **Sprint 8** — **Closed**（2026-06-05）；**Sprint 7** — **Done**（2026-06-03 · merge `release/1`）
@@ -4160,7 +4160,7 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 ## S10-STORY-003 既有 Variant 全量导入数据库
 
-**优先级：** P0 · **状态：** **In Review** · **工作分支：** `feature/s10-story-003-import-existing-variants`（从 `sprint/s10-db-backed-style-admin-v1`）
+**优先级：** P0 · **状态：** **Done**（2026-06-07 · merge `feature/s10-story-003-import-existing-variants` → `sprint/s10-db-backed-style-admin-v1` @ `daa1a0a` · FIX-A PASS）· **工作分支：** `feature/s10-story-003-import-existing-variants`（已 merge）
 
 **目标：** 扫描现有 variants · first-wave required · user-selectable · candidate / experimental · deprecated 入库 · 保留 runtimeVariantId · blockType · family · 状态 · 兼容信息 · 幂等导入脚本 · 导入报告。
 
