@@ -611,4 +611,4 @@
 | 2026-06-07 | Sprint 10 | 写操作 `requireStyleAdmin()` · actor `admin:<username>` 替代 `local-admin` | 代码 / 审计 | S10-STORY-008 |
 | 2026-06-07 | Sprint 10 | 新增 `style-admin:hash-password` CLI · `.env.example` STYLE_ADMIN_* 占位 | 工具 / 配置 | S10-STORY-008 |
 | 2026-06-07 | Sprint 10 | **S10 后台保护完成**：login / logout / session guard · 写操作 actor `admin:<username>` | 安全 / 验收 | S10-STORY-008 |
-| 2026-06-07 | Sprint 10 | **S10-STORY-008 Done**：merge `feature/s10-story-008-admin-login-protection` → `sprint/s10-db-backed-style-admin-v1` · 本地 E2E PASS | Git / 安全 | S10-STORY-008 |
+| 2026-06-07 | Sprint 10 | **S10-STORY-008 Done**：fast-forward merge `feature/s10-story-008-admin-login-protection` → `sprint/s10-db-backed-style-admin-v1` @ `71e7300` · 本地 E2E PASS | Git / 安全 | S10-STORY-008 |

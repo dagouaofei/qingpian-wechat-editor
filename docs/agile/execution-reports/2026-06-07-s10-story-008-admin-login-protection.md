@@ -131,6 +131,6 @@ corepack pnpm dev
 
 ## 14. Commit
 
-- Feature commit hash：（见 merge 后填写）
-- Merge commit hash：（见 merge 后填写）
+- Feature commit hash：`71e7300`
+- Merge commit hash：`71e7300`（fast-forward · 无独立 merge commit）
 - **S10 后台保护：** 完成（2026-06-07 · 用户本地 E2E PASS）

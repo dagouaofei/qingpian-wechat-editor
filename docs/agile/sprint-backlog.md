@@ -4305,7 +4305,7 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 ## S10-STORY-008 单管理员登录与后台保护
 
-**优先级：** P0 · **状态：** **Done** · **工作分支：** `feature/s10-story-008-admin-login-protection`（已 merge `sprint/s10-db-backed-style-admin-v1`）
+**优先级：** P0 · **状态：** **Done** · **工作分支：** `feature/s10-story-008-admin-login-protection`（已 merge `sprint/s10-db-backed-style-admin-v1` @ `71e7300`）
 
 **目标：** 单管理员登录 · `/admin/*` 访问保护 · 后台写 API 保护 · 登录态有效期 · 写操作 audit log · 不做复杂 RBAC。
 
