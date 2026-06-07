@@ -140,8 +140,7 @@ corepack pnpm dev
 
 ## 11. 未完成事项
 
-- 本地 DB 联调 E2E（需用户环境 PostgreSQL）
-- commit / merge sprint（待用户确认）
+- 本地 DB 联调 E2E（需用户环境 PostgreSQL · 非阻塞 merge）
 - S10-STORY-010 Preview / Copy / Validator / Evidence
 - S10-STORY-011 promote
 
@@ -152,16 +151,17 @@ corepack pnpm dev
 
 ## 13. 需要用户 / ChatGPT 审查的问题
 
-- 是否批准 merge `feature/s10-story-009-html-harvest-candidate` → `sprint/s10-db-backed-style-admin-v1`？
-- `styleFamily=htmlPaste` 是否与既有 `htmlPasteCandidate` / `harvestCandidate` 命名需统一？
-- 本地 DB E2E 验收结果是否 PASS？
+- `styleFamily=htmlPaste` 是否与既有 `htmlPasteCandidate` / `harvestCandidate` 命名需统一？（可留 S10-STORY-010 前决策）
+- 本地 DB E2E 验收结果是否 PASS？（建议用户补跑）
 
 ## 14. 建议下一步
 
-1. 用户本地 E2E 验收 heading + info_card 样例
-2. 审查通过后 commit + merge sprint
-3. 启动 S10-STORY-010 Candidate Preview / Copy / Validator / Evidence
+1. 启动 **S10-STORY-010** Candidate Preview / Copy / Validator / Evidence
+2. 可选：用户本地 E2E 验收 heading + info_card 样例
+3. S10-STORY-011 promote 在 010 之后
 
 ## 15. Commit
 
-- Commit hash：**未提交 / not committed**
+- Feature commit：`147c2e7` — `feat(s10): add HTML harvest candidate workflow for admin style library (STORY-009)`
+- Docs commit：`5f350fd` — `docs(s10): mark S10-STORY-009 Done after merge to sprint`
+- Merge：`feature/s10-story-009-html-harvest-candidate` → `sprint/s10-db-backed-style-admin-v1` fast-forward @ `147c2e7`
