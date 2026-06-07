@@ -67,7 +67,7 @@ Next.js · Prisma · PostgreSQL · 阿里云 RDS / OSS / ECS · SLS / CloudMonit
 | S10-STORY-006 | 上下架 / 回滚 / 报警最小闭环 | **Done**（2026-06-07 · 本地 E2E PASS · merge @ `1d309a0`） |
 | S10-STORY-007 | 阿里云资源准备与部署 Runbook | **Done**（2026-06-07 · merge @ `03ec49b`） |
 | S10-STORY-008 | 单管理员登录与后台保护 | **Done**（2026-06-07 · 本地 E2E PASS · merge @ `71e7300`） |
-| S10-STORY-009 | HTML Harvest → Candidate Variant v1 | Planned（后半段） |
+| S10-STORY-009 | HTML Harvest → Candidate Variant v1 | **Done**（2026-06-07 · merge @ `147c2e7`） |
 | S10-STORY-010 | Candidate Preview / Copy / Validator / Evidence | Planned（后半段） |
 | S10-STORY-011 | 采集样式 Promote 到 user-selectable | Planned（后半段） |
 | S10-STORY-012 | S10 Audit / Closeout | Planned |
@@ -177,7 +177,35 @@ pnpm style-admin:import-existing-variants           # 写入 DATABASE_URL 指向
 
 **未做：** 真实创建云资源 · 生产 RDS 连接 · OSS/SLS SDK · CI/CD
 
-**后续：** S10-STORY-009~011 HTML Harvest 接 OSS evidence
+**后续：** S10-STORY-010 Preview / Copy / Validator / Evidence · S10-STORY-011 promote
+
+---
+
+## 5.7 S10-STORY-009 HTML Harvest 摘要（2026-06-07）
+
+**路由：** `/admin/style-library/harvest`（`(protected)` · 须 admin login）
+
+**入口：** `/admin/style-library` 列表页 **Harvest from HTML** 按钮
+
+**模块：** `src/server/style-admin/harvest/` — sanitize · detect blockType · extract heading/info_card · `createHtmlHarvestCandidate`
+
+**写入：**
+
+| 字段 | 值 |
+|------|-----|
+| sourceType | `html_paste` |
+| sourceCohort | `s10_html_harvest_v1` |
+| lifecycle | `candidate` |
+| qualityStatus | `not_checked` |
+| userSelectable / defaultEligible / release1Required | `false` |
+
+**幂等：** `runtimeVariantId = {blockType}_html_paste_{hash8}_candidate` · 同 HTML + blockType 复用已有 candidate
+
+**安全：** `requireStyleAdmin()` + write guard · raw HTML sanitize（去 script / 事件属性）· admin 展示 escape · 不进入 Preview/Copy 主链路
+
+**本轮未做：** Preview / Copy / Validator / Evidence / OSS · promote（S10-STORY-010 / 011）
+
+**本地验收：** 见 execution report `2026-06-07-s10-story-009-html-harvest-candidate.md`
 
 ---
 

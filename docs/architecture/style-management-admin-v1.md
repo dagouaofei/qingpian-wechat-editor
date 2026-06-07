@@ -53,7 +53,7 @@ S10 在 S9 领域模型与运营工作流验证基础上，解决**正式生产�
 | 用户侧 DB 分发 | style picker 从 DB 读取 user-selectable pool |
 | 单管理员登录 | `/admin/*` 访问保护 |
 | 阿里云部署与运维 | ECS · RDS · OSS · SLS / CloudMonitor |
-| HTML Harvest 入库 | 后半段（S10-STORY-009~011） |
+| HTML Harvest 入库 | S10-STORY-009 candidate v1 **Done**（`147c2e7`）· S10-STORY-010~011 后续 |
 
 ### 2.3 迁移策略
 
@@ -410,15 +410,31 @@ corepack pnpm dev
 
 ---
 
-## 8. HTML Harvest 第二阶段（后半段）
+## 8. HTML Harvest 第二阶段
 
-| Story | 范围 |
-|-------|------|
-| S10-STORY-009 | 粘贴 HTML → raw 保存 · blockType 识别 · candidate 写入 DB |
-| S10-STORY-010 | DB candidate → Preview / Copy / Validator · evidence 入库 |
-| S10-STORY-011 | candidate → user_selectable promote · 用户侧 1–5 分钟可见 |
+| Story | 范围 | 状态 |
+|-------|------|------|
+| S10-STORY-009 | 粘贴 HTML → raw 保存 · blockType 识别 · candidate 写入 DB | **Done**（2026-06-07 · `147c2e7`） |
+| S10-STORY-010 | DB candidate → Preview / Copy / Validator · evidence 入库 | Planned |
+| S10-STORY-011 | candidate → user_selectable promote · 用户侧 1–5 分钟可见 | Planned |
 
-**约束：** 不直接 user-selectable · 不进入 default preset · 不自动 defaultEligible · 不自动变更 release1Required。
+### 8.1 S10-STORY-009 HTML Harvest v1（已实现）
+
+| 项 | 策略 |
+|----|------|
+| 入口 | `/admin/style-library/harvest` · 列表页 **Harvest from HTML** |
+| 支持 blockType | `heading` · `info_card`（其它仅扩展接口） |
+| sourceType | `html_paste`（canonical） |
+| sourceCohort | `s10_html_harvest_v1` |
+| lifecycle | `candidate` |
+| qualityStatus | `not_checked` |
+| distribution | `userSelectable=false` · `defaultEligible=false` · `release1Required=false` |
+| raw HTML | 存 `style_variant_sources.raw_html` · sanitize 后入库 · admin 展示 escape |
+| 幂等 | `{blockType}_html_paste_{hash8}_candidate` · duplicate 返回 existing |
+| 审计 | `create_html_harvest_candidate` · lifecycle event `created candidate` |
+| Runtime Gate | 新 candidate **不**进入 `/preview` picker · AI pool 不使用 |
+
+**约束：** 不直接 user-selectable · 不进入 default preset · 不自动 defaultEligible · 不自动变更 release1Required · Preview/Copy/Validator 留给 S10-STORY-010 · promote 留给 S10-STORY-011。
 
 ---
 

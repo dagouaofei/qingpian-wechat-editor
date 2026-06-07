@@ -603,6 +603,18 @@
 
 ---
 
+## 2026-06-07 · S10-STORY-009 HTML Harvest → Candidate Variant v1
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-07 | Sprint 10 | **S10-STORY-009**：`/admin/style-library/harvest` HTML 粘贴采集 · heading/info_card candidate 入库 | 代码 / 后台 | S10-STORY-009 |
+| 2026-06-07 | Sprint 10 | `src/server/style-admin/harvest/` — sanitize · blockType 检测 · candidate builder · 幂等 `createHtmlHarvestCandidate` | 代码 / 架构 | S10-STORY-009 |
+| 2026-06-07 | Sprint 10 | `sourceType=html_paste` · `sourceCohort=s10_html_harvest_v1` · `qualityStatus=not_checked` · distribution 全 false | 数据 / 治理 | S10-STORY-009 |
+| 2026-06-07 | Sprint 10 | 写操作 `create_html_harvest_candidate` audit · lifecycle event · 未登录 / write disabled 拒绝 | 安全 / 审计 | S10-STORY-008 · S10-STORY-009 |
+| 2026-06-07 | Sprint 10 | **S10-STORY-009 Done**：fast-forward merge `feature/s10-story-009-html-harvest-candidate` → `sprint/s10-db-backed-style-admin-v1` @ `147c2e7` | Git / 后台 | S10-STORY-009 |
+
+---
+
 ## 2026-06-07 · S10-STORY-008 单管理员登录与后台保护
 
 | 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |

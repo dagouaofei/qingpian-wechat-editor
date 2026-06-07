@@ -4340,19 +4340,23 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 ## S10-STORY-009 HTML Harvest → Candidate Variant v1
 
-**优先级：** P1 · **状态：** **Planned**（后半段 · 第一闭环完成后）· **工作分支：** TBD
+**优先级：** P1 · **状态：** **Done**（2026-06-07 · merge @ `147c2e7`）· **工作分支：** `feature/s10-story-009-html-harvest-candidate`
 
 **目标：** 粘贴公众号 / 135 / 秀米 / DOM HTML · 保存 raw HTML · 自动识别 blockType · 运营可修正 blockType · 先支持 heading / info_card · candidate 写入 DB · 不直接 user-selectable · 不进入 default preset。
 
-**前置：** S10 第一验收闭环完成（S10-STORY-003~006）
+**前置：** S10 第一验收闭环完成（S10-STORY-003~008）
+
+**实现路径：** `/admin/style-library/harvest` · `src/server/style-admin/harvest/` · `create_html_harvest_candidate` audit
+
+**关键字段：** `sourceType=html_paste` · `sourceCohort=s10_html_harvest_v1` · `lifecycle=candidate` · `qualityStatus=not_checked` · distribution 全 false
 
 **验收标准：**
 
-- [ ] AC-1 粘贴 HTML 可保存 raw 至 DB / OSS
-- [ ] AC-2 blockType 自动识别 · 运营可修正
-- [ ] AC-3 heading / info_card 先支持
-- [ ] AC-4 candidate lifecycle 写入 DB · 不直接 user-selectable
-- [ ] AC-5 lint / test / build PASS
+- [x] AC-1 `/admin/style-library/harvest` 受 admin login 保护 · 可粘贴 HTML 保存 raw 至 DB（OSS 留给 S10-STORY-010）
+- [x] AC-2 blockType 自动识别（heading / info_card / unknown）· 运营可手动修正
+- [x] AC-3 heading / info_card candidate 可创建 · 其它 blockType 仅保留扩展接口
+- [x] AC-4 candidate 写入 DB · `userSelectable=false` · 不进入 `/preview` picker · duplicate HTML 幂等复用
+- [x] AC-5 admin audit / lifecycle event 已记录 · lint / test / build PASS
 
 ---
 
