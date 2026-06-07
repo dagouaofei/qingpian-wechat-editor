@@ -9,7 +9,7 @@
 - Sprint：Sprint 10 — Database-backed Style Management Admin v1
 - 关联 Story / Bug / Decision：S10-STORY-005 · DECISION-108
 - 执行者：Cursor
-- 状态：**In Review**
+- 状态：**Done**（merge @ `6de237d` · 本地验收 PASS）
 
 ## 2. 本轮目标
 
@@ -126,7 +126,7 @@ corepack pnpm dev
 
 ## 11. 未完成事项
 
-- FIX-A 已 commit（待用户确认 merge sprint）
+- FIX-A/B 已 merge sprint @ `6de237d`
 - AC-3/AC-4 完整闭环待 S10-STORY-006
 
 ## 12. 风险与阻塞

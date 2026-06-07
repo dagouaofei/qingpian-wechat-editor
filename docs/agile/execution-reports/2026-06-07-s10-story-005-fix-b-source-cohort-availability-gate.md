@@ -9,7 +9,7 @@
 - Sprint：Sprint 10 — Database-backed Style Management Admin v1
 - 关联 Story / Bug / Decision：S10-STORY-005 · BUG-S10-COPY-FIDELITY-001 · BUG-S10-COPY-FIDELITY-002
 - 执行者：Cursor
-- 状态：**Done**（本地验收 PASS · 待 merge sprint）
+- 状态：**Done**（merge @ `6de237d` · 本地验收 PASS）
 
 ## 2. 本轮目标
 
@@ -77,7 +77,7 @@ corepack pnpm dev
 
 ## 8. Commit
 
-- Commit hash：**未提交 / not committed**（FIX-A `b533ed5` 已提交；FIX-B 待用户确认后 commit）
+- Commit hash：`6de237d`（FIX-B）；FIX-A：`b533ed5` · merge sprint FF @ `6de237d`
 
 ## 9. 建议下一步
 
