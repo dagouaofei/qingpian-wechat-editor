@@ -612,3 +612,14 @@
 | 2026-06-07 | Sprint 10 | 新增 `style-admin:hash-password` CLI · `.env.example` STYLE_ADMIN_* 占位 | 工具 / 配置 | S10-STORY-008 |
 | 2026-06-07 | Sprint 10 | **S10 后台保护完成**：login / logout / session guard · 写操作 actor `admin:<username>` | 安全 / 验收 | S10-STORY-008 |
 | 2026-06-07 | Sprint 10 | **S10-STORY-008 Done**：fast-forward merge `feature/s10-story-008-admin-login-protection` → `sprint/s10-db-backed-style-admin-v1` @ `71e7300` · 本地 E2E PASS | Git / 安全 | S10-STORY-008 |
+
+---
+
+## 2026-06-07 · S10-STORY-007 阿里云部署 Runbook
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-07 | Sprint 10 | **S10-STORY-007**：新增 `docs/ops/` 部署 Runbook · 资源清单 · 环境变量 · 上线验收 · 故障回滚 | 文档 / 运维 | S10-STORY-007 |
+| 2026-06-07 | Sprint 10 | 新增 `GET /api/health` · `pnpm db:migrate:deploy` · `.env.example` pool/OSS 占位 | 代码 / 运维 | S10-STORY-007 |
+| 2026-06-07 | Sprint 10 | 阿里云资源隔离：独立 ECS / RDS / OSS · 华北 2 · 不共用秒篇服务 | 文档 / 架构 | S10-STORY-007 |
+| 2026-06-07 | Sprint 10 | **S10-STORY-007 Done**：merge `docs/s10-story-007-aliyun-deployment-runbook` → `sprint/s10-db-backed-style-admin-v1` · 审查通过 | Git / 运维 | S10-STORY-007 |

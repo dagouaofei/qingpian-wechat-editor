@@ -16,6 +16,7 @@
     "postinstall": "prisma generate",
     "db:validate": "prisma validate",
     "db:generate": "prisma generate",
+    "db:migrate:deploy": "prisma migrate deploy",
     "style-admin:import-existing-variants": "tsx scripts/style-admin/import-existing-variants.ts",
     "style-admin:import-existing-variants:dry-run": "tsx scripts/style-admin/import-existing-variants.ts --dry-run",
     "style-admin:hash-password": "tsx scripts/style-admin/hash-admin-password.ts"

@@ -422,18 +422,30 @@ corepack pnpm dev
 
 ---
 
-## 9. 阿里云部署概要（S10-STORY-007 实现）
+## 9. 阿里云部署概要（S10-STORY-007 · 已实现 · Done）
 
 | 项 | 策略 |
 |----|------|
 | ECS | 单实例 · Next.js `pnpm build` + `pnpm start` · 手工部署 |
 | RDS | PostgreSQL · 独立实例 · 安全组仅允许 ECS 访问 |
-| OSS | 独立 bucket · evidence 截图 · 可选 raw HTML |
-| SLS | 独立 project / logstore · admin audit · runtime error |
-| CloudMonitor | 基础告警 · 磁盘 · CPU · DB 连接 |
-| Migration | `prisma migrate deploy` runbook · 部署前执行 |
-| Health check | `/api/health` 或等价端点 · DB 连通性 |
+| OSS | 独立 bucket · evidence 截图 · **S10-STORY-009~011 再接入** |
+| SLS | 独立 project / logstore · 事件当前先入 DB · SDK 后置 |
+| CloudMonitor | 基础告警 · ECS / RDS CPU · 磁盘 · 连接数 |
+| Migration | `pnpm db:migrate:deploy` |
+| Import | `pnpm style-admin:import-existing-variants` |
+| Health check | `GET /api/health` · `database: ok\|unavailable\|not_configured` |
+| Admin auth | S10-STORY-008 部署前置 · `STYLE_ADMIN_*` |
 | Secret | 仅环境变量 · **不写入文档或代码仓库** |
+
+**运维文档：** [`docs/ops/README.md`](../ops/README.md)
+
+| 文档 | 路径 |
+|------|------|
+| 部署 Runbook | `docs/ops/aliyun-deployment-runbook.md` |
+| 资源清单 | `docs/ops/aliyun-resource-checklist.md` |
+| 环境变量 | `docs/ops/environment-variables.md` |
+| 上线验收 | `docs/ops/production-release-checklist.md` |
+| 故障回滚 | `docs/ops/incident-and-rollback-runbook.md` |
 
 ---
 

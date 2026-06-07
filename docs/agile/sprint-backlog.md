@@ -12,7 +12,7 @@
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
 > **Sprint 8：** **Closed**（2026-06-05 · DECISION-093 · audit Grade A- · P0=0 · merged `release/1` @ `806fa47`）
 > **Sprint 9：** **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · **P0=0** · HTML→user preview picker E2E PASS · Preview/Copy parity PASS · default preset / release1_required 未污染 · **已 merge `release/1`** @ `c96e869` · **未 merge `main`**）
-> **当前 Sprint：** **Sprint 10** — Database-backed Style Management Admin v1 · **In Progress**（2026-06-07 · **DECISION-108** · S10-STORY-001~006 · S10-STORY-008 Done · **后台保护完成** · S10-STORY-007 · 009~012 Planned）
+> **当前 Sprint：** **Sprint 10** — Database-backed Style Management Admin v1 · **In Progress**（2026-06-07 · **DECISION-108** · S10-STORY-001~008 Done · **部署 Runbook 完成** · 009~012 Planned）
 > **Sprint 10 分支：** `sprint/s10-db-backed-style-admin-v1`（从 `release/1` · 2026-06-07 · @ `c96e869`）
 > **Sprint 9 分支：** `sprint/s9-style-management-system-v0`（已 merge `release/1` · 2026-06-05）
 > **上一 Sprint：** **Sprint 8** — **Closed**（2026-06-05）；**Sprint 7** — **Done**（2026-06-03 · merge `release/1`）
@@ -4287,19 +4287,28 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 ## S10-STORY-007 阿里云资源准备与部署 Runbook
 
-**优先级：** P0 · **状态：** **Planned** · **工作分支：** TBD（`docs/s10-story-007-aliyun-deploy-runbook`）
+**优先级：** P0 · **状态：** **Done** · **工作分支：** `docs/s10-story-007-aliyun-deployment-runbook`（已 merge `sprint/s10-db-backed-style-admin-v1`）
 
-**目标：** ECS 手工部署 · RDS PostgreSQL · OSS · SLS / CloudMonitor · 安全组 · 环境变量 · 数据库连接 · migration runbook · health check · 不暴露任何 secret。
+**目标：** ECS 手工部署 · RDS PostgreSQL · OSS · SLS / CloudMonitor · 安全组 · 环境变量 · migration / import runbook · `GET /api/health` · 不暴露任何 secret。
 
-**非目标：** 不执行阿里云控制台操作（本轮文档）· 不做 CI/CD
+**非目标：** 不执行阿里云控制台操作 · 不连接生产 RDS · 不做 CI/CD · 不接 OSS / SLS SDK
+
+**交付物：**
+
+- `docs/ops/aliyun-deployment-runbook.md`
+- `docs/ops/aliyun-resource-checklist.md`
+- `docs/ops/environment-variables.md`
+- `docs/ops/production-release-checklist.md`
+- `docs/ops/incident-and-rollback-runbook.md`
+- `GET /api/health` · `pnpm db:migrate:deploy`
 
 **验收标准：**
 
-- [ ] AC-1 部署 runbook 覆盖 ECS · RDS · OSS · SLS
-- [ ] AC-2 资源隔离策略与 S10 架构文档一致
-- [ ] AC-3 migration runbook · health check 步骤明确
-- [ ] AC-4 文档无 secret · 仅占位符 / 环境变量名
-- [ ] AC-5 lint / test / build PASS（文档轮）
+- [x] AC-1 部署 runbook 覆盖 ECS · RDS · OSS · SLS · CloudMonitor
+- [x] AC-2 资源隔离策略与 S10 架构文档一致
+- [x] AC-3 migration / import / health check 步骤明确
+- [x] AC-4 文档无 secret · 仅占位符 / 环境变量名
+- [x] AC-5 lint / test / build PASS
 
 ---
 
