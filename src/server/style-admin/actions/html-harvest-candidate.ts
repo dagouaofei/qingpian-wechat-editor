@@ -70,10 +70,18 @@ function sanitizeErrorMessage(error: unknown): string {
 export async function previewHtmlHarvestAction(
   input: HtmlHarvestActionInput,
 ): Promise<HtmlHarvestPreviewActionResult> {
-  return previewHtmlHarvestCandidate({
-    rawHtml: input.rawHtml,
-    blockType: input.blockType,
-  });
+  try {
+    return previewHtmlHarvestCandidate({
+      rawHtml: input.rawHtml,
+      blockType: input.blockType,
+    });
+  } catch (error) {
+    return {
+      ok: false,
+      code: "preview_failed",
+      message: sanitizeErrorMessage(error),
+    };
+  }
 }
 
 export async function createHtmlHarvestCandidateAction(

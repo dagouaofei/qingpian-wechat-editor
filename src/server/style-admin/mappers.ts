@@ -41,6 +41,31 @@ export function isEligibleForUserSelectablePool(
   return true;
 }
 
+/**
+ * Runtime DSL pool — all non-hidden, non-deprecated variants with a current version.
+ * Includes release1_required / release1 seed; excludes userSelectable-only filter.
+ */
+export function buildRuntimeVariantPoolWhere(
+  filter?: { blockType?: BlockType; styleFamily?: string },
+): Prisma.StyleVariantWhereInput {
+  return {
+    lifecycle: { not: "deprecated" },
+    distribution: {
+      hidden: false,
+      deprecated: false,
+    },
+    currentVersion: {
+      is: {
+        qualityStatus: {
+          notIn: [...BLOCKING_QUALITY_STATUSES] as StyleVariantQualityStatus[],
+        },
+      },
+    },
+    ...(filter?.blockType ? { blockType: filter.blockType } : {}),
+    ...(filter?.styleFamily ? { styleFamily: filter.styleFamily } : {}),
+  };
+}
+
 export function buildUserSelectablePoolWhere(
   filter?: { blockType?: BlockType; styleFamily?: string },
 ): Prisma.StyleVariantWhereInput {

@@ -603,6 +603,51 @@
 
 ---
 
+## 2026-06-07 · S10-STORY-011A Checkpoint（未 merge sprint）
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-07 | Sprint 10 | **011A checkpoint commit**：DSL Runtime + Encoder/Decoder + FIX-A 双轨 + FIX-A Harvest no-500 | 代码 / 架构 | S10-STORY-011A |
+| 2026-06-07 | Sprint 10 | Story 保持 **In Review**；最终 HTML→Promote→用户侧 E2E 未完成；下一步 FIX-B | 敏捷 | S10-STORY-011A |
+
+---
+
+## 2026-06-07 · S10-STORY-011A FIX-A Harvest Compatibility No 500
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-07 | Sprint 10 | **011A FIX-A（Harvest）**：Detect / Preview Candidate 不因 WeChat Yellow/Red compatibility 抛错 500 | Harvest / Encoder | S10-STORY-011A |
+| 2026-06-07 | Sprint 10 | Encoder 仅 `no_extractable_text` blocking · compatibility issues 进入 `issues` / `lossReport` / `severity` | 代码 / Harvest | S10-STORY-011A |
+| 2026-06-07 | Sprint 10 | Harvest UI 展示 compatibility issues · loss report · canCreateCandidate 引导文案 | UI / Admin | S10-STORY-011A |
+| 2026-06-07 | Sprint 10 | 回归测试：用户复杂 heading HTML · script/onclick lossReport · blocking empty text · 1179 tests PASS | 测试 | S10-STORY-011A |
+
+---
+
+## 2026-06-07 · S10-STORY-011A FIX-A Eliminate Runtime Dual Track
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-07 | Sprint 10 | **011A FIX-A**：DB 可用时 `/preview` 用户侧 runtime 单轨 DSL Decoder · 移除 `user-preview-render` → `renderBlock` 回退 | 代码 / runtime | S10-STORY-011A |
+| 2026-06-07 | Sprint 10 | 新增 `runtime-variant-dsl-pool` · `DslRuntimeSnapshot` · preview page 加载全量 runtime DSL | 代码 / 架构 | S10-STORY-011A |
+| 2026-06-07 | Sprint 10 | release1_required / first-wave variants 纳入 runtime DSL pool（非 userSelectable 过滤） | runtime | S10-STORY-011A |
+| 2026-06-07 | Sprint 10 | 测试 `dsl-runtime-single-track` · `runtime-variant-dsl-pool` · 1172 tests PASS | 测试 | S10-STORY-011A |
+
+---
+
+## 2026-06-07 · S10-STORY-011A DSL Runtime + Encoder / Decoder Core
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-07 | Sprint 10 | **S10-STORY-011A**：Article / Variant DSL Runtime · WeChat Compatibility Spec · Encoder / Decoder Core | 代码 / 架构 | S10-STORY-011A |
+| 2026-06-07 | Sprint 10 | 新增 `src/core/wechat-compatibility/` · `src/core/dsl/` · `src/lib/dsl-runtime/` | 代码 | S10-STORY-011A |
+| 2026-06-07 | Sprint 10 | `definitionJson` = Variant DSL · Harvest / Import 编码 DSL · 用户侧 / Admin 共用 Decoder | 代码 / runtime | S10-STORY-011A |
+| 2026-06-07 | Sprint 10 | 修复 promoted html_paste heading 用户侧 Preview 空渲染（DSL 路径） | Bugfix / runtime | S10-STORY-011A |
+| 2026-06-07 | Sprint 10 | 新增架构文档 `article-variant-dsl-runtime.md` · `wechat-compatibility-spec.md` | 文档 | S10-STORY-011A |
+| 2026-06-07 | Sprint 10 | **S10-STORY-011 暂停 merge**（WIP stash）· 须在 011A 之上重新收口 Promote | 敏捷 / Git | S10-STORY-011 |
+| 2026-06-07 | Sprint 10 | 工作分支 `feature/s10-story-011a-dsl-runtime-encoder-decoder` · **未 merge sprint** · **未 commit** | Git | S10-STORY-011A |
+
+---
+
 ## 2026-06-07 · S10-STORY-010 Candidate Preview / Copy / Validator / Evidence
 
 | 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |

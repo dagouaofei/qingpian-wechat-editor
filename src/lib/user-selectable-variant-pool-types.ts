@@ -30,6 +30,8 @@ export type UserSelectableVariantPoolSnapshot = {
   cache: UserSelectableVariantPoolCacheMeta;
   variants: VariantDefinition[];
   poolVariantIds: string[];
+  /** Raw DB definitionJson keyed by runtimeVariantId — DSL runtime source when source=database. */
+  definitionJsonByVariantId?: Record<string, unknown>;
   issues: RuntimeVariantPoolIssue[];
   notice?: string;
 };

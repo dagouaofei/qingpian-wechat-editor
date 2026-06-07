@@ -18,6 +18,7 @@ import {
 
 import type { SerializedPreviewBlock } from "@/server/generation/generate-flow-types";
 
+import type { DslRuntimeSnapshot } from "@/lib/dsl-runtime-context-types";
 import {
   applyPreviewThemeToArticle,
   buildNormalizedInputForPreviewControl,
@@ -74,6 +75,8 @@ export function renderArticlePreviewClient(
   options?: {
     postStyleSelectionPatch?: (article: Article) => Article;
     userSelectablePool?: UserSelectableVariantPoolSnapshot;
+    /** Full runtime DSL pool — sole rendering source when source=database. */
+    dslRuntime?: DslRuntimeSnapshot;
   },
 ): RenderArticlePreviewClientResult {
   const generationRegistry = createFirstWaveRequiredVariantRegistry();
@@ -84,9 +87,7 @@ export function renderArticlePreviewClient(
     dbUserSelectableVariants: dbVariants,
     preferDatabaseVariants: options?.userSelectablePool?.source === "database",
   });
-  const poolContext = options?.userSelectablePool
-    ? { userSelectableVariantIds: options.userSelectablePool.poolVariantIds }
-    : undefined;
+
   const themedArticle = applyPreviewThemeToArticle(article, control.colorPalette);
   const styleInput = buildNormalizedInputForPreviewControl(normalizedInput, control);
 
@@ -130,7 +131,7 @@ export function renderArticlePreviewClient(
     target: renderTargetForMode("preview"),
     registry: previewRegistry,
     supportedBlockTypes: RELEASE1_FIRST_WAVE_PREVIEW_BLOCK_TYPES,
-    poolContext,
+    dslRuntime: options?.dslRuntime,
   });
 
   const copyRegistry = createRelease1FirstWaveCopyRendererRegistry();
@@ -139,7 +140,7 @@ export function renderArticlePreviewClient(
     resolvedArticleStyle,
     registry: copyRegistry,
     supportedBlockTypes: RELEASE1_FIRST_WAVE_COPY_BLOCK_TYPES,
-    poolContext,
+    dslRuntime: options?.dslRuntime,
   });
 
   return {

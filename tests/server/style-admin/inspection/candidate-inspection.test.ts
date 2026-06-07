@@ -129,7 +129,7 @@ describe("candidate inspection", () => {
     const preview = inspectCandidatePreview(source, fixture);
     expect(preview.ok).toBe(true);
     expect(preview.status).toBe("ok");
-    expect(preview.usedAdminFallback).toBe(true);
+    expect(preview.usedAdminFallback).toBe(false);
   });
 
   it("runs info_card preview inspection", () => {

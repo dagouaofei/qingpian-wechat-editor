@@ -37,6 +37,7 @@ import {
 } from "@/lib/render-streaming-preview";
 import type { PreviewUserSelectableHeadingOption } from "@/lib/preview-user-selectable-pool";
 import { renderArticlePreviewClient } from "@/lib/render-article-preview-client";
+import type { DslRuntimeSnapshot } from "@/lib/dsl-runtime-context-types";
 import type { UserSelectableVariantPoolSnapshot } from "@/lib/user-selectable-variant-pool-types";
 import {
   resolveInitialPreviewStyleControl,
@@ -84,9 +85,11 @@ function buildPoolSourceNotice(pool: UserSelectableVariantPoolSnapshot): string 
 
 export function PreviewPageClient({
   userSelectablePool,
+  dslRuntime,
   userSelectableHeadingOptions,
 }: {
   userSelectablePool: UserSelectableVariantPoolSnapshot;
+  dslRuntime: DslRuntimeSnapshot;
   userSelectableHeadingOptions: PreviewUserSelectableHeadingOption[];
 }) {
   const router = useRouter();
@@ -283,14 +286,14 @@ export function PreviewPageClient({
       result.data.article,
       streamingStyleInput,
       styleControl,
-      { userSelectablePool },
+      { userSelectablePool, dslRuntime },
     );
 
     return {
       previewBlocks: rendered.previewBlocks,
       clipboard: rendered.clipboard,
     };
-  }, [displayState, result, streamingStyleInput, styleControl, userSelectablePool]);
+  }, [displayState, result, streamingStyleInput, styleControl, userSelectablePool, dslRuntime]);
 
   const analysisSteps = buildAnalysisSteps(analysisStepIndex);
   const analysisDetail =

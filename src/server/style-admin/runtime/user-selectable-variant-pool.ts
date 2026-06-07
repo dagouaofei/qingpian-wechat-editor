@@ -68,6 +68,7 @@ async function loadDatabasePool(
   blockType?: BlockType,
 ): Promise<{
   variants: VariantDefinition[];
+  definitionJsonByVariantId: Record<string, unknown>;
   issues: RuntimeVariantPoolIssue[];
 }> {
   const rows = await db.styleVariant.findMany({
@@ -80,6 +81,7 @@ async function loadDatabasePool(
   });
 
   const variants: VariantDefinition[] = [];
+  const definitionJsonByVariantId: Record<string, unknown> = {};
   const issues: RuntimeVariantPoolIssue[] = [];
 
   for (const row of rows) {
@@ -89,10 +91,13 @@ async function loadDatabasePool(
     }
     if (mapped.variant) {
       variants.push(mapped.variant);
+      if (row.currentVersion?.definitionJson) {
+        definitionJsonByVariantId[row.runtimeVariantId] = row.currentVersion.definitionJson;
+      }
     }
   }
 
-  return { variants, issues };
+  return { variants, definitionJsonByVariantId, issues };
 }
 
 export async function getUserSelectableVariantPool(
@@ -120,7 +125,10 @@ export async function getUserSelectableVariantPool(
   }
 
   try {
-    const { variants, issues } = await loadDatabasePool(db, options.blockType);
+    const { variants, definitionJsonByVariantId, issues } = await loadDatabasePool(
+      db,
+      options.blockType,
+    );
     const result: UserSelectableVariantPoolResult = {
       source: variants.length > 0 ? "database" : "empty",
       cache: {
@@ -129,6 +137,7 @@ export async function getUserSelectableVariantPool(
         generatedAt: new Date().toISOString(),
       },
       variants,
+      definitionJsonByVariantId,
       issues,
       notice:
         variants.length === 0

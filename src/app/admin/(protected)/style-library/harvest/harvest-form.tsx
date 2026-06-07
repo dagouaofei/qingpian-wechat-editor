@@ -35,8 +35,13 @@ export function HarvestForm({ writeEnabled, writeProtectionMessage }: HarvestFor
   const [isPreviewPending, startPreview] = useTransition();
   const [isSubmitPending, startSubmit] = useTransition();
 
-  const detectedBlockType = preview?.ok ? preview.detectedBlockType : null;
+  const detectedBlockType =
+    preview && (preview.ok || preview.detectedBlockType) ? preview.detectedBlockType ?? null : null;
   const effectiveBlockType = preview?.ok ? preview.effectiveBlockType : null;
+  const compatibilityIssues = preview?.ok ? preview.issues : preview?.issues ?? [];
+  const lossReport = preview?.ok ? preview.lossReport : preview?.lossReport ?? [];
+  const canCreateCandidate = preview?.ok ? preview.canCreateCandidate : false;
+  const previewBlockingMessage = preview && !preview.ok ? preview.message : null;
 
   const distributionSummary = useMemo(
     () => ({
@@ -186,7 +191,66 @@ export function HarvestForm({ writeEnabled, writeProtectionMessage }: HarvestFor
         ) : null}
       </section>
 
-      {preview?.ok && effectiveBlockType ? (
+      {previewBlockingMessage ? (
+        <section
+          className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900"
+          data-testid="harvest-preview-blocking"
+        >
+          {previewBlockingMessage}
+        </section>
+      ) : null}
+
+      {preview?.ok && preview.guidance ? (
+        <section
+          className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900"
+          data-testid="harvest-compatibility-guidance"
+        >
+          {preview.guidance}
+        </section>
+      ) : null}
+
+      {compatibilityIssues.length > 0 ? (
+        <section
+          className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm space-y-2"
+          data-testid="harvest-compatibility-issues"
+        >
+          <h2 className="text-sm font-semibold text-slate-900">Compatibility issues</h2>
+          <ul className="space-y-1 text-xs">
+            {compatibilityIssues.map((issue, index) => (
+              <li
+                key={`${issue.code}-${index}`}
+                className={
+                  issue.severity === "blocking"
+                    ? "text-red-800"
+                    : issue.severity === "risk"
+                      ? "text-amber-800"
+                      : "text-slate-700"
+                }
+              >
+                <span className="font-mono">[{issue.severity}]</span> {issue.code}: {issue.message}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {lossReport.length > 0 ? (
+        <section
+          className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm space-y-2"
+          data-testid="harvest-loss-report"
+        >
+          <h2 className="text-sm font-semibold text-slate-900">Loss report</h2>
+          <ul className="space-y-1 text-xs text-slate-700">
+            {lossReport.map((entry, index) => (
+              <li key={`${entry.code}-${index}`}>
+                <span className="font-mono">{entry.code}</span>: {entry.message}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {preview?.ok && preview.draftPreview ? (
         <section
           className="rounded-xl border border-indigo-100 bg-indigo-50/40 p-4 shadow-sm space-y-2"
           data-testid="harvest-draft-summary"
@@ -233,6 +297,11 @@ export function HarvestForm({ writeEnabled, writeProtectionMessage }: HarvestFor
             hidden={String(distributionSummary.hidden)}, deprecated=
             {String(distributionSummary.deprecated)}
           </p>
+          <p className="text-xs text-slate-600" data-testid="harvest-can-create-candidate">
+            canCreateCandidate={String(canCreateCandidate)}
+            {preview.partial ? ", partial=true" : ""}
+            {preview.severity ? `, severity=${preview.severity}` : ""}
+          </p>
         </section>
       ) : null}
 
@@ -249,7 +318,9 @@ export function HarvestForm({ writeEnabled, writeProtectionMessage }: HarvestFor
             !writeEnabled ||
             !sourceLabel.trim() ||
             !rawHtml.trim() ||
-            (detectedBlockType === "unknown" && !blockType)
+            (detectedBlockType === "unknown" && !blockType) ||
+            !canCreateCandidate ||
+            !effectiveBlockType
           }
           className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
           data-testid="harvest-create-button"

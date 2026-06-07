@@ -53,7 +53,9 @@ S10 在 S9 领域模型与运营工作流验证基础上，解决**正式生产�
 | 用户侧 DB 分发 | style picker 从 DB 读取 user-selectable pool |
 | 单管理员登录 | `/admin/*` 访问保护 |
 | 阿里云部署与运维 | ECS · RDS · OSS · SLS / CloudMonitor |
-| HTML Harvest 入库 | S10-STORY-009~010 **Done**（`147c2e7` · `d5a6af3`）· S10-STORY-011 Promote 后续 |
+| HTML Harvest 入库 | S10-STORY-009~010 **Done**（`147c2e7` · `d5a6af3`） |
+| DSL Runtime | S10-STORY-011A **In Review** — [`article-variant-dsl-runtime.md`](article-variant-dsl-runtime.md) · `definitionJson` = Variant DSL |
+| Promote | S10-STORY-011 **Blocked（依赖 011A）** — 须 DSL renderability gate |
 
 ### 2.3 迁移策略
 

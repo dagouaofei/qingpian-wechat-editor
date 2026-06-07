@@ -5,7 +5,9 @@ import {
   buildUserSelectableHeadingOptionsFromPool,
 } from "@/lib/preview-user-selectable-pool";
 import {
+  getRuntimeVariantDslPool,
   getUserSelectableVariantPool,
+  toDslRuntimeSnapshot,
   toUserSelectableVariantPoolSnapshot,
 } from "@/server/style-admin/runtime";
 
@@ -17,8 +19,12 @@ export const metadata: Metadata = {
 };
 
 export default async function PreviewPage() {
-  const poolResult = await getUserSelectableVariantPool({ blockType: "heading" });
+  const [poolResult, dslPoolResult] = await Promise.all([
+    getUserSelectableVariantPool({ blockType: "heading" }),
+    getRuntimeVariantDslPool(),
+  ]);
   const poolSnapshot = toUserSelectableVariantPoolSnapshot(poolResult);
+  const dslRuntime = toDslRuntimeSnapshot(dslPoolResult);
   const userSelectableHeadingOptions =
     buildUserSelectableHeadingOptionsFromPool(poolSnapshot);
 
@@ -32,6 +38,7 @@ export default async function PreviewPage() {
     >
       <PreviewPageClient
         userSelectablePool={poolSnapshot}
+        dslRuntime={dslRuntime}
         userSelectableHeadingOptions={userSelectableHeadingOptions}
       />
     </Suspense>
