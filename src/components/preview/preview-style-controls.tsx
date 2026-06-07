@@ -11,22 +11,33 @@ import {
   PREVIEW_HEADING_PUBLISH_STYLE_OPTIONS,
   PREVIEW_HEADING_STYLE_OPTIONS,
 } from "@/lib/preview-heading-style";
+import type { PreviewUserSelectableHeadingOption } from "@/lib/preview-user-selectable-pool";
 import { ShellFieldLabel, ShellSelect } from "@/components/ui-shell/primitives";
 
 export function PreviewStyleControls({
   value,
   disabled,
   includeUserSelectableHeadingOptions = true,
+  userSelectableHeadingOptions,
+  poolSourceNotice,
   onChange,
 }: {
   value: PreviewStyleControlState;
   disabled?: boolean;
   /** Gallery keeps release1 publish pool only; user preview page enables user_selectable pool. */
   includeUserSelectableHeadingOptions?: boolean;
+  /** DB-backed pool options from server; overrides static file-backed user_selectable list. */
+  userSelectableHeadingOptions?: PreviewUserSelectableHeadingOption[];
+  poolSourceNotice?: string;
   onChange: (next: PreviewStyleControlState) => void;
 }) {
   const headingStyleOptions = includeUserSelectableHeadingOptions
-    ? PREVIEW_HEADING_STYLE_OPTIONS
+    ? userSelectableHeadingOptions
+      ? [
+          ...PREVIEW_HEADING_PUBLISH_STYLE_OPTIONS,
+          ...userSelectableHeadingOptions,
+        ]
+      : PREVIEW_HEADING_STYLE_OPTIONS
     : PREVIEW_HEADING_PUBLISH_STYLE_OPTIONS;
   return (
     <div
@@ -72,6 +83,15 @@ export function PreviewStyleControls({
         </p>
       </label>
 
+      {poolSourceNotice ? (
+        <p
+          className="text-xs text-slate-500"
+          data-testid="preview-user-selectable-pool-notice"
+        >
+          {poolSourceNotice}
+        </p>
+      ) : null}
+
       <label className="block space-y-1.5">
         <ShellFieldLabel>小标题样式</ShellFieldLabel>
         <ShellSelect
@@ -92,7 +112,10 @@ export function PreviewStyleControls({
               key={option.id}
               value={option.id}
               data-user-selectable={
-                "source" in option && option.source === "user_selectable" ? "true" : undefined
+                "source" in option &&
+                (option.source === "user_selectable" || option.source === "database")
+                  ? "true"
+                  : undefined
               }
             >
               {option.label}

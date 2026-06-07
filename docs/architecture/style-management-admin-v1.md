@@ -170,7 +170,8 @@ S9 file-backed manifest / code-backed variants（source of truth v0）
 - `updateDistribution` 写入 `admin_audit_logs`
 - **S10-STORY-003 已实现：** variant 幂等导入层 · dry-run CLI · import report（→ §6.2）
 - **S10-STORY-004 已实现：** `/admin/style-library` read UI（→ §6.3）
-- **本轮未做：** 写操作 · 用户侧 DB pool（→ S10-STORY-005~006）· 登录（→ S10-STORY-008）
+- **S10-STORY-005 已实现：** 用户侧 `/preview` DB pool（→ §6.4）
+- **本轮未做：** 写操作（→ S10-STORY-006）· 登录（→ S10-STORY-008）
 
 ### 6.2 既有 Variant 导入（S10-STORY-003 · 已实现）
 
@@ -232,6 +233,27 @@ S9 file-backed manifest / code-backed variants（source of truth v0）
 - Build 不强制连接 DB · `DATABASE_URL` 缺失时展示 diagnostic state
 - 写操作 UI disabled · 标注 S10-STORY-006
 - 公网部署前须 S10-STORY-008 单管理员登录
+
+### 6.4 用户侧 DB Pool（S10-STORY-005 · 已实现）
+
+| 模块 | 路径 |
+|------|------|
+| Pool service | `runtime/user-selectable-variant-pool.ts` |
+| Cache | `runtime/user-selectable-variant-pool-cache.ts` |
+| Mapper | `runtime/user-selectable-variant-pool-mapper.ts` |
+| Preview 接入 | `src/app/preview/page.tsx` → `PreviewPageClient` |
+
+**入选条件：** `userSelectable=true` · `hidden=false` · `deprecated=false` · current version 存在
+
+**不入选：** `release1Required` · `defaultEligible` 单独为 true 不自动入选
+
+**Fallback：** `code_fallback` 使用 S9 file-backed pool（仅 DB 不可用时）
+
+**Dev-only API（非正式用户侧接口）：** `GET /api/dev/style-admin/user-selectable-pool`
+
+- 仅在 `NODE_ENV=development` 或 `test` 可用；production / staging 等返回 `404` + `{ disabled: true, reason: "dev_only" }`
+- 响应对 `notice` / `issues` 做脱敏，不暴露 `DATABASE_URL`、DB host、连接错误 stack 或 secret
+- 正式用户侧路径仍为 `/preview` server 加载 pool，不依赖该 dev API
 
 ---
 

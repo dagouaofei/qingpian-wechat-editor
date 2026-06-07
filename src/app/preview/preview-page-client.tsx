@@ -35,7 +35,9 @@ import {
   computeStreamingPreviewContentRevision,
   renderStreamingPreviewBlocks,
 } from "@/lib/render-streaming-preview";
+import type { PreviewUserSelectableHeadingOption } from "@/lib/preview-user-selectable-pool";
 import { renderArticlePreviewClient } from "@/lib/render-article-preview-client";
+import type { UserSelectableVariantPoolSnapshot } from "@/lib/user-selectable-variant-pool-types";
 import {
   resolveInitialPreviewStyleControl,
   type PreviewStyleControlState,
@@ -73,7 +75,20 @@ function mapStreamPhaseToUi(phase: StreamPhase | null): GenerateUiState {
   return "finalizing";
 }
 
-export function PreviewPageClient() {
+function buildPoolSourceNotice(pool: UserSelectableVariantPoolSnapshot): string | undefined {
+  if (pool.source === "database") {
+    return `User-selectable pool: database (${pool.poolVariantIds.length} variants · cache TTL ${pool.cache.ttlSeconds}s)`;
+  }
+  return pool.notice;
+}
+
+export function PreviewPageClient({
+  userSelectablePool,
+  userSelectableHeadingOptions,
+}: {
+  userSelectablePool: UserSelectableVariantPoolSnapshot;
+  userSelectableHeadingOptions: PreviewUserSelectableHeadingOption[];
+}) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const form = useMemo(
@@ -268,13 +283,14 @@ export function PreviewPageClient() {
       result.data.article,
       streamingStyleInput,
       styleControl,
+      { userSelectablePool },
     );
 
     return {
       previewBlocks: rendered.previewBlocks,
       clipboard: rendered.clipboard,
     };
-  }, [displayState, result, streamingStyleInput, styleControl]);
+  }, [displayState, result, streamingStyleInput, styleControl, userSelectablePool]);
 
   const analysisSteps = buildAnalysisSteps(analysisStepIndex);
   const analysisDetail =
@@ -391,6 +407,8 @@ export function PreviewPageClient() {
                     <PreviewStyleControls
                       value={styleControl}
                       onChange={setStyleControl}
+                      userSelectableHeadingOptions={userSelectableHeadingOptions}
+                      poolSourceNotice={buildPoolSourceNotice(userSelectablePool)}
                     />
                   </>
                 )}

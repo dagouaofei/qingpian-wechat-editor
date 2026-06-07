@@ -1,0 +1,131 @@
+import type { BlockType } from "@prisma/client";
+
+import {
+  getUserSelectablePreviewVariantAssetsForBlockType,
+  getUserSelectablePreviewVariantDefinition,
+} from "@/core/style-library/user-selectable-preview-pool";
+import type { VariantDefinition } from "@/core/styles/types";
+
+import { getStyleAdminDbAvailability } from "../db-availability";
+import { buildUserSelectablePoolWhere } from "../mappers";
+import type { StyleAdminPrismaClient } from "../prisma";
+import { prisma } from "../prisma";
+import {
+  buildUserSelectablePoolCacheKey,
+  readUserSelectablePoolCache,
+  resolveUserSelectablePoolCacheTtlSeconds,
+  writeUserSelectablePoolCache,
+} from "./user-selectable-variant-pool-cache";
+import { mapDbPoolRowToVariantDefinition } from "./user-selectable-variant-pool-mapper";
+import type {
+  RuntimeVariantPoolIssue,
+  UserSelectableVariantPoolOptions,
+  UserSelectableVariantPoolResult,
+} from "./user-selectable-variant-pool-types";
+
+function buildCodeFallbackPool(blockType?: BlockType): UserSelectableVariantPoolResult {
+  const assets = blockType
+    ? getUserSelectablePreviewVariantAssetsForBlockType(blockType)
+    : getUserSelectablePreviewVariantAssetsForBlockType("heading");
+
+  const variants = assets
+    .map((asset) => getUserSelectablePreviewVariantDefinition(asset.runtimeVariantId))
+    .filter((variant): variant is VariantDefinition => variant != null);
+
+  return {
+    source: "code_fallback",
+    cache: {
+      hit: false,
+      ttlSeconds: 0,
+      generatedAt: new Date().toISOString(),
+    },
+    variants,
+    issues: [],
+    notice:
+      "Using code-backed user-selectable pool fallback. DB-backed distribution is not active.",
+  };
+}
+
+async function loadDatabasePool(
+  db: StyleAdminPrismaClient,
+  blockType?: BlockType,
+): Promise<{
+  variants: VariantDefinition[];
+  issues: RuntimeVariantPoolIssue[];
+}> {
+  const rows = await db.styleVariant.findMany({
+    where: buildUserSelectablePoolWhere({ blockType }),
+    include: {
+      distribution: true,
+      currentVersion: true,
+    },
+    orderBy: { label: "asc" },
+  });
+
+  const variants: VariantDefinition[] = [];
+  const issues: RuntimeVariantPoolIssue[] = [];
+
+  for (const row of rows) {
+    const mapped = mapDbPoolRowToVariantDefinition(row);
+    if (mapped.issue) {
+      issues.push(mapped.issue);
+    }
+    if (mapped.variant) {
+      variants.push(mapped.variant);
+    }
+  }
+
+  return { variants, issues };
+}
+
+export async function getUserSelectableVariantPool(
+  options: UserSelectableVariantPoolOptions = {},
+  db: StyleAdminPrismaClient = prisma,
+): Promise<UserSelectableVariantPoolResult> {
+  const ttlSeconds = resolveUserSelectablePoolCacheTtlSeconds();
+  const cacheKey = buildUserSelectablePoolCacheKey(options.blockType);
+
+  if (!options.forceRefresh) {
+    const cached = readUserSelectablePoolCache(cacheKey);
+    if (cached) {
+      return cached;
+    }
+  }
+
+  const availability = getStyleAdminDbAvailability();
+  if (!availability.configured) {
+    const fallback = buildCodeFallbackPool(options.blockType);
+    return {
+      ...fallback,
+      notice:
+        "DATABASE_URL is not configured. Preview picker uses code-backed user-selectable pool.",
+    };
+  }
+
+  try {
+    const { variants, issues } = await loadDatabasePool(db, options.blockType);
+    const result: UserSelectableVariantPoolResult = {
+      source: variants.length > 0 ? "database" : "empty",
+      cache: {
+        hit: false,
+        ttlSeconds,
+        generatedAt: new Date().toISOString(),
+      },
+      variants,
+      issues,
+      notice:
+        variants.length === 0
+          ? "Database user-selectable pool is empty. Import variants or promote user-selectable entries."
+          : undefined,
+    };
+
+    writeUserSelectablePoolCache(cacheKey, result, ttlSeconds);
+    return result;
+  } catch {
+    const fallback = buildCodeFallbackPool(options.blockType);
+    return {
+      ...fallback,
+      notice: "Database is unavailable. Preview picker uses code-backed fallback.",
+    };
+  }
+}

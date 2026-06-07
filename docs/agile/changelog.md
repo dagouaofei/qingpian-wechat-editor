@@ -569,3 +569,14 @@
 | 2026-06-07 | Sprint 10 | 工作分支 `feature/s10-story-004-admin-style-library` · **未 merge sprint** | Git | S10-STORY-004 |
 | 2026-06-07 | Sprint 10 | **S10-STORY-004 FIX-A**：补齐 `defaultEligible` / `hidden` URL filter presets | 代码 / UI | S10-STORY-004 |
 | 2026-06-07 | Sprint 10 | **S10-STORY-004 Done**：merge `feature/s10-story-004-admin-style-library` → `sprint/s10-db-backed-style-admin-v1` @ `6307925` · 本地 `/admin/style-library` 验收 PASS | Git / UI | S10-STORY-004 |
+
+---
+
+## 2026-06-07 · S10-STORY-005 用户侧 Variant Pool DB 接入
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-07 | Sprint 10 | **S10-STORY-005**：`/preview` 小标题 picker 接入 DB user-selectable pool | 代码 / UI | S10-STORY-005 |
+| 2026-06-07 | Sprint 10 | 新增 `user-selectable-variant-pool` runtime · 120s 缓存 · code_fallback | 代码 / 架构 | S10-STORY-005 |
+| 2026-06-07 | Sprint 10 | dev API `/api/dev/style-admin/user-selectable-pool` | 代码 / 开发工具 | S10-STORY-005 |
+| 2026-06-07 | Sprint 10 | 工作分支 `feature/s10-story-005-user-variant-pool-db` · **未 merge sprint** | Git | S10-STORY-005 |

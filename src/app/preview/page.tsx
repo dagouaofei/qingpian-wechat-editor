@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
+import {
+  buildUserSelectableHeadingOptionsFromPool,
+} from "@/lib/preview-user-selectable-pool";
+import {
+  getUserSelectableVariantPool,
+  toUserSelectableVariantPoolSnapshot,
+} from "@/server/style-admin/runtime";
+
 import { PreviewPageClient } from "./preview-page-client";
 
 export const metadata: Metadata = {
@@ -8,7 +16,12 @@ export const metadata: Metadata = {
   description: "真实 AI 生成结果预览",
 };
 
-export default function PreviewPage() {
+export default async function PreviewPage() {
+  const poolResult = await getUserSelectableVariantPool({ blockType: "heading" });
+  const poolSnapshot = toUserSelectableVariantPoolSnapshot(poolResult);
+  const userSelectableHeadingOptions =
+    buildUserSelectableHeadingOptionsFromPool(poolSnapshot);
+
   return (
     <Suspense
       fallback={
@@ -17,7 +30,10 @@ export default function PreviewPage() {
         </div>
       }
     >
-      <PreviewPageClient />
+      <PreviewPageClient
+        userSelectablePool={poolSnapshot}
+        userSelectableHeadingOptions={userSelectableHeadingOptions}
+      />
     </Suspense>
   );
 }

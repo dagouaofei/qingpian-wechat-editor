@@ -5,6 +5,10 @@ import {
   renderStyleLibraryHtmlPasteCandidateBlock,
 } from "@/core/style-library/inspection-render-adapter";
 import { isUserSelectablePreviewVariantId } from "@/core/style-library/user-selectable-preview-pool";
+
+export type UserPreviewPoolContext = {
+  userSelectableVariantIds?: readonly string[];
+};
 import {
   renderBlock,
   type RenderArticleBlocksOptions,
@@ -13,23 +17,38 @@ import {
   type RendererResult,
 } from "@/core/renderer";
 
-function shouldUseUserSelectablePreviewAdapter(variantId: string | undefined): boolean {
+function isUserSelectableVariantForPreview(
+  variantId: string | undefined,
+  poolContext?: UserPreviewPoolContext,
+): boolean {
+  if (!variantId) {
+    return false;
+  }
+  if (poolContext?.userSelectableVariantIds?.includes(variantId)) {
+    return true;
+  }
+  return isUserSelectablePreviewVariantId(variantId);
+}
+
+function shouldUseUserSelectablePreviewAdapter(
+  variantId: string | undefined,
+  poolContext?: UserPreviewPoolContext,
+): boolean {
   return (
-    variantId != null &&
-    isUserSelectablePreviewVariantId(variantId) &&
-    isStyleLibraryHtmlPasteCandidateVariant(variantId)
+    isUserSelectableVariantForPreview(variantId, poolContext) &&
+    isStyleLibraryHtmlPasteCandidateVariant(variantId ?? "")
   );
 }
 
 export function renderUserPreviewBlock(
-  options: RenderBlockOptions,
+  options: RenderBlockOptions & { poolContext?: UserPreviewPoolContext },
 ): RendererResult<RendererOutputPlaceholder> {
   const resolved = options.input.resolvedArticleStyle.blocks.find(
     (entry) => entry.blockId === options.input.block.id,
   );
   const variantId = resolved?.variantId;
 
-  if (shouldUseUserSelectablePreviewAdapter(variantId)) {
+  if (shouldUseUserSelectablePreviewAdapter(variantId, options.poolContext)) {
     return renderStyleLibraryHtmlPasteCandidateBlock(options.input);
   }
 
@@ -37,7 +56,7 @@ export function renderUserPreviewBlock(
 }
 
 export function renderUserPreviewArticleBlocks(
-  options: RenderArticleBlocksOptions,
+  options: RenderArticleBlocksOptions & { poolContext?: UserPreviewPoolContext },
 ): RendererResult<RendererOutputPlaceholder>[] {
   return options.article.blocks.map((block) =>
     renderUserPreviewBlock({
@@ -50,6 +69,7 @@ export function renderUserPreviewArticleBlocks(
       },
       registry: options.registry,
       supportedBlockTypes: options.supportedBlockTypes,
+      poolContext: options.poolContext,
     }),
   );
 }
@@ -57,10 +77,15 @@ export function renderUserPreviewArticleBlocks(
 export function buildUserPreviewClipboardPayload(
   options: BuildClipboardPayloadOptions & {
     supportedBlockTypes?: readonly BlockType[];
+    poolContext?: UserPreviewPoolContext;
   },
 ) {
   return buildClipboardPayload({
     ...options,
-    renderBlockFn: renderUserPreviewBlock,
+    renderBlockFn: (renderOptions) =>
+      renderUserPreviewBlock({
+        ...renderOptions,
+        poolContext: options.poolContext,
+      }),
   });
 }

@@ -27,6 +27,9 @@ import {
   applyHeadingVariantToArticle,
   type PreviewHeadingVariantId,
 } from "./preview-heading-style";
+import type { UserSelectableVariantPoolSnapshot } from "@/lib/user-selectable-variant-pool-types";
+
+import { getUserSelectableVariantsForRegistry } from "./preview-user-selectable-pool";
 import { createUserPreviewStyleRegistry } from "./user-preview-style-registry";
 import {
   buildUserPreviewClipboardPayload,
@@ -67,10 +70,20 @@ export function renderArticlePreviewClient(
   control: PreviewStyleControlState,
   options?: {
     postStyleSelectionPatch?: (article: Article) => Article;
+    userSelectablePool?: UserSelectableVariantPoolSnapshot;
   },
 ): RenderArticlePreviewClientResult {
   const generationRegistry = createFirstWaveRequiredVariantRegistry();
-  const previewStyleRegistry = createUserPreviewStyleRegistry();
+  const dbVariants = options?.userSelectablePool
+    ? getUserSelectableVariantsForRegistry(options.userSelectablePool)
+    : undefined;
+  const previewStyleRegistry = createUserPreviewStyleRegistry({
+    dbUserSelectableVariants: dbVariants,
+    preferDatabaseVariants: options?.userSelectablePool?.source === "database",
+  });
+  const poolContext = options?.userSelectablePool
+    ? { userSelectableVariantIds: options.userSelectablePool.poolVariantIds }
+    : undefined;
   const themedArticle = applyPreviewThemeToArticle(article, control.colorPalette);
   const styleInput = buildNormalizedInputForPreviewControl(normalizedInput, control);
 
@@ -104,6 +117,7 @@ export function renderArticlePreviewClient(
     target: renderTargetForMode("preview"),
     registry: previewRegistry,
     supportedBlockTypes: RELEASE1_FIRST_WAVE_PREVIEW_BLOCK_TYPES,
+    poolContext,
   });
 
   const copyRegistry = createRelease1FirstWaveCopyRendererRegistry();
@@ -112,6 +126,7 @@ export function renderArticlePreviewClient(
     resolvedArticleStyle,
     registry: copyRegistry,
     supportedBlockTypes: RELEASE1_FIRST_WAVE_COPY_BLOCK_TYPES,
+    poolContext,
   });
 
   return {

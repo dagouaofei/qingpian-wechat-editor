@@ -12,7 +12,7 @@
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
 > **Sprint 8：** **Closed**（2026-06-05 · DECISION-093 · audit Grade A- · P0=0 · merged `release/1` @ `806fa47`）
 > **Sprint 9：** **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · **P0=0** · HTML→user preview picker E2E PASS · Preview/Copy parity PASS · default preset / release1_required 未污染 · **已 merge `release/1`** @ `c96e869` · **未 merge `main`**）
-> **当前 Sprint：** **Sprint 10** — Database-backed Style Management Admin v1 · **In Progress**（2026-06-07 · **DECISION-108** · S10-STORY-001~004 Done）
+> **当前 Sprint：** **Sprint 10** — Database-backed Style Management Admin v1 · **In Progress**（2026-06-07 · **DECISION-108** · S10-STORY-001~004 Done · S10-STORY-005 In Review）
 > **Sprint 10 分支：** `sprint/s10-db-backed-style-admin-v1`（从 `release/1` · 2026-06-07 · @ `c96e869`）
 > **Sprint 9 分支：** `sprint/s9-style-management-system-v0`（已 merge `release/1` · 2026-06-05）
 > **上一 Sprint：** **Sprint 8** — **Closed**（2026-06-05）；**Sprint 7** — **Done**（2026-06-03 · merge `release/1`）
@@ -4227,21 +4227,31 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 ## S10-STORY-005 用户侧 Variant Pool DB 接入
 
-**优先级：** P0 · **状态：** **Planned** · **工作分支：** TBD（`feature/s10-story-005-user-variant-pool-db`）
+**优先级：** P0 · **状态：** **In Review** · **工作分支：** `feature/s10-story-005-user-variant-pool-db`（从 `sprint/s10-db-backed-style-admin-v1`）
 
-**目标：** 用户侧 style picker 从 DB 读取 user-selectable variants · 1–5 分钟缓存 · 后台上下架后用户侧可见变化 · 用户选择后 Preview / Copy 生效 · 不污染 default preset · 不误改 release1Required。
+**目标：** 用户侧 style picker 从 DB 读取 user-selectable variants · 1–5 分钟缓存 · 用户选择后 Preview / Copy 生效 · 不污染 default preset · 不误改 release1Required。
 
-**非目标：** 不切换 Gallery 默认池 · 不修改 AI 生成默认路径 · 不自动 defaultEligible
+**非目标：** 不切换 Gallery 默认池 · 不修改 AI 生成默认路径 · 不实现上下架写操作（→ S10-STORY-006）
+
+**数据源：** `getUserSelectableVariantPool` · `src/server/style-admin/runtime/` · 接入 `/preview` 小标题 picker
+
+**池规则：** `userSelectable=true` · `hidden=false` · `deprecated=false` · 有 current version · **不**因 `release1Required` / `defaultEligible` 自动入选
+
+**缓存：** 默认 120s · `STYLE_ADMIN_USER_POOL_CACHE_TTL_SECONDS` · 最大 300s
+
+**Fallback：** `DATABASE_URL` 未配置或 DB 不可用时 `source=code_fallback`（S9 file-backed pool）
+
+**手动验收 URL：** `http://localhost:3000/preview?topic=...`（生成完成后小标题样式 picker）· dev API `GET /api/dev/style-admin/user-selectable-pool`
 
 **验收标准：**
 
-- [ ] AC-1 用户预览页 picker 从 DB 读取 user-selectable pool
-- [ ] AC-2 缓存 TTL 1–5 分钟可配置
-- [ ] AC-3 后台下架后 1–5 分钟内 picker 选项消失
-- [ ] AC-4 后台恢复上架后 1–5 分钟内 picker 选项恢复
-- [ ] AC-5 用户选择后 Preview / Copy 生效 · parity PASS
-- [ ] AC-6 default preset / release1Required 未污染
-- [ ] AC-7 lint / test / build PASS
+- [x] AC-1 用户预览页 picker 从 DB 读取 user-selectable pool（优先 database）
+- [x] AC-2 缓存 TTL 1–5 分钟可配置
+- [ ] AC-3 后台下架后 1–5 分钟内 picker 选项消失（依赖 S10-STORY-006 写操作 + cache TTL）
+- [ ] AC-4 后台恢复上架后 1–5 分钟内 picker 选项恢复（依赖 S10-STORY-006）
+- [x] AC-5 用户选择后 Preview / Copy 生效 · parity PASS（测试 + 本地验收路径）
+- [x] AC-6 default preset / release1Required 未污染
+- [x] AC-7 lint / test / build PASS
 
 ---
 
