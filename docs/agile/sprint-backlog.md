@@ -4362,17 +4362,21 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 ## S10-STORY-010 Candidate Preview / Copy / Validator / Evidence
 
-**优先级：** P1 · **状态：** **Planned**（后半段）· **工作分支：** TBD
+**优先级：** P1 · **状态：** **Done**（2026-06-07 · merge @ `d5a6af3`）· **工作分支：** `feature/s10-story-010-candidate-inspection-evidence`
 
 **目标：** DB candidate → Preview · DB candidate → Copy HTML · DB candidate → Validator · validation run 入库 · evidence 入库 · 可选截图 OSS key · Paste QA 状态记录。
 
+**实现路径：** `src/server/style-admin/inspection/` · detail 页 Candidate Inspection 面板 · `run_candidate_inspection` / `create_manual_paste_qa_evidence` audit
+
+**qualityStatus 规则：** preview+copy+validator 全通过 → `validator_pass` · copy 失败 → `copy_fidelity_failed` · validator 失败 → `validator_failed` · manual Paste QA pass → `paste_qa_pass`（均不自动 userSelectable）
+
 **验收标准：**
 
-- [ ] AC-1 DB candidate 可走 Preview / Copy / Validator 链路
-- [ ] AC-2 validation run · evidence 入库
-- [ ] AC-3 可选截图 OSS key 关联
-- [ ] AC-4 Paste QA 状态可记录
-- [ ] AC-5 lint / test / build PASS
+- [x] AC-1 DB candidate detail 可运行 Preview / Copy / Validator（admin inspection path · 复用 renderer/validator）
+- [x] AC-2 validation run · manual Paste QA evidence 入库
+- [ ] AC-3 可选截图 OSS key 关联（本轮 ossKey=null 占位 · 留后续）
+- [x] AC-4 Paste QA 状态可记录（not_run / pass / failed）
+- [x] AC-5 candidate 通过 validator/paste_qa 仍不进入用户侧 picker · lint / test / build PASS
 
 ---
 

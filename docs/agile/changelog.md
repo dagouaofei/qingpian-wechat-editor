@@ -603,6 +603,17 @@
 
 ---
 
+## 2026-06-07 · S10-STORY-010 Candidate Preview / Copy / Validator / Evidence
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-07 | Sprint 10 | **S10-STORY-010**：DB candidate detail 增加 Preview / Copy / Validator inspection 面板 | 代码 / 后台 | S10-STORY-010 |
+| 2026-06-07 | Sprint 10 | `src/server/style-admin/inspection/` — dry-run + persist · validation runs · qualityStatus 更新 | 代码 / 架构 | S10-STORY-010 |
+| 2026-06-07 | Sprint 10 | manual Paste QA evidence 入库 · `paste_qa_pass` 不自动 userSelectable | 数据 / 治理 | S10-STORY-010 |
+| 2026-06-07 | Sprint 10 | **S10-STORY-010 Done**：fast-forward merge `feature/s10-story-010-candidate-inspection-evidence` → `sprint/s10-db-backed-style-admin-v1` @ `d5a6af3` | Git / 后台 | S10-STORY-010 |
+
+---
+
 ## 2026-06-07 · S10-STORY-009 HTML Harvest → Candidate Variant v1
 
 | 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |

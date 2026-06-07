@@ -68,7 +68,7 @@ Next.js · Prisma · PostgreSQL · 阿里云 RDS / OSS / ECS · SLS / CloudMonit
 | S10-STORY-007 | 阿里云资源准备与部署 Runbook | **Done**（2026-06-07 · merge @ `03ec49b`） |
 | S10-STORY-008 | 单管理员登录与后台保护 | **Done**（2026-06-07 · 本地 E2E PASS · merge @ `71e7300`） |
 | S10-STORY-009 | HTML Harvest → Candidate Variant v1 | **Done**（2026-06-07 · merge @ `147c2e7`） |
-| S10-STORY-010 | Candidate Preview / Copy / Validator / Evidence | Planned（后半段） |
+| S10-STORY-010 | Candidate Preview / Copy / Validator / Evidence | **Done**（2026-06-07 · merge @ `d5a6af3`） |
 | S10-STORY-011 | 采集样式 Promote 到 user-selectable | Planned（后半段） |
 | S10-STORY-012 | S10 Audit / Closeout | Planned |
 
@@ -206,6 +206,22 @@ pnpm style-admin:import-existing-variants           # 写入 DATABASE_URL 指向
 **本轮未做：** Preview / Copy / Validator / Evidence / OSS · promote（S10-STORY-010 / 011）
 
 **本地验收：** 见 execution report `2026-06-07-s10-story-009-html-harvest-candidate.md`
+
+---
+
+## 5.8 S10-STORY-010 Candidate Inspection 摘要（2026-06-07）
+
+**入口：** `/admin/style-library/[runtimeVariantId]` · Candidate Inspection 面板
+
+**模块：** `src/server/style-admin/inspection/` — preview · copy · wechat validator · qualityStatus · evidence
+
+**Run 按钮：** `Run Preview / Copy / Validator` → 写入 `style_variant_validation_runs`（preview / copy_html / wechat_validator）· 更新 `qualityStatus` · audit `run_candidate_inspection`
+
+**Evidence：** `Add manual Paste QA evidence` → `style_variant_evidence`（paste_qa）· validation run paste_qa · ossKey=null
+
+**Runtime Gate：** admin inspection path 独立于用户 runtime · `validator_pass` / `paste_qa_pass` 仍 `userSelectable=false`
+
+**本轮未做：** OSS 截图上传 · promote（S10-STORY-011）
 
 ---
 
