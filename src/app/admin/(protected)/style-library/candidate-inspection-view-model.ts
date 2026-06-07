@@ -63,6 +63,7 @@ function toInspectionSource(detail: AdminVariantDetail): DbCandidateInspectionSo
     versionNumber: currentVersion.versionNumber,
     primarySourceType: primarySource?.sourceType ?? null,
     hasRawHtml: Boolean(primarySource?.rawHtml),
+    rawHtml: primarySource?.rawHtml ?? null,
   };
 }
 
@@ -109,7 +110,8 @@ export function buildCandidateInspectionPanelViewModel(
     renderedHtml: decodedPreviewHtml,
     selectedRuntimeVariantId: source.runtimeVariantId,
     renderedByVariantId: source.runtimeVariantId,
-    fallbackUsed: false,
+    fallbackUsed: previewDecode?.substitutionTrace?.fallbackUsed ?? false,
+    fallbackReason: previewDecode?.substitutionTrace?.fallbackReason ?? null,
   });
 
   return {

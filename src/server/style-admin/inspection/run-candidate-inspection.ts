@@ -137,6 +137,7 @@ export async function runCandidateInspectionAndPersist(
     versionNumber: variant.currentVersion.versionNumber,
     primarySourceType: primarySource?.sourceType ?? null,
     hasRawHtml: Boolean(primarySource?.rawHtml),
+    rawHtml: primarySource?.rawHtml ?? null,
   };
 
   if (

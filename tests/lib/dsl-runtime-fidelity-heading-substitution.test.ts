@@ -96,7 +96,8 @@ describe("fidelity heading user preview substitution", () => {
     expect(html).not.toMatch(/border-left\s*:\s*4px\s+solid\s+#1677ff/i);
 
     const bindings = encoded.meta?.semanticBindings as Record<string, { path: string }>;
-    expect(output.runtimeTrace?.slotSubstitutionPath).toBe(bindings.title.path);
+    expect(output.runtimeTrace?.slotSubstitutionPath).toBe("meta.semanticBindings.title");
+    expect(output.runtimeTrace?.slotSubstitutionTargetPath).toBe(bindings.title.path);
     expect(output.runtimeTrace?.substitutedSlot).toBe("title");
     expect(output.runtimeTrace?.decorativeSlotsPreserved).toContain("number");
     expect(output.runtimeTrace?.fallbackUsed).toBe(false);

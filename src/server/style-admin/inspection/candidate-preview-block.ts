@@ -35,12 +35,32 @@ export function buildCandidatePreviewBlock(
     };
   }
 
+  const substitutionTrace = result.substitutionTrace;
+  const output =
+    result.output.kind === "dsl_tree_html_preview"
+      ? {
+          ...result.output,
+          runtimeTrace: {
+            runtimeSource: "database_dsl",
+            selectedRuntimeVariantId: source.runtimeVariantId,
+            renderedByVariantId: source.runtimeVariantId,
+            fallbackUsed: substitutionTrace?.fallbackUsed ?? false,
+            fallbackReason: substitutionTrace?.fallbackReason ?? null,
+            slotSubstitutionPath: substitutionTrace?.slotSubstitutionPath ?? null,
+            slotSubstitutionTargetPath: substitutionTrace?.slotSubstitutionTargetPath ?? null,
+            actualTextLeafPath: substitutionTrace?.actualTextLeafPath ?? null,
+            substitutedSlot: substitutionTrace?.substitutedSlot ?? null,
+            decorativeSlotsPreserved: substitutionTrace?.decorativeSlotsPreserved ?? [],
+          },
+        }
+      : result.output;
+
   return {
     blockId: block.id,
     blockType: source.blockType,
     variantId: source.runtimeVariantId,
     ok: true,
-    output: result.output,
+    output,
     issues: [],
     warnings: [],
   };

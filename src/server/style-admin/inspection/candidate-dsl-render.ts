@@ -1,6 +1,11 @@
+import type { BlockType } from "@prisma/client";
+
+import type { FidelitySubstitutionTrace } from "@/core/dsl/decoder/fidelity-tree-substitution";
+import { semanticBindingsResolveOnTree } from "@/core/dsl/decoder/fidelity-tree-substitution";
+import { decodeVariantDsl } from "@/core/dsl/decoder";
+import { encodeHtmlToVariantDsl } from "@/core/dsl/encoder";
 import type { DecoderTrace } from "@/core/dsl/runtime/dsl-trace-types";
 import type { DslRenderTarget, VariantDslV1 } from "@/core/dsl/runtime";
-import { decodeVariantDsl } from "@/core/dsl/decoder";
 import type { RendererOutputPlaceholder } from "@/core/renderer/types";
 import { renderTargetForMode } from "@/core/renderer/types";
 
@@ -23,6 +28,57 @@ function enrichVariantDslFromSource(
   };
 }
 
+function shouldRefreshInspectionTreeFromRawHtml(
+  source: DbCandidateInspectionSource,
+  dsl: VariantDslV1,
+): boolean {
+  const rawHtml = source.rawHtml?.trim();
+  if (!rawHtml) {
+    return false;
+  }
+
+  const headingLike = source.blockType === "heading" || source.blockType === "title";
+  if (!headingLike) {
+    return false;
+  }
+
+  return !semanticBindingsResolveOnTree(dsl);
+}
+
+function resolveInspectionVariantDsl(
+  source: DbCandidateInspectionSource,
+  parsed: VariantDslV1,
+): VariantDslV1 {
+  const enriched = enrichVariantDslFromSource(source, parsed);
+  if (!shouldRefreshInspectionTreeFromRawHtml(source, enriched)) {
+    return enriched;
+  }
+
+  const rawHtml = source.rawHtml?.trim();
+  if (!rawHtml) {
+    return enriched;
+  }
+
+  const reencoded = encodeHtmlToVariantDsl({
+    html: rawHtml,
+    runtimeVariantId: source.runtimeVariantId,
+    blockType: source.blockType as BlockType,
+    label: source.label,
+    family: source.styleFamily,
+    wechatCompatibilityMode: "off",
+  });
+
+  if (!reencoded.ok) {
+    return enriched;
+  }
+
+  return {
+    ...reencoded.value,
+    componentProtocol: enriched.componentProtocol,
+    compatibility: enriched.compatibility,
+  };
+}
+
 export type CandidateDslDecodeResult =
   | {
       ok: true;
@@ -33,12 +89,14 @@ export type CandidateDslDecodeResult =
       mode: "preview" | "copy";
       target: ReturnType<typeof renderTargetForMode>;
       trace?: DecoderTrace;
+      substitutionTrace?: FidelitySubstitutionTrace;
     }
   | {
       ok: false;
       issues: string[];
       usedAdminFallback: false;
       trace?: DecoderTrace;
+      substitutionTrace?: FidelitySubstitutionTrace;
     };
 
 export function renderCandidateViaDslDecoder(
@@ -62,7 +120,7 @@ export function renderCandidateViaDslDecoder(
 
   const article = buildDbCandidateInspectionArticle(source, fixture);
   const block = article.blocks[0]!;
-  const variantDsl = enrichVariantDslFromSource(source, parsed.value);
+  const variantDsl = resolveInspectionVariantDsl(source, parsed.value);
 
   const decoded = decodeVariantDsl({
     article,
@@ -77,6 +135,7 @@ export function renderCandidateViaDslDecoder(
       issues: [decoded.message, ...decoded.issues],
       usedAdminFallback: false,
       trace: decoded.trace,
+      substitutionTrace: decoded.substitutionTrace,
     };
   }
 
@@ -86,6 +145,7 @@ export function renderCandidateViaDslDecoder(
       issues: ["dsl_decode_empty_output"],
       usedAdminFallback: false,
       trace: decoded.trace,
+      substitutionTrace: decoded.substitutionTrace,
     };
   }
 
@@ -98,5 +158,6 @@ export function renderCandidateViaDslDecoder(
     mode: target === "copy_wechat" || target === "qa_snapshot" ? "copy" : "preview",
     target: renderTargetForMode(target === "copy_wechat" ? "copy" : "preview"),
     trace: decoded.trace,
+    substitutionTrace: decoded.substitutionTrace,
   };
 }

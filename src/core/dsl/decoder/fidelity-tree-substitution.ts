@@ -8,6 +8,8 @@ import { listRequiredTreeSlots } from "./resolve-dsl-slots";
 
 export type FidelitySubstitutionTrace = {
   slotSubstitutionPath: string | null;
+  slotSubstitutionTargetPath: string | null;
+  actualTextLeafPath: string | null;
   substitutedSlot: string | null;
   decorativeSlotsPreserved: string[];
   fallbackUsed: boolean;
@@ -58,7 +60,7 @@ function cloneDslNode(node: DslNode): DslNode {
   };
 }
 
-function resolveNodeAtPath(root: DslNode, path: string): DslNode | null {
+export function resolveDslNodeAtPath(root: DslNode, path: string): DslNode | null {
   if (!path.startsWith("tree")) return null;
   const segments = path.replace(/^tree\.?/, "").split(".").filter(Boolean);
   let current: DslNode = root;
@@ -74,37 +76,48 @@ function resolveNodeAtPath(root: DslNode, path: string): DslNode | null {
   return current;
 }
 
-function replaceTextInSubtree(node: DslNode, newText: string): boolean {
+type ReplaceTextResult = {
+  ok: boolean;
+  actualTextLeafPath: string | null;
+};
+
+function replaceTextInSubtree(
+  node: DslNode,
+  newText: string,
+  nodePath: string,
+): ReplaceTextResult {
   if (node.type === "text") {
     node.value = newText;
-    return true;
+    return { ok: true, actualTextLeafPath: nodePath };
   }
   if (node.type === "slot") {
-    return false;
+    return { ok: false, actualTextLeafPath: null };
   }
 
-  const leaves: DslNode[] = [];
-  const collectLeaves = (current: DslNode) => {
+  const leaves: Array<{ node: DslNode; path: string }> = [];
+  const collectLeaves = (current: DslNode, path: string) => {
     if (current.type === "text") {
-      leaves.push(current);
+      leaves.push({ node: current, path });
       return;
     }
     if (current.type === "element" && current.children) {
-      for (const child of current.children) collectLeaves(child);
+      current.children.forEach((child, index) => {
+        collectLeaves(child, `${path}.children[${index}]`);
+      });
     }
   };
-  collectLeaves(node);
+  collectLeaves(node, nodePath);
 
   if (leaves.length === 0) {
     node.children = [{ type: "text", value: newText }];
-    return true;
+    return { ok: true, actualTextLeafPath: `${nodePath}.children[0]` };
   }
 
-  leaves[0]!.value = newText;
+  leaves[0]!.node.value = newText;
   for (let index = 1; index < leaves.length; index += 1) {
-    leaves[index]!.value = "";
+    leaves[index]!.node.value = "";
   }
-  return true;
+  return { ok: true, actualTextLeafPath: leaves[0]!.path };
 }
 
 function collectStyledTextElements(
@@ -144,6 +157,18 @@ function findFallbackTitlePath(
   return null;
 }
 
+export function semanticBindingsResolveOnTree(dsl: VariantDslV1): boolean {
+  if (!dsl.tree) {
+    return false;
+  }
+  const bindings = readSemanticBindings(dsl);
+  const titleBinding = bindings.title;
+  if (!titleBinding?.path) {
+    return true;
+  }
+  return resolveDslNodeAtPath(dsl.tree, titleBinding.path) !== null;
+}
+
 function listDecorativeSlotsPreserved(
   extractedSlots: Record<string, string>,
   bindings: Record<string, SemanticBinding>,
@@ -169,6 +194,8 @@ export function applyFidelityTreeArticleSubstitution(
   const cloned = cloneDslNode(tree);
   const baseTrace: FidelitySubstitutionTrace = {
     slotSubstitutionPath: null,
+    slotSubstitutionTargetPath: null,
+    actualTextLeafPath: null,
     substitutedSlot: null,
     decorativeSlotsPreserved,
     fallbackUsed: false,
@@ -186,19 +213,24 @@ export function applyFidelityTreeArticleSubstitution(
       trace: {
         ...baseTrace,
         substitutedSlot: "title",
-        slotSubstitutionPath: bindings.title?.path ?? null,
+        slotSubstitutionPath: "slots.title",
+        slotSubstitutionTargetPath: bindings.title?.path ?? null,
       },
     };
   }
 
   if (bindings.title?.path) {
-    const target = resolveNodeAtPath(cloned, bindings.title.path);
-    if (target && replaceTextInSubtree(target, articleTitle)) {
+    const targetPath = bindings.title.path;
+    const target = resolveDslNodeAtPath(cloned, targetPath);
+    const replaced = target ? replaceTextInSubtree(target, articleTitle, targetPath) : null;
+    if (replaced?.ok) {
       return {
         tree: cloned,
         trace: {
           ...baseTrace,
-          slotSubstitutionPath: bindings.title.path,
+          slotSubstitutionPath: "meta.semanticBindings.title",
+          slotSubstitutionTargetPath: targetPath,
+          actualTextLeafPath: replaced.actualTextLeafPath,
           substitutedSlot: "title",
         },
       };
@@ -207,13 +239,16 @@ export function applyFidelityTreeArticleSubstitution(
 
   const fallback = findFallbackTitlePath(cloned, preserveTexts);
   if (fallback) {
-    const target = resolveNodeAtPath(cloned, fallback.path);
-    if (target && replaceTextInSubtree(target, articleTitle)) {
+    const target = resolveDslNodeAtPath(cloned, fallback.path);
+    const replaced = target ? replaceTextInSubtree(target, articleTitle, fallback.path) : null;
+    if (replaced?.ok) {
       return {
         tree: cloned,
         trace: {
           ...baseTrace,
           slotSubstitutionPath: fallback.path,
+          slotSubstitutionTargetPath: fallback.path,
+          actualTextLeafPath: replaced.actualTextLeafPath,
           substitutedSlot: "title",
           fallbackUsed: true,
           fallbackReason: "semantic_binding_missing_used_first_non_decorative_text",

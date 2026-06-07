@@ -42,4 +42,4 @@
 
 ## 6. Commit
 
-- 待提交：`fix: substitute heading title via semantic binding`
+- `6493be6` — `fix: substitute heading title via semantic binding`

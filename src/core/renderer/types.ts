@@ -143,6 +143,8 @@ export type DslTreeHtmlPreviewOutput = {
     fallbackUsed: boolean;
     fallbackReason?: string | null;
     slotSubstitutionPath?: string | null;
+    slotSubstitutionTargetPath?: string | null;
+    actualTextLeafPath?: string | null;
     substitutedSlot?: string | null;
     decorativeSlotsPreserved?: string[];
   };

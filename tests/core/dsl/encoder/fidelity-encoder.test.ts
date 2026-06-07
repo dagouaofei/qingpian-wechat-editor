@@ -200,7 +200,8 @@ describe("background number heading (fidelity tree + semantic meta)", () => {
     expect(decoded.html).not.toContain("一、生产力暴击");
     expect(decoded.html).toMatch(/background-color\s*:\s*#E60012/i);
     expect(decoded.html).toMatch(/font-size\s*:\s*84px/i);
-    expect(decoded.substitutionTrace?.slotSubstitutionPath).toBe(
+    expect(decoded.substitutionTrace?.slotSubstitutionPath).toBe("meta.semanticBindings.title");
+    expect(decoded.substitutionTrace?.slotSubstitutionTargetPath).toBe(
       "tree.children[1].children[0]",
     );
   });

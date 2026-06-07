@@ -30,6 +30,7 @@ export type DbCandidateInspectionSource = {
   versionNumber: number;
   primarySourceType: StyleVariantSourceType | null;
   hasRawHtml: boolean;
+  rawHtml?: string | null;
 };
 
 export type CandidateInspectionFixture = {

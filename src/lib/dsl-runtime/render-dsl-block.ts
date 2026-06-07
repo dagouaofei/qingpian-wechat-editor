@@ -113,6 +113,8 @@ export function renderDslBlock(input: RenderDslBlockInput): RendererResult<Rende
             fallbackUsed: substitutionTrace?.fallbackUsed ?? false,
             fallbackReason: substitutionTrace?.fallbackReason ?? null,
             slotSubstitutionPath: substitutionTrace?.slotSubstitutionPath ?? null,
+            slotSubstitutionTargetPath: substitutionTrace?.slotSubstitutionTargetPath ?? null,
+            actualTextLeafPath: substitutionTrace?.actualTextLeafPath ?? null,
             substitutedSlot: substitutionTrace?.substitutedSlot ?? null,
             decorativeSlotsPreserved: substitutionTrace?.decorativeSlotsPreserved ?? [],
           },

@@ -11,6 +11,8 @@ type Props = {
     fallbackUsed: boolean;
     fallbackReason?: string | null;
     slotSubstitutionPath?: string | null;
+    slotSubstitutionTargetPath?: string | null;
+    actualTextLeafPath?: string | null;
     substitutedSlot?: string | null;
     decorativeSlotsPreserved?: string[];
   };
@@ -28,6 +30,8 @@ export function DslTreeHtmlPreviewBlock({ html, variantId, blockType, runtimeTra
       data-fallback-used={runtimeTrace ? String(runtimeTrace.fallbackUsed) : undefined}
       data-fallback-reason={runtimeTrace?.fallbackReason ?? undefined}
       data-slot-substitution-path={runtimeTrace?.slotSubstitutionPath ?? undefined}
+      data-slot-substitution-target-path={runtimeTrace?.slotSubstitutionTargetPath ?? undefined}
+      data-actual-text-leaf-path={runtimeTrace?.actualTextLeafPath ?? undefined}
       data-substituted-slot={runtimeTrace?.substitutedSlot ?? undefined}
       data-decorative-slots-preserved={
         runtimeTrace?.decorativeSlotsPreserved?.length
