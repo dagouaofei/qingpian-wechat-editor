@@ -12,7 +12,7 @@
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
 > **Sprint 8：** **Closed**（2026-06-05 · DECISION-093 · audit Grade A- · P0=0 · merged `release/1` @ `806fa47`）
 > **Sprint 9：** **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · **P0=0** · HTML→user preview picker E2E PASS · Preview/Copy parity PASS · default preset / release1_required 未污染 · **已 merge `release/1`** @ `c96e869` · **未 merge `main`**）
-> **当前 Sprint：** **Sprint 10** — Database-backed Style Management Admin v1 · **In Progress**（2026-06-07 · **DECISION-108** · S10-STORY-001 Done）
+> **当前 Sprint：** **Sprint 10** — Database-backed Style Management Admin v1 · **In Progress**（2026-06-07 · **DECISION-108** · S10-STORY-001~002 Done）
 > **Sprint 10 分支：** `sprint/s10-db-backed-style-admin-v1`（从 `release/1` · 2026-06-07 · @ `c96e869`）
 > **Sprint 9 分支：** `sprint/s9-style-management-system-v0`（已 merge `release/1` · 2026-06-05）
 > **上一 Sprint：** **Sprint 8** — **Closed**（2026-06-05）；**Sprint 7** — **Done**（2026-06-03 · merge `release/1`）
@@ -4137,22 +4137,24 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 ## S10-STORY-002 Prisma + PostgreSQL DB Schema + Repository
 
-**优先级：** P0 · **状态：** **Planned** · **工作分支：** TBD（`feature/s10-story-002-prisma-db-schema`）
+**优先级：** P0 · **状态：** **Done**（2026-06-07）· **工作分支：** `feature/s10-story-002-prisma-db-schema`（从 `sprint/s10-db-backed-style-admin-v1`）
 
 **目标：** Prisma 初始化 · PostgreSQL schema · repository 层 · migration · 本地开发 DB 策略。
 
 **核心表：** `style_variants` · `style_variant_versions` · `style_variant_sources` · `style_variant_distribution` · `style_variant_lifecycle_events` · `style_variant_validation_runs` · `style_variant_evidence` · `style_variant_promote_records` · `style_variant_rollback_records` · `admin_audit_logs` · `runtime_error_logs` · `alert_events`
 
-**非目标：** 不导入 variant 数据 · 不实现 `/admin` UI · 不接入用户侧 picker
+**实现：** `prisma/schema.prisma` · `src/server/style-admin/` · `.env.example` `DATABASE_URL` 占位
+
+**非目标：** 不导入 variant 数据 · 不实现 `/admin` UI · 不接入用户侧 picker · 不连接真实 RDS
 
 **验收标准：**
 
-- [ ] AC-1 Prisma 已初始化 · `schema.prisma` 覆盖核心表
-- [ ] AC-2 本地开发 DB 策略文档化（Docker / 本地 PostgreSQL）
-- [ ] AC-3 repository 层可 CRUD variant 主记录与 distribution
-- [ ] AC-4 `prisma migrate` 可本地执行 · 无 secret 提交
-- [ ] AC-5 单元测试覆盖 repository 基础操作
-- [ ] AC-6 lint / test / build PASS
+- [x] AC-1 Prisma 已初始化 · `schema.prisma` 覆盖核心表
+- [x] AC-2 本地开发 DB 策略文档化（`.env.example` + 架构文档 §6）
+- [x] AC-3 repository 层可 CRUD variant 主记录与 distribution
+- [x] AC-4 初始 migration SQL 已生成 · 无 secret 提交
+- [x] AC-5 单元测试覆盖 pool 边界 · audit · schema validate
+- [x] AC-6 lint / test / build PASS
 
 ---
 

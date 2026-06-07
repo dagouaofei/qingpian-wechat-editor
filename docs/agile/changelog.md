@@ -530,3 +530,14 @@
 | 2026-06-07 | Sprint 10 | S10-STORY-002~012 完整拆分至 sprint-backlog · 第一验收闭环与 HTML Harvest 分阶段 | 敏捷 | S10-STORY-001 |
 | 2026-06-07 | Sprint 10 | 工作分支 `docs/s10-start-architecture-backlog` · **未实现业务代码** · **未 merge `main`** | Git / 文档 | S10-STORY-001 |
 | 2026-06-07 | Sprint 10 | **S10-STORY-001 Done**：merge `docs/s10-start-architecture-backlog` → `sprint/s10-db-backed-style-admin-v1` @ `54b2e15` | Git / 文档 | S10-STORY-001 · DECISION-108 |
+
+---
+
+## 2026-06-07 · S10-STORY-002 Prisma + DB Schema + Repository
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-07 | Sprint 10 | **S10-STORY-002**：Prisma 6 + PostgreSQL schema · 12 核心表 · 初始 migration | 代码 / 数据库 | S10-STORY-002 |
+| 2026-06-07 | Sprint 10 | 新增 `src/server/style-admin/` repository 层 · pool 边界 mapper · audit 写入 | 代码 / 架构 | S10-STORY-002 |
+| 2026-06-07 | Sprint 10 | `.env.example` 增加 `DATABASE_URL` 占位 · 无真实 secret | 配置 / 文档 | S10-STORY-002 |
+| 2026-06-07 | Sprint 10 | 工作分支 `feature/s10-story-002-prisma-db-schema` · **未导入 variant** · **未 merge `main`** | Git | S10-STORY-002 |
