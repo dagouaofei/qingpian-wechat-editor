@@ -4112,7 +4112,7 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 ## S10-STORY-001 S10 架构与技术选型定稿
 
-**优先级：** P0 · **状态：** **Done**（2026-06-07 · **DECISION-108**）· **工作分支：** `docs/s10-start-architecture-backlog`（从 `sprint/s10-db-backed-style-admin-v1`）
+**优先级：** P0 · **状态：** **Done**（2026-06-07 · **DECISION-108** · merged sprint @ `54b2e15`）· **工作分支：** `docs/s10-start-architecture-backlog`（已 merge 至 `sprint/s10-db-backed-style-admin-v1`）
 
 **目标：** S10 启动 · Sprint 分支建立 · 架构与技术选型文档 · S9 → S10 迁移策略 · `/dev/style-library` 与 `/admin/style-library` 关系 · 阿里云部署策略 · 单管理员登录策略 · S10 Story 拆分。
 

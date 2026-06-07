@@ -529,3 +529,4 @@
 | 2026-06-07 | Sprint 10 | **S10-STORY-001 Done**：架构与技术选型定稿 · [`style-management-admin-v1.md`](../architecture/style-management-admin-v1.md) | 文档 / 架构 | S10-STORY-001 · DECISION-108 |
 | 2026-06-07 | Sprint 10 | S10-STORY-002~012 完整拆分至 sprint-backlog · 第一验收闭环与 HTML Harvest 分阶段 | 敏捷 | S10-STORY-001 |
 | 2026-06-07 | Sprint 10 | 工作分支 `docs/s10-start-architecture-backlog` · **未实现业务代码** · **未 merge `main`** | Git / 文档 | S10-STORY-001 |
+| 2026-06-07 | Sprint 10 | **S10-STORY-001 Done**：merge `docs/s10-start-architecture-backlog` → `sprint/s10-db-backed-style-admin-v1` @ `54b2e15` | Git / 文档 | S10-STORY-001 · DECISION-108 |
