@@ -1,0 +1,128 @@
+import { describe, expect, it } from "vitest";
+
+import { decodeVariantDsl } from "@/core/dsl/decoder";
+import { encodeHtmlToVariantDsl } from "@/core/dsl/encoder";
+import { collectFidelityStyleSnapshot } from "@/core/dsl/encoder/fidelity-html-tree";
+import { dslRuntimeTraceFixtureArticle, pickTraceFixtureBlock } from "@/lib/dsl-runtime/trace-fixture-article";
+import type { VariantDslV1 } from "@/core/dsl/runtime/dsl-types";
+
+import { BORDERED_HEADING_HTML } from "../../../fixtures/dsl/bordered-heading-html";
+import { COMPLEX_HEADING_HTML } from "../../../fixtures/dsl/complex-heading-html";
+
+const DOWNGRADE_CODES = [
+  "flex_layout_downgraded",
+  "letter_spacing_risky",
+  "negative_margin_normalized",
+  "deep_nesting_flattened",
+];
+
+function encodeHeading(html: string, mode: "off" | "report" | "enforce" = "off") {
+  return encodeHtmlToVariantDsl({
+    html,
+    runtimeVariantId: "heading_fidelity_test_candidate",
+    blockType: "heading",
+    wechatCompatibilityMode: mode,
+  });
+}
+
+function styleSnapshot(dsl: VariantDslV1): string {
+  return dsl.tree ? collectFidelityStyleSnapshot(dsl.tree) : "";
+}
+
+describe("fidelity HTML encoder (mode=off)", () => {
+  it("does not emit compatibility downgrade loss codes", () => {
+    const encoded = encodeHeading(COMPLEX_HEADING_HTML);
+    expect(encoded.ok).toBe(true);
+    if (!encoded.ok) return;
+
+    const lossCodes = (encoded.sidecar?.encoderLossReport ?? []).map((entry) => entry.code);
+    for (const code of DOWNGRADE_CODES) {
+      expect(lossCodes).not.toContain(code);
+    }
+  });
+
+  it("preserves flex, letter-spacing, negative margin, and font sizes in DSL tree", () => {
+    const encoded = encodeHeading(COMPLEX_HEADING_HTML);
+    expect(encoded.ok).toBe(true);
+    if (!encoded.ok) return;
+
+    const snapshot = styleSnapshot(encoded.value);
+    expect(snapshot).toContain("display");
+    expect(snapshot).toMatch(/flex/i);
+    expect(snapshot).toMatch(/letterSpacing.*2\.6px|letter-spacing.*2\.6px/i);
+    expect(snapshot).toMatch(/letterSpacing.*-3px|-3px/);
+    expect(snapshot).toMatch(/letterSpacing.*-0\.8px|-0\.8px/);
+    expect(snapshot).toMatch(/letterSpacing.*1\.6px|1\.6px/);
+    expect(snapshot).toContain("60px");
+    expect(snapshot).toContain("30px");
+    expect(snapshot).toContain("11px");
+    expect(snapshot).toMatch(/marginTop.*-60px|-60px/);
+  });
+
+  it("keeps Variant DSL body clean — no lossReport or compatibilityIssues embedded", () => {
+    const encoded = encodeHeading(COMPLEX_HEADING_HTML);
+    expect(encoded.ok).toBe(true);
+    if (!encoded.ok) return;
+
+    const json = JSON.stringify(encoded.value);
+    expect(json).not.toContain("flex_layout_downgraded");
+    expect(json).not.toContain("compatibilityIssues");
+    expect(json).not.toContain("sanitizeLossReport");
+    expect(json).not.toContain("encoderLossReport");
+    expect(encoded.value.meta?.encoderVersion).toBe("s10_html_encoder_v4_fidelity");
+    expect(encoded.value.meta?.encoderTrace).toBeUndefined();
+    expect(encoded.value.meta?.lossReport).toBeUndefined();
+  });
+
+  it("preserves bordered heading border styles", () => {
+    const encoded = encodeHeading(BORDERED_HEADING_HTML);
+    expect(encoded.ok).toBe(true);
+    if (!encoded.ok) return;
+
+    const tokens = encoded.value.meta?.styleTokens as Record<string, string> | undefined;
+    expect(tokens?.border).toContain("#2563eb");
+    expect(tokens?.borderLeft).toContain("4px");
+    expect(tokens?.borderRadius).toBe("8px");
+    expect(tokens?.padding).toBe("14px 18px");
+    expect(tokens?.fontSize).toBe("17px");
+  });
+
+  it("decoder preview preserves fidelity styles from DSL", () => {
+    const encoded = encodeHeading(COMPLEX_HEADING_HTML);
+    expect(encoded.ok).toBe(true);
+    if (!encoded.ok) return;
+
+    const article = structuredClone(dslRuntimeTraceFixtureArticle);
+    const block = pickTraceFixtureBlock("heading");
+    (block.content as { text: string }).text = "怎么用";
+
+    const decoded = decodeVariantDsl({
+      article,
+      block,
+      variantDsl: encoded.value,
+      target: "preview",
+    });
+    expect(decoded.ok).toBe(true);
+    if (!decoded.ok) return;
+
+    expect(decoded.html).toMatch(/display\s*:\s*flex/i);
+    expect(decoded.html).toMatch(/letter-spacing/i);
+    expect(decoded.html).toMatch(/margin-top\s*:\s*-60px/i);
+    expect(decoded.html).toContain("60px");
+    expect(decoded.html).toContain("30px");
+  });
+});
+
+describe("fidelity HTML encoder (mode=report vs off)", () => {
+  it("produces DSL consistent with off mode", () => {
+    const off = encodeHeading(COMPLEX_HEADING_HTML, "off");
+    const report = encodeHeading(COMPLEX_HEADING_HTML, "report");
+    expect(off.ok).toBe(true);
+    expect(report.ok).toBe(true);
+    if (!off.ok || !report.ok) return;
+
+    const offTree = JSON.stringify(off.value.tree);
+    const reportTree = JSON.stringify(report.value.tree);
+    expect(reportTree).toBe(offTree);
+  });
+});

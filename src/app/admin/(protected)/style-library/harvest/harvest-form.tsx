@@ -51,6 +51,14 @@ export function HarvestForm({
   const effectiveBlockType = preview?.ok ? preview.effectiveBlockType : null;
   const compatibilityIssues = preview?.ok ? preview.issues : preview?.issues ?? [];
   const lossReport = preview?.ok ? preview.lossReport : preview?.lossReport ?? [];
+  const sanitizeLossReport =
+    preview?.ok ? preview.sanitizeLossReport : preview?.sanitizeLossReport ?? [];
+  const encoderLossReport =
+    preview?.ok ? preview.encoderLossReport : preview?.encoderLossReport ?? [];
+  const compatibilityTransformLossReport =
+    preview?.ok
+      ? preview.compatibilityTransformLossReport
+      : preview?.compatibilityTransformLossReport ?? [];
   const canCreateCandidate = preview?.ok ? preview.canCreateCandidate : false;
   const previewBlockingMessage = preview && !preview.ok ? preview.message : null;
 
@@ -235,7 +243,7 @@ export function HarvestForm({
         </section>
       ) : null}
 
-      {compatibilityIssues.length > 0 ? (
+      {compatibilityMode.mode !== "off" && compatibilityIssues.length > 0 ? (
         <section
           className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm space-y-2"
           data-testid="harvest-compatibility-issues"
@@ -325,7 +333,61 @@ export function HarvestForm({
         </section>
       ) : null}
 
-      {lossReport.length > 0 ? (
+      {sanitizeLossReport.length > 0 ? (
+        <section
+          className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm space-y-2"
+          data-testid="harvest-sanitize-loss-report"
+        >
+          <h2 className="text-sm font-semibold text-slate-900">Sanitize loss</h2>
+          <p className="text-xs text-slate-500">Security cleanup only (script, handlers, dangerous URLs).</p>
+          <ul className="space-y-1 text-xs text-slate-700">
+            {sanitizeLossReport.map((entry, index) => (
+              <li key={`sanitize-${entry.code}-${index}`}>
+                <span className="font-mono">{entry.code}</span>: {entry.message}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {encoderLossReport.length > 0 ? (
+        <section
+          className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm space-y-2"
+          data-testid="harvest-encoder-loss-report"
+        >
+          <h2 className="text-sm font-semibold text-slate-900">Encoder loss</h2>
+          <p className="text-xs text-slate-500">Fidelity encoding loss — not WeChat compatibility downgrade.</p>
+          <ul className="space-y-1 text-xs text-slate-700">
+            {encoderLossReport.map((entry, index) => (
+              <li key={`encoder-${entry.code}-${index}`}>
+                <span className="font-mono">{entry.code}</span>: {entry.message}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {compatibilityTransformLossReport.length > 0 ? (
+        <section
+          className="rounded-xl border border-amber-200 bg-amber-50/60 p-4 shadow-sm space-y-2"
+          data-testid="harvest-compatibility-transform-loss"
+        >
+          <h2 className="text-sm font-semibold text-slate-900">Compatibility transform loss</h2>
+          <p className="text-xs text-slate-500">Enforce-mode downgrade / transform only.</p>
+          <ul className="space-y-1 text-xs text-slate-700">
+            {compatibilityTransformLossReport.map((entry, index) => (
+              <li key={`compat-transform-${entry.code}-${index}`}>
+                <span className="font-mono">{entry.code}</span>: {entry.message}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {lossReport.length > 0 &&
+      sanitizeLossReport.length === 0 &&
+      encoderLossReport.length === 0 &&
+      compatibilityTransformLossReport.length === 0 ? (
         <section
           className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm space-y-2"
           data-testid="harvest-loss-report"

@@ -59,17 +59,16 @@ describe("FIX-A bordered heading DSL decode", () => {
   it("encodes non-empty styleTokens with border, padding, and typography", () => {
     const dsl = encodeBorderedHeading();
     const styleTokens = dsl.meta?.styleTokens as Record<string, string> | undefined;
-    const encoderTrace = dsl.meta?.encoderTrace as { styleTokens?: Record<string, string> } | undefined;
 
     expect(styleTokens).toBeTruthy();
     expect(Object.keys(styleTokens ?? {}).length).toBeGreaterThan(0);
-    expect(encoderTrace?.styleTokens?.padding).toBe("14px 18px");
-    expect(encoderTrace?.styleTokens?.border).toContain("#2563eb");
-    expect(encoderTrace?.styleTokens?.borderLeft).toContain("4px");
-    expect(encoderTrace?.styleTokens?.borderRadius).toBe("8px");
-    expect(encoderTrace?.styleTokens?.color).toBe("#0f172a");
-    expect(encoderTrace?.styleTokens?.fontSize).toBe("17px");
-    expect(encoderTrace?.styleTokens?.lineHeight).toBe("1.5");
+    expect(styleTokens?.padding).toBe("14px 18px");
+    expect(styleTokens?.border).toContain("#2563eb");
+    expect(styleTokens?.borderLeft).toContain("4px");
+    expect(styleTokens?.borderRadius).toBe("8px");
+    expect(styleTokens?.color).toBe("#0f172a");
+    expect(styleTokens?.fontSize).toBe("17px");
+    expect(styleTokens?.lineHeight).toBe("1.5");
     expect(dsl.meta?.layoutIntent).toBe("bordered_left_accent_heading");
   });
 

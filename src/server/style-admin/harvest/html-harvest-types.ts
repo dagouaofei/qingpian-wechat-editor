@@ -97,6 +97,9 @@ export type PreviewHtmlHarvestResult =
       issues: HarvestIssue[];
       warnings: HarvestIssue[];
       lossReport: HarvestLossReportEntry[];
+      sanitizeLossReport: HarvestLossReportEntry[];
+      encoderLossReport: HarvestLossReportEntry[];
+      compatibilityTransformLossReport: HarvestLossReportEntry[];
       canCreateCandidate: boolean;
       partial: boolean;
       severity: HarvestIssueSeverity | null;

@@ -26,7 +26,10 @@ export function readHarvestCompatibilityModeFromDefinition(
 
   const meta = record.meta;
   if (typeof meta === "object" && meta !== null) {
-    const fromMeta = readModeField((meta as Record<string, unknown>).wechatCompatibilityMode);
+    const metaRecord = meta as Record<string, unknown>;
+    const fromMeta =
+      readModeField(metaRecord.compatibilityMode) ??
+      readModeField(metaRecord.wechatCompatibilityMode);
     if (fromMeta) return fromMeta;
   }
 

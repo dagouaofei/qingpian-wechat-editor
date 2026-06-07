@@ -1,5 +1,3 @@
-import { validateHtmlStructureCompatibility } from "@/core/wechat-compatibility";
-
 import { validateVariantDsl } from "../runtime/dsl-validation";
 import type { DecodeVariantDslInput, DecodeVariantDslResult } from "./dsl-decoder-types";
 import { buildDecoderTrace, resolveDecoderPath } from "./decoder-trace";
@@ -78,14 +76,6 @@ export function decodeVariantDsl(input: DecodeVariantDslInput): DecodeVariantDsl
 
   if (!decoded.ok || !decoded.output) {
     return buildFailureTrace(input, decoderPath, decoded.issues);
-  }
-
-  if (decoded.html) {
-    const compat = validateHtmlStructureCompatibility(decoded.html);
-    if (!compat.valid) {
-      const compatIssues = compat.issues.map((issue) => issue.message);
-      return buildFailureTrace(input, decoderPath, compatIssues);
-    }
   }
 
   const htmlLength = decoded.html?.length ?? 0;

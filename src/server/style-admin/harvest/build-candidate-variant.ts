@@ -21,6 +21,9 @@ export type BuildCandidateVariantDraftResult = {
   issues: HarvestIssue[];
   warnings: HarvestIssue[];
   lossReport: HarvestLossReportEntry[];
+  sanitizeLossReport: HarvestLossReportEntry[];
+  encoderLossReport: HarvestLossReportEntry[];
+  compatibilityTransformLossReport: HarvestLossReportEntry[];
   canCreateCandidate: boolean;
   partial: boolean;
 };
@@ -56,6 +59,9 @@ export function buildCandidateVariantDraft(
       issues: [],
       warnings: [],
       lossReport: [],
+      sanitizeLossReport: sanitizeLossReport,
+      encoderLossReport: [],
+      compatibilityTransformLossReport: [],
       canCreateCandidate: false,
       partial: false,
     };
@@ -66,7 +72,13 @@ export function buildCandidateVariantDraft(
       ? extractHeadingCandidate(sanitizedHtml, source, selectedBlockType)
       : extractInfoCardCandidate(sanitizedHtml, source, selectedBlockType);
 
-  const mergedLossReport = [...sanitizeLossReport, ...extract.lossReport];
+  const encoderLossReport = extract.encoderLossReport;
+  const compatibilityTransformLossReport = extract.compatibilityTransformLossReport;
+  const mergedLossReport = [
+    ...sanitizeLossReport,
+    ...encoderLossReport,
+    ...compatibilityTransformLossReport,
+  ];
 
   if (!extract.ok) {
     return {
@@ -76,6 +88,9 @@ export function buildCandidateVariantDraft(
       issues: extract.issues,
       warnings: [],
       lossReport: mergedLossReport,
+      sanitizeLossReport,
+      encoderLossReport,
+      compatibilityTransformLossReport,
       canCreateCandidate: false,
       partial: false,
     };
@@ -87,6 +102,9 @@ export function buildCandidateVariantDraft(
     issues: extract.issues,
     warnings: extract.warnings,
     lossReport: mergedLossReport,
+    sanitizeLossReport,
+    encoderLossReport,
+    compatibilityTransformLossReport,
     canCreateCandidate: extract.canCreateCandidate,
     partial: extract.partial,
     draft: {

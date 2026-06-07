@@ -38,6 +38,8 @@ export type HarvestExtractSuccess = {
   issues: HarvestIssue[];
   warnings: HarvestIssue[];
   lossReport: HarvestLossReportEntry[];
+  encoderLossReport: HarvestLossReportEntry[];
+  compatibilityTransformLossReport: HarvestLossReportEntry[];
   canCreateCandidate: boolean;
   severity: ReturnType<typeof highestHarvestSeverity>;
   wechatCompatibilityMode: HarvestWechatCompatibilityMode;
@@ -49,6 +51,8 @@ export type HarvestExtractFailure = {
   message: string;
   issues: HarvestIssue[];
   lossReport: HarvestLossReportEntry[];
+  encoderLossReport: HarvestLossReportEntry[];
+  compatibilityTransformLossReport: HarvestLossReportEntry[];
   blocking: true;
   wechatCompatibilityMode: HarvestWechatCompatibilityMode;
 };
@@ -77,13 +81,12 @@ export function extractHarvestCandidateShared(
     wechatCompatibilityMode,
   );
 
-  const transformLossReport =
+  const compatibilityTransformLossReport =
     wechatCompatibilityMode === "enforce" ? mapTransformToLossReport(transform) : [];
   const compatibilityIssues =
     wechatCompatibilityMode === "off"
       ? []
       : mapWechatIssuesToHarvestIssues(validation.issues);
-  const lossReport = transformLossReport;
 
   const encoded = encodeHtmlToVariantDsl({
     html: input.sanitizedHtml,
@@ -95,11 +98,20 @@ export function extractHarvestCandidateShared(
     wechatCompatibilityMode,
   });
 
+  const encoderLossReport: HarvestLossReportEntry[] =
+    encoded.ok && encoded.sidecar
+      ? encoded.sidecar.encoderLossReport.map((entry) => ({
+          code: entry.code,
+          message: entry.message,
+        }))
+      : [];
+
   const encoderIssues = mapEncoderIssuesToHarvestIssues(encoded.issues);
   const issues = mergeHarvestIssues(compatibilityIssues, encoderIssues);
   const warnings = issues.filter((issue) => issue.severity === "warning" || issue.severity === "info");
   const risks = issues.filter((issue) => issue.severity === "risk");
   const blockingIssues = issues.filter((issue) => issue.severity === "blocking");
+  const lossReport = [...encoderLossReport, ...compatibilityTransformLossReport];
 
   if (!encoded.ok) {
     return {
@@ -108,32 +120,35 @@ export function extractHarvestCandidateShared(
       message: blockingIssues[0]?.message ?? encoded.issues[0]?.message ?? "HTML encode blocked",
       issues,
       lossReport,
+      encoderLossReport,
+      compatibilityTransformLossReport,
       blocking: true,
       wechatCompatibilityMode,
     };
   }
 
-  const definitionJson = {
-    ...encoded.value,
-    harvestMeta: {
-      sampleText: input.sampleText,
-      parserVersion: "s10_html_harvest_v1_dsl",
-      encoderIssues: encoded.issues,
-      compatibilityIssues: issues,
-      lossReport,
-      wechatCompatibilityMode,
-    },
-  } as JsonValue;
+  const definitionJson = encoded.value as JsonValue;
+
+  const compatibilityStatus =
+    wechatCompatibilityMode === "off"
+      ? "skipped"
+      : validation.valid
+        ? "pass"
+        : "failed";
 
   const compatibilityJson = {
     copySafety: "strict",
     dslVersion: VARIANT_DSL_VERSION,
-    encoderIssueCount: encoded.issues.length,
-    compatibilityIssueCount: issues.length,
     wechatCompatibilityMode,
+    compatibilityStatus,
+    compatibilityIssues,
+    encoderLossReport,
+    compatibilityTransformLossReport,
+    traceId: encoded.sidecar?.traceId ?? null,
     harvestCompatibility: {
       issues,
-      lossReport,
+      encoderLossReport,
+      compatibilityTransformLossReport,
       severity: highestHarvestSeverity(issues),
       partial:
         wechatCompatibilityMode === "enforce"
@@ -177,6 +192,8 @@ export function extractHarvestCandidateShared(
     issues,
     warnings,
     lossReport,
+    encoderLossReport,
+    compatibilityTransformLossReport,
     canCreateCandidate: canCreateHarvestCandidate(issues),
     severity: highestHarvestSeverity(issues),
     wechatCompatibilityMode,

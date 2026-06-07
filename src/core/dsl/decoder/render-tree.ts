@@ -17,7 +17,7 @@ function renderNode(node: DslNode, slots: SlotContentMap, target: DslRenderTarge
   if (node.type === "slot") {
     const content = slots[node.slot] ?? "";
     const tag = node.tag ?? "span";
-    const styleAttr = dslStyleToInlineCss(node.style);
+    const styleAttr = dslStyleToInlineCss(node.style, target);
     const style = styleAttr ? ` style="${styleAttr}"` : "";
     if (target === "admin_inspection" && !content) {
       return `<${tag}${style} data-dsl-slot="${node.slot}"></${tag}>`;
@@ -26,7 +26,7 @@ function renderNode(node: DslNode, slots: SlotContentMap, target: DslRenderTarge
   }
 
   const tag = node.tag;
-  const styleAttr = dslStyleToInlineCss(node.style);
+  const styleAttr = dslStyleToInlineCss(node.style, target);
   const style = styleAttr ? ` style="${styleAttr}"` : "";
   const children = (node.children ?? []).map((child) => renderNode(child, slots, target)).join("");
   return `<${tag}${style}>${children}</${tag}>`;

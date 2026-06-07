@@ -1,8 +1,6 @@
+import { analyzeWechatCompatibilityForHarvest } from "./compatibility-analyzer";
 import type { CompatibilityTransformResult } from "./compatibility-transformer";
-import {
-  validateHtmlStructureCompatibility,
-  type WechatCompatibilityValidationResult,
-} from "./compatibility-validator";
+import type { WechatCompatibilityValidationResult } from "./compatibility-validator";
 import { normalizeAndValidateWechatHtml } from "./wechat-compatibility-spec";
 
 export type HarvestWechatCompatibilityMode = "off" | "report" | "enforce";
@@ -53,6 +51,6 @@ export function applyWechatCompatibilityForHarvest(
   return {
     html: trimmed,
     transform: passthroughTransform,
-    validation: validateHtmlStructureCompatibility(trimmed),
+    validation: analyzeWechatCompatibilityForHarvest(trimmed, mode),
   };
 }

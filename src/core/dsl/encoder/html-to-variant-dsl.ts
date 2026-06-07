@@ -1,7 +1,8 @@
+import { randomUUID } from "node:crypto";
+
 import type { BlockType } from "@/core/blocks";
 import { extractStyleFeaturesFromHtml } from "@/core/style-library/html-style-extractor";
-import { TITLE_BLOCK_COMPONENT_ID } from "@/core/styles/types";
-import { applyWechatCompatibilityForHarvest } from "@/core/wechat-compatibility";
+import type { HarvestWechatCompatibilityMode } from "@/core/wechat-compatibility/harvest-compat-mode";
 
 import {
   VARIANT_DSL_VERSION,
@@ -9,17 +10,11 @@ import {
   type DslStyle,
   type VariantDslV1,
 } from "../runtime/dsl-types";
+import type { TraceLossReportItem } from "../runtime/dsl-trace-types";
 import type { EncoderIssue, EncoderResult, HtmlToVariantDslInput } from "./encoder-types";
 import { extractBorderedHeadingFromHtml } from "./bordered-heading-extractor";
-import {
-  buildBorderedHeadingEncoderTrace,
-  buildHtmlEncoderTrace,
-  mergeLossReports,
-} from "./encoder-trace";
-import {
-  buildSemanticHeadingTree,
-  extractHeadingSemanticsFromHtml,
-} from "./heading-semantic-extractor";
+import { buildFidelityTreeFromHtml } from "./fidelity-html-tree";
+import { extractHeadingSemanticsMetadataOnly } from "./heading-semantic-extractor";
 
 function extractPlainText(html: string): string {
   return html
@@ -43,29 +38,6 @@ function stylesFromFeatures(features: { key: string; value: string }[]): DslStyl
     if (key === "border") style.border = feature.value;
   }
   return style;
-}
-
-function buildSimpleHeadingTree(sectionStyle: DslStyle, titleStyle: DslStyle): DslNode {
-  return {
-    type: "element",
-    tag: "section",
-    style: sectionStyle,
-    children: [
-      {
-        type: "slot",
-        slot: "title",
-        tag: "span",
-        style: {
-          fontSize: "18px",
-          fontWeight: 700,
-          color: "#111111",
-          display: "block",
-          lineHeight: "1.5",
-          ...titleStyle,
-        },
-      },
-    ],
-  };
 }
 
 function buildInfoCardTree(cardStyle: DslStyle): DslNode {
@@ -104,32 +76,10 @@ function buildGenericBlockTree(blockType: BlockType): DslNode {
 
 export function encodeHtmlToVariantDsl(input: HtmlToVariantDslInput): EncoderResult<VariantDslV1> {
   const issues: EncoderIssue[] = [];
+  const encoderLossReport: TraceLossReportItem[] = [];
   const compatibilityMode = input.wechatCompatibilityMode ?? "enforce";
-  const { transform, validation } = applyWechatCompatibilityForHarvest(
-    input.html,
-    compatibilityMode,
-  );
-  const workingHtml = compatibilityMode === "enforce" ? transform.html : input.html.trim();
-
-  if (compatibilityMode !== "off") {
-    for (const issue of validation.issues) {
-      issues.push({
-        code: issue.code,
-        message: issue.message,
-      });
-    }
-  }
-  if (compatibilityMode === "enforce") {
-    for (const loss of transform.issues) {
-      issues.push({ code: "sanitize_transform", message: loss });
-    }
-    for (const downgraded of transform.downgraded) {
-      issues.push({
-        code: "style_downgraded",
-        message: `Downgraded incompatible element: ${downgraded}`,
-      });
-    }
-  }
+  const workingHtml = input.html.trim();
+  const traceId = randomUUID();
 
   const extraction = extractStyleFeaturesFromHtml(workingHtml);
   const featureStyle = stylesFromFeatures(extraction.features);
@@ -138,47 +88,17 @@ export function encodeHtmlToVariantDsl(input: HtmlToVariantDslInput): EncoderRes
   );
 
   let tree: DslNode;
-  let headingSemantic:
-    | ReturnType<typeof extractHeadingSemanticsFromHtml>
-    | undefined;
+  let headingMeta: ReturnType<typeof extractHeadingSemanticsMetadataOnly> | undefined;
   let borderedHeading: ReturnType<typeof extractBorderedHeadingFromHtml> = null;
 
   if (input.blockType === "heading" || input.blockType === "title") {
     borderedHeading = extractBorderedHeadingFromHtml(workingHtml);
     if (borderedHeading) {
       tree = borderedHeading.tree;
-      for (const loss of borderedHeading.lossReport) {
-        issues.push({ code: loss.code, message: loss.message });
-      }
+      encoderLossReport.push(...borderedHeading.lossReport);
     } else {
-    headingSemantic = extractHeadingSemanticsFromHtml(workingHtml);
-    for (const loss of headingSemantic.lossReport) {
-      issues.push({ code: loss.code, message: loss.message });
-    }
-
-    const isComplex =
-      headingSemantic.layoutIntent === "chapter_overlay_heading" ||
-      Boolean(headingSemantic.slots.eyebrow || headingSemantic.slots.number);
-
-    if (isComplex && headingSemantic.slots.title) {
-      tree = buildSemanticHeadingTree(headingSemantic);
-    } else {
-      const sectionStyle: DslStyle = {
-        paddingTop: "8px",
-        paddingBottom: "8px",
-      };
-      if (featureStyle.borderLeft) {
-        sectionStyle.borderLeft = String(featureStyle.borderLeft);
-      } else {
-        sectionStyle.borderLeftWidth = "4px";
-        sectionStyle.borderLeftStyle = "solid";
-        sectionStyle.borderLeftColor = "#1677ff";
-      }
-      if (featureStyle.paddingTop) sectionStyle.paddingTop = String(featureStyle.paddingTop);
-      if (featureStyle.paddingBottom) sectionStyle.paddingBottom = String(featureStyle.paddingBottom);
-      if (featureStyle.padding) sectionStyle.padding = String(featureStyle.padding);
-      tree = buildSimpleHeadingTree(sectionStyle, featureStyle);
-    }
+      headingMeta = extractHeadingSemanticsMetadataOnly(workingHtml);
+      tree = buildFidelityTreeFromHtml(workingHtml, headingMeta.slots);
     }
   } else if (input.blockType === "info_card") {
     tree = buildInfoCardTree(featureStyle);
@@ -186,25 +106,19 @@ export function encodeHtmlToVariantDsl(input: HtmlToVariantDslInput): EncoderRes
     tree = buildGenericBlockTree(input.blockType);
   }
 
-  const encoderTrace = borderedHeading
-    ? buildBorderedHeadingEncoderTrace(borderedHeading, issues)
-    : headingSemantic
-      ? buildHtmlEncoderTrace(headingSemantic, issues)
-      : undefined;
-
   const slotBindings: VariantDslV1["slots"] = {
     title: { role: "title", required: input.blockType === "heading" || input.blockType === "title" },
     body: { role: "body" },
     text: { role: "text" },
   };
 
-  if (headingSemantic?.slots.eyebrow) {
+  if (headingMeta?.slots.eyebrow) {
     slotBindings.eyebrow = { role: "eyebrow" };
   }
-  if (headingSemantic?.slots.number) {
+  if (headingMeta?.slots.number) {
     slotBindings.number = { role: "number" };
   }
-  if (headingSemantic?.slots.subtitle) {
+  if (headingMeta?.slots.subtitle) {
     slotBindings.subtitle = { role: "subtitle" };
   }
 
@@ -216,47 +130,32 @@ export function encodeHtmlToVariantDsl(input: HtmlToVariantDslInput): EncoderRes
     family: input.family ?? "htmlPaste",
     copySafety: input.copySafety ?? "strict",
     tree,
-    tokens: headingSemantic?.tokens,
+    tokens: headingMeta?.tokens,
     slots: slotBindings,
-    componentProtocol:
-      borderedHeading
-        ? undefined
-        : input.blockType === "heading" || input.blockType === "title"
-          ? { componentId: TITLE_BLOCK_COMPONENT_ID, layoutMode: "pill" }
-          : undefined,
     meta: {
-      source: "html_encoder",
-      sanitizedHtmlLength: workingHtml.length,
-      wechatCompatibilityMode: compatibilityMode,
       encoderVersion: borderedHeading
-        ? "s10_html_encoder_v3_bordered_tree"
-        : "s10_html_encoder_v2_semantic",
+        ? "s10_html_encoder_v4_fidelity_bordered"
+        : "s10_html_encoder_v4_fidelity",
+      traceId,
+      compatibilityMode,
       extractedSlots: borderedHeading
         ? { title: borderedHeading.title }
-        : headingSemantic
+        : headingMeta
           ? {
-              ...(headingSemantic.slots.eyebrow ? { eyebrow: headingSemantic.slots.eyebrow } : {}),
-              ...(headingSemantic.slots.number ? { number: headingSemantic.slots.number } : {}),
-              title: headingSemantic.slots.title,
-              ...(headingSemantic.slots.subtitle
-                ? { subtitle: headingSemantic.slots.subtitle }
-                : {}),
+              ...(headingMeta.slots.eyebrow ? { eyebrow: headingMeta.slots.eyebrow } : {}),
+              ...(headingMeta.slots.number ? { number: headingMeta.slots.number } : {}),
+              title: headingMeta.slots.title,
+              ...(headingMeta.slots.subtitle ? { subtitle: headingMeta.slots.subtitle } : {}),
             }
           : undefined,
-      layoutIntent: borderedHeading?.layoutIntent ?? headingSemantic?.layoutIntent,
+      layoutIntent: borderedHeading?.layoutIntent ?? headingMeta?.layoutIntent,
       styleTokens: borderedHeading?.styleTokens,
-      decorators: headingSemantic?.decorators,
-      encoderTrace,
-      lossReport: borderedHeading
-        ? mergeLossReports(borderedHeading.lossReport)
-        : headingSemantic
-          ? mergeLossReports(headingSemantic.lossReport)
-          : undefined,
+      decorators: headingMeta?.decorators,
     },
   };
 
   const plainText =
-    borderedHeading?.title ?? headingSemantic?.slots.title ?? extractPlainText(workingHtml);
+    borderedHeading?.title ?? headingMeta?.slots.title ?? extractPlainText(workingHtml);
   const requiresTitleText = input.blockType === "heading" || input.blockType === "title";
   if (requiresTitleText && plainText.length === 0) {
     issues.push({
@@ -276,14 +175,11 @@ export function encodeHtmlToVariantDsl(input: HtmlToVariantDslInput): EncoderRes
 
   return {
     ok: true,
-    value: {
-      ...dsl,
-      meta: {
-        ...dsl.meta,
-        compatibilityValid: compatibilityMode === "off" ? true : validation.valid,
-        compatibilityIssueCount: compatibilityMode === "off" ? 0 : validation.issues.length,
-      },
-    },
+    value: dsl,
     issues,
+    sidecar: {
+      traceId,
+      encoderLossReport,
+    },
   };
 }

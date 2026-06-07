@@ -173,8 +173,18 @@ export function previewHtmlHarvestCandidate(
     manualBlockType,
   );
 
-  const { draft, detectedBlockType, issues, warnings, lossReport, canCreateCandidate, partial } =
-    built;
+  const {
+    draft,
+    detectedBlockType,
+    issues,
+    warnings,
+    lossReport,
+    sanitizeLossReport,
+    encoderLossReport,
+    compatibilityTransformLossReport,
+    canCreateCandidate,
+    partial,
+  } = built;
   const activeCompatibilityMode = getHarvestWechatCompatibilityMode();
 
   if (!draft) {
@@ -187,6 +197,9 @@ export function previewHtmlHarvestCandidate(
         issues,
         warnings,
         lossReport,
+        sanitizeLossReport,
+        encoderLossReport,
+        compatibilityTransformLossReport,
         canCreateCandidate: false,
         partial: false,
         severity: null,
@@ -243,6 +256,9 @@ export function previewHtmlHarvestCandidate(
     issues,
     warnings,
     lossReport,
+    sanitizeLossReport,
+    encoderLossReport,
+    compatibilityTransformLossReport,
     canCreateCandidate,
     partial,
     severity,

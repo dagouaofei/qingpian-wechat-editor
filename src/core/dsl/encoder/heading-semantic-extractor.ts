@@ -189,6 +189,33 @@ function extractTokens(blocks: StyledTextBlock[], slots: HeadingSemanticSlots): 
   return tokens;
 }
 
+/** Metadata-only extraction for fidelity encode — does not detect or report structural downgrades. */
+export function extractHeadingSemanticsMetadataOnly(
+  rawHtml: string,
+): Pick<HeadingSemanticExtraction, "slots" | "layoutIntent" | "decorators" | "tokens"> {
+  const htmlForSlotDetection = rawHtml
+    .replace(LEAF_SPAN_PATTERN, "$1")
+    .replace(EMPTY_BR_PATTERN, "");
+  const blocks = collectStyledTextBlocks(htmlForSlotDetection);
+  const slots = classifyHeadingSlots(blocks);
+
+  if (!slots.title) {
+    const fallback = stripTags(rawHtml);
+    if (fallback) slots.title = fallback;
+  }
+
+  const tokens = extractTokens(blocks, slots);
+  const decorators: string[] = [];
+  if (slots.eyebrow && /border-top/i.test(rawHtml)) decorators.push("top_line");
+  if (slots.number) decorators.push("background_number");
+  if (slots.subtitle) decorators.push("subtitle_row");
+
+  const layoutIntent =
+    slots.number && slots.eyebrow ? "chapter_overlay_heading" : "simple_heading";
+
+  return { slots, layoutIntent, decorators, tokens };
+}
+
 export function extractHeadingSemanticsFromHtml(rawHtml: string): HeadingSemanticExtraction {
   const lossReport: TraceLossReportItem[] = [];
   const issues: TraceIssue[] = [];

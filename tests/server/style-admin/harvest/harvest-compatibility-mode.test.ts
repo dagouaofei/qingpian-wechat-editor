@@ -14,6 +14,13 @@ import { COMPLEX_HEADING_HTML } from "../../../fixtures/dsl/complex-heading-html
 
 const originalMode = process.env.STYLE_HARVEST_WECHAT_COMPATIBILITY_MODE;
 
+const DOWNGRADE_CODES = [
+  "flex_layout_downgraded",
+  "letter_spacing_risky",
+  "negative_margin_normalized",
+  "deep_nesting_flattened",
+];
+
 function setHarvestMode(mode: string | undefined) {
   if (mode === undefined) {
     delete process.env.STYLE_HARVEST_WECHAT_COMPATIBILITY_MODE;
@@ -48,19 +55,22 @@ describe("harvest WeChat compatibility mode", () => {
   it("mode=off still removes script and onclick via sanitize", () => {
     setHarvestMode("off");
     const html = `<section onclick="alert(1)"><script>alert(1)</script><span style="display:flex;letter-spacing:2px;font-size:18px;font-weight:700;">标题</span></section>`;
-    const { lossReport, draft, canCreateCandidate } = buildCandidateVariantDraft(html, {
-      sourceLabel: "security off mode",
-    }, "heading");
+    const { lossReport, draft, canCreateCandidate, sanitizeLossReport } = buildCandidateVariantDraft(
+      html,
+      { sourceLabel: "security off mode" },
+      "heading",
+    );
 
     expect(draft).not.toBeNull();
     expect(canCreateCandidate).toBe(true);
+    expect(sanitizeLossReport.some((entry) => entry.code === "security_removed")).toBe(true);
     expect(lossReport.some((entry) => entry.code === "security_removed")).toBe(true);
     expect(draft?.sanitizedHtml).not.toMatch(/onclick|script/i);
   });
 
-  it("mode=off does not emit flex/letter-spacing compatibility blocking issues", () => {
+  it("mode=off does not emit flex/letter-spacing compatibility downgrade loss", () => {
     setHarvestMode("off");
-    const { issues, lossReport, draft } = buildCandidateVariantDraft(COMPLEX_HEADING_HTML, {
+    const { issues, encoderLossReport, draft } = buildCandidateVariantDraft(COMPLEX_HEADING_HTML, {
       sourceLabel: "complex off",
     });
 
@@ -69,8 +79,11 @@ describe("harvest WeChat compatibility mode", () => {
     expect(
       issues.filter((issue) => issue.path?.startsWith("tag:") || issue.path?.startsWith("style:")),
     ).toHaveLength(0);
-    expect(lossReport.some((entry) => entry.code === "style_downgraded")).toBe(false);
-    expect(lossReport.some((entry) => entry.code === "tag_downgraded")).toBe(false);
+    for (const code of DOWNGRADE_CODES) {
+      expect(encoderLossReport.some((entry) => entry.code === code)).toBe(false);
+    }
+    expect(encoderLossReport.some((entry) => entry.code === "style_downgraded")).toBe(false);
+    expect(encoderLossReport.some((entry) => entry.code === "tag_downgraded")).toBe(false);
   });
 
   it("mode=off preserves bordered heading border styles in DSL tokens", () => {
@@ -80,31 +93,65 @@ describe("harvest WeChat compatibility mode", () => {
     });
     expect(draft).not.toBeNull();
     const definition = draft?.definitionJson as {
-      meta?: { styleTokens?: Record<string, string> };
+      meta?: { styleTokens?: Record<string, string>; compatibilityMode?: string };
       harvestMeta?: { wechatCompatibilityMode?: string };
     };
-    expect(definition?.harvestMeta?.wechatCompatibilityMode).toBe("off");
+    expect(definition?.harvestMeta).toBeUndefined();
+    expect(definition?.meta?.compatibilityMode).toBe("off");
     expect(definition?.meta?.styleTokens?.border).toContain("#2563eb");
     expect(definition?.meta?.styleTokens?.borderLeft).toContain("4px");
     expect(definition?.meta?.styleTokens?.borderRadius).toBe("8px");
     expect(definition?.meta?.styleTokens?.padding).toBe("14px 18px");
   });
 
-  it("mode=report reports issues without transform downgrade loss", () => {
+  it("mode=report reports compatibility issues without transform downgrade loss", () => {
     setHarvestMode("report");
-    const { issues, lossReport, draft } = buildCandidateVariantDraft(COMPLEX_HEADING_HTML, {
-      sourceLabel: "complex report",
-    });
+    const { issues, compatibilityTransformLossReport, draft } = buildCandidateVariantDraft(
+      COMPLEX_HEADING_HTML,
+      { sourceLabel: "complex report" },
+    );
 
     expect(draft).not.toBeNull();
     expect(issues.length).toBeGreaterThan(0);
     expect(issues.some((issue) => issue.severity === "blocking")).toBe(false);
-    expect(lossReport.some((entry) => entry.code === "style_downgraded")).toBe(false);
-    expect(lossReport.some((entry) => entry.code === "tag_downgraded")).toBe(false);
+    expect(compatibilityTransformLossReport.some((entry) => entry.code === "style_downgraded")).toBe(
+      false,
+    );
+    expect(compatibilityTransformLossReport.some((entry) => entry.code === "tag_downgraded")).toBe(
+      false,
+    );
+  });
+
+  it("mode=report DSL tree matches off mode", () => {
+    setHarvestMode("off");
+    const offDraft = buildCandidateVariantDraft(COMPLEX_HEADING_HTML, {
+      sourceLabel: "complex off tree",
+    }).draft;
+    setHarvestMode("report");
+    const reportDraft = buildCandidateVariantDraft(COMPLEX_HEADING_HTML, {
+      sourceLabel: "complex report tree",
+    }).draft;
+
+    const offTree = (offDraft?.definitionJson as { tree?: unknown })?.tree;
+    const reportTree = (reportDraft?.definitionJson as { tree?: unknown })?.tree;
+    expect(JSON.stringify(reportTree)).toBe(JSON.stringify(offTree));
   });
 
   it("mode=enforce may record transform downgrade loss", () => {
     setHarvestMode("enforce");
+    const { compatibilityTransformLossReport } = buildCandidateVariantDraft(
+      `<div style="font-size:18px;font-weight:700;">标题</div>`,
+      { sourceLabel: "enforce downgrade" },
+      "heading",
+    );
+    expect(
+      compatibilityTransformLossReport.some(
+        (entry) => entry.code === "tag_downgraded" || entry.code === "style_downgraded",
+      ),
+    ).toBe(true);
+  });
+
+  it("fidelity encoder does not apply enforce transform during encode", () => {
     const encoded = encodeHtmlToVariantDsl({
       html: `<div style="font-size:18px;font-weight:700;">标题</div>`,
       runtimeVariantId: "heading_html_paste_enforce_mode_candidate",
@@ -119,7 +166,7 @@ describe("harvest WeChat compatibility mode", () => {
           issue.code === "sanitize_transform" ||
           issue.message.toLowerCase().includes("downgraded"),
       ),
-    ).toBe(true);
+    ).toBe(false);
   });
 
   it("harvest preview trace includes wechatCompatibilityMode", () => {
@@ -131,18 +178,26 @@ describe("harvest WeChat compatibility mode", () => {
     expect(preview.trace?.wechatCompatibilityMode).toBe("report");
   });
 
-  it("compatibilityJson stores wechatCompatibilityMode", () => {
+  it("compatibilityJson stores wechatCompatibilityMode and separates encoder loss", () => {
     setHarvestMode("off");
-    const { draft } = buildCandidateVariantDraft(BORDERED_HEADING_HTML, {
+    const { draft, encoderLossReport } = buildCandidateVariantDraft(BORDERED_HEADING_HTML, {
       sourceLabel: "bordered metadata",
     });
-    const compatibility = draft?.compatibilityJson as { wechatCompatibilityMode?: string };
+    const compatibility = draft?.compatibilityJson as {
+      wechatCompatibilityMode?: string;
+      encoderLossReport?: { code: string }[];
+      compatibilityIssues?: unknown[];
+    };
     expect(compatibility?.wechatCompatibilityMode).toBe("off");
+    expect(compatibility?.compatibilityIssues).toEqual([]);
+    expect(compatibility?.encoderLossReport?.map((entry) => entry.code)).toEqual(
+      encoderLossReport.map((entry) => entry.code),
+    );
   });
 
-  it("mode=off chapter heading keeps semantic layoutIntent without compatibility-driven loss", () => {
+  it("mode=off chapter heading keeps semantic layoutIntent without compatibility downgrade loss", () => {
     setHarvestMode("off");
-    const { draft, lossReport } = buildCandidateVariantDraft(COMPLEX_HEADING_HTML, {
+    const { draft, encoderLossReport } = buildCandidateVariantDraft(COMPLEX_HEADING_HTML, {
       sourceLabel: "chapter off",
     });
     const definition = draft?.definitionJson as {
@@ -150,6 +205,18 @@ describe("harvest WeChat compatibility mode", () => {
     };
     expect(definition?.meta?.layoutIntent).toBe("chapter_overlay_heading");
     expect(definition?.meta?.extractedSlots?.title).toBe("怎么用");
-    expect(lossReport.some((entry) => entry.code === "style_downgraded")).toBe(false);
+    for (const code of DOWNGRADE_CODES) {
+      expect(encoderLossReport.some((entry) => entry.code === code)).toBe(false);
+    }
+  });
+
+  it("preview exposes sanitize, encoder, and compatibility transform loss separately", () => {
+    setHarvestMode("off");
+    const preview = previewHtmlHarvestCandidate({ rawHtml: BORDERED_HEADING_HTML });
+    expect(preview.ok).toBe(true);
+    if (!preview.ok) return;
+    expect(Array.isArray(preview.sanitizeLossReport)).toBe(true);
+    expect(Array.isArray(preview.encoderLossReport)).toBe(true);
+    expect(Array.isArray(preview.compatibilityTransformLossReport)).toBe(true);
   });
 });
