@@ -18,15 +18,18 @@ function assertResponseHasNoSecrets(payload: unknown) {
 
 vi.mock("@/server/style-admin/runtime", () => ({
   getUserSelectableVariantPool: vi.fn(),
+  getRuntimeVariantDslPool: vi.fn(),
   toUserSelectableVariantPoolSnapshot: vi.fn(),
 }));
 
 import {
+  getRuntimeVariantDslPool,
   getUserSelectableVariantPool,
   toUserSelectableVariantPoolSnapshot,
 } from "@/server/style-admin/runtime";
 
 const mockedGetPool = vi.mocked(getUserSelectableVariantPool);
+const mockedGetDslPool = vi.mocked(getRuntimeVariantDslPool);
 const mockedToSnapshot = vi.mocked(toUserSelectableVariantPoolSnapshot);
 
 describe("GET /api/dev/style-admin/user-selectable-pool", () => {
@@ -96,6 +99,13 @@ describe("GET /api/dev/style-admin/user-selectable-pool", () => {
       issues: result.issues,
       notice: result.notice,
     }));
+    mockedGetDslPool.mockResolvedValue({
+      source: "code_fallback",
+      cache: { hit: false, ttlSeconds: 0, generatedAt: "2026-06-07T00:00:00.000Z" },
+      definitionJsonByVariantId: {},
+      variantIds: [],
+      issues: [],
+    });
 
     const response = await GET(new Request(poolUrl));
     const body = await response.json();
@@ -126,6 +136,13 @@ describe("GET /api/dev/style-admin/user-selectable-pool", () => {
       issues: result.issues,
       notice: result.notice,
     }));
+    mockedGetDslPool.mockResolvedValue({
+      source: "database",
+      cache: { hit: false, ttlSeconds: 120, generatedAt: "2026-06-07T00:00:00.000Z" },
+      definitionJsonByVariantId: {},
+      variantIds: [],
+      issues: [],
+    });
 
     const response = await GET(new Request(poolUrl));
     const body = await response.json();

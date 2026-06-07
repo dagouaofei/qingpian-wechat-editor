@@ -63,9 +63,9 @@
 | **Sprint 7** | **Done**（2026-06-03 · S7-STORY-008 关闭 · merge `release/1`） |
 | **Sprint 8** | **Closed**（2026-06-05 · DECISION-093 · merged `release/1`） |
 | **Sprint 9** | **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · P0=0 · S9-STORY-001~009 Done · **已 merge `release/1`** @ `c96e869`） |
-| **Sprint 10** | **In Progress**（2026-06-07 · **DECISION-108** · S10-STORY-001~010 Done · **S10-STORY-011A In Review**） |
+| **Sprint 10** | **In Progress**（2026-06-07 · **DECISION-108** · S10-STORY-001~010 · **S10-STORY-011A Done**） |
 | **Release 1 主干** | `release/1` |
-| **下一步** | **S10-STORY-011A FIX-B**（Harvest Encoder Fidelity + Runtime Trace）→ 完成 HTML→Promote→用户侧 E2E 后再审查 merge 011A → **S10-STORY-011** Promote · S10-STORY-012 Closeout |
+| **下一步** | 恢复 **S10-STORY-011** Promote（`wip-s10-story-011-promote` stash）· inspection preview fidelity · **S10-STORY-012** Closeout |
 
 ---
 

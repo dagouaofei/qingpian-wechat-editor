@@ -5,6 +5,7 @@ import type {
   HarvestIssueSeverity,
   HarvestLossReportEntry,
 } from "./harvest-compatibility";
+import type { HarvestPreviewTrace } from "./harvest-trace";
 import type { JsonValue } from "../types";
 
 export const HTML_HARVEST_PARSER_VERSION = "s10_html_harvest_v1";
@@ -100,6 +101,7 @@ export type PreviewHtmlHarvestResult =
       severity: HarvestIssueSeverity | null;
       blocking: false;
       guidance?: string;
+      trace?: HarvestPreviewTrace;
     }
   | {
       ok: false;

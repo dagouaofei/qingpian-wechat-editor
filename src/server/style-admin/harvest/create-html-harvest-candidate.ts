@@ -16,6 +16,7 @@ import {
   isHarvestBlockType,
   toPrismaBlockType,
 } from "./html-harvest-types";
+import { buildHarvestPreviewTrace } from "./harvest-trace";
 import { sanitizeHarvestHtml } from "./sanitize-harvest-html";
 
 const HARVEST_COMPATIBILITY_GUIDANCE =
@@ -212,6 +213,14 @@ export function previewHtmlHarvestCandidate(
     (issue) => issue.severity === "risk" || issue.severity === "warning",
   );
 
+  const trace = buildHarvestPreviewTrace(
+    draft.definitionJson,
+    draft.runtimeVariantId,
+    draft.blockType,
+    issues,
+    lossReport,
+  );
+
   return {
     ok: true,
     detectedBlockType,
@@ -233,6 +242,7 @@ export function previewHtmlHarvestCandidate(
     severity,
     blocking: false,
     guidance: hasCompatibilityRisks ? HARVEST_COMPATIBILITY_GUIDANCE : undefined,
+    trace: trace ?? undefined,
   };
 }
 

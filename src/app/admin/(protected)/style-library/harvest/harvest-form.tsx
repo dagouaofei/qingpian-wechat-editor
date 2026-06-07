@@ -234,6 +234,65 @@ export function HarvestForm({ writeEnabled, writeProtectionMessage }: HarvestFor
         </section>
       ) : null}
 
+      {preview?.ok && preview.trace ? (
+        <section
+          className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm space-y-3"
+          data-testid="harvest-encoder-trace"
+        >
+          <h2 className="text-sm font-semibold text-slate-900">Encoder / Decoder trace</h2>
+          <dl className="grid gap-2 text-xs md:grid-cols-2">
+            <div>
+              <dt className="text-slate-500">layoutIntent</dt>
+              <dd>{preview.trace.layoutIntent ?? "—"}</dd>
+            </div>
+            <div>
+              <dt className="text-slate-500">dslVersion</dt>
+              <dd>{preview.trace.dslVersion ?? "—"}</dd>
+            </div>
+            <div>
+              <dt className="text-slate-500">decoderPath</dt>
+              <dd>{preview.trace.runtimeTrace.decoderPath}</dd>
+            </div>
+            <div>
+              <dt className="text-slate-500">runtimeSource</dt>
+              <dd>{preview.trace.runtimeTrace.runtimeSource}</dd>
+            </div>
+          </dl>
+          <div>
+            <h3 className="text-xs font-semibold text-slate-800">Extracted semantic slots</h3>
+            <pre className="mt-1 overflow-x-auto rounded bg-slate-50 p-2 text-xs">
+              {JSON.stringify(preview.trace.extractedSlots, null, 2)}
+            </pre>
+          </div>
+          <div>
+            <h3 className="text-xs font-semibold text-slate-800">Style tokens</h3>
+            <pre className="mt-1 overflow-x-auto rounded bg-slate-50 p-2 text-xs">
+              {JSON.stringify(preview.trace.styleTokens, null, 2)}
+            </pre>
+          </div>
+          <details className="rounded-lg border border-slate-200 p-3">
+            <summary className="cursor-pointer text-xs font-medium text-slate-800">
+              Variant DSL JSON
+            </summary>
+            <pre className="mt-2 max-h-64 overflow-auto text-xs text-slate-700">
+              {preview.trace.variantDslPreview}
+            </pre>
+          </details>
+          <div className="grid gap-2 text-xs md:grid-cols-2">
+            <div data-testid="harvest-decoder-preview-summary">
+              <span className="font-semibold">Preview decode:</span> ok=
+              {String(preview.trace.decoderPreview.ok)}, length=
+              {preview.trace.decoderPreview.outputLength}
+            </div>
+            <div data-testid="harvest-decoder-copy-summary">
+              <span className="font-semibold">Copy decode:</span> ok=
+              {String(preview.trace.decoderCopy.ok)}, length=
+              {preview.trace.decoderCopy.outputLength}
+            </div>
+          </div>
+        </section>
+      ) : null}
+
       {lossReport.length > 0 ? (
         <section
           className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm space-y-2"

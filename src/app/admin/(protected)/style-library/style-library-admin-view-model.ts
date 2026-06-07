@@ -1,3 +1,11 @@
+import type { BlockType } from "@/core/blocks";
+import type { DslRuntimeTrace } from "@/core/dsl/runtime/dsl-trace-types";
+import { buildRuntimeTraceForVariant } from "@/lib/dsl-runtime/runtime-trace";
+import {
+  dslRuntimeTraceFixtureArticle,
+  pickTraceFixtureBlock,
+} from "@/lib/dsl-runtime/trace-fixture-article";
+
 import type { CandidateInspectionPanelViewModel } from "./candidate-inspection-view-model";
 import { buildCandidateInspectionPanelViewModel } from "./candidate-inspection-view-model";
 import {
@@ -153,6 +161,7 @@ export type StyleLibraryAdminDetailViewModel = {
   writeProtectionMessage: string;
   listHref: string;
   candidateInspection: CandidateInspectionPanelViewModel | null;
+  runtimeTrace: DslRuntimeTrace | null;
 };
 
 const EMPTY_SUMMARY: AdminVariantSummary = {
@@ -293,6 +302,7 @@ export function buildAdminDetailViewModelFromQueryResult(
       validationRuns: [],
       evidence: [],
       candidateInspection: null,
+      runtimeTrace: null,
     };
   }
 
@@ -309,12 +319,26 @@ export function buildAdminDetailViewModelFromQueryResult(
       validationRuns: [],
       evidence: [],
       candidateInspection: null,
+      runtimeTrace: null,
     };
   }
 
   const { variant, distribution, currentVersion, sources, lifecycleEvents, validationRuns, evidence } =
     result.data;
   const candidateInspection = buildCandidateInspectionPanelViewModel(result.data);
+
+  const runtimeTrace =
+    currentVersion?.definitionJson != null
+      ? buildRuntimeTraceForVariant({
+          runtimeVariantId: variant.runtimeVariantId,
+          blockType: variant.blockType as BlockType,
+          definitionJson: currentVersion.definitionJson,
+          poolSource: "database",
+          article: dslRuntimeTraceFixtureArticle,
+          block: pickTraceFixtureBlock(variant.blockType as BlockType),
+          decodeTargets: ["preview", "copy_wechat"],
+        })
+      : null;
 
   return {
     ...base,
@@ -391,6 +415,7 @@ export function buildAdminDetailViewModelFromQueryResult(
       createdAt: item.createdAt.toISOString(),
     })),
     candidateInspection,
+    runtimeTrace,
   };
 }
 

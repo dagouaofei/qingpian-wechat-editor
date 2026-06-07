@@ -24,3 +24,15 @@ export {
   validateArticleDsl,
   validateVariantDsl,
 } from "./dsl-validation";
+
+export type {
+  DecoderTrace,
+  DslDecoderPathTrace,
+  DslDefinitionSourceTrace,
+  DslRuntimeSourceTrace,
+  DslRuntimeTrace,
+  EncoderTrace,
+  TraceIssue,
+  TraceLossReportItem,
+  VariantDslRuntimeReadiness,
+} from "./dsl-trace-types";

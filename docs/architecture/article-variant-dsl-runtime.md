@@ -141,15 +141,73 @@ Registry 编码时 `meta.legacySlots` 保留完整 slot 定义，供 `renderCont
 
 ---
 
-## 7. 与 S10-STORY-011 关系
+## 7. Runtime Trace（FIX-B）
 
-- **S10-STORY-011（Promote）暂停 merge**；须基于 011A DSL Runtime 重新收口。
-- Promote eligibility 须增加：Variant DSL valid · `decode(preview)` · `decode(copy_wechat)` · WeChat Compatibility pass。
-- 本地 E2E bug（promoted heading picker 可见但 Preview 空）根因：用户路径未消费 DB DSL；011A 已修复。
+FIX-B 起，Encoder / Decoder / 用户 runtime 须产出可诊断 trace，回答「走哪条路径、为何失败」。
+
+### 7.1 Trace 类型
+
+| 模块 | 路径 | 职责 |
+|------|------|------|
+| Trace types | `src/core/dsl/runtime/dsl-trace-types.ts` | `DslRuntimeTrace` · `EncoderTrace` · `DecoderTrace` |
+| Encoder trace | `src/core/dsl/encoder/encoder-trace.ts` | 输入种类 · extracted slots · style tokens · lossReport |
+| Decoder trace | `src/core/dsl/decoder/decoder-trace.ts` | target · decoderPath · missingSlots · unsupportedNodes/Styles |
+| Runtime bridge | `src/lib/dsl-runtime/runtime-trace.ts` | `buildRuntimeTraceForVariant` · pool source 映射 |
+| Readiness gate | `src/lib/dsl-runtime/validate-variant-dsl-runtime-readiness.ts` | Promote 前置检查（011 后续调用） |
+
+### 7.2 `runtimeSource` 定义
+
+| 值 | 含义 |
+|----|------|
+| `database_dsl` | DB 可用且 `definitionJson` 经 Decoder Core 解码（**DB 可用时验收必须通过**） |
+| `code_fallback` | DB 不可用时代码 registry seed 编码为 DSL 后解码 |
+| `missing_dsl` | 无 `definitionJson` 或 parse 失败 |
+| `unsupported` | blockType / DSL 形态当前 Decoder 不支持 |
+
+`decoderPath`：`tree` · `renderContract` · `none`  
+`definitionSource`：`db.definitionJson` · `code_fallback_encoded_registry` · `unknown`
+
+### 7.3 诊断链路
+
+```text
+rawHtml
+  → sanitizedHtml / normalizedDom
+  → semanticExtraction（heading: eyebrow / number / title / subtitle / layoutIntent / tokens）
+  → Variant DSL（浅层规范 tree，非原样深层 DOM）
+  → decodedPreviewHtml / decodedCopyHtml
+  → compatibilityIssues + lossReport
+  → runtimeSource + renderTrace
+```
+
+### 7.4 可见性
+
+| 入口 | 展示内容 |
+|------|----------|
+| `/admin/style-library/harvest` | extracted slots · tokens · DSL JSON · decoder preview/copy summary · issues · lossReport |
+| Candidate detail | Runtime Trace：runtimeSource · decoderPath · dslValid · inspection decode summary |
+| `GET /api/dev/style-admin/user-selectable-pool` | 每 variant：`runtimeSource` · `dslValid` · `decoderPath` · `previewReady` · `copyReady` |
+
+### 7.5 No silent empty render
+
+Decoder 在 slot 缺失、unsupported node/style、或输出无可见文本时须返回明确 issue（如 `DSL_SLOT_MISSING:title` · `DSL_RENDER_EMPTY`），**禁止**空字符串静默成功。
+
+### 7.6 Heading semantic encoder（v2）
+
+复杂公众号 heading HTML 经 `heading-semantic-extractor.ts` 提取语义 slot（`eyebrow` · `number` · `title` · `subtitle`）与 `layoutIntent` / `decorators` / style tokens，生成浅层规范 DSL tree；flex · negative margin · leaf span · 空 br 等进入 `lossReport` / compatibility issues，不原样塞进 tree。
+
+Encoder 版本：`s10_html_encoder_v2_semantic` · `meta.extractedSlots` 供 Decoder `resolve-dsl-slots` 填充 block content。
 
 ---
 
-## 8. 明确不做（011A）
+## 8. 与 S10-STORY-011 关系
+
+- **S10-STORY-011（Promote）暂停 merge**；须基于 011A DSL Runtime 重新收口。
+- Promote eligibility **必须**调用 `validateVariantDslRuntimeReadiness(variant)`：仅当 `ok=true`（DSL valid · preview/copy ready · DB 场景 `runtimeSource=database_dsl` · 无 blocking issues）才允许 promote。
+- 本地 E2E bug（promoted heading picker 可见但 Preview 空）根因：用户路径未消费 DB DSL；011A FIX-A 已修复。
+
+---
+
+## 9. 明确不做（011A）
 
 - DOM 编辑器完整反向编码
 - AI 真实生成 DSL

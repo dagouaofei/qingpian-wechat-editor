@@ -10,6 +10,11 @@ import {
   type VariantDslV1,
 } from "../runtime/dsl-types";
 import type { EncoderIssue, EncoderResult, HtmlToVariantDslInput } from "./encoder-types";
+import { buildHtmlEncoderTrace, mergeLossReports } from "./encoder-trace";
+import {
+  buildSemanticHeadingTree,
+  extractHeadingSemanticsFromHtml,
+} from "./heading-semantic-extractor";
 
 function extractPlainText(html: string): string {
   return html
@@ -35,7 +40,7 @@ function stylesFromFeatures(features: { key: string; value: string }[]): DslStyl
   return style;
 }
 
-function buildHeadingTree(sectionStyle: DslStyle, titleStyle: DslStyle): DslNode {
+function buildSimpleHeadingTree(sectionStyle: DslStyle, titleStyle: DslStyle): DslNode {
   return {
     type: "element",
     tag: "section",
@@ -116,27 +121,63 @@ export function encodeHtmlToVariantDsl(input: HtmlToVariantDslInput): EncoderRes
   );
 
   let tree: DslNode;
-  if (input.blockType === "heading" || input.blockType === "title") {
-    const sectionStyle: DslStyle = {
-      paddingTop: "8px",
-      paddingBottom: "8px",
-    };
-    if (featureStyle.borderLeft) {
-      sectionStyle.borderLeft = String(featureStyle.borderLeft);
-    } else {
-      sectionStyle.borderLeftWidth = "4px";
-      sectionStyle.borderLeftStyle = "solid";
-      sectionStyle.borderLeftColor = "#1677ff";
-    }
-    if (featureStyle.paddingTop) sectionStyle.paddingTop = String(featureStyle.paddingTop);
-    if (featureStyle.paddingBottom) sectionStyle.paddingBottom = String(featureStyle.paddingBottom);
-    if (featureStyle.padding) sectionStyle.padding = String(featureStyle.padding);
+  let headingSemantic:
+    | ReturnType<typeof extractHeadingSemanticsFromHtml>
+    | undefined;
 
-    tree = buildHeadingTree(sectionStyle, featureStyle);
+  if (input.blockType === "heading" || input.blockType === "title") {
+    headingSemantic = extractHeadingSemanticsFromHtml(input.html);
+    for (const loss of headingSemantic.lossReport) {
+      issues.push({ code: loss.code, message: loss.message });
+    }
+
+    const isComplex =
+      headingSemantic.layoutIntent === "chapter_overlay_heading" ||
+      Boolean(headingSemantic.slots.eyebrow || headingSemantic.slots.number);
+
+    if (isComplex && headingSemantic.slots.title) {
+      tree = buildSemanticHeadingTree(headingSemantic);
+    } else {
+      const sectionStyle: DslStyle = {
+        paddingTop: "8px",
+        paddingBottom: "8px",
+      };
+      if (featureStyle.borderLeft) {
+        sectionStyle.borderLeft = String(featureStyle.borderLeft);
+      } else {
+        sectionStyle.borderLeftWidth = "4px";
+        sectionStyle.borderLeftStyle = "solid";
+        sectionStyle.borderLeftColor = "#1677ff";
+      }
+      if (featureStyle.paddingTop) sectionStyle.paddingTop = String(featureStyle.paddingTop);
+      if (featureStyle.paddingBottom) sectionStyle.paddingBottom = String(featureStyle.paddingBottom);
+      if (featureStyle.padding) sectionStyle.padding = String(featureStyle.padding);
+      tree = buildSimpleHeadingTree(sectionStyle, featureStyle);
+    }
   } else if (input.blockType === "info_card") {
     tree = buildInfoCardTree(featureStyle);
   } else {
     tree = buildGenericBlockTree(input.blockType);
+  }
+
+  const encoderTrace = headingSemantic
+    ? buildHtmlEncoderTrace(headingSemantic, issues)
+    : undefined;
+
+  const slotBindings: VariantDslV1["slots"] = {
+    title: { role: "title", required: input.blockType === "heading" || input.blockType === "title" },
+    body: { role: "body" },
+    text: { role: "text" },
+  };
+
+  if (headingSemantic?.slots.eyebrow) {
+    slotBindings.eyebrow = { role: "eyebrow" };
+  }
+  if (headingSemantic?.slots.number) {
+    slotBindings.number = { role: "number" };
+  }
+  if (headingSemantic?.slots.subtitle) {
+    slotBindings.subtitle = { role: "subtitle" };
   }
 
   const dsl: VariantDslV1 = {
@@ -147,11 +188,8 @@ export function encodeHtmlToVariantDsl(input: HtmlToVariantDslInput): EncoderRes
     family: input.family ?? "htmlPaste",
     copySafety: input.copySafety ?? "strict",
     tree,
-    slots: {
-      title: { role: "title", required: input.blockType === "heading" || input.blockType === "title" },
-      body: { role: "body" },
-      text: { role: "text" },
-    },
+    tokens: headingSemantic?.tokens,
+    slots: slotBindings,
     componentProtocol:
       input.blockType === "heading" || input.blockType === "title"
         ? { componentId: TITLE_BLOCK_COMPONENT_ID, layoutMode: "pill" }
@@ -159,11 +197,25 @@ export function encodeHtmlToVariantDsl(input: HtmlToVariantDslInput): EncoderRes
     meta: {
       source: "html_encoder",
       sanitizedHtmlLength: transform.html.length,
-      encoderVersion: "s10_html_encoder_v1",
+      encoderVersion: "s10_html_encoder_v2_semantic",
+      extractedSlots: headingSemantic
+        ? {
+            ...(headingSemantic.slots.eyebrow ? { eyebrow: headingSemantic.slots.eyebrow } : {}),
+            ...(headingSemantic.slots.number ? { number: headingSemantic.slots.number } : {}),
+            title: headingSemantic.slots.title,
+            ...(headingSemantic.slots.subtitle ? { subtitle: headingSemantic.slots.subtitle } : {}),
+          }
+        : undefined,
+      layoutIntent: headingSemantic?.layoutIntent,
+      decorators: headingSemantic?.decorators,
+      encoderTrace,
+      lossReport: headingSemantic
+        ? mergeLossReports(headingSemantic.lossReport)
+        : undefined,
     },
   };
 
-  const plainText = extractPlainText(transform.html);
+  const plainText = headingSemantic?.slots.title || extractPlainText(transform.html);
   const requiresTitleText = input.blockType === "heading" || input.blockType === "title";
   if (requiresTitleText && plainText.length === 0) {
     issues.push({

@@ -73,14 +73,29 @@ src/core/wechat-compatibility/
 ```text
 公众号 HTML（大概率已兼容）
   → normalize
-  → encode to DSL
+  → semantic extraction（heading: slots + layoutIntent + tokens）
+  → encode to shallow Variant DSL
 
 普通网页 HTML
   → sanitize
   → transform / downgrade
+  → semantic extraction
   → encode to compatible DSL
-  → issues 说明被降级项
+  → issues + lossReport 说明被降级/丢弃项
 ```
+
+**FIX-B Encoder fidelity：** 复杂 heading 不得原样深层 DOM 搬运。须提取语义 slot 并记录 loss：
+
+| 降级/丢弃项 | lossReport 示例 |
+|-------------|-----------------|
+| `display:flex` | `display:flex downgraded` |
+| `letter-spacing` 高风险 | `letter-spacing risky` |
+| negative margin | `negative margin normalized` |
+| `span[leaf]` | `leaf span unwrapped` |
+| 空 `<br>` | `empty br removed` |
+| 过深嵌套 | `deep nesting flattened` |
+
+提取结果写入 Variant DSL `meta.extractedSlots` · `meta.layoutIntent` · `meta.decorators` · `tokens`，供 Decoder 与 Admin trace 展示。
 
 ### 4.2 AI 生成 DSL（预留）
 
@@ -97,3 +112,20 @@ AI style requirement + getWechatCompatibilityPromptRules()
 ## 5. 与 Decoder 集成
 
 `decodeVariantDsl` 在产出 copy HTML 后调用 `validateHtmlStructureCompatibility`，失败则显式错误，**禁止 silent empty render**。
+
+Decoder 须附带 `DecoderTrace`：
+
+```typescript
+{
+  target: "preview" | "copy_wechat" | "admin_inspection" | "qa_snapshot";
+  decoderPath: "tree" | "renderContract" | "none";
+  rendered: boolean;
+  outputLength: number;
+  missingSlots: string[];
+  unsupportedNodes: string[];
+  unsupportedStyles: string[];
+  issues: string[];  // e.g. DSL_SLOT_MISSING:title · DSL_RENDER_EMPTY
+}
+```
+
+`rendered=true` 当且仅当输出含可见内容（html 或 preview output）；无效 DSL 返回 blocking issue，不返回空成功。

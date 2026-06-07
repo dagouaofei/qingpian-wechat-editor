@@ -2,10 +2,41 @@ import { validateHtmlStructureCompatibility } from "@/core/wechat-compatibility"
 
 import { validateVariantDsl } from "../runtime/dsl-validation";
 import type { DecodeVariantDslInput, DecodeVariantDslResult } from "./dsl-decoder-types";
+import { buildDecoderTrace, resolveDecoderPath } from "./decoder-trace";
 import { decodeRenderContract } from "./decode-contract";
 import { decodeTreeToOutput } from "./decode-tree";
+import { listRequiredTreeSlots, resolveSlotsForDslDecode } from "./resolve-dsl-slots";
+
+function buildFailureTrace(
+  input: DecodeVariantDslInput,
+  decoderPath: ReturnType<typeof resolveDecoderPath>,
+  issues: string[],
+): DecodeVariantDslResult {
+  const slots = resolveSlotsForDslDecode(input.variantDsl, input.block);
+  return {
+    ok: false,
+    code: "decode_failed",
+    message: issues[0] ?? "DSL decode failed",
+    issues,
+    trace: buildDecoderTrace({
+      target: input.target,
+      decoderPath,
+      rendered: false,
+      outputLength: 0,
+      requiredSlots: listRequiredTreeSlots(input.variantDsl),
+      slots,
+      issues,
+    }),
+  };
+}
 
 export function decodeVariantDsl(input: DecodeVariantDslInput): DecodeVariantDslResult {
+  const decoderPath = resolveDecoderPath(
+    Boolean(input.variantDsl.tree),
+    Boolean(input.variantDsl.renderContract),
+  );
+  const slots = resolveSlotsForDslDecode(input.variantDsl, input.block);
+
   const validation = validateVariantDsl(input.variantDsl);
   if (!validation.valid) {
     return {
@@ -13,6 +44,15 @@ export function decodeVariantDsl(input: DecodeVariantDslInput): DecodeVariantDsl
       code: "invalid_variant_dsl",
       message: validation.issues[0]?.message ?? "Invalid Variant DSL",
       issues: validation.issues.map((issue) => issue.message),
+      trace: buildDecoderTrace({
+        target: input.target,
+        decoderPath,
+        rendered: false,
+        outputLength: 0,
+        requiredSlots: listRequiredTreeSlots(input.variantDsl),
+        slots,
+        issues: validation.issues.map((issue) => issue.message),
+      }),
     };
   }
 
@@ -22,6 +62,13 @@ export function decodeVariantDsl(input: DecodeVariantDslInput): DecodeVariantDsl
       code: "block_type_mismatch",
       message: `Variant DSL blockType ${input.variantDsl.blockType} does not match block ${input.block.type}`,
       issues: [],
+      trace: buildDecoderTrace({
+        target: input.target,
+        decoderPath,
+        rendered: false,
+        outputLength: 0,
+        issues: ["block_type_mismatch"],
+      }),
     };
   }
 
@@ -30,31 +77,33 @@ export function decodeVariantDsl(input: DecodeVariantDslInput): DecodeVariantDsl
     : decodeRenderContract(input.variantDsl, input.block, input.article, input.target);
 
   if (!decoded.ok || !decoded.output) {
-    return {
-      ok: false,
-      code: "decode_failed",
-      message: decoded.issues[0] ?? "DSL decode failed",
-      issues: decoded.issues,
-    };
+    return buildFailureTrace(input, decoderPath, decoded.issues);
   }
 
   if (decoded.html) {
     const compat = validateHtmlStructureCompatibility(decoded.html);
     if (!compat.valid) {
-      return {
-        ok: false,
-        code: "wechat_compatibility_failed",
-        message: compat.issues.find((issue) => issue.level === "error")?.message ?? "WeChat compatibility failed",
-        issues: compat.issues.map((issue) => issue.message),
-      };
+      const compatIssues = compat.issues.map((issue) => issue.message);
+      return buildFailureTrace(input, decoderPath, compatIssues);
     }
   }
 
+  const htmlLength = decoded.html?.length ?? 0;
+  const rendered = Boolean(decoded.output) || htmlLength > 0;
   return {
     ok: true,
     output: decoded.output,
     html: decoded.html,
     issues: decoded.issues,
+    trace: buildDecoderTrace({
+      target: input.target,
+      decoderPath,
+      rendered,
+      outputLength: htmlLength || (decoded.output ? 1 : 0),
+      requiredSlots: listRequiredTreeSlots(input.variantDsl),
+      slots,
+      issues: decoded.issues,
+    }),
   };
 }
 

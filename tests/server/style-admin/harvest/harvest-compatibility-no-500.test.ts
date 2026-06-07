@@ -5,8 +5,9 @@ import { buildCandidateVariantDraft } from "@/server/style-admin/harvest/build-c
 import { previewHtmlHarvestAction } from "@/server/style-admin/actions/html-harvest-candidate";
 import { isEligibleForUserSelectablePool } from "@/server/style-admin/mappers";
 
-/** User-reported complex WeChat heading HTML (S10-STORY-011A FIX-A regression fixture). */
-export const COMPLEX_HEADING_HTML = `<section style="margin:48px 0px 30px;"><section style="clear:both;"><section style="display:flex;align-items:center;margin:0;padding-bottom:12px;"><span style="font-size:10px;font-weight:800;color:rgb(148,163,184);letter-spacing:2.6px;text-transform:uppercase;"><span leaf="">CHAPTER 03</span></span><section style="flex:1;border-top:1px solid rgb(229,231,235);margin:0 0 0 12px;height:0;"><span leaf=""><br></span></section></section><section style="margin:0;"><strong style="display:block;font-size:60px;line-height:1;color:rgba(108,92,231,0.25);letter-spacing:-3px;white-space:nowrap;"><span leaf="">03</span></strong><strong style="display:block;font-size:30px;font-weight:900;color:rgb(17,24,39);line-height:1.26;letter-spacing:-0.8px;margin-top:-60px;margin-left:50px;"><span leaf="">怎么用</span></strong><span style="display:block;margin-left:50px;font-size:11px;color:#6c5ce7;font-weight:700;text-transform:uppercase;letter-spacing:1.6px;"><span leaf="">HOW TO · 使用指南</span></span></section></section></section>`;
+import { COMPLEX_HEADING_HTML } from "../../../fixtures/dsl/complex-heading-html";
+
+export { COMPLEX_HEADING_HTML };
 
 describe("harvest compatibility — no 500 on WeChat issues", () => {
   it("complex heading HTML detect returns structured preview without throw", () => {

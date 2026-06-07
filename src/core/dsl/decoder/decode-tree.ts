@@ -12,7 +12,7 @@ import type {
 } from "@/core/renderer/types";
 
 import type { DslNode, DslRenderTarget, VariantDslV1 } from "../runtime/dsl-types";
-import { resolveSlotContentsForBlock } from "./block-slot-bindings";
+import { listRequiredTreeSlots, resolveSlotsForDslDecode } from "./resolve-dsl-slots";
 import { renderDslTreeToHtml } from "./render-tree";
 
 function extractTypographyFromTree(tree: DslNode): {
@@ -45,12 +45,24 @@ export function decodeTreeToOutput(
     return { ok: false, issues: ["missing_tree"] };
   }
 
-  const slots = resolveSlotContentsForBlock(block);
+  const slots = resolveSlotsForDslDecode(dsl, block);
+  const requiredSlots = listRequiredTreeSlots(dsl);
   const rendered = renderDslTreeToHtml(dsl.tree, slots, target);
   const issues = [...rendered.issues];
 
-  if (!rendered.html.trim()) {
-    return { ok: false, issues: ["dsl_tree_render_empty"] };
+  const missingSlots = requiredSlots.filter((slot) => !(slots[slot] ?? "").trim());
+  for (const slot of missingSlots) {
+    issues.push(`DSL_SLOT_MISSING:${slot}`);
+  }
+
+  const requiresTitle = dsl.blockType === "heading" || dsl.blockType === "title";
+  if (requiresTitle && missingSlots.includes("title")) {
+    return { ok: false, issues: ["DSL_SLOT_MISSING:title", ...issues] };
+  }
+
+  const plainText = rendered.html.replace(/<[^>]+>/g, "").trim();
+  if (!plainText) {
+    return { ok: false, issues: ["DSL_RENDER_EMPTY", ...issues] };
   }
 
   const isCopyTarget = target === "copy_wechat" || target === "qa_snapshot";
@@ -67,7 +79,7 @@ export function decodeTreeToOutput(
 
   if (dsl.blockType === "heading" || dsl.blockType === "title") {
     const headingBlock = block as HeadingBlock | TitleBlock;
-    const text = slots.title ?? "";
+    const text = slots.title ?? slots.eyebrow ?? "";
     const extracted = extractTypographyFromTree(dsl.tree);
     const typography = {
       fontSize: extracted.fontSize ?? "18px",

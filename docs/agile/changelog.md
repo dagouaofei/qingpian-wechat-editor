@@ -603,6 +603,28 @@
 
 ---
 
+## 2026-06-07 · S10-STORY-011A Done（merge sprint）
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-07 | Sprint 10 | **S10-STORY-011A Done**：本地 E2E A/B/C PASS · Harvest / Runtime Trace / `database_dsl` 单轨验收通过 | 验收 / 敏捷 | S10-STORY-011A |
+| 2026-06-07 | Sprint 10 | merge `feature/s10-story-011a-dsl-runtime-encoder-decoder` → `sprint/s10-db-backed-style-admin-v1` | Git | S10-STORY-011A |
+| 2026-06-07 | Sprint 10 | 遗留：Candidate detail Preview inspection 无样式标题 · 不阻塞 011A · 011 promote gate 处理 | 后台 / 治理 | S10-STORY-011 |
+
+---
+
+## 2026-06-07 · S10-STORY-011A FIX-B Harvest Encoder Fidelity + Runtime Trace
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-07 | Sprint 10 | **FIX-B**：复杂 heading HTML 语义提取 → 浅层规范 Variant DSL（非原样 DOM 搬运） | Encoder / Harvest | S10-STORY-011A |
+| 2026-06-07 | Sprint 10 | 新增 `heading-semantic-extractor` · `dsl-trace-types` · encoder/decoder/runtime trace 模块 | 代码 / 架构 | S10-STORY-011A |
+| 2026-06-07 | Sprint 10 | Harvest / Candidate detail / dev API 展示 extracted slots · lossReport · runtimeSource · decoderPath | UI / Admin / API | S10-STORY-011A |
+| 2026-06-07 | Sprint 10 | `validateVariantDslRuntimeReadiness` 预备 Promote gate · invalid DSL 不 silent empty | runtime / 治理 | S10-STORY-011A |
+| 2026-06-07 | Sprint 10 | 回归测试：heading semantic extractor · runtime trace · 1188 tests PASS · build PASS | 测试 | S10-STORY-011A |
+
+---
+
 ## 2026-06-07 · S10-STORY-011A Checkpoint（未 merge sprint）
 
 | 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
