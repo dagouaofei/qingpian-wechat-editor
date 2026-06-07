@@ -121,5 +121,5 @@ corepack pnpm dev
 ## 14. Commit
 
 - Feature commit：`d5a6af3` — `feat(s10): add DB candidate inspection with preview, copy, and validator (STORY-010)`
-- Docs commit：（本轮 sprint 分支 docs 提交后更新）
+- Docs commit：`7a16c4b` — `docs(s10): mark S10-STORY-010 Done after merge to sprint`
 - Merge：`feature/s10-story-010-candidate-inspection-evidence` → `sprint/s10-db-backed-style-admin-v1`（fast-forward @ `d5a6af3`）
