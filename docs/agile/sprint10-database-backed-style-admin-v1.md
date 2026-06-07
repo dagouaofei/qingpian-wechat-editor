@@ -65,7 +65,7 @@ Next.js · Prisma · PostgreSQL · 阿里云 RDS / OSS / ECS · SLS / CloudMonit
 | S10-STORY-004 | 正式后台 Variant 管理页 | **Done**（2026-06-07 · merge @ `6307925` · 本地验收 PASS） |
 | S10-STORY-005 | 用户侧 Variant Pool DB 接入 | **Done**（2026-06-07 · merge @ `6de237d` · FIX-A/B · 本地验收 PASS） |
 | S10-STORY-006 | 上下架 / 回滚 / 报警最小闭环 | **Done**（2026-06-07 · 本地 E2E PASS · merge @ `1d309a0`） |
-| S10-STORY-007 | 阿里云资源准备与部署 Runbook | **Done**（2026-06-07 · merge sprint） |
+| S10-STORY-007 | 阿里云资源准备与部署 Runbook | **Done**（2026-06-07 · merge @ `03ec49b`） |
 | S10-STORY-008 | 单管理员登录与后台保护 | **Done**（2026-06-07 · 本地 E2E PASS · merge @ `71e7300`） |
 | S10-STORY-009 | HTML Harvest → Candidate Variant v1 | Planned（后半段） |
 | S10-STORY-010 | Candidate Preview / Copy / Validator / Evidence | Planned（后半段） |

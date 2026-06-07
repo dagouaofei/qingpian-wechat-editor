@@ -622,4 +622,4 @@
 | 2026-06-07 | Sprint 10 | **S10-STORY-007**：新增 `docs/ops/` 部署 Runbook · 资源清单 · 环境变量 · 上线验收 · 故障回滚 | 文档 / 运维 | S10-STORY-007 |
 | 2026-06-07 | Sprint 10 | 新增 `GET /api/health` · `pnpm db:migrate:deploy` · `.env.example` pool/OSS 占位 | 代码 / 运维 | S10-STORY-007 |
 | 2026-06-07 | Sprint 10 | 阿里云资源隔离：独立 ECS / RDS / OSS · 华北 2 · 不共用秒篇服务 | 文档 / 架构 | S10-STORY-007 |
-| 2026-06-07 | Sprint 10 | **S10-STORY-007 Done**：merge `docs/s10-story-007-aliyun-deployment-runbook` → `sprint/s10-db-backed-style-admin-v1` · 审查通过 | Git / 运维 | S10-STORY-007 |
+| 2026-06-07 | Sprint 10 | **S10-STORY-007 Done**：fast-forward merge `docs/s10-story-007-aliyun-deployment-runbook` → `sprint/s10-db-backed-style-admin-v1` @ `03ec49b` · 审查通过 | Git / 运维 | S10-STORY-007 |

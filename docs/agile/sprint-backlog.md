@@ -4287,7 +4287,7 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 ## S10-STORY-007 阿里云资源准备与部署 Runbook
 
-**优先级：** P0 · **状态：** **Done** · **工作分支：** `docs/s10-story-007-aliyun-deployment-runbook`（已 merge `sprint/s10-db-backed-style-admin-v1`）
+**优先级：** P0 · **状态：** **Done** · **工作分支：** `docs/s10-story-007-aliyun-deployment-runbook`（已 merge `sprint/s10-db-backed-style-admin-v1` @ `03ec49b`）
 
 **目标：** ECS 手工部署 · RDS PostgreSQL · OSS · SLS / CloudMonitor · 安全组 · 环境变量 · migration / import runbook · `GET /api/health` · 不暴露任何 secret。
 

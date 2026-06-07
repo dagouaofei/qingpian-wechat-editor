@@ -73,5 +73,5 @@
 
 ## 9. Commit
 
-- Feature commit hash：（见 merge 后填写）
-- Merge commit hash：（见 merge 后填写）
+- Feature commit hash：`03ec49b`
+- Merge commit hash：`03ec49b`（fast-forward · 无独立 merge commit）
