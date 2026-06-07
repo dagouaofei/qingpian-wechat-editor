@@ -6,6 +6,7 @@ import { collectFidelityStyleSnapshot } from "@/core/dsl/encoder/fidelity-html-t
 import { dslRuntimeTraceFixtureArticle, pickTraceFixtureBlock } from "@/lib/dsl-runtime/trace-fixture-article";
 import type { VariantDslV1 } from "@/core/dsl/runtime/dsl-types";
 
+import { BACKGROUND_NUMBER_HEADING_HTML } from "../../../fixtures/dsl/background-number-heading-html";
 import { BORDERED_HEADING_HTML } from "../../../fixtures/dsl/bordered-heading-html";
 import { COMPLEX_HEADING_HTML } from "../../../fixtures/dsl/complex-heading-html";
 
@@ -110,6 +111,88 @@ describe("fidelity HTML encoder (mode=off)", () => {
     expect(decoded.html).toMatch(/margin-top\s*:\s*-60px/i);
     expect(decoded.html).toContain("60px");
     expect(decoded.html).toContain("30px");
+  });
+});
+
+describe("background number heading (fidelity tree + semantic meta)", () => {
+  it("extracts number and title without title being overwritten by number", () => {
+    const encoded = encodeHeading(BACKGROUND_NUMBER_HEADING_HTML);
+    expect(encoded.ok).toBe(true);
+    if (!encoded.ok) return;
+
+    const extracted = encoded.value.meta?.extractedSlots as Record<string, string> | undefined;
+    expect(extracted?.number).toBe("01");
+    expect(extracted?.title).toBe("一、生产力暴击");
+    expect(extracted?.title).not.toBe("01");
+  });
+
+  it("preserves number span, h2 title, and red accent bar styles in fidelity tree", () => {
+    const encoded = encodeHeading(BACKGROUND_NUMBER_HEADING_HTML);
+    expect(encoded.ok).toBe(true);
+    if (!encoded.ok) return;
+
+    const snapshot = styleSnapshot(encoded.value);
+    expect(snapshot).toContain("60px 0 35px");
+    expect(snapshot).toContain("84px");
+    expect(snapshot).toContain("900");
+    expect(snapshot).toContain("#f0f0f0");
+    expect(snapshot).toContain("24px");
+    expect(snapshot).toContain("#111");
+    expect(snapshot).toContain("40px");
+    expect(snapshot).toContain("#E60012");
+    expect(snapshot).not.toMatch(/"type":"slot"/);
+  });
+
+  it("extracts tokens from correct styled elements", () => {
+    const encoded = encodeHeading(BACKGROUND_NUMBER_HEADING_HTML);
+    expect(encoded.ok).toBe(true);
+    if (!encoded.ok) return;
+
+    const tokens = encoded.value.tokens as Record<string, string>;
+    expect(tokens.numberColor).toBe("#f0f0f0");
+    expect(tokens.titleColor).toBe("#111");
+    expect(tokens.accentColor).toBe("#E60012");
+  });
+
+  it("writes semanticBindings in meta without replacing runtime tree", () => {
+    const encoded = encodeHeading(BACKGROUND_NUMBER_HEADING_HTML);
+    expect(encoded.ok).toBe(true);
+    if (!encoded.ok) return;
+
+    const bindings = encoded.value.meta?.semanticBindings as Record<
+      string,
+      { text: string; path: string; tag: string }
+    >;
+    expect(bindings?.number?.text).toBe("01");
+    expect(bindings?.number?.tag).toBe("span");
+    expect(bindings?.title?.text).toBe("一、生产力暴击");
+    expect(bindings?.title?.tag).toBe("h2");
+    expect(JSON.stringify(encoded.value.tree)).not.toContain('"type":"slot"');
+  });
+
+  it("decoder preview renders embedded tree text and styles", () => {
+    const encoded = encodeHeading(BACKGROUND_NUMBER_HEADING_HTML);
+    expect(encoded.ok).toBe(true);
+    if (!encoded.ok) return;
+
+    const article = structuredClone(dslRuntimeTraceFixtureArticle);
+    const block = pickTraceFixtureBlock("heading");
+    (block.content as { text: string }).text = "wrong title should not be used";
+
+    const decoded = decodeVariantDsl({
+      article,
+      block,
+      variantDsl: encoded.value,
+      target: "preview",
+    });
+    expect(decoded.ok).toBe(true);
+    if (!decoded.ok) return;
+
+    expect(decoded.html).toContain("01");
+    expect(decoded.html).toContain("一、生产力暴击");
+    expect(decoded.html).toMatch(/background-color\s*:\s*#E60012/i);
+    expect(decoded.html).toMatch(/font-size\s*:\s*84px/i);
+    expect(decoded.html).not.toContain("wrong title should not be used");
   });
 });
 

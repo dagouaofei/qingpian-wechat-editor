@@ -97,8 +97,8 @@ export function encodeHtmlToVariantDsl(input: HtmlToVariantDslInput): EncoderRes
       tree = borderedHeading.tree;
       encoderLossReport.push(...borderedHeading.lossReport);
     } else {
-      headingMeta = extractHeadingSemanticsMetadataOnly(workingHtml);
-      tree = buildFidelityTreeFromHtml(workingHtml, headingMeta.slots);
+      tree = buildFidelityTreeFromHtml(workingHtml);
+      headingMeta = extractHeadingSemanticsMetadataOnly(workingHtml, tree);
     }
   } else if (input.blockType === "info_card") {
     tree = buildInfoCardTree(featureStyle);
@@ -151,6 +151,7 @@ export function encodeHtmlToVariantDsl(input: HtmlToVariantDslInput): EncoderRes
       layoutIntent: borderedHeading?.layoutIntent ?? headingMeta?.layoutIntent,
       styleTokens: borderedHeading?.styleTokens,
       decorators: headingMeta?.decorators,
+      semanticBindings: headingMeta?.semanticBindings,
     },
   };
 

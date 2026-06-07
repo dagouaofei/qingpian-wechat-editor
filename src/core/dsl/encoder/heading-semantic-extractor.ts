@@ -1,5 +1,7 @@
 import type { DslNode, DslStyle } from "../runtime/dsl-types";
 import type { TraceLossReportItem, TraceIssue } from "../runtime/dsl-trace-types";
+import type { SemanticBinding } from "./fidelity-html-tree";
+import { buildSemanticBindings } from "./fidelity-html-tree";
 
 export type HeadingSemanticSlots = {
   eyebrow?: string;
@@ -8,11 +10,15 @@ export type HeadingSemanticSlots = {
   subtitle?: string;
 };
 
-export type HeadingSemanticExtraction = {
+export type HeadingSemanticMetadata = {
   slots: HeadingSemanticSlots;
   layoutIntent: string;
   decorators: string[];
   tokens: Record<string, string>;
+  semanticBindings: Record<string, SemanticBinding>;
+};
+
+export type HeadingSemanticExtraction = HeadingSemanticMetadata & {
   lossReport: TraceLossReportItem[];
   issues: TraceIssue[];
   normalizedHtml: string;
@@ -52,9 +58,19 @@ function parseColor(style: string): string {
   return match ? match[1].trim() : "";
 }
 
+function parseBackgroundColor(style: string): string {
+  const match = style.match(/background-color\s*:\s*([^;]+)/i);
+  return match ? match[1].trim() : "";
+}
+
 function parseTextTransform(style: string): string {
   const match = style.match(/text-transform\s*:\s*([^;]+)/i);
   return match ? match[1].trim().toLowerCase() : "";
+}
+
+function parseDimensionPx(style: string, property: string): number {
+  const match = style.match(new RegExp(`${property}\\s*:\\s*([\\d.]+)px`, "i"));
+  return match ? Number.parseFloat(match[1]) : 0;
 }
 
 function colorOpacity(color: string): number {
@@ -63,7 +79,23 @@ function colorOpacity(color: string): number {
   if (parts.length === 4) {
     return Number.parseFloat(parts[3] ?? "1");
   }
+  if (/^#[0-9a-f]{6}$/i.test(color.trim())) {
+    const hex = color.trim().slice(1);
+    const r = Number.parseInt(hex.slice(0, 2), 16);
+    const g = Number.parseInt(hex.slice(2, 4), 16);
+    const b = Number.parseInt(hex.slice(4, 6), 16);
+    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+    return luminance;
+  }
   return 1;
+}
+
+function isPureNumber(text: string): boolean {
+  return /^\d{1,3}$/.test(text.trim());
+}
+
+function isHeadingTag(tag: string): boolean {
+  return /^h[1-6]$/i.test(tag);
 }
 
 function unwrapLeafSpans(html: string, lossReport: TraceLossReportItem[]): string {
@@ -81,7 +113,7 @@ function unwrapLeafSpans(html: string, lossReport: TraceLossReportItem[]): strin
 
 function collectStyledTextBlocks(html: string): StyledTextBlock[] {
   const blocks: StyledTextBlock[] = [];
-  const pattern = /<(strong|span)\b([^>]*)>([\s\S]*?)<\/\1>/gi;
+  const pattern = /<(strong|span|h[1-6])\b([^>]*)>([\s\S]*?)<\/\1>/gi;
   let match: RegExpExecArray | null;
   while ((match = pattern.exec(html)) !== null) {
     const tag = match[1].toLowerCase();
@@ -102,6 +134,23 @@ function collectStyledTextBlocks(html: string): StyledTextBlock[] {
     });
   }
   return blocks;
+}
+
+function extractAccentColorFromDecorators(rawHtml: string): string | undefined {
+  const sectionPattern = /<section\b([^>]*)>/gi;
+  let match: RegExpExecArray | null;
+  while ((match = sectionPattern.exec(rawHtml)) !== null) {
+    const attrs = match[1] ?? "";
+    const styleMatch = attrs.match(/style\s*=\s*"([^"]*)"/i);
+    const style = styleMatch?.[1] ?? "";
+    const width = parseDimensionPx(style, "width");
+    const height = parseDimensionPx(style, "height");
+    const backgroundColor = parseBackgroundColor(style);
+    if (width > 0 && width <= 120 && height > 0 && height <= 24 && backgroundColor) {
+      return backgroundColor;
+    }
+  }
+  return undefined;
 }
 
 function detectStructuralLoss(rawHtml: string, lossReport: TraceLossReportItem[]): void {
@@ -144,13 +193,32 @@ function classifyHeadingSlots(blocks: StyledTextBlock[]): HeadingSemanticSlots {
       (b.textTransform === "uppercase" || b.text === b.text.toUpperCase()),
   );
 
+  const headingBlocks = blocks.filter(
+    (b) => isHeadingTag(b.tag) && !isPureNumber(b.text) && b.text.trim().length > 0,
+  );
+  const titleFromHeading = [...headingBlocks].sort((a, b) => b.fontSizePx - a.fontSizePx)[0];
+
   const numberCandidate = [...blocks]
-    .filter((b) => b.fontSizePx >= 40 || colorOpacity(b.color) < 0.5)
+    .filter(
+      (b) =>
+        isPureNumber(b.text) &&
+        (b.fontSizePx >= 40 || colorOpacity(b.color) >= 0.85) &&
+        b !== titleFromHeading,
+    )
     .sort((a, b) => b.fontSizePx - a.fontSizePx)[0];
 
-  const titleCandidate = [...blocks]
-    .filter((b) => b.fontWeight >= 700 && b.fontSizePx >= 20 && b.fontSizePx < 50)
-    .sort((a, b) => b.fontSizePx - a.fontSizePx)[0];
+  const titleCandidate = titleFromHeading
+    ?? [...blocks]
+      .filter(
+        (b) =>
+          b !== eyebrowCandidate &&
+          b !== numberCandidate &&
+          !isPureNumber(b.text) &&
+          (isHeadingTag(b.tag) || b.fontWeight >= 700) &&
+          b.fontSizePx >= 16 &&
+          b.fontSizePx < 60,
+      )
+      .sort((a, b) => b.fontSizePx - a.fontSizePx)[0];
 
   const subtitleCandidate = blocks.find(
     (b) =>
@@ -162,8 +230,8 @@ function classifyHeadingSlots(blocks: StyledTextBlock[]): HeadingSemanticSlots {
 
   const title =
     titleCandidate?.text ??
-    blocks.find((b) => b.fontWeight >= 700)?.text ??
-    blocks[blocks.length - 1]?.text ??
+    blocks.find((b) => b !== numberCandidate && !isPureNumber(b.text) && b.fontWeight >= 700)?.text ??
+    blocks.find((b) => b !== numberCandidate && !isPureNumber(b.text))?.text ??
     "";
 
   return {
@@ -174,25 +242,47 @@ function classifyHeadingSlots(blocks: StyledTextBlock[]): HeadingSemanticSlots {
   };
 }
 
-function extractTokens(blocks: StyledTextBlock[], slots: HeadingSemanticSlots): Record<string, string> {
+function extractTokens(
+  blocks: StyledTextBlock[],
+  slots: HeadingSemanticSlots,
+  accentColor?: string,
+): Record<string, string> {
   const tokens: Record<string, string> = {};
   const eyebrow = blocks.find((b) => b.text === slots.eyebrow);
   const number = blocks.find((b) => b.text === slots.number);
-  const title = blocks.find((b) => b.text === slots.title);
+  const title =
+    blocks.find((b) => b.text === slots.title && isHeadingTag(b.tag)) ??
+    blocks.find((b) => b.text === slots.title);
   const subtitle = blocks.find((b) => b.text === slots.subtitle);
 
+  if (number?.color) tokens.numberColor = number.color;
+  if (title?.color) tokens.titleColor = title.color;
   if (subtitle?.color) tokens.accentColor = subtitle.color;
   if (eyebrow?.color) tokens.mutedColor = eyebrow.color;
-  if (title?.color) tokens.titleColor = title.color;
-  if (number?.color) tokens.numberColor = number.color;
+  if (accentColor) tokens.accentColor = accentColor;
 
   return tokens;
 }
 
-/** Metadata-only extraction for fidelity encode — does not detect or report structural downgrades. */
-export function extractHeadingSemanticsMetadataOnly(
+function resolveLayoutIntent(slots: HeadingSemanticSlots): string {
+  if (slots.number && slots.eyebrow) return "chapter_overlay_heading";
+  if (slots.number) return "background_number_heading";
+  return "simple_heading";
+}
+
+function buildDecorators(slots: HeadingSemanticSlots, rawHtml: string): string[] {
+  const decorators: string[] = [];
+  if (slots.eyebrow && /border-top/i.test(rawHtml)) decorators.push("top_line");
+  if (slots.number) decorators.push("background_number");
+  if (slots.subtitle) decorators.push("subtitle_row");
+  if (extractAccentColorFromDecorators(rawHtml)) decorators.push("accent_bar");
+  return decorators;
+}
+
+function buildHeadingSemanticMetadata(
   rawHtml: string,
-): Pick<HeadingSemanticExtraction, "slots" | "layoutIntent" | "decorators" | "tokens"> {
+  tree?: DslNode,
+): HeadingSemanticMetadata {
   const htmlForSlotDetection = rawHtml
     .replace(LEAF_SPAN_PATTERN, "$1")
     .replace(EMPTY_BR_PATTERN, "");
@@ -200,20 +290,30 @@ export function extractHeadingSemanticsMetadataOnly(
   const slots = classifyHeadingSlots(blocks);
 
   if (!slots.title) {
-    const fallback = stripTags(rawHtml);
-    if (fallback) slots.title = fallback;
+    const headingText = blocks.find((b) => isHeadingTag(b.tag))?.text;
+    if (headingText) {
+      slots.title = headingText;
+    } else {
+      const fallback = stripTags(rawHtml);
+      if (fallback) slots.title = fallback;
+    }
   }
 
-  const tokens = extractTokens(blocks, slots);
-  const decorators: string[] = [];
-  if (slots.eyebrow && /border-top/i.test(rawHtml)) decorators.push("top_line");
-  if (slots.number) decorators.push("background_number");
-  if (slots.subtitle) decorators.push("subtitle_row");
+  const accentColor = extractAccentColorFromDecorators(rawHtml);
+  const tokens = extractTokens(blocks, slots, accentColor);
+  const decorators = buildDecorators(slots, rawHtml);
+  const layoutIntent = resolveLayoutIntent(slots);
+  const semanticBindings = tree ? buildSemanticBindings(tree, slots) : {};
 
-  const layoutIntent =
-    slots.number && slots.eyebrow ? "chapter_overlay_heading" : "simple_heading";
+  return { slots, layoutIntent, decorators, tokens, semanticBindings };
+}
 
-  return { slots, layoutIntent, decorators, tokens };
+/** Metadata-only extraction for fidelity encode — does not detect or report structural downgrades. */
+export function extractHeadingSemanticsMetadataOnly(
+  rawHtml: string,
+  tree?: DslNode,
+): HeadingSemanticMetadata {
+  return buildHeadingSemanticMetadata(rawHtml, tree);
 }
 
 export function extractHeadingSemanticsFromHtml(rawHtml: string): HeadingSemanticExtraction {
@@ -225,22 +325,7 @@ export function extractHeadingSemanticsFromHtml(rawHtml: string): HeadingSemanti
   let normalizedHtml = unwrapLeafSpans(rawHtml, lossReport);
   normalizedHtml = normalizedHtml.replace(/\s+/g, " ").trim();
 
-  const blocks = collectStyledTextBlocks(normalizedHtml);
-  const slots = classifyHeadingSlots(blocks);
-
-  if (!slots.title) {
-    const fallback = stripTags(normalizedHtml);
-    if (fallback) slots.title = fallback;
-  }
-
-  const tokens = extractTokens(blocks, slots);
-  const decorators: string[] = [];
-  if (slots.eyebrow && /border-top/i.test(rawHtml)) decorators.push("top_line");
-  if (slots.number) decorators.push("background_number");
-  if (slots.subtitle) decorators.push("subtitle_row");
-
-  const layoutIntent =
-    slots.number && slots.eyebrow ? "chapter_overlay_heading" : "simple_heading";
+  const metadata = buildHeadingSemanticMetadata(normalizedHtml);
 
   if (/display\s*:\s*flex/i.test(rawHtml)) {
     issues.push({
@@ -251,10 +336,7 @@ export function extractHeadingSemanticsFromHtml(rawHtml: string): HeadingSemanti
   }
 
   return {
-    slots,
-    layoutIntent,
-    decorators,
-    tokens,
+    ...metadata,
     lossReport,
     issues,
     normalizedHtml,

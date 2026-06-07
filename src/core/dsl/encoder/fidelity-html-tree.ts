@@ -1,5 +1,4 @@
 import type { DslNode, DslStyle } from "../runtime/dsl-types";
-import type { HeadingSemanticSlots } from "./heading-semantic-extractor";
 
 const FIDELITY_TAGS = ["section", "span", "strong", "h1", "h2", "h3", "h4", "h5", "h6", "p"] as const;
 type FidelityTag = (typeof FIDELITY_TAGS)[number];
@@ -45,8 +44,6 @@ function findMatchingClose(html: string, tag: string, startIndex: number): numbe
   const closePattern = new RegExp(`<\\/${tag}>`, "gi");
   let depth = 1;
   let cursor = startIndex;
-  openPattern.lastIndex = startIndex;
-  closePattern.lastIndex = startIndex;
 
   while (depth > 0 && cursor < html.length) {
     openPattern.lastIndex = cursor;
@@ -68,22 +65,7 @@ function findMatchingClose(html: string, tag: string, startIndex: number): numbe
   return -1;
 }
 
-function resolveSlotForText(text: string, slots: HeadingSemanticSlots): string | null {
-  const normalized = text.trim();
-  if (!normalized) return null;
-  const entries: [string, string | undefined][] = [
-    ["eyebrow", slots.eyebrow],
-    ["number", slots.number],
-    ["title", slots.title],
-    ["subtitle", slots.subtitle],
-  ];
-  for (const [slot, value] of entries) {
-    if (value?.trim() === normalized) return slot;
-  }
-  return null;
-}
-
-function buildNodesFromHtml(html: string, slots: HeadingSemanticSlots): DslNode[] {
+function buildNodesFromHtml(html: string): DslNode[] {
   const nodes: DslNode[] = [];
   let cursor = 0;
   const trimmed = html.trim();
@@ -111,24 +93,21 @@ function buildNodesFromHtml(html: string, slots: HeadingSemanticSlots): DslNode[
     const inner = rest.slice(innerStart, closeEnd - `</${opening.tag}>`.length);
     const styleMatch = opening.attrs.match(/style\s*=\s*"([^"]*)"/i);
     const style = parseInlineStyleFidelity(styleMatch?.[1] ?? "");
+    const innerNodes = buildNodesFromHtml(inner);
     const innerText = stripTags(inner);
-    const hasStructuralChild = /<section\b/i.test(inner);
-    const slotName = !hasStructuralChild ? resolveSlotForText(innerText, slots) : null;
 
-    if (slotName) {
-      nodes.push({
-        type: "slot",
-        slot: slotName,
-        tag: opening.tag,
-        style: Object.keys(style).length > 0 ? style : undefined,
-      });
-    } else {
-    const innerNodes = buildNodesFromHtml(inner, slots);
-    if (innerNodes.length === 1 && innerNodes[0]?.type === "text") {
+    if (innerNodes.length === 0 && innerText) {
       nodes.push({
         type: "element",
         tag: opening.tag,
-        style,
+        style: Object.keys(style).length > 0 ? style : undefined,
+        children: [{ type: "text", value: innerText }],
+      });
+    } else if (innerNodes.length === 1 && innerNodes[0]?.type === "text") {
+      nodes.push({
+        type: "element",
+        tag: opening.tag,
+        style: Object.keys(style).length > 0 ? style : undefined,
         children: innerNodes,
       });
     } else {
@@ -136,9 +115,8 @@ function buildNodesFromHtml(html: string, slots: HeadingSemanticSlots): DslNode[
         type: "element",
         tag: opening.tag,
         style: Object.keys(style).length > 0 ? style : undefined,
-        children: innerNodes.length > 0 ? innerNodes : innerText ? [{ type: "text", value: innerText }] : [],
+        children: innerNodes.length > 0 ? innerNodes : undefined,
       });
-    }
     }
 
     cursor += closeEnd;
@@ -147,11 +125,9 @@ function buildNodesFromHtml(html: string, slots: HeadingSemanticSlots): DslNode[
   return nodes;
 }
 
-export function buildFidelityTreeFromHtml(
-  html: string,
-  slots: HeadingSemanticSlots,
-): DslNode {
-  const children = buildNodesFromHtml(html.trim(), slots);
+/** Build a fidelity DOM tree — structure and inline styles only, no semantic slot replacement. */
+export function buildFidelityTreeFromHtml(html: string): DslNode {
+  const children = buildNodesFromHtml(html.trim());
   if (children.length === 1 && children[0]?.type === "element") {
     return children[0];
   }
@@ -176,4 +152,94 @@ export function collectFidelityStyleSnapshot(tree: DslNode): string {
   };
   walk(tree);
   return chunks.join(" ");
+}
+
+export function collectTreeTextContent(tree: DslNode): string {
+  if (tree.type === "text") return tree.value;
+  if (tree.type === "slot") return "";
+  return (tree.children ?? []).map(collectTreeTextContent).join(" ").trim();
+}
+
+export type SemanticBinding = {
+  text: string;
+  path: string;
+  tag: string;
+};
+
+function collectStyledTextElements(
+  node: DslNode,
+  path: string,
+  results: Array<{ text: string; path: string; tag: string }>,
+): void {
+  if (node.type !== "element") return;
+
+  const directText = (node.children ?? [])
+    .filter((child) => child.type === "text")
+    .map((child) => (child.type === "text" ? child.value.trim() : ""))
+    .filter(Boolean)
+    .join(" ")
+    .trim();
+  const nestedText = collectTreeTextContent(node);
+  const hasStyle = Boolean(node.style && Object.keys(node.style).length > 0);
+
+  if (hasStyle && nestedText && (directText || nestedText)) {
+    results.push({ text: directText || nestedText, path, tag: node.tag });
+  }
+
+  node.children?.forEach((child, index) => {
+    if (child.type === "element") {
+      collectStyledTextElements(child, `${path}.children[${index}]`, results);
+    }
+  });
+}
+
+function bindingPriority(tag: string, path: string, style?: DslStyle): number {
+  let score = path.split(".children").length * 10;
+  if (tag === "span" || tag === "strong" || /^h[1-6]$/i.test(tag)) score += 100;
+  if (style?.fontSize) score += 50;
+  if (style?.color) score += 20;
+  if (tag === "section") score -= 40;
+  return score;
+}
+
+function resolveNodeStyle(tree: DslNode, path: string): DslStyle | undefined {
+  if (path === "tree" && tree.type === "element") return tree.style;
+  const segments = path.replace(/^tree\.?/, "").split(".").filter(Boolean);
+  let current: DslNode = tree;
+  for (const segment of segments) {
+    const match = segment.match(/^children\[(\d+)\]$/);
+    if (!match || current.type !== "element" || !current.children) return undefined;
+    const child = current.children[Number.parseInt(match[1], 10)];
+    if (!child) return undefined;
+    current = child;
+  }
+  return current.type === "element" ? current.style : undefined;
+}
+
+/** Map semantic slot roles to tree paths of their styled text elements. */
+export function buildSemanticBindings(
+  tree: DslNode,
+  slots: Record<string, string | undefined>,
+): Record<string, SemanticBinding> {
+  const leaves: Array<{ text: string; path: string; tag: string }> = [];
+  if (tree.type === "element") {
+    collectStyledTextElements(tree, "tree", leaves);
+  }
+
+  const bindings: Record<string, SemanticBinding> = {};
+  for (const [role, text] of Object.entries(slots)) {
+    if (!text?.trim()) continue;
+    const matches = leaves.filter((leaf) => leaf.text === text.trim());
+    if (matches.length === 0) continue;
+    const best = matches.reduce((winner, candidate) => {
+      const winnerStyle = resolveNodeStyle(tree, winner.path);
+      const candidateStyle = resolveNodeStyle(tree, candidate.path);
+      return bindingPriority(candidate.tag, candidate.path, candidateStyle) >
+        bindingPriority(winner.tag, winner.path, winnerStyle)
+        ? candidate
+        : winner;
+    });
+    bindings[role] = { text: best.text, path: best.path, tag: best.tag };
+  }
+  return bindings;
 }
