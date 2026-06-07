@@ -4380,11 +4380,62 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 ---
 
+## S10-STORY-011A Article / Variant DSL Runtime + Encoder / Decoder Core
+
+**优先级：** P0 · **状态：** **Done**（2026-06-07 · 本地 E2E A/B/C PASS · merge sprint · **工作分支：** `feature/s10-story-011a-dsl-runtime-encoder-decoder`）
+
+**目标：** 建立 Article / Variant DSL 统一中间表示 · WeChat Compatibility Spec · Encoder / Decoder Core · Preview / Copy / Admin Inspection / QA 共用 Decoder · 11 blockType DSL 化 · 修复 promoted html_paste heading 用户侧 Preview 空渲染。
+
+**验收标准：**
+
+- [x] AC-1 WeChat Compatibility Spec 模块已建立
+- [x] AC-2 Article DSL / Variant DSL v1 schema 已建立
+- [x] AC-3 HTML → Variant DSL · Registry → Variant DSL Encoder 已建立
+- [x] AC-4 Decoder Core 支持 preview / copy_wechat / admin_inspection / qa_snapshot
+- [x] AC-5 用户侧 runtime · Admin inspection · Harvest · Import 已接线 DSL
+- [x] AC-6 promoted html_paste heading 用户侧 preview/copy 可渲染（DSL 路径）
+- [x] AC-7 FIX-A：DB 可用时用户侧 runtime 单轨 DSL Decoder（release1 seed 不绕过）
+- [ ] AC-8 Promote eligibility DSL renderability check（依赖 S10-STORY-011 在 011A 之上收口）
+- [x] AC-9 lint / test / build PASS
+- [x] AC-10 FIX-A（Harvest）：Detect / Preview 不因 WeChat compatibility issues 500 · 返回 issues / lossReport · 复杂 heading HTML 回归
+
+**Checkpoint（2026-06-07）：** `feat: add dsl runtime encoder decoder checkpoint` · **未 merge sprint** · Story 仍为 **In Review**
+
+**已完成阶段：**
+
+- DSL Runtime 主体（WeChat Compatibility · Encoder / Decoder Core · runtime 接线）
+- FIX-A：消除用户侧 runtime 双轨（`runtime-variant-dsl-pool` · 单轨 `renderDslBlock`）
+- FIX-A（Harvest）：Detect / Preview 不因 compatibility issues 500
+
+**未完成 E2E：**
+
+```text
+运营上传 HTML → 生成 Variant DSL → Inspection / Paste QA → Promote → 用户侧可见 → Preview / Copy 正常
+```
+
+**FIX-B（2026-06-07 · In Review）：** Harvest Encoder Fidelity + Runtime Trace
+
+- [x] FIX-B-1 复杂 heading HTML 语义提取（eyebrow / number / title / subtitle · layoutIntent · tokens）
+- [x] FIX-B-2 浅层规范 DSL tree（非原样深层 DOM · flex/negative margin/leaf span 进入 lossReport）
+- [x] FIX-B-3 `DslRuntimeTrace` · Encoder/Decoder trace · `validateVariantDslRuntimeReadiness`（Promote gate 预备）
+- [x] FIX-B-4 Harvest / Candidate detail / dev API 展示 trace · `runtimeSource` · `decoderPath`
+- [x] FIX-B-5 invalid DSL 不 silent empty · decoder 明确 issue
+- [x] FIX-B-6 lint / test / build PASS（1188 tests）
+- [x] FIX-B-7 本地 E2E：Harvest trace · candidate detail · user-selectable-pool `runtimeSource=database_dsl`（2026-06-07 PASS）
+
+**遗留（不阻塞 merge）：** Candidate detail Preview inspection 仅显示无样式标题文字 · 恢复 S10-STORY-011 后作为 promote gate / inspection preview fidelity 处理
+
+**下一步：** 恢复 `wip-s10-story-011-promote` stash · 接入 `validateVariantDslRuntimeReadiness` · 处理 inspection preview fidelity
+
+**说明：** S10-STORY-011 **暂停 merge**；011 须在 011A merge 后基于 DSL Runtime 重新验收。
+
+---
+
 ## S10-STORY-011 采集样式 Promote 到 user-selectable
 
-**优先级：** P1 · **状态：** **Planned**（后半段）· **工作分支：** TBD
+**优先级：** P1 · **状态：** **Blocked（依赖 011A）** · **工作分支：** `feature/s10-story-011-promote-user-selectable`（WIP stash · 未 merge）
 
-**目标：** candidate → user_selectable · promote record · 用户侧 1–5 分钟内可见 · 不自动 defaultEligible · 不自动进入 default preset · 不自动变更 release1Required · 可下架 / 回滚。
+**目标：** candidate → user_selectable · promote record · 用户侧 1–5 分钟内可见 · 不自动 defaultEligible · 不自动进入 default preset · 不自动变更 release1Required · 可下架 / 回滚 · **须含 DSL renderability gate**。
 
 **验收标准：**
 
@@ -4392,7 +4443,8 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 - [ ] AC-2 用户侧 1–5 分钟内可见新 user-selectable
 - [ ] AC-3 defaultEligible / default preset / release1Required 未自动变更
 - [ ] AC-4 可下架 / 回滚
-- [ ] AC-5 lint / test / build PASS
+- [ ] AC-5 Promote 前 Variant DSL valid + preview/copy decode pass
+- [ ] AC-6 lint / test / build PASS
 
 ---
 

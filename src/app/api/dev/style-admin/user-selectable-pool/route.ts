@@ -2,9 +2,16 @@ import { NextResponse } from "next/server";
 
 import { isDevApiEnabled } from "@/lib/dev-api-env";
 import {
+  getRuntimeVariantDslPool,
   getUserSelectableVariantPool,
   toUserSelectableVariantPoolSnapshot,
 } from "@/server/style-admin/runtime";
+import { validateVariantDslRuntimeReadiness } from "@/lib/dsl-runtime";
+import {
+  dslRuntimeTraceFixtureArticle,
+  pickTraceFixtureBlock,
+} from "@/lib/dsl-runtime/trace-fixture-article";
+import { buildVariantRuntimeTraceSummary } from "@/server/style-admin/runtime/build-variant-runtime-traces";
 
 import {
   sanitizeDevPoolIssues,
@@ -28,10 +35,16 @@ export async function GET(request: Request) {
   const forceRefresh = searchParams.get("forceRefresh") === "true";
 
   try {
-    const pool = await getUserSelectableVariantPool({
-      blockType: blockType as "heading",
-      forceRefresh,
-    });
+    const [pool, dslPool] = await Promise.all([
+      getUserSelectableVariantPool({
+        blockType: blockType as "heading",
+        forceRefresh,
+      }),
+      getRuntimeVariantDslPool({
+        blockType: blockType as "heading",
+        forceRefresh,
+      }),
+    ]);
 
     const snapshot = toUserSelectableVariantPoolSnapshot(pool);
 
@@ -42,12 +55,39 @@ export async function GET(request: Request) {
       poolVariantIds: snapshot.poolVariantIds,
       issues: sanitizeDevPoolIssues(snapshot.issues),
       notice: sanitizeDevPoolNotice(snapshot.notice),
-      variants: snapshot.variants.map((variant) => ({
-        id: variant.id,
-        label: variant.label,
-        blockType: variant.blockType,
-        family: variant.family,
-      })),
+      variants: snapshot.variants.map((variant) => {
+        const definitionJson = dslPool.definitionJsonByVariantId[variant.id];
+        const trace = buildVariantRuntimeTraceSummary({
+          runtimeVariantId: variant.id,
+          blockType: variant.blockType,
+          definitionJson,
+          poolSource: dslPool.source,
+        });
+        const readiness =
+          definitionJson != null
+            ? validateVariantDslRuntimeReadiness({
+                runtimeVariantId: variant.id,
+                blockType: variant.blockType,
+                definitionJson,
+                poolSource: dslPool.source,
+                article: dslRuntimeTraceFixtureArticle,
+                block: pickTraceFixtureBlock(variant.blockType),
+              })
+            : null;
+        return {
+          id: variant.id,
+          label: variant.label,
+          blockType: variant.blockType,
+          family: variant.family,
+          runtimeSource: trace.runtimeSource,
+          dslVersion: trace.dslVersion ?? null,
+          decoderPath: trace.decoderPath,
+          definitionSource: trace.definitionSource,
+          dslValid: trace.dslValid,
+          previewReady: readiness?.previewReady ?? false,
+          copyReady: readiness?.copyReady ?? false,
+        };
+      }),
     });
   } catch {
     return NextResponse.json(

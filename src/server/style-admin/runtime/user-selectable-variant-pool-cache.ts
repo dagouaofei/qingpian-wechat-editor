@@ -1,5 +1,6 @@
 import type { BlockType } from "@prisma/client";
 
+import { invalidateRuntimeDslPoolCache } from "./runtime-variant-dsl-pool-cache";
 import type { UserSelectableVariantPoolResult } from "./user-selectable-variant-pool-types";
 
 type CacheEntry = {
@@ -65,6 +66,7 @@ export function clearUserSelectablePoolCache(): void {
 
 /** Alias for S10-STORY-006 governance writes — clears in-memory pool cache. */
 export function invalidateUserSelectableVariantPoolCache(blockType?: BlockType): void {
+  invalidateRuntimeDslPoolCache(blockType);
   if (!blockType) {
     clearUserSelectablePoolCache();
     return;

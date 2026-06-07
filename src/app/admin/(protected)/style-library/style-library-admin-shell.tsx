@@ -229,6 +229,51 @@ export function StyleLibraryAdminDetailShell({
             )}
           </section>
 
+          {viewModel.runtimeTrace ? (
+            <section
+              className="rounded-xl border border-indigo-100 bg-indigo-50/30 p-4 shadow-sm"
+              data-testid="admin-runtime-trace"
+            >
+              <h2 className="text-sm font-semibold text-slate-900">Runtime trace</h2>
+              <dl className="mt-3 grid gap-2 text-sm md:grid-cols-3">
+                <div>
+                  <dt className="text-slate-500">runtimeSource</dt>
+                  <dd className="font-mono text-xs">{viewModel.runtimeTrace.runtimeSource}</dd>
+                </div>
+                <div>
+                  <dt className="text-slate-500">decoderPath</dt>
+                  <dd className="font-mono text-xs">{viewModel.runtimeTrace.decoderPath}</dd>
+                </div>
+                <div>
+                  <dt className="text-slate-500">dslVersion</dt>
+                  <dd className="font-mono text-xs">{viewModel.runtimeTrace.dslVersion ?? "—"}</dd>
+                </div>
+                <div>
+                  <dt className="text-slate-500">definitionSource</dt>
+                  <dd className="font-mono text-xs">{viewModel.runtimeTrace.definitionSource}</dd>
+                </div>
+                <div>
+                  <dt className="text-slate-500">dslValid</dt>
+                  <dd>{String(viewModel.runtimeTrace.dslValid)}</dd>
+                </div>
+                <div>
+                  <dt className="text-slate-500">decoder rendered</dt>
+                  <dd>{String(viewModel.runtimeTrace.decoder?.rendered ?? false)}</dd>
+                </div>
+              </dl>
+              {viewModel.runtimeTrace.encoder?.extractedSlots ? (
+                <details className="mt-3 rounded-lg border border-slate-200 bg-white p-3">
+                  <summary className="cursor-pointer text-xs font-medium text-slate-800">
+                    Extracted slots
+                  </summary>
+                  <pre className="mt-2 overflow-x-auto text-xs">
+                    {JSON.stringify(viewModel.runtimeTrace.encoder.extractedSlots, null, 2)}
+                  </pre>
+                </details>
+              ) : null}
+            </section>
+          ) : null}
+
           <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
             <h2 className="text-sm font-semibold text-slate-900">Current version</h2>
             {viewModel.currentVersion ? (

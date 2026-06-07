@@ -20,6 +20,7 @@ export type UserSelectableVariantPoolResult = {
   source: UserSelectableVariantPoolSource;
   cache: UserSelectableVariantPoolCacheMeta;
   variants: VariantDefinition[];
+  definitionJsonByVariantId?: Record<string, unknown>;
   issues: RuntimeVariantPoolIssue[];
   notice?: string;
 };
@@ -37,6 +38,7 @@ export function toUserSelectableVariantPoolSnapshot(
     cache: result.cache,
     variants: result.variants,
     poolVariantIds: result.variants.map((variant) => variant.id),
+    definitionJsonByVariantId: result.definitionJsonByVariantId,
     issues: result.issues,
     notice: result.notice,
   };

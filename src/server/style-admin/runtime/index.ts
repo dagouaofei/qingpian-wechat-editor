@@ -5,6 +5,9 @@ export {
 } from "./user-selectable-variant-pool-cache";
 export { mapDbPoolRowToVariantDefinition } from "./user-selectable-variant-pool-mapper";
 export { getUserSelectableVariantPool } from "./user-selectable-variant-pool";
+export { getRuntimeVariantDslPool } from "./runtime-variant-dsl-pool";
+export { buildVariantRuntimeTraceSummary } from "./build-variant-runtime-traces";
+export { toDslRuntimeSnapshot } from "./runtime-variant-dsl-pool-types";
 export type {
   RuntimeVariantPoolIssue,
   UserSelectableVariantPoolOptions,

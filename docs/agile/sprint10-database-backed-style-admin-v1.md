@@ -69,7 +69,8 @@ Next.js · Prisma · PostgreSQL · 阿里云 RDS / OSS / ECS · SLS / CloudMonit
 | S10-STORY-008 | 单管理员登录与后台保护 | **Done**（2026-06-07 · 本地 E2E PASS · merge @ `71e7300`） |
 | S10-STORY-009 | HTML Harvest → Candidate Variant v1 | **Done**（2026-06-07 · merge @ `147c2e7`） |
 | S10-STORY-010 | Candidate Preview / Copy / Validator / Evidence | **Done**（2026-06-07 · merge @ `d5a6af3`） |
-| S10-STORY-011 | 采集样式 Promote 到 user-selectable | Planned（后半段） |
+| S10-STORY-011A | Article / Variant DSL Runtime + Encoder / Decoder | **Done**（2026-06-07 · checkpoint + FIX-A + FIX-B · 本地 E2E A/B/C PASS · merge sprint） |
+| S10-STORY-011 | 采集样式 Promote 到 user-selectable | **Blocked（依赖 011A）** · WIP stash · 未 merge |
 | S10-STORY-012 | S10 Audit / Closeout | Planned |
 
 完整 AC 见 [`sprint-backlog.md`](sprint-backlog.md) Sprint 10 章节。

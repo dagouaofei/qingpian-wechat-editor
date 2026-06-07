@@ -1,13 +1,29 @@
 import { detectHtmlBlockType } from "./detect-html-block-type";
 import { extractHeadingCandidate } from "./extract-heading-candidate";
 import { extractInfoCardCandidate } from "./extract-info-card-candidate";
+import type { HarvestExtractResult } from "./extract-harvest-candidate-shared";
+import type {
+  HarvestIssue,
+  HarvestLossReportEntry,
+} from "./harvest-compatibility";
 import type {
   HtmlHarvestCandidateDraft,
   HtmlHarvestDetectableBlockType,
   HtmlHarvestDetectedBlockType,
   HtmlHarvestSourceInput,
 } from "./html-harvest-types";
-import { sanitizeHarvestHtml } from "./sanitize-harvest-html";
+import { buildSanitizeLossReport, sanitizeHarvestHtml } from "./sanitize-harvest-html";
+
+export type BuildCandidateVariantDraftResult = {
+  draft: HtmlHarvestCandidateDraft | null;
+  detectedBlockType: HtmlHarvestDetectedBlockType;
+  extract: HarvestExtractResult | null;
+  issues: HarvestIssue[];
+  warnings: HarvestIssue[];
+  lossReport: HarvestLossReportEntry[];
+  canCreateCandidate: boolean;
+  partial: boolean;
+};
 
 export function resolveSelectedBlockType(
   detectedBlockType: HtmlHarvestDetectedBlockType,
@@ -26,24 +42,65 @@ export function buildCandidateVariantDraft(
   rawHtml: string,
   source: HtmlHarvestSourceInput,
   manualBlockType?: HtmlHarvestDetectableBlockType,
-): { draft: HtmlHarvestCandidateDraft | null; detectedBlockType: HtmlHarvestDetectedBlockType } {
+): BuildCandidateVariantDraftResult {
   const sanitizedHtml = sanitizeHarvestHtml(rawHtml);
+  const sanitizeLossReport = buildSanitizeLossReport(rawHtml);
   const detectedBlockType = detectHtmlBlockType(sanitizedHtml);
   const selectedBlockType = resolveSelectedBlockType(detectedBlockType, manualBlockType);
 
   if (!selectedBlockType) {
-    return { draft: null, detectedBlockType };
+    return {
+      draft: null,
+      detectedBlockType,
+      extract: null,
+      issues: [],
+      warnings: [],
+      lossReport: [],
+      canCreateCandidate: false,
+      partial: false,
+    };
   }
 
-  const extracted =
+  const extract =
     selectedBlockType === "heading"
       ? extractHeadingCandidate(sanitizedHtml, source, selectedBlockType)
       : extractInfoCardCandidate(sanitizedHtml, source, selectedBlockType);
 
+  const mergedLossReport = [...sanitizeLossReport, ...extract.lossReport];
+
+  if (!extract.ok) {
+    return {
+      draft: null,
+      detectedBlockType,
+      extract,
+      issues: extract.issues,
+      warnings: [],
+      lossReport: mergedLossReport,
+      canCreateCandidate: false,
+      partial: false,
+    };
+  }
+
   return {
     detectedBlockType,
+    extract,
+    issues: extract.issues,
+    warnings: extract.warnings,
+    lossReport: mergedLossReport,
+    canCreateCandidate: extract.canCreateCandidate,
+    partial: extract.partial,
     draft: {
-      ...extracted,
+      runtimeVariantId: extract.runtimeVariantId,
+      blockType: extract.blockType,
+      styleFamily: extract.styleFamily,
+      label: extract.label,
+      description: extract.description,
+      sampleText: extract.sampleText,
+      definitionJson: extract.definitionJson,
+      componentProtocolJson: extract.componentProtocolJson,
+      compatibilityJson: extract.compatibilityJson,
+      copySafety: extract.copySafety,
+      sourceChecksum: extract.sourceChecksum,
       detectedBlockType,
       selectedBlockType,
       sanitizedHtml,

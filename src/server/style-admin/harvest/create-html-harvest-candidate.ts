@@ -16,7 +16,11 @@ import {
   isHarvestBlockType,
   toPrismaBlockType,
 } from "./html-harvest-types";
+import { buildHarvestPreviewTrace } from "./harvest-trace";
 import { sanitizeHarvestHtml } from "./sanitize-harvest-html";
+
+const HARVEST_COMPATIBILITY_GUIDANCE =
+  "This HTML can be encoded as a candidate, but it has WeChat compatibility risks. Run Preview / Copy / Validator and Paste QA before promote.";
 
 function buildSourceRef(runtimeVariantId: string): string {
   return `html_paste:${runtimeVariantId}`;
@@ -36,6 +40,7 @@ async function persistHarvestCandidate(
 ): Promise<void> {
   const reason = input.notes?.trim() || "S10-STORY-009 HTML harvest candidate";
   const sourceRef = buildSourceRef(draft.runtimeVariantId);
+  const compatibilityJson = draft.compatibilityJson as Record<string, unknown> | undefined;
 
   await db.$transaction(async (tx) => {
     const variant = await tx.styleVariant.create({
@@ -97,6 +102,7 @@ async function persistHarvestCandidate(
           parserVersion: HTML_HARVEST_PARSER_VERSION,
           rawHtmlLength: draft.rawHtmlLength,
           notes: input.notes ?? null,
+          harvestCompatibility: compatibilityJson?.harvestCompatibility ?? null,
         },
       },
     });
@@ -154,34 +160,66 @@ export function previewHtmlHarvestCandidate(
 ): PreviewHtmlHarvestResult {
   const rawHtmlError = validateRawHtml(input.rawHtml);
   if (rawHtmlError) {
-    return { ok: false, code: "invalid_raw_html", message: rawHtmlError };
+    return { ok: false, code: "invalid_raw_html", message: rawHtmlError, blocking: true };
   }
 
   const manualBlockType =
     input.blockType && isHarvestBlockType(input.blockType) ? input.blockType : undefined;
 
-  const { draft, detectedBlockType } = buildCandidateVariantDraft(
+  const built = buildCandidateVariantDraft(
     input.rawHtml,
     { sourceLabel: "Preview" },
     manualBlockType,
   );
 
+  const { draft, detectedBlockType, issues, warnings, lossReport, canCreateCandidate, partial } =
+    built;
+
   if (!draft) {
-    return {
-      ok: true,
-      detectedBlockType,
-      effectiveBlockType: null,
-      draftPreview: {
-        runtimeVariantId: "",
-        label: "",
-        blockType: "heading",
-        styleFamily: "",
-        sampleText: "",
+    if (detectedBlockType === "unknown" && !manualBlockType) {
+      return {
+        ok: true,
         detectedBlockType,
-        selectedBlockType: "heading",
-      },
+        effectiveBlockType: null,
+        draftPreview: null,
+        issues,
+        warnings,
+        lossReport,
+        canCreateCandidate: false,
+        partial: false,
+        severity: null,
+        blocking: false,
+      };
+    }
+
+    const blockingMessage =
+      built.extract && !built.extract.ok
+        ? built.extract.message
+        : `Detected blockType is ${detectedBlockType}. Select heading or info_card to continue.`;
+
+    return {
+      ok: false,
+      code: built.extract && !built.extract.ok ? built.extract.code : "block_type_required",
+      message: blockingMessage,
+      detectedBlockType,
+      issues,
+      lossReport,
+      blocking: true,
     };
   }
+
+  const severity = built.extract?.ok ? built.extract.severity : null;
+  const hasCompatibilityRisks = issues.some(
+    (issue) => issue.severity === "risk" || issue.severity === "warning",
+  );
+
+  const trace = buildHarvestPreviewTrace(
+    draft.definitionJson,
+    draft.runtimeVariantId,
+    draft.blockType,
+    issues,
+    lossReport,
+  );
 
   return {
     ok: true,
@@ -196,6 +234,15 @@ export function previewHtmlHarvestCandidate(
       detectedBlockType: draft.detectedBlockType,
       selectedBlockType: draft.selectedBlockType,
     },
+    issues,
+    warnings,
+    lossReport,
+    canCreateCandidate,
+    partial,
+    severity,
+    blocking: false,
+    guidance: hasCompatibilityRisks ? HARVEST_COMPATIBILITY_GUIDANCE : undefined,
+    trace: trace ?? undefined,
   };
 }
 
@@ -210,13 +257,13 @@ export async function createHtmlHarvestCandidate(
 
   const rawHtmlError = validateRawHtml(input.rawHtml);
   if (rawHtmlError) {
-    return { ok: false, code: "invalid_raw_html", message: rawHtmlError };
+    return { ok: false, code: "invalid_raw_html", message: rawHtmlError, blocking: true };
   }
 
   const manualBlockType =
     input.blockType && isHarvestBlockType(input.blockType) ? input.blockType : undefined;
 
-  const { draft, detectedBlockType } = buildCandidateVariantDraft(
+  const built = buildCandidateVariantDraft(
     input.rawHtml,
     {
       sourceLabel,
@@ -227,11 +274,39 @@ export async function createHtmlHarvestCandidate(
     manualBlockType,
   );
 
+  const { draft, detectedBlockType, issues, lossReport, canCreateCandidate } = built;
+
   if (!draft) {
+    if (built.extract && !built.extract.ok) {
+      return {
+        ok: false,
+        code: built.extract.code,
+        message: built.extract.message,
+        issues,
+        lossReport,
+        blocking: true,
+      };
+    }
+
     return {
       ok: false,
       code: "block_type_required",
       message: `Detected blockType is ${detectedBlockType}. Select heading or info_card to continue.`,
+      issues,
+      lossReport,
+      blocking: !canCreateCandidate,
+    };
+  }
+
+  if (!canCreateCandidate) {
+    const blockingIssue = issues.find((issue) => issue.severity === "blocking");
+    return {
+      ok: false,
+      code: "harvest_blocked",
+      message: blockingIssue?.message ?? "Cannot create harvest candidate due to blocking issues",
+      issues,
+      lossReport,
+      blocking: true,
     };
   }
 
@@ -242,6 +317,8 @@ export async function createHtmlHarvestCandidate(
       action: "reused",
       runtimeVariantId: draft.runtimeVariantId,
       draft,
+      issues,
+      lossReport,
     };
   }
 
@@ -252,5 +329,7 @@ export async function createHtmlHarvestCandidate(
     action: "created",
     runtimeVariantId: draft.runtimeVariantId,
     draft,
+    issues,
+    lossReport,
   };
 }

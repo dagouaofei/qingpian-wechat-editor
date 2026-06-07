@@ -1,9 +1,11 @@
 import type { StyleVariantSourceType } from "@prisma/client";
 
+import { encodeRegistryVariantToDsl } from "@/core/dsl/encoder";
+import { VARIANT_DSL_VERSION } from "@/core/dsl/runtime";
 import type { StyleLibraryVariantAsset } from "@/core/style-library/types";
 import type { VariantDefinition } from "@/core/styles/types";
 
-import type { DistributionSnapshot } from "../types";
+import type { DistributionSnapshot, JsonValue } from "../types";
 import { stableJsonChecksum } from "./checksum";
 import type { CollectedStyleVariant, CollectedVariantSource } from "./import-types";
 import {
@@ -34,21 +36,31 @@ export function mapVariantDefinitionToCollected(
   input: MapVariantToDbInput,
 ): CollectedStyleVariant {
   const { variant, styleLibraryAsset } = input;
-  const definitionPayload = {
-    id: variant.id,
-    schemaVersion: variant.schemaVersion,
-    blockType: variant.blockType,
-    family: variant.family,
-    name: variant.name,
-    label: variant.label,
-    description: variant.description,
-    status: variant.status,
-    slots: variant.slots,
-    tokens: variant.tokens,
-  };
+  const encoded = encodeRegistryVariantToDsl(variant);
+  const definitionPayload = encoded.ok
+    ? encoded.value
+    : {
+        id: variant.id,
+        schemaVersion: variant.schemaVersion,
+        blockType: variant.blockType,
+        family: variant.family,
+        name: variant.name,
+        label: variant.label,
+        description: variant.description,
+        status: variant.status,
+        slots: variant.slots,
+        tokens: variant.tokens,
+      };
 
-  const componentProtocolJson = variant.componentProtocol;
-  const compatibilityJson = variant.compatibility;
+  const componentProtocolJson = {
+    ...(variant.componentProtocol ?? {}),
+    dslVersion: encoded.ok ? VARIANT_DSL_VERSION : undefined,
+  };
+  const compatibilityJson = {
+    ...(variant.compatibility ?? {}),
+    dslVersion: encoded.ok ? VARIANT_DSL_VERSION : undefined,
+    dslEncoderIssues: encoded.ok ? encoded.issues : undefined,
+  };
 
   const lifecycle =
     input.lifecycleOverride ??
@@ -68,6 +80,11 @@ export function mapVariantDefinitionToCollected(
   const qualityStatus = seedFields.qualityStatus ?? "not_checked";
 
   const warnings = [...(input.warnings ?? [])];
+  if (!encoded.ok) {
+    warnings.push(`dsl_encode_failed:${variant.id}`);
+  } else if (encoded.issues.length > 0) {
+    warnings.push(`dsl_encode_warnings:${variant.id}:${encoded.issues.length}`);
+  }
   if (!variant.compatibility) {
     warnings.push(`missing_compatibility:${variant.id}`);
   }
@@ -93,7 +110,7 @@ export function mapVariantDefinitionToCollected(
     description: variant.description,
     lifecycle,
     distribution,
-    definitionJson: definitionPayload,
+    definitionJson: definitionPayload as JsonValue,
     componentProtocolJson,
     compatibilityJson,
     copySafety: mapCopySafetyTier(variant.compatibility?.copySafety),
