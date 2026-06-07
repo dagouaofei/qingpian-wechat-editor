@@ -58,7 +58,7 @@ Next.js · Prisma · PostgreSQL · 阿里云 RDS / OSS / ECS · SLS / CloudMonit
 | Story | 名称 | 状态 |
 |-------|------|------|
 | S10-STORY-001 | S10 架构与技术选型定稿 | **Done**（2026-06-07 · DECISION-108） |
-| S10-STORY-002 | Prisma + PostgreSQL DB Schema + Repository | Planned |
+| S10-STORY-002 | Prisma + PostgreSQL DB Schema + Repository | **Done**（2026-06-07） |
 | S10-STORY-003 | 既有 Variant 全量导入数据库 | Planned |
 | S10-STORY-004 | 正式后台 Variant 管理页 | Planned |
 | S10-STORY-005 | 用户侧 Variant Pool DB 接入 | Planned |

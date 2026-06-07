@@ -131,9 +131,9 @@ S9 file-backed manifest / code-backed variants（source of truth v0）
 
 ---
 
-## 6. 数据库 Schema 概要（S10-STORY-002 实现）
+## 6. 数据库 Schema 概要（S10-STORY-002 · 已实现 schema + migration 初版）
 
-> 以下为 S10 建议表结构；**S10-STORY-001 仅定稿，不实现 migration。**
+> **实现：** `prisma/schema.prisma` · 初始 migration `prisma/migrations/20260607100000_init_style_admin/` · repository `src/server/style-admin/`
 
 | 表名 | 职责 |
 |------|------|
@@ -150,7 +150,25 @@ S9 file-backed manifest / code-backed variants（source of truth v0）
 | `runtime_error_logs` | 运行时错误（用户侧 / admin API） |
 | `alert_events` | 报警事件 · SLS / CloudMonitor 对接元数据 |
 
-**本地开发：** Docker PostgreSQL 或本地 PostgreSQL；`.env.local` 注入 `DATABASE_URL`（不提交仓库）。
+**本地开发：** Docker PostgreSQL 或本地 PostgreSQL；`.env.local` 注入 `DATABASE_URL`（不提交仓库）。占位示例见 `.env.example`。
+
+### 6.1 Repository 边界（S10-STORY-002）
+
+| 模块 | 路径 | 职责 |
+|------|------|------|
+| Prisma client | `src/server/style-admin/prisma.ts` | 单例 · 仅 server-side |
+| Variant CRUD | `repositories/style-variant-repository.ts` | create/list/version/current |
+| Distribution | `repositories/style-variant-distribution-repository.ts` | user-selectable pool · update + audit |
+| Validation / Evidence | `repositories/style-variant-validation-repository.ts` | validation runs · evidence |
+| Audit / Alert | `repositories/style-variant-audit-repository.ts` | lifecycle · admin audit · error · alert |
+| Pool 规则 | `mappers.ts` | `userSelectable` 独立于 `defaultEligible` / `release1Required` |
+
+**约束：**
+
+- React client component **不得**直接 `import` Prisma 或 repository
+- `listUserSelectableVariants` 仅按 `distribution.userSelectable=true` 且排除 `hidden` / `deprecated`；**不**以 `defaultEligible` 或 `release1Required` 作为入选条件
+- `updateDistribution` 写入 `admin_audit_logs`
+- **本轮未做：** variant 导入 · `/admin` UI · 用户侧 DB pool（→ S10-STORY-003~005）
 
 ---
 

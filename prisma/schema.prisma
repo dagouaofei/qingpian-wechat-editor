@@ -1,0 +1,323 @@
+// Sprint 10 · S10-STORY-002 · Database-backed Style Management Admin v1
+// PostgreSQL only — do not switch to SQLite.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum BlockType {
+  title
+  lead
+  heading
+  paragraph
+  list
+  quote
+  highlight
+  info_card
+  cta
+  divider
+  image_placeholder
+}
+
+enum StyleVariantLifecycle {
+  draft
+  candidate
+  validator_pass
+  paste_qa_pass
+  user_selectable
+  default_eligible
+  deprecated
+}
+
+enum StyleVariantSourceType {
+  registry
+  style_library_manifest
+  html_paste
+  harvest
+  manual
+  unknown
+}
+
+enum StyleVariantValidationRunType {
+  preview
+  copy_html
+  wechat_validator
+  paste_qa
+  manual_review
+}
+
+enum StyleVariantValidationStatus {
+  pass
+  warning
+  fail
+  skipped
+  pending
+}
+
+enum StyleVariantEvidenceType {
+  harvest
+  paste_qa
+  validator
+  matrix
+  drift
+  waiver
+  screenshot
+  raw_html
+  manual
+}
+
+enum StyleVariantRollbackType {
+  version
+  distribution
+  lifecycle
+}
+
+enum RuntimeErrorScope {
+  admin
+  runtime_variant_pool
+  preview
+  copy
+  db
+  unknown
+}
+
+enum AlertSeverity {
+  info
+  warning
+  critical
+}
+
+enum AlertStatus {
+  open
+  acknowledged
+  resolved
+}
+
+enum CopySafetyTier {
+  strict
+  balanced
+  experimental
+}
+
+model StyleVariant {
+  id               String                @id @default(cuid())
+  runtimeVariantId String                @unique @map("runtime_variant_id")
+  blockType        BlockType             @map("block_type")
+  styleFamily      String                @map("style_family")
+  label            String
+  description      String?
+  lifecycle        StyleVariantLifecycle
+  currentVersionId String?               @unique @map("current_version_id")
+  createdAt        DateTime              @default(now()) @map("created_at")
+  updatedAt        DateTime              @updatedAt @map("updated_at")
+
+  currentVersion StyleVariantVersion?  @relation("CurrentVersion", fields: [currentVersionId], references: [id], onDelete: SetNull)
+  versions       StyleVariantVersion[] @relation("VariantVersions")
+  sources        StyleVariantSource[]
+  distribution   StyleVariantDistribution?
+  lifecycleEvents StyleVariantLifecycleEvent[]
+  validationRuns StyleVariantValidationRun[]
+  evidence       StyleVariantEvidence[]
+  promoteRecords StyleVariantPromoteRecord[]
+  rollbackRecords StyleVariantRollbackRecord[]
+
+  @@index([blockType])
+  @@index([lifecycle])
+  @@index([styleFamily])
+  @@map("style_variants")
+}
+
+model StyleVariantVersion {
+  id                    String         @id @default(cuid())
+  variantId             String         @map("variant_id")
+  versionNumber         Int            @map("version_number")
+  definitionJson        Json           @map("definition_json")
+  componentProtocolJson   Json?          @map("component_protocol_json")
+  compatibilityJson     Json?          @map("compatibility_json")
+  copySafety            CopySafetyTier @map("copy_safety")
+  sourceChecksum        String?        @map("source_checksum")
+  createdBy             String?        @map("created_by")
+  createdAt             DateTime       @default(now()) @map("created_at")
+
+  variant              StyleVariant              @relation("VariantVersions", fields: [variantId], references: [id], onDelete: Cascade)
+  currentForVariant    StyleVariant?             @relation("CurrentVersion")
+  validationRuns       StyleVariantValidationRun[]
+  evidence             StyleVariantEvidence[]
+  rollbackFromRecords  StyleVariantRollbackRecord[] @relation("RollbackFromVersion")
+  rollbackToRecords    StyleVariantRollbackRecord[] @relation("RollbackToVersion")
+
+  @@unique([variantId, versionNumber])
+  @@index([variantId])
+  @@map("style_variant_versions")
+}
+
+model StyleVariantSource {
+  id             String                 @id @default(cuid())
+  variantId      String                 @map("variant_id")
+  sourceType     StyleVariantSourceType @map("source_type")
+  sourceRef      String?                @map("source_ref")
+  sourceMetadata Json?                  @map("source_metadata")
+  rawHtml        String?                @map("raw_html") @db.Text
+  createdAt      DateTime               @default(now()) @map("created_at")
+
+  variant StyleVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+
+  @@index([variantId])
+  @@index([sourceType])
+  @@map("style_variant_sources")
+}
+
+model StyleVariantDistribution {
+  id               String   @id @default(cuid())
+  variantId        String   @unique @map("variant_id")
+  userSelectable   Boolean  @default(false) @map("user_selectable")
+  defaultEligible  Boolean  @default(false) @map("default_eligible")
+  release1Required Boolean  @default(false) @map("release1_required")
+  hidden           Boolean  @default(false)
+  deprecated       Boolean  @default(false)
+  cacheVersion     Int      @default(0) @map("cache_version")
+  updatedBy        String?  @map("updated_by")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+
+  variant StyleVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+
+  @@index([userSelectable, hidden, deprecated])
+  @@map("style_variant_distribution")
+}
+
+model StyleVariantLifecycleEvent {
+  id            String                 @id @default(cuid())
+  variantId     String                 @map("variant_id")
+  fromLifecycle StyleVariantLifecycle? @map("from_lifecycle")
+  toLifecycle   StyleVariantLifecycle  @map("to_lifecycle")
+  reason        String
+  actor         String
+  createdAt     DateTime               @default(now()) @map("created_at")
+
+  variant StyleVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+
+  @@index([variantId, createdAt])
+  @@map("style_variant_lifecycle_events")
+}
+
+model StyleVariantValidationRun {
+  id          String                        @id @default(cuid())
+  variantId   String                        @map("variant_id")
+  versionId   String?                       @map("version_id")
+  runType     StyleVariantValidationRunType @map("run_type")
+  status      StyleVariantValidationStatus
+  issuesJson  Json?                         @map("issues_json")
+  summaryJson Json?                         @map("summary_json")
+  createdAt   DateTime                      @default(now()) @map("created_at")
+
+  variant StyleVariant         @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  version StyleVariantVersion? @relation(fields: [versionId], references: [id], onDelete: SetNull)
+
+  @@index([variantId, createdAt])
+  @@index([runType])
+  @@map("style_variant_validation_runs")
+}
+
+model StyleVariantEvidence {
+  id           String                   @id @default(cuid())
+  variantId    String                   @map("variant_id")
+  versionId    String?                  @map("version_id")
+  evidenceType StyleVariantEvidenceType @map("evidence_type")
+  sourceUrl    String?                  @map("source_url")
+  sourceLabel  String?                  @map("source_label")
+  rawHtml      String?                  @map("raw_html") @db.Text
+  ossKey       String?                  @map("oss_key")
+  metadataJson Json?                    @map("metadata_json")
+  createdAt    DateTime                 @default(now()) @map("created_at")
+
+  variant StyleVariant         @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  version StyleVariantVersion? @relation(fields: [versionId], references: [id], onDelete: SetNull)
+
+  @@index([variantId, createdAt])
+  @@map("style_variant_evidence")
+}
+
+model StyleVariantPromoteRecord {
+  id                    String                 @id @default(cuid())
+  variantId             String                 @map("variant_id")
+  fromLifecycle         StyleVariantLifecycle  @map("from_lifecycle")
+  toLifecycle           StyleVariantLifecycle  @map("to_lifecycle")
+  distributionBeforeJson Json                @map("distribution_before_json")
+  distributionAfterJson  Json                @map("distribution_after_json")
+  reason                String
+  actor                 String
+  createdAt             DateTime               @default(now()) @map("created_at")
+
+  variant StyleVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+
+  @@index([variantId, createdAt])
+  @@map("style_variant_promote_records")
+}
+
+model StyleVariantRollbackRecord {
+  id                     String                   @id @default(cuid())
+  variantId              String                   @map("variant_id")
+  rollbackType           StyleVariantRollbackType @map("rollback_type")
+  fromVersionId          String?                  @map("from_version_id")
+  toVersionId            String?                  @map("to_version_id")
+  distributionBeforeJson Json?                    @map("distribution_before_json")
+  distributionAfterJson  Json?                    @map("distribution_after_json")
+  reason                 String
+  actor                  String
+  createdAt              DateTime                 @default(now()) @map("created_at")
+
+  variant       StyleVariant         @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  fromVersion   StyleVariantVersion? @relation("RollbackFromVersion", fields: [fromVersionId], references: [id], onDelete: SetNull)
+  toVersion     StyleVariantVersion? @relation("RollbackToVersion", fields: [toVersionId], references: [id], onDelete: SetNull)
+
+  @@index([variantId, createdAt])
+  @@map("style_variant_rollback_records")
+}
+
+model AdminAuditLog {
+  id         String   @id @default(cuid())
+  action     String
+  entityType String   @map("entity_type")
+  entityId   String   @map("entity_id")
+  beforeJson Json?    @map("before_json")
+  afterJson  Json?    @map("after_json")
+  reason     String?
+  actor      String
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  @@index([entityType, entityId])
+  @@index([createdAt])
+  @@map("admin_audit_logs")
+}
+
+model RuntimeErrorLog {
+  id           String            @id @default(cuid())
+  scope        RuntimeErrorScope
+  message      String
+  errorCode    String?           @map("error_code")
+  metadataJson Json?             @map("metadata_json")
+  createdAt    DateTime          @default(now()) @map("created_at")
+
+  @@index([scope, createdAt])
+  @@map("runtime_error_logs")
+}
+
+model AlertEvent {
+  id           String        @id @default(cuid())
+  alertType    String        @map("alert_type")
+  severity     AlertSeverity
+  status       AlertStatus   @default(open)
+  message      String
+  metadataJson Json?         @map("metadata_json")
+  createdAt    DateTime      @default(now()) @map("created_at")
+  resolvedAt   DateTime?     @map("resolved_at")
+
+  @@index([severity, status])
+  @@index([createdAt])
+  @@map("alert_events")
+}
