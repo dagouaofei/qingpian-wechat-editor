@@ -8,6 +8,8 @@ import {
 
 import type { CandidateInspectionPanelViewModel } from "./candidate-inspection-view-model";
 import { buildCandidateInspectionPanelViewModel } from "./candidate-inspection-view-model";
+import type { CandidatePromotePanelViewModel } from "./candidate-promote-view-model";
+import { buildCandidatePromotePanelViewModel } from "./candidate-promote-view-model";
 import {
   isStyleAdminWriteEnabled,
   STYLE_ADMIN_WRITE_PROTECTION_MESSAGE,
@@ -50,7 +52,6 @@ export const DETAIL_DISABLED_ACTIONS: DisabledGovernanceAction[] = [
   { id: "copy-inspection", label: "Copy HTML inspection", storyRef: "S10-STORY-010" },
   { id: "validator-run", label: "Validator run", storyRef: "S10-STORY-010" },
   { id: "paste-qa-evidence", label: "Paste QA evidence", storyRef: "S10-STORY-010" },
-  { id: "promote-user-selectable", label: "Promote to user-selectable", storyRef: "S10-STORY-011" },
   { id: "rollback-version", label: "Rollback version", storyRef: "S10-STORY-006" },
   { id: "mark-default-eligible", label: "Mark default eligible", storyRef: "S10-STORY-006" },
 ];
@@ -162,6 +163,7 @@ export type StyleLibraryAdminDetailViewModel = {
   listHref: string;
   candidateInspection: CandidateInspectionPanelViewModel | null;
   runtimeTrace: DslRuntimeTrace | null;
+  candidatePromote: CandidatePromotePanelViewModel | null;
 };
 
 const EMPTY_SUMMARY: AdminVariantSummary = {
@@ -303,6 +305,7 @@ export function buildAdminDetailViewModelFromQueryResult(
       evidence: [],
       candidateInspection: null,
       runtimeTrace: null,
+      candidatePromote: null,
     };
   }
 
@@ -320,12 +323,32 @@ export function buildAdminDetailViewModelFromQueryResult(
       evidence: [],
       candidateInspection: null,
       runtimeTrace: null,
+      candidatePromote: null,
     };
   }
 
-  const { variant, distribution, currentVersion, sources, lifecycleEvents, validationRuns, evidence } =
-    result.data;
+  const {
+    variant,
+    distribution,
+    currentVersion,
+    sources,
+    lifecycleEvents,
+    validationRuns,
+    evidence,
+    promoteRecords = [],
+  } = result.data;
   const candidateInspection = buildCandidateInspectionPanelViewModel(result.data);
+  const candidatePromote = buildCandidatePromotePanelViewModel(
+    result.data,
+    promoteRecords.map((record) => ({
+      id: record.id,
+      fromLifecycle: record.fromLifecycle,
+      toLifecycle: record.toLifecycle,
+      reason: record.reason,
+      actor: record.actor,
+      createdAt: record.createdAt.toISOString(),
+    })),
+  );
 
   const runtimeTrace =
     currentVersion?.definitionJson != null
@@ -416,6 +439,7 @@ export function buildAdminDetailViewModelFromQueryResult(
     })),
     candidateInspection,
     runtimeTrace,
+    candidatePromote,
   };
 }
 

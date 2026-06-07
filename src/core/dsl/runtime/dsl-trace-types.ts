@@ -48,6 +48,18 @@ export type DecoderTrace = {
   issues: TraceIssue[];
 };
 
+export type SourceExactTrace = {
+  runtimeVariantId: string;
+  definitionHash: string | null;
+  decodedPreviewHash: string | null;
+  decodedCopyHash: string | null;
+  renderedHtmlHash: string | null;
+  selectedRuntimeVariantId: string;
+  renderedByVariantId: string;
+  fallbackUsed: boolean;
+  fallbackReason: string | null;
+};
+
 export type DslRuntimeTrace = {
   runtimeVariantId: string;
   blockType: string;
@@ -58,13 +70,17 @@ export type DslRuntimeTrace = {
   dslValid: boolean;
   encoder?: EncoderTrace;
   decoder?: DecoderTrace;
+  sourceExact?: SourceExactTrace;
 };
+
+export type CompatibilityReadinessStatus = "pass" | "failed" | "skipped" | "not_enforced";
 
 export type VariantDslRuntimeReadiness = {
   ok: boolean;
   previewReady: boolean;
   copyReady: boolean;
   compatibilityReady: boolean;
+  compatibilityStatus: CompatibilityReadinessStatus;
   issues: TraceIssue[];
   trace: DslRuntimeTrace;
 };

@@ -128,6 +128,23 @@ export type TitleBlockPreviewOutput = {
   >;
 };
 
+/** Source-exact tree DSL preview — inline HTML from Decoder Core, no semantic layout fallback. */
+export type DslTreeHtmlPreviewOutput = {
+  kind: "dsl_tree_html_preview";
+  blockId: string;
+  blockType: BlockType;
+  variantId: string;
+  html: string;
+  copySafety?: CopySafety;
+  runtimeTrace?: {
+    runtimeSource: string;
+    selectedRuntimeVariantId: string;
+    renderedByVariantId: string;
+    fallbackUsed: boolean;
+    fallbackReason?: string | null;
+  };
+};
+
 export type TitleBlockCopyOutput = {
   kind: "title_block_copy_html";
   blockId: string;
@@ -359,6 +376,7 @@ export type ImagePlaceholderCopyOutput = {
 export type RendererOutputPlaceholder =
   | PreviewRendererOutputPlaceholder
   | CopyRendererOutputPlaceholder
+  | DslTreeHtmlPreviewOutput
   | TitleBlockPreviewOutput
   | TitleBlockCopyOutput
   | TextBlockPreviewOutput

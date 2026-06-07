@@ -1,5 +1,6 @@
 export * from "./html-harvest-types";
 export * from "./harvest-compatibility";
+export * from "./harvest-compatibility-mode";
 export * from "./harvest-trace";
 export * from "./sanitize-harvest-html";
 export * from "./detect-html-block-type";

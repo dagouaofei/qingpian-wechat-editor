@@ -86,6 +86,15 @@ export async function GET(request: Request) {
           dslValid: trace.dslValid,
           previewReady: readiness?.previewReady ?? false,
           copyReady: readiness?.copyReady ?? false,
+          runtimeVariantId: trace.runtimeVariantId,
+          definitionHash: trace.sourceExact?.definitionHash ?? null,
+          decodedPreviewHash: trace.sourceExact?.decodedPreviewHash ?? null,
+          decodedCopyHash: trace.sourceExact?.decodedCopyHash ?? null,
+          renderedHtmlHash: trace.sourceExact?.renderedHtmlHash ?? null,
+          selectedRuntimeVariantId: trace.sourceExact?.selectedRuntimeVariantId ?? variant.id,
+          renderedByVariantId: trace.sourceExact?.renderedByVariantId ?? variant.id,
+          fallbackUsed: trace.sourceExact?.fallbackUsed ?? false,
+          fallbackReason: trace.sourceExact?.fallbackReason ?? null,
         };
       }),
     });

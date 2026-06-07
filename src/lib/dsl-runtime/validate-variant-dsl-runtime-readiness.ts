@@ -1,12 +1,16 @@
 import type { BlockType } from "@/core/blocks";
 import type { Article } from "@/core/article";
 import type { Block } from "@/core/blocks";
-import type { VariantDslRuntimeReadiness } from "@/core/dsl/runtime/dsl-trace-types";
+import type {
+  CompatibilityReadinessStatus,
+  VariantDslRuntimeReadiness,
+} from "@/core/dsl/runtime/dsl-trace-types";
 import { decodeVariantDsl } from "@/core/dsl/decoder";
 import { validateHtmlStructureCompatibility } from "@/core/wechat-compatibility";
 import type { DslRuntimeSource } from "@/lib/dsl-runtime-context-types";
 
 import { parseDefinitionJsonToVariantDsl } from "./parse-variant-dsl";
+import { readHarvestCompatibilityModeFromDefinition } from "./read-harvest-compatibility-mode";
 import { buildRuntimeTraceForVariant } from "./runtime-trace";
 
 export function validateVariantDslRuntimeReadiness(input: {
@@ -52,6 +56,8 @@ export function validateVariantDslRuntimeReadiness(input: {
   let previewReady = false;
   let copyReady = false;
   let compatibilityReady = true;
+  let compatibilityStatus: CompatibilityReadinessStatus = "pass";
+  const harvestCompatibilityMode = readHarvestCompatibilityModeFromDefinition(input.definitionJson);
 
   if (parsed.ok) {
     const preview = decodeVariantDsl({
@@ -60,7 +66,14 @@ export function validateVariantDslRuntimeReadiness(input: {
       variantDsl: parsed.value,
       target: "preview",
     });
-    previewReady = preview.ok && Boolean(preview.html?.trim() || preview.output);
+    const previewVisibleText = (preview.ok ? preview.html ?? "" : "")
+      .replace(/<[^>]+>/g, "")
+      .trim();
+    previewReady =
+      preview.ok &&
+      Boolean(preview.html?.trim()) &&
+      previewVisibleText.length > 0 &&
+      !preview.issues.some((issue) => issue.includes("DSL_RENDER_EMPTY"));
 
     const copy = decodeVariantDsl({
       article: input.article,
@@ -71,15 +84,35 @@ export function validateVariantDslRuntimeReadiness(input: {
     if (copy.ok) {
       copyReady = Boolean(copy.html?.trim());
       if (copy.html) {
-        const compat = validateHtmlStructureCompatibility(copy.html);
-        compatibilityReady = compat.valid;
-        if (!compat.valid) {
-          for (const issue of compat.issues.filter((i) => i.level === "error")) {
-            issues.push({
-              code: issue.code,
-              message: issue.message,
-              severity: "risk",
-            });
+        if (harvestCompatibilityMode === "off") {
+          compatibilityStatus = "skipped";
+          compatibilityReady = true;
+          issues.push({
+            code: "compatibility_skipped",
+            message:
+              "Compatibility Spec skipped by harvest mode=off; Paste QA required before production use.",
+            severity: "warning",
+          });
+        } else {
+          const compat = validateHtmlStructureCompatibility(copy.html);
+          if (!compat.valid) {
+            if (harvestCompatibilityMode === "report") {
+              compatibilityStatus = "not_enforced";
+              compatibilityReady = true;
+            } else {
+              compatibilityStatus = "failed";
+              compatibilityReady = false;
+            }
+            for (const issue of compat.issues.filter((i) => i.level === "error")) {
+              issues.push({
+                code: issue.code,
+                message: issue.message,
+                severity: harvestCompatibilityMode === "report" ? "warning" : "risk",
+              });
+            }
+          } else {
+            compatibilityStatus = "pass";
+            compatibilityReady = true;
           }
         }
       }
@@ -99,6 +132,7 @@ export function validateVariantDslRuntimeReadiness(input: {
     previewReady,
     copyReady,
     compatibilityReady,
+    compatibilityStatus,
     issues,
     trace,
   };

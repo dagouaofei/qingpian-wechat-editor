@@ -6,10 +6,13 @@ import {
 } from "@/server/style-admin/admin-write-guard";
 import { STYLE_ADMIN_AUTH_ENABLED_MESSAGE } from "@/server/style-admin/auth";
 
+import { describeHarvestWechatCompatibilityMode } from "@/server/style-admin/harvest/harvest-compatibility-mode";
+
 import { HarvestForm } from "./harvest-form";
 
 export default function AdminStyleLibraryHarvestPage() {
   const writeEnabled = isStyleAdminWriteEnabled();
+  const compatibilityMode = describeHarvestWechatCompatibilityMode();
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-8" data-testid="admin-style-library-harvest-page">
@@ -34,6 +37,7 @@ export default function AdminStyleLibraryHarvestPage() {
       <HarvestForm
         writeEnabled={writeEnabled}
         writeProtectionMessage={STYLE_ADMIN_WRITE_PROTECTION_MESSAGE}
+        compatibilityMode={compatibilityMode}
       />
     </main>
   );

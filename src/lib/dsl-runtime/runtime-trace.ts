@@ -2,7 +2,6 @@ import type { BlockType } from "@/core/blocks";
 import type { DslRenderTarget } from "@/core/dsl/runtime";
 import type {
   DslDefinitionSourceTrace,
-  DslDecoderPathTrace,
   DslRuntimeSourceTrace,
   DslRuntimeTrace,
   EncoderTrace,
@@ -14,6 +13,7 @@ import { listRequiredTreeSlots, resolveSlotsForDslDecode } from "@/core/dsl/deco
 import type { DslRuntimeSource } from "@/lib/dsl-runtime-context-types";
 
 import { parseDefinitionJsonToVariantDsl } from "./parse-variant-dsl";
+import { buildSourceExactTrace } from "./source-exact-trace";
 import type { Article } from "@/core/article";
 import type { Block } from "@/core/blocks";
 
@@ -95,6 +95,9 @@ export function buildRuntimeTraceForVariant(input: {
     issues: validation.valid ? [] : validation.issues.map((i) => i.message),
   });
 
+  let decodedPreviewHtml: string | undefined;
+  let decodedCopyHtml: string | undefined;
+
   if (input.article && input.block && validation.valid) {
     for (const target of decodeTargets) {
       const slots = resolveSlotsForDslDecode(dsl, input.block);
@@ -105,11 +108,24 @@ export function buildRuntimeTraceForVariant(input: {
         target,
       });
 
-      const htmlLength = decoded.ok && decoded.html ? decoded.html.length : 0;
+      if (target === "preview" && decoded.ok && decoded.html) {
+        decodedPreviewHtml = decoded.html;
+      }
+      if (target === "copy_wechat" && decoded.ok && decoded.html) {
+        decodedCopyHtml = decoded.html;
+      }
+
+      const decodedHtml = decoded.ok ? decoded.html ?? "" : "";
+      const htmlLength = decodedHtml.length;
+      const visibleText = decodedHtml.replace(/<[^>]+>/g, "").trim();
+      const previewRendered =
+        target === "preview" || target === "admin_inspection" || target === "qa_snapshot"
+          ? decoded.ok && htmlLength > 0 && visibleText.length > 0
+          : decoded.ok && htmlLength > 0;
       decoderTrace = buildDecoderTrace({
         target,
         decoderPath,
-        rendered: decoded.ok && htmlLength > 0,
+        rendered: previewRendered,
         outputLength: htmlLength,
         requiredSlots: listRequiredTreeSlots(dsl),
         slots,
@@ -118,6 +134,17 @@ export function buildRuntimeTraceForVariant(input: {
       if (!decoded.ok) break;
     }
   }
+
+  const sourceExact = buildSourceExactTrace({
+    runtimeVariantId: input.runtimeVariantId,
+    definitionJson: input.definitionJson,
+    decodedPreviewHtml,
+    decodedCopyHtml,
+    renderedHtml: decodedPreviewHtml,
+    selectedRuntimeVariantId: input.runtimeVariantId,
+    renderedByVariantId: input.runtimeVariantId,
+    fallbackUsed: false,
+  });
 
   return {
     runtimeVariantId: input.runtimeVariantId,
@@ -129,5 +156,6 @@ export function buildRuntimeTraceForVariant(input: {
     dslValid: validation.valid,
     encoder,
     decoder: decoderTrace,
+    sourceExact,
   };
 }

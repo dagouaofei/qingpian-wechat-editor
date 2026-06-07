@@ -11,6 +11,7 @@ import {
   VariantTable,
 } from "./style-library-admin-components";
 import { CandidateInspectionPanel } from "./candidate-inspection-panel";
+import { CandidatePromotePanel } from "./candidate-promote-panel";
 import { StyleLibraryGovernanceActions } from "./style-library-governance-actions";
 import type {
   StyleLibraryAdminDetailViewModel,
@@ -162,6 +163,15 @@ export function StyleLibraryAdminDetailShell({
               runtimeVariantId={viewModel.runtimeVariantId}
               qualityStatus={viewModel.currentVersion.qualityStatus}
               inspection={viewModel.candidateInspection}
+              writeEnabled={viewModel.writeEnabled}
+              writeProtectionMessage={viewModel.writeProtectionMessage}
+            />
+          ) : null}
+
+          {viewModel.candidatePromote ? (
+            <CandidatePromotePanel
+              runtimeVariantId={viewModel.runtimeVariantId}
+              promote={viewModel.candidatePromote}
               writeEnabled={viewModel.writeEnabled}
               writeProtectionMessage={viewModel.writeProtectionMessage}
             />
@@ -402,7 +412,7 @@ export function StyleLibraryAdminDetailShell({
 
       <DisabledActionsPanel
         actions={viewModel.disabledActions}
-        caption="Preview / Copy / Validator: S10-STORY-010. Promote: S10-STORY-011. Governance rollback: S10-STORY-006."
+        caption="Governance rollback: S10-STORY-006. Version rollback / defaultEligible: future stories."
       />
     </div>
   );

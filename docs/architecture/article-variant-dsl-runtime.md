@@ -117,7 +117,7 @@ Registry 编码时 `meta.legacySlots` 保留完整 slot 定义，供 `renderCont
 | `user-preview-render` | **禁止**调用 `renderBlock`；database 仅用 DB DSL；不可用时代码 seed 编码为 DSL 后 decode（`source=code_fallback`） |
 | `decode-contract` | `renderContract` 作为 Decoder Core 内部 DSL 形态；旧 block renderer 仅在此层封装调用 |
 | `style-admin/import` | import 时 `encodeRegistryVariantToDsl` 写入 `definitionJson` |
-| `style-admin/harvest` | `encodeHtmlToVariantDsl` 写入 `definitionJson` |
+| `style-admin/harvest` | `encodeHtmlToVariantDsl` 写入 `definitionJson` · 受 `STYLE_HARVEST_WECHAT_COMPATIBILITY_MODE`（off/report/enforce）控制 |
 
 `htmlPasteCandidate` 族在 `renderContract` 路径走专用 section-label 渲染，主题色来自 `article.styleAssignment.themeId`。
 
@@ -185,11 +185,14 @@ rawHtml
 |------|----------|
 | `/admin/style-library/harvest` | extracted slots · tokens · DSL JSON · decoder preview/copy summary · issues · lossReport |
 | Candidate detail | Runtime Trace：runtimeSource · decoderPath · dslValid · inspection decode summary |
-| `GET /api/dev/style-admin/user-selectable-pool` | 每 variant：`runtimeSource` · `dslValid` · `decoderPath` · `previewReady` · `copyReady` |
+| `GET /api/dev/style-admin/user-selectable-pool` | 每 variant：`runtimeSource` · `dslValid` · `decoderPath` · `previewReady` · `copyReady` · **source-exact trace**（`definitionHash` · `decodedPreviewHash` · `fallbackUsed` · `renderedByVariantId`） |
+| 用户 `/preview`（tree DSL） | `dsl_tree_html_preview` 输出 · `data-runtime-source` · `data-fallback-used` · `data-rendered-by-variant-id` |
 
 ### 7.5 No silent empty render
 
-Decoder 在 slot 缺失、unsupported node/style、或输出无可见文本时须返回明确 issue（如 `DSL_SLOT_MISSING:title` · `DSL_RENDER_EMPTY`），**禁止**空字符串静默成功。
+Decoder 在 slot 缺失、unsupported node/style、或输出无可见文本时须返回明确 issue（如 `DSL_SLOT_MISSING:title` · `DSL_RENDER_EMPTY`），**禁止** `decodedPreviewHtml=empty` 且 `status=ok`。
+
+Tree DSL 的 preview / admin_inspection 目标返回 `dsl_tree_html_preview`（source-exact inline HTML），**禁止** fallback 到 `title_block_preview` 语义布局（pill / left_bar 等）。
 
 ### 7.6 Heading semantic encoder（v2）
 
@@ -199,11 +202,13 @@ Encoder 版本：`s10_html_encoder_v2_semantic` · `meta.extractedSlots` 供 Dec
 
 ---
 
-## 8. 与 S10-STORY-011 关系
+## 8. 与 S10-STORY-011 Promote 关系
 
-- **S10-STORY-011（Promote）暂停 merge**；须基于 011A DSL Runtime 重新收口。
-- Promote eligibility **必须**调用 `validateVariantDslRuntimeReadiness(variant)`：仅当 `ok=true`（DSL valid · preview/copy ready · DB 场景 `runtimeSource=database_dsl` · 无 blocking issues）才允许 promote。
-- 本地 E2E bug（promoted heading picker 可见但 Preview 空）根因：用户路径未消费 DB DSL；011A FIX-A 已修复。
+- **S10-STORY-011** 基于 011A 收口：DB candidate → `paste_qa_pass` + `validateVariantDslRuntimeReadiness` → Promote → `userSelectable=true`。
+- Promote eligibility **必须**调用 `buildCandidatePromoteRuntimeReadiness` / `validateVariantDslRuntimeReadiness`：仅当 `ok=true`（DSL valid · `previewReady` · `copyReady` · `compatibilityReady` · DB 场景 `runtimeSource=database_dsl` · 无 blocking issues）才允许 promote。
+- Promote 写入：`userSelectable=true` · `defaultEligible=false` · `release1Required=false` · promote record · lifecycle event · audit log · pool cache invalidate。
+- Candidate detail **Preview inspection** 使用 DSL Decoder Core；`meta.extractedSlots` 优先于 fixture 样本文本；复杂 heading 映射 `layoutIntent=chapter_overlay_heading` → `magazine_left_bar` 等样式化 preview。
+- Promote 后用户侧 `/preview` 与 Copy 共用同一 `definitionJson` / `runtimeVariantId`（011A 单轨 `database_dsl`）。
 
 ---
 

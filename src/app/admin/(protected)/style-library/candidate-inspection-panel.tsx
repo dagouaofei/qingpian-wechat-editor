@@ -81,7 +81,7 @@ export function CandidateInspectionPanel({
         <div>
           <h2 className="text-sm font-semibold text-slate-900">Candidate Inspection</h2>
           <p className="mt-1 text-xs text-slate-600">
-            Inspection required before promote · Promote: S10-STORY-011
+            Run before promote · Paste QA pass required for promote (S10-STORY-011)
           </p>
         </div>
         <span className={`rounded-full px-3 py-1 text-xs font-medium ${qualityBadgeClass}`}>
@@ -104,6 +104,56 @@ export function CandidateInspectionPanel({
                 status: {inspection.previewOk ? "ok" : "error"}
                 {inspection.usedAdminFallback ? " · admin fallback path" : ""}
               </p>
+              <dl className="mt-2 grid gap-1 text-xs text-slate-600 md:grid-cols-2">
+                <div>
+                  <dt className="text-slate-500">runtimeSource</dt>
+                  <dd>{inspection.runtimeSource}</dd>
+                </div>
+                <div>
+                  <dt className="text-slate-500">decoderPath</dt>
+                  <dd>{inspection.decoderPath}</dd>
+                </div>
+                <div>
+                  <dt className="text-slate-500">wechatCompatibilityMode</dt>
+                  <dd>{inspection.wechatCompatibilityMode ?? "—"}</dd>
+                </div>
+                <div className="md:col-span-2">
+                  <dt className="text-slate-500">decodedPreviewHtml</dt>
+                  <dd>
+                    {inspection.decodedPreviewHtmlLength > 0
+                      ? `${inspection.decodedPreviewHtmlLength} chars`
+                      : "empty"}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-slate-500">definitionHash</dt>
+                  <dd>{inspection.sourceExact.definitionHash ?? "—"}</dd>
+                </div>
+                <div>
+                  <dt className="text-slate-500">decodedPreviewHash</dt>
+                  <dd>{inspection.sourceExact.decodedPreviewHash ?? "—"}</dd>
+                </div>
+                <div>
+                  <dt className="text-slate-500">fallbackUsed</dt>
+                  <dd>{String(inspection.sourceExact.fallbackUsed)}</dd>
+                </div>
+                <div>
+                  <dt className="text-slate-500">renderedByVariantId</dt>
+                  <dd>{inspection.sourceExact.renderedByVariantId}</dd>
+                </div>
+              </dl>
+              {inspection.decoderIssues.length > 0 ? (
+                <ul className="mt-2 list-disc pl-4 text-xs text-amber-800">
+                  {inspection.decoderIssues.map((issue) => (
+                    <li key={issue}>{issue}</li>
+                  ))}
+                </ul>
+              ) : null}
+              {inspection.decodedPreviewHtmlSnippet ? (
+                <pre className="mt-2 max-h-32 overflow-auto rounded bg-slate-50 p-2 text-xs">
+                  {inspection.decodedPreviewHtmlSnippet}
+                </pre>
+              ) : null}
               {inspection.previewIssues.length > 0 ? (
                 <ul className="mt-2 list-disc pl-4 text-xs text-rose-700">
                   {inspection.previewIssues.map((issue) => (

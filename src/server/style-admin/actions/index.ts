@@ -23,3 +23,9 @@ export {
   type ManualPasteQaEvidenceActionResult,
   type RunCandidateInspectionActionResult,
 } from "./candidate-inspection";
+
+export {
+  promoteCandidateToUserSelectableAction,
+  type PromoteCandidateActionInput,
+  type PromoteCandidateActionResult,
+} from "./promote-candidate";

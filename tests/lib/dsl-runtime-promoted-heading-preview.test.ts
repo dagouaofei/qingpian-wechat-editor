@@ -64,8 +64,10 @@ describe("DSL runtime promoted heading preview", () => {
     const headingBlock = rendered.previewBlocks.find((block) => block.blockType === "heading");
     expect(headingBlock?.ok).toBe(true);
     expect(headingBlock?.variantId).toBe(runtimeVariantId);
-    if (headingBlock?.ok && headingBlock.output?.kind === "title_block_preview") {
-      expect(headingBlock.output.text.length).toBeGreaterThan(0);
+    expect(headingBlock?.output?.kind).toBe("dsl_tree_html_preview");
+    if (headingBlock?.ok && headingBlock.output?.kind === "dsl_tree_html_preview") {
+      expect(headingBlock.output.html.length).toBeGreaterThan(0);
+      expect(headingBlock.output.html).toContain("这是一个可上线测试小标题");
     }
     expect(rendered.clipboard.textHtml.length).toBeGreaterThan(0);
   });

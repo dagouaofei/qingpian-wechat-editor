@@ -20,13 +20,8 @@ function readExtractedSlots(dsl: VariantDslV1): Record<string, string> {
 export function resolveSlotsForDslDecode(dsl: VariantDslV1, block: Block): SlotContentMap {
   const fromBlock = resolveSlotContentsForBlock(block);
   const fromMeta = readExtractedSlots(dsl);
-  const merged: SlotContentMap = { ...fromMeta, ...fromBlock };
-
-  if (!merged.title?.trim() && fromMeta.title) {
-    merged.title = fromMeta.title;
-  }
-
-  return merged;
+  // DSL meta extracted slots override fixture/block sample text for harvest-encoded variants.
+  return { ...fromBlock, ...fromMeta };
 }
 
 export function listRequiredTreeSlots(dsl: VariantDslV1): string[] {

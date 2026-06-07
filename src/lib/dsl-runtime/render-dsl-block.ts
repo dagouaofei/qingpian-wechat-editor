@@ -99,6 +99,20 @@ export function renderDslBlock(input: RenderDslBlockInput): RendererResult<Rende
     };
   }
 
+  const output =
+    decoded.output?.kind === "dsl_tree_html_preview"
+      ? {
+          ...decoded.output,
+          runtimeTrace: {
+            runtimeSource: "database_dsl",
+            selectedRuntimeVariantId: input.runtimeVariantId,
+            renderedByVariantId: input.runtimeVariantId,
+            fallbackUsed: false,
+            fallbackReason: null,
+          },
+        }
+      : decoded.output;
+
   return {
     ok: true,
     blockId: input.block.id,
@@ -106,7 +120,7 @@ export function renderDslBlock(input: RenderDslBlockInput): RendererResult<Rende
     variantId: input.runtimeVariantId,
     mode: input.mode,
     target: input.renderTarget,
-    output: decoded.output,
+    output,
     issues: [],
     warnings: decoded.issues.map((message) =>
       createRendererIssue({

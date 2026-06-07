@@ -21,9 +21,20 @@ const SOURCE_PLATFORMS = [
 type HarvestFormProps = {
   writeEnabled: boolean;
   writeProtectionMessage: string;
+  compatibilityMode: {
+    mode: "off" | "report" | "enforce";
+    label: string;
+    hint: string;
+    envVar: string;
+    defaultMode: string;
+  };
 };
 
-export function HarvestForm({ writeEnabled, writeProtectionMessage }: HarvestFormProps) {
+export function HarvestForm({
+  writeEnabled,
+  writeProtectionMessage,
+  compatibilityMode,
+}: HarvestFormProps) {
   const [sourceLabel, setSourceLabel] = useState("");
   const [sourceUrl, setSourceUrl] = useState("");
   const [sourcePlatform, setSourcePlatform] = useState<string>("unknown");
@@ -90,6 +101,21 @@ export function HarvestForm({ writeEnabled, writeProtectionMessage }: HarvestFor
 
   return (
     <div className="space-y-6" data-testid="admin-harvest-form">
+      <section
+        className="rounded-xl border border-indigo-100 bg-indigo-50/40 p-4 shadow-sm space-y-2"
+        data-testid="harvest-compatibility-mode-banner"
+      >
+        <h2 className="text-sm font-semibold text-slate-900">
+          WeChat Compatibility Mode: {compatibilityMode.label}
+        </h2>
+        <p className="text-xs text-slate-600">
+          <span className="font-medium">{compatibilityMode.mode}:</span> {compatibilityMode.hint}
+        </p>
+        <p className="text-xs text-slate-500">
+          Env: {compatibilityMode.envVar} (default: {compatibilityMode.defaultMode})
+        </p>
+      </section>
+
       <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm space-y-4">
         <h2 className="text-sm font-semibold text-slate-900">Source information</h2>
         <label className="block text-xs text-slate-600">
@@ -256,6 +282,12 @@ export function HarvestForm({ writeEnabled, writeProtectionMessage }: HarvestFor
             <div>
               <dt className="text-slate-500">runtimeSource</dt>
               <dd>{preview.trace.runtimeTrace.runtimeSource}</dd>
+            </div>
+            <div>
+              <dt className="text-slate-500">wechatCompatibilityMode</dt>
+              <dd data-testid="harvest-trace-compatibility-mode">
+                {preview.trace.wechatCompatibilityMode}
+              </dd>
             </div>
           </dl>
           <div>

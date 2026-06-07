@@ -4,6 +4,7 @@ import type {
   TraceIssue,
   TraceLossReportItem,
 } from "../runtime/dsl-trace-types";
+import type { BorderedHeadingExtraction } from "./bordered-heading-extractor";
 import type { EncoderIssue } from "./encoder-types";
 import type { HeadingSemanticExtraction } from "./heading-semantic-extractor";
 
@@ -13,6 +14,21 @@ export function mapEncoderIssuesToTraceIssues(issues: EncoderIssue[]): TraceIssu
     message: issue.message,
     severity: issue.code === "no_extractable_text" ? "blocking" : "warning",
   }));
+}
+
+export function buildBorderedHeadingEncoderTrace(
+  extraction: BorderedHeadingExtraction,
+  encoderIssues: EncoderIssue[],
+): EncoderTrace {
+  return {
+    inputKind: "html",
+    extractedSlots: { title: extraction.title },
+    styleTokens: extraction.styleTokens,
+    layoutIntent: extraction.layoutIntent,
+    decorators: [],
+    lossReport: [...extraction.lossReport],
+    issues: mapEncoderIssuesToTraceIssues(encoderIssues),
+  };
 }
 
 export function buildHtmlEncoderTrace(

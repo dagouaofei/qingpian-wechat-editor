@@ -31,3 +31,9 @@ export {
   normalizeAndValidateWechatHtml,
   type WechatCompatibilitySpec,
 } from "./wechat-compatibility-spec";
+export {
+  applyWechatCompatibilityForHarvest,
+  parseHarvestWechatCompatibilityMode,
+  DEFAULT_HARVEST_WECHAT_COMPATIBILITY_MODE,
+  type HarvestWechatCompatibilityMode,
+} from "./harvest-compat-mode";

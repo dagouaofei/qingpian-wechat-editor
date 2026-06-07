@@ -5,6 +5,7 @@ import type {
   HarvestIssueSeverity,
   HarvestLossReportEntry,
 } from "./harvest-compatibility";
+import type { HarvestWechatCompatibilityMode } from "./harvest-compatibility-mode";
 import type { HarvestPreviewTrace } from "./harvest-trace";
 import type { JsonValue } from "../types";
 
@@ -102,6 +103,7 @@ export type PreviewHtmlHarvestResult =
       blocking: false;
       guidance?: string;
       trace?: HarvestPreviewTrace;
+      wechatCompatibilityMode: HarvestWechatCompatibilityMode;
     }
   | {
       ok: false;

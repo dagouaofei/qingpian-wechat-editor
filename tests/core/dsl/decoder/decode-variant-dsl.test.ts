@@ -48,9 +48,9 @@ describe("decodeVariantDsl", () => {
 
     expect(result.ok).toBe(true);
     if (result.ok) {
-      expect(result.output?.kind).toBe("title_block_preview");
-      if (result.output?.kind === "title_block_preview") {
-        expect(result.output.text).toContain("这是一个可上线测试小标题");
+      expect(result.output?.kind).toBe("dsl_tree_html_preview");
+      if (result.output?.kind === "dsl_tree_html_preview") {
+        expect(result.output.html).toContain("这是一个可上线测试小标题");
       }
     }
   });

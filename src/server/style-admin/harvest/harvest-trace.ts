@@ -10,6 +10,7 @@ import { buildRuntimeTraceForVariant } from "@/lib/dsl-runtime/runtime-trace";
 import { parseDefinitionJsonToVariantDsl } from "@/lib/dsl-runtime";
 
 import type { JsonValue } from "../types";
+import type { HarvestWechatCompatibilityMode } from "./harvest-compatibility-mode";
 import type { HarvestIssue, HarvestLossReportEntry } from "./harvest-compatibility";
 
 export type HarvestDecodeSummary = {
@@ -20,6 +21,7 @@ export type HarvestDecodeSummary = {
 };
 
 export type HarvestPreviewTrace = {
+  wechatCompatibilityMode: HarvestWechatCompatibilityMode;
   extractedSlots: Record<string, string>;
   styleTokens: Record<string, string>;
   layoutIntent?: string;
@@ -51,6 +53,7 @@ export function buildHarvestPreviewTrace(
   blockType: BlockType,
   issues: HarvestIssue[],
   lossReport: HarvestLossReportEntry[],
+  wechatCompatibilityMode: HarvestWechatCompatibilityMode,
 ): HarvestPreviewTrace | null {
   const parsed = parseDefinitionJsonToVariantDsl(definitionJson, runtimeVariantId, blockType);
   if (!parsed.ok) return null;
@@ -100,6 +103,7 @@ export function buildHarvestPreviewTrace(
   }
 
   return {
+    wechatCompatibilityMode,
     extractedSlots,
     styleTokens: (parsed.value.tokens as Record<string, string>) ?? {},
     layoutIntent: typeof meta.layoutIntent === "string" ? meta.layoutIntent : undefined,

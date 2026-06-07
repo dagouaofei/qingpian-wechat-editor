@@ -4395,7 +4395,7 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 - [x] AC-5 用户侧 runtime · Admin inspection · Harvest · Import 已接线 DSL
 - [x] AC-6 promoted html_paste heading 用户侧 preview/copy 可渲染（DSL 路径）
 - [x] AC-7 FIX-A：DB 可用时用户侧 runtime 单轨 DSL Decoder（release1 seed 不绕过）
-- [ ] AC-8 Promote eligibility DSL renderability check（依赖 S10-STORY-011 在 011A 之上收口）
+- [x] AC-8 Promote eligibility DSL renderability check（S10-STORY-011 收口 · `validateVariantDslRuntimeReadiness`）
 - [x] AC-9 lint / test / build PASS
 - [x] AC-10 FIX-A（Harvest）：Detect / Preview 不因 WeChat compatibility issues 500 · 返回 issues / lossReport · 复杂 heading HTML 回归
 
@@ -4423,28 +4423,64 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 - [x] FIX-B-6 lint / test / build PASS（1188 tests）
 - [x] FIX-B-7 本地 E2E：Harvest trace · candidate detail · user-selectable-pool `runtimeSource=database_dsl`（2026-06-07 PASS）
 
-**遗留（不阻塞 merge）：** Candidate detail Preview inspection 仅显示无样式标题文字 · 恢复 S10-STORY-011 后作为 promote gate / inspection preview fidelity 处理
-
-**下一步：** 恢复 `wip-s10-story-011-promote` stash · 接入 `validateVariantDslRuntimeReadiness` · 处理 inspection preview fidelity
-
-**说明：** S10-STORY-011 **暂停 merge**；011 须在 011A merge 后基于 DSL Runtime 重新验收。
+**说明：** 011A 已 merge sprint（2026-06-07）。
 
 ---
 
 ## S10-STORY-011 采集样式 Promote 到 user-selectable
 
-**优先级：** P1 · **状态：** **Blocked（依赖 011A）** · **工作分支：** `feature/s10-story-011-promote-user-selectable`（WIP stash · 未 merge）
+**优先级：** P1 · **状态：** **In Review / checkpoint** · **工作分支：** `feature/s10-story-011-promote-user-selectable-final` · **未 merge sprint**
 
-**目标：** candidate → user_selectable · promote record · 用户侧 1–5 分钟内可见 · 不自动 defaultEligible · 不自动进入 default preset · 不自动变更 release1Required · 可下架 / 回滚 · **须含 DSL renderability gate**。
+**Checkpoint 说明（2026-06-07）：** 已保存 promote + FIX-A + Harvest compatibility mode + encoder/compatibility decoupling 进行中改动；**非 Done**。
+
+- Promote gate 已恢复
+- DSL Runtime readiness 已接入
+- Source-exact trace 已补充
+- Harvest compatibility mode 已加入
+- Encoder / Decoder fidelity 与 compatibility decoupling 仍在继续验证
+- HTML → DSL → Promote → 用户侧 Preview/Copy 全量验收尚未最终通过
+
+**目标：** candidate → user_selectable · promote record · 用户侧可见 · 不自动 defaultEligible · **须含 `validateVariantDslRuntimeReadiness` gate** · detail Preview inspection 样式化 DSL decode。
 
 **验收标准：**
 
-- [ ] AC-1 promote 写操作产生 `style_variant_promote_records`
-- [ ] AC-2 用户侧 1–5 分钟内可见新 user-selectable
-- [ ] AC-3 defaultEligible / default preset / release1Required 未自动变更
-- [ ] AC-4 可下架 / 回滚
-- [ ] AC-5 Promote 前 Variant DSL valid + preview/copy decode pass
-- [ ] AC-6 lint / test / build PASS
+- [x] AC-1 promote 写操作产生 `style_variant_promote_records` + lifecycle + audit
+- [ ] AC-2 用户侧 E2E：promoted candidate 在 pool / `/preview` 可见且样式生效（待用户验收）
+- [x] AC-3 defaultEligible / default preset / release1Required 未自动变更
+- [x] AC-4 Hide / Restore / Rollback 仍可用（既有 governance）
+- [x] AC-5 Promote 前 `paste_qa_pass` + `validateVariantDslRuntimeReadiness` OK
+- [x] AC-6 lint / test / build PASS（1211 tests）
+- [x] AC-7 Candidate detail Preview inspection 使用 DSL Decoder · 非裸文本 fallback
+
+### S10-STORY-011 FIX-A DSL Decode Source-Exact / No Fallback / Empty Is Failure
+
+**优先级：** P0 · **状态：** **In Review** · **工作分支：** `feature/s10-story-011-promote-user-selectable-final`（与 011 同分支 · **未 merge sprint**）
+
+**目标：** bordered heading HTML 全链路 source-exact · empty render = failed · `database_dsl` 禁止语义 renderer fallback · source-exact trace。
+
+**验收标准：**
+
+- [x] AC-1 bordered heading encoder `styleTokens` 非空 · 规范化 tree（section margin + h3 border/padding）
+- [x] AC-2 tree preview 返回 `dsl_tree_html_preview` 非空 HTML（含 border / title 文本）
+- [x] AC-3 `DSL_RENDER_EMPTY` → `status=failed` · readiness `previewReady=false`
+- [x] AC-4 用户 preview 无 `var(--preview-bg-soft)` fallback · `fallbackUsed=false`
+- [x] AC-5 candidate detail + dev API source-exact trace 字段
+- [x] AC-6 定向测试 + build PASS（待用户本地 E2E Harvest 回归）
+
+### S10-STORY-011 Harvest WeChat Compatibility Spec Mode（诊断开关）
+
+**优先级：** P1 · **状态：** **In Review** · **工作分支：** `feature/s10-story-011-promote-user-selectable-final`
+
+**目标：** `STYLE_HARVEST_WECHAT_COMPATIBILITY_MODE=off|report|enforce` · sanitize 常开 · 诊断 Spec 是否过度保守。
+
+**验收标准：**
+
+- [x] AC-1 配置读取默认 report · 非法 fallback report
+- [x] AC-2 off/report/enforce 语义接入 Encoder + Harvest
+- [x] AC-3 Harvest 页展示当前 mode + 说明
+- [x] AC-4 trace / compatibilityJson 含 `wechatCompatibilityMode`
+- [x] AC-5 promote `compatibilityStatus` pass/failed/skipped/not_enforced
+- [x] AC-6 定向 harvest 测试 + build PASS（待用户本地 off/report 切换验收）
 
 ---
 

@@ -89,7 +89,20 @@ export function decodeVariantDsl(input: DecodeVariantDslInput): DecodeVariantDsl
   }
 
   const htmlLength = decoded.html?.length ?? 0;
-  const rendered = Boolean(decoded.output) || htmlLength > 0;
+  const visibleText = (decoded.html ?? "").replace(/<[^>]+>/g, "").trim();
+  const isTreePreviewTarget =
+    Boolean(input.variantDsl.tree) &&
+    (input.target === "preview" ||
+      input.target === "admin_inspection" ||
+      input.target === "qa_snapshot");
+  const rendered = isTreePreviewTarget
+    ? Boolean(visibleText && htmlLength > 0)
+    : Boolean(decoded.output) && (htmlLength > 0 || Boolean(decoded.output));
+
+  if (isTreePreviewTarget && !rendered) {
+    return buildFailureTrace(input, decoderPath, ["DSL_RENDER_EMPTY", ...decoded.issues]);
+  }
+
   return {
     ok: true,
     output: decoded.output,

@@ -1,7 +1,7 @@
 import { encodeHtmlToVariantDsl } from "@/core/dsl/encoder";
 import type { BlockType } from "@/core/blocks";
 import { VARIANT_DSL_VERSION } from "@/core/dsl/runtime";
-import { normalizeAndValidateWechatHtml } from "@/core/wechat-compatibility";
+import { applyWechatCompatibilityForHarvest } from "@/core/wechat-compatibility";
 
 import type { JsonValue } from "../types";
 import { stableJsonChecksum } from "../import/checksum";
@@ -16,6 +16,10 @@ import {
   type HarvestIssue,
   type HarvestLossReportEntry,
 } from "./harvest-compatibility";
+import {
+  getHarvestWechatCompatibilityMode,
+  type HarvestWechatCompatibilityMode,
+} from "./harvest-compatibility-mode";
 
 export type HarvestExtractSuccess = {
   ok: true;
@@ -36,6 +40,7 @@ export type HarvestExtractSuccess = {
   lossReport: HarvestLossReportEntry[];
   canCreateCandidate: boolean;
   severity: ReturnType<typeof highestHarvestSeverity>;
+  wechatCompatibilityMode: HarvestWechatCompatibilityMode;
 };
 
 export type HarvestExtractFailure = {
@@ -45,6 +50,7 @@ export type HarvestExtractFailure = {
   issues: HarvestIssue[];
   lossReport: HarvestLossReportEntry[];
   blocking: true;
+  wechatCompatibilityMode: HarvestWechatCompatibilityMode;
 };
 
 export type HarvestExtractResult = HarvestExtractSuccess | HarvestExtractFailure;
@@ -58,14 +64,26 @@ type BuildHarvestExtractInput = {
   sampleText: string;
   styleFamily: string;
   componentProtocolJson: JsonValue;
+  wechatCompatibilityMode?: HarvestWechatCompatibilityMode;
 };
 
 export function extractHarvestCandidateShared(
   input: BuildHarvestExtractInput,
 ): HarvestExtractResult {
-  const { transform, validation } = normalizeAndValidateWechatHtml(input.sanitizedHtml);
-  const lossReport = mapTransformToLossReport(transform);
-  const compatibilityIssues = mapWechatIssuesToHarvestIssues(validation.issues);
+  const wechatCompatibilityMode =
+    input.wechatCompatibilityMode ?? getHarvestWechatCompatibilityMode();
+  const { transform, validation } = applyWechatCompatibilityForHarvest(
+    input.sanitizedHtml,
+    wechatCompatibilityMode,
+  );
+
+  const transformLossReport =
+    wechatCompatibilityMode === "enforce" ? mapTransformToLossReport(transform) : [];
+  const compatibilityIssues =
+    wechatCompatibilityMode === "off"
+      ? []
+      : mapWechatIssuesToHarvestIssues(validation.issues);
+  const lossReport = transformLossReport;
 
   const encoded = encodeHtmlToVariantDsl({
     html: input.sanitizedHtml,
@@ -74,6 +92,7 @@ export function extractHarvestCandidateShared(
     label: input.label,
     family: input.styleFamily,
     copySafety: "strict",
+    wechatCompatibilityMode,
   });
 
   const encoderIssues = mapEncoderIssuesToHarvestIssues(encoded.issues);
@@ -90,6 +109,7 @@ export function extractHarvestCandidateShared(
       issues,
       lossReport,
       blocking: true,
+      wechatCompatibilityMode,
     };
   }
 
@@ -101,6 +121,7 @@ export function extractHarvestCandidateShared(
       encoderIssues: encoded.issues,
       compatibilityIssues: issues,
       lossReport,
+      wechatCompatibilityMode,
     },
   } as JsonValue;
 
@@ -109,12 +130,19 @@ export function extractHarvestCandidateShared(
     dslVersion: VARIANT_DSL_VERSION,
     encoderIssueCount: encoded.issues.length,
     compatibilityIssueCount: issues.length,
+    wechatCompatibilityMode,
     harvestCompatibility: {
       issues,
       lossReport,
       severity: highestHarvestSeverity(issues),
-      partial: !validation.valid || risks.length > 0,
+      partial:
+        wechatCompatibilityMode === "enforce"
+          ? !validation.valid || risks.length > 0
+          : wechatCompatibilityMode === "report"
+            ? risks.length > 0 || warnings.length > 0
+            : false,
       harvestStage: "detect",
+      wechatCompatibilityMode,
     },
   } as JsonValue;
 
@@ -125,7 +153,12 @@ export function extractHarvestCandidateShared(
     sanitizedHtml: input.sanitizedHtml,
   });
 
-  const partial = !validation.valid || risks.length > 0;
+  const partial =
+    wechatCompatibilityMode === "enforce"
+      ? !validation.valid || risks.length > 0
+      : wechatCompatibilityMode === "report"
+        ? risks.length > 0 || warnings.length > 0
+        : false;
 
   return {
     ok: true,
@@ -146,5 +179,6 @@ export function extractHarvestCandidateShared(
     lossReport,
     canCreateCandidate: canCreateHarvestCandidate(issues),
     severity: highestHarvestSeverity(issues),
+    wechatCompatibilityMode,
   };
 }

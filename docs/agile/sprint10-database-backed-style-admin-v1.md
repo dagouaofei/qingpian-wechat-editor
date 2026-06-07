@@ -70,7 +70,7 @@ Next.js · Prisma · PostgreSQL · 阿里云 RDS / OSS / ECS · SLS / CloudMonit
 | S10-STORY-009 | HTML Harvest → Candidate Variant v1 | **Done**（2026-06-07 · merge @ `147c2e7`） |
 | S10-STORY-010 | Candidate Preview / Copy / Validator / Evidence | **Done**（2026-06-07 · merge @ `d5a6af3`） |
 | S10-STORY-011A | Article / Variant DSL Runtime + Encoder / Decoder | **Done**（2026-06-07 · checkpoint + FIX-A + FIX-B · 本地 E2E A/B/C PASS · merge sprint） |
-| S10-STORY-011 | 采集样式 Promote 到 user-selectable | **Blocked（依赖 011A）** · WIP stash · 未 merge |
+| S10-STORY-011 | 采集样式 Promote 到 user-selectable | **In Review**（2026-06-07 · promote gate + inspection preview · `feature/s10-story-011-promote-user-selectable-final`） |
 | S10-STORY-012 | S10 Audit / Closeout | Planned |
 
 完整 AC 见 [`sprint-backlog.md`](sprint-backlog.md) Sprint 10 章节。
@@ -189,6 +189,8 @@ pnpm style-admin:import-existing-variants           # 写入 DATABASE_URL 指向
 **入口：** `/admin/style-library` 列表页 **Harvest from HTML** 按钮
 
 **模块：** `src/server/style-admin/harvest/` — sanitize · detect blockType · extract heading/info_card · `createHtmlHarvestCandidate`
+
+**Harvest 诊断开关（S10-STORY-011）：** `STYLE_HARVEST_WECHAT_COMPATIBILITY_MODE=off|report|enforce`（默认 `report`）· sanitize 永远开启 · `off` 仅用于保真诊断 · trace 字段 `wechatCompatibilityMode`
 
 **写入：**
 

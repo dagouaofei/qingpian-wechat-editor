@@ -123,6 +123,7 @@ describe("Admin style-library shells", () => {
         lifecycleEvents: [],
         validationRuns: [],
         evidence: [],
+        promoteRecords: [],
       } as never,
     });
 
@@ -134,7 +135,6 @@ describe("Admin style-library shells", () => {
     expect(html).toContain('data-testid="admin-detail-no-validation-runs"');
     expect(html).toContain('data-testid="admin-detail-no-evidence"');
     expect(html).toContain('data-testid="admin-detail-missing-component-protocol"');
-    expect(html).toContain('data-testid="admin-disabled-action-promote-user-selectable"');
     expect(html).toContain('data-testid="admin-style-library-governance-actions"');
     expect(html).toContain('data-testid="admin-write-protection-message"');
     expect(html).toContain("Hide from user pool");

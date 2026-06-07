@@ -16,6 +16,7 @@ import {
   isHarvestBlockType,
   toPrismaBlockType,
 } from "./html-harvest-types";
+import { getHarvestWechatCompatibilityMode } from "./harvest-compatibility-mode";
 import { buildHarvestPreviewTrace } from "./harvest-trace";
 import { sanitizeHarvestHtml } from "./sanitize-harvest-html";
 
@@ -174,6 +175,7 @@ export function previewHtmlHarvestCandidate(
 
   const { draft, detectedBlockType, issues, warnings, lossReport, canCreateCandidate, partial } =
     built;
+  const activeCompatibilityMode = getHarvestWechatCompatibilityMode();
 
   if (!draft) {
     if (detectedBlockType === "unknown" && !manualBlockType) {
@@ -189,6 +191,7 @@ export function previewHtmlHarvestCandidate(
         partial: false,
         severity: null,
         blocking: false,
+        wechatCompatibilityMode: activeCompatibilityMode,
       };
     }
 
@@ -209,9 +212,11 @@ export function previewHtmlHarvestCandidate(
   }
 
   const severity = built.extract?.ok ? built.extract.severity : null;
-  const hasCompatibilityRisks = issues.some(
-    (issue) => issue.severity === "risk" || issue.severity === "warning",
-  );
+  const wechatCompatibilityMode =
+    built.extract?.ok ? built.extract.wechatCompatibilityMode : activeCompatibilityMode;
+  const hasCompatibilityRisks =
+    wechatCompatibilityMode !== "off" &&
+    issues.some((issue) => issue.severity === "risk" || issue.severity === "warning");
 
   const trace = buildHarvestPreviewTrace(
     draft.definitionJson,
@@ -219,6 +224,7 @@ export function previewHtmlHarvestCandidate(
     draft.blockType,
     issues,
     lossReport,
+    wechatCompatibilityMode,
   );
 
   return {
@@ -243,6 +249,7 @@ export function previewHtmlHarvestCandidate(
     blocking: false,
     guidance: hasCompatibilityRisks ? HARVEST_COMPATIBILITY_GUIDANCE : undefined,
     trace: trace ?? undefined,
+    wechatCompatibilityMode,
   };
 }
 

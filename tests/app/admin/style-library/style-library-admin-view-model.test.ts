@@ -4,6 +4,7 @@ import {
   buildAdminDetailViewModelFromQueryResult,
   buildAdminListViewModelFromQueryResults,
 } from "@/app/admin/(protected)/style-library/style-library-admin-view-model";
+import { buildPromoteHeadingVariantDsl } from "../../../fixtures/dsl/promote-heading-variant-dsl";
 
 describe("style-library admin view model", () => {
   it("builds list summary with independent distribution columns", () => {
@@ -136,16 +137,79 @@ describe("style-library admin view model", () => {
         lifecycleEvents: [],
         validationRuns: [],
         evidence: [],
+        promoteRecords: [],
       } as never,
     });
 
     expect(viewModel.currentVersion?.missingComponentProtocol).toBe(true);
     expect(viewModel.distribution?.release1Required).toBe(true);
     expect(viewModel.distribution?.defaultEligible).toBe(false);
+    expect(viewModel.candidatePromote).toBeNull();
     expect(
-      viewModel.disabledActions.every((action) =>
-        ["S10-STORY-006", "S10-STORY-010", "S10-STORY-011"].includes(action.storyRef),
-      ),
-    ).toBe(true);
+      viewModel.disabledActions.some((action) => action.id === "promote-user-selectable"),
+    ).toBe(false);
+  });
+
+  it("builds candidate promote panel for html_paste candidate with paste_qa_pass", () => {
+    const viewModel = buildAdminDetailViewModelFromQueryResult(
+      "heading_html_paste_abcdef01_candidate",
+      {
+        ok: true,
+        data: {
+          variant: {
+            id: "variant-1",
+            runtimeVariantId: "heading_html_paste_abcdef01_candidate",
+            label: "HTML paste candidate",
+            description: null,
+            blockType: "heading",
+            styleFamily: "htmlPaste",
+            lifecycle: "candidate",
+            createdAt: new Date("2026-06-07T00:00:00.000Z"),
+            updatedAt: new Date("2026-06-07T00:00:00.000Z"),
+          },
+          distribution: {
+            userSelectable: false,
+            defaultEligible: false,
+            release1Required: false,
+            hidden: false,
+            deprecated: false,
+            cacheVersion: 0,
+          },
+          currentVersion: {
+            id: "version-1",
+            versionNumber: 1,
+            copySafety: "strict",
+            qualityStatus: "paste_qa_pass",
+            sourceChecksum: "abc",
+            definitionJson: buildPromoteHeadingVariantDsl(
+              "heading_html_paste_abcdef01_candidate",
+            ),
+            componentProtocolJson: { componentId: "titleBlock" },
+            compatibilityJson: { copySafety: "strict" },
+          },
+          sources: [
+            {
+              id: "source-1",
+              sourceType: "html_paste",
+              sourceCohort: "s10_html_harvest_v1",
+              sourceRef: null,
+              sourceMetadata: null,
+              rawHtml: "<section>test</section>",
+              createdAt: new Date("2026-06-07T00:00:00.000Z"),
+            },
+          ],
+          lifecycleEvents: [],
+          validationRuns: [],
+          evidence: [],
+          promoteRecords: [],
+        } as never,
+      },
+    );
+
+    expect(viewModel.candidatePromote?.eligible).toBe(true);
+    expect(viewModel.candidatePromote?.alreadyPromoted).toBe(false);
+    expect(viewModel.candidatePromote?.runtimeSource).toBe("database_dsl");
+    expect(viewModel.candidatePromote?.previewReady).toBe(true);
+    expect(viewModel.candidatePromote?.copyReady).toBe(true);
   });
 });

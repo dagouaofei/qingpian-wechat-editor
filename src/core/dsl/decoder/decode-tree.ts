@@ -1,39 +1,35 @@
-import type { Block, HeadingBlock, TitleBlock } from "@/core/blocks";
+import type { Block } from "@/core/blocks";
 import { wrapCopySafeMarginSection } from "@/core/copy/copy-safe-primitives";
 import { assertCopySafeHtml } from "@/core/copy/html-escape";
 import type {
+  DslTreeHtmlPreviewOutput,
   InfoCardCopyOutput,
-  InfoCardPreviewOutput,
   RendererOutputPlaceholder,
   TextBlockCopyOutput,
-  TextBlockPreviewOutput,
   TitleBlockCopyOutput,
-  TitleBlockPreviewOutput,
 } from "@/core/renderer/types";
 
-import type { DslNode, DslRenderTarget, VariantDslV1 } from "../runtime/dsl-types";
+import type { DslRenderTarget, VariantDslV1 } from "../runtime/dsl-types";
 import { listRequiredTreeSlots, resolveSlotsForDslDecode } from "./resolve-dsl-slots";
 import { renderDslTreeToHtml } from "./render-tree";
 
-function extractTypographyFromTree(tree: DslNode): {
-  fontSize?: string;
-  fontWeight?: string | number;
-  color?: string;
-  lineHeight?: string;
-} {
-  if (tree.type === "element" && tree.children) {
-    for (const child of tree.children) {
-      if (child.type === "slot" && child.slot === "title" && child.style) {
-        return {
-          fontSize: child.style.fontSize != null ? String(child.style.fontSize) : undefined,
-          fontWeight: child.style.fontWeight,
-          color: child.style.color != null ? String(child.style.color) : undefined,
-          lineHeight: child.style.lineHeight != null ? String(child.style.lineHeight) : undefined,
-        };
-      }
-    }
-  }
-  return {};
+function visiblePlainText(html: string): string {
+  return html.replace(/<[^>]+>/g, "").trim();
+}
+
+function buildTreeHtmlPreviewOutput(
+  dsl: VariantDslV1,
+  block: Block,
+  html: string,
+): DslTreeHtmlPreviewOutput {
+  return {
+    kind: "dsl_tree_html_preview",
+    blockId: block.id,
+    blockType: dsl.blockType,
+    variantId: dsl.id,
+    html,
+    copySafety: dsl.copySafety,
+  };
 }
 
 export function decodeTreeToOutput(
@@ -60,7 +56,7 @@ export function decodeTreeToOutput(
     return { ok: false, issues: ["DSL_SLOT_MISSING:title", ...issues] };
   }
 
-  const plainText = rendered.html.replace(/<[^>]+>/g, "").trim();
+  const plainText = visiblePlainText(rendered.html);
   if (!plainText) {
     return { ok: false, issues: ["DSL_RENDER_EMPTY", ...issues] };
   }
@@ -75,20 +71,8 @@ export function decodeTreeToOutput(
       issues.push(error instanceof Error ? error.message : "copy_safe_assertion_failed");
       return { ok: false, issues };
     }
-  }
 
-  if (dsl.blockType === "heading" || dsl.blockType === "title") {
-    const headingBlock = block as HeadingBlock | TitleBlock;
-    const text = slots.title ?? slots.eyebrow ?? "";
-    const extracted = extractTypographyFromTree(dsl.tree);
-    const typography = {
-      fontSize: extracted.fontSize ?? "18px",
-      fontWeight: String(extracted.fontWeight ?? "700"),
-      lineHeight: extracted.lineHeight ?? "1.5",
-      ...(extracted.color ? { color: extracted.color } : {}),
-    };
-
-    if (isCopyTarget) {
+    if (dsl.blockType === "heading" || dsl.blockType === "title") {
       const output: TitleBlockCopyOutput = {
         kind: "title_block_copy_html",
         blockId: block.id,
@@ -101,26 +85,7 @@ export function decodeTreeToOutput(
       return { ok: true, output, html, issues };
     }
 
-    const output: TitleBlockPreviewOutput = {
-      kind: "title_block_preview",
-      blockId: block.id,
-      blockType: dsl.blockType,
-      variantId: dsl.id,
-      familyId: dsl.family ?? "dsl",
-      layoutMode: "pill",
-      text,
-      headingLevel: headingBlock.type === "heading" ? headingBlock.content.level : 1,
-      presentation: {},
-      typography,
-      slots: {
-        title: { state: "active", content: text },
-      },
-    };
-    return { ok: true, output, issues };
-  }
-
-  if (dsl.blockType === "info_card") {
-    if (isCopyTarget) {
+    if (dsl.blockType === "info_card") {
       const output: InfoCardCopyOutput = {
         kind: "info_card_copy_html",
         blockId: block.id,
@@ -132,26 +97,8 @@ export function decodeTreeToOutput(
       };
       return { ok: true, output, html, issues };
     }
-    const body = slots.body ?? "";
-    const output: InfoCardPreviewOutput = {
-      kind: "info_card_preview",
-      blockId: block.id,
-      blockType: "info_card",
-      variantId: dsl.id,
-      layout: "key_takeaway",
-      title: slots.title,
-      titleState: slots.title ? "active" : "disabled",
-      body,
-      bodyLines: body.split("\n").filter((line) => line.length > 0),
-      icon: undefined,
-      iconState: "disabled",
-      copySafety: dsl.copySafety,
-    };
-    return { ok: true, output, issues };
-  }
 
-  if (dsl.blockType === "lead" || dsl.blockType === "paragraph") {
-    if (isCopyTarget) {
+    if (dsl.blockType === "lead" || dsl.blockType === "paragraph") {
       const output: TextBlockCopyOutput = {
         kind: "text_block_copy_html",
         blockId: block.id,
@@ -164,16 +111,9 @@ export function decodeTreeToOutput(
       return { ok: true, output, html, issues };
     }
 
-    const output: TextBlockPreviewOutput = {
-      kind: "text_block_preview",
-      blockId: block.id,
-      blockType: dsl.blockType,
-      variantId: dsl.id,
-      layout: "plain",
-      nodes: [{ text: slots.text ?? slots.title ?? slots.body ?? "" }],
-    };
-    return { ok: true, output, issues };
+    return { ok: false, issues: [`unsupported_tree_block_type:${dsl.blockType}`] };
   }
 
-  return { ok: false, issues: [`unsupported_tree_block_type:${dsl.blockType}`] };
+  const output = buildTreeHtmlPreviewOutput(dsl, block, rendered.html);
+  return { ok: true, output, html: rendered.html, issues };
 }

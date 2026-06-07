@@ -603,6 +603,17 @@
 
 ---
 
+## 2026-06-07 · S10-STORY-011 Promote Gate + Inspection Preview（In Review）
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-07 | Sprint 10 | **S10-STORY-011**：恢复 stash · Promote to user-selectable · `validateVariantDslRuntimeReadiness` gate | 后台 / 治理 | S10-STORY-011 |
+| 2026-06-07 | Sprint 10 | Candidate detail Promote 面板 + readiness · preview/copy/compatibility · runtimeSource | UI / Admin | S10-STORY-011 |
+| 2026-06-07 | Sprint 10 | Preview inspection：DSL meta slots 优先 · `chapter_overlay_heading` → 样式化 preview | Inspection / Decoder | S10-STORY-011 |
+| 2026-06-07 | Sprint 10 | 1211 tests PASS · build PASS | 测试 | S10-STORY-011 |
+
+---
+
 ## 2026-06-07 · S10-STORY-011A Done（merge sprint）
 
 | 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
@@ -642,6 +653,30 @@
 | 2026-06-07 | Sprint 10 | Encoder 仅 `no_extractable_text` blocking · compatibility issues 进入 `issues` / `lossReport` / `severity` | 代码 / Harvest | S10-STORY-011A |
 | 2026-06-07 | Sprint 10 | Harvest UI 展示 compatibility issues · loss report · canCreateCandidate 引导文案 | UI / Admin | S10-STORY-011A |
 | 2026-06-07 | Sprint 10 | 回归测试：用户复杂 heading HTML · script/onclick lossReport · blocking empty text · 1179 tests PASS | 测试 | S10-STORY-011A |
+
+---
+
+## 2026-06-07 · S10-STORY-011 Checkpoint Commit
+
+| 日期 | Sprint | 变更 | 类型 | 关联 |
+|------|--------|------|------|------|
+| 2026-06-07 | Sprint 10 | **011 checkpoint**（`feature/s10-story-011-promote-user-selectable-final`）：promote + FIX-A + harvest compat mode · **In Review · 未 merge sprint** | Git / 文档 | S10-STORY-011 |
+
+---
+
+## 2026-06-07 · S10-STORY-011 Harvest WeChat Compatibility Spec Mode
+
+| 日期 | Sprint | 变更 | 类型 | 关联 |
+|------|--------|------|------|------|
+| 2026-06-07 | Sprint 10 | **011 诊断开关**：`STYLE_HARVEST_WECHAT_COMPATIBILITY_MODE` off/report/enforce · Harvest UI · trace · promote `compatibilityStatus` | 代码 / Harvest | S10-STORY-011 |
+
+---
+
+## 2026-06-07 · S10-STORY-011 FIX-A DSL Decode Source-Exact
+
+| 日期 | Sprint | 变更 | 类型 | 关联 |
+|------|--------|------|------|------|
+| 2026-06-07 | Sprint 10 | **011 FIX-A**：bordered heading encoder · `dsl_tree_html_preview` · empty=failed · source-exact trace · 禁止 DB DSL 语义 fallback | 代码 / runtime | S10-STORY-011 FIX-A |
 
 ---
 

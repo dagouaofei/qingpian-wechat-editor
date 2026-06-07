@@ -66,9 +66,32 @@ src/core/wechat-compatibility/
 
 ---
 
-## 4. 应用场景
+## 4. Harvest 诊断开关（S10-STORY-011）
 
-### 4.1 HTML 粘贴 → Variant DSL
+环境变量：`STYLE_HARVEST_WECHAT_COMPATIBILITY_MODE`（默认 `report`）
+
+| 模式 | 行为 |
+|------|------|
+| `off` | **仅 sanitize**（移除 script · event handler · dangerous URL）；不运行 compatibility transformer 降级；不产出 contract blocking issue；用于诊断「Spec 是否过度保守」 |
+| `report` | 运行 compatibility analyzer，生成 issues / warnings / risk，**不主动降级样式**，不阻断 candidate 创建（开发默认） |
+| `enforce` | 执行严格 transform / downgrade / blocking（后续 Copy-safe 严格输出） |
+
+**永远开启：** `sanitizeHarvestHtml`（Harvest 入口）— sanitize 不可关闭。
+
+**代码：**
+
+- `src/core/wechat-compatibility/harvest-compat-mode.ts` — `applyWechatCompatibilityForHarvest`
+- `src/server/style-admin/harvest/harvest-compatibility-mode.ts` — `getHarvestWechatCompatibilityMode`
+
+Trace / metadata 字段：`wechatCompatibilityMode`（`harvestMeta` · `compatibilityJson` · Harvest encoder trace）
+
+Promote readiness：`compatibilityStatus` = `pass` | `failed` | `skipped` | `not_enforced`；`mode=off` 时为 `skipped`（不阻断 promote，UI 须标注 Paste QA 要求）。
+
+---
+
+## 5. 应用场景
+
+### 5.1 HTML 粘贴 → Variant DSL
 
 ```text
 公众号 HTML（大概率已兼容）
@@ -97,7 +120,7 @@ src/core/wechat-compatibility/
 
 提取结果写入 Variant DSL `meta.extractedSlots` · `meta.layoutIntent` · `meta.decorators` · `tokens`，供 Decoder 与 Admin trace 展示。
 
-### 4.2 AI 生成 DSL（预留）
+### 5.2 AI 生成 DSL（预留）
 
 本轮不实现 AI 生成，但 spec 可作为 future prompt / validator 约束：
 
@@ -109,7 +132,7 @@ AI style requirement + getWechatCompatibilityPromptRules()
 
 ---
 
-## 5. 与 Decoder 集成
+## 6. 与 Decoder 集成
 
 `decodeVariantDsl` 在产出 copy HTML 后调用 `validateHtmlStructureCompatibility`，失败则显式错误，**禁止 silent empty render**。
 

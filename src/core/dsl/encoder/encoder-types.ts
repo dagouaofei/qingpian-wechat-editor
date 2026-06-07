@@ -1,4 +1,5 @@
 import type { BlockType } from "@/core/blocks";
+import type { HarvestWechatCompatibilityMode } from "@/core/wechat-compatibility/harvest-compat-mode";
 import type { VariantDslV1 } from "../runtime/dsl-types";
 
 export type EncoderIssue = {
@@ -17,4 +18,6 @@ export type HtmlToVariantDslInput = {
   label?: string;
   family?: string;
   copySafety?: VariantDslV1["copySafety"];
+  /** Harvest diagnostic mode; defaults to enforce for non-harvest encoder callers. */
+  wechatCompatibilityMode?: HarvestWechatCompatibilityMode;
 };

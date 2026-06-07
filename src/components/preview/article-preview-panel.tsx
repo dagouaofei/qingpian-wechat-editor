@@ -2,6 +2,7 @@
 
 import type { CSSProperties, ReactNode } from "react";
 
+import { DslTreeHtmlPreviewBlock } from "@/components/preview/dsl-tree-html-preview-block";
 import { TitleHeadingPreviewBlock } from "@/components/preview/title-heading-preview-block";
 import {
   PREVIEW_THEME,
@@ -146,6 +147,15 @@ function PreviewBlockOutput({
   showStreamingCaret?: boolean;
 }) {
   switch (output.kind) {
+    case "dsl_tree_html_preview":
+      return (
+        <DslTreeHtmlPreviewBlock
+          html={output.html}
+          variantId={output.variantId}
+          blockType={output.blockType}
+          runtimeTrace={output.runtimeTrace}
+        />
+      );
     case "title_block_preview": {
       return (
         <TitleHeadingPreviewBlock

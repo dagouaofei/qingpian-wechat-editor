@@ -1,5 +1,7 @@
+import type { DecoderTrace } from "@/core/dsl/runtime/dsl-trace-types";
 import type { DslRenderTarget, VariantDslV1 } from "@/core/dsl/runtime";
 import { decodeVariantDsl } from "@/core/dsl/decoder";
+import type { RendererOutputPlaceholder } from "@/core/renderer/types";
 import { renderTargetForMode } from "@/core/renderer/types";
 
 import { parseDefinitionJsonToVariantDsl } from "@/lib/dsl-runtime";
@@ -21,11 +23,29 @@ function enrichVariantDslFromSource(
   };
 }
 
+export type CandidateDslDecodeResult =
+  | {
+      ok: true;
+      output: RendererOutputPlaceholder;
+      html?: string;
+      issues: string[];
+      usedAdminFallback: false;
+      mode: "preview" | "copy";
+      target: ReturnType<typeof renderTargetForMode>;
+      trace?: DecoderTrace;
+    }
+  | {
+      ok: false;
+      issues: string[];
+      usedAdminFallback: false;
+      trace?: DecoderTrace;
+    };
+
 export function renderCandidateViaDslDecoder(
   source: DbCandidateInspectionSource,
   fixture: CandidateInspectionFixture,
   target: DslRenderTarget,
-) {
+): CandidateDslDecodeResult {
   const parsed = parseDefinitionJsonToVariantDsl(
     source.definitionJson,
     source.runtimeVariantId,
@@ -56,6 +76,7 @@ export function renderCandidateViaDslDecoder(
       ok: false as const,
       issues: [decoded.message, ...decoded.issues],
       usedAdminFallback: false,
+      trace: decoded.trace,
     };
   }
 
@@ -64,6 +85,7 @@ export function renderCandidateViaDslDecoder(
       ok: false as const,
       issues: ["dsl_decode_empty_output"],
       usedAdminFallback: false,
+      trace: decoded.trace,
     };
   }
 
@@ -75,5 +97,6 @@ export function renderCandidateViaDslDecoder(
     usedAdminFallback: false,
     mode: target === "copy_wechat" || target === "qa_snapshot" ? "copy" : "preview",
     target: renderTargetForMode(target === "copy_wechat" ? "copy" : "preview"),
+    trace: decoded.trace,
   };
 }

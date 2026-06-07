@@ -6,6 +6,7 @@ import type {
   StyleVariantEvidence,
   StyleVariantLifecycle,
   StyleVariantLifecycleEvent,
+  StyleVariantPromoteRecord,
   StyleVariantSource,
   StyleVariantValidationRun,
   StyleVariantVersion,
@@ -53,6 +54,7 @@ export type AdminVariantDetail = {
   lifecycleEvents: StyleVariantLifecycleEvent[];
   validationRuns: StyleVariantValidationRun[];
   evidence: StyleVariantEvidence[];
+  promoteRecords: StyleVariantPromoteRecord[];
 };
 
 export type StyleLibraryAdminQueryResult<T> =
@@ -215,6 +217,7 @@ export class StyleLibraryAdminQuery {
           lifecycleEvents: { orderBy: { createdAt: "desc" } },
           validationRuns: { orderBy: { createdAt: "desc" }, take: 20 },
           evidence: { orderBy: { createdAt: "desc" }, take: 20 },
+          promoteRecords: { orderBy: { createdAt: "desc" }, take: 10 },
         },
       });
 
@@ -227,6 +230,7 @@ export class StyleLibraryAdminQuery {
         lifecycleEvents,
         validationRuns,
         evidence,
+        promoteRecords,
         distribution,
         currentVersion,
         ...core
@@ -242,6 +246,7 @@ export class StyleLibraryAdminQuery {
           lifecycleEvents,
           validationRuns,
           evidence,
+          promoteRecords,
         },
       };
     } catch {
