@@ -169,7 +169,8 @@ S9 file-backed manifest / code-backed variants（source of truth v0）
 - `listUserSelectableVariants` 仅按 `distribution.userSelectable=true` 且排除 `hidden` / `deprecated`；**不**以 `defaultEligible` 或 `release1Required` 作为入选条件
 - `updateDistribution` 写入 `admin_audit_logs`
 - **S10-STORY-003 已实现：** variant 幂等导入层 · dry-run CLI · import report（→ §6.2）
-- **本轮未做：** `/admin` UI · 用户侧 DB pool（→ S10-STORY-004~005）
+- **S10-STORY-004 已实现：** `/admin/style-library` read UI（→ §6.3）
+- **本轮未做：** 写操作 · 用户侧 DB pool（→ S10-STORY-005~006）· 登录（→ S10-STORY-008）
 
 ### 6.2 既有 Variant 导入（S10-STORY-003 · 已实现）
 
@@ -211,6 +212,26 @@ S9 file-backed manifest / code-backed variants（source of truth v0）
 - `userSelectable=true` 不隐含 `defaultEligible=true`
 - `release1Required=true` 不隐含 `userSelectable=true`
 - `deprecated=true` / `hidden=true` 入库 · 用户 pool（S10-STORY-005）须排除
+
+### 6.3 Admin Read UI（S10-STORY-004 · 已实现）
+
+| 路由 | 职责 |
+|------|------|
+| `/admin/style-library` | 列表 · summary · URL filters · disabled governance actions |
+| `/admin/style-library/[runtimeVariantId]` | 详情 · distribution · current version · source · lifecycle timeline · validation/evidence |
+
+| 模块 | 路径 |
+|------|------|
+| Query | `queries/style-library-admin-query.ts` |
+| View model | `src/app/admin/style-library/style-library-admin-view-model.ts` |
+| DB availability | `db-availability.ts` |
+
+**约束：**
+
+- Server component + server-only view model · client 不得 import Prisma
+- Build 不强制连接 DB · `DATABASE_URL` 缺失时展示 diagnostic state
+- 写操作 UI disabled · 标注 S10-STORY-006
+- 公网部署前须 S10-STORY-008 单管理员登录
 
 ---
 

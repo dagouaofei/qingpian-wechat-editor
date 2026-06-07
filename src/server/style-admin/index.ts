@@ -14,4 +14,14 @@ export { StyleVariantDistributionRepository } from "./repositories/style-variant
 export { StyleVariantValidationRepository } from "./repositories/style-variant-validation-repository";
 export { StyleVariantAuditRepository } from "./repositories/style-variant-audit-repository";
 
+export { getStyleAdminDbAvailability, isStyleAdminDbConfigured } from "./db-availability";
+export {
+  StyleLibraryAdminQuery,
+  type AdminVariantDetail,
+  type AdminVariantListFilter,
+  type AdminVariantListRow,
+  type AdminVariantSummary,
+  type StyleLibraryAdminQueryResult,
+} from "./queries/style-library-admin-query";
+
 export * from "./import";

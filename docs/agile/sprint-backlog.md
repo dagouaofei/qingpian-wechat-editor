@@ -12,7 +12,7 @@
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
 > **Sprint 8：** **Closed**（2026-06-05 · DECISION-093 · audit Grade A- · P0=0 · merged `release/1` @ `806fa47`）
 > **Sprint 9：** **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · **P0=0** · HTML→user preview picker E2E PASS · Preview/Copy parity PASS · default preset / release1_required 未污染 · **已 merge `release/1`** @ `c96e869` · **未 merge `main`**）
-> **当前 Sprint：** **Sprint 10** — Database-backed Style Management Admin v1 · **In Progress**（2026-06-07 · **DECISION-108** · S10-STORY-001~003 Done）
+> **当前 Sprint：** **Sprint 10** — Database-backed Style Management Admin v1 · **In Progress**（2026-06-07 · **DECISION-108** · S10-STORY-001~003 Done · S10-STORY-004 In Review）
 > **Sprint 10 分支：** `sprint/s10-db-backed-style-admin-v1`（从 `release/1` · 2026-06-07 · @ `c96e869`）
 > **Sprint 9 分支：** `sprint/s9-style-management-system-v0`（已 merge `release/1` · 2026-06-05）
 > **上一 Sprint：** **Sprint 8** — **Closed**（2026-06-05）；**Sprint 7** — **Done**（2026-06-03 · merge `release/1`）
@@ -4196,19 +4196,32 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 ## S10-STORY-004 正式后台 Variant 管理页
 
-**优先级：** P0 · **状态：** **Planned** · **工作分支：** TBD（`feature/s10-story-004-admin-style-library`）
+**优先级：** P0 · **状态：** **In Review** · **工作分支：** `feature/s10-story-004-admin-style-library`（从 `sprint/s10-db-backed-style-admin-v1`）
 
 **目标：** `/admin/style-library` · variant 列表 · variant 详情 · distribution 状态 · lifecycle timeline · validation / evidence 只读展示 · 最小上下架入口 · 不裸奔的后台边界说明。
 
-**非目标：** 不做 HTML Harvest · 不做复杂 RBAC · 写操作须配合 S10-STORY-008 auth
+**非目标：** 不做 HTML Harvest · 不做复杂 RBAC · 不做真实写 API（→ S10-STORY-006）· 不做登录（→ S10-STORY-008）
+
+**路由：**
+
+| 路由 | 职责 |
+|------|------|
+| `/admin/style-library` | DB-backed 列表 · summary · filters · disabled actions |
+| `/admin/style-library/[runtimeVariantId]` | 详情 · distribution · version · source · timeline · validation/evidence |
+
+**实现路径：** `src/app/admin/style-library/` · `src/server/style-admin/queries/style-library-admin-query.ts`
+
+**边界：** Read from PostgreSQL · write disabled until S10-STORY-006 · public deployment requires S10-STORY-008 login
+
+**URL filter presets（FIX-A）：** `blockType` · `lifecycle` · `userSelectable` · `release1Required` · `defaultEligible=true|false` · `hidden=true|false` · `deprecated=true` · `clear`
 
 **验收标准：**
 
-- [ ] AC-1 `/admin/style-library` 列表页可读 DB variants
-- [ ] AC-2 详情页展示 distribution · lifecycle timeline · validation / evidence（只读）
-- [ ] AC-3 最小上下架入口 UI（写 API → S10-STORY-006）
-- [ ] AC-4 页面标注后台边界 · 依赖 auth 保护
-- [ ] AC-5 lint / test / build PASS
+- [x] AC-1 `/admin/style-library` 列表页可读 DB variants（或 DATABASE_URL 未配置时安全 empty state）
+- [x] AC-2 详情页展示 distribution · lifecycle timeline · validation / evidence（只读）
+- [x] AC-3 上下架 / promote / rollback 入口 UI disabled · 标注 S10-STORY-006
+- [x] AC-4 页面标注 S10-STORY-008 公网部署前须登录保护
+- [x] AC-5 lint / test / build PASS
 
 ---
 
