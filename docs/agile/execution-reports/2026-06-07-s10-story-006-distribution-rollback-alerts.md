@@ -149,6 +149,6 @@ corepack pnpm dev
 
 ## 14. Commit
 
-- Feature commit hash：（见 merge 后填写）
-- Merge commit hash：（见 merge 后填写）
+- Feature commit hash：`1d309a0`
+- Merge commit hash：`1d309a0`（fast-forward · 无独立 merge commit）
 - **S10 第一验收闭环：** PASS（2026-06-07 · 用户本地 E2E）

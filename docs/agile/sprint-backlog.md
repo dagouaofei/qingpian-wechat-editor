@@ -4259,7 +4259,7 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 ## S10-STORY-006 上下架 / 回滚 / 报警最小闭环
 
-**优先级：** P0 · **状态：** **Done** · **工作分支：** `feature/s10-story-006-distribution-rollback-alerts`（已 merge `sprint/s10-db-backed-style-admin-v1`）
+**优先级：** P0 · **状态：** **Done** · **工作分支：** `feature/s10-story-006-distribution-rollback-alerts`（已 merge `sprint/s10-db-backed-style-admin-v1` @ `1d309a0`）
 
 **目标：** user-selectable 上架 · hidden / deprecated 下架 · 回滚上一 distribution 状态 · 操作原因必填 · admin audit log · runtime error log · 基础 alert event · SLS / CloudMonitor 接入设计。
 

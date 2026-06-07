@@ -599,4 +599,4 @@
 | 2026-06-07 | Sprint 10 | SLS / CloudMonitor 接入设计文档化（事件先入 DB · S10-STORY-007 实施） | 文档 / 架构 | S10-STORY-006 |
 | 2026-06-07 | Sprint 10 | FIX：governance form reset 崩溃（async 后保存 form 引用） | UI / Bugfix | S10-STORY-006 |
 | 2026-06-07 | Sprint 10 | **S10 第一验收闭环 PASS**：hide / restore / rollback · quality block · pool cache 刷新 | 验收 / 架构 | S10-STORY-003~006 |
-| 2026-06-07 | Sprint 10 | **S10-STORY-006 Done**：merge `feature/s10-story-006-distribution-rollback-alerts` → `sprint/s10-db-backed-style-admin-v1` · 本地 E2E PASS | Git / 后台 | S10-STORY-006 |
+| 2026-06-07 | Sprint 10 | **S10-STORY-006 Done**：fast-forward merge `feature/s10-story-006-distribution-rollback-alerts` → `sprint/s10-db-backed-style-admin-v1` @ `1d309a0` · 本地 E2E PASS | Git / 后台 | S10-STORY-006 |
