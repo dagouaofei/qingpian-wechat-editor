@@ -102,7 +102,7 @@ describe("FIX-A bordered heading DSL decode", () => {
     expect(preview.ok).toBe(true);
     expect(preview.html?.length).toBeGreaterThan(0);
     expect(preview.output?.kind).toBe("dsl_tree_html_preview");
-    expect(preview.html).toContain("了解敏感肌在春季的特点");
+    expect(preview.html).toContain("测试标题");
     expect(preview.html).toMatch(/border/i);
     expect(preview.html).toMatch(/border-radius|border-radius: 8px/i);
 
@@ -114,7 +114,7 @@ describe("FIX-A bordered heading DSL decode", () => {
     });
     expect(copy.ok).toBe(true);
     expect(copy.html?.length).toBeGreaterThan(0);
-    expect(copy.html).toContain("了解敏感肌在春季的特点");
+    expect(copy.html).toContain("测试标题");
   });
 
   it("returns failed status when decoded preview HTML is empty", () => {
@@ -245,7 +245,7 @@ describe("FIX-A bordered heading DSL decode", () => {
     expect(previewBlock?.ok).toBe(true);
     expect(previewBlock?.output?.kind).toBe("dsl_tree_html_preview");
     if (previewBlock?.ok && previewBlock.output?.kind === "dsl_tree_html_preview") {
-      expect(previewBlock.output.html).toContain("了解敏感肌在春季的特点");
+      expect(previewBlock.output.html).toContain("这是一个测试小标题");
       expect(previewBlock.output.html).toMatch(/border/i);
       expect(previewBlock.output.html).toMatch(/border-radius|border-radius: 8px/i);
     }

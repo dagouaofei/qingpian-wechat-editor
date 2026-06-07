@@ -95,7 +95,8 @@ describe("fidelity HTML encoder (mode=off)", () => {
 
     const article = structuredClone(dslRuntimeTraceFixtureArticle);
     const block = pickTraceFixtureBlock("heading");
-    (block.content as { text: string }).text = "怎么用";
+    const articleTitle = "春季敏感肌的饮食和生活习惯";
+    (block.content as { text: string }).text = articleTitle;
 
     const decoded = decodeVariantDsl({
       article,
@@ -111,6 +112,11 @@ describe("fidelity HTML encoder (mode=off)", () => {
     expect(decoded.html).toMatch(/margin-top\s*:\s*-60px/i);
     expect(decoded.html).toContain("60px");
     expect(decoded.html).toContain("30px");
+    expect(decoded.html).toContain("03");
+    expect(decoded.html).toContain(articleTitle);
+    expect(decoded.html).not.toContain("怎么用");
+    expect(decoded.substitutionTrace?.substitutedSlot).toBe("title");
+    expect(decoded.substitutionTrace?.fallbackUsed).toBe(false);
   });
 });
 
@@ -177,7 +183,8 @@ describe("background number heading (fidelity tree + semantic meta)", () => {
 
     const article = structuredClone(dslRuntimeTraceFixtureArticle);
     const block = pickTraceFixtureBlock("heading");
-    (block.content as { text: string }).text = "wrong title should not be used";
+    const articleTitle = "春季敏感肌的饮食和生活习惯";
+    (block.content as { text: string }).text = articleTitle;
 
     const decoded = decodeVariantDsl({
       article,
@@ -189,10 +196,13 @@ describe("background number heading (fidelity tree + semantic meta)", () => {
     if (!decoded.ok) return;
 
     expect(decoded.html).toContain("01");
-    expect(decoded.html).toContain("一、生产力暴击");
+    expect(decoded.html).toContain(articleTitle);
+    expect(decoded.html).not.toContain("一、生产力暴击");
     expect(decoded.html).toMatch(/background-color\s*:\s*#E60012/i);
     expect(decoded.html).toMatch(/font-size\s*:\s*84px/i);
-    expect(decoded.html).not.toContain("wrong title should not be used");
+    expect(decoded.substitutionTrace?.slotSubstitutionPath).toBe(
+      "tree.children[1].children[0]",
+    );
   });
 });
 

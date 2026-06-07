@@ -10,6 +10,7 @@ import type {
 } from "@/core/renderer/types";
 
 import type { DslRenderTarget, VariantDslV1 } from "../runtime/dsl-types";
+import { applyFidelityTreeArticleSubstitution } from "./fidelity-tree-substitution";
 import { listRequiredTreeSlots, resolveSlotsForDslDecode } from "./resolve-dsl-slots";
 import { renderDslTreeToHtml } from "./render-tree";
 
@@ -36,14 +37,22 @@ export function decodeTreeToOutput(
   dsl: VariantDslV1,
   block: Block,
   target: DslRenderTarget,
-): { ok: boolean; output?: RendererOutputPlaceholder; html?: string; issues: string[] } {
+): {
+  ok: boolean;
+  output?: RendererOutputPlaceholder;
+  html?: string;
+  issues: string[];
+  substitutionTrace?: ReturnType<typeof applyFidelityTreeArticleSubstitution>["trace"];
+} {
   if (!dsl.tree) {
     return { ok: false, issues: ["missing_tree"] };
   }
 
+  const { tree: substitutedTree, trace: substitutionTrace } =
+    applyFidelityTreeArticleSubstitution(dsl.tree, dsl, block);
   const slots = resolveSlotsForDslDecode(dsl, block);
   const requiredSlots = listRequiredTreeSlots(dsl);
-  const rendered = renderDslTreeToHtml(dsl.tree, slots, target);
+  const rendered = renderDslTreeToHtml(substitutedTree, slots, target);
   const issues = [...rendered.issues];
 
   const missingSlots = requiredSlots.filter((slot) => !(slots[slot] ?? "").trim());
@@ -82,7 +91,7 @@ export function decodeTreeToOutput(
         html,
         copySafety: dsl.copySafety,
       };
-      return { ok: true, output, html, issues };
+      return { ok: true, output, html, issues, substitutionTrace };
     }
 
     if (dsl.blockType === "info_card") {
@@ -95,7 +104,7 @@ export function decodeTreeToOutput(
         html,
         copySafety: dsl.copySafety,
       };
-      return { ok: true, output, html, issues };
+      return { ok: true, output, html, issues, substitutionTrace };
     }
 
     if (dsl.blockType === "lead" || dsl.blockType === "paragraph") {
@@ -108,12 +117,12 @@ export function decodeTreeToOutput(
         html,
         copySafety: dsl.copySafety,
       };
-      return { ok: true, output, html, issues };
+      return { ok: true, output, html, issues, substitutionTrace };
     }
 
     return { ok: false, issues: [`unsupported_tree_block_type:${dsl.blockType}`] };
   }
 
   const output = buildTreeHtmlPreviewOutput(dsl, block, rendered.html);
-  return { ok: true, output, html: rendered.html, issues };
+  return { ok: true, output, html: rendered.html, issues, substitutionTrace };
 }

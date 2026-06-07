@@ -99,6 +99,9 @@ export function renderDslBlock(input: RenderDslBlockInput): RendererResult<Rende
     };
   }
 
+  const substitutionTrace =
+    decoded.ok && "substitutionTrace" in decoded ? decoded.substitutionTrace : undefined;
+
   const output =
     decoded.output?.kind === "dsl_tree_html_preview"
       ? {
@@ -107,8 +110,11 @@ export function renderDslBlock(input: RenderDslBlockInput): RendererResult<Rende
             runtimeSource: "database_dsl",
             selectedRuntimeVariantId: input.runtimeVariantId,
             renderedByVariantId: input.runtimeVariantId,
-            fallbackUsed: false,
-            fallbackReason: null,
+            fallbackUsed: substitutionTrace?.fallbackUsed ?? false,
+            fallbackReason: substitutionTrace?.fallbackReason ?? null,
+            slotSubstitutionPath: substitutionTrace?.slotSubstitutionPath ?? null,
+            substitutedSlot: substitutionTrace?.substitutedSlot ?? null,
+            decorativeSlotsPreserved: substitutionTrace?.decorativeSlotsPreserved ?? [],
           },
         }
       : decoded.output;

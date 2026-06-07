@@ -98,6 +98,7 @@ export function decodeVariantDsl(input: DecodeVariantDslInput): DecodeVariantDsl
     output: decoded.output,
     html: decoded.html,
     issues: decoded.issues,
+    substitutionTrace: decoded.substitutionTrace,
     trace: buildDecoderTrace({
       target: input.target,
       decoderPath,

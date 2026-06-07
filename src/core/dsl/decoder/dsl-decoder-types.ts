@@ -4,6 +4,7 @@ import type { RendererOutputPlaceholder } from "@/core/renderer/types";
 
 import type { DecoderTrace } from "../runtime/dsl-trace-types";
 import type { DslRenderTarget, VariantDslV1 } from "../runtime/dsl-types";
+import type { FidelitySubstitutionTrace } from "./fidelity-tree-substitution";
 
 export type DecodeVariantDslInput = {
   variantDsl: VariantDslV1;
@@ -19,6 +20,7 @@ export type DecodeVariantDslResult =
       html?: string;
       issues: string[];
       trace?: DecoderTrace;
+      substitutionTrace?: FidelitySubstitutionTrace;
     }
   | {
       ok: false;

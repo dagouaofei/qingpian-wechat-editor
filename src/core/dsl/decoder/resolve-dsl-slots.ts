@@ -17,11 +17,36 @@ function readExtractedSlots(dsl: VariantDslV1): Record<string, string> {
   return {};
 }
 
+function hasSemanticTitleBinding(dsl: VariantDslV1): boolean {
+  const bindings = dsl.meta?.semanticBindings;
+  if (typeof bindings !== "object" || bindings === null || Array.isArray(bindings)) {
+    return false;
+  }
+  const titleBinding = (bindings as Record<string, unknown>).title;
+  return typeof titleBinding === "object" && titleBinding !== null;
+}
+
 export function resolveSlotsForDslDecode(dsl: VariantDslV1, block: Block): SlotContentMap {
   const fromBlock = resolveSlotContentsForBlock(block);
   const fromMeta = readExtractedSlots(dsl);
-  // DSL meta extracted slots override fixture/block sample text for harvest-encoded variants.
-  return { ...fromBlock, ...fromMeta };
+  const requiredSlots = listRequiredTreeSlots(dsl);
+
+  if (hasSemanticTitleBinding(dsl) || (dsl.tree && requiredSlots.length === 0)) {
+    const slots: SlotContentMap = {};
+    for (const slot of requiredSlots) {
+      if (slot === "title") {
+        slots.title = fromBlock.title ?? "";
+      } else {
+        slots[slot] = fromMeta[slot] ?? "";
+      }
+    }
+    return slots;
+  }
+
+  return {
+    ...fromMeta,
+    title: fromBlock.title ?? fromMeta.title ?? "",
+  };
 }
 
 export function listRequiredTreeSlots(dsl: VariantDslV1): string[] {

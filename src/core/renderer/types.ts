@@ -142,6 +142,9 @@ export type DslTreeHtmlPreviewOutput = {
     renderedByVariantId: string;
     fallbackUsed: boolean;
     fallbackReason?: string | null;
+    slotSubstitutionPath?: string | null;
+    substitutedSlot?: string | null;
+    decorativeSlotsPreserved?: string[];
   };
 };
 
