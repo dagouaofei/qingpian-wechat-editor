@@ -63,9 +63,9 @@
 | **Sprint 7** | **Done**（2026-06-03 · S7-STORY-008 关闭 · merge `release/1`） |
 | **Sprint 8** | **Closed**（2026-06-05 · DECISION-093 · merged `release/1`） |
 | **Sprint 9** | **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · P0=0 · S9-STORY-001~009 Done · **已 merge `release/1`** @ `c96e869`） |
-| **Sprint 10** | **In Progress**（2026-06-07 · **DECISION-108** · S10-STORY-001~005 Done · S10-STORY-006 Planned） |
+| **Sprint 10** | **In Progress**（2026-06-07 · **DECISION-108** · S10-STORY-001~006 Done · **第一验收闭环 PASS**） |
 | **Release 1 主干** | `release/1` |
-| **下一步** | S10-STORY-006 上下架写操作 + cache 刷新闭环 |
+| **下一步** | S10-STORY-007 / S10-STORY-008（待启动）· HTML Harvest 后半段（S10-STORY-009~011） |
 
 ---
 
@@ -655,13 +655,13 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
   → 用户选择后 Preview / Copy 生效
 ```
 
-**这条闭环完成前，不进入 HTML Harvest 主线（S10-STORY-009~011）。**
+**第一验收闭环：** **PASS**（2026-06-07 · 用户本地 E2E · S10-STORY-003~006）
 
 **技术选型：** Next.js · Prisma · PostgreSQL · 阿里云 RDS / OSS / ECS · SLS / CloudMonitor · 华北 2（北京）· 单管理员登录 · ECS 手工部署 · 用户侧 1–5 分钟缓存
 
 **Stories：** S10-STORY-001 ~ S10-STORY-012 — 见 `sprint-backlog.md`
 
-**进度：** S10-STORY-001~005 **Done** · S10-STORY-006~012 **Planned**
+**进度：** S10-STORY-001~006 **Done** · **第一验收闭环 PASS** · S10-STORY-007~012 **Planned**
 
 **与 S9 关系：**
 

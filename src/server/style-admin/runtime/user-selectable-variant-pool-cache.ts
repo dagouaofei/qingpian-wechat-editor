@@ -62,3 +62,13 @@ export function writeUserSelectablePoolCache(
 export function clearUserSelectablePoolCache(): void {
   poolCache.clear();
 }
+
+/** Alias for S10-STORY-006 governance writes — clears in-memory pool cache. */
+export function invalidateUserSelectableVariantPoolCache(blockType?: BlockType): void {
+  if (!blockType) {
+    clearUserSelectablePoolCache();
+    return;
+  }
+  poolCache.delete(buildUserSelectablePoolCacheKey(blockType));
+  poolCache.delete(buildUserSelectablePoolCacheKey());
+}

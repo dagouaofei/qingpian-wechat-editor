@@ -12,7 +12,7 @@
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
 > **Sprint 8：** **Closed**（2026-06-05 · DECISION-093 · audit Grade A- · P0=0 · merged `release/1` @ `806fa47`）
 > **Sprint 9：** **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · **P0=0** · HTML→user preview picker E2E PASS · Preview/Copy parity PASS · default preset / release1_required 未污染 · **已 merge `release/1`** @ `c96e869` · **未 merge `main`**）
-> **当前 Sprint：** **Sprint 10** — Database-backed Style Management Admin v1 · **In Progress**（2026-06-07 · **DECISION-108** · S10-STORY-001~005 Done · S10-STORY-006 Planned）
+> **当前 Sprint：** **Sprint 10** — Database-backed Style Management Admin v1 · **In Progress**（2026-06-07 · **DECISION-108** · S10-STORY-001~006 Done · **第一验收闭环 PASS** · S10-STORY-007~012 Planned）
 > **Sprint 10 分支：** `sprint/s10-db-backed-style-admin-v1`（从 `release/1` · 2026-06-07 · @ `c96e869`）
 > **Sprint 9 分支：** `sprint/s9-style-management-system-v0`（已 merge `release/1` · 2026-06-05）
 > **上一 Sprint：** **Sprint 8** — **Closed**（2026-06-05）；**Sprint 7** — **Done**（2026-06-03 · merge `release/1`）
@@ -4249,8 +4249,8 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 - [x] AC-1 用户预览页 picker 从 DB 读取 user-selectable pool（优先 database）
 - [x] AC-2 缓存 TTL 1–5 分钟可配置
-- [ ] AC-3 后台下架后 1–5 分钟内 picker 选项消失（依赖 S10-STORY-006 写操作 + cache TTL）
-- [ ] AC-4 后台恢复上架后 1–5 分钟内 picker 选项恢复（依赖 S10-STORY-006）
+- [x] AC-3 后台下架后 1–5 分钟内 picker 选项消失（S10-STORY-006 hide + cache invalidate · 本地 E2E PASS）
+- [x] AC-4 后台恢复上架后 1–5 分钟内 picker 选项恢复（S10-STORY-006 restore · 本地 E2E PASS）
 - [x] AC-5 用户选择后 Preview / Copy 生效 · parity PASS（测试 + 本地验收路径）
 - [x] AC-6 default preset / release1Required 未污染
 - [x] AC-7 lint / test / build PASS
@@ -4259,21 +4259,29 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 ## S10-STORY-006 上下架 / 回滚 / 报警最小闭环
 
-**优先级：** P0 · **状态：** **Planned** · **工作分支：** TBD（`feature/s10-story-006-lifecycle-rollback-alerts`）
+**优先级：** P0 · **状态：** **Done** · **工作分支：** `feature/s10-story-006-distribution-rollback-alerts`（已 merge `sprint/s10-db-backed-style-admin-v1`）
 
-**目标：** user-selectable 上架 · hidden / deprecated 下架 · 回滚上一版本或上一 distribution 状态 · 操作原因必填 · admin audit log · runtime error log · 基础 alert event · SLS / CloudMonitor 接入设计。
+**目标：** user-selectable 上架 · hidden / deprecated 下架 · 回滚上一 distribution 状态 · 操作原因必填 · admin audit log · runtime error log · 基础 alert event · SLS / CloudMonitor 接入设计。
 
-**非目标：** 不做完整 on-call 体系 · 不在 S10 实现全量 CloudMonitor 告警规则（可先设计 + 最小接入）
+**非目标：** 不做完整 on-call 体系 · 不在 S10 实现全量 CloudMonitor 告警规则 · 不做 version rollback · 不做 promote / defaultEligible 写操作 · 不做正式 admin login（→ S10-STORY-008）
+
+**实现摘要（2026-06-07）：**
+
+- `admin-write-guard.ts`：dev/test 默认可写 · production/staging 须 `STYLE_ADMIN_WRITE_ENABLED=true`
+- Governance：hide · restore · deprecated · restore-from-deprecated · rollback last distribution
+- Server actions + 详情页 UI（reason 必填 · write protection banner）
+- `invalidateUserSelectableVariantPoolCache` 写后刷新
+- actor 临时 `local-admin`
 
 **验收标准：**
 
-- [ ] AC-1 上架 / 下架写操作可执行 · 原因必填
-- [ ] AC-2 回滚至上一版本或 distribution 状态
-- [ ] AC-3 `admin_audit_logs` 记录所有写操作
-- [ ] AC-4 `runtime_error_logs` · `alert_events` 基础写入
-- [ ] AC-5 SLS / CloudMonitor 接入设计文档化
-- [ ] AC-6 与 S10-STORY-005 联调：上下架后用户侧 1–5 分钟可见
-- [ ] AC-7 lint / test / build PASS
+- [x] AC-1 上架 / 下架写操作可执行 · 原因必填
+- [x] AC-2 回滚至上一 distribution 状态（version rollback disabled）
+- [x] AC-3 `admin_audit_logs` 记录所有写操作
+- [x] AC-4 `runtime_error_logs` · `alert_events` 基础写入（admin write failed · restore blocked by quality）
+- [x] AC-5 SLS / CloudMonitor 接入设计文档化（架构 §6.5 · 事件先入 DB）
+- [x] AC-6 与 S10-STORY-005 联调：上下架后用户侧 1–5 分钟可见（本地 E2E PASS · `heading_teal_section_label_html_paste_candidate`）
+- [x] AC-7 lint / test / build PASS
 
 ---
 

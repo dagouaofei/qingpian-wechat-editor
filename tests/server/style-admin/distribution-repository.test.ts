@@ -4,18 +4,21 @@ import { StyleVariantDistributionRepository } from "@/server/style-admin/reposit
 
 function createMockDb() {
   const auditCreate = vi.fn().mockResolvedValue({ id: "audit-1" });
-  const distributionUpdate = vi.fn().mockResolvedValue({
-    id: "dist-1",
-    variantId: "variant-1",
-    userSelectable: false,
-    defaultEligible: false,
-    release1Required: false,
-    hidden: true,
-    deprecated: false,
-    cacheVersion: 2,
-    updatedBy: "admin",
-    updatedAt: new Date(),
-  });
+  const distributionUpdate = vi.fn().mockImplementation(
+    ({ data }: { data: Record<string, unknown> }) =>
+      Promise.resolve({
+        id: "dist-1",
+        variantId: "variant-1",
+        userSelectable: data.userSelectable ?? true,
+        defaultEligible: data.defaultEligible ?? false,
+        release1Required: data.release1Required ?? false,
+        hidden: data.hidden ?? false,
+        deprecated: data.deprecated ?? false,
+        cacheVersion: 2,
+        updatedBy: "admin",
+        updatedAt: new Date(),
+      }),
+  );
   const distributionFindUnique = vi.fn().mockResolvedValue({
     id: "dist-1",
     variantId: "variant-1",
@@ -29,6 +32,19 @@ function createMockDb() {
     updatedAt: new Date(),
   });
 
+  const rollbackCreate = vi.fn().mockResolvedValue({ id: "rollback-1" });
+  const auditFindFirst = vi.fn().mockResolvedValue({
+    id: "audit-prev",
+    beforeJson: {
+      userSelectable: true,
+      defaultEligible: false,
+      release1Required: false,
+      hidden: false,
+      deprecated: false,
+      cacheVersion: 1,
+    },
+  });
+
   const tx = {
     styleVariantDistribution: {
       findUnique: distributionFindUnique,
@@ -36,6 +52,10 @@ function createMockDb() {
     },
     adminAuditLog: {
       create: auditCreate,
+      findFirst: auditFindFirst,
+    },
+    styleVariantRollbackRecord: {
+      create: rollbackCreate,
     },
   };
 
@@ -49,10 +69,21 @@ function createMockDb() {
     },
     adminAuditLog: {
       create: auditCreate,
+      findFirst: auditFindFirst,
+    },
+    styleVariantRollbackRecord: {
+      create: rollbackCreate,
     },
   };
 
-  return { db, auditCreate, distributionUpdate, distributionFindUnique };
+  return {
+    db,
+    auditCreate,
+    distributionUpdate,
+    distributionFindUnique,
+    rollbackCreate,
+    auditFindFirst,
+  };
 }
 
 describe("StyleVariantDistributionRepository", () => {
@@ -74,6 +105,27 @@ describe("StyleVariantDistributionRepository", () => {
         entityType: "style_variant_distribution",
         reason: "Temporarily hide from user pool",
         actor: "admin",
+      }),
+    });
+  });
+
+  it("rolls back to previous distribution snapshot with audit and rollback record", async () => {
+    const { db, auditCreate, rollbackCreate, distributionUpdate } = createMockDb();
+    const repository = new StyleVariantDistributionRepository(db as never);
+
+    const result = await repository.rollbackLastDistributionChange({
+      variantId: "variant-1",
+      reason: "rollback test",
+      actor: "local-admin",
+    });
+
+    expect(result.userSelectable).toBe(true);
+    expect(distributionUpdate).toHaveBeenCalled();
+    expect(rollbackCreate).toHaveBeenCalled();
+    expect(auditCreate).toHaveBeenCalledWith({
+      data: expect.objectContaining({
+        action: "rollback_distribution",
+        reason: "rollback test",
       }),
     });
   });

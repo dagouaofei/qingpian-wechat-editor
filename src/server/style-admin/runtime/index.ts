@@ -1,5 +1,6 @@
 export {
   clearUserSelectablePoolCache,
+  invalidateUserSelectableVariantPoolCache,
   resolveUserSelectablePoolCacheTtlSeconds,
 } from "./user-selectable-variant-pool-cache";
 export { mapDbPoolRowToVariantDefinition } from "./user-selectable-variant-pool-mapper";

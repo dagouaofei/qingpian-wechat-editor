@@ -1,7 +1,7 @@
 # Sprint 10：Database-backed Style Management Admin v1（数据库版正式样式管理后台 v1）
 
 > 轻篇公众号排版 · qingpian-wechat-editor  
-> **状态：** **In Progress**（2026-06-07 · **DECISION-108** · S10-STORY-001~005 Done · S10-STORY-006 Planned）  
+> **状态：** **In Progress**（2026-06-07 · **DECISION-108** · S10-STORY-001~006 Done · **第一验收闭环 PASS** · S10-STORY-007~012 Planned）  
 > **分支：** `sprint/s10-db-backed-style-admin-v1`（从 `release/1` · @ `c96e869`）  
 > **架构：** [`style-management-admin-v1.md`](../architecture/style-management-admin-v1.md)  
 > **决策：** **DECISION-108**
@@ -30,6 +30,8 @@
   → 用户侧样式选择池读取数据库（1–5 分钟缓存）
   → 用户选择后 Preview / Copy 生效
 ```
+
+**第一验收闭环状态：** **PASS**（2026-06-07 · 用户本地 E2E · S10-STORY-003~006）
 
 ### 2.2 第二目标（后半段 · 第一闭环完成后）
 
@@ -62,7 +64,7 @@ Next.js · Prisma · PostgreSQL · 阿里云 RDS / OSS / ECS · SLS / CloudMonit
 | S10-STORY-003 | 既有 Variant 全量导入数据库 | **Done**（2026-06-07 · merge @ `daa1a0a` · FIX-A PASS） |
 | S10-STORY-004 | 正式后台 Variant 管理页 | **Done**（2026-06-07 · merge @ `6307925` · 本地验收 PASS） |
 | S10-STORY-005 | 用户侧 Variant Pool DB 接入 | **Done**（2026-06-07 · merge @ `6de237d` · FIX-A/B · 本地验收 PASS） |
-| S10-STORY-006 | 上下架 / 回滚 / 报警最小闭环 | Planned |
+| S10-STORY-006 | 上下架 / 回滚 / 报警最小闭环 | **Done**（2026-06-07 · 本地 E2E PASS · merge sprint） |
 | S10-STORY-007 | 阿里云资源准备与部署 Runbook | Planned |
 | S10-STORY-008 | 单管理员登录与后台保护 | Planned |
 | S10-STORY-009 | HTML Harvest → Candidate Variant v1 | Planned（后半段） |
@@ -125,7 +127,25 @@ pnpm style-admin:import-existing-variants           # 写入 DATABASE_URL 指向
 
 **Dev-only API：** `GET /api/dev/style-admin/user-selectable-pool`（仅 development / test；production 返回 404 disabled；非正式用户侧接口）
 
-**后续：** S10-STORY-006 上下架后依赖 cache TTL + cacheVersion 刷新
+**后续：** S10-STORY-006 写操作后主动 `invalidateUserSelectableVariantPoolCache` + TTL
+
+---
+
+## 5.4 S10-STORY-006 Distribution 写操作摘要（2026-06-07）
+
+**能力：** hide · restore user-selectable · mark deprecated · restore from deprecated · rollback last distribution change
+
+**保护：** `admin-write-guard.ts` · dev/test 默认可写 · production/staging 须 `STYLE_ADMIN_WRITE_ENABLED=true` · 页面 write protection 提示
+
+**审计：** 所有写操作 reason 必填 · `admin_audit_logs` before/after · actor=`local-admin` · rollback 写 `style_variant_rollback_records`
+
+**Alert：** `admin_write_failed` · `variant_restore_blocked_by_quality`（restore 被 qualityStatus 阻塞）
+
+**Cache：** 写操作成功后 `invalidateUserSelectableVariantPoolCache(blockType?)` · 用户侧 1–5 分钟可见变化
+
+**本轮未做：** version rollback UI · promote candidate · mark default eligible · 正式 admin login（→ S10-STORY-008）· 真实 SLS 接入
+
+**本地验收：** `/admin/style-library/heading_teal_section_label_html_paste_candidate` hide/restore/rollback · dev API `/api/dev/style-admin/user-selectable-pool?blockType=heading`
 
 ---
 

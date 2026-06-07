@@ -110,6 +110,14 @@ export type UpdateDistributionInput = {
   actor: string;
 };
 
+export type RollbackDistributionInput = {
+  variantId: string;
+  reason: string;
+  actor: string;
+};
+
+export const LOCAL_STYLE_ADMIN_ACTOR = "local-admin";
+
 export type RecordLifecycleEventInput = {
   variantId: string;
   fromLifecycle: StyleVariantLifecycle | null;

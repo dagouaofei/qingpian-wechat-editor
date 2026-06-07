@@ -4,6 +4,7 @@ import {
   buildUserSelectablePoolCacheKey,
   clearUserSelectablePoolCache,
   readUserSelectablePoolCache,
+  invalidateUserSelectableVariantPoolCache,
   resolveUserSelectablePoolCacheTtlSeconds,
   writeUserSelectablePoolCache,
 } from "@/server/style-admin/runtime/user-selectable-variant-pool-cache";
@@ -41,5 +42,18 @@ describe("user-selectable-variant-pool-cache", () => {
 
     vi.advanceTimersByTime(2_000);
     expect(readUserSelectablePoolCache(key)).toBeNull();
+  });
+
+  it("invalidates cache by blockType", () => {
+    const payload = {
+      source: "database" as const,
+      cache: { hit: false, ttlSeconds: 60, generatedAt: "2026-06-07T00:00:00.000Z" },
+      variants: [],
+      issues: [],
+    };
+    const headingKey = buildUserSelectablePoolCacheKey("heading");
+    writeUserSelectablePoolCache(headingKey, payload, 60);
+    invalidateUserSelectableVariantPoolCache("heading");
+    expect(readUserSelectablePoolCache(headingKey)).toBeNull();
   });
 });

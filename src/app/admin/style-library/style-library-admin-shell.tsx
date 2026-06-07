@@ -10,6 +10,7 @@ import {
   SummaryCards,
   VariantTable,
 } from "./style-library-admin-components";
+import { StyleLibraryGovernanceActions } from "./style-library-governance-actions";
 import type {
   StyleLibraryAdminDetailViewModel,
   StyleLibraryAdminListViewModel,
@@ -26,7 +27,7 @@ export function StyleLibraryAdminListShell({
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-wide text-indigo-700">
-              Sprint 10 · S10-STORY-004
+              Sprint 10 · S10-STORY-006
             </p>
             <h1 className="mt-1 text-3xl font-bold text-slate-900">
               Database-backed Style Library Admin
@@ -108,7 +109,7 @@ export function StyleLibraryAdminListShell({
 
       <DisabledActionsPanel
         actions={viewModel.disabledActions}
-        caption="Write actions are implemented in S10-STORY-006."
+        caption="List-level bulk actions remain disabled. Use variant detail page for distribution writes."
       />
     </div>
   );
@@ -127,7 +128,7 @@ export function StyleLibraryAdminDetailShell({
         </Link>
         <div>
           <p className="text-xs font-semibold uppercase tracking-wide text-indigo-700">
-            Sprint 10 · S10-STORY-004
+            Sprint 10 · S10-STORY-006
           </p>
           <h1 className="mt-1 text-2xl font-bold text-slate-900">
             {viewModel.variant?.label ?? viewModel.runtimeVariantId}
@@ -320,9 +321,17 @@ export function StyleLibraryAdminDetailShell({
         </>
       ) : null}
 
+      {viewModel.variant && viewModel.distribution ? (
+        <StyleLibraryGovernanceActions
+          runtimeVariantId={viewModel.runtimeVariantId}
+          writeEnabled={viewModel.writeEnabled}
+          writeProtectionMessage={viewModel.writeProtectionMessage}
+        />
+      ) : null}
+
       <DisabledActionsPanel
         actions={viewModel.disabledActions}
-        caption="Write actions are implemented in S10-STORY-006."
+        caption="Promote, defaultEligible write, and version rollback remain disabled in S10-STORY-006."
       />
     </div>
   );

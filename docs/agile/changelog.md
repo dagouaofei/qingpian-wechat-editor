@@ -584,3 +584,19 @@
 | 2026-06-07 | Sprint 10 | 6 release1 heading seed userSelectable · 2 copy_fidelity_failed 登记 BUG-001/002 | 数据 / Bug | S10-STORY-005 |
 | 2026-06-07 | Sprint 10 | Prisma migration `source_cohort` + `quality_status` + `ai_generated` sourceType | 数据库 | S10-STORY-005 |
 | 2026-06-07 | Sprint 10 | **S10-STORY-005 Done**：merge `feature/s10-story-005-user-variant-pool-db` → `sprint/s10-db-backed-style-admin-v1` @ `6de237d` · 本地 `/preview` + admin + dev API 验收 PASS | Git / UI | S10-STORY-005 |
+
+---
+
+## 2026-06-07 · S10-STORY-006 上下架 / 回滚 / 报警最小闭环
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-07 | Sprint 10 | **S10-STORY-006**：distribution 写操作（hide / restore / deprecated / rollback）· reason 必填 · audit + rollback record | 代码 / 后台 | S10-STORY-006 |
+| 2026-06-07 | Sprint 10 | 新增 `admin-write-guard.ts` · dev/test 默认可写 · production 须 `STYLE_ADMIN_WRITE_ENABLED=true` | 安全 / 架构 | S10-STORY-006 |
+| 2026-06-07 | Sprint 10 | 写操作后 `invalidateUserSelectableVariantPoolCache` · 用户侧 pool 1–5 分钟刷新 | 代码 / runtime | S10-STORY-006 |
+| 2026-06-07 | Sprint 10 | Alert：`admin_write_failed` · `variant_restore_blocked_by_quality` · actor=`local-admin` | 代码 / 审计 | S10-STORY-006 |
+| 2026-06-07 | Sprint 10 | 详情页 governance UI · promote / defaultEligible / version rollback 仍 disabled | UI | S10-STORY-006 |
+| 2026-06-07 | Sprint 10 | SLS / CloudMonitor 接入设计文档化（事件先入 DB · S10-STORY-007 实施） | 文档 / 架构 | S10-STORY-006 |
+| 2026-06-07 | Sprint 10 | FIX：governance form reset 崩溃（async 后保存 form 引用） | UI / Bugfix | S10-STORY-006 |
+| 2026-06-07 | Sprint 10 | **S10 第一验收闭环 PASS**：hide / restore / rollback · quality block · pool cache 刷新 | 验收 / 架构 | S10-STORY-003~006 |
+| 2026-06-07 | Sprint 10 | **S10-STORY-006 Done**：merge `feature/s10-story-006-distribution-rollback-alerts` → `sprint/s10-db-backed-style-admin-v1` · 本地 E2E PASS | Git / 后台 | S10-STORY-006 |

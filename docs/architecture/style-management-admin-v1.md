@@ -171,7 +171,8 @@ S9 file-backed manifest / code-backed variants（source of truth v0）
 - **S10-STORY-003 已实现：** variant 幂等导入层 · dry-run CLI · import report（→ §6.2）
 - **S10-STORY-004 已实现：** `/admin/style-library` read UI（→ §6.3）
 - **S10-STORY-005 已实现：** 用户侧 `/preview` DB pool（→ §6.4）
-- **本轮未做：** 写操作（→ S10-STORY-006）· 登录（→ S10-STORY-008）
+- **S10-STORY-006 已实现：** distribution 写操作 · rollback · audit · alert · pool cache 刷新（→ §6.5）
+- **本轮未做：** 正式登录（→ S10-STORY-008）· version rollback · promote · default preset 编辑
 
 ### 6.2 既有 Variant 导入（S10-STORY-003 · 已实现）
 
@@ -231,8 +232,8 @@ S9 file-backed manifest / code-backed variants（source of truth v0）
 
 - Server component + server-only view model · client 不得 import Prisma
 - Build 不强制连接 DB · `DATABASE_URL` 缺失时展示 diagnostic state
-- 写操作 UI disabled · 标注 S10-STORY-006
-- 公网部署前须 S10-STORY-008 单管理员登录
+- **S10-STORY-006 起：** 详情页 governance 写操作可用（hide / restore / deprecated / rollback）· 须 reason · 写保护见 §6.5
+- 公网部署前须 S10-STORY-008 单管理员登录；S10-STORY-008 前 production 写操作默认 disabled
 
 ### 6.4 用户侧 DB Pool（S10-STORY-005 · 已实现）
 
@@ -268,9 +269,69 @@ AND qualityStatus NOT IN (copy_fidelity_failed, validator_failed, blocked)
 - 响应对 `notice` / `issues` 做脱敏，不暴露 `DATABASE_URL`、DB host、连接错误 stack 或 secret
 - 正式用户侧路径仍为 `/preview` server 加载 pool，不依赖该 dev API
 
+**Cache invalidation（S10-STORY-006）：** distribution 写操作成功后调用 `invalidateUserSelectableVariantPoolCache(blockType?)`；同实例可立即生效 · 多实例依赖 TTL（默认 120s，≤300s）
+
+### 6.5 Distribution 写操作与治理（S10-STORY-006 · 已实现）
+
+| 模块 | 路径 | 职责 |
+|------|------|------|
+| Write guard | `admin-write-guard.ts` | `assertStyleAdminWriteAllowed()` · dev/test 默认可写 · production/staging 默认 disabled · `STYLE_ADMIN_WRITE_ENABLED=true` 显式开启 |
+| Governance actions | `actions/distribution-governance.ts` | hide · restore · deprecated · restore-from-deprecated · rollback last distribution |
+| Server actions | `src/app/admin/style-library/actions.ts` | Next.js Server Actions · `revalidatePath` |
+| UI | `style-library-governance-actions.tsx` | reason 必填 · 成功/失败反馈 · write protection banner |
+| Repository | `style-variant-distribution-repository.ts` | `updateDistribution` + audit · `rollbackLastDistributionChange` + rollback record |
+| Audit / Alert | `style-variant-audit-repository.ts` | `admin_audit_logs` · `runtime_error_logs` · `alert_events` |
+
+**可用写操作：**
+
+| 操作 | 效果 |
+|------|------|
+| Hide from user pool | `hidden=true` · `userSelectable=false` |
+| Restore to user-selectable | `userSelectable=true` · `hidden=false` · `deprecated=false` · 须通过 Runtime Availability Gate（含 qualityStatus） |
+| Mark deprecated | `deprecated=true` · `hidden=true` · `userSelectable=false` |
+| Restore from deprecated | `deprecated=false` · `hidden=false` · **不**自动 `userSelectable` |
+| Rollback last distribution change | 从最近 `update_distribution` audit `beforeJson` 恢复 · 写 `style_variant_rollback_records` |
+
+**本轮 disabled（后续 story）：** promote candidate · mark default eligible · rollback version
+
+**Actor：** 临时固定 `local-admin`（S10-STORY-008 替换为真实 admin identity）
+
+**写操作保护（S10-STORY-008 前）：**
+
+```text
+development / test → 默认允许写
+production / staging → 默认禁止，除非 STYLE_ADMIN_WRITE_ENABLED=true
+页面提示：Write actions are temporarily protected until S10-STORY-008 admin login.
+```
+
+**Alert event 最小范围：**
+
+| alertType | 场景 |
+|-----------|------|
+| `admin_write_failed` | distribution 写操作失败 |
+| `variant_restore_blocked_by_quality` | restore 被 `copy_fidelity_failed` / `validator_failed` / `blocked` 拒绝 |
+| `variant_pool_empty` | （设计登记）DB 有 variants 但 pool 为空 |
+| `runtime_variant_pool_db_unavailable` | （设计登记）DB pool 不可用 |
+| `copy_fidelity_blocked_variant_attempted` | （设计登记）用户侧显式命中 blocked variant |
+
+**SLS / CloudMonitor 接入设计（AC-5）：** 事件先写入 DB `alert_events` / `runtime_error_logs`；S10-STORY-007 runbook 定义 SLS logstore 与 CloudMonitor 告警规则映射 · 本轮不接真实 SLS SDK。
+
+**本地手动验收：**
+
+```bash
+export DATABASE_URL="postgresql://qingpian:qingpian_local_dev@localhost:54329/qingpian_style_admin?schema=public"
+corepack pnpm prisma migrate deploy
+corepack pnpm style-admin:import-existing-variants
+corepack pnpm dev
+```
+
+建议 variant：`heading_teal_section_label_html_paste_candidate`（hide → dev API/preview 消失 → restore → rollback）；quality block：`heading_magazine_left_bar` / `heading_card_centered`。
+
 ---
 
 ## 7. S10 第一验收闭环（Sprint Goal）
+
+**状态：** **PASS**（2026-06-07 · 用户本地 E2E · S10-STORY-003~006）
 
 **在 HTML Harvest 主线启动前，必须完成：**
 
@@ -293,7 +354,7 @@ AND qualityStatus NOT IN (copy_fidelity_failed, validator_failed, blocked)
 | 恢复上架 | S10-STORY-006 恢复 userSelectable |
 | Preview / Copy | 现有 Renderer 路径 · 不污染 default preset / release1Required |
 
-**这条闭环完成前，不进入 HTML Harvest 主线（S10-STORY-009~011）。**
+**第一验收闭环已于 2026-06-07 通过**；HTML Harvest 主线（S10-STORY-009~011）可在 Sprint 10 后半段启动。
 
 ---
 

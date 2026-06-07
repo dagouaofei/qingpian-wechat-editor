@@ -26,6 +26,10 @@ export function AdminProtectionBanner() {
         Public deployment requires S10-STORY-008 admin login before exposing{" "}
         <code className="rounded bg-amber-100 px-1">/admin/*</code> on the internet.
       </p>
+      <p className="mt-2 text-amber-900/90" data-testid="admin-write-protection-message">
+        Write actions are temporarily protected until S10-STORY-008 admin login. Do not deploy public
+        admin writes without S10-STORY-008.
+      </p>
       {isProduction ? (
         <p className="mt-2 font-medium text-amber-950">
           Production mode: enable single-admin authentication before go-live.

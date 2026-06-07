@@ -1,3 +1,7 @@
+import {
+  isStyleAdminWriteEnabled,
+  STYLE_ADMIN_WRITE_PROTECTION_MESSAGE,
+} from "@/server/style-admin/admin-write-guard";
 import type {
   AdminVariantDetail,
   AdminVariantListRow,
@@ -32,9 +36,6 @@ export const LIST_DISABLED_ACTIONS: DisabledGovernanceAction[] = [
 
 export const DETAIL_DISABLED_ACTIONS: DisabledGovernanceAction[] = [
   { id: "promote-user-selectable", label: "Promote to user-selectable", storyRef: "S10-STORY-006" },
-  { id: "hide-from-pool", label: "Hide from user pool", storyRef: "S10-STORY-006" },
-  { id: "mark-deprecated", label: "Mark deprecated", storyRef: "S10-STORY-006" },
-  { id: "rollback-distribution", label: "Rollback distribution", storyRef: "S10-STORY-006" },
   { id: "rollback-version", label: "Rollback version", storyRef: "S10-STORY-006" },
   { id: "mark-default-eligible", label: "Mark default eligible", storyRef: "S10-STORY-006" },
 ];
@@ -138,6 +139,8 @@ export type StyleLibraryAdminDetailViewModel = {
     createdAt: string;
   }>;
   disabledActions: DisabledGovernanceAction[];
+  writeEnabled: boolean;
+  writeProtectionMessage: string;
   listHref: string;
 };
 
@@ -233,7 +236,7 @@ export function buildAdminListViewModelFromQueryResults(input: {
     statusMessage:
       status === "empty"
         ? "No variants in database yet. Run pnpm style-admin:import-existing-variants after configuring DATABASE_URL."
-        : "Read from PostgreSQL · write actions disabled until S10-STORY-006.",
+        : "Read from PostgreSQL · distribution writes on detail page (S10-STORY-006).",
     filters,
     summary: summaryResult.data,
     rows,
@@ -249,6 +252,8 @@ export function buildAdminDetailViewModelFromQueryResult(
     page: "detail" as const,
     runtimeVariantId,
     disabledActions: DETAIL_DISABLED_ACTIONS,
+    writeEnabled: isStyleAdminWriteEnabled(),
+    writeProtectionMessage: STYLE_ADMIN_WRITE_PROTECTION_MESSAGE,
     listHref: "/admin/style-library",
   };
 
@@ -288,7 +293,8 @@ export function buildAdminDetailViewModelFromQueryResult(
   return {
     ...base,
     status: "ready",
-    statusMessage: "Read-only governance view · write actions disabled until S10-STORY-006.",
+    statusMessage:
+      "Governance detail view · distribution writes available when STYLE_ADMIN_WRITE_ENABLED (dev/test default on).",
     variant: {
       runtimeVariantId: variant.runtimeVariantId,
       label: variant.label,

@@ -15,6 +15,13 @@ export { StyleVariantValidationRepository } from "./repositories/style-variant-v
 export { StyleVariantAuditRepository } from "./repositories/style-variant-audit-repository";
 
 export { getStyleAdminDbAvailability, isStyleAdminDbConfigured } from "./db-availability";
+export {
+  assertStyleAdminWriteAllowed,
+  isStyleAdminWriteEnabled,
+  STYLE_ADMIN_WRITE_PROTECTION_MESSAGE,
+  StyleAdminWriteDisabledError,
+} from "./admin-write-guard";
+export * from "./actions";
 export * from "./runtime";
 
 export {
