@@ -15,3 +15,11 @@ export {
   type HtmlHarvestActionResult,
   type HtmlHarvestPreviewActionResult,
 } from "./html-harvest-candidate";
+
+export {
+  addManualPasteQaEvidenceAction,
+  runCandidateInspectionAction,
+  type ManualPasteQaEvidenceActionInput,
+  type ManualPasteQaEvidenceActionResult,
+  type RunCandidateInspectionActionResult,
+} from "./candidate-inspection";

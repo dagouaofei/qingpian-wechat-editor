@@ -1,3 +1,5 @@
+import type { CandidateInspectionPanelViewModel } from "./candidate-inspection-view-model";
+import { buildCandidateInspectionPanelViewModel } from "./candidate-inspection-view-model";
 import {
   isStyleAdminWriteEnabled,
   STYLE_ADMIN_WRITE_PROTECTION_MESSAGE,
@@ -150,6 +152,7 @@ export type StyleLibraryAdminDetailViewModel = {
   writeEnabled: boolean;
   writeProtectionMessage: string;
   listHref: string;
+  candidateInspection: CandidateInspectionPanelViewModel | null;
 };
 
 const EMPTY_SUMMARY: AdminVariantSummary = {
@@ -289,6 +292,7 @@ export function buildAdminDetailViewModelFromQueryResult(
       lifecycleEvents: [],
       validationRuns: [],
       evidence: [],
+      candidateInspection: null,
     };
   }
 
@@ -304,11 +308,13 @@ export function buildAdminDetailViewModelFromQueryResult(
       lifecycleEvents: [],
       validationRuns: [],
       evidence: [],
+      candidateInspection: null,
     };
   }
 
   const { variant, distribution, currentVersion, sources, lifecycleEvents, validationRuns, evidence } =
     result.data;
+  const candidateInspection = buildCandidateInspectionPanelViewModel(result.data);
 
   return {
     ...base,
@@ -384,6 +390,7 @@ export function buildAdminDetailViewModelFromQueryResult(
       sourceLabel: item.sourceLabel,
       createdAt: item.createdAt.toISOString(),
     })),
+    candidateInspection,
   };
 }
 

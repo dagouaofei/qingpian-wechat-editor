@@ -10,6 +10,7 @@ import {
   SummaryCards,
   VariantTable,
 } from "./style-library-admin-components";
+import { CandidateInspectionPanel } from "./candidate-inspection-panel";
 import { StyleLibraryGovernanceActions } from "./style-library-governance-actions";
 import type {
   StyleLibraryAdminDetailViewModel,
@@ -140,7 +141,7 @@ export function StyleLibraryAdminDetailShell({
         </Link>
         <div>
           <p className="text-xs font-semibold uppercase tracking-wide text-indigo-700">
-            Sprint 10 · S10-STORY-008
+            Sprint 10 · S10-STORY-010
           </p>
           <h1 className="mt-1 text-2xl font-bold text-slate-900">
             {viewModel.variant?.label ?? viewModel.runtimeVariantId}
@@ -156,6 +157,16 @@ export function StyleLibraryAdminDetailShell({
 
       {viewModel.variant ? (
         <>
+          {viewModel.candidateInspection && viewModel.currentVersion ? (
+            <CandidateInspectionPanel
+              runtimeVariantId={viewModel.runtimeVariantId}
+              qualityStatus={viewModel.currentVersion.qualityStatus}
+              inspection={viewModel.candidateInspection}
+              writeEnabled={viewModel.writeEnabled}
+              writeProtectionMessage={viewModel.writeProtectionMessage}
+            />
+          ) : null}
+
           <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
             <h2 className="text-sm font-semibold text-slate-900">Basic info</h2>
             <dl className="mt-3 grid gap-2 text-sm md:grid-cols-2">
