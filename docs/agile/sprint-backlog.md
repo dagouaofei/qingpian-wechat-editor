@@ -12,7 +12,7 @@
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
 > **Sprint 8：** **Closed**（2026-06-05 · DECISION-093 · audit Grade A- · P0=0 · merged `release/1` @ `806fa47`）
 > **Sprint 9：** **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · **P0=0** · HTML→user preview picker E2E PASS · Preview/Copy parity PASS · default preset / release1_required 未污染 · **已 merge `release/1`** @ `c96e869` · **未 merge `main`**）
-> **当前 Sprint：** **Sprint 10** — Database-backed Style Management Admin v1 · **In Progress**（2026-06-07 · **DECISION-108** · S10-STORY-001~002 Done）
+> **当前 Sprint：** **Sprint 10** — Database-backed Style Management Admin v1 · **In Progress**（2026-06-07 · **DECISION-108** · S10-STORY-001~003 In Review）
 > **Sprint 10 分支：** `sprint/s10-db-backed-style-admin-v1`（从 `release/1` · 2026-06-07 · @ `c96e869`）
 > **Sprint 9 分支：** `sprint/s9-style-management-system-v0`（已 merge `release/1` · 2026-06-05）
 > **上一 Sprint：** **Sprint 8** — **Closed**（2026-06-05）；**Sprint 7** — **Done**（2026-06-03 · merge `release/1`）
@@ -4160,20 +4160,37 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 ## S10-STORY-003 既有 Variant 全量导入数据库
 
-**优先级：** P0 · **状态：** **Planned** · **工作分支：** TBD（`feature/s10-story-003-variant-bulk-import`）
+**优先级：** P0 · **状态：** **In Review** · **工作分支：** `feature/s10-story-003-import-existing-variants`（从 `sprint/s10-db-backed-style-admin-v1`）
 
 **目标：** 扫描现有 variants · first-wave required · user-selectable · candidate / experimental · deprecated 入库 · 保留 runtimeVariantId · blockType · family · 状态 · 兼容信息 · 幂等导入脚本 · 导入报告。
 
-**非目标：** 不修改 runtime registry 加载路径 · 不切换用户侧 picker 至 DB（→ S10-STORY-005）
+**非目标：** 不修改 runtime registry 加载路径 · 不切换用户侧 picker 至 DB（→ S10-STORY-005）· 不实现 `/admin/style-library`（→ S10-STORY-004）
+
+**资产来源（代码事实）：**
+
+| 来源 | 说明 | 数量（dry-run 2026-06-07） |
+|------|------|---------------------------|
+| `createFirstWaveRequiredVariantRegistry()` | Release 1 `release1_required` registry variants | 92 |
+| `HISTORICAL_FIRST_WAVE_33_RUNTIME_IDS` | 历史 first-wave 33（3 title + 3 heading + 9×3 blocks）子集标记 | 33 |
+| `HARVEST_CANDIDATE_VARIANTS` | S8 harvest candidates | 2 |
+| `HTML_PASTE_CANDIDATE_VARIANTS` | S9 HTML paste candidates | 1 |
+| `STYLE_LIBRARY_MANIFEST` / `getStyleLibraryVariantAssets()` | lifecycle / distribution overlay | 按 asset 覆盖 |
+| `DEPRECATED_HEADING_RUNTIME_VARIANT_IDS` | S7 DECISION-087 废弃 heading catalog stubs | 5 |
+
+**导入策略：** `collect` → `map` → `import`（`src/server/style-admin/import/`）· CLI `pnpm style-admin:import-existing-variants` · `--dry-run` 不写 DB
+
+**幂等策略：** `runtimeVariantId` upsert · `sourceChecksum` 变化才新建 version · distribution 可更新并写 audit · lifecycle event 仅 lifecycle 变化时写入 · source 记录仅 metadata 变化时追加
+
+**lifecycle 映射（FIX-A）：** registry `release1_required` → DB lifecycle `release1_required`（非 `default_eligible`）· `byLifecycle` 与 `byDistribution` 分别统计
 
 **验收标准：**
 
-- [ ] AC-1 幂等导入脚本可重复执行不产生重复记录
-- [ ] AC-2 first-wave required variants 已入库
-- [ ] AC-3 user-selectable variants 已入库（含 S9 HTML paste）
-- [ ] AC-4 candidate / experimental / deprecated 已入库
-- [ ] AC-5 导入报告含计数 · 跳过项 · 错误项
-- [ ] AC-6 lint / test / build PASS
+- [x] AC-1 幂等导入脚本可重复执行不产生重复记录
+- [x] AC-2 first-wave required variants 已识别（registry 92 · historical 33 标记完整）
+- [x] AC-3 user-selectable variants 已识别（含 `heading_teal_section_label_html_paste_candidate`）
+- [x] AC-4 candidate / experimental / deprecated 已识别并映射 distribution
+- [x] AC-5 导入报告含计数 · 跳过项 · warnings · errors
+- [x] AC-6 lint / test / build PASS
 
 ---
 

@@ -31,6 +31,7 @@ enum StyleVariantLifecycle {
   paste_qa_pass
   user_selectable
   default_eligible
+  release1_required
   deprecated
 }
 

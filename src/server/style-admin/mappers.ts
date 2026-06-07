@@ -88,6 +88,11 @@ export function defaultDistributionForLifecycle(
         userSelectable: true,
         defaultEligible: true,
       };
+    case "release1_required":
+      return {
+        ...base,
+        release1Required: true,
+      };
     case "deprecated":
       return {
         ...base,

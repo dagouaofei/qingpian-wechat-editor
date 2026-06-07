@@ -38,7 +38,7 @@ describe("style-admin mappers", () => {
   it("excludes release1Required-only rows from user-selectable pool", () => {
     expect(
       isEligibleForUserSelectablePool({
-        lifecycle: "default_eligible",
+        lifecycle: "release1_required",
         distribution: {
           userSelectable: false,
           defaultEligible: false,
@@ -110,5 +110,12 @@ describe("style-admin mappers", () => {
     expect(distribution.userSelectable).toBe(true);
     expect(distribution.defaultEligible).toBe(false);
     expect(distribution.release1Required).toBe(false);
+  });
+
+  it("maps release1_required lifecycle to distribution flag only", () => {
+    const distribution = defaultDistributionForLifecycle("release1_required");
+    expect(distribution.release1Required).toBe(true);
+    expect(distribution.defaultEligible).toBe(false);
+    expect(distribution.userSelectable).toBe(false);
   });
 });

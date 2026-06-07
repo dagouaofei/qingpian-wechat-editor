@@ -1,0 +1,52 @@
+{
+  "reportType": "style-admin-import-existing-variants",
+  "story": "S10-STORY-003",
+  "fix": "FIX-A-release1-required-lifecycle",
+  "mode": "dry-run",
+  "generatedAt": "2026-06-07T02:32:53.865Z",
+  "totalCollected": 100,
+  "totalImported": 0,
+  "totalUpdated": 0,
+  "totalSkippedUnchanged": 0,
+  "totalCreatedVersions": 0,
+  "byBlockType": {
+    "cta": 9,
+    "divider": 9,
+    "heading": 15,
+    "highlight": 9,
+    "image_placeholder": 9,
+    "info_card": 10,
+    "lead": 9,
+    "list": 9,
+    "paragraph": 9,
+    "quote": 9,
+    "title": 3
+  },
+  "byLifecycle": {
+    "release1_required": 92,
+    "deprecated": 5,
+    "paste_qa_pass": 2,
+    "user_selectable": 1
+  },
+  "byDistribution": {
+    "userSelectable": 1,
+    "defaultEligible": 0,
+    "release1Required": 92,
+    "hidden": 5,
+    "deprecated": 5
+  },
+  "deprecatedCount": 5,
+  "userSelectableCount": 1,
+  "release1RequiredCount": 92,
+  "candidateCount": 8,
+  "historicalFirstWave33Count": 33,
+  "missingCompatibilityCount": 0,
+  "missingComponentProtocolCount": 79,
+  "warningsCount": 87,
+  "errorsCount": 0,
+  "notes": [
+    "Registry release1_required variants use lifecycle release1_required, not default_eligible.",
+    "userSelectable !== defaultEligible; release1Required does not imply userSelectable.",
+    "No DATABASE_URL or secrets recorded in this report."
+  ]
+}

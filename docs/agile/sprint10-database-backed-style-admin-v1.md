@@ -1,7 +1,7 @@
 # Sprint 10：Database-backed Style Management Admin v1（数据库版正式样式管理后台 v1）
 
 > 轻篇公众号排版 · qingpian-wechat-editor  
-> **状态：** **In Progress**（2026-06-07 · **DECISION-108** · S10-STORY-001 Done）  
+> **状态：** **In Progress**（2026-06-07 · **DECISION-108** · S10-STORY-001~002 Done · S10-STORY-003 In Review）  
 > **分支：** `sprint/s10-db-backed-style-admin-v1`（从 `release/1` · @ `c96e869`）  
 > **架构：** [`style-management-admin-v1.md`](../architecture/style-management-admin-v1.md)  
 > **决策：** **DECISION-108**
@@ -59,7 +59,7 @@ Next.js · Prisma · PostgreSQL · 阿里云 RDS / OSS / ECS · SLS / CloudMonit
 |-------|------|------|
 | S10-STORY-001 | S10 架构与技术选型定稿 | **Done**（2026-06-07 · DECISION-108） |
 | S10-STORY-002 | Prisma + PostgreSQL DB Schema + Repository | **Done**（2026-06-07） |
-| S10-STORY-003 | 既有 Variant 全量导入数据库 | Planned |
+| S10-STORY-003 | 既有 Variant 全量导入数据库 | **In Review**（2026-06-07 · `feature/s10-story-003-import-existing-variants`） |
 | S10-STORY-004 | 正式后台 Variant 管理页 | Planned |
 | S10-STORY-005 | 用户侧 Variant Pool DB 接入 | Planned |
 | S10-STORY-006 | 上下架 / 回滚 / 报警最小闭环 | Planned |
@@ -71,6 +71,27 @@ Next.js · Prisma · PostgreSQL · 阿里云 RDS / OSS / ECS · SLS / CloudMonit
 | S10-STORY-012 | S10 Audit / Closeout | Planned |
 
 完整 AC 见 [`sprint-backlog.md`](sprint-backlog.md) Sprint 10 章节。
+
+---
+
+## 5.1 S10-STORY-003 导入摘要（2026-06-07）
+
+**实现路径：** `src/server/style-admin/import/` · `scripts/style-admin/import-existing-variants.ts`
+
+**命令：**
+
+```bash
+pnpm style-admin:import-existing-variants:dry-run   # 不写 DB · 打印 report
+pnpm style-admin:import-existing-variants           # 写入 DATABASE_URL 指向的 DB
+```
+
+**dry-run 统计（2026-06-07 · 非敏感）：** collected=100 · registry release1_required=92 · historical first-wave 33=33 · user_selectable=1 · deprecated=5 · candidate=8
+
+**边界：** `userSelectable !== defaultEligible` · `release1Required` 为 distribution flag 不自动 userSelectable · deprecated / hidden 入库但后续用户 pool 排除
+
+**本轮未做：** `/admin/style-library` · 用户侧 DB pool · HTML Harvest · 真实 RDS 连接
+
+**后续：** S10-STORY-004 基于 DB 实现 `/admin/style-library` 列表与详情
 
 ---
 

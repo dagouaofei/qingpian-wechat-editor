@@ -542,3 +542,16 @@
 | 2026-06-07 | Sprint 10 | `.env.example` 增加 `DATABASE_URL` 占位 · 无真实 secret | 配置 / 文档 | S10-STORY-002 |
 | 2026-06-07 | Sprint 10 | 工作分支 `feature/s10-story-002-prisma-db-schema` · **未导入 variant** · **未 merge `main`** | Git | S10-STORY-002 |
 | 2026-06-07 | Sprint 10 | **S10-STORY-002 Done**：merge `feature/s10-story-002-prisma-db-schema` → `sprint/s10-db-backed-style-admin-v1` @ `23d2180` | Git | S10-STORY-002 |
+
+---
+
+## 2026-06-07 · S10-STORY-003 既有 Variant 全量导入
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-07 | Sprint 10 | **S10-STORY-003**：既有 variant collect / map / 幂等 import · dry-run CLI · import report | 代码 / 数据库 | S10-STORY-003 |
+| 2026-06-07 | Sprint 10 | 新增 `src/server/style-admin/import/` · `scripts/style-admin/import-existing-variants.ts` · `pnpm style-admin:import-existing-variants*` | 代码 / 脚本 | S10-STORY-003 |
+| 2026-06-07 | Sprint 10 | 测试 `tests/server/style-admin/import/` · dry-run · checksum · collect 边界 · repeated import skip | 测试 | S10-STORY-003 |
+| 2026-06-07 | Sprint 10 | dry-run：collected=100 · release1_required=92 · historical_33=33 · user_selectable=1 · deprecated=5 | 文档 / 报告 | S10-STORY-003 |
+| 2026-06-07 | Sprint 10 | 工作分支 `feature/s10-story-003-import-existing-variants` · **未 merge sprint** · **未连接生产 RDS** | Git | S10-STORY-003 |
+| 2026-06-07 | Sprint 10 | **S10-STORY-003 FIX-A**：registry `release1_required` → lifecycle `release1_required`（非 `default_eligible`）· Prisma enum migration | 代码 / 数据库 | S10-STORY-003 |

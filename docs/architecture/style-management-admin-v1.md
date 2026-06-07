@@ -168,7 +168,49 @@ S9 file-backed manifest / code-backed variants（source of truth v0）
 - React client component **不得**直接 `import` Prisma 或 repository
 - `listUserSelectableVariants` 仅按 `distribution.userSelectable=true` 且排除 `hidden` / `deprecated`；**不**以 `defaultEligible` 或 `release1Required` 作为入选条件
 - `updateDistribution` 写入 `admin_audit_logs`
-- **本轮未做：** variant 导入 · `/admin` UI · 用户侧 DB pool（→ S10-STORY-003~005）
+- **S10-STORY-003 已实现：** variant 幂等导入层 · dry-run CLI · import report（→ §6.2）
+- **本轮未做：** `/admin` UI · 用户侧 DB pool（→ S10-STORY-004~005）
+
+### 6.2 既有 Variant 导入（S10-STORY-003 · 已实现）
+
+| 模块 | 路径 | 职责 |
+|------|------|------|
+| Collect | `import/collect-existing-style-variants.ts` | 扫描 registry · harvest · html_paste · manifest overlay · deprecated stubs |
+| Map | `import/map-style-registry-variant-to-db.ts` | `VariantDefinition` + style-library → `CollectedStyleVariant` |
+| Lifecycle / Distribution | `import/lifecycle-distribution-mapper.ts` | registry status / manifest → lifecycle + `StyleVariantDistribution` |
+| Checksum | `import/checksum.ts` | 稳定 JSON SHA-256 · 版本幂等 |
+| Import | `import/import-existing-style-variants.ts` | 编排 collect → write |
+| Writer | `import/style-variant-import-writer.ts` | Prisma upsert · version · distribution · lifecycle event · source |
+| Report | `import/import-existing-style-variants-report.ts` | 统计 · warnings · JSON export |
+| CLI | `scripts/style-admin/import-existing-variants.ts` | `--dry-run` · `--report=path` · 非 0 退出 |
+
+**资产来源：**
+
+1. `createFirstWaveRequiredVariantRegistry()` — 92 `release1_required` variants
+2. `HISTORICAL_FIRST_WAVE_33_RUNTIME_IDS` — 历史 33 子集标记（非独立 registry）
+3. `HARVEST_CANDIDATE_VARIANTS` · `HTML_PASTE_CANDIDATE_VARIANTS`
+4. `STYLE_LIBRARY_MANIFEST` / `getStyleLibraryVariantAssets()` — lifecycle / distribution 覆盖
+5. `DEPRECATED_HEADING_RUNTIME_VARIANT_IDS` — S7 废弃 heading catalog stubs（5）
+
+**幂等规则：**
+
+- `runtimeVariantId` upsert `style_variants`
+- `sourceChecksum` 未变 → `skipped_unchanged` · 不新建 version
+- lifecycle event 仅 lifecycle 变化时写入
+- source 记录仅 metadata 变化时追加
+- distribution 变化写 `admin_audit_logs`
+
+**lifecycle 与 distribution 分离（FIX-A）：**
+
+- registry `release1_required` variants → DB lifecycle `release1_required`（**非** `default_eligible`）
+- `default_eligible` lifecycle 仅用于 style-library 明确标记为 default eligible 的资产
+- `release1Required` 为 distribution flag；与 lifecycle `release1_required` 对齐但不自动 `userSelectable`
+
+**distribution 边界（导入时强制）：**
+
+- `userSelectable=true` 不隐含 `defaultEligible=true`
+- `release1Required=true` 不隐含 `userSelectable=true`
+- `deprecated=true` / `hidden=true` 入库 · 用户 pool（S10-STORY-005）须排除
 
 ---
 
