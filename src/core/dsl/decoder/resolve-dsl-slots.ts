@@ -1,6 +1,7 @@
 import type { Block } from "@/core/blocks";
 
 import type { VariantDslV1 } from "../runtime/dsl-types";
+import { hasSemanticTitleBinding } from "./fidelity-tree-substitution";
 import { resolveSlotContentsForBlock, type SlotContentMap } from "./block-slot-bindings";
 
 function readExtractedSlots(dsl: VariantDslV1): Record<string, string> {
@@ -17,15 +18,6 @@ function readExtractedSlots(dsl: VariantDslV1): Record<string, string> {
   return {};
 }
 
-function hasSemanticTitleBinding(dsl: VariantDslV1): boolean {
-  const bindings = dsl.meta?.semanticBindings;
-  if (typeof bindings !== "object" || bindings === null || Array.isArray(bindings)) {
-    return false;
-  }
-  const titleBinding = (bindings as Record<string, unknown>).title;
-  return typeof titleBinding === "object" && titleBinding !== null;
-}
-
 export function resolveSlotsForDslDecode(dsl: VariantDslV1, block: Block): SlotContentMap {
   const fromBlock = resolveSlotContentsForBlock(block);
   const fromMeta = readExtractedSlots(dsl);
@@ -35,7 +27,7 @@ export function resolveSlotsForDslDecode(dsl: VariantDslV1, block: Block): SlotC
     const slots: SlotContentMap = {};
     for (const slot of requiredSlots) {
       if (slot === "title") {
-        slots.title = fromBlock.title ?? "";
+        slots.title = fromMeta.title ?? "";
       } else {
         slots[slot] = fromMeta[slot] ?? "";
       }

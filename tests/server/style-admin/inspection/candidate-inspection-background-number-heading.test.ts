@@ -170,5 +170,67 @@ describe("candidate inspection background number heading (real admin entry)", ()
     expect(runtimeTrace?.substitutedSlot).toBe("title");
     expect(runtimeTrace?.decorativeSlotsPreserved).toContain("number");
     expect(runtimeTrace?.fallbackUsed).toBe(false);
+    expect(runtimeTrace?.slotSubstitutionPath).not.toBe("slots.title");
+  });
+
+  it("does not put sample title into 84px span when stored tree uses title slot nodes", () => {
+    const encoded = encodeHtmlToVariantDsl({
+      html: BACKGROUND_NUMBER_HEADING_HTML,
+      runtimeVariantId: RUNTIME_VARIANT_ID,
+      blockType: "heading",
+      wechatCompatibilityMode: "off",
+    });
+    if (!encoded.ok) throw new Error("encode failed");
+
+    const slotTitleTree = {
+      type: "element" as const,
+      tag: "section",
+      style: {
+        paddingTop: "10px",
+        paddingBottom: "8px",
+        borderLeftColor: "#1677ff",
+        borderLeftStyle: "solid",
+        borderLeftWidth: "4px",
+      },
+      children: [
+        {
+          type: "slot" as const,
+          slot: "title",
+          tag: "span",
+          style: {
+            color: "#f0f0f0",
+            display: "block",
+            fontSize: "84px",
+            fontWeight: 900,
+            lineHeight: "1.5",
+            paddingTop: "10px",
+            backgroundColor: "#E60012",
+          },
+        },
+      ],
+    };
+
+    const source = buildInspectionSource({
+      definitionJson: { ...encoded.value, tree: slotTitleTree },
+      rawHtml: BACKGROUND_NUMBER_HEADING_HTML,
+    });
+
+    const inspection = buildCandidateInspectionPanelViewModel(buildAdminDetail(source));
+    const html = extractPreviewHtml(inspection);
+    const runtimeTrace =
+      inspection?.previewBlock?.ok && inspection.previewBlock.output?.kind === "dsl_tree_html_preview"
+        ? inspection.previewBlock.output.runtimeTrace
+        : undefined;
+
+    expect(runtimeTrace?.slotSubstitutionPath).toBe("meta.semanticBindings.title");
+    expect(runtimeTrace?.slotSubstitutionPath).not.toBe("slots.title");
+    expect(runtimeTrace?.fallbackUsed).toBe(false);
+    expect(html).toMatch(/<h2[^>]*>[\s\S]*这是一个测试小标题[\s\S]*<\/h2>/i);
+    expect(html).not.toMatch(/border-left-color:\s*#1677ff/i);
+
+    const numberSpan =
+      html.match(/<span[^>]*font-size:\s*84px[^>]*>[\s\S]*?<\/span>/i)?.[0] ?? "";
+    expect(numberSpan).toContain("01");
+    expect(numberSpan).not.toContain(SAMPLE_TITLE);
   });
 });

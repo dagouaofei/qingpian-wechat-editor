@@ -157,16 +157,42 @@ function findFallbackTitlePath(
   return null;
 }
 
+function treeContainsSlotNodes(node: DslNode): boolean {
+  if (node.type === "slot") {
+    return true;
+  }
+  return (node.children ?? []).some((child) => treeContainsSlotNodes(child));
+}
+
+export function hasSemanticTitleBinding(dsl: VariantDslV1): boolean {
+  const bindings = readSemanticBindings(dsl);
+  return typeof bindings.title === "object" && bindings.title !== null;
+}
+
 export function semanticBindingsResolveOnTree(dsl: VariantDslV1): boolean {
+  return !requiresFidelityTreeRefresh(dsl);
+}
+
+export function requiresFidelityTreeRefresh(dsl: VariantDslV1): boolean {
   if (!dsl.tree) {
+    return true;
+  }
+
+  if (!hasSemanticTitleBinding(dsl)) {
     return false;
   }
+
+  if (treeContainsSlotNodes(dsl.tree)) {
+    return true;
+  }
+
   const bindings = readSemanticBindings(dsl);
   const titleBinding = bindings.title;
   if (!titleBinding?.path) {
-    return true;
+    return false;
   }
-  return resolveDslNodeAtPath(dsl.tree, titleBinding.path) !== null;
+
+  return resolveDslNodeAtPath(dsl.tree, titleBinding.path) === null;
 }
 
 function listDecorativeSlotsPreserved(
@@ -206,19 +232,6 @@ export function applyFidelityTreeArticleSubstitution(
     return { tree: cloned, trace: baseTrace };
   }
 
-  const requiredSlots = listRequiredTreeSlots(dsl);
-  if (requiredSlots.includes("title")) {
-    return {
-      tree: cloned,
-      trace: {
-        ...baseTrace,
-        substitutedSlot: "title",
-        slotSubstitutionPath: "slots.title",
-        slotSubstitutionTargetPath: bindings.title?.path ?? null,
-      },
-    };
-  }
-
   if (bindings.title?.path) {
     const targetPath = bindings.title.path;
     const target = resolveDslNodeAtPath(cloned, targetPath);
@@ -237,23 +250,38 @@ export function applyFidelityTreeArticleSubstitution(
     }
   }
 
-  const fallback = findFallbackTitlePath(cloned, preserveTexts);
-  if (fallback) {
-    const target = resolveDslNodeAtPath(cloned, fallback.path);
-    const replaced = target ? replaceTextInSubtree(target, articleTitle, fallback.path) : null;
-    if (replaced?.ok) {
-      return {
-        tree: cloned,
-        trace: {
-          ...baseTrace,
-          slotSubstitutionPath: fallback.path,
-          slotSubstitutionTargetPath: fallback.path,
-          actualTextLeafPath: replaced.actualTextLeafPath,
-          substitutedSlot: "title",
-          fallbackUsed: true,
-          fallbackReason: "semantic_binding_missing_used_first_non_decorative_text",
-        },
-      };
+  const requiredSlots = listRequiredTreeSlots(dsl);
+  if (!bindings.title?.path && requiredSlots.includes("title")) {
+    return {
+      tree: cloned,
+      trace: {
+        ...baseTrace,
+        substitutedSlot: "title",
+        slotSubstitutionPath: "slots.title",
+        slotSubstitutionTargetPath: null,
+      },
+    };
+  }
+
+  if (!bindings.title?.path) {
+    const fallback = findFallbackTitlePath(cloned, preserveTexts);
+    if (fallback) {
+      const target = resolveDslNodeAtPath(cloned, fallback.path);
+      const replaced = target ? replaceTextInSubtree(target, articleTitle, fallback.path) : null;
+      if (replaced?.ok) {
+        return {
+          tree: cloned,
+          trace: {
+            ...baseTrace,
+            slotSubstitutionPath: fallback.path,
+            slotSubstitutionTargetPath: fallback.path,
+            actualTextLeafPath: replaced.actualTextLeafPath,
+            substitutedSlot: "title",
+            fallbackUsed: true,
+            fallbackReason: "semantic_binding_missing_used_first_non_decorative_text",
+          },
+        };
+      }
     }
   }
 

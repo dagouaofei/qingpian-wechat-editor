@@ -1,15 +1,12 @@
-import type { BlockType } from "@prisma/client";
-
 import type { FidelitySubstitutionTrace } from "@/core/dsl/decoder/fidelity-tree-substitution";
-import { semanticBindingsResolveOnTree } from "@/core/dsl/decoder/fidelity-tree-substitution";
 import { decodeVariantDsl } from "@/core/dsl/decoder";
-import { encodeHtmlToVariantDsl } from "@/core/dsl/encoder";
 import type { DecoderTrace } from "@/core/dsl/runtime/dsl-trace-types";
 import type { DslRenderTarget, VariantDslV1 } from "@/core/dsl/runtime";
 import type { RendererOutputPlaceholder } from "@/core/renderer/types";
 import { renderTargetForMode } from "@/core/renderer/types";
 
 import { parseDefinitionJsonToVariantDsl } from "@/lib/dsl-runtime";
+import { resolveFidelityVariantDslForDecode } from "@/lib/dsl-runtime/resolve-fidelity-variant-dsl";
 import type { DbCandidateInspectionSource } from "./candidate-inspection-types";
 import { buildDbCandidateInspectionArticle } from "./db-candidate-admin-render";
 import type { CandidateInspectionFixture } from "./candidate-inspection-types";
@@ -28,55 +25,18 @@ function enrichVariantDslFromSource(
   };
 }
 
-function shouldRefreshInspectionTreeFromRawHtml(
-  source: DbCandidateInspectionSource,
-  dsl: VariantDslV1,
-): boolean {
-  const rawHtml = source.rawHtml?.trim();
-  if (!rawHtml) {
-    return false;
-  }
-
-  const headingLike = source.blockType === "heading" || source.blockType === "title";
-  if (!headingLike) {
-    return false;
-  }
-
-  return !semanticBindingsResolveOnTree(dsl);
-}
-
 function resolveInspectionVariantDsl(
   source: DbCandidateInspectionSource,
   parsed: VariantDslV1,
 ): VariantDslV1 {
   const enriched = enrichVariantDslFromSource(source, parsed);
-  if (!shouldRefreshInspectionTreeFromRawHtml(source, enriched)) {
-    return enriched;
-  }
-
-  const rawHtml = source.rawHtml?.trim();
-  if (!rawHtml) {
-    return enriched;
-  }
-
-  const reencoded = encodeHtmlToVariantDsl({
-    html: rawHtml,
+  return resolveFidelityVariantDslForDecode(enriched, {
+    sourceHtml: source.rawHtml,
     runtimeVariantId: source.runtimeVariantId,
-    blockType: source.blockType as BlockType,
+    blockType: source.blockType,
     label: source.label,
     family: source.styleFamily,
-    wechatCompatibilityMode: "off",
   });
-
-  if (!reencoded.ok) {
-    return enriched;
-  }
-
-  return {
-    ...reencoded.value,
-    componentProtocol: enriched.componentProtocol,
-    compatibility: enriched.compatibility,
-  };
 }
 
 export type CandidateDslDecodeResult =

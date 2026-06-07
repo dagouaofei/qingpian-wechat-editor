@@ -11,6 +11,7 @@ import type {
 } from "@/core/renderer/types";
 
 import { parseDefinitionJsonToVariantDsl } from "./parse-variant-dsl";
+import { resolveFidelityVariantDslForDecode } from "./resolve-fidelity-variant-dsl";
 
 export type RenderDslBlockInput = {
   article: Article;
@@ -20,6 +21,7 @@ export type RenderDslBlockInput = {
   target: DslRenderTarget;
   mode: RenderMode;
   renderTarget: RenderTarget;
+  sourceHtml?: string | null;
 };
 
 export function renderDslBlock(input: RenderDslBlockInput): RendererResult<RendererOutputPlaceholder> {
@@ -50,10 +52,18 @@ export function renderDslBlock(input: RenderDslBlockInput): RendererResult<Rende
     };
   }
 
+  const variantDsl = resolveFidelityVariantDslForDecode(parsed.value, {
+    sourceHtml: input.sourceHtml,
+    runtimeVariantId: input.runtimeVariantId,
+    blockType: input.block.type,
+    label: parsed.value.label,
+    family: parsed.value.family,
+  });
+
   const decoded = decodeVariantDsl({
     article: input.article,
     block: input.block,
-    variantDsl: parsed.value,
+    variantDsl,
     target: input.target,
   });
 
