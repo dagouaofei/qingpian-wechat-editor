@@ -103,4 +103,4 @@
 
 ## 14. Commit
 
-- Commit hash：待提交
+- Commit hash：`85ee305` — `fix: render preview from fidelity dsl tree`
