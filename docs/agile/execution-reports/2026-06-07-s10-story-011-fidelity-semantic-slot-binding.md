@@ -74,4 +74,4 @@
 ## 9. Commit
 
 - Checkpoint：`c669eb0` — `checkpoint: s10 story 011 clean fidelity encoder`
-- 本轮 fix commit：见下方 hash（提交后更新）
+- 本轮 fix commit：`4d6ba79` — `fix: preserve fidelity tree and semantic slot bindings`
