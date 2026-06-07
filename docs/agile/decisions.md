@@ -94,6 +94,7 @@
 | DECISION-096 | 2026-06-05 | Style Library Admin Shell v0 使用 `/dev/style-library`；内部只读治理工具；无权限系统；非正式 SaaS 后台 | 已确认 |
 | DECISION-106 | 2026-06-05 | 关闭 Sprint 9：Style Management System v0 · 接受 v2 audit Grade A- · P0=0 · HTML→user preview picker E2E PASS · Preview/Copy parity PASS · default/release1 未污染 · **不 merge `main`** · sprint→`release/1` 需另行确认 | **已确认** |
 | DECISION-107 | 2026-06-05 | S9-STORY-007C：user_selectable 暴露至用户预览页样式选择器；Gallery/AI/release1 边界不变 | **已确认** · merged sprint @ `da5be1e` |
+| DECISION-108 | 2026-06-07 | 正式启动 Sprint 10：Database-backed Style Management Admin v1；从 `release/1` 创建 `sprint/s10-db-backed-style-admin-v1`；第一闭环为既有 variant 入库→后台上下架→用户侧 DB 分发；HTML Harvest 放后半段；不 merge `main` | **已确认** |
 
 ### DECISION-019 详情
 
@@ -1116,4 +1117,26 @@
 - **merge `main`：** **不执行**
 - **关联：** S9-STORY-009 · DECISION-107 · DECISION-105 · DECISION-101 · [`sprint9-closeout.md`](sprint9-closeout.md)
 - **状态：** **已确认**（2026-06-05 · 用户确认 Sprint 9 关闭）
+- **sprint → `release/1` merge：** **已完成**（`c96e869` · merge Sprint 9 into release/1）
+
+### DECISION-108 详情（正式启动 Sprint 10：Database-backed Style Management Admin v1）
+
+- **日期：** 2026-06-07
+- **背景：**
+  - Sprint 9 Style Management System v0 已关闭（DECISION-106）并 merge 至 `release/1`（`c96e869`）
+  - 原 Sprint 10「Style Expansion & Visual Quality Upgrade」方向与 PO 最新优先级不一致
+  - PO 要求 S10 第一目标为**既有 variant 全量入库 + database-backed 正式后台 + 用户侧 DB 分发闭环**，HTML Harvest 新增 variant 为第二阶段
+- **决策：**
+  1. **正式启动 Sprint 10** — Database-backed Style Management Admin v1（数据库版正式样式管理后台 v1）
+  2. 从 **`release/1`** 创建 sprint 分支 `sprint/s10-db-backed-style-admin-v1`（@ `c96e869`）
+  3. **S10 定位：** 数据库版正式样式管理后台 v1；**不**以 Style Expansion 为主目标
+  4. **第一验收闭环：** 既有 variant 入库 → `/admin/style-library` 可见 → 后台上下架 → 用户侧 1–5 分钟可见变化 → Preview / Copy 生效
+  5. **技术选型：** Next.js · Prisma · PostgreSQL · 阿里云 RDS / OSS / ECS · SLS / CloudMonitor · 华北 2（北京）· 单管理员登录 · ECS 手工部署
+  6. **路由边界：** `/dev/style-library` 保留 S9 v0 diagnostics；`/admin/style-library` 为 S10 正式写入口
+  7. **资源隔离：** 不与秒篇 AIPPT / 秒篇论文共用应用服务与数据库；可共用阿里云账号 / VPC / 监控体系
+  8. **HTML Harvest**（S10-STORY-009~011）排在第一闭环完成之后
+  9. **不 merge `main`** · **不关闭 Sprint 10**（S10-STORY-001 本轮仅启动与定稿）
+- **影响范围：** [`style-management-admin-v1.md`](../architecture/style-management-admin-v1.md) · [`sprint10-database-backed-style-admin-v1.md`](sprint10-database-backed-style-admin-v1.md) · sprint-plan · sprint-backlog · changelog
+- **关联：** DECISION-106 · DECISION-107 · DECISION-092 · S10-STORY-001
+- **状态：** **已确认**（2026-06-07 · S10-STORY-001）
 

@@ -62,9 +62,10 @@
 | **Sprint 6** | **Closed**（2026-06-02；DECISION-078；merge `release/1`） |
 | **Sprint 7** | **Done**（2026-06-03 · S7-STORY-008 关闭 · merge `release/1`） |
 | **Sprint 8** | **Closed**（2026-06-05 · DECISION-093 · merged `release/1`） |
-| **Sprint 9** | **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · P0=0 · S9-STORY-001~009 Done · **未 merge `release/1`**） |
+| **Sprint 9** | **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · P0=0 · S9-STORY-001~009 Done · **已 merge `release/1`** @ `c96e869`） |
+| **Sprint 10** | **In Progress**（2026-06-07 · **DECISION-108** · S10-STORY-001 Done） |
 | **Release 1 主干** | `release/1` |
-| **下一步** | Sprint 10 规划 / 启动（Planned）· sprint → `release/1` merge **需用户另行确认** |
+| **下一步** | S10-STORY-002 Prisma + PostgreSQL DB Schema + Repository |
 
 ---
 
@@ -616,7 +617,7 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 **文档：** [`sprint9-style-management-system-v0.md`](sprint9-style-management-system-v0.md) · [`sprint9-closeout.md`](sprint9-closeout.md) · [`sprint9-style-management-system-audit.md`](../architecture/audits/sprint9-style-management-system-audit.md) · **DECISION-106**
 
-**Closeout：** Grade **A-** · **P0=0** · HTML→user preview picker E2E **PASS** · Preview/Copy parity **PASS** · default preset / release1_required **未污染** · **未 merge `release/1`** · **未 merge `main`**
+**Closeout：** Grade **A-** · **P0=0** · HTML→user preview picker E2E **PASS** · Preview/Copy parity **PASS** · default preset / release1_required **未污染** · **已 merge `release/1`** @ `c96e869` · **未 merge `main`**
 
 **进度：** S9-STORY-001~009 **Done**
 
@@ -634,11 +635,47 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 ---
 
-### Sprint 10：Style Expansion & Visual Quality Upgrade — **Planned（方向 only）**
+### Sprint 10：Database-backed Style Management Admin v1 — **In Progress**（2026-06-07 · **DECISION-108**）
 
-**目标：** 基于 S9 v0 批量扩展真实公众号启发样式、风格包、配色包、block variants；优化自动样式匹配与视觉质量。
+**中文名：** 数据库版正式样式管理后台 v1
 
-**本轮：** 仅写入 `product-backlog.md` / `release-plan.md` · **不拆 story**
+**分支：** `sprint/s10-db-backed-style-admin-v1`（从 `release/1` · @ `c96e869`）
+
+**文档：** [`sprint10-database-backed-style-admin-v1.md`](sprint10-database-backed-style-admin-v1.md) · [`style-management-admin-v1.md`](../architecture/style-management-admin-v1.md) · **DECISION-108**
+
+**Sprint Goal（第一验收闭环 · P0）：**
+
+```text
+既有 variant 入库
+  → /admin/style-library 后台可见
+  → 后台将某个 user-selectable variant 下架
+  → 用户侧样式选择池 1–5 分钟内消失
+  → 后台恢复上架
+  → 用户侧样式选择池 1–5 分钟内恢复
+  → 用户选择后 Preview / Copy 生效
+```
+
+**这条闭环完成前，不进入 HTML Harvest 主线（S10-STORY-009~011）。**
+
+**技术选型：** Next.js · Prisma · PostgreSQL · 阿里云 RDS / OSS / ECS · SLS / CloudMonitor · 华北 2（北京）· 单管理员登录 · ECS 手工部署 · 用户侧 1–5 分钟缓存
+
+**Stories：** S10-STORY-001 ~ S10-STORY-012 — 见 `sprint-backlog.md`
+
+**进度：** S10-STORY-001 **Done** · S10-STORY-002~012 **Planned**
+
+**与 S9 关系：**
+
+- S9：file-backed v0 · `/dev/style-library` · 已 merge `release/1`
+- S10：database-backed v1 · `/admin/style-library` · 正式写操作 · 用户侧 DB 分发
+- `/dev/style-library` **保留**为 dev diagnostics / file-backed inspection
+
+**不做：**
+
+- 不以 Style Expansion / 批量新增样式为第一目标
+- 第一闭环完成前不做 HTML Harvest 主线
+- 不 merge `main`
+- 不做复杂 RBAC · 不做 CI/CD（S10）
+- 不在仓库提交 secret
 
 ---
 

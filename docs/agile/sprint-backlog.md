@@ -11,9 +11,10 @@
 > **Sprint 6：** Release 1 Visible AI Main Flow · **Closed**（2026-06-02；DECISION-078；audit Grade A- · P0=0 · P1=5 · P2=4；`sprint/s6-visible-ai-main-flow` 已 merge 至 `release/1`）
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
 > **Sprint 8：** **Closed**（2026-06-05 · DECISION-093 · audit Grade A- · P0=0 · merged `release/1` @ `806fa47`）
-> **Sprint 9：** **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · **P0=0** · HTML→user preview picker E2E PASS · Preview/Copy parity PASS · default preset / release1_required 未污染 · **未 merge `release/1`** · **未 merge `main`**）
-> **当前 Sprint：** **无**（**Sprint 10** — Style Expansion · **Planned** · 未启动）
-> **Sprint 9 分支：** `sprint/s9-style-management-system-v0`（从 `release/1` · 2026-06-05）
+> **Sprint 9：** **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · **P0=0** · HTML→user preview picker E2E PASS · Preview/Copy parity PASS · default preset / release1_required 未污染 · **已 merge `release/1`** @ `c96e869` · **未 merge `main`**）
+> **当前 Sprint：** **Sprint 10** — Database-backed Style Management Admin v1 · **In Progress**（2026-06-07 · **DECISION-108** · S10-STORY-001 Done）
+> **Sprint 10 分支：** `sprint/s10-db-backed-style-admin-v1`（从 `release/1` · 2026-06-07 · @ `c96e869`）
+> **Sprint 9 分支：** `sprint/s9-style-management-system-v0`（已 merge `release/1` · 2026-06-05）
 > **上一 Sprint：** **Sprint 8** — **Closed**（2026-06-05）；**Sprint 7** — **Done**（2026-06-03 · merge `release/1`）
 > **当前 Chore：** **Visible Progress & Legacy Convergence** — **Done**（DECISION-080 · 用户验收 2026-06-02 · merged @ `a5704d6`）
 > **Sprint 8 分支：** `sprint/s8-wechat-safe-css-contract`（已 merge `release/1` · 2026-06-05）
@@ -4088,13 +4089,250 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 
 ---
 
-# Sprint 10（初步定位 · Planned）
+# Sprint 10 — Database-backed Style Management Admin v1（数据库版正式样式管理后台 v1）
 
-> **名称：** Style Expansion & Visual Quality Upgrade  
-> **状态：** 方向记录 only · **无详细 story**（S8-STORY-008 本轮不展开）
+> **分支：** `sprint/s10-db-backed-style-admin-v1`（从 `release/1` · 2026-06-07 · @ `c96e869`）  
+> **文档：** [`sprint10-database-backed-style-admin-v1.md`](sprint10-database-backed-style-admin-v1.md) · [`style-management-admin-v1.md`](../architecture/style-management-admin-v1.md) · **DECISION-108**
 
-**目标：** 基于 S9 Style Management System v0，批量扩展真实公众号启发样式、风格包、配色包、更多 block variants，并优化自动样式匹配与视觉质量。
+**Sprint Goal（第一验收闭环）：**
 
-**非目标：** 不在 S10 重复建设后台基础设施（应由 S9 交付）
+```text
+既有 variant 入库 → /admin/style-library 可见 → 后台上下架 → 用户侧 1–5 分钟可见变化 → Preview / Copy 生效
+```
+
+**建议执行顺序：**
+
+```text
+S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
+  → —— 第一验收闭环 ——
+  → 009 → 010 → 011 → 012
+```
+
+---
+
+## S10-STORY-001 S10 架构与技术选型定稿
+
+**优先级：** P0 · **状态：** **Done**（2026-06-07 · **DECISION-108**）· **工作分支：** `docs/s10-start-architecture-backlog`（从 `sprint/s10-db-backed-style-admin-v1`）
+
+**目标：** S10 启动 · Sprint 分支建立 · 架构与技术选型文档 · S9 → S10 迁移策略 · `/dev/style-library` 与 `/admin/style-library` 关系 · 阿里云部署策略 · 单管理员登录策略 · S10 Story 拆分。
+
+**非目标：** 不实现 Prisma / DB / API / 后台页面代码 · 不 merge `main` · 不关闭 Sprint 10
+
+**验收标准：**
+
+- [x] AC-1 已确认 S9 merge `release/1`（`c96e869`）
+- [x] AC-2 已从 `release/1` 创建 `sprint/s10-db-backed-style-admin-v1`
+- [x] AC-3 已从 sprint 创建 `docs/s10-start-architecture-backlog`
+- [x] AC-4 [`style-management-admin-v1.md`](../architecture/style-management-admin-v1.md) 已新增
+- [x] AC-5 文档明确 S9 → S10 关系 · 技术选型 · 资源隔离 · `/dev` vs `/admin` · 第一验收闭环
+- [x] AC-6 S10-STORY-002~012 已完整拆分
+- [x] AC-7 sprint-plan · sprint-backlog · decisions · changelog 已同步
+- [x] AC-8 DECISION-108 已记录
+- [x] AC-9 `corepack pnpm lint` PASS
+- [x] AC-10 `corepack pnpm test` PASS
+- [x] AC-11 `corepack pnpm build` PASS
+- [x] AC-12 未实现业务代码 · 未暴露 secret
+
+---
+
+## S10-STORY-002 Prisma + PostgreSQL DB Schema + Repository
+
+**优先级：** P0 · **状态：** **Planned** · **工作分支：** TBD（`feature/s10-story-002-prisma-db-schema`）
+
+**目标：** Prisma 初始化 · PostgreSQL schema · repository 层 · migration · 本地开发 DB 策略。
+
+**核心表：** `style_variants` · `style_variant_versions` · `style_variant_sources` · `style_variant_distribution` · `style_variant_lifecycle_events` · `style_variant_validation_runs` · `style_variant_evidence` · `style_variant_promote_records` · `style_variant_rollback_records` · `admin_audit_logs` · `runtime_error_logs` · `alert_events`
+
+**非目标：** 不导入 variant 数据 · 不实现 `/admin` UI · 不接入用户侧 picker
+
+**验收标准：**
+
+- [ ] AC-1 Prisma 已初始化 · `schema.prisma` 覆盖核心表
+- [ ] AC-2 本地开发 DB 策略文档化（Docker / 本地 PostgreSQL）
+- [ ] AC-3 repository 层可 CRUD variant 主记录与 distribution
+- [ ] AC-4 `prisma migrate` 可本地执行 · 无 secret 提交
+- [ ] AC-5 单元测试覆盖 repository 基础操作
+- [ ] AC-6 lint / test / build PASS
+
+---
+
+## S10-STORY-003 既有 Variant 全量导入数据库
+
+**优先级：** P0 · **状态：** **Planned** · **工作分支：** TBD（`feature/s10-story-003-variant-bulk-import`）
+
+**目标：** 扫描现有 variants · first-wave required · user-selectable · candidate / experimental · deprecated 入库 · 保留 runtimeVariantId · blockType · family · 状态 · 兼容信息 · 幂等导入脚本 · 导入报告。
+
+**非目标：** 不修改 runtime registry 加载路径 · 不切换用户侧 picker 至 DB（→ S10-STORY-005）
+
+**验收标准：**
+
+- [ ] AC-1 幂等导入脚本可重复执行不产生重复记录
+- [ ] AC-2 first-wave required variants 已入库
+- [ ] AC-3 user-selectable variants 已入库（含 S9 HTML paste）
+- [ ] AC-4 candidate / experimental / deprecated 已入库
+- [ ] AC-5 导入报告含计数 · 跳过项 · 错误项
+- [ ] AC-6 lint / test / build PASS
+
+---
+
+## S10-STORY-004 正式后台 Variant 管理页
+
+**优先级：** P0 · **状态：** **Planned** · **工作分支：** TBD（`feature/s10-story-004-admin-style-library`）
+
+**目标：** `/admin/style-library` · variant 列表 · variant 详情 · distribution 状态 · lifecycle timeline · validation / evidence 只读展示 · 最小上下架入口 · 不裸奔的后台边界说明。
+
+**非目标：** 不做 HTML Harvest · 不做复杂 RBAC · 写操作须配合 S10-STORY-008 auth
+
+**验收标准：**
+
+- [ ] AC-1 `/admin/style-library` 列表页可读 DB variants
+- [ ] AC-2 详情页展示 distribution · lifecycle timeline · validation / evidence（只读）
+- [ ] AC-3 最小上下架入口 UI（写 API → S10-STORY-006）
+- [ ] AC-4 页面标注后台边界 · 依赖 auth 保护
+- [ ] AC-5 lint / test / build PASS
+
+---
+
+## S10-STORY-005 用户侧 Variant Pool DB 接入
+
+**优先级：** P0 · **状态：** **Planned** · **工作分支：** TBD（`feature/s10-story-005-user-variant-pool-db`）
+
+**目标：** 用户侧 style picker 从 DB 读取 user-selectable variants · 1–5 分钟缓存 · 后台上下架后用户侧可见变化 · 用户选择后 Preview / Copy 生效 · 不污染 default preset · 不误改 release1Required。
+
+**非目标：** 不切换 Gallery 默认池 · 不修改 AI 生成默认路径 · 不自动 defaultEligible
+
+**验收标准：**
+
+- [ ] AC-1 用户预览页 picker 从 DB 读取 user-selectable pool
+- [ ] AC-2 缓存 TTL 1–5 分钟可配置
+- [ ] AC-3 后台下架后 1–5 分钟内 picker 选项消失
+- [ ] AC-4 后台恢复上架后 1–5 分钟内 picker 选项恢复
+- [ ] AC-5 用户选择后 Preview / Copy 生效 · parity PASS
+- [ ] AC-6 default preset / release1Required 未污染
+- [ ] AC-7 lint / test / build PASS
+
+---
+
+## S10-STORY-006 上下架 / 回滚 / 报警最小闭环
+
+**优先级：** P0 · **状态：** **Planned** · **工作分支：** TBD（`feature/s10-story-006-lifecycle-rollback-alerts`）
+
+**目标：** user-selectable 上架 · hidden / deprecated 下架 · 回滚上一版本或上一 distribution 状态 · 操作原因必填 · admin audit log · runtime error log · 基础 alert event · SLS / CloudMonitor 接入设计。
+
+**非目标：** 不做完整 on-call 体系 · 不在 S10 实现全量 CloudMonitor 告警规则（可先设计 + 最小接入）
+
+**验收标准：**
+
+- [ ] AC-1 上架 / 下架写操作可执行 · 原因必填
+- [ ] AC-2 回滚至上一版本或 distribution 状态
+- [ ] AC-3 `admin_audit_logs` 记录所有写操作
+- [ ] AC-4 `runtime_error_logs` · `alert_events` 基础写入
+- [ ] AC-5 SLS / CloudMonitor 接入设计文档化
+- [ ] AC-6 与 S10-STORY-005 联调：上下架后用户侧 1–5 分钟可见
+- [ ] AC-7 lint / test / build PASS
+
+---
+
+## S10-STORY-007 阿里云资源准备与部署 Runbook
+
+**优先级：** P0 · **状态：** **Planned** · **工作分支：** TBD（`docs/s10-story-007-aliyun-deploy-runbook`）
+
+**目标：** ECS 手工部署 · RDS PostgreSQL · OSS · SLS / CloudMonitor · 安全组 · 环境变量 · 数据库连接 · migration runbook · health check · 不暴露任何 secret。
+
+**非目标：** 不执行阿里云控制台操作（本轮文档）· 不做 CI/CD
+
+**验收标准：**
+
+- [ ] AC-1 部署 runbook 覆盖 ECS · RDS · OSS · SLS
+- [ ] AC-2 资源隔离策略与 S10 架构文档一致
+- [ ] AC-3 migration runbook · health check 步骤明确
+- [ ] AC-4 文档无 secret · 仅占位符 / 环境变量名
+- [ ] AC-5 lint / test / build PASS（文档轮）
+
+---
+
+## S10-STORY-008 单管理员登录与后台保护
+
+**优先级：** P0 · **状态：** **Planned** · **工作分支：** TBD（`feature/s10-story-008-admin-auth`）
+
+**目标：** 单管理员登录 · `/admin/*` 访问保护 · 后台写 API 保护 · 登录态有效期 · 写操作 audit log · 不做复杂 RBAC。
+
+**非目标：** 不做多角色 · 不做 OAuth 第三方登录 · 密码不写入仓库
+
+**验收标准：**
+
+- [ ] AC-1 未登录访问 `/admin/*` 重定向登录
+- [ ] AC-2 后台写 API 需有效登录态
+- [ ] AC-3 登录态有明确有效期
+- [ ] AC-4 写操作写入 `admin_audit_logs`
+- [ ] AC-5 lint / test / build PASS
+
+---
+
+## S10-STORY-009 HTML Harvest → Candidate Variant v1
+
+**优先级：** P1 · **状态：** **Planned**（后半段 · 第一闭环完成后）· **工作分支：** TBD
+
+**目标：** 粘贴公众号 / 135 / 秀米 / DOM HTML · 保存 raw HTML · 自动识别 blockType · 运营可修正 blockType · 先支持 heading / info_card · candidate 写入 DB · 不直接 user-selectable · 不进入 default preset。
+
+**前置：** S10 第一验收闭环完成（S10-STORY-003~006）
+
+**验收标准：**
+
+- [ ] AC-1 粘贴 HTML 可保存 raw 至 DB / OSS
+- [ ] AC-2 blockType 自动识别 · 运营可修正
+- [ ] AC-3 heading / info_card 先支持
+- [ ] AC-4 candidate lifecycle 写入 DB · 不直接 user-selectable
+- [ ] AC-5 lint / test / build PASS
+
+---
+
+## S10-STORY-010 Candidate Preview / Copy / Validator / Evidence
+
+**优先级：** P1 · **状态：** **Planned**（后半段）· **工作分支：** TBD
+
+**目标：** DB candidate → Preview · DB candidate → Copy HTML · DB candidate → Validator · validation run 入库 · evidence 入库 · 可选截图 OSS key · Paste QA 状态记录。
+
+**验收标准：**
+
+- [ ] AC-1 DB candidate 可走 Preview / Copy / Validator 链路
+- [ ] AC-2 validation run · evidence 入库
+- [ ] AC-3 可选截图 OSS key 关联
+- [ ] AC-4 Paste QA 状态可记录
+- [ ] AC-5 lint / test / build PASS
+
+---
+
+## S10-STORY-011 采集样式 Promote 到 user-selectable
+
+**优先级：** P1 · **状态：** **Planned**（后半段）· **工作分支：** TBD
+
+**目标：** candidate → user_selectable · promote record · 用户侧 1–5 分钟内可见 · 不自动 defaultEligible · 不自动进入 default preset · 不自动变更 release1Required · 可下架 / 回滚。
+
+**验收标准：**
+
+- [ ] AC-1 promote 写操作产生 `style_variant_promote_records`
+- [ ] AC-2 用户侧 1–5 分钟内可见新 user-selectable
+- [ ] AC-3 defaultEligible / default preset / release1Required 未自动变更
+- [ ] AC-4 可下架 / 回滚
+- [ ] AC-5 lint / test / build PASS
+
+---
+
+## S10-STORY-012 S10 Audit / Closeout
+
+**优先级：** P0 · **状态：** **Planned** · **工作分支：** TBD（`docs/s10-story-012-audit-closeout`）
+
+**目标：** 审计 database-backed admin v1 是否完成 · 验收既有 variant 入库 → 后台上下架 → 用户侧变化 → Preview / Copy 生效 · 验收 HTML candidate → validation → evidence → promote → 用户侧可选 · P0=0 才能关闭。
+
+**非目标：** 不 merge `main` · 不自行宣布 Sprint 10 Done（需用户确认）
+
+**验收标准：**
+
+- [ ] AC-1 第一验收闭环 audit PASS
+- [ ] AC-2 HTML Harvest 链路 audit PASS（若后半段已执行）
+- [ ] AC-3 Audit Grade 达标 · P0=0
+- [ ] AC-4 closeout 文档 · 决策草案
+- [ ] AC-5 用户确认关闭 Sprint 10
 
 ---

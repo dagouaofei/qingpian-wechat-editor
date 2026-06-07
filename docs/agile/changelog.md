@@ -516,3 +516,16 @@
 | 2026-06-05 | Sprint 9 | **S9-STORY-009 v2**：End-to-End Audit / Closeout · Grade A- · P0=0 · DECISION-106 v2 草案 | 文档 / 测试 | S9-STORY-009 · DECISION-106 |
 | 2026-06-05 | Sprint 9 | **S9-STORY-009 On Hold**：PO 要求 user-selectable 须进用户预览页选择器 · audit 分支暂不 merge | 文档 / 敏捷 | S9-STORY-009 |
 | 2026-06-05 | Sprint 9 | **S9-STORY-007C-FIX-B**：html paste section label 动态序号 + theme token 色 · 采集色仅作 source hint | 代码 / 文档 | S9-STORY-007C |
+
+---
+
+## 2026-06-07 · Sprint 10 启动 · S10-STORY-001
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-07 | Sprint 9 / Release 1 | **S9 merge `release/1`**：merge Sprint 9 Style Management System v0 @ `c96e869` | Git | DECISION-106 |
+| 2026-06-07 | Sprint 10 | **Sprint 10 启动**：从 `release/1` 创建 `sprint/s10-db-backed-style-admin-v1` · **DECISION-108** | Git / 文档 | DECISION-108 |
+| 2026-06-07 | Sprint 10 | **S10 重定义**：Database-backed Style Management Admin v1（取代 Style Expansion 主目标） | 敏捷 / 架构 | DECISION-108 |
+| 2026-06-07 | Sprint 10 | **S10-STORY-001 Done**：架构与技术选型定稿 · [`style-management-admin-v1.md`](../architecture/style-management-admin-v1.md) | 文档 / 架构 | S10-STORY-001 · DECISION-108 |
+| 2026-06-07 | Sprint 10 | S10-STORY-002~012 完整拆分至 sprint-backlog · 第一验收闭环与 HTML Harvest 分阶段 | 敏捷 | S10-STORY-001 |
+| 2026-06-07 | Sprint 10 | 工作分支 `docs/s10-start-architecture-backlog` · **未实现业务代码** · **未 merge `main`** | Git / 文档 | S10-STORY-001 |
