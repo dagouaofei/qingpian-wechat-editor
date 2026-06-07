@@ -13,7 +13,13 @@ import type {
   StyleLibraryAdminDataStatus,
 } from "./style-library-admin-view-model";
 
-export function AdminProtectionBanner() {
+export function AdminProtectionBanner({
+  writeEnabled,
+  writeProtectionMessage,
+}: {
+  writeEnabled: boolean;
+  writeProtectionMessage: string;
+}) {
   const isProduction = process.env.NODE_ENV === "production";
 
   return (
@@ -21,18 +27,17 @@ export function AdminProtectionBanner() {
       className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-950"
       data-testid="admin-style-library-protection-banner"
     >
-      <p className="font-medium">S10 admin read UI · 数据库版样式管理后台（只读）</p>
-      <p className="mt-1 text-amber-900/90">
-        Public deployment requires S10-STORY-008 admin login before exposing{" "}
-        <code className="rounded bg-amber-100 px-1">/admin/*</code> on the internet.
+      <p className="font-medium">S10 admin UI · 数据库版样式管理后台</p>
+      <p className="mt-1 text-amber-900/90" data-testid="admin-auth-protection-message">
+        Single-admin authentication is enabled for <code className="rounded bg-amber-100 px-1">/admin/*</code>{" "}
+        pages and write actions.
       </p>
       <p className="mt-2 text-amber-900/90" data-testid="admin-write-protection-message">
-        Write actions are temporarily protected until S10-STORY-008 admin login. Do not deploy public
-        admin writes without S10-STORY-008.
+        {writeProtectionMessage}
       </p>
-      {isProduction ? (
+      {isProduction && !writeEnabled ? (
         <p className="mt-2 font-medium text-amber-950">
-          Production mode: enable single-admin authentication before go-live.
+          Production write actions are disabled until STYLE_ADMIN_WRITE_ENABLED=true.
         </p>
       ) : null}
     </div>

@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
   buildAdminDetailViewModelFromQueryResult,
   buildAdminListViewModelFromQueryResults,
-} from "@/app/admin/style-library/style-library-admin-view-model";
+} from "@/app/admin/(protected)/style-library/style-library-admin-view-model";
 
 describe("style-library admin view model", () => {
   it("builds list summary with independent distribution columns", () => {

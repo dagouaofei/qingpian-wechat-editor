@@ -5,7 +5,7 @@ import {
   buildAdminListHref,
   isAdminFilterPresetActive,
   parseAdminVariantListFilter,
-} from "@/app/admin/style-library/style-library-admin-filters";
+} from "@/app/admin/(protected)/style-library/style-library-admin-filters";
 
 describe("parseAdminVariantListFilter", () => {
   it("parses blockType, lifecycle, and boolean distribution filters", () => {

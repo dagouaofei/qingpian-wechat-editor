@@ -172,7 +172,8 @@ S9 file-backed manifest / code-backed variants（source of truth v0）
 - **S10-STORY-004 已实现：** `/admin/style-library` read UI（→ §6.3）
 - **S10-STORY-005 已实现：** 用户侧 `/preview` DB pool（→ §6.4）
 - **S10-STORY-006 已实现：** distribution 写操作 · rollback · audit · alert · pool cache 刷新（→ §6.5）
-- **本轮未做：** 正式登录（→ S10-STORY-008）· version rollback · promote · default preset 编辑
+- **S10-STORY-008 已实现（Done · 本地 E2E PASS）：** 单管理员登录 · `/admin/*` 保护 · session actor（→ §6.6）
+- **本轮未做：** version rollback · promote · default preset 编辑 · 复杂 RBAC
 
 ### 6.2 既有 Variant 导入（S10-STORY-003 · 已实现）
 
@@ -233,7 +234,7 @@ S9 file-backed manifest / code-backed variants（source of truth v0）
 - Server component + server-only view model · client 不得 import Prisma
 - Build 不强制连接 DB · `DATABASE_URL` 缺失时展示 diagnostic state
 - **S10-STORY-006 起：** 详情页 governance 写操作可用（hide / restore / deprecated / rollback）· 须 reason · 写保护见 §6.5
-- 公网部署前须 S10-STORY-008 单管理员登录；S10-STORY-008 前 production 写操作默认 disabled
+- **S10-STORY-008 起：** `/admin/*` 须登录 · 写操作 actor=`admin:<username>` · production 写另须 `STYLE_ADMIN_WRITE_ENABLED=true`
 
 ### 6.4 用户侧 DB Pool（S10-STORY-005 · 已实现）
 
@@ -294,14 +295,18 @@ AND qualityStatus NOT IN (copy_fidelity_failed, validator_failed, blocked)
 
 **本轮 disabled（后续 story）：** promote candidate · mark default eligible · rollback version
 
-**Actor：** 临时固定 `local-admin`（S10-STORY-008 替换为真实 admin identity）
+**Actor（S10-STORY-008 起）：** `admin:<username>` 来自 signed httpOnly session
 
-**写操作保护（S10-STORY-008 前）：**
+**写操作保护（须同时满足）：**
 
 ```text
-development / test → 默认允许写
-production / staging → 默认禁止，除非 STYLE_ADMIN_WRITE_ENABLED=true
-页面提示：Write actions are temporarily protected until S10-STORY-008 admin login.
+requireStyleAdmin() passed
+AND assertStyleAdminWriteAllowed() passed
+```
+
+```text
+development / test → write guard 默认允许（已登录前提下）
+production / staging → 另须 STYLE_ADMIN_WRITE_ENABLED=true
 ```
 
 **Alert event 最小范围：**
@@ -326,6 +331,53 @@ corepack pnpm dev
 ```
 
 建议 variant：`heading_teal_section_label_html_paste_candidate`（hide → dev API/preview 消失 → restore → rollback）；quality block：`heading_magazine_left_bar` / `heading_card_centered`。
+
+### 6.6 单管理员登录与后台保护（S10-STORY-008 · 已实现 · Done）
+
+**后台保护状态：** **完成**（2026-06-07 · 用户本地 E2E PASS）
+
+| 模块 | 路径 | 职责 |
+|------|------|------|
+| Auth core | `auth/admin-auth.ts` | `requireStyleAdmin()` · `getCurrentStyleAdmin()` · `getStyleAdminActor()` |
+| Password | `auth/admin-password.ts` | scrypt hash / verify（Node `crypto`） |
+| Session | `auth/admin-session.ts` | HMAC-signed httpOnly cookie · TTL |
+| Login | `src/app/admin/(auth)/login/` | username/password · safe `next` redirect |
+| Logout | `src/app/admin/(auth)/logout/route.ts` | 清除 session |
+| Guard | `src/app/admin/(protected)/layout.tsx` | 未登录重定向 `/admin/login?next=...` |
+| Middleware | `src/middleware.ts` | 注入 `x-admin-pathname` 供 login redirect |
+| Hash CLI | `scripts/style-admin/hash-admin-password.ts` | `pnpm style-admin:hash-password` |
+
+**环境变量（`.env.example` 占位 · 不提交真实 secret）：**
+
+```env
+STYLE_ADMIN_USERNAME="admin"
+STYLE_ADMIN_PASSWORD_HASH="CHANGE_ME_GENERATED_HASH"
+STYLE_ADMIN_SESSION_SECRET="CHANGE_ME_LONG_RANDOM_SECRET"
+STYLE_ADMIN_SESSION_TTL_SECONDS="86400"
+STYLE_ADMIN_WRITE_ENABLED="false"
+```
+
+**保护范围：**
+
+- `/admin/style-library` · `/admin/style-library/[runtimeVariantId]` · 后续 `(protected)` 下所有 `/admin/*` 页面
+- 写操作 server actions / governance：`requireStyleAdmin()` 强制登录
+- `/admin/login` · `/admin/logout` 不套 protected layout
+- `/api/dev/style-admin/*` 保持 dev-only，非正式 admin API
+
+**本地验收：**
+
+```bash
+corepack pnpm style-admin:hash-password "your-password"
+# 将 hash + STYLE_ADMIN_SESSION_SECRET 写入 .env.local
+corepack pnpm dev
+```
+
+1. 未登录访问 `/admin/style-library` → 跳转 `/admin/login`
+2. 错误密码登录失败 · 正确密码进入后台
+3. Hide / Restore 后 audit actor 为 `admin:<username>`
+4. Logout 后再次访问须登录
+
+**S10-STORY-007 部署：** ECS 环境变量须配置上述 `STYLE_ADMIN_*` 项 · 不写入仓库
 
 ---
 
@@ -385,16 +437,19 @@ corepack pnpm dev
 
 ---
 
-## 10. 单管理员登录（S10-STORY-008）
+## 10. 单管理员登录（S10-STORY-008 · 已实现）
 
 | 项 | 策略 |
 |----|------|
-| 范围 | `/admin/*` 页面 · 后台写 API |
-| 模型 | 单管理员账号（环境变量或 DB 单条记录） |
+| 范围 | `/admin/*` 页面 · 后台写 server actions |
+| 模型 | 单管理员账号（`STYLE_ADMIN_USERNAME` + `STYLE_ADMIN_PASSWORD_HASH`） |
+| Session | signed httpOnly cookie · `STYLE_ADMIN_SESSION_TTL_SECONDS` |
+| Actor | `admin:<username>` 写入 `admin_audit_logs` |
 | RBAC | **不做**复杂角色权限 |
-| 登录态 | session / JWT · 明确有效期 |
-| 审计 | 所有写操作写入 `admin_audit_logs` |
-| 公网 | 部署前 **必须**启用；不得裸奔 |
+| 写操作 | 须登录 **且** write guard 通过 |
+| 公网 | 部署前 **必须**配置 auth env；不得裸奔 |
+
+详见 §6.6。
 
 ---
 

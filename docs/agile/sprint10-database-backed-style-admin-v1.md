@@ -1,7 +1,7 @@
 # Sprint 10：Database-backed Style Management Admin v1（数据库版正式样式管理后台 v1）
 
 > 轻篇公众号排版 · qingpian-wechat-editor  
-> **状态：** **In Progress**（2026-06-07 · **DECISION-108** · S10-STORY-001~006 Done · **第一验收闭环 PASS** · S10-STORY-007~012 Planned）  
+> **状态：** **In Progress**（2026-06-07 · **DECISION-108** · S10-STORY-001~008 Done · **后台保护完成** · **第一验收闭环 PASS**）  
 > **分支：** `sprint/s10-db-backed-style-admin-v1`（从 `release/1` · @ `c96e869`）  
 > **架构：** [`style-management-admin-v1.md`](../architecture/style-management-admin-v1.md)  
 > **决策：** **DECISION-108**
@@ -66,7 +66,7 @@ Next.js · Prisma · PostgreSQL · 阿里云 RDS / OSS / ECS · SLS / CloudMonit
 | S10-STORY-005 | 用户侧 Variant Pool DB 接入 | **Done**（2026-06-07 · merge @ `6de237d` · FIX-A/B · 本地验收 PASS） |
 | S10-STORY-006 | 上下架 / 回滚 / 报警最小闭环 | **Done**（2026-06-07 · 本地 E2E PASS · merge @ `1d309a0`） |
 | S10-STORY-007 | 阿里云资源准备与部署 Runbook | Planned |
-| S10-STORY-008 | 单管理员登录与后台保护 | Planned |
+| S10-STORY-008 | 单管理员登录与后台保护 | **Done**（2026-06-07 · 本地 E2E PASS · merge sprint） |
 | S10-STORY-009 | HTML Harvest → Candidate Variant v1 | Planned（后半段） |
 | S10-STORY-010 | Candidate Preview / Copy / Validator / Evidence | Planned（后半段） |
 | S10-STORY-011 | 采集样式 Promote 到 user-selectable | Planned（后半段） |
@@ -137,15 +137,33 @@ pnpm style-admin:import-existing-variants           # 写入 DATABASE_URL 指向
 
 **保护：** `admin-write-guard.ts` · dev/test 默认可写 · production/staging 须 `STYLE_ADMIN_WRITE_ENABLED=true` · 页面 write protection 提示
 
-**审计：** 所有写操作 reason 必填 · `admin_audit_logs` before/after · actor=`local-admin` · rollback 写 `style_variant_rollback_records`
+**审计：** 所有写操作 reason 必填 · `admin_audit_logs` before/after · actor=`admin:<username>`（S10-STORY-008）· rollback 写 `style_variant_rollback_records`
 
 **Alert：** `admin_write_failed` · `variant_restore_blocked_by_quality`（restore 被 qualityStatus 阻塞）
 
 **Cache：** 写操作成功后 `invalidateUserSelectableVariantPoolCache(blockType?)` · 用户侧 1–5 分钟可见变化
 
-**本轮未做：** version rollback UI · promote candidate · mark default eligible · 正式 admin login（→ S10-STORY-008）· 真实 SLS 接入
+**本轮未做：** version rollback UI · promote candidate · mark default eligible · 真实 SLS 接入
 
 **本地验收：** `/admin/style-library/heading_teal_section_label_html_paste_candidate` hide/restore/rollback · dev API `/api/dev/style-admin/user-selectable-pool?blockType=heading`
+
+---
+
+## 5.5 S10-STORY-008 单管理员登录摘要（2026-06-07）
+
+**路由：** `/admin/login` · `/admin/logout` · `(protected)/layout.tsx` 守卫 `/admin/style-library*`
+
+**认证：** scrypt password hash · HMAC signed httpOnly session · `STYLE_ADMIN_SESSION_TTL_SECONDS`
+
+**写操作：** `requireStyleAdmin()` + write guard · actor `admin:<username>`
+
+**工具：** `corepack pnpm style-admin:hash-password "your-password"`
+
+**环境变量：** 见 `.env.example` · S10-STORY-007 部署 runbook 须列出
+
+**本地验收：** 未登录跳转 login · 登录后 governance · logout 后不可访问 · **PASS**（2026-06-07）
+
+**后台保护状态：** **完成** — `/admin/*` 须登录 · 写操作须 session admin + write guard
 
 ---
 

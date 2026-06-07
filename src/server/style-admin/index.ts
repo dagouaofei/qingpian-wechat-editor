@@ -21,6 +21,7 @@ export {
   STYLE_ADMIN_WRITE_PROTECTION_MESSAGE,
   StyleAdminWriteDisabledError,
 } from "./admin-write-guard";
+export * from "./auth";
 export * from "./actions";
 export * from "./runtime";
 

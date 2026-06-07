@@ -4,11 +4,11 @@ import { renderToStaticMarkup } from "react-dom/server";
 import {
   StyleLibraryAdminDetailShell,
   StyleLibraryAdminListShell,
-} from "@/app/admin/style-library/style-library-admin-shell";
+} from "@/app/admin/(protected)/style-library/style-library-admin-shell";
 import {
   buildAdminDetailViewModelFromQueryResult,
   buildAdminListViewModelFromQueryResults,
-} from "@/app/admin/style-library/style-library-admin-view-model";
+} from "@/app/admin/(protected)/style-library/style-library-admin-view-model";
 
 describe("Admin style-library shells", () => {
   it("renders list shell with protection banner and disabled actions", () => {
@@ -61,7 +61,8 @@ describe("Admin style-library shells", () => {
     expect(html).toContain("Database-backed Style Library Admin");
     expect(html).toContain("数据库版样式管理后台");
     expect(html).toContain("S10-STORY-008");
-    expect(html).toContain("S10-STORY-006");
+    expect(html).toContain('data-testid="admin-auth-protection-message"');
+    expect(html).toContain("Single-admin authentication is enabled");
     expect(html).toContain('data-testid="summary-release1-required"');
     expect(html).toContain('data-testid="lifecycle-badge-release1_required"');
     expect(html).toContain('data-testid="admin-filter-preset-default-eligible-true"');

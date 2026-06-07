@@ -2,6 +2,7 @@ import {
   isStyleAdminWriteEnabled,
   STYLE_ADMIN_WRITE_PROTECTION_MESSAGE,
 } from "@/server/style-admin/admin-write-guard";
+import { STYLE_ADMIN_AUTH_ENABLED_MESSAGE } from "@/server/style-admin/auth";
 import type {
   AdminVariantDetail,
   AdminVariantListRow,
@@ -68,6 +69,9 @@ export type StyleLibraryAdminListViewModel = {
   summary: AdminVariantSummary;
   rows: AdminVariantTableRow[];
   disabledActions: DisabledGovernanceAction[];
+  writeEnabled: boolean;
+  authProtectionMessage: string;
+  writeProtectionMessage: string;
 };
 
 export type JsonSummary = {
@@ -195,12 +199,21 @@ function mapTableRow(row: AdminVariantListRow): AdminVariantTableRow {
   };
 }
 
+function buildAdminProtectionViewModel() {
+  return {
+    writeEnabled: isStyleAdminWriteEnabled(),
+    authProtectionMessage: STYLE_ADMIN_AUTH_ENABLED_MESSAGE,
+    writeProtectionMessage: STYLE_ADMIN_WRITE_PROTECTION_MESSAGE,
+  };
+}
+
 export function buildAdminListViewModelFromQueryResults(input: {
   filters: AdminVariantListFilter;
   summaryResult: StyleLibraryAdminQueryResult<AdminVariantSummary>;
   listResult: StyleLibraryAdminQueryResult<AdminVariantListRow[]>;
 }): StyleLibraryAdminListViewModel {
   const { filters, summaryResult, listResult } = input;
+  const protection = buildAdminProtectionViewModel();
 
   if (!summaryResult.ok) {
     return {
@@ -211,6 +224,7 @@ export function buildAdminListViewModelFromQueryResults(input: {
       summary: EMPTY_SUMMARY,
       rows: [],
       disabledActions: LIST_DISABLED_ACTIONS,
+      ...protection,
     };
   }
 
@@ -223,6 +237,7 @@ export function buildAdminListViewModelFromQueryResults(input: {
       summary: summaryResult.data,
       rows: [],
       disabledActions: LIST_DISABLED_ACTIONS,
+      ...protection,
     };
   }
 
@@ -241,6 +256,7 @@ export function buildAdminListViewModelFromQueryResults(input: {
     summary: summaryResult.data,
     rows,
     disabledActions: LIST_DISABLED_ACTIONS,
+    ...protection,
   };
 }
 

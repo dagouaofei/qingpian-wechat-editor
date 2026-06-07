@@ -34,6 +34,37 @@ vi.mock("@/server/style-admin/repositories/style-variant-audit-repository", () =
   },
 }));
 
+const { requireStyleAdmin } = vi.hoisted(() => ({
+  requireStyleAdmin: vi.fn(),
+}));
+
+const { MockStyleAdminAuthError, MockStyleAdminAuthNotConfiguredError } = vi.hoisted(() => {
+  class MockStyleAdminAuthError extends Error {
+    readonly code = "style_admin_auth_required";
+    constructor(message = "Admin authentication is required for this action.") {
+      super(message);
+      this.name = "StyleAdminAuthError";
+    }
+  }
+
+  class MockStyleAdminAuthNotConfiguredError extends Error {
+    readonly code = "style_admin_auth_not_configured";
+    constructor(message = "Style admin authentication is not configured.") {
+      super(message);
+      this.name = "StyleAdminAuthNotConfiguredError";
+    }
+  }
+
+  return { MockStyleAdminAuthError, MockStyleAdminAuthNotConfiguredError };
+});
+
+vi.mock("@/server/style-admin/auth", () => ({
+  requireStyleAdmin,
+  getStyleAdminActor: (admin: { actor: string }) => admin.actor,
+  StyleAdminAuthError: MockStyleAdminAuthError,
+  StyleAdminAuthNotConfiguredError: MockStyleAdminAuthNotConfiguredError,
+}));
+
 import { prisma } from "@/server/style-admin/prisma";
 
 const mockedFindUnique = vi.mocked(prisma.styleVariant.findUnique);
@@ -44,6 +75,10 @@ describe("distribution governance actions", () => {
     clearUserSelectablePoolCache();
     process.env.NODE_ENV = "test";
     delete process.env.STYLE_ADMIN_WRITE_ENABLED;
+    requireStyleAdmin.mockResolvedValue({
+      username: "admin",
+      actor: "admin:admin",
+    });
   });
 
   afterEach(() => {
@@ -99,8 +134,24 @@ describe("distribution governance actions", () => {
         hidden: true,
         userSelectable: false,
         reason: "manual local test hide",
+        actor: "admin:admin",
       }),
     );
+  });
+
+  it("blocks hide when admin auth is missing", async () => {
+    requireStyleAdmin.mockRejectedValueOnce(new MockStyleAdminAuthError());
+
+    const result = await hideVariantFromUserPool({
+      runtimeVariantId: "heading_teal_section_label_html_paste_candidate",
+      reason: "manual local test hide",
+    });
+
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.code).toBe("auth_required");
+    }
+    expect(updateDistribution).not.toHaveBeenCalled();
   });
 
   it("blocks restore when qualityStatus is copy_fidelity_failed", async () => {

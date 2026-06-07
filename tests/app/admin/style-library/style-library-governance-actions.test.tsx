@@ -16,7 +16,7 @@ const {
   rollbackLastDistributionAction: vi.fn(),
 }));
 
-vi.mock("@/app/admin/style-library/actions", () => ({
+vi.mock("@/app/admin/(protected)/style-library/actions", () => ({
   hideFromUserPoolAction,
   restoreToUserSelectableAction,
   markDeprecatedAction,
@@ -27,7 +27,7 @@ vi.mock("@/app/admin/style-library/actions", () => ({
 import {
   StyleLibraryGovernanceActions,
   submitGovernanceForm,
-} from "@/app/admin/style-library/style-library-governance-actions";
+} from "@/app/admin/(protected)/style-library/style-library-governance-actions";
 
 function createFormWithReason(reason: string): HTMLFormElement {
   const form = document.createElement("form");
@@ -150,7 +150,7 @@ describe("StyleLibraryGovernanceActions", () => {
         <StyleLibraryGovernanceActions
           runtimeVariantId="heading_teal_section_label_html_paste_candidate"
           writeEnabled
-          writeProtectionMessage="Write actions are temporarily protected until S10-STORY-008 admin login."
+          writeProtectionMessage="Production write actions require admin login and STYLE_ADMIN_WRITE_ENABLED=true."
         />,
       );
     });

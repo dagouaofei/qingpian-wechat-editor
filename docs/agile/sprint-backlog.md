@@ -12,7 +12,7 @@
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
 > **Sprint 8：** **Closed**（2026-06-05 · DECISION-093 · audit Grade A- · P0=0 · merged `release/1` @ `806fa47`）
 > **Sprint 9：** **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · **P0=0** · HTML→user preview picker E2E PASS · Preview/Copy parity PASS · default preset / release1_required 未污染 · **已 merge `release/1`** @ `c96e869` · **未 merge `main`**）
-> **当前 Sprint：** **Sprint 10** — Database-backed Style Management Admin v1 · **In Progress**（2026-06-07 · **DECISION-108** · S10-STORY-001~006 Done · **第一验收闭环 PASS** · S10-STORY-007~012 Planned）
+> **当前 Sprint：** **Sprint 10** — Database-backed Style Management Admin v1 · **In Progress**（2026-06-07 · **DECISION-108** · S10-STORY-001~006 · S10-STORY-008 Done · **后台保护完成** · S10-STORY-007 · 009~012 Planned）
 > **Sprint 10 分支：** `sprint/s10-db-backed-style-admin-v1`（从 `release/1` · 2026-06-07 · @ `c96e869`）
 > **Sprint 9 分支：** `sprint/s9-style-management-system-v0`（已 merge `release/1` · 2026-06-05）
 > **上一 Sprint：** **Sprint 8** — **Closed**（2026-06-05）；**Sprint 7** — **Done**（2026-06-03 · merge `release/1`）
@@ -4305,19 +4305,27 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 ## S10-STORY-008 单管理员登录与后台保护
 
-**优先级：** P0 · **状态：** **Planned** · **工作分支：** TBD（`feature/s10-story-008-admin-auth`）
+**优先级：** P0 · **状态：** **Done** · **工作分支：** `feature/s10-story-008-admin-login-protection`（已 merge `sprint/s10-db-backed-style-admin-v1`）
 
 **目标：** 单管理员登录 · `/admin/*` 访问保护 · 后台写 API 保护 · 登录态有效期 · 写操作 audit log · 不做复杂 RBAC。
 
 **非目标：** 不做多角色 · 不做 OAuth 第三方登录 · 密码不写入仓库
 
+**实现摘要（2026-06-07）：**
+
+- `src/server/style-admin/auth/` · scrypt password · HMAC session cookie
+- `/admin/login` · `/admin/logout` · `(protected)/layout.tsx` guard
+- 写操作 `requireStyleAdmin()` + write guard · actor `admin:<username>`
+- `pnpm style-admin:hash-password` · `.env.example` 占位
+
 **验收标准：**
 
-- [ ] AC-1 未登录访问 `/admin/*` 重定向登录
-- [ ] AC-2 后台写 API 需有效登录态
-- [ ] AC-3 登录态有明确有效期
-- [ ] AC-4 写操作写入 `admin_audit_logs`
-- [ ] AC-5 lint / test / build PASS
+- [x] AC-1 未登录访问 `/admin/*` 重定向登录
+- [x] AC-2 后台写 API 需有效登录态
+- [x] AC-3 登录态有明确有效期（`STYLE_ADMIN_SESSION_TTL_SECONDS`）
+- [x] AC-4 写操作 actor 写入 `admin_audit_logs`（`admin:<username>`）
+- [x] AC-5 本地 E2E 验收 PASS（login / logout / governance actor / 未登录写操作拒绝）
+- [x] AC-6 lint / test / build PASS
 
 ---
 

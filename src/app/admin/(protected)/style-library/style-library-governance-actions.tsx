@@ -102,8 +102,8 @@ export function StyleLibraryGovernanceActions({
           className="mt-3 rounded-lg bg-amber-50 px-3 py-2 text-sm text-amber-950"
           data-testid="admin-write-disabled-notice"
         >
-          Write actions are disabled in this environment. Set STYLE_ADMIN_WRITE_ENABLED=true only for
-          controlled staging, never for public production without S10-STORY-008.
+          Write actions are disabled in this environment. Admin login is still required; set
+          STYLE_ADMIN_WRITE_ENABLED=true only for controlled staging or production writes.
         </p>
       ) : null}
 

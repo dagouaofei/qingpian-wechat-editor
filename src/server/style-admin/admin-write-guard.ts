@@ -1,5 +1,5 @@
 export const STYLE_ADMIN_WRITE_PROTECTION_MESSAGE =
-  "Write actions are temporarily protected until S10-STORY-008 admin login. Do not deploy public admin writes without S10-STORY-008.";
+  "Production write actions require admin login and STYLE_ADMIN_WRITE_ENABLED=true. Development and test environments allow writes for authenticated admins by default.";
 
 export class StyleAdminWriteDisabledError extends Error {
   readonly code = "style_admin_write_disabled";

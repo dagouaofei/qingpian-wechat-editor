@@ -27,7 +27,7 @@ export function StyleLibraryAdminListShell({
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-wide text-indigo-700">
-              Sprint 10 · S10-STORY-006
+              Sprint 10 · S10-STORY-008
             </p>
             <h1 className="mt-1 text-3xl font-bold text-slate-900">
               Database-backed Style Library Admin
@@ -41,7 +41,10 @@ export function StyleLibraryAdminListShell({
             S9 diagnostics: /dev/style-library
           </Link>
         </div>
-        <AdminProtectionBanner />
+        <AdminProtectionBanner
+          writeEnabled={viewModel.writeEnabled}
+          writeProtectionMessage={viewModel.writeProtectionMessage}
+        />
         <AdminStatusPanel status={viewModel.status} message={viewModel.statusMessage} />
       </header>
 
@@ -128,14 +131,17 @@ export function StyleLibraryAdminDetailShell({
         </Link>
         <div>
           <p className="text-xs font-semibold uppercase tracking-wide text-indigo-700">
-            Sprint 10 · S10-STORY-006
+            Sprint 10 · S10-STORY-008
           </p>
           <h1 className="mt-1 text-2xl font-bold text-slate-900">
             {viewModel.variant?.label ?? viewModel.runtimeVariantId}
           </h1>
           <p className="mt-1 font-mono text-sm text-slate-600">{viewModel.runtimeVariantId}</p>
         </div>
-        <AdminProtectionBanner />
+        <AdminProtectionBanner
+          writeEnabled={viewModel.writeEnabled}
+          writeProtectionMessage={viewModel.writeProtectionMessage}
+        />
         <AdminStatusPanel status={viewModel.status} message={viewModel.statusMessage} />
       </header>
 

@@ -600,3 +600,15 @@
 | 2026-06-07 | Sprint 10 | FIX：governance form reset 崩溃（async 后保存 form 引用） | UI / Bugfix | S10-STORY-006 |
 | 2026-06-07 | Sprint 10 | **S10 第一验收闭环 PASS**：hide / restore / rollback · quality block · pool cache 刷新 | 验收 / 架构 | S10-STORY-003~006 |
 | 2026-06-07 | Sprint 10 | **S10-STORY-006 Done**：fast-forward merge `feature/s10-story-006-distribution-rollback-alerts` → `sprint/s10-db-backed-style-admin-v1` @ `1d309a0` · 本地 E2E PASS | Git / 后台 | S10-STORY-006 |
+
+---
+
+## 2026-06-07 · S10-STORY-008 单管理员登录与后台保护
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-07 | Sprint 10 | **S10-STORY-008**：单管理员登录 · `/admin/login` · session cookie · `(protected)` layout guard | 代码 / 安全 | S10-STORY-008 |
+| 2026-06-07 | Sprint 10 | 写操作 `requireStyleAdmin()` · actor `admin:<username>` 替代 `local-admin` | 代码 / 审计 | S10-STORY-008 |
+| 2026-06-07 | Sprint 10 | 新增 `style-admin:hash-password` CLI · `.env.example` STYLE_ADMIN_* 占位 | 工具 / 配置 | S10-STORY-008 |
+| 2026-06-07 | Sprint 10 | **S10 后台保护完成**：login / logout / session guard · 写操作 actor `admin:<username>` | 安全 / 验收 | S10-STORY-008 |
+| 2026-06-07 | Sprint 10 | **S10-STORY-008 Done**：merge `feature/s10-story-008-admin-login-protection` → `sprint/s10-db-backed-style-admin-v1` · 本地 E2E PASS | Git / 安全 | S10-STORY-008 |

@@ -6,14 +6,17 @@ import {
   assertStyleAdminWriteAllowed,
   StyleAdminWriteDisabledError,
 } from "../admin-write-guard";
+import {
+  getStyleAdminActor,
+  requireStyleAdmin,
+  StyleAdminAuthError,
+  StyleAdminAuthNotConfiguredError,
+} from "../auth";
 import { invalidateUserSelectableVariantPoolCache } from "../runtime/user-selectable-variant-pool-cache";
 import { prisma } from "../prisma";
 import { StyleVariantAuditRepository } from "../repositories/style-variant-audit-repository";
 import { StyleVariantDistributionRepository } from "../repositories/style-variant-distribution-repository";
-import {
-  LOCAL_STYLE_ADMIN_ACTOR,
-  type DistributionSnapshot,
-} from "../types";
+import type { DistributionSnapshot } from "../types";
 
 export type GovernanceActionResult =
   | { ok: true; action: string; distribution: DistributionSnapshot }
@@ -30,9 +33,34 @@ function normalizeReason(reason: string): string | null {
   return trimmed.length > 0 ? trimmed : null;
 }
 
-function sanitizeErrorMessage(error: unknown): string {
+function isStyleAdminAuthFailure(error: unknown): boolean {
+  return (
+    error instanceof StyleAdminAuthError ||
+    error instanceof StyleAdminAuthNotConfiguredError ||
+    (typeof error === "object" &&
+      error !== null &&
+      "code" in error &&
+      (error.code === "style_admin_auth_required" ||
+        error.code === "style_admin_auth_not_configured"))
+  );
+}
+
+function governanceFailureCode(error: unknown): string {
+  if (isStyleAdminAuthFailure(error)) {
+    return "auth_required";
+  }
   if (error instanceof StyleAdminWriteDisabledError) {
-    return error.message;
+    return "write_disabled";
+  }
+  return "update_failed";
+}
+
+function sanitizeErrorMessage(error: unknown): string {
+  if (
+    error instanceof StyleAdminWriteDisabledError ||
+    isStyleAdminAuthFailure(error)
+  ) {
+    return error instanceof Error ? error.message : "Authentication required";
   }
   if (error instanceof Error) {
     if (/DATABASE_URL|postgresql|postgres:\/\//i.test(error.message)) {
@@ -82,21 +110,30 @@ async function recordGovernanceFailure(input: {
   });
 }
 
+async function resolveGovernanceActor(explicitActor?: string): Promise<string> {
+  if (explicitActor) {
+    return explicitActor;
+  }
+  const admin = await requireStyleAdmin();
+  assertStyleAdminWriteAllowed();
+  return getStyleAdminActor(admin);
+}
+
 async function applyDistributionUpdate(input: {
   variantId: string;
   blockType: BlockType;
   reason: string;
-  actor: string;
+  actor?: string;
   action: string;
   patch: Partial<DistributionSnapshot>;
 }): Promise<GovernanceActionResult> {
   try {
-    assertStyleAdminWriteAllowed();
+    const actor = await resolveGovernanceActor(input.actor);
     const repo = new StyleVariantDistributionRepository(prisma);
     const updated = await repo.updateDistribution({
       variantId: input.variantId,
       reason: input.reason,
-      actor: input.actor,
+      actor,
       ...input.patch,
     });
     invalidateUserSelectableVariantPoolCache(input.blockType);
@@ -119,9 +156,9 @@ async function applyDistributionUpdate(input: {
       action: input.action,
       runtimeVariantId: input.variantId,
       message,
-      code: error instanceof StyleAdminWriteDisabledError ? "write_disabled" : "update_failed",
+      code: governanceFailureCode(error),
     });
-    return { ok: false, code: "update_failed", message };
+    return { ok: false, code: governanceFailureCode(error), message };
   }
 }
 
@@ -142,7 +179,7 @@ export async function hideVariantFromUserPool(
     variantId: variant.id,
     blockType: variant.blockType,
     reason,
-    actor: input.actor ?? LOCAL_STYLE_ADMIN_ACTOR,
+    actor: input.actor,
     action: "hide_from_user_pool",
     patch: { hidden: true, userSelectable: false },
   });
@@ -198,7 +235,7 @@ export async function restoreVariantToUserSelectable(
     variantId: variant.id,
     blockType: variant.blockType,
     reason,
-    actor: input.actor ?? LOCAL_STYLE_ADMIN_ACTOR,
+    actor: input.actor,
     action: "restore_to_user_selectable",
     patch: { userSelectable: true, hidden: false, deprecated: false },
   });
@@ -221,7 +258,7 @@ export async function markVariantDeprecated(
     variantId: variant.id,
     blockType: variant.blockType,
     reason,
-    actor: input.actor ?? LOCAL_STYLE_ADMIN_ACTOR,
+    actor: input.actor,
     action: "mark_deprecated",
     patch: { deprecated: true, hidden: true, userSelectable: false },
   });
@@ -244,7 +281,7 @@ export async function restoreVariantFromDeprecated(
     variantId: variant.id,
     blockType: variant.blockType,
     reason,
-    actor: input.actor ?? LOCAL_STYLE_ADMIN_ACTOR,
+    actor: input.actor,
     action: "restore_from_deprecated",
     patch: { deprecated: false, hidden: false },
   });
@@ -259,7 +296,7 @@ export async function rollbackLastDistributionChange(
   }
 
   try {
-    assertStyleAdminWriteAllowed();
+    const actor = await resolveGovernanceActor(input.actor);
     const variant = await loadVariantContext(input.runtimeVariantId);
     if (!variant?.distribution) {
       return { ok: false, code: "not_found", message: "Variant or distribution not found" };
@@ -269,7 +306,7 @@ export async function rollbackLastDistributionChange(
     const updated = await repo.rollbackLastDistributionChange({
       variantId: variant.id,
       reason,
-      actor: input.actor ?? LOCAL_STYLE_ADMIN_ACTOR,
+      actor,
     });
 
     invalidateUserSelectableVariantPoolCache(variant.blockType);
@@ -293,8 +330,18 @@ export async function rollbackLastDistributionChange(
       action: "rollback_last_distribution",
       runtimeVariantId: input.runtimeVariantId,
       message,
-      code: error instanceof StyleAdminWriteDisabledError ? "write_disabled" : "rollback_failed",
+      code:
+        governanceFailureCode(error) === "update_failed"
+          ? "rollback_failed"
+          : governanceFailureCode(error),
     });
-    return { ok: false, code: "rollback_failed", message };
+    return {
+      ok: false,
+      code:
+        governanceFailureCode(error) === "update_failed"
+          ? "rollback_failed"
+          : governanceFailureCode(error),
+      message,
+    };
   }
 }
