@@ -4137,7 +4137,7 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 ## S10-STORY-002 Prisma + PostgreSQL DB Schema + Repository
 
-**优先级：** P0 · **状态：** **Done**（2026-06-07）· **工作分支：** `feature/s10-story-002-prisma-db-schema`（从 `sprint/s10-db-backed-style-admin-v1`）
+**优先级：** P0 · **状态：** **Done**（2026-06-07 · merged sprint @ `23d2180`）· **工作分支：** `feature/s10-story-002-prisma-db-schema`（已 merge 至 `sprint/s10-db-backed-style-admin-v1`）
 
 **目标：** Prisma 初始化 · PostgreSQL schema · repository 层 · migration · 本地开发 DB 策略。
 

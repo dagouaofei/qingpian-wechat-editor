@@ -3,9 +3,9 @@
 ## 1. 基本信息
 
 - 日期：2026-06-07
-- 当前分支：`feature/s10-story-002-prisma-db-schema`
-- 来源分支：`sprint/s10-db-backed-style-admin-v1`
-- 目标合并分支：`sprint/s10-db-backed-style-admin-v1`
+- 当前分支：`sprint/s10-db-backed-style-admin-v1`（merge 后）
+- 来源分支：`feature/s10-story-002-prisma-db-schema`（从 `sprint/s10-db-backed-style-admin-v1`）
+- 目标合并分支：`sprint/s10-db-backed-style-admin-v1`（**已 merge** @ `23d2180`）
 - Sprint：Sprint 10 — Database-backed Style Management Admin v1
 - 关联 Story / Decision：S10-STORY-002 · DECISION-108
 - 执行者：Cursor
@@ -90,8 +90,6 @@
 
 ## 10. 未完成事项
 
-- 工作分支尚未 merge 至 sprint（待用户确认）
-- 未 commit（待用户明确要求）
 - 本地 `prisma migrate deploy` 需用户自备 PostgreSQL
 
 ## 11. 风险与阻塞
@@ -100,15 +98,12 @@
 
 ## 12. 需要用户 / ChatGPT 审查的问题
 
-1. Prisma 固定 v6.19.3 是否接受（避免 Prisma 7 config 迁移）？
-2. 是否 merge `feature/s10-story-002-prisma-db-schema` → sprint？
+- 无（S10-STORY-002 已审查通过并 merge）
 
 ## 13. 建议下一步
 
-1. 审查本 report + schema / repository diff
-2. merge 至 sprint
-3. 启动 **S10-STORY-003**：既有 variant 全量导入
+1. 用户确认后启动 **S10-STORY-003**：既有 variant 全量导入
 
 ## 14. Commit
 
-- Commit hash：未提交 / not committed
+- Commit hash：`020fa0b`（工作分支）· merge sprint @ `23d2180`

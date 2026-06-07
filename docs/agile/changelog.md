@@ -541,3 +541,4 @@
 | 2026-06-07 | Sprint 10 | 新增 `src/server/style-admin/` repository 层 · pool 边界 mapper · audit 写入 | 代码 / 架构 | S10-STORY-002 |
 | 2026-06-07 | Sprint 10 | `.env.example` 增加 `DATABASE_URL` 占位 · 无真实 secret | 配置 / 文档 | S10-STORY-002 |
 | 2026-06-07 | Sprint 10 | 工作分支 `feature/s10-story-002-prisma-db-schema` · **未导入 variant** · **未 merge `main`** | Git | S10-STORY-002 |
+| 2026-06-07 | Sprint 10 | **S10-STORY-002 Done**：merge `feature/s10-story-002-prisma-db-schema` → `sprint/s10-db-backed-style-admin-v1` @ `23d2180` | Git | S10-STORY-002 |
