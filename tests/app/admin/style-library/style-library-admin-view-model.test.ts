@@ -142,8 +142,10 @@ describe("style-library admin view model", () => {
     expect(viewModel.currentVersion?.missingComponentProtocol).toBe(true);
     expect(viewModel.distribution?.release1Required).toBe(true);
     expect(viewModel.distribution?.defaultEligible).toBe(false);
-    expect(viewModel.disabledActions.every((action) => action.storyRef === "S10-STORY-006")).toBe(
-      true,
-    );
+    expect(
+      viewModel.disabledActions.every((action) =>
+        ["S10-STORY-006", "S10-STORY-010", "S10-STORY-011"].includes(action.storyRef),
+      ),
+    ).toBe(true);
   });
 });

@@ -34,12 +34,21 @@ export function StyleLibraryAdminListShell({
             </h1>
             <p className="mt-1 text-base text-slate-600">数据库版样式管理后台</p>
           </div>
-          <Link
-            href="/dev/style-library"
-            className="text-sm text-slate-500 hover:text-slate-800"
-          >
-            S9 diagnostics: /dev/style-library
-          </Link>
+          <div className="flex flex-col items-end gap-2">
+            <Link
+              href="/admin/style-library/harvest"
+              className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+              data-testid="admin-harvest-from-html-link"
+            >
+              Harvest from HTML
+            </Link>
+            <Link
+              href="/dev/style-library"
+              className="text-sm text-slate-500 hover:text-slate-800"
+            >
+              S9 diagnostics: /dev/style-library
+            </Link>
+          </div>
         </div>
         <AdminProtectionBanner
           writeEnabled={viewModel.writeEnabled}
@@ -337,7 +346,7 @@ export function StyleLibraryAdminDetailShell({
 
       <DisabledActionsPanel
         actions={viewModel.disabledActions}
-        caption="Promote, defaultEligible write, and version rollback remain disabled in S10-STORY-006."
+        caption="Preview / Copy / Validator: S10-STORY-010. Promote: S10-STORY-011. Governance rollback: S10-STORY-006."
       />
     </div>
   );

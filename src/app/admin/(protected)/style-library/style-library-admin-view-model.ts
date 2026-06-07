@@ -23,7 +23,7 @@ export type StyleLibraryAdminDataStatus =
 export type DisabledGovernanceAction = {
   id: string;
   label: string;
-  storyRef: "S10-STORY-006";
+  storyRef: "S10-STORY-006" | "S10-STORY-010" | "S10-STORY-011";
 };
 
 export const LIST_DISABLED_ACTIONS: DisabledGovernanceAction[] = [
@@ -36,7 +36,11 @@ export const LIST_DISABLED_ACTIONS: DisabledGovernanceAction[] = [
 ];
 
 export const DETAIL_DISABLED_ACTIONS: DisabledGovernanceAction[] = [
-  { id: "promote-user-selectable", label: "Promote to user-selectable", storyRef: "S10-STORY-006" },
+  { id: "preview-inspection", label: "Preview inspection", storyRef: "S10-STORY-010" },
+  { id: "copy-inspection", label: "Copy HTML inspection", storyRef: "S10-STORY-010" },
+  { id: "validator-run", label: "Validator run", storyRef: "S10-STORY-010" },
+  { id: "paste-qa-evidence", label: "Paste QA evidence", storyRef: "S10-STORY-010" },
+  { id: "promote-user-selectable", label: "Promote to user-selectable", storyRef: "S10-STORY-011" },
   { id: "rollback-version", label: "Rollback version", storyRef: "S10-STORY-006" },
   { id: "mark-default-eligible", label: "Mark default eligible", storyRef: "S10-STORY-006" },
 ];
