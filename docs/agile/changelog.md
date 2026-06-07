@@ -568,3 +568,4 @@
 | 2026-06-07 | Sprint 10 | DATABASE_URL 未配置 / DB 不可用安全 empty state · 不暴露 secret | 安全 / UX | S10-STORY-004 |
 | 2026-06-07 | Sprint 10 | 工作分支 `feature/s10-story-004-admin-style-library` · **未 merge sprint** | Git | S10-STORY-004 |
 | 2026-06-07 | Sprint 10 | **S10-STORY-004 FIX-A**：补齐 `defaultEligible` / `hidden` URL filter presets | 代码 / UI | S10-STORY-004 |
+| 2026-06-07 | Sprint 10 | **S10-STORY-004 Done**：merge `feature/s10-story-004-admin-style-library` → `sprint/s10-db-backed-style-admin-v1` @ `6307925` · 本地 `/admin/style-library` 验收 PASS | Git / UI | S10-STORY-004 |
