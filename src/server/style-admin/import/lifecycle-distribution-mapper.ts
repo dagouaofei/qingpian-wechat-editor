@@ -1,12 +1,14 @@
 import type {
   CopySafetyTier,
   StyleVariantLifecycle,
+  StyleVariantQualityStatus,
 } from "@prisma/client";
 
 import type { StyleLibraryVariantAsset } from "@/core/style-library/types";
 import type { CopySafety, VariantDefinition, VariantStatus } from "@/core/styles/types";
 
 import type { DistributionSnapshot } from "../types";
+import { resolveRuntimeVariantSeedOverride } from "@/lib/runtime-variant-seed-config";
 
 export const DEPRECATED_HEADING_RUNTIME_VARIANT_IDS = [
   "heading_plain_minimal",
@@ -120,4 +122,33 @@ export function mapDeprecatedHeadingDistribution(): DistributionSnapshot {
     deprecated: true,
     cacheVersion: 0,
   };
+}
+
+export function resolveImportSeedFields(runtimeVariantId: string): {
+  distribution?: Partial<DistributionSnapshot>;
+  qualityStatus?: StyleVariantQualityStatus;
+  sourceCohort?: string;
+} {
+  const seed = resolveRuntimeVariantSeedOverride(runtimeVariantId);
+  if (!seed) {
+    return {};
+  }
+  return {
+    distribution: seed.distribution,
+    qualityStatus: seed.qualityStatus,
+    sourceCohort: seed.sourceCohort,
+  };
+}
+
+export function resolveRegistrySourceCohort(
+  variant: VariantDefinition,
+  isHistoricalFirstWave33?: boolean,
+): string | undefined {
+  if (variant.status === "release1_required") {
+    return "release1_required";
+  }
+  if (isHistoricalFirstWave33) {
+    return "s7_heading_pool";
+  }
+  return undefined;
 }

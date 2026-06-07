@@ -40,7 +40,8 @@ describe("importExistingStyleVariants", () => {
     expect(result.report.byLifecycle.default_eligible ?? 0).toBe(0);
     expect(result.report.byDistribution.release1Required).toBe(92);
     expect(result.report.byDistribution.defaultEligible).toBe(0);
-    expect(result.report.byDistribution.userSelectable).toBe(1);
+    expect(result.report.byDistribution.userSelectable).toBe(7);
+    expect(result.report.legacySourceTypeCount).toBe(0);
   });
 
   it("repeated import skips unchanged variants", async () => {
@@ -67,6 +68,7 @@ describe("importExistingStyleVariants", () => {
           variantId: "variant-1",
           versionNumber: 1,
           sourceChecksum: collected.sourceChecksum,
+          qualityStatus: collected.qualityStatus,
         }),
       },
       styleVariantDistribution: {
@@ -101,7 +103,9 @@ describe("importExistingStyleVariants", () => {
               id: "version-1",
               versionNumber: 1,
               sourceChecksum: collected.sourceChecksum,
+              qualityStatus: collected.qualityStatus,
             }),
+            update: vi.fn(),
             create: vi.fn(),
           },
           styleVariantDistribution: {

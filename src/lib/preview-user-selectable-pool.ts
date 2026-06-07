@@ -2,10 +2,7 @@ import type { BlockType } from "@/core/blocks";
 import type { UserSelectableVariantPoolSnapshot } from "@/lib/user-selectable-variant-pool-types";
 import type { VariantDefinition } from "@/core/styles/types";
 
-import {
-  PREVIEW_HEADING_PUBLISH_STYLE_OPTIONS,
-  type PreviewHeadingVariantId,
-} from "./preview-heading-style";
+import type { PreviewHeadingVariantId } from "./preview-heading-style";
 
 export type PreviewUserSelectableHeadingOption = {
   id: PreviewHeadingVariantId;
@@ -28,8 +25,11 @@ export function buildUserSelectableHeadingOptionsFromPool(
 export function buildPreviewHeadingStyleOptionsFromPool(
   pool: UserSelectableVariantPoolSnapshot,
 ) {
-  const userSelectable = buildUserSelectableHeadingOptionsFromPool(pool);
-  return [...PREVIEW_HEADING_PUBLISH_STYLE_OPTIONS, ...userSelectable];
+  return buildUserSelectableHeadingOptionsFromPool(pool);
+}
+
+export function isDbBackedRuntimePool(pool: UserSelectableVariantPoolSnapshot): boolean {
+  return pool.source === "database";
 }
 
 export function isVariantInUserSelectablePool(

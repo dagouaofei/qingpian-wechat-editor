@@ -27,19 +27,11 @@ describe("preview-user-selectable-pool", () => {
     expect(options[0]?.source).toBe("database");
   });
 
-  it("keeps publish pool separate from user selectable options", () => {
+  it("uses database pool only without mixing release1 publish pool", () => {
     const options = buildPreviewHeadingStyleOptionsFromPool(databasePool);
-    const userSelectable = options.filter(
-      (option) =>
-        "source" in option &&
-        (option.source === "database" || option.source === "user_selectable"),
-    );
-    const publish = options.filter(
-      (option) => "source" in option && option.source === "release1_publish_pool",
-    );
-    expect(userSelectable).toHaveLength(1);
-    expect(publish.length).toBeGreaterThan(0);
-    expect(publish.some((option) => option.id === "heading_short_line")).toBe(true);
+    expect(options).toHaveLength(1);
+    expect(options[0]?.source).toBe("database");
+    expect(options.some((option) => option.id === "heading_short_line")).toBe(false);
   });
 
   it("renders DB pool variant in preview style controls", () => {
@@ -48,6 +40,7 @@ describe("preview-user-selectable-pool", () => {
         value={DEFAULT_PREVIEW_STYLE_CONTROL}
         onChange={() => {}}
         userSelectableHeadingOptions={buildUserSelectableHeadingOptionsFromPool(databasePool)}
+        userSelectablePool={databasePool}
         poolSourceNotice="User-selectable pool: database (1 variants · cache TTL 120s)"
       />,
     );

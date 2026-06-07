@@ -408,6 +408,7 @@ export function PreviewPageClient({
                       value={styleControl}
                       onChange={setStyleControl}
                       userSelectableHeadingOptions={userSelectableHeadingOptions}
+                      userSelectablePool={userSelectablePool}
                       poolSourceNotice={buildPoolSourceNotice(userSelectablePool)}
                     />
                   </>

@@ -580,3 +580,6 @@
 | 2026-06-07 | Sprint 10 | 新增 `user-selectable-variant-pool` runtime · 120s 缓存 · code_fallback | 代码 / 架构 | S10-STORY-005 |
 | 2026-06-07 | Sprint 10 | dev API `/api/dev/style-admin/user-selectable-pool` | 代码 / 开发工具 | S10-STORY-005 |
 | 2026-06-07 | Sprint 10 | 工作分支 `feature/s10-story-005-user-variant-pool-db` · **未 merge sprint** | Git | S10-STORY-005 |
+| 2026-06-07 | Sprint 10 | **FIX-B**：sourceType 收口 · sourceCohort · qualityStatus · Runtime Availability Gate | 代码 / 架构 | S10-STORY-005 |
+| 2026-06-07 | Sprint 10 | 6 release1 heading seed userSelectable · 2 copy_fidelity_failed 登记 BUG-001/002 | 数据 / Bug | S10-STORY-005 |
+| 2026-06-07 | Sprint 10 | Prisma migration `source_cohort` + `quality_status` + `ai_generated` sourceType | 数据库 | S10-STORY-005 |

@@ -1,3 +1,5 @@
+import { LEGACY_SOURCE_TYPES } from "@/lib/runtime-variant-seed-config";
+
 import type { CollectedStyleVariant } from "./import-types";
 import type { ImportExistingVariantsReport } from "./import-types";
 
@@ -19,6 +21,9 @@ export function createEmptyImportReport(dryRun: boolean): ImportExistingVariants
       hidden: 0,
       deprecated: 0,
     },
+    bySourceType: {},
+    legacySourceTypeCount: 0,
+    byQualityStatus: {},
     missingCompatibility: [],
     missingComponentProtocol: [],
     deprecatedImported: [],
@@ -58,6 +63,14 @@ export function seedReportFromCollected(
     if (variant.distribution.deprecated) {
       report.byDistribution.deprecated += 1;
     }
+
+    report.bySourceType[variant.sourceType] =
+      (report.bySourceType[variant.sourceType] ?? 0) + 1;
+    if ((LEGACY_SOURCE_TYPES as readonly string[]).includes(variant.sourceType)) {
+      report.legacySourceTypeCount += 1;
+    }
+    report.byQualityStatus[variant.qualityStatus] =
+      (report.byQualityStatus[variant.qualityStatus] ?? 0) + 1;
 
     if (!variant.compatibilityJson) {
       report.missingCompatibility.push(variant.runtimeVariantId);
@@ -105,6 +118,7 @@ export function formatImportReportSummary(
     `user_selectable=${report.byDistribution.userSelectable}`,
     `release1_required=${report.byDistribution.release1Required}`,
     `deprecated=${report.byDistribution.deprecated}`,
+    `legacy_source_type=${report.legacySourceTypeCount}`,
     `historical_first_wave_33=${report.historicalFirstWave33Imported.length}`,
     `warnings=${report.warnings.length}`,
     `errors=${report.errors.length}`,

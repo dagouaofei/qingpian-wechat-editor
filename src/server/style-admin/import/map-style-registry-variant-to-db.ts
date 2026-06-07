@@ -13,12 +13,14 @@ import {
   mapStyleLibraryAssetToLifecycle,
   mapVariantStatusToLifecycle,
   mergeDistribution,
+  resolveImportSeedFields,
 } from "./lifecycle-distribution-mapper";
 
 export type MapVariantToDbInput = {
   variant: VariantDefinition;
   collectedFrom: CollectedVariantSource;
   sourceType: StyleVariantSourceType;
+  sourceCohort?: string;
   sourceRef: string;
   styleLibraryAsset?: StyleLibraryVariantAsset;
   lifecycleOverride?: CollectedStyleVariant["lifecycle"];
@@ -58,10 +60,12 @@ export function mapVariantDefinitionToCollected(
     ? mapStyleLibraryAssetToDistribution(styleLibraryAsset)
     : mapRegistryStatusToDistribution(variant.status);
 
+  const seedFields = resolveImportSeedFields(variant.id);
   const distribution = mergeDistribution(
-    baseDistribution,
+    mergeDistribution(baseDistribution, seedFields.distribution),
     input.distributionOverride,
   );
+  const qualityStatus = seedFields.qualityStatus ?? "not_checked";
 
   const warnings = [...(input.warnings ?? [])];
   if (!variant.compatibility) {
@@ -99,14 +103,17 @@ export function mapVariantDefinitionToCollected(
       compatibility: compatibilityJson,
     }),
     sourceType: input.sourceType,
+    sourceCohort: input.sourceCohort ?? seedFields.sourceCohort,
     sourceRef: input.sourceRef,
     sourceMetadata: {
       collectedFrom: input.collectedFrom,
       registryStatus: variant.status,
+      governanceSource: styleLibraryAsset ? "style_library_manifest" : undefined,
       styleLibraryAssetId: styleLibraryAsset?.assetId,
       evidenceIds: styleLibraryAsset?.evidenceIds,
       tags: styleLibraryAsset?.tags,
     },
+    qualityStatus,
     collectedFrom: input.collectedFrom,
     registryStatus: variant.status,
     styleLibraryAssetId: styleLibraryAsset?.assetId,

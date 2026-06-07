@@ -11,6 +11,8 @@ import {
   PREVIEW_HEADING_PUBLISH_STYLE_OPTIONS,
   PREVIEW_HEADING_STYLE_OPTIONS,
 } from "@/lib/preview-heading-style";
+import { isDbBackedRuntimePool } from "@/lib/preview-user-selectable-pool";
+import type { UserSelectableVariantPoolSnapshot } from "@/lib/user-selectable-variant-pool-types";
 import type { PreviewUserSelectableHeadingOption } from "@/lib/preview-user-selectable-pool";
 import { ShellFieldLabel, ShellSelect } from "@/components/ui-shell/primitives";
 
@@ -19,6 +21,7 @@ export function PreviewStyleControls({
   disabled,
   includeUserSelectableHeadingOptions = true,
   userSelectableHeadingOptions,
+  userSelectablePool,
   poolSourceNotice,
   onChange,
 }: {
@@ -28,16 +31,20 @@ export function PreviewStyleControls({
   includeUserSelectableHeadingOptions?: boolean;
   /** DB-backed pool options from server; overrides static file-backed user_selectable list. */
   userSelectableHeadingOptions?: PreviewUserSelectableHeadingOption[];
+  /** When database pool is active, heading picker must not mix code-backed release1 options. */
+  userSelectablePool?: UserSelectableVariantPoolSnapshot;
   poolSourceNotice?: string;
   onChange: (next: PreviewStyleControlState) => void;
 }) {
+  const useDbBackedHeadingPool =
+    userSelectablePool != null && isDbBackedRuntimePool(userSelectablePool);
+
   const headingStyleOptions = includeUserSelectableHeadingOptions
-    ? userSelectableHeadingOptions
-      ? [
-          ...PREVIEW_HEADING_PUBLISH_STYLE_OPTIONS,
-          ...userSelectableHeadingOptions,
-        ]
-      : PREVIEW_HEADING_STYLE_OPTIONS
+    ? useDbBackedHeadingPool
+      ? (userSelectableHeadingOptions ?? [])
+      : userSelectableHeadingOptions
+        ? [...PREVIEW_HEADING_PUBLISH_STYLE_OPTIONS, ...userSelectableHeadingOptions]
+        : PREVIEW_HEADING_STYLE_OPTIONS
     : PREVIEW_HEADING_PUBLISH_STYLE_OPTIONS;
   return (
     <div

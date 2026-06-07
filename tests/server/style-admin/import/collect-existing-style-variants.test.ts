@@ -6,6 +6,7 @@ import {
   HISTORICAL_FIRST_WAVE_33_RUNTIME_IDS,
 } from "@/server/style-admin/import/collect-existing-style-variants";
 import { DEPRECATED_HEADING_RUNTIME_VARIANT_IDS } from "@/server/style-admin/import/lifecycle-distribution-mapper";
+import { CANONICAL_SOURCE_TYPES } from "@/lib/runtime-variant-seed-config";
 
 describe("collectExistingStyleVariants", () => {
   it("collects registry, harvest, html paste, and deprecated catalog variants", () => {
@@ -35,16 +36,15 @@ describe("collectExistingStyleVariants", () => {
     expect(HISTORICAL_FIRST_WAVE_33_RUNTIME_IDS).toHaveLength(33);
   });
 
-  it("keeps userSelectable independent from defaultEligible and release1Required", () => {
+  it("keeps userSelectable independent from defaultEligible", () => {
     const result = collectExistingStyleVariants();
     const userSelectable = result.variants.filter(
       (variant) => variant.distribution.userSelectable,
     );
 
-    expect(userSelectable.length).toBeGreaterThan(0);
+    expect(userSelectable.length).toBe(7);
     for (const variant of userSelectable) {
       expect(variant.distribution.defaultEligible).toBe(false);
-      expect(variant.distribution.release1Required).toBe(false);
     }
   });
 
@@ -75,18 +75,33 @@ describe("collectExistingStyleVariants", () => {
     }
   });
 
-  it("marks release1_required registry variants without auto userSelectable", () => {
+  it("uses canonical sourceType values only", () => {
+    const result = collectExistingStyleVariants();
+    for (const variant of result.variants) {
+      expect(CANONICAL_SOURCE_TYPES as readonly string[]).toContain(variant.sourceType);
+    }
+    expect(result.variants.some((variant) => variant.sourceType === "style_library_manifest")).toBe(
+      false,
+    );
+  });
+
+  it("marks release1_required registry variants with seed-based userSelectable only", () => {
     const result = collectExistingStyleVariants();
     const release1 = result.variants.filter(
       (variant) => variant.registryStatus === "release1_required",
     );
 
     expect(release1.length).toBe(92);
+    const userSelectableRelease1 = release1.filter(
+      (variant) => variant.distribution.userSelectable,
+    );
+    expect(userSelectableRelease1).toHaveLength(6);
     for (const variant of release1) {
       expect(variant.lifecycle).toBe("release1_required");
       expect(variant.distribution.release1Required).toBe(true);
       expect(variant.distribution.defaultEligible).toBe(false);
-      expect(variant.distribution.userSelectable).toBe(false);
+      expect(variant.sourceType).toBe("registry");
+      expect(variant.sourceCohort).toBe("release1_required");
     }
   });
 });

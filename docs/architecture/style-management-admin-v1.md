@@ -243,11 +243,24 @@ S9 file-backed manifest / code-backed variants（source of truth v0）
 | Mapper | `runtime/user-selectable-variant-pool-mapper.ts` |
 | Preview 接入 | `src/app/preview/page.tsx` → `PreviewPageClient` |
 
-**入选条件：** `userSelectable=true` · `hidden=false` · `deprecated=false` · current version 存在
+**Runtime Availability Gate（FIX-B）：** 用户侧 picker / Preview / Copy / AI heading 候选须同时满足：
 
-**不入选：** `release1Required` · `defaultEligible` 单独为 true 不自动入选
+```text
+distribution.userSelectable = true
+AND hidden = false AND deprecated = false
+AND currentVersion exists
+AND qualityStatus NOT IN (copy_fidelity_failed, validator_failed, blocked)
+```
 
-**Fallback：** `code_fallback` 使用 S9 file-backed pool（仅 DB 不可用时）
+**sourceType（canonical）：** `registry` · `html_paste` · `harvest` · `manual` · `ai_generated` · `unknown` — `release1_required` 改为 `sourceCohort`，非 sourceType
+
+**qualityStatus 与 distribution 分离：** qualityStatus 在 `StyleVariantVersion`；distribution 仅表示用户侧分发
+
+**S10 heading seed（7 个 runtime available）：** 6 个 release1 publish + `heading_teal_section_label_html_paste_candidate`；2 个 copy fidelity failed 排除（BUG-S10-COPY-FIDELITY-001/002）
+
+**不入选：** `release1Required` · `defaultEligible` 不自动绕过 gate
+
+**Fallback：** `code_fallback` 仅 DB 不可用；DB 可用时不混合 code pool
 
 **Dev-only API（非正式用户侧接口）：** `GET /api/dev/style-admin/user-selectable-pool`
 

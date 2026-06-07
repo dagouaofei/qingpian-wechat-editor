@@ -1,10 +1,12 @@
 import type { BlockType } from "@prisma/client";
 
-import {
-  getUserSelectablePreviewVariantAssetsForBlockType,
-  getUserSelectablePreviewVariantDefinition,
-} from "@/core/style-library/user-selectable-preview-pool";
+import { getVariantById, createFirstWaveRequiredVariantRegistry } from "@/core/styles";
+import { getUserSelectablePreviewVariantDefinition } from "@/core/style-library/user-selectable-preview-pool";
 import type { VariantDefinition } from "@/core/styles/types";
+import type { BlockType as CoreBlockType } from "@/core/blocks";
+
+import { isCodeBackedRuntimeVariantAvailable } from "@/lib/runtime-variant-availability";
+import { getCodeBackedRuntimeAvailableVariantIds } from "@/lib/runtime-variant-seed-config";
 
 import { getStyleAdminDbAvailability } from "../db-availability";
 import { buildUserSelectablePoolWhere } from "../mappers";
@@ -23,14 +25,29 @@ import type {
   UserSelectableVariantPoolResult,
 } from "./user-selectable-variant-pool-types";
 
-function buildCodeFallbackPool(blockType?: BlockType): UserSelectableVariantPoolResult {
-  const assets = blockType
-    ? getUserSelectablePreviewVariantAssetsForBlockType(blockType)
-    : getUserSelectablePreviewVariantAssetsForBlockType("heading");
+function resolveCodeFallbackVariantDefinition(
+  runtimeVariantId: string,
+): VariantDefinition | undefined {
+  const registry = createFirstWaveRequiredVariantRegistry();
+  return (
+    getVariantById(registry, runtimeVariantId) ??
+    getUserSelectablePreviewVariantDefinition(runtimeVariantId)
+  );
+}
 
-  const variants = assets
-    .map((asset) => getUserSelectablePreviewVariantDefinition(asset.runtimeVariantId))
-    .filter((variant): variant is VariantDefinition => variant != null);
+function buildCodeFallbackPool(blockType?: BlockType): UserSelectableVariantPoolResult {
+  const variants = [...getCodeBackedRuntimeAvailableVariantIds()]
+    .filter((runtimeVariantId) => isCodeBackedRuntimeVariantAvailable(runtimeVariantId))
+    .map((runtimeVariantId) => resolveCodeFallbackVariantDefinition(runtimeVariantId))
+    .filter((variant): variant is VariantDefinition => {
+      if (!variant) {
+        return false;
+      }
+      if (blockType && variant.blockType !== (blockType as CoreBlockType)) {
+        return false;
+      }
+      return true;
+    });
 
   return {
     source: "code_fallback",

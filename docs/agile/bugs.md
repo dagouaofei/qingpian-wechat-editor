@@ -38,4 +38,32 @@
 
 ---
 
-暂无其它 Open Bug。
+### BUG-S10-COPY-FIDELITY-001 杂志竖线 Copy 后左侧竖线高度不一致
+
+| 字段 | 内容 |
+|------|------|
+| Bug ID | BUG-S10-COPY-FIDELITY-001 |
+| 标题 | 杂志竖线（`heading_magazine_left_bar`）Preview 竖线上下顶到头，Copy 后只在标题文字左边 |
+| 发现时间 | 2026-06-07 |
+| 所属 | Sprint 10 · S10-STORY-005 FIX-B |
+| 严重级别 | P1 |
+| 状态 | **Open** |
+| 处理记录 | FIX-B 标记 `qualityStatus=copy_fidelity_failed` · `userSelectable=false` · runtime gate 排除；Renderer 修复留后续 Copy Fidelity 专项 |
+
+---
+
+### BUG-S10-COPY-FIDELITY-002 卡片居中 Copy 后多出横线
+
+| 字段 | 内容 |
+|------|------|
+| Bug ID | BUG-S10-COPY-FIDELITY-002 |
+| 标题 | 卡片居中（`heading_card_centered`）Copy 后多出两条横线 |
+| 发现时间 | 2026-06-07 |
+| 所属 | Sprint 10 · S10-STORY-005 FIX-B |
+| 严重级别 | P1 |
+| 状态 | **Open** |
+| 处理记录 | 同 BUG-S10-COPY-FIDELITY-001；`copy_fidelity_failed` 不得进入 userSelectable / defaultEligible / AI candidate pool |
+
+---
+
+暂无其它 Open Bug（除上述两条 Copy Fidelity 登记项）。

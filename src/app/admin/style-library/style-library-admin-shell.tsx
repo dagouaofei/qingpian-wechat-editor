@@ -208,7 +208,8 @@ export function StyleLibraryAdminDetailShell({
               <div className="mt-3 space-y-3 text-sm">
                 <p>
                   v{viewModel.currentVersion.versionNumber} · copySafety:{" "}
-                  {viewModel.currentVersion.copySafety}
+                  {viewModel.currentVersion.copySafety} · qualityStatus:{" "}
+                  {viewModel.currentVersion.qualityStatus}
                 </p>
                 <p className="font-mono text-xs text-slate-500">
                   checksum: {viewModel.currentVersion.sourceChecksum ?? "—"}
@@ -248,7 +249,9 @@ export function StyleLibraryAdminDetailShell({
                 {viewModel.sources.map((source) => (
                   <li key={source.id} className="rounded-lg border border-slate-100 p-3">
                     <p>
-                      {source.sourceType} · {source.sourceRef ?? "—"}
+                      {source.sourceType}
+                      {source.sourceCohort ? ` · cohort=${source.sourceCohort}` : ""} ·{" "}
+                      {source.sourceRef ?? "—"}
                     </p>
                     <p className="text-xs text-slate-500">
                       rawHtml: {source.hasRawHtml ? "present" : "none"} · {source.createdAt}

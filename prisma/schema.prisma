@@ -41,7 +41,17 @@ enum StyleVariantSourceType {
   html_paste
   harvest
   manual
+  ai_generated
   unknown
+}
+
+enum StyleVariantQualityStatus {
+  not_checked
+  validator_pass
+  validator_failed
+  copy_fidelity_failed
+  paste_qa_pass
+  blocked
 }
 
 enum StyleVariantValidationRunType {
@@ -141,6 +151,7 @@ model StyleVariantVersion {
   componentProtocolJson   Json?          @map("component_protocol_json")
   compatibilityJson     Json?          @map("compatibility_json")
   copySafety            CopySafetyTier @map("copy_safety")
+  qualityStatus         StyleVariantQualityStatus @default(not_checked) @map("quality_status")
   sourceChecksum        String?        @map("source_checksum")
   createdBy             String?        @map("created_by")
   createdAt             DateTime       @default(now()) @map("created_at")
@@ -161,6 +172,7 @@ model StyleVariantSource {
   id             String                 @id @default(cuid())
   variantId      String                 @map("variant_id")
   sourceType     StyleVariantSourceType @map("source_type")
+  sourceCohort   String?                @map("source_cohort")
   sourceRef      String?                @map("source_ref")
   sourceMetadata Json?                  @map("source_metadata")
   rawHtml        String?                @map("raw_html") @db.Text
@@ -170,6 +182,7 @@ model StyleVariantSource {
 
   @@index([variantId])
   @@index([sourceType])
+  @@index([sourceCohort])
   @@map("style_variant_sources")
 }
 

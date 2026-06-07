@@ -126,6 +126,7 @@ describe("style-library admin view model", () => {
         currentVersion: {
           versionNumber: 1,
           copySafety: "strict",
+          qualityStatus: "not_checked",
           sourceChecksum: "abc",
           definitionJson: { id: "heading_short_line" },
           componentProtocolJson: null,

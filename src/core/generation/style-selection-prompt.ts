@@ -16,6 +16,8 @@ import type {
   StyleSelectionRequest,
 } from "@/core/styles/style-assignment";
 
+import { isVariantDefinitionRuntimeAvailable } from "@/lib/runtime-variant-availability";
+
 import type { InputStyleIntent } from "./input";
 import { balanceCardEmphasisInBlockHints } from "./style-selection-card-rhythm";
 import {
@@ -249,6 +251,17 @@ function resolvePresetDefaultVariantId(
   return preset.defaultVariantByBlockType?.[blockType];
 }
 
+function isAllowedGenerationVariant(
+  variant: VariantDefinition | undefined,
+  blockType: BlockType,
+  runtimeAvailableIds?: ReadonlySet<string>,
+): variant is VariantDefinition {
+  if (blockType === "heading") {
+    return isVariantDefinitionRuntimeAvailable(variant, runtimeAvailableIds);
+  }
+  return isRelease1RequiredCopySafeVariant(variant);
+}
+
 export function pickRegisteredVariantForBlock(
   registry: StyleRegistry,
   preset: PresetDefinition,
@@ -256,19 +269,22 @@ export function pickRegisteredVariantForBlock(
   styleIntent: InputStyleIntent | undefined,
   warnings: StyleValidationIssue[],
   blockIndexWithinType = 0,
+  runtimeAvailableIds?: ReadonlySet<string>,
 ): { variantId: string; source: ArticleVariantPickSource } {
   const diversityIndex = blockType === "heading" ? 0 : blockIndexWithinType;
 
   const heuristicId = resolveHeuristicVariantId(blockType, styleIntent);
   if (heuristicId) {
     const heuristicVariant = getVariantById(registry, heuristicId);
-    if (isRelease1RequiredCopySafeVariant(heuristicVariant)) {
+    if (isAllowedGenerationVariant(heuristicVariant, blockType, runtimeAvailableIds)) {
       return { variantId: heuristicVariant.id, source: "style_intent" };
     }
     pushWarning(
       warnings,
       "style_variant_hint_rejected",
-      `Heuristic variant "${heuristicId}" is not allowed on Release 1 required path`,
+      blockType === "heading"
+        ? `Heuristic heading variant "${heuristicId}" is not runtime available`
+        : `Heuristic variant "${heuristicId}" is not allowed on Release 1 required path`,
       ["styleIntent"],
     );
   }
@@ -280,13 +296,15 @@ export function pickRegisteredVariantForBlock(
   );
   if (diverseId) {
     const diverseVariant = getVariantById(registry, diverseId);
-    if (isRelease1RequiredCopySafeVariant(diverseVariant)) {
+    if (isAllowedGenerationVariant(diverseVariant, blockType, runtimeAvailableIds)) {
       return { variantId: diverseVariant.id, source: "article_diversity" };
     }
     pushWarning(
       warnings,
       "style_variant_diversity_rejected",
-      `Article-aware variant "${diverseId}" is not allowed on Release 1 required path`,
+      blockType === "heading"
+        ? `Article-aware heading variant "${diverseId}" is not runtime available`
+        : `Article-aware variant "${diverseId}" is not allowed on Release 1 required path`,
       ["blocks"],
     );
   }
@@ -295,12 +313,12 @@ export function pickRegisteredVariantForBlock(
   const presetVariant = presetDefaultId
     ? getVariantById(registry, presetDefaultId)
     : undefined;
-  if (isRelease1RequiredCopySafeVariant(presetVariant)) {
+  if (isAllowedGenerationVariant(presetVariant, blockType, runtimeAvailableIds)) {
     return { variantId: presetVariant.id, source: "preset_default" };
   }
 
   const fallback = getVariantsForBlockType(registry, blockType).find((variant) =>
-    isRelease1RequiredCopySafeVariant(variant),
+    isAllowedGenerationVariant(variant, blockType, runtimeAvailableIds),
   );
   if (fallback) {
     pushWarning(
@@ -312,7 +330,11 @@ export function pickRegisteredVariantForBlock(
     return { variantId: fallback.id, source: "preset_default" };
   }
 
-  throw new Error(`No Release 1 required variant available for block type ${blockType}`);
+  throw new Error(
+    blockType === "heading"
+      ? "No runtime-available heading variant available for style selection"
+      : `No Release 1 required variant available for block type ${blockType}`,
+  );
 }
 
 export function buildStyleSelectionBlockHints(
@@ -321,6 +343,7 @@ export function buildStyleSelectionBlockHints(
   presetId: string,
   styleIntent: InputStyleIntent | undefined,
   warnings: StyleValidationIssue[],
+  runtimeAvailableIds?: ReadonlySet<string>,
 ): StyleSelectionBlockStyleHint[] {
   const preset = getPresetById(registry, presetId);
   if (!preset) {
@@ -336,6 +359,7 @@ export function buildStyleSelectionBlockHints(
       SAFE_STYLE_PRESET_ID,
       styleIntent,
       warnings,
+      runtimeAvailableIds,
     );
   }
 
@@ -352,6 +376,7 @@ export function buildStyleSelectionBlockHints(
       styleIntent,
       warnings,
       indexWithinType,
+      runtimeAvailableIds,
     );
     return {
       blockId: block.id,
@@ -377,8 +402,12 @@ export function buildStyleSelectionRequestFromArticle(
     timestamp: string;
     modelId?: string;
     source?: "system" | "ai_style_selection";
+    runtimeAvailableVariantIds?: readonly string[];
   },
 ): { request: StyleSelectionRequest; warnings: StyleValidationIssue[] } {
+  const runtimeAvailableIds = options.runtimeAvailableVariantIds
+    ? new Set(options.runtimeAvailableVariantIds)
+    : undefined;
   const warnings: StyleValidationIssue[] = [];
   const presetId = resolvePresetIdFromStyleIntent(
     options.styleIntent,
@@ -403,6 +432,7 @@ export function buildStyleSelectionRequestFromArticle(
         presetId,
         options.styleIntent,
         warnings,
+        runtimeAvailableIds,
       ),
       constraints: {
         mustUseRegisteredVariants: true,

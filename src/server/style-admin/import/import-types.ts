@@ -2,6 +2,7 @@ import type {
   BlockType,
   CopySafetyTier,
   StyleVariantLifecycle,
+  StyleVariantQualityStatus,
   StyleVariantSourceType,
 } from "@prisma/client";
 
@@ -28,8 +29,10 @@ export type CollectedStyleVariant = {
   copySafety: CopySafetyTier;
   sourceChecksum: string;
   sourceType: StyleVariantSourceType;
+  sourceCohort?: string;
   sourceRef: string;
   sourceMetadata?: JsonValue;
+  qualityStatus: StyleVariantQualityStatus;
   collectedFrom: CollectedVariantSource;
   registryStatus?: string;
   styleLibraryAssetId?: string;
@@ -62,6 +65,9 @@ export type ImportExistingVariantsReport = {
     hidden: number;
     deprecated: number;
   };
+  bySourceType: Record<string, number>;
+  legacySourceTypeCount: number;
+  byQualityStatus: Record<string, number>;
   missingCompatibility: string[];
   missingComponentProtocol: string[];
   deprecatedImported: string[];

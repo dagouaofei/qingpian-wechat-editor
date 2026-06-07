@@ -29,6 +29,9 @@ import {
 } from "./preview-heading-style";
 import type { UserSelectableVariantPoolSnapshot } from "@/lib/user-selectable-variant-pool-types";
 
+import { resolveRuntimeAvailableVariantId } from "@/lib/runtime-variant-availability";
+import { getCodeBackedRuntimeAvailableVariantIds } from "@/lib/runtime-variant-seed-config";
+
 import { getUserSelectableVariantsForRegistry } from "./preview-user-selectable-pool";
 import { createUserPreviewStyleRegistry } from "./user-preview-style-registry";
 import {
@@ -102,10 +105,20 @@ export function renderArticlePreviewClient(
     : styledArticleBase;
 
   if (control.headingVariantId) {
-    styledArticle = applyHeadingVariantToArticle(
-      styledArticle,
-      control.headingVariantId as PreviewHeadingVariantId,
+    const availableHeadingIds =
+      options?.userSelectablePool?.poolVariantIds ??
+      [...getCodeBackedRuntimeAvailableVariantIds()];
+    const resolvedHeading = resolveRuntimeAvailableVariantId(
+      control.headingVariantId,
+      availableHeadingIds,
+      availableHeadingIds[0],
     );
+    if (resolvedHeading.variantId) {
+      styledArticle = applyHeadingVariantToArticle(
+        styledArticle,
+        resolvedHeading.variantId as PreviewHeadingVariantId,
+      );
+    }
   }
 
   const resolvedArticleStyle = resolveArticleStyle(styledArticle, previewStyleRegistry);

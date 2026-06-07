@@ -31,6 +31,8 @@ export type StyleSelectionGenerationInput = {
   timestamp?: string;
   modelId?: string;
   modelPatchOutput?: unknown;
+  /** Heading variants must be runtime-available (userSelectable pool). */
+  runtimeAvailableVariantIds?: readonly string[];
 };
 
 export type StyleSelectionVariantSummary = {
@@ -76,6 +78,7 @@ export function generateStyleSelectionRequest(
       timestamp,
       modelId: input.modelId,
       source: input.mode === "deterministic" ? "system" : "ai_style_selection",
+      runtimeAvailableVariantIds: input.runtimeAvailableVariantIds,
     });
     return {
       request: fallback.request,
@@ -89,6 +92,7 @@ export function generateStyleSelectionRequest(
     timestamp,
     modelId: input.modelId,
     source: input.mode === "deterministic" ? "system" : "ai_style_selection",
+    runtimeAvailableVariantIds: input.runtimeAvailableVariantIds,
   });
 
   return {

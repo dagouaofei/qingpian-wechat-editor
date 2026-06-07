@@ -76,6 +76,7 @@ export class StyleVariantImportWriter {
           componentProtocolJson: collected.componentProtocolJson,
           compatibilityJson: collected.compatibilityJson,
           copySafety: collected.copySafety,
+          qualityStatus: collected.qualityStatus,
           sourceChecksum: collected.sourceChecksum,
           createdBy: actor,
         },
@@ -137,6 +138,7 @@ export class StyleVariantImportWriter {
     let createdVersion = false;
     let metadataChanged = false;
     let distributionChanged = false;
+    let qualityStatusChanged = false;
 
     await this.db.$transaction(async (tx) => {
       const currentVersion = await tx.styleVariantVersion.findFirst({
@@ -174,6 +176,14 @@ export class StyleVariantImportWriter {
         }
       }
 
+      if (currentVersion && currentVersion.qualityStatus !== collected.qualityStatus) {
+        await tx.styleVariantVersion.update({
+          where: { id: currentVersion.id },
+          data: { qualityStatus: collected.qualityStatus },
+        });
+        qualityStatusChanged = true;
+      }
+
       if (
         !currentVersion ||
         currentVersion.sourceChecksum !== collected.sourceChecksum
@@ -191,6 +201,7 @@ export class StyleVariantImportWriter {
             componentProtocolJson: collected.componentProtocolJson,
             compatibilityJson: collected.compatibilityJson,
             copySafety: collected.copySafety,
+            qualityStatus: collected.qualityStatus,
             sourceChecksum: collected.sourceChecksum,
             createdBy: actor,
           },
@@ -245,7 +256,7 @@ export class StyleVariantImportWriter {
 
       await this.ensureSourceRecord(tx as StyleAdminDb, existing.id, collected);
 
-      if (metadataChanged || distributionChanged || createdVersion) {
+      if (metadataChanged || distributionChanged || createdVersion || qualityStatusChanged) {
         await tx.adminAuditLog.create({
           data: {
             action: "import_update_variant",
@@ -266,7 +277,7 @@ export class StyleVariantImportWriter {
       }
     });
 
-    if (!metadataChanged && !distributionChanged && !createdVersion) {
+    if (!metadataChanged && !distributionChanged && !createdVersion && !qualityStatusChanged) {
       return { action: "skipped_unchanged" };
     }
 
@@ -290,8 +301,10 @@ export class StyleVariantImportWriter {
     const metadataChanged =
       JSON.stringify(existingSource?.sourceMetadata ?? null) !==
       JSON.stringify(nextMetadata ?? null);
+    const cohortChanged = existingSource?.sourceCohort !== collected.sourceCohort;
+    const sourceTypeChanged = existingSource?.sourceType !== collected.sourceType;
 
-    if (existingSource && !metadataChanged) {
+    if (existingSource && !metadataChanged && !cohortChanged && !sourceTypeChanged) {
       return;
     }
 
@@ -299,6 +312,7 @@ export class StyleVariantImportWriter {
       data: {
         variantId,
         sourceType: collected.sourceType,
+        sourceCohort: collected.sourceCohort,
         sourceRef: collected.sourceRef,
         ...(nextMetadata !== undefined ? { sourceMetadata: nextMetadata } : {}),
       },

@@ -24,6 +24,7 @@ import {
   HISTORICAL_FIRST_WAVE_33_HEADING_IDS,
   mapDeprecatedHeadingDistribution,
   mapDeprecatedHeadingLifecycle,
+  resolveRegistrySourceCohort,
 } from "./lifecycle-distribution-mapper";
 import { mapVariantDefinitionToCollected } from "./map-style-registry-variant-to-db";
 
@@ -101,7 +102,11 @@ export function collectExistingStyleVariants(): CollectExistingStyleVariantsResu
     const collected = mapVariantDefinitionToCollected({
       variant,
       collectedFrom: asset ? "style_library_manifest" : "style_registry",
-      sourceType: asset ? "style_library_manifest" : "registry",
+      sourceType: "registry",
+      sourceCohort: resolveRegistrySourceCohort(
+        variant,
+        HISTORICAL_FIRST_WAVE_33_SET.has(variant.id),
+      ),
       sourceRef: asset?.assetId ?? `registry:${variant.id}`,
       styleLibraryAsset: asset,
       isHistoricalFirstWave33: HISTORICAL_FIRST_WAVE_33_SET.has(variant.id),
@@ -118,6 +123,7 @@ export function collectExistingStyleVariants(): CollectExistingStyleVariantsResu
       variant,
       collectedFrom: "harvest_candidate",
       sourceType: "harvest",
+      sourceCohort: "s8_harvest_seed",
       sourceRef: asset?.assetId ?? `harvest:${variant.id}`,
       styleLibraryAsset: asset,
       lifecycleOverride: asset?.lifecycle,
@@ -141,6 +147,7 @@ export function collectExistingStyleVariants(): CollectExistingStyleVariantsResu
       variant,
       collectedFrom: "html_paste_candidate",
       sourceType: "html_paste",
+      sourceCohort: "s9_html_paste",
       sourceRef: asset?.assetId ?? `html_paste:${variant.id}`,
       styleLibraryAsset: asset,
     });
@@ -155,7 +162,8 @@ export function collectExistingStyleVariants(): CollectExistingStyleVariantsResu
     const collected = mapVariantDefinitionToCollected({
       variant: stub,
       collectedFrom: "deprecated_catalog",
-      sourceType: "manual",
+      sourceType: "unknown",
+      sourceCohort: "legacy_deprecated",
       sourceRef: `deprecated-catalog:${runtimeVariantId}`,
       lifecycleOverride: mapDeprecatedHeadingLifecycle(),
       distributionOverride: mapDeprecatedHeadingDistribution(),

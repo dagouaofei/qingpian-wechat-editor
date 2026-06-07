@@ -4235,11 +4235,13 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 **数据源：** `getUserSelectableVariantPool` · `src/server/style-admin/runtime/` · 接入 `/preview` 小标题 picker
 
-**池规则：** `userSelectable=true` · `hidden=false` · `deprecated=false` · 有 current version · **不**因 `release1Required` / `defaultEligible` 自动入选
+**池规则：** Runtime Availability Gate · `userSelectable=true` · 非 hidden/deprecated · current version · qualityStatus 非 blocking
+
+**FIX-B（2026-06-07）：** sourceType 收口 · `sourceCohort` · `qualityStatus` · 6 release1 seed userSelectable · 2 copy_fidelity_failed 排除 · AI heading gate · DB 可用不混 code pool
 
 **缓存：** 默认 120s · `STYLE_ADMIN_USER_POOL_CACHE_TTL_SECONDS` · 最大 300s
 
-**Fallback：** `DATABASE_URL` 未配置或 DB 不可用时 `source=code_fallback`（S9 file-backed pool）
+**Fallback：** `DATABASE_URL` 未配置或 DB 不可用时 `source=code_fallback`（seed 7 variants only）
 
 **手动验收 URL：** `http://localhost:3000/preview?topic=...`（生成完成后小标题样式 picker）· dev API `GET /api/dev/style-admin/user-selectable-pool`
 

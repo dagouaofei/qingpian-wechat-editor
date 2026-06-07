@@ -115,7 +115,9 @@ pnpm style-admin:import-existing-variants           # 写入 DATABASE_URL 指向
 
 **Runtime：** `src/server/style-admin/runtime/user-selectable-variant-pool.ts`
 
-**规则：** 仅 `distribution.userSelectable=true` 且非 hidden/deprecated · 有 current version
+**规则：** Runtime Availability Gate（userSelectable + 非 hidden/deprecated + current version + 非 blocking qualityStatus）
+
+**FIX-B：** sourceType canonical · `sourceCohort`（`release1_required` 为 cohort 非 sourceType）· qualityStatus 与 distribution 分离
 
 **缓存：** 默认 120s · env `STYLE_ADMIN_USER_POOL_CACHE_TTL_SECONDS`（≤300s）
 

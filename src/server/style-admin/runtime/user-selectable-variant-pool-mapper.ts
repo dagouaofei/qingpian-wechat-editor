@@ -3,7 +3,7 @@ import type { BlockType, CopySafetyTier, StyleVariant, StyleVariantVersion } fro
 import type { CopySafety, VariantDefinition, VariantStatus } from "@/core/styles/types";
 import { STYLE_SCHEMA_VERSION } from "@/core/styles/types";
 
-import { isEligibleForUserSelectablePool } from "../mappers";
+import { isRuntimeVariantAvailable } from "@/lib/runtime-variant-availability";
 import type { RuntimeVariantPoolIssue } from "./user-selectable-variant-pool-types";
 
 type DbPoolRow = StyleVariant & {
@@ -36,19 +36,33 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 export function mapDbPoolRowToVariantDefinition(
   row: DbPoolRow,
 ): { variant: VariantDefinition | null; issue?: RuntimeVariantPoolIssue } {
-  if (
-    !row.distribution ||
-    !isEligibleForUserSelectablePool({
-      lifecycle: row.lifecycle,
-      distribution: row.distribution,
-    })
-  ) {
+  const availability = isRuntimeVariantAvailable({
+    runtimeVariantId: row.runtimeVariantId,
+    distribution: row.distribution,
+    currentVersion: row.currentVersion
+      ? { qualityStatus: row.currentVersion.qualityStatus }
+      : null,
+  });
+
+  if (!availability) {
+    const qualityStatus = row.currentVersion?.qualityStatus;
+    const code =
+      qualityStatus === "copy_fidelity_failed" ||
+      qualityStatus === "validator_failed" ||
+      qualityStatus === "blocked"
+        ? "ineligible_distribution"
+        : row.distribution?.userSelectable
+          ? "ineligible_distribution"
+          : "ineligible_distribution";
+
     return {
       variant: null,
       issue: {
         runtimeVariantId: row.runtimeVariantId,
-        code: "ineligible_distribution",
-        message: "Variant is not eligible for user-selectable pool",
+        code,
+        message: row.currentVersion?.qualityStatus
+          ? `Variant blocked by qualityStatus=${row.currentVersion.qualityStatus}`
+          : "Variant is not runtime available",
       },
     };
   }

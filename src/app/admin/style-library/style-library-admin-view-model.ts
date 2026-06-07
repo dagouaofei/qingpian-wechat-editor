@@ -45,6 +45,9 @@ export type AdminVariantTableRow = {
   blockType: string;
   styleFamily: string;
   lifecycle: string;
+  sourceType: string | null;
+  sourceCohort: string | null;
+  qualityStatus: string | null;
   userSelectable: boolean;
   defaultEligible: boolean;
   release1Required: boolean;
@@ -98,6 +101,7 @@ export type StyleLibraryAdminDetailViewModel = {
   currentVersion: {
     versionNumber: number;
     copySafety: string;
+    qualityStatus: string;
     sourceChecksum: string | null;
     definitionSummary: JsonSummary;
     componentProtocolSummary: JsonSummary;
@@ -107,6 +111,7 @@ export type StyleLibraryAdminDetailViewModel = {
   sources: Array<{
     id: string;
     sourceType: string;
+    sourceCohort: string | null;
     sourceRef: string | null;
     sourceMetadataPreview: string;
     hasRawHtml: boolean;
@@ -165,12 +170,16 @@ function summarizeJson(value: unknown, label: string): JsonSummary {
 }
 
 function mapTableRow(row: AdminVariantListRow): AdminVariantTableRow {
+  const primarySource = row.sources?.[0];
   return {
     runtimeVariantId: row.runtimeVariantId,
     label: row.label,
     blockType: row.blockType,
     styleFamily: row.styleFamily,
     lifecycle: row.lifecycle,
+    sourceType: primarySource?.sourceType ?? null,
+    sourceCohort: primarySource?.sourceCohort ?? null,
+    qualityStatus: row.currentVersion?.qualityStatus ?? null,
     userSelectable: row.distribution?.userSelectable ?? false,
     defaultEligible: row.distribution?.defaultEligible ?? false,
     release1Required: row.distribution?.release1Required ?? false,
@@ -304,6 +313,7 @@ export function buildAdminDetailViewModelFromQueryResult(
       ? {
           versionNumber: currentVersion.versionNumber,
           copySafety: currentVersion.copySafety,
+          qualityStatus: currentVersion.qualityStatus,
           sourceChecksum: currentVersion.sourceChecksum,
           definitionSummary: summarizeJson(currentVersion.definitionJson, "definitionJson"),
           componentProtocolSummary: summarizeJson(
@@ -320,6 +330,7 @@ export function buildAdminDetailViewModelFromQueryResult(
     sources: sources.map((source) => ({
       id: source.id,
       sourceType: source.sourceType,
+      sourceCohort: source.sourceCohort,
       sourceRef: source.sourceRef,
       sourceMetadataPreview: source.sourceMetadata
         ? JSON.stringify(source.sourceMetadata, null, 2)

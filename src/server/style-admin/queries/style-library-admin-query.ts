@@ -30,6 +30,7 @@ export type AdminVariantListFilter = {
 export type AdminVariantListRow = StyleVariant & {
   distribution: StyleVariantDistribution | null;
   currentVersion: StyleVariantVersion | null;
+  sources: StyleVariantSource[];
 };
 
 export type AdminVariantSummary = {
@@ -116,6 +117,10 @@ export class StyleLibraryAdminQuery {
         include: {
           distribution: true,
           currentVersion: true,
+          sources: {
+            orderBy: { createdAt: "desc" },
+            take: 1,
+          },
         },
         orderBy: { updatedAt: "desc" },
         take: filter.limit ?? 500,

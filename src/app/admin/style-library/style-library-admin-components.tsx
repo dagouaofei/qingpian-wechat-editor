@@ -193,6 +193,9 @@ export function VariantTable({ rows }: { rows: AdminVariantTableRow[] }) {
             <th className="px-4 py-3">blockType</th>
             <th className="px-4 py-3">styleFamily</th>
             <th className="px-4 py-3">lifecycle</th>
+            <th className="px-4 py-3">sourceType</th>
+            <th className="px-4 py-3">sourceCohort</th>
+            <th className="px-4 py-3">qualityStatus</th>
             <th className="px-4 py-3">userSelectable</th>
             <th className="px-4 py-3">defaultEligible</th>
             <th className="px-4 py-3">release1Required</th>
@@ -218,6 +221,9 @@ export function VariantTable({ rows }: { rows: AdminVariantTableRow[] }) {
               <td className="px-4 py-3">
                 <LifecycleBadge lifecycle={row.lifecycle} />
               </td>
+              <td className="px-4 py-3 font-mono text-xs">{row.sourceType ?? "—"}</td>
+              <td className="px-4 py-3 font-mono text-xs">{row.sourceCohort ?? "—"}</td>
+              <td className="px-4 py-3 font-mono text-xs">{row.qualityStatus ?? "—"}</td>
               <td className="px-4 py-3">
                 <BoolBadge
                   value={row.userSelectable}

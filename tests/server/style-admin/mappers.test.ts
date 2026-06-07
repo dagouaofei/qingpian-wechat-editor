@@ -101,6 +101,13 @@ describe("style-admin mappers", () => {
         hidden: false,
         deprecated: false,
       },
+      currentVersion: {
+        is: {
+          qualityStatus: {
+            notIn: ["copy_fidelity_failed", "validator_failed", "blocked"],
+          },
+        },
+      },
       blockType: "heading",
     });
   });

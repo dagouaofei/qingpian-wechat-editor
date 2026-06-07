@@ -3,8 +3,10 @@ import type {
   Prisma,
   StyleVariantDistribution,
   StyleVariantLifecycle,
+  StyleVariantQualityStatus,
 } from "@prisma/client";
 
+import { BLOCKING_QUALITY_STATUSES } from "@/lib/runtime-variant-availability";
 import type { DistributionSnapshot } from "./types";
 
 export type UserSelectablePoolCandidate = {
@@ -48,6 +50,13 @@ export function buildUserSelectablePoolWhere(
       userSelectable: true,
       hidden: false,
       deprecated: false,
+    },
+    currentVersion: {
+      is: {
+        qualityStatus: {
+          notIn: [...BLOCKING_QUALITY_STATUSES] as StyleVariantQualityStatus[],
+        },
+      },
     },
     ...(filter?.blockType ? { blockType: filter.blockType } : {}),
     ...(filter?.styleFamily ? { styleFamily: filter.styleFamily } : {}),
