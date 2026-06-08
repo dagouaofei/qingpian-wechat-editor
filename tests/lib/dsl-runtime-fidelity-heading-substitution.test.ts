@@ -1,8 +1,12 @@
 import { describe, expect, it } from "vitest";
 
+import { parseArticle } from "@/core/article";
 import { encodeHtmlToVariantDsl } from "@/core/dsl/encoder";
+import { decodeVariantDsl } from "@/core/dsl/decoder";
 import { renderArticlePreviewClient } from "@/lib/render-article-preview-client";
 import type { UserSelectableVariantPoolSnapshot } from "@/lib/user-selectable-variant-pool-types";
+
+import { articleFixtureBase, fixtureBlockId } from "../fixtures/articles/shared";
 
 import { BACKGROUND_NUMBER_HEADING_HTML } from "../fixtures/dsl/background-number-heading-html";
 import { BORDERED_HEADING_HTML } from "../fixtures/dsl/bordered-heading-html";
@@ -78,7 +82,7 @@ function renderHeadingPreview(html: string, runtimeVariantId: string) {
 }
 
 describe("fidelity heading user preview substitution", () => {
-  it("background number heading preserves 01 and substitutes article title at h2 binding", () => {
+  it("background number heading substitutes ordinal number and article title at bindings", () => {
     const runtimeVariantId = "heading_html_paste_4933bb91_candidate";
     const { encoded, output, html } = renderHeadingPreview(
       BACKGROUND_NUMBER_HEADING_HTML,
@@ -104,6 +108,56 @@ describe("fidelity heading user preview substitution", () => {
     expect(output.runtimeTrace?.runtimeSource).toBe("database_dsl");
     expect(output.runtimeTrace?.selectedRuntimeVariantId).toBe(runtimeVariantId);
     expect(output.runtimeTrace?.renderedByVariantId).toBe(runtimeVariantId);
+  });
+
+  it("increments background number label per heading ordinal in article", () => {
+    const runtimeVariantId = "heading_html_paste_4933bb91_candidate";
+    const encoded = encodeHtmlToVariantDsl({
+      html: BACKGROUND_NUMBER_HEADING_HTML,
+      runtimeVariantId,
+      blockType: "heading",
+      wechatCompatibilityMode: "off",
+    });
+    expect(encoded.ok).toBe(true);
+    if (!encoded.ok) return;
+
+    const h1 = fixtureBlockId(1);
+    const h2 = fixtureBlockId(3);
+    const h3 = fixtureBlockId(4);
+    const article = parseArticle({
+      ...articleFixtureBase(),
+      styleAssignment: {
+        themeId: "businessBlue",
+        presetId: "business",
+        blockOverrides: [
+          { blockId: h1, variantId: runtimeVariantId },
+          { blockId: h2, variantId: runtimeVariantId },
+          { blockId: h3, variantId: runtimeVariantId },
+        ],
+      },
+      blocks: [
+        { id: h1, type: "heading", content: { text: "第一节", level: 2 } },
+        { id: fixtureBlockId(2), type: "paragraph", content: { text: [{ text: "段落" }] } },
+        { id: h2, type: "heading", content: { text: "第二节", level: 2 } },
+        { id: h3, type: "heading", content: { text: "第三节", level: 2 } },
+      ],
+    });
+
+    const numbers: string[] = [];
+    for (const block of article.blocks.filter((entry) => entry.type === "heading")) {
+      const decoded = decodeVariantDsl({
+        article,
+        block,
+        variantDsl: encoded.value,
+        target: "preview",
+      });
+      expect(decoded.ok, JSON.stringify(decoded.issues)).toBe(true);
+      const label = decoded.substitutionTrace?.substitutedNumber;
+      expect(label).toBeTruthy();
+      numbers.push(label!);
+    }
+
+    expect(numbers).toEqual(["01", "02", "03"]);
   });
 
   it("does not put article title into number decorative span", () => {
@@ -187,11 +241,11 @@ describe("fidelity heading user preview substitution", () => {
     expect(html).not.toMatch(/border-left\s*:\s*4px\s+solid\s+#1677ff/i);
   });
 
-  it("chapter overlay heading preserves number and substitutes title at binding", () => {
+  it("chapter overlay heading substitutes ordinal number and title at binding", () => {
     const runtimeVariantId = "heading_chapter_overlay_substitution";
     const { html, output } = renderHeadingPreview(COMPLEX_HEADING_HTML, runtimeVariantId);
 
-    expect(html).toContain("03");
+    expect(html).toContain("01");
     expect(html).toContain(ARTICLE_HEADING);
     expect(html).not.toContain("怎么用");
     expect(html).toMatch(/display\s*:\s*flex/i);

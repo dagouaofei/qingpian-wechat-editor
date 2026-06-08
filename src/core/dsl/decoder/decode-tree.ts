@@ -1,4 +1,5 @@
 import type { Block } from "@/core/blocks";
+import type { Article } from "@/core/article";
 import { wrapCopySafeMarginSection } from "@/core/copy/copy-safe-primitives";
 import { assertCopySafeHtml } from "@/core/copy/html-escape";
 import type {
@@ -37,6 +38,7 @@ export function decodeTreeToOutput(
   dsl: VariantDslV1,
   block: Block,
   target: DslRenderTarget,
+  article?: Article,
 ): {
   ok: boolean;
   output?: RendererOutputPlaceholder;
@@ -49,7 +51,7 @@ export function decodeTreeToOutput(
   }
 
   const { tree: substitutedTree, trace: substitutionTrace } =
-    applyFidelityTreeArticleSubstitution(dsl.tree, dsl, block);
+    applyFidelityTreeArticleSubstitution(dsl.tree, dsl, block, article);
   const slots = resolveSlotsForDslDecode(dsl, block);
   const requiredSlots = listRequiredTreeSlots(dsl);
   const rendered = renderDslTreeToHtml(substitutedTree, slots, target);

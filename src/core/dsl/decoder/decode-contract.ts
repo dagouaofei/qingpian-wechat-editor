@@ -210,7 +210,7 @@ export function decodeRenderContract(
 
     if (dsl.renderContract === "info_card_v1") {
       if (dsl.tree) {
-        return decodeTreeToOutput(dsl, block, target);
+        return decodeTreeToOutput(dsl, block, target, article);
       }
 
       const registryResult = renderViaContextRenderer(contextResult.context, renderInfoCard);
@@ -222,6 +222,7 @@ export function decodeRenderContract(
         { ...dsl, tree: buildInfoCardFallbackTree(dsl) },
         block,
         target,
+        article,
       );
     }
 

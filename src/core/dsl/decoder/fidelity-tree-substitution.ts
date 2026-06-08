@@ -1,4 +1,6 @@
 import type { Block } from "@/core/blocks";
+import type { Article } from "@/core/article";
+import { resolveHeadingIndexLabel } from "@/core/renderer/heading-ordinal";
 
 import type { DslNode, VariantDslV1 } from "../runtime/dsl-types";
 import type { SemanticBinding } from "../encoder/fidelity-html-tree";
@@ -11,6 +13,8 @@ export type FidelitySubstitutionTrace = {
   slotSubstitutionTargetPath: string | null;
   actualTextLeafPath: string | null;
   substitutedSlot: string | null;
+  numberSubstitutionTargetPath: string | null;
+  substitutedNumber: string | null;
   decorativeSlotsPreserved: string[];
   fallbackUsed: boolean;
   fallbackReason: string | null;
@@ -204,10 +208,36 @@ function listDecorativeSlotsPreserved(
   );
 }
 
+function substituteHeadingNumberInTree(
+  tree: DslNode,
+  dsl: VariantDslV1,
+  block: Block,
+  article: Article | undefined,
+): { targetPath: string | null; label: string | null } {
+  if (!article) {
+    return { targetPath: null, label: null };
+  }
+
+  const numberPath = readSemanticBindings(dsl).number?.path;
+  if (!numberPath) {
+    return { targetPath: null, label: null };
+  }
+
+  const label = resolveHeadingIndexLabel(article, block.id, block.meta?.sourceIndex);
+  const target = resolveDslNodeAtPath(tree, numberPath);
+  const replaced = target ? replaceTextInSubtree(target, label, numberPath) : null;
+  if (!replaced?.ok) {
+    return { targetPath: numberPath, label: null };
+  }
+
+  return { targetPath: numberPath, label };
+}
+
 export function applyFidelityTreeArticleSubstitution(
   tree: DslNode,
   dsl: VariantDslV1,
   block: Block,
+  article?: Article,
 ): { tree: DslNode; trace: FidelitySubstitutionTrace } {
   const articleTitle = resolveSlotContentsForBlock(block).title?.trim() ?? "";
   const extractedSlots = readExtractedSlots(dsl);
@@ -218,11 +248,15 @@ export function applyFidelityTreeArticleSubstitution(
   );
 
   const cloned = cloneDslNode(tree);
+  const numberSubstitution = substituteHeadingNumberInTree(cloned, dsl, block, article);
+
   const baseTrace: FidelitySubstitutionTrace = {
     slotSubstitutionPath: null,
     slotSubstitutionTargetPath: null,
     actualTextLeafPath: null,
     substitutedSlot: null,
+    numberSubstitutionTargetPath: numberSubstitution.targetPath,
+    substitutedNumber: numberSubstitution.label,
     decorativeSlotsPreserved,
     fallbackUsed: false,
     fallbackReason: null,

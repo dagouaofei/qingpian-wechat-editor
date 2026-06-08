@@ -71,7 +71,7 @@ export function decodeVariantDsl(input: DecodeVariantDslInput): DecodeVariantDsl
   }
 
   const decoded = input.variantDsl.tree
-    ? decodeTreeToOutput(input.variantDsl, input.block, input.target)
+    ? decodeTreeToOutput(input.variantDsl, input.block, input.target, input.article)
     : decodeRenderContract(input.variantDsl, input.block, input.article, input.target);
 
   if (!decoded.ok || !decoded.output) {
