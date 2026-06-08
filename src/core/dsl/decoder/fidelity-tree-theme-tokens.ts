@@ -430,8 +430,8 @@ function colorHasSubstantialTransparency(color: string | undefined): boolean {
   return false;
 }
 
-/** Large stroke/outlined numbers use bgBand; inline accent numbers keep source color. */
-function shouldRemapNumberRoleColor(node: DslNode, beforeColor: string | undefined): boolean {
+/** Large stroke/outlined numbers use bgBand; inline accent numbers use textAccent. */
+function shouldUseBgBandNumberToken(node: DslNode, beforeColor: string | undefined): boolean {
   if (node.type !== "element" && node.type !== "slot") {
     return false;
   }
@@ -446,6 +446,13 @@ function shouldRemapNumberRoleColor(node: DslNode, beforeColor: string | undefin
     return true;
   }
   return colorHasSubstantialTransparency(beforeColor);
+}
+
+function resolveNumberRoleColorToken(
+  node: DslNode,
+  beforeColor: string | undefined,
+): keyof ThemePaletteTokens {
+  return shouldUseBgBandNumberToken(node, beforeColor) ? "bgBand" : "textAccent";
 }
 
 function remapNumberTextStroke(node: DslNode, palette: ThemePaletteTokens): void {
@@ -486,11 +493,9 @@ function applyRoleColorAtPath(
   const beforeColorRaw =
     node.type === "element" || node.type === "slot" ? node.style?.color : undefined;
   const beforeColor = typeof beforeColorRaw === "string" ? beforeColorRaw : undefined;
-  const skipNumberColorRemap =
-    role === "number" && !shouldRemapNumberRoleColor(node, beforeColor);
-  if (!skipNumberColorRemap) {
-    setElementStyleColor(node, "color", palette[tokenKey]);
-  }
+  const effectiveTokenKey =
+    role === "number" ? resolveNumberRoleColorToken(node, beforeColor) : tokenKey;
+  setElementStyleColor(node, "color", palette[effectiveTokenKey]);
   if (role === "number") {
     remapNumberTextStroke(node, palette);
   }

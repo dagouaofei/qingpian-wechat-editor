@@ -14,7 +14,7 @@ const RUNTIME_VARIANT_ID = "heading_html_paste_49b0ec2b_candidate";
 const INLINE_NUMBER_HEADING_HTML = `<section style="text-align: left; display: flex; flex-flow: row; margin: 0px"><section style="display: inline-block; vertical-align: middle"><section style="text-align: justify; color: rgb(41, 50, 225); font-size: 23px; padding: 0px 4px"><p style="white-space: normal; margin: 0px"><strong><span>01</span></strong></p></section></section><section style="display: inline-block; padding-left: 13px"><h2 style="font-size: 18px; color: #333">章节标题</h2></section></section>`;
 
 describe("heading_html_paste_49b0ec2b inline number color", () => {
-  it("preview keeps solid accent number color instead of palette bgBand", () => {
+  it("admin_inspection keeps source number color", () => {
     const encoded = encodeHtmlToVariantDsl({
       html: INLINE_NUMBER_HEADING_HTML,
       runtimeVariantId: RUNTIME_VARIANT_ID,
@@ -35,20 +35,49 @@ describe("heading_html_paste_49b0ec2b inline number color", () => {
       target: "admin_inspection",
       themePalette,
     });
-    const preview = decodeVariantDsl({
+
+    expect(inspection.ok).toBe(true);
+    if (!inspection.ok) return;
+
+    expect(inspection.html).toMatch(/rgb\(41,\s*50,\s*225\)/i);
+  });
+
+  it("preview remaps inline number color to theme textAccent", () => {
+    const encoded = encodeHtmlToVariantDsl({
+      html: INLINE_NUMBER_HEADING_HTML,
+      runtimeVariantId: RUNTIME_VARIANT_ID,
+      blockType: "heading",
+      wechatCompatibilityMode: "off",
+    });
+    expect(encoded.ok).toBe(true);
+    if (!encoded.ok) return;
+
+    const article = structuredClone(dslRuntimeTraceFixtureArticle);
+    const block = pickTraceFixtureBlock("heading");
+
+    const blue = decodeVariantDsl({
       article,
       block,
       variantDsl: encoded.value,
       target: "preview",
-      themePalette,
+      themePalette: PREVIEW_COLOR_PALETTES.businessBlue.tokens,
+    });
+    const orange = decodeVariantDsl({
+      article,
+      block,
+      variantDsl: encoded.value,
+      target: "preview",
+      themePalette: PREVIEW_COLOR_PALETTES.creamOrange.tokens,
     });
 
-    expect(inspection.ok).toBe(true);
-    expect(preview.ok).toBe(true);
-    if (!inspection.ok || !preview.ok) return;
+    expect(blue.ok).toBe(true);
+    expect(orange.ok).toBe(true);
+    if (!blue.ok || !orange.ok) return;
 
-    expect(inspection.html).toMatch(/rgb\(41,\s*50,\s*225\)/i);
-    expect(preview.html).toMatch(/rgb\(41,\s*50,\s*225\)/i);
-    expect(preview.html).not.toContain("#fff7ed");
+    expect(blue.html).toContain("#2563eb");
+    expect(orange.html).toContain("#ea580c");
+    expect(blue.html).not.toMatch(/rgb\(41,\s*50,\s*225\)/i);
+    expect(orange.html).not.toMatch(/rgb\(41,\s*50,\s*225\)/i);
+    expect(blue.html).not.toBe(orange.html);
   });
 });

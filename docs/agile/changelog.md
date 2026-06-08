@@ -677,6 +677,15 @@
 
 ---
 
+## 2026-06-08 · html_paste inline 编号 theme textAccent
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-08 | Sprint 10 | **49b0ec2b 修正**：inline accent 编号切换 theme 时 remap 为 `textAccent`（非保留 source 色 · 非 `bgBand`） | Decoder / theme tokens | S10-STORY-011 |
+| 2026-06-08 | Sprint 10 | 大号/描边/透明编号仍用 `bgBand` · admin_inspection 仍保留 source 色 | Decoder | S10-STORY-011 |
+
+---
+
 ## 2026-06-08 · DEBT-DSL-RC Legacy renderContract 双轨渲染归档
 
 | 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |

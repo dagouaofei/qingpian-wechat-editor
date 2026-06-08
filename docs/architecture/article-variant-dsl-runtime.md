@@ -215,6 +215,7 @@ Encoder 版本：`s10_html_encoder_v2_semantic` · `meta.extractedSlots` 供 Dec
 - 工作分支：`feature/s10-story-011-integration-readiness`（自 `sprint/s10-db-backed-style-admin-v1` FF merge 今日 011 相关 feature 分支）。
 - **DB 可用时** runtime pool / promote readiness **必须** `runtimeSource=database_dsl`（或 pool `source=database`）；`code_fallback` **仅** DB unavailable。
 - html_paste fidelity refresh、theme token remap、ordinal substitution、copy parity 与用户 preview 同源；admin_inspection 保留 source 色。
+- **number 角色 theme remap（2026-06-08）：** preview/copy 下 inline accent 编号（无 stroke · `<40px`）→ `textAccent`；大号/描边/透明编号 → `bgBand`；admin_inspection 不 remap。
 - Compatibility recalibration、DSL schema cleanup、S10 closeout **不在 011 内继续散修** — 见 S10-STORY-012~014。
 
 ---
