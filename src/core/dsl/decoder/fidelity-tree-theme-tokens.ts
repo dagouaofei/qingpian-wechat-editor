@@ -242,6 +242,45 @@ function setElementStyleColor(
   node.style = { ...node.style, [property]: value };
 }
 
+function hasWebkitTextStroke(style: DslStyle): boolean {
+  for (const key of WEBKIT_TEXT_STROKE_KEYS) {
+    const stroke = style[key];
+    if (typeof stroke === "string" && stroke.trim()) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function colorHasSubstantialTransparency(color: string | undefined): boolean {
+  if (!color) {
+    return false;
+  }
+  const rgbaMatch = color.match(/rgba\s*\(\s*[\d.]+\s*,\s*[\d.]+\s*,\s*[\d.]+\s*,\s*([\d.]+)\s*\)/i);
+  if (rgbaMatch) {
+    return Number.parseFloat(rgbaMatch[1]) < 1;
+  }
+  return false;
+}
+
+/** Large stroke/outlined numbers use bgBand; inline accent numbers keep source color. */
+function shouldRemapNumberRoleColor(node: DslNode, beforeColor: string | undefined): boolean {
+  if (node.type !== "element" && node.type !== "slot") {
+    return false;
+  }
+  const style = node.style;
+  if (!style) {
+    return false;
+  }
+  if (hasWebkitTextStroke(style)) {
+    return true;
+  }
+  if (parseDimensionPx(style.fontSize) >= 40) {
+    return true;
+  }
+  return colorHasSubstantialTransparency(beforeColor);
+}
+
 function remapNumberTextStroke(node: DslNode, palette: ThemePaletteTokens): void {
   if (node.type !== "element" && node.type !== "slot") {
     return;
@@ -276,7 +315,13 @@ function applyRoleColorAtPath(
   if (!node) {
     return;
   }
-  setElementStyleColor(node, "color", palette[tokenKey]);
+  const beforeColor =
+    node.type === "element" || node.type === "slot" ? node.style?.color : undefined;
+  const skipNumberColorRemap =
+    role === "number" && !shouldRemapNumberRoleColor(node, beforeColor);
+  if (!skipNumberColorRemap) {
+    setElementStyleColor(node, "color", palette[tokenKey]);
+  }
   if (role === "number") {
     remapNumberTextStroke(node, palette);
   }

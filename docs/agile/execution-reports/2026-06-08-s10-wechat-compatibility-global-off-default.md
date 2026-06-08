@@ -126,4 +126,4 @@
 
 ## 14. Commit
 
-- Commit hash：**未提交 / not committed**
+- Commit hash：**006c7c2**
