@@ -36,11 +36,32 @@ function readDecorators(dsl: VariantDslV1): string[] {
 }
 
 function readSourceTokenColors(dsl: VariantDslV1): string[] {
+  const colors: string[] = [];
   const tokens = dsl.tokens;
-  if (!tokens || typeof tokens !== "object") {
-    return [];
+  if (tokens && typeof tokens === "object") {
+    for (const value of Object.values(tokens)) {
+      if (typeof value === "string") {
+        colors.push(value);
+      }
+    }
   }
-  return Object.values(tokens).filter((value): value is string => typeof value === "string");
+
+  const styleTokens = dsl.meta?.styleTokens;
+  if (styleTokens && typeof styleTokens === "object" && !Array.isArray(styleTokens)) {
+    for (const value of Object.values(styleTokens as Record<string, unknown>)) {
+      if (typeof value !== "string") {
+        continue;
+      }
+      const borderColor = extractBorderColor(value);
+      if (borderColor) {
+        colors.push(borderColor);
+      } else if (/^(#|rgb)/i.test(value.trim())) {
+        colors.push(value.trim());
+      }
+    }
+  }
+
+  return colors;
 }
 
 function parseDimensionPx(value: DslStyleValue | undefined): number {
@@ -106,64 +127,128 @@ function isMeaningfulBorderValue(value: DslStyleValue | undefined): boolean {
   return true;
 }
 
-function isBottomOnlyBorderWidth(value: DslStyleValue | undefined): boolean {
+function parseBorderWidthFromShorthand(borderShorthand: string): number | null {
+  const match = borderShorthand.match(/^([\d.]+)px\b/i);
+  return match ? Number.parseFloat(match[1]) : null;
+}
+
+type BorderSide = "top" | "right" | "bottom" | "left";
+
+const BORDER_SIDE_CSS: Record<
+  BorderSide,
+  {
+    shorthand: keyof DslStyle;
+    width: keyof DslStyle;
+    color: keyof DslStyle;
+    style: keyof DslStyle;
+    maxWidthPx: number;
+  }
+> = {
+  top: {
+    shorthand: "borderTop",
+    width: "borderTopWidth",
+    color: "borderTopColor",
+    style: "borderTopStyle",
+    maxWidthPx: 4,
+  },
+  right: {
+    shorthand: "borderRight",
+    width: "borderRightWidth",
+    color: "borderRightColor",
+    style: "borderRightStyle",
+    maxWidthPx: 4,
+  },
+  bottom: {
+    shorthand: "borderBottom",
+    width: "borderBottomWidth",
+    color: "borderBottomColor",
+    style: "borderBottomStyle",
+    maxWidthPx: 4,
+  },
+  left: {
+    shorthand: "borderLeft",
+    width: "borderLeftWidth",
+    color: "borderLeftColor",
+    style: "borderLeftStyle",
+    maxWidthPx: 6,
+  },
+};
+
+function isSideOnlyBorderWidth(value: DslStyleValue | undefined, side: BorderSide): boolean {
   if (typeof value !== "string") {
     return false;
   }
   const normalized = value.trim().replace(/\s+/g, " ");
-  return /^0(?:px)?\s+0(?:px)?\s+([1-4])px$/i.test(normalized);
+  switch (side) {
+    case "bottom":
+      return /^0(?:px)?\s+0(?:px)?\s+([1-4])px$/i.test(normalized);
+    case "top":
+      return /^([1-4])px\s+0(?:px)?\s+0(?:px)?\s+0(?:px)?$/i.test(normalized);
+    case "left":
+      return /^([1-6])px\s+0(?:px)?\s+0(?:px)?\s+0(?:px)?$/i.test(normalized);
+    case "right":
+      return /^0(?:px)?\s+([1-4])px\s+0(?:px)?\s+0(?:px)?$/i.test(normalized);
+  }
 }
 
-function parseBorderBottomWidthFromShorthand(borderBottom: string): number | null {
-  const match = borderBottom.match(/^([\d.]+)px\b/i);
-  return match ? Number.parseFloat(match[1]) : null;
+function isFullCardBorder(style: DslStyle): boolean {
+  if (!isMeaningfulBorderValue(style.borderRadius)) {
+    return false;
+  }
+  if (isMeaningfulBorderValue(style.border)) {
+    return true;
+  }
+  return (
+    isMeaningfulBorderValue(style.borderTop) ||
+    isMeaningfulBorderValue(style.borderRight) ||
+    isMeaningfulBorderValue(style.borderBottom) ||
+    isMeaningfulBorderValue(style.borderLeft)
+  );
 }
 
-function hasFullBoxBorder(style: DslStyle): boolean {
-  if (isMeaningfulBorderValue(style.borderRadius)) {
-    return true;
-  }
-  if (isMeaningfulBorderValue(style.borderLeft)) {
-    return true;
-  }
-  if (isMeaningfulBorderValue(style.border) && typeof style.border === "string") {
-    const trimmed = style.border.trim().toLowerCase();
-    if (trimmed && trimmed !== "none" && !/^0/.test(trimmed)) {
-      return true;
-    }
-  }
-  if (
-    typeof style.borderWidth === "string" &&
-    !isBottomOnlyBorderWidth(style.borderWidth) &&
-    isMeaningfulBorderValue(style.borderWidth)
-  ) {
-    return true;
-  }
-  return false;
+function readStyleString(style: DslStyle, key: keyof DslStyle): string | undefined {
+  const value = style[key];
+  return typeof value === "string" ? value : undefined;
 }
 
-function isDecorativeBorderBottom(style: DslStyle, dsl: VariantDslV1): boolean {
-  if (hasFullBoxBorder(style)) {
+function isDecorativeBorderSide(style: DslStyle, side: BorderSide, dsl: VariantDslV1): boolean {
+  if (side === "bottom" && isFullCardBorder(style)) {
     return false;
   }
 
-  const borderBottom = style.borderBottom;
-  if (typeof borderBottom === "string" && BORDER_STYLE_PATTERN.test(borderBottom)) {
-    const width = parseBorderBottomWidthFromShorthand(borderBottom);
-    if (width !== null && width >= 1 && width <= 4) {
+  const sideCss = BORDER_SIDE_CSS[side];
+  const shorthand = readStyleString(style, sideCss.shorthand);
+  if (shorthand && BORDER_STYLE_PATTERN.test(shorthand)) {
+    const width = parseBorderWidthFromShorthand(shorthand);
+    if (width !== null && width >= 1 && width <= sideCss.maxWidthPx) {
       return true;
     }
-    if (isZeroStyleValue(style.lineHeight) || isZeroStyleValue(style.fontSize)) {
+    if (
+      side === "bottom" &&
+      (isZeroStyleValue(style.lineHeight) || isZeroStyleValue(style.fontSize))
+    ) {
       return true;
     }
-    const extracted = extractBorderColor(borderBottom);
+    const extracted = extractBorderColor(shorthand);
     if (extracted && matchesAnySourceTokenColor(extracted, dsl)) {
       return true;
     }
   }
 
+  const splitWidth = style[sideCss.width];
+  const splitColor = readStyleString(style, sideCss.color);
+  if (isMeaningfulBorderValue(splitWidth) && splitColor) {
+    const widthPx = parseDimensionPx(typeof splitWidth === "string" ? splitWidth : undefined);
+    if (widthPx >= 1 && widthPx <= sideCss.maxWidthPx) {
+      return true;
+    }
+    if (matchesAnySourceTokenColor(splitColor, dsl)) {
+      return true;
+    }
+  }
+
   if (
-    isBottomOnlyBorderWidth(style.borderWidth) &&
+    isSideOnlyBorderWidth(style.borderWidth, side) &&
     typeof style.borderColor === "string" &&
     isMeaningfulBorderValue(style.borderStyle)
   ) {
@@ -173,30 +258,112 @@ function isDecorativeBorderBottom(style: DslStyle, dsl: VariantDslV1): boolean {
   return false;
 }
 
-function remapDecorativeLineAccent(
+function applyInlineBlockForDecorativeLine(style: DslStyle, side: BorderSide): void {
+  if (side === "bottom" || side === "top") {
+    style.display = style.display ?? "inline-block";
+    style.width = style.width ?? "auto";
+  }
+}
+
+function remapDecorativeBorderAccents(
   style: DslStyle,
   accentColor: string,
   dsl: VariantDslV1,
 ): DslStyle | undefined {
-  if (!isDecorativeBorderBottom(style, dsl)) {
-    return undefined;
-  }
-
   const next: DslStyle = { ...style };
+  let changed = false;
 
-  if (typeof next.borderBottom === "string") {
-    next.borderBottom = replaceBorderSolidColor(next.borderBottom, accentColor);
-    next.display = next.display ?? "inline-block";
-    next.width = next.width ?? "auto";
+  for (const side of ["top", "right", "bottom", "left"] as const) {
+    if (!isDecorativeBorderSide(style, side, dsl)) {
+      continue;
+    }
+
+    const sideCss = BORDER_SIDE_CSS[side];
+    const shorthandKey = sideCss.shorthand;
+    const shorthand = readStyleString(next, shorthandKey);
+    if (shorthand) {
+      next[shorthandKey] = replaceBorderSolidColor(shorthand, accentColor);
+      applyInlineBlockForDecorativeLine(next, side);
+      changed = true;
+    }
+
+    const splitColorKey = sideCss.color;
+    const splitWidth = next[sideCss.width];
+    if (isMeaningfulBorderValue(splitWidth) && typeof next[splitColorKey] === "string") {
+      next[splitColorKey] = accentColor;
+      applyInlineBlockForDecorativeLine(next, side);
+      changed = true;
+    }
   }
 
-  if (isBottomOnlyBorderWidth(next.borderWidth) && typeof next.borderColor === "string") {
-    next.borderColor = accentColor;
-    next.display = next.display ?? "inline-block";
-    next.width = next.width ?? "auto";
+  for (const side of ["top", "right", "bottom", "left"] as const) {
+    if (
+      isSideOnlyBorderWidth(next.borderWidth, side) &&
+      typeof next.borderColor === "string" &&
+      isMeaningfulBorderValue(next.borderStyle) &&
+      isDecorativeBorderSide(next, side, dsl)
+    ) {
+      next.borderColor = accentColor;
+      applyInlineBlockForDecorativeLine(next, side);
+      changed = true;
+    }
   }
 
-  return next;
+  return changed ? next : undefined;
+}
+
+const TOKEN_MATCHED_BORDER_PROPS = [
+  "border",
+  "borderTop",
+  "borderRight",
+  "borderBottom",
+  "borderLeft",
+  "borderColor",
+  "borderTopColor",
+  "borderRightColor",
+  "borderBottomColor",
+  "borderLeftColor",
+] as const satisfies readonly (keyof DslStyle)[];
+
+function remapTokenMatchedBorderColors(
+  style: DslStyle,
+  accentColor: string,
+  dsl: VariantDslV1,
+): DslStyle | undefined {
+  const next: DslStyle = { ...style };
+  let changed = false;
+
+  for (const prop of TOKEN_MATCHED_BORDER_PROPS) {
+    const value = readStyleString(next, prop);
+    if (!value) {
+      continue;
+    }
+
+    const colorValue =
+      prop === "borderColor" || prop.endsWith("Color") ? value : extractBorderColor(value);
+    if (!colorValue || !matchesAnySourceTokenColor(colorValue, dsl)) {
+      continue;
+    }
+
+    if (prop === "borderColor" || prop.endsWith("Color")) {
+      next[prop] = accentColor;
+    } else {
+      next[prop] = replaceBorderSolidColor(value, accentColor);
+    }
+    changed = true;
+  }
+
+  return changed ? next : undefined;
+}
+
+function remapBorderThemeAccents(
+  style: DslStyle,
+  accentColor: string,
+  dsl: VariantDslV1,
+): DslStyle | undefined {
+  const decorative = remapDecorativeBorderAccents(style, accentColor, dsl);
+  const tokenMatched = remapTokenMatchedBorderColors(decorative ?? style, accentColor, dsl);
+  return tokenMatched ?? decorative;
 }
 
 function isAccentBarNode(node: DslNode): boolean {
@@ -326,7 +493,7 @@ function applyRoleColorAtPath(
     remapNumberTextStroke(node, palette);
   }
   if (node.type === "element" && node.style) {
-    const remapped = remapDecorativeLineAccent(node.style, palette.textAccent, dsl);
+    const remapped = remapBorderThemeAccents(node.style, palette.textAccent, dsl);
     if (remapped) {
       node.style = remapped;
     }
@@ -339,11 +506,12 @@ function applyDecorativeLineThemeTokens(
   palette: ThemePaletteTokens,
 ): void {
   const walk = (node: DslNode) => {
-    if (node.type !== "element" || !node.style) {
+    if ((node.type !== "element" && node.type !== "slot") || !node.style) {
+      node.children?.forEach(walk);
       return;
     }
 
-    const remapped = remapDecorativeLineAccent(node.style, palette.textAccent, dsl);
+    const remapped = remapBorderThemeAccents(node.style, palette.textAccent, dsl);
     if (remapped) {
       node.style = remapped;
     }
@@ -424,6 +592,26 @@ function applyAccentBarThemeTokens(
   walk(tree);
 }
 
+function hasThemeRemappableMetadata(dsl: VariantDslV1): boolean {
+  const bindings = dsl.meta?.semanticBindings;
+  if (
+    typeof bindings === "object" &&
+    bindings !== null &&
+    !Array.isArray(bindings) &&
+    Object.keys(bindings).length > 0
+  ) {
+    return true;
+  }
+
+  const styleTokens = dsl.meta?.styleTokens;
+  return (
+    typeof styleTokens === "object" &&
+    styleTokens !== null &&
+    !Array.isArray(styleTokens) &&
+    Object.keys(styleTokens as Record<string, unknown>).length > 0
+  );
+}
+
 export function shouldApplyFidelityThemeTokens(
   dsl: VariantDslV1,
   target: DslRenderTarget,
@@ -441,11 +629,7 @@ export function shouldApplyFidelityThemeTokens(
   if (!HTML_PASTE_FAMILIES.has(dsl.family ?? "")) {
     return false;
   }
-  const bindings = dsl.meta?.semanticBindings;
-  if (typeof bindings !== "object" || bindings === null || Array.isArray(bindings)) {
-    return false;
-  }
-  return Object.keys(bindings).length > 0;
+  return hasThemeRemappableMetadata(dsl);
 }
 
 export function applyFidelityTreeThemeTokens(

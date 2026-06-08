@@ -20,6 +20,10 @@ import {
   E21_UPLOAD_HEADING_HTML,
 } from "../fixtures/dsl/e21-heading-html";
 import {
+  BORDERED_HEADING_HTML,
+  BORDERED_HEADING_RUNTIME_VARIANT_ID,
+} from "../fixtures/dsl/bordered-heading-html";
+import {
   SHORT_LINE_HEADING_HTML,
   SHORT_LINE_HEADING_RUNTIME_VARIANT_ID,
 } from "../fixtures/dsl/short-line-heading-html";
@@ -30,6 +34,12 @@ import {
 
 const RUNTIME_VARIANT_ID = "heading_html_paste_4933bb91_candidate";
 const COMPLEX_VARIANT_ID = "heading_html_paste_64e3b97a_candidate";
+
+const LEFT_BAR_HEADING_HTML = `<section style="padding: 8px 0; border-left: 4px solid #1677ff;">
+  <span style="font-size: 18px; font-weight: 700; color: #111;">Left Bar Heading</span>
+</section>`;
+
+const LEFT_BAR_HEADING_RUNTIME_VARIANT_ID = "heading_html_paste_left_bar_accent_candidate";
 
 function buildPool(
   runtimeVariantId: string,
@@ -292,6 +302,51 @@ describe("html_paste fidelity tree theme tokens", () => {
 
     expect(previewHtml).toContain("#2563eb");
     expect(previewHtml).not.toContain("rgb(25,82,224)");
+  });
+
+  it("remaps border-left accent bar when preview palette switches", () => {
+    const blue = renderFidelityHeading(
+      LEFT_BAR_HEADING_HTML,
+      LEFT_BAR_HEADING_RUNTIME_VARIANT_ID,
+      "businessBlue",
+    );
+    const orange = renderFidelityHeading(
+      LEFT_BAR_HEADING_HTML,
+      LEFT_BAR_HEADING_RUNTIME_VARIANT_ID,
+      "creamOrange",
+    );
+
+    expect(blue.previewHtml).toMatch(/border-left\s*:\s*4px\s+solid\s+#2563eb/i);
+    expect(orange.previewHtml).toMatch(/border-left\s*:\s*4px\s+solid\s+#ea580c/i);
+    expect(orange.previewHtml).not.toContain("#1677ff");
+  });
+
+  it("remaps border-top divider on complex chapter overlay heading", () => {
+    const blue = renderFidelityHeading(COMPLEX_HEADING_HTML, COMPLEX_VARIANT_ID, "businessBlue");
+    const orange = renderFidelityHeading(COMPLEX_HEADING_HTML, COMPLEX_VARIANT_ID, "creamOrange");
+
+    expect(blue.previewHtml).toMatch(/border-top\s*:\s*1px\s+solid\s+#2563eb/i);
+    expect(orange.previewHtml).toMatch(/border-top\s*:\s*1px\s+solid\s+#ea580c/i);
+    expect(blue.previewHtml).not.toContain("rgb(229,231,235)");
+  });
+
+  it("remaps bordered card border and border-left accent colors", () => {
+    const blue = renderFidelityHeading(
+      BORDERED_HEADING_HTML,
+      BORDERED_HEADING_RUNTIME_VARIANT_ID,
+      "businessBlue",
+    );
+    const orange = renderFidelityHeading(
+      BORDERED_HEADING_HTML,
+      BORDERED_HEADING_RUNTIME_VARIANT_ID,
+      "creamOrange",
+    );
+
+    expect(blue.previewHtml).toMatch(/border-left\s*:\s*4px\s+solid\s+#2563eb/i);
+    expect(blue.previewHtml).toMatch(/border\s*:\s*1px\s+solid\s+#2563eb/i);
+    expect(orange.previewHtml).toMatch(/border-left\s*:\s*4px\s+solid\s+#ea580c/i);
+    expect(orange.previewHtml).toMatch(/border\s*:\s*1px\s+solid\s+#ea580c/i);
+    expect(orange.previewHtml).not.toContain("#2563eb");
   });
 
   it("preserves source border-bottom when decode runs without themePalette", () => {
