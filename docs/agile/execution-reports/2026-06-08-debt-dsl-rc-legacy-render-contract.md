@@ -24,4 +24,4 @@
 
 ## 5. commit hash
 
-未提交 / not committed（提交后更新）
+`40f15a5` — docs: archive DEBT-DSL-RC legacy renderContract dual-renderer debt
