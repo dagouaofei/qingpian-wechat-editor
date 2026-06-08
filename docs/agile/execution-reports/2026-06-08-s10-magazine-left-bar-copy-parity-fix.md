@@ -38,4 +38,4 @@
 
 ## 7. commit hash
 
-未提交 / not committed（提交后更新）
+`947446a` — fix: align heading_magazine_left_bar copy with preview dual rails
