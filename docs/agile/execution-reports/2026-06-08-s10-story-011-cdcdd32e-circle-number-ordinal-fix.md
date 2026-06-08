@@ -63,4 +63,4 @@ npm exec vitest run tests/lib/dsl-runtime-fidelity-heading-substitution.test.ts
 
 ## 8. Commit
 
-- Commit hash：未提交 / not committed
+- Commit hash：`603f8a7`
