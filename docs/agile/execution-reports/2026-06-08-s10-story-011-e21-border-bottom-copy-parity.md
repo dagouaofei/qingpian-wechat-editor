@@ -35,4 +35,5 @@
 
 ## 6. Commit
 
-- 未提交 / not committed
+- Commit hash：`a7f272f` — fix: theme-remap e21 border-bottom lines and copy preview parity
+- Merge：未 merge（待用户确认）
