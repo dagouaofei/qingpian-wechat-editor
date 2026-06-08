@@ -37,4 +37,4 @@
 
 ## 7. commit hash
 
-未提交 / not committed（提交后更新）
+`456c748` — fix: remap inline html_paste number color to theme textAccent
