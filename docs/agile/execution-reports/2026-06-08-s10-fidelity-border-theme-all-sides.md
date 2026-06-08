@@ -118,4 +118,4 @@
 ## 15. Commit
 
 - Part 1：`e1a026e` — `fix: preserve inline html_paste number accent color in preview`（在 `feature/s10-wechat-compatibility-global-off-default`）
-- Part 2：**未提交 / not committed**（当前 `feature/s10-story-011-fidelity-border-theme-all-sides` 工作区）
+- Part 2：`ce91b1c` — `feat: remap html_paste decorative borders on all sides for theme palette`（`feature/s10-story-011-fidelity-border-theme-all-sides`）
