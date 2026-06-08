@@ -70,7 +70,7 @@ Next.js · Prisma · PostgreSQL · 阿里云 RDS / OSS / ECS · SLS / CloudMonit
 | S10-STORY-009 | HTML Harvest → Candidate Variant v1 | **Done**（2026-06-07 · merge @ `147c2e7`） |
 | S10-STORY-010 | Candidate Preview / Copy / Validator / Evidence | **Done**（2026-06-07 · merge @ `d5a6af3`） |
 | S10-STORY-011A | Article / Variant DSL Runtime + Encoder / Decoder | **Done**（2026-06-07 · checkpoint + FIX-A + FIX-B · 本地 E2E A/B/C PASS · merge sprint） |
-| S10-STORY-011 | 采集样式 Promote 到 user-selectable | **In Review**（integration · `feature/s10-story-011-integration-readiness` · 未 merge sprint） |
+| S10-STORY-011 | 采集样式 Promote 到 user-selectable | **Done**（2026-06-08 · merge @ `4c301d0` · integration FF · 用户确认关闭） |
 | S10-STORY-012 | WeChat Compatibility Spec Recalibration | Planned |
 | S10-STORY-013 | DSL Runtime Schema Cleanup | Planned |
 | S10-STORY-014 | S10 Architecture Audit / Closeout | Planned |
@@ -240,9 +240,9 @@ pnpm style-admin:import-existing-variants           # 写入 DATABASE_URL 指向
 
 ---
 
-## 7. 关闭条件（S10-STORY-012）
+## 7. 关闭条件（S10-STORY-014）
 
 - 第一验收闭环 PASS
-- HTML Harvest 链路 PASS（candidate → validation → promote → 用户侧可选）
+- HTML Harvest 链路 PASS（candidate → validation → promote → 用户侧可选）— **S10-STORY-009~011 Done**（2026-06-08）
 - Audit Grade 达标 · **P0=0**
 - 用户确认关闭 Sprint 10

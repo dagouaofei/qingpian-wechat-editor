@@ -12,7 +12,7 @@
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
 > **Sprint 8：** **Closed**（2026-06-05 · DECISION-093 · audit Grade A- · P0=0 · merged `release/1` @ `806fa47`）
 > **Sprint 9：** **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · **P0=0** · HTML→user preview picker E2E PASS · Preview/Copy parity PASS · default preset / release1_required 未污染 · **已 merge `release/1`** @ `c96e869` · **未 merge `main`**）
-> **当前 Sprint：** **Sprint 10** — Database-backed Style Management Admin v1 · **In Progress**（2026-06-07 · **DECISION-108** · S10-STORY-001~008 Done · **部署 Runbook 完成** · 009~012 Planned）
+> **当前 Sprint：** **Sprint 10** — Database-backed Style Management Admin v1 · **In Progress**（2026-06-08 · **DECISION-108** · S10-STORY-001~011 **Done** · **012~014 Planned**）
 > **Sprint 10 分支：** `sprint/s10-db-backed-style-admin-v1`（从 `release/1` · 2026-06-07 · @ `c96e869`）
 > **Sprint 9 分支：** `sprint/s9-style-management-system-v0`（已 merge `release/1` · 2026-06-05）
 > **上一 Sprint：** **Sprint 8** — **Closed**（2026-06-05）；**Sprint 7** — **Done**（2026-06-03 · merge `release/1`）
@@ -4429,11 +4429,11 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 ## S10-STORY-011 采集样式 Promote 到 user-selectable
 
-**优先级：** P1 · **状态：** **In Review** · **工作分支：** `feature/s10-story-011-integration-readiness`（2026-06-08 · 统一 31 commits · **未 merge sprint**）
+**优先级：** P1 · **状态：** **Done**（2026-06-08 · merge `feature/s10-story-011-integration-readiness` → `sprint/s10-db-backed-style-admin-v1` @ `4c301d0` · 用户确认关闭）· **工作分支：** `feature/s10-story-011-integration-readiness`（已 merge）
 
-**Integration 说明（2026-06-08）：** 今日分散在 `promote-user-selectable-final` / `html-paste-fidelity-theme-tokens` / `wechat-compatibility-global-off-default` / `fidelity-border-theme-all-sides` 的修复已 fast-forward 合入 `feature/s10-story-011-integration-readiness`。**仍为 In Review · 待用户人工验收 · 未 merge sprint。**
+**Integration 说明（2026-06-08）：** `promote-user-selectable-final` / `html-paste-fidelity-theme-tokens` / `wechat-compatibility-global-off-default` / `fidelity-border-theme-all-sides` 等修复已 FF 合入 integration 分支并 merge sprint · **Story 正式关闭**。
 
-**Checkpoint 说明（2026-06-08）：** promote + FIX-A + Harvest compatibility mode + **FIX-C fidelity refresh** 已收口；**In Review · 未 merge sprint**。
+**Merge 摘要（2026-06-08）：** promote + FIX-A + FIX-C fidelity refresh + Harvest compat mode + CHORE-011B + copy fidelity 个案（BUG-001/002）+ html_paste theme/ordinal 修复 · sprint HEAD `4c301d0`。
 
 - Promote gate 已恢复
 - DSL Runtime readiness 已接入
@@ -4457,7 +4457,7 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 ### S10-STORY-011 FIX-C Fidelity DSL Refresh from sourceHtml
 
-**优先级：** P0 · **状态：** **In Review** · **工作分支：** `feature/s10-story-011-promote-user-selectable-final`
+**优先级：** P0 · **状态：** **Done**（2026-06-08 · merge sprint @ `4c301d0`）· **工作分支：** `feature/s10-story-011-promote-user-selectable-final`（已合入 integration）
 
 **目标：** DB 存 stale slot-tree 时，admin inspection 与用户 runtime 从 `rawHtml` 重建 fidelity tree · 避免 `#1677ff` collapsed / `slots.title` 误替换。
 
@@ -4472,7 +4472,7 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 ### S10-STORY-011 FIX-A DSL Decode Source-Exact / No Fallback / Empty Is Failure
 
-**优先级：** P0 · **状态：** **In Review** · **工作分支：** `feature/s10-story-011-promote-user-selectable-final`（与 011 同分支 · **未 merge sprint**）
+**优先级：** P0 · **状态：** **Done**（2026-06-08 · merge sprint @ `4c301d0`）· **工作分支：** `feature/s10-story-011-promote-user-selectable-final`（已合入 integration）
 
 **目标：** bordered heading HTML 全链路 source-exact · empty render = failed · `database_dsl` 禁止语义 renderer fallback · source-exact trace。
 
@@ -4487,7 +4487,7 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 ### S10-STORY-011 Harvest WeChat Compatibility Spec Mode（诊断开关）
 
-**优先级：** P1 · **状态：** **In Review** · **工作分支：** `feature/s10-story-011-promote-user-selectable-final`
+**优先级：** P1 · **状态：** **Done**（2026-06-08 · merge sprint @ `4c301d0`）· **工作分支：** `feature/s10-story-011-promote-user-selectable-final`（已合入 integration）
 
 **目标：** `STYLE_HARVEST_WECHAT_COMPATIBILITY_MODE=off|report|enforce` · sanitize 常开 · 诊断 Spec 是否过度保守。
 
@@ -4502,7 +4502,7 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 ### S10-CHORE-011B 全局 WeChat Compatibility Mode 默认 off + 债务归档
 
-**优先级：** P1 · **状态：** **In Review** · **工作分支：** `feature/s10-story-011-integration-readiness`（含 `006c7c2`）
+**优先级：** P1 · **状态：** **Done**（2026-06-08 · merge sprint @ `4c301d0`）· **工作分支：** `feature/s10-story-011-integration-readiness`（已 merge）
 
 **目标：** 全局 `QINGPIAN_WECHAT_COMPATIBILITY_MODE` 默认 off；统一 gate validator / copy filter / copy-safe-html；债务写入 [`wechat-compatibility-known-debt.md`](../architecture/wechat-compatibility-known-debt.md)（不重构）。
 

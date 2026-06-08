@@ -63,9 +63,9 @@
 | **Sprint 7** | **Done**（2026-06-03 · S7-STORY-008 关闭 · merge `release/1`） |
 | **Sprint 8** | **Closed**（2026-06-05 · DECISION-093 · merged `release/1`） |
 | **Sprint 9** | **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · P0=0 · S9-STORY-001~009 Done · **已 merge `release/1`** @ `c96e869`） |
-| **Sprint 10** | **In Progress**（2026-06-07 · **DECISION-108** · S10-STORY-001~010 · **S10-STORY-011A Done**） |
+| **Sprint 10** | **In Progress**（2026-06-08 · **DECISION-108** · S10-STORY-001~011 **Done**） |
 | **Release 1 主干** | `release/1` |
-| **下一步** | **S10-STORY-011** integration 人工验收 · merge sprint · **S10-STORY-012~014** 后续拆分 |
+| **下一步** | **S10-STORY-012~014**（Compat Recalibration · DSL Schema Cleanup · Audit Closeout） |
 
 ---
 
@@ -661,7 +661,7 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 **Stories：** S10-STORY-001 ~ S10-STORY-012 — 见 `sprint-backlog.md`
 
-**进度：** S10-STORY-001~010 **Done** · S10-STORY-011~012 **Planned**
+**进度：** S10-STORY-001~011 **Done** · S10-STORY-012~014 **Planned**
 
 **与 S9 关系：**
 

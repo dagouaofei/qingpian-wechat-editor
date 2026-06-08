@@ -686,6 +686,16 @@
 
 ---
 
+## 2026-06-08 · S10-STORY-011 Done（merge sprint）
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-08 | Sprint 10 | **S10-STORY-011 Done**：`feature/s10-story-011-integration-readiness` merge → `sprint/s10-db-backed-style-admin-v1` @ `4c301d0` · 用户确认关闭 Story | Git / 敏捷 | S10-STORY-011 · DECISION-109 |
+| 2026-06-08 | Sprint 10 | Promote gate · FIX-A/C fidelity · Harvest compat · CHORE-011B · html_paste theme/ordinal · BUG-COPY-FIDELITY-001/002 个案 | runtime / Admin / Copy | S10-STORY-011 |
+| 2026-06-08 | Sprint 10 | Sprint 10 后半段 HTML Harvest 链路（009→010→011）**完成** · 下一步 **012~014** | 敏捷 | S10-STORY-012~014 |
+
+---
+
 ## 2026-06-08 · BUG-S10-COPY-FIDELITY-002 卡片居中 Preview/Copy parity
 
 | 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
@@ -718,7 +728,7 @@
 | 2026-06-08 | Sprint 10 | 修复 `fidelity-encoder.test.ts` ordinal 期望（decoder/runtime 01/02/03 vs raw encode 03） | 测试 | S10-STORY-011 |
 | 2026-06-08 | Sprint 10 | 修复 `runtime-variant-dsl-pool.test.ts` mock 缺 `sources` 导致误 `code_fallback` | 测试 / runtime | S10-STORY-011 · 011A |
 | 2026-06-08 | Sprint 10 | TS/build 收口（decoder theme tokens · harvest-form error branch · candidate-dsl-render） | 代码 | S10-STORY-011 |
-| 2026-06-08 | Sprint 10 | 全量 **1293 tests PASS** · lint PASS · build PASS · **未 merge sprint** | 验收 | S10-STORY-011 |
+| 2026-06-08 | Sprint 10 | 全量 **1293 tests PASS** · lint PASS · build PASS · **已 merge sprint** @ `4c301d0` | 验收 | S10-STORY-011 |
 | 2026-06-08 | Sprint 10 | 后续拆分：**012** Compat Recalibration · **013** Schema Cleanup · **014** Architecture Audit / Closeout | 敏捷 | S10-STORY-012~014 |
 
 ---

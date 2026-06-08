@@ -54,8 +54,8 @@ S10 在 S9 领域模型与运营工作流验证基础上，解决**正式生产�
 | 单管理员登录 | `/admin/*` 访问保护 |
 | 阿里云部署与运维 | ECS · RDS · OSS · SLS / CloudMonitor |
 | HTML Harvest 入库 | S10-STORY-009~010 **Done**（`147c2e7` · `d5a6af3`） |
-| DSL Runtime | S10-STORY-011A **In Review** — [`article-variant-dsl-runtime.md`](article-variant-dsl-runtime.md) · `definitionJson` = Variant DSL |
-| Promote | S10-STORY-011 **Blocked（依赖 011A）** — 须 DSL renderability gate |
+| DSL Runtime | S10-STORY-011A **Done** — [`article-variant-dsl-runtime.md`](article-variant-dsl-runtime.md) · `definitionJson` = Variant DSL |
+| Promote | S10-STORY-011 **Done**（2026-06-08 · merge @ `4c301d0`）— `validateVariantDslRuntimeReadiness` gate |
 
 ### 2.3 迁移策略
 
@@ -408,7 +408,7 @@ corepack pnpm dev
 | 恢复上架 | S10-STORY-006 恢复 userSelectable |
 | Preview / Copy | 现有 Renderer 路径 · 不污染 default preset / release1Required |
 
-**第一验收闭环已于 2026-06-07 通过**；HTML Harvest 主线（S10-STORY-009~011）可在 Sprint 10 后半段启动。
+**第一验收闭环已于 2026-06-07 通过**；HTML Harvest 主线（S10-STORY-009~011）**已于 2026-06-08 完成**（011 merge sprint @ `4c301d0`）。
 
 ---
 
@@ -418,7 +418,7 @@ corepack pnpm dev
 |-------|------|------|
 | S10-STORY-009 | 粘贴 HTML → raw 保存 · blockType 识别 · candidate 写入 DB | **Done**（2026-06-07 · `147c2e7`） |
 | S10-STORY-010 | DB candidate → Preview / Copy / Validator · evidence 入库 | **Done**（2026-06-07 · `d5a6af3`） |
-| S10-STORY-011 | candidate → user_selectable promote · 用户侧 1–5 分钟可见 | Planned |
+| S10-STORY-011 | candidate → user_selectable promote · 用户侧 1–5 分钟可见 | **Done**（2026-06-08 · merge @ `4c301d0`） |
 
 ### 8.1 S10-STORY-009 HTML Harvest v1（已实现）
 
@@ -447,7 +447,7 @@ corepack pnpm dev
 | Evidence | manual Paste QA（`paste_qa`）· ossKey=null |
 | Runtime Gate | inspection 不绕过用户 gate · `validator_pass`/`paste_qa_pass` 仍不 userSelectable |
 
-**约束：** 不直接 user-selectable · 不进入 default preset · promote 留给 S10-STORY-011 · OSS 截图留后续。
+**约束：** 不直接 user-selectable · 不进入 default preset · promote 见 S10-STORY-011（**Done**）· OSS 截图留后续。
 
 ---
 
