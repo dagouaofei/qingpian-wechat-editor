@@ -53,4 +53,4 @@ npx vitest run tests/lib/dsl-runtime-fidelity-heading-substitution.test.ts
 
 ## 8. commit hash
 
-未提交 / not committed
+`7d4055c16667885ba2d390dd751a7619f1dd8420`
