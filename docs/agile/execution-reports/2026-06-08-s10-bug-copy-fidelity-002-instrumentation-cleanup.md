@@ -78,4 +78,4 @@ grep -r "7528/ingest\|437a1b\|#region agent log" src/
 
 ## 15. Commit
 
-（见本轮 card_centered fix commit）
+`77b7ac2` — fix: align heading_card_centered copy with preview (no h3 borders)

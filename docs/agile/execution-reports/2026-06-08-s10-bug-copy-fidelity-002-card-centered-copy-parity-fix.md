@@ -40,4 +40,4 @@
 
 ## 7. commit hash
 
-（commit 后回填）
+`77b7ac2` — fix: align heading_card_centered copy with preview (no h3 borders)
