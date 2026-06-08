@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest";
 
+import { decodeVariantDsl } from "@/core/dsl/decoder";
 import { encodeHtmlToVariantDsl } from "@/core/dsl/encoder";
+import { buildDbCandidateInspectionArticle } from "@/server/style-admin/inspection/db-candidate-admin-render";
+import { buildCandidateInspectionFixture } from "@/server/style-admin/inspection/candidate-inspection-fixtures";
 import { TITLE_BLOCK_COMPONENT_ID } from "@/core/styles/types";
 import {
   createRelease1FirstWaveCopyRendererRegistry,
@@ -211,6 +214,58 @@ describe("copy background number heading diagnostic", () => {
 
     expect(rendered.clipboard.textHtml).toMatch(/<h2\b/i);
     expect(rendered.clipboard.textHtml).not.toMatch(/display\s*:\s*flex/i);
+  });
+
+  it("preserves height:4px on red accent bar in copy_wechat decode", () => {
+    const { dslRuntime } = buildResolvedRuntime();
+    const definitionJson = dslRuntime.definitionJsonByVariantId[RUNTIME_VARIANT_ID];
+    const encoded = encodeHtmlToVariantDsl({
+      html: BACKGROUND_NUMBER_HEADING_HTML,
+      runtimeVariantId: RUNTIME_VARIANT_ID,
+      blockType: "heading",
+      wechatCompatibilityMode: "off",
+    });
+    if (!encoded.ok) throw new Error("encode failed");
+
+    const fixture = buildCandidateInspectionFixture("heading", RUNTIME_VARIANT_ID);
+    if (!fixture) throw new Error("missing fixture");
+
+    const source = {
+      variantId: "variant-bg-number",
+      runtimeVariantId: RUNTIME_VARIANT_ID,
+      blockType: "heading" as const,
+      styleFamily: "htmlPaste",
+      label: "Background Number Heading",
+      lifecycle: "candidate" as const,
+      definitionJson: definitionJson ?? encoded.value,
+      componentProtocolJson: null,
+      compatibilityJson: null,
+      copySafety: "strict" as const,
+      qualityStatus: "not_checked" as const,
+      versionId: "version-bg-number",
+      versionNumber: 1,
+      primarySourceType: "html_paste" as const,
+      hasRawHtml: true,
+      rawHtml: BACKGROUND_NUMBER_HEADING_HTML,
+    };
+    const article = buildDbCandidateInspectionArticle(source, fixture);
+    const block = article.blocks[0]!;
+
+    for (const target of ["preview", "copy_wechat"] as const) {
+      const decoded = decodeVariantDsl({
+        article,
+        block,
+        variantDsl: encoded.value,
+        target,
+      });
+      expect(decoded.ok, JSON.stringify(decoded.issues)).toBe(true);
+      const html = decoded.html ?? "";
+      expect(html).toMatch(/width:\s*40px/i);
+      expect(html).toMatch(/height:\s*4px/i);
+      expect(html).toMatch(/background-color:\s*#E60012/i);
+      expect(html).not.toMatch(/leaf=/);
+      expect(html).not.toMatch(/<br/i);
+    }
   });
 
   it("records snapshot entry when heading copy render succeeds", () => {

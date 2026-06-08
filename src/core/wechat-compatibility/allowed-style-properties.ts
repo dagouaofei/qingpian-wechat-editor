@@ -31,6 +31,7 @@ export const WECHAT_ALLOWED_STYLE_PROPERTIES = [
   "text-decoration",
   "letter-spacing",
   "width",
+  "height",
   "max-width",
   "box-sizing",
 ] as const;
