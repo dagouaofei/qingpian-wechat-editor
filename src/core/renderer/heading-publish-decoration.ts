@@ -83,8 +83,8 @@ export const HEADING_PUBLISH_COPY_CONTRACT: Record<
     mustNotMatch: [/<table/i, /display:\s*inline-block/i, /border-bottom:\s*[0-9]+px/i],
   },
   heading_magazine_left_bar: {
-    mustMatch: [/<h3\b/i, /border-left:\s*3px/i],
-    mustNotMatch: [/<table/i, /width:\s*100%/i],
+    mustMatch: [/<h3\b/i, /border-left:\s*1px/i, /border-left:\s*3px/i],
+    mustNotMatch: [/<table/i, /width:\s*100%/i, /<h3[^>]*border-left/i],
   },
   heading_magazine_offset: {
     mustMatch: [

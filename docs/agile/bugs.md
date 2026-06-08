@@ -47,8 +47,8 @@
 | 发现时间 | 2026-06-07 |
 | 所属 | Sprint 10 · S10-STORY-005 FIX-B |
 | 严重级别 | P1 |
-| 状态 | **Open** |
-| 处理记录 | FIX-B 标记 `qualityStatus=copy_fidelity_failed` · `userSelectable=false` · runtime gate 排除；Renderer 修复留后续 Copy Fidelity 专项 |
+| 状态 | **Fixed**（2026-06-08 · `renderPublishMagazineLeftBarCopy` 双嵌套 section 竖线 · 用户验收 PASS） |
+| 处理记录 | FIX-B 曾标记 `qualityStatus=copy_fidelity_failed` · 2026-06-08 修复 Copy 与 Preview 同源双轨（1px 浅线 + 3px 深线包裹编号/SECTION/标题）· **待 re-run quality gate / userSelectable 评估** |
 
 ---
 

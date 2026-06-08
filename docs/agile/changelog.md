@@ -677,6 +677,14 @@
 
 ---
 
+## 2026-06-08 · BUG-S10-COPY-FIDELITY-001 杂志竖线 Preview/Copy parity
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-08 | Sprint 10 | **BUG-S10-COPY-FIDELITY-001 Fixed**：`heading_magazine_left_bar` Copy 改用双嵌套 `section` 竖线（1px + 3px），与 Preview 一致 | Copy / Renderer | S10-STORY-011 · BUG-S10-COPY-FIDELITY-001 |
+
+---
+
 ## 2026-06-08 · S10-STORY-011 Integration Readiness
 
 | 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |

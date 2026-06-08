@@ -235,22 +235,31 @@ export function renderPublishMagazineLeftBarCopy(
     copySafeHeadingSectionKickerStyle(palette),
     escapeHtml(presentation.badgeText ?? "SECTION"),
   );
+  const titleLine = wrapTitleHeadingElement(
+    "heading",
+    {
+      margin: "0",
+      color: typography.color,
+      fontSize: typography.fontSize,
+      fontWeight: typography.fontWeight,
+      lineHeight: typography.lineHeight,
+      ...(typography.fontFamily ? { fontFamily: typography.fontFamily } : {}),
+    },
+    escapeHtml(text),
+  );
+  const accentRail = wrapInlineElement(
+    "section",
+    copySafeMagazineLeftBarAccentRailStyle(palette),
+    `${indexLine}${sectionLine}${titleLine}`,
+  );
+  const lightRail = wrapInlineElement(
+    "section",
+    copySafeMagazineLeftBarLightRailStyle(palette),
+    accentRail,
+  );
   return wrapCopySafeMarginSection(
     copySafeHeadingSectionStyle().margin ?? "28px 0 12px",
-    `${indexLine}${sectionLine}${wrapTitleHeadingElement(
-      "heading",
-      {
-        margin: "0",
-        padding: "2px 0 2px 10px",
-        borderLeft: `3px solid ${palette.textAccent}`,
-        color: typography.color,
-        fontSize: typography.fontSize,
-        fontWeight: typography.fontWeight,
-        lineHeight: typography.lineHeight,
-        ...(typography.fontFamily ? { fontFamily: typography.fontFamily } : {}),
-      },
-      escapeHtml(text),
-    )}`,
+    lightRail,
   );
 }
 
