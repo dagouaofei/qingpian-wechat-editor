@@ -34,6 +34,7 @@ export const WECHAT_ALLOWED_STYLE_PROPERTIES = [
   "height",
   "max-width",
   "box-sizing",
+  "-webkit-text-stroke",
 ] as const;
 
 export const WECHAT_FORBIDDEN_STYLE_PROPERTIES = [

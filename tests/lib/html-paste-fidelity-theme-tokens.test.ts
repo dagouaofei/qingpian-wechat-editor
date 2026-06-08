@@ -15,6 +15,15 @@ import { buildDatabaseDslRuntimeFixture } from "../fixtures/dsl/runtime-dsl-snap
 import { BACKGROUND_NUMBER_HEADING_HTML } from "../fixtures/dsl/background-number-heading-html";
 import { COMPLEX_HEADING_HTML } from "../fixtures/dsl/complex-heading-html";
 import {
+  E21_HEADING_RUNTIME_VARIANT_ID,
+  E21_PREVIEW_LIKE_HEADING_HTML,
+  E21_UPLOAD_HEADING_HTML,
+} from "../fixtures/dsl/e21-heading-html";
+import {
+  SHORT_LINE_HEADING_HTML,
+  SHORT_LINE_HEADING_RUNTIME_VARIANT_ID,
+} from "../fixtures/dsl/short-line-heading-html";
+import {
   styleSelectionArticleFixture,
   styleSelectionNormalizedInput,
 } from "../fixtures/generation/style-selection";
@@ -211,5 +220,81 @@ describe("html_paste fidelity tree theme tokens", () => {
     expect(previewHtml).toContain(palette.bgBand);
     expect(previewHtml).not.toContain("rgb(148,163,184)");
     expect(previewHtml).not.toContain("#6c5ce7");
+  });
+
+  it("remaps border-bottom accent underline for e21d5346 short-line heading", () => {
+    const blue = renderFidelityHeading(
+      SHORT_LINE_HEADING_HTML,
+      SHORT_LINE_HEADING_RUNTIME_VARIANT_ID,
+      "businessBlue",
+    );
+    const orange = renderFidelityHeading(
+      SHORT_LINE_HEADING_HTML,
+      SHORT_LINE_HEADING_RUNTIME_VARIANT_ID,
+      "creamOrange",
+    );
+
+    expect(blue.previewHtml).toMatch(/border-bottom\s*:\s*2px\s+solid\s+#2563eb/i);
+    expect(blue.clipboardHtml).toMatch(/border-bottom\s*:\s*2px\s+solid\s+#2563eb/i);
+    expect(blue.previewHtml).not.toContain("#E60012");
+    expect(orange.previewHtml).toMatch(/border-bottom\s*:\s*2px\s+solid\s+#ea580c/i);
+    expect(orange.previewHtml).not.toContain("#2563eb");
+    expect(blue.previewHtml).not.toBe(orange.previewHtml);
+  });
+
+  it("remaps split border-color underline and border-bottom for e21d5346 user HTML", () => {
+    const blue = renderFidelityHeading(
+      E21_PREVIEW_LIKE_HEADING_HTML,
+      E21_HEADING_RUNTIME_VARIANT_ID,
+      "businessBlue",
+    );
+    const orange = renderFidelityHeading(
+      E21_PREVIEW_LIKE_HEADING_HTML,
+      E21_HEADING_RUNTIME_VARIANT_ID,
+      "creamOrange",
+    );
+
+    expect(blue.previewHtml).toMatch(/border-bottom\s*:\s*2px\s+solid\s+#2563eb/i);
+    expect(blue.previewHtml).not.toContain("#222cff");
+    expect(orange.previewHtml).toMatch(/border-bottom\s*:\s*2px\s+solid\s+#ea580c/i);
+    expect(blue.clipboardHtml).toMatch(/border-bottom\s*:\s*2px\s+solid\s+#2563eb/i);
+    expect(blue.clipboardHtml).toMatch(/display\s*:\s*inline-block/i);
+    expect(blue.clipboardHtml).toMatch(/-webkit-text-stroke/i);
+  });
+
+  it("remaps upload HTML bottom border-width underline to theme accent", () => {
+    const { previewHtml } = renderFidelityHeading(
+      E21_UPLOAD_HEADING_HTML,
+      E21_HEADING_RUNTIME_VARIANT_ID,
+      "businessBlue",
+    );
+
+    expect(previewHtml).toContain("#2563eb");
+    expect(previewHtml).not.toContain("rgb(25,82,224)");
+  });
+
+  it("preserves source border-bottom when decode runs without themePalette", () => {
+    const encoded = encodeHtmlToVariantDsl({
+      html: SHORT_LINE_HEADING_HTML,
+      runtimeVariantId: SHORT_LINE_HEADING_RUNTIME_VARIANT_ID,
+      blockType: "heading",
+      wechatCompatibilityMode: "off",
+    });
+    expect(encoded.ok).toBe(true);
+    if (!encoded.ok) return;
+
+    const article = structuredClone(dslRuntimeTraceFixtureArticle);
+    const block = pickTraceFixtureBlock("heading");
+
+    const decoded = decodeVariantDsl({
+      article,
+      block,
+      variantDsl: encoded.value,
+      target: "preview",
+    });
+    expect(decoded.ok).toBe(true);
+    if (!decoded.ok) return;
+
+    expect(decoded.html).toMatch(/border-bottom\s*:\s*2px\s+solid\s+#E60012/i);
   });
 });

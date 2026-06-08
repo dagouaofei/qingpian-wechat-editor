@@ -24,6 +24,15 @@ export function dslStyleToInlineCss(
     if (display === "flex" || display === "inline-flex" || display === "grid") {
       serialized = { ...serialized, display: "block" };
     }
+
+    const borderBottom = serialized["border-bottom"];
+    if (borderBottom && /^([1-4])px\s+(solid|dashed|dotted)\b/i.test(borderBottom.trim())) {
+      serialized = {
+        ...serialized,
+        display: serialized.display === "block" ? "inline-block" : (serialized.display ?? "inline-block"),
+        width: serialized.width ?? "auto",
+      };
+    }
   }
 
   return Object.entries(serialized)
