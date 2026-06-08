@@ -9,7 +9,7 @@
 - Sprint：S10
 - 关联 Story / Bug / Decision：S10-STORY-011 · 对齐 S9-STORY-007C-FIX-B theme token 策略
 - 执行者：Cursor
-- 状态：In Review
+- 状态：Done（用户验收通过）
 
 ## 2. 任务背景
 
@@ -102,4 +102,5 @@
 
 ## 15. Commit
 
-- Commit hash：未提交 / not committed
+- Commit hash：`ba8816b` — fix: apply theme palette tokens to html_paste fidelity tree decode
+- Merge：未 merge（待用户确认）
