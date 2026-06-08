@@ -240,7 +240,7 @@ function classifyHeadingSlots(blocks: StyledTextBlock[]): HeadingSemanticSlots {
     .filter(
       (b) =>
         isPureNumber(b.text) &&
-        (b.fontSizePx >= 40 || colorOpacity(b.color) >= 0.85) &&
+        (b.fontSizePx >= 36 || colorOpacity(b.color) >= 0.85) &&
         b !== titleFromHeading,
     )
     .sort((a, b) => b.fontSizePx - a.fontSizePx)[0];
@@ -268,8 +268,16 @@ function classifyHeadingSlots(blocks: StyledTextBlock[]): HeadingSemanticSlots {
 
   const title =
     titleCandidate?.text ??
-    blocks.find((b) => b !== numberCandidate && !isPureNumber(b.text) && b.fontWeight >= 700)?.text ??
-    blocks.find((b) => b !== numberCandidate && !isPureNumber(b.text))?.text ??
+    blocks.find(
+      (b) =>
+        b !== numberCandidate &&
+        b !== eyebrowCandidate &&
+        !isPureNumber(b.text) &&
+        b.fontWeight >= 700,
+    )?.text ??
+    blocks.find(
+      (b) => b !== numberCandidate && b !== eyebrowCandidate && !isPureNumber(b.text),
+    )?.text ??
     "";
 
   return {
@@ -317,6 +325,120 @@ function buildDecorators(slots: HeadingSemanticSlots, rawHtml: string): string[]
   return decorators;
 }
 
+function inferLargeDisplayNumberFromTree(tree: DslNode): string | undefined {
+  let found: string | undefined;
+
+  const parseFontSizePx = (style: DslStyle | undefined): number => {
+    const value = style?.fontSize;
+    if (typeof value === "number") return value;
+    if (typeof value === "string") {
+      const match = value.match(/^([\d.]+)px$/i);
+      return match ? Number.parseFloat(match[1]) : 0;
+    }
+    return 0;
+  };
+
+  const walk = (node: DslNode) => {
+    if (found || node.type !== "element") {
+      return;
+    }
+    const text = collectTreeTextContent(node).trim();
+    const fontSizePx = parseFontSizePx(node.style);
+    if (text && isPureNumber(text) && fontSizePx >= 36) {
+      found = text;
+      return;
+    }
+    node.children?.forEach(walk);
+  };
+
+  if (tree.type === "element") {
+    walk(tree);
+  }
+
+  return found;
+}
+
+function isWhitespaceOrNbspOnly(text: string): boolean {
+  return text.replace(/&nbsp;/gi, " ").replace(/\s+/g, "").length === 0;
+}
+
+function isPollutedExtractedTitle(title: string, number?: string): boolean {
+  if (isWhitespaceOrNbspOnly(title)) {
+    return true;
+  }
+  if (/&nbsp;/i.test(title)) {
+    return true;
+  }
+  if (number && title.includes(number)) {
+    return true;
+  }
+  return false;
+}
+
+function parseTreeFontSizePx(style: DslStyle | undefined): number {
+  const value = style?.fontSize;
+  if (typeof value === "number") return value;
+  if (typeof value === "string") {
+    const match = value.match(/^([\d.]+)px$/i);
+    return match ? Number.parseFloat(match[1]) : 0;
+  }
+  return 0;
+}
+
+function parseTreeFontWeight(style: DslStyle | undefined): number {
+  const value = style?.fontWeight;
+  if (value === "bold") return 700;
+  if (typeof value === "number") return value;
+  if (typeof value === "string") {
+    const parsed = Number.parseInt(value, 10);
+    return Number.isFinite(parsed) ? parsed : 400;
+  }
+  return 400;
+}
+
+function inferTitleTextFromTree(tree: DslNode): string | undefined {
+  let best: { text: string; score: number } | undefined;
+
+  const scoreCandidate = (text: string, path: string, tag: string, style: DslStyle | undefined): number => {
+    if (isWhitespaceOrNbspOnly(text) || isPureNumber(text)) {
+      return -1000;
+    }
+    const fontSizePx = parseTreeFontSizePx(style);
+    if (fontSizePx >= 36) {
+      return -500;
+    }
+    let score = path.split(".children").length * 10;
+    if (tag === "span" || tag === "strong" || isHeadingTag(tag)) score += 30;
+    if (fontSizePx >= 16 && fontSizePx <= 28) score += 50;
+    if (parseTreeFontWeight(style) >= 700) score += 30;
+    return score;
+  };
+
+  const walk = (node: DslNode, path: string) => {
+    if (node.type !== "element") {
+      return;
+    }
+    const text = collectTreeTextContent(node).trim();
+    if (node.style && Object.keys(node.style).length > 0 && text && !isWhitespaceOrNbspOnly(text)) {
+      const candidateScore = scoreCandidate(text, path, node.tag, node.style);
+      if (candidateScore > (best?.score ?? -Infinity)) {
+        best = { text, score: candidateScore };
+      }
+    }
+    node.children?.forEach((child, index) => {
+      if (child.type === "element") {
+        walk(child, `${path}.children[${index}]`);
+      }
+    });
+  };
+
+  if (tree.type === "element") {
+    walk(tree, "tree");
+  }
+
+  return best?.text;
+}
+
 function buildHeadingSemanticMetadata(
   rawHtml: string,
   tree?: DslNode,
@@ -331,6 +453,23 @@ function buildHeadingSemanticMetadata(
     const badgeNumber = inferCircularBadgeNumberFromTree(tree);
     if (badgeNumber) {
       slots.number = badgeNumber;
+    } else {
+      const displayNumber = inferLargeDisplayNumberFromTree(tree);
+      if (displayNumber) {
+        slots.number = displayNumber;
+      }
+    }
+  }
+
+  if (!slots.title && tree) {
+    const titleFromTree = inferTitleTextFromTree(tree);
+    if (titleFromTree) {
+      slots.title = titleFromTree;
+    }
+  } else if (tree && (blocks.length === 0 || isPollutedExtractedTitle(slots.title, slots.number))) {
+    const titleFromTree = inferTitleTextFromTree(tree);
+    if (titleFromTree) {
+      slots.title = titleFromTree;
     }
   }
 

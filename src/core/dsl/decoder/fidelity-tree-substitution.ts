@@ -4,7 +4,7 @@ import { applyOrdinalToEyebrowLabel, resolveHeadingIndexLabel } from "@/core/ren
 
 import type { DslNode, VariantDslV1 } from "../runtime/dsl-types";
 import type { SemanticBinding } from "../encoder/fidelity-html-tree";
-import { collectTreeTextContent } from "../encoder/fidelity-html-tree";
+import { collectTreeTextContent, inferSemanticBindingsFromTree } from "../encoder/fidelity-html-tree";
 import { resolveSlotContentsForBlock } from "./block-slot-bindings";
 import { listRequiredTreeSlots } from "./resolve-dsl-slots";
 
@@ -44,6 +44,28 @@ function readSemanticBindings(dsl: VariantDslV1): Record<string, SemanticBinding
     return {};
   }
   return bindings as Record<string, SemanticBinding>;
+}
+
+function resolveEffectiveSemanticBindings(
+  tree: DslNode,
+  dsl: VariantDslV1,
+): Record<string, SemanticBinding> {
+  const stored = readSemanticBindings(dsl);
+  const inferred = inferSemanticBindingsFromTree(tree);
+  return {
+    ...inferred,
+    ...Object.fromEntries(
+      Object.entries(stored).filter(([, binding]) => Boolean(binding?.path)),
+    ),
+  };
+}
+
+function isWhitespaceOrNbspOnly(text: string): boolean {
+  return text.replace(/&nbsp;/gi, " ").replace(/\s+/g, "").length === 0;
+}
+
+function isPureNumberText(text: string): boolean {
+  return /^\d{1,3}$/.test(text.trim());
 }
 
 function cloneDslNode(node: DslNode): DslNode {
@@ -155,12 +177,26 @@ function findFallbackTitlePath(
     collectStyledTextElements(tree, "tree", candidates);
   }
 
-  for (const candidate of candidates) {
-    if (!preserveTexts.has(candidate.text)) {
-      return { path: candidate.path, tag: candidate.tag };
-    }
-  }
-  return null;
+  const scored = candidates
+    .filter((candidate) => !preserveTexts.has(candidate.text))
+    .map((candidate) => {
+      const target = resolveDslNodeAtPath(tree, candidate.path);
+      const style = target?.type === "element" ? target.style : undefined;
+      let score = candidate.path.split(".children").length * 10;
+      if (isWhitespaceOrNbspOnly(candidate.text)) score -= 1000;
+      if (isPureNumberText(candidate.text)) score -= 500;
+      if (candidate.tag === "span" || candidate.tag === "strong") score += 30;
+      const fontSize = typeof style?.fontSize === "string" ? style.fontSize : undefined;
+      if (fontSize && /^(1[6-9]|2[0-8])px$/i.test(fontSize)) score += 50;
+      if (style?.fontWeight === "bold" || style?.fontWeight === 700) score += 30;
+      if (candidate.path === "tree") score -= 80;
+      if (candidate.text.length > 24 && /\d{1,3}/.test(candidate.text)) score -= 40;
+      return { ...candidate, score };
+    })
+    .sort((a, b) => b.score - a.score);
+
+  const best = scored.find((candidate) => candidate.score > -500);
+  return best ? { path: best.path, tag: best.tag } : null;
 }
 
 function treeContainsSlotNodes(node: DslNode): boolean {
@@ -215,12 +251,13 @@ function substituteHeadingNumberInTree(
   dsl: VariantDslV1,
   block: Block,
   article: Article | undefined,
+  bindings: Record<string, SemanticBinding>,
 ): { targetPath: string | null; label: string | null } {
   if (!article) {
     return { targetPath: null, label: null };
   }
 
-  const numberPath = readSemanticBindings(dsl).number?.path;
+  const numberPath = bindings.number?.path;
   if (!numberPath) {
     return { targetPath: null, label: null };
   }
@@ -240,12 +277,12 @@ function substituteEyebrowOrdinalInTree(
   dsl: VariantDslV1,
   block: Block,
   article: Article | undefined,
+  bindings: Record<string, SemanticBinding>,
 ): { targetPath: string | null; label: string | null } {
   if (!article) {
     return { targetPath: null, label: null };
   }
 
-  const bindings = readSemanticBindings(dsl);
   const eyebrowPath = bindings.eyebrow?.path;
   if (!eyebrowPath) {
     return { targetPath: null, label: null };
@@ -277,15 +314,16 @@ export function applyFidelityTreeArticleSubstitution(
 ): { tree: DslNode; trace: FidelitySubstitutionTrace } {
   const articleTitle = resolveSlotContentsForBlock(block).title?.trim() ?? "";
   const extractedSlots = readExtractedSlots(dsl);
-  const bindings = readSemanticBindings(dsl);
+  const cloned = cloneDslNode(tree);
+  const bindings = resolveEffectiveSemanticBindings(cloned, dsl);
   const decorativeSlotsPreserved = listDecorativeSlotsPreserved(extractedSlots, bindings);
   const preserveTexts = new Set(
-    DECORATIVE_SLOT_ROLES.map((role) => extractedSlots[role]).filter(Boolean),
+    DECORATIVE_SLOT_ROLES.map((role) => extractedSlots[role] || bindings[role]?.text || "")
+      .filter(Boolean),
   );
 
-  const cloned = cloneDslNode(tree);
-  const numberSubstitution = substituteHeadingNumberInTree(cloned, dsl, block, article);
-  const eyebrowSubstitution = substituteEyebrowOrdinalInTree(cloned, dsl, block, article);
+  const numberSubstitution = substituteHeadingNumberInTree(cloned, dsl, block, article, bindings);
+  const eyebrowSubstitution = substituteEyebrowOrdinalInTree(cloned, dsl, block, article, bindings);
 
   const baseTrace: FidelitySubstitutionTrace = {
     slotSubstitutionPath: null,
@@ -310,11 +348,12 @@ export function applyFidelityTreeArticleSubstitution(
     const target = resolveDslNodeAtPath(cloned, targetPath);
     const replaced = target ? replaceTextInSubtree(target, articleTitle, targetPath) : null;
     if (replaced?.ok) {
+      const storedTitlePath = readSemanticBindings(dsl).title?.path;
       return {
         tree: cloned,
         trace: {
           ...baseTrace,
-          slotSubstitutionPath: "meta.semanticBindings.title",
+          slotSubstitutionPath: storedTitlePath ? "meta.semanticBindings.title" : "tree.inferred.title",
           slotSubstitutionTargetPath: targetPath,
           actualTextLeafPath: replaced.actualTextLeafPath,
           substitutedSlot: "title",

@@ -216,6 +216,101 @@ function resolveNodeStyle(tree: DslNode, path: string): DslStyle | undefined {
   return current.type === "element" ? current.style : undefined;
 }
 
+function isWhitespaceOrNbspOnly(text: string): boolean {
+  return text.replace(/&nbsp;/gi, " ").replace(/\s+/g, "").length === 0;
+}
+
+function isPureNumberText(text: string): boolean {
+  return /^\d{1,3}$/.test(text.trim());
+}
+
+function parseStyleFontSizePx(style: DslStyle | undefined): number {
+  const value = style?.fontSize;
+  if (typeof value === "number") return value;
+  if (typeof value === "string") {
+    const match = value.match(/^([\d.]+)px$/i);
+    return match ? Number.parseFloat(match[1]) : 0;
+  }
+  return 0;
+}
+
+function parseStyleFontWeight(style: DslStyle | undefined): number {
+  const value = style?.fontWeight;
+  if (value === "bold") return 700;
+  if (typeof value === "number") return value;
+  if (typeof value === "string") {
+    const parsed = Number.parseInt(value, 10);
+    return Number.isFinite(parsed) ? parsed : 400;
+  }
+  return 400;
+}
+
+/** Infer title/number bindings from styled tree leaves when exact slot text match fails. */
+export function inferSemanticBindingsFromTree(tree: DslNode): Record<string, SemanticBinding> {
+  const leaves: Array<{ text: string; path: string; tag: string; fontSizePx: number; fontWeight: number }> = [];
+
+  const walk = (node: DslNode, path: string) => {
+    if (node.type !== "element") {
+      return;
+    }
+    const nestedText = collectTreeTextContent(node).trim();
+    if (node.style && Object.keys(node.style).length > 0 && nestedText && !isWhitespaceOrNbspOnly(nestedText)) {
+      leaves.push({
+        text: nestedText,
+        path,
+        tag: node.tag,
+        fontSizePx: parseStyleFontSizePx(node.style),
+        fontWeight: parseStyleFontWeight(node.style),
+      });
+    }
+    node.children?.forEach((child, index) => {
+      if (child.type === "element") {
+        walk(child, `${path}.children[${index}]`);
+      }
+    });
+  };
+
+  if (tree.type === "element") {
+    walk(tree, "tree");
+  }
+
+  const bindings: Record<string, SemanticBinding> = {};
+
+  const numberBest = leaves
+    .filter((leaf) => isPureNumberText(leaf.text) && leaf.fontSizePx >= 36)
+    .sort((a, b) => b.fontSizePx - a.fontSizePx)[0];
+  if (numberBest) {
+    bindings.number = { text: numberBest.text, path: numberBest.path, tag: numberBest.tag };
+  }
+
+  const titleBest = leaves
+    .filter(
+      (leaf) =>
+        leaf !== numberBest &&
+        !isPureNumberText(leaf.text) &&
+        !isWhitespaceOrNbspOnly(leaf.text) &&
+        leaf.fontSizePx >= 14 &&
+        leaf.fontSizePx < 36 &&
+        (leaf.fontWeight >= 700 || leaf.fontSizePx >= 16),
+    )
+    .sort((a, b) => {
+      const score = (leaf: (typeof leaves)[number]) => {
+        let value = leaf.path.split(".children").length * 10;
+        if (leaf.fontSizePx >= 16 && leaf.fontSizePx <= 28) value += 50;
+        if (leaf.fontWeight >= 700) value += 30;
+        if (leaf.tag === "span" || leaf.tag === "strong") value += 20;
+        return value;
+      };
+      return score(b) - score(a);
+    })[0];
+
+  if (titleBest) {
+    bindings.title = { text: titleBest.text, path: titleBest.path, tag: titleBest.tag };
+  }
+
+  return bindings;
+}
+
 /** Map semantic slot roles to tree paths of their styled text elements. */
 export function buildSemanticBindings(
   tree: DslNode,
@@ -241,5 +336,13 @@ export function buildSemanticBindings(
     });
     bindings[role] = { text: best.text, path: best.path, tag: best.tag };
   }
+
+  const inferred = inferSemanticBindingsFromTree(tree);
+  for (const role of ["title", "number", "eyebrow", "subtitle"] as const) {
+    if (!bindings[role] && inferred[role]) {
+      bindings[role] = inferred[role]!;
+    }
+  }
+
   return bindings;
 }

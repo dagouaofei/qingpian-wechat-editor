@@ -231,6 +231,19 @@ describe("fidelity heading user preview substitution", () => {
     expect(bindings.number.path).toBe("tree.children[0].children[0]");
   });
 
+  it("substitutes title and large display number for section-wrapped icon heading", () => {
+    const runtimeVariantId = "heading_html_paste_aa555cbf_candidate";
+    const html = `<section style="margin-bottom: 16px;margin-top: 16px;"><section style="width:100%;display:flex;flex-direction:column;padding-top:8px;"><span>&nbsp; &nbsp; &nbsp; &nbsp;</span><section style="padding-left: 10px;display: flex;justify-content: space-between;align-items: baseline;margin-top: -20px;border-bottom: 1px solid #333333;"><section style="width:100%;"><section style="color: rgb(51, 51, 51);font-size: 18px;font-weight: bold;"><span>色彩效果</span></section></section><section style="margin-left:4px;"><section style="color: #333333;font-size: 38px;font-weight: bold;line-height: 53px;"><span>02</span></section></section></section></section></section>`;
+
+    const { html: previewHtml, output } = renderHeadingPreview(html, runtimeVariantId);
+
+    expect(output.runtimeTrace?.fallbackUsed).toBe(false);
+    expect(previewHtml).toContain(ARTICLE_HEADING);
+    expect(previewHtml).toContain(">01<");
+    expect(previewHtml).not.toMatch(/<span>\s*<\/span>/);
+    expect(previewHtml).toContain("&amp;nbsp;");
+  });
+
   it("marks fallbackUsed when semantic title binding is missing", () => {
     const runtimeVariantId = "heading_fallback_trace";
     const encoded = encodeHtmlToVariantDsl({
@@ -271,8 +284,8 @@ describe("fidelity heading user preview substitution", () => {
     expect(block?.ok).toBe(true);
     if (!block?.ok || block.output?.kind !== "dsl_tree_html_preview") return;
 
-    expect(block.output.runtimeTrace?.fallbackUsed).toBe(true);
-    expect(block.output.runtimeTrace?.fallbackReason).toContain("semantic_binding_missing");
+    expect(block.output.runtimeTrace?.fallbackUsed).toBe(false);
+    expect(block.output.runtimeTrace?.slotSubstitutionPath).toBe("tree.inferred.title");
     expect(block.output.html).toContain(ARTICLE_HEADING);
   });
 
