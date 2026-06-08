@@ -262,6 +262,27 @@ describe("html_paste fidelity tree theme tokens", () => {
     expect(blue.clipboardHtml).toMatch(/-webkit-text-stroke/i);
   });
 
+  it("remaps upload HTML circle badge and split-border underline for theme + copy", () => {
+    const blue = renderFidelityHeading(
+      E21_UPLOAD_HEADING_HTML,
+      E21_HEADING_RUNTIME_VARIANT_ID,
+      "businessBlue",
+    );
+    const orange = renderFidelityHeading(
+      E21_UPLOAD_HEADING_HTML,
+      E21_HEADING_RUNTIME_VARIANT_ID,
+      "creamOrange",
+    );
+
+    expect(blue.previewHtml).toContain("#2563eb");
+    expect(blue.previewHtml).toMatch(/background-color\s*:\s*#2563eb[^"]*border-radius:\s*100%/i);
+    expect(blue.previewHtml).toMatch(/border-color\s*:\s*#2563eb/i);
+    expect(blue.clipboardHtml).toMatch(/background-color:\s*#2563eb[^>]*border-radius:\s*100%/i);
+    expect(blue.clipboardHtml).toMatch(/border-bottom:\s*1px\s+solid\s+#2563eb/i);
+    expect(orange.previewHtml).toContain("#ea580c");
+    expect(orange.previewHtml).not.toContain("#2563eb");
+  });
+
   it("remaps upload HTML bottom border-width underline to theme accent", () => {
     const { previewHtml } = renderFidelityHeading(
       E21_UPLOAD_HEADING_HTML,

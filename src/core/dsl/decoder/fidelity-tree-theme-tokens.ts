@@ -212,6 +212,25 @@ function isAccentBarNode(node: DslNode): boolean {
   return width > 0 && width <= 120 && height > 0 && height <= 24;
 }
 
+function isCircularRadius(borderRadius: DslStyleValue | undefined): boolean {
+  if (typeof borderRadius !== "string") {
+    return false;
+  }
+  const trimmed = borderRadius.trim().toLowerCase();
+  return trimmed === "100%" || trimmed === "50%" || trimmed === "9999px";
+}
+
+function isCircularBadgeNode(node: DslNode): boolean {
+  if (node.type !== "element" || !node.style) {
+    return false;
+  }
+  if (!isCircularRadius(node.style.borderRadius)) {
+    return false;
+  }
+  const backgroundColor = node.style.backgroundColor;
+  return typeof backgroundColor === "string" && backgroundColor.trim().length > 0;
+}
+
 function setElementStyleColor(
   node: DslNode,
   property: "color" | "backgroundColor",
@@ -282,6 +301,46 @@ function applyDecorativeLineThemeTokens(
     const remapped = remapDecorativeLineAccent(node.style, palette.textAccent, dsl);
     if (remapped) {
       node.style = remapped;
+    }
+
+    node.children?.forEach(walk);
+  };
+
+  walk(tree);
+}
+
+function applyCircularBadgeThemeTokens(
+  tree: DslNode,
+  dsl: VariantDslV1,
+  palette: ThemePaletteTokens,
+): void {
+  const sourceAccent = dsl.tokens?.accentColor;
+  const normalizedSource = sourceAccent ? normalizeColor(sourceAccent) : null;
+
+  const walk = (node: DslNode) => {
+    if (node.type !== "element") {
+      return;
+    }
+
+    if (isCircularBadgeNode(node)) {
+      const backgroundColor = node.style?.backgroundColor;
+      if (typeof backgroundColor === "string") {
+        const matchesSource =
+          !normalizedSource || normalizeColor(backgroundColor) === normalizedSource;
+        const matchesToken = matchesAnySourceTokenColor(backgroundColor, dsl);
+        if (matchesSource || matchesToken) {
+          setElementStyleColor(node, "backgroundColor", palette.textAccent);
+          const borderColor = node.style?.borderColor;
+          if (
+            typeof borderColor === "string" &&
+            (matchesSource ||
+              matchesToken ||
+              normalizeColor(borderColor) === normalizeColor(backgroundColor))
+          ) {
+            setElementStyleColor(node, "borderColor", palette.textAccent);
+          }
+        }
+      }
     }
 
     node.children?.forEach(walk);
@@ -362,6 +421,7 @@ export function applyFidelityTreeThemeTokens(
     applyAccentBarThemeTokens(tree, dsl, themePalette);
   }
 
+  applyCircularBadgeThemeTokens(tree, dsl, themePalette);
   applyDecorativeLineThemeTokens(tree, dsl, themePalette);
 
   return tree;
