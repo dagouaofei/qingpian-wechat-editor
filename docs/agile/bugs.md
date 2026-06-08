@@ -79,9 +79,9 @@
 | 发现时间 | 2026-06-07 |
 | 所属 | Sprint 10 · S10-STORY-005 FIX-B |
 | 严重级别 | P1 |
-| 状态 | **Open** |
-| 处理记录 | 同 DEBT-DSL-RC-002 模式；`copy_fidelity_failed` 不得进入 userSelectable / defaultEligible / AI candidate pool |
+| 状态 | **Fixed**（2026-06-08 · `copySafeCardCenteredHeadingStyle` 移除 h3 横线/padding · 用户验收 PASS） |
+| 处理记录 | FIX-B 曾标记 `qualityStatus=copy_fidelity_failed` · 2026-06-08 个案修复 Copy 与 Preview 一致（无 h3 border-top/bottom） · **根因类 DEBT-DSL-RC-002（legacy renderContract 双轨）** · 待 quality gate / userSelectable 评估 |
 
 ---
 
-暂无其它 Open Bug（除 BUG-S10-COPY-FIDELITY-002 与 DEBT-DSL-RC 架构债务）。
+暂无其它 Open Bug（除 DEBT-DSL-RC 架构债务）。

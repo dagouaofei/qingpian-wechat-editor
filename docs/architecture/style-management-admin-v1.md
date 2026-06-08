@@ -260,7 +260,7 @@ AND qualityStatus NOT IN (copy_fidelity_failed, validator_failed, blocked)
 
 **qualityStatus 与 distribution 分离：** qualityStatus 在 `StyleVariantVersion`；distribution 仅表示用户侧分发
 
-**S10 heading seed（7 个 runtime available）：** 6 个 release1 publish + `heading_teal_section_label_html_paste_candidate`；2 个 copy fidelity failed 排除（BUG-S10-COPY-FIDELITY-001/002）
+**S10 heading seed（7 个 runtime available）：** 6 个 release1 publish + `heading_teal_section_label_html_paste_candidate`；BUG-S10-COPY-FIDELITY-001/002 个案已修复（2026-06-08），DB `copy_fidelity_failed` / userSelectable 重跑待确认
 
 **不入选：** `release1Required` · `defaultEligible` 不自动绕过 gate
 

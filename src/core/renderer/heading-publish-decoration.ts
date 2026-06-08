@@ -104,8 +104,8 @@ export const HEADING_PUBLISH_COPY_CONTRACT: Record<
     ],
   },
   heading_card_centered: {
-    mustMatch: [/<h3\b/i, /text-align:\s*center/i, /border-top:\s*1px/i, /border-bottom:\s*1px/i],
-    mustNotMatch: [/border-radius:\s*999px/i, /话题/],
+    mustMatch: [/<h3\b/i, /text-align:\s*center/i],
+    mustNotMatch: [/border-radius:\s*999px/i, /话题/, /border-top:\s*1px/i, /border-bottom:\s*1px/i],
   },
   heading_icon_prefix: {
     mustMatch: [/font-size:\s*20px/i, /vertical-align:\s*middle/i, /▸/],
@@ -355,7 +355,7 @@ export function copySafeNumberedSectionBadgeStyle(
   };
 }
 
-/** 卡片居中：section 仅 margin；视觉边框在 h3 */
+/** 卡片居中：section 仅 margin；序号 + 居中标题（与 Preview 一致，无 h3 横线边框） */
 export function copySafeCardCenteredFrameStyle(
   palette: ThemePaletteTokens,
 ): Record<string, string> {
@@ -366,15 +366,11 @@ export function copySafeCardCenteredFrameStyle(
 }
 
 export function copySafeCardCenteredHeadingStyle(
-  palette: ThemePaletteTokens,
+  _palette: ThemePaletteTokens,
 ): Record<string, string> {
   return {
     margin: "0",
-    padding: "16px 18px",
     textAlign: "center",
-    borderTop: `1px solid ${palette.borderSoft}`,
-    borderBottom: `1px solid ${palette.borderSoft}`,
-    backgroundColor: "transparent",
   };
 }
 

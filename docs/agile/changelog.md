@@ -686,6 +686,14 @@
 
 ---
 
+## 2026-06-08 · BUG-S10-COPY-FIDELITY-002 卡片居中 Preview/Copy parity
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-08 | Sprint 10 | **BUG-S10-COPY-FIDELITY-002 Fixed**：`heading_card_centered` Copy 移除 h3 多余 `border-top`/`border-bottom` 与 padding，与 Preview 一致 | Copy / Renderer | S10-STORY-011 · BUG-S10-COPY-FIDELITY-002 |
+
+---
+
 ## 2026-06-08 · DEBT-DSL-RC Legacy renderContract 双轨渲染归档
 
 | 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |

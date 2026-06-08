@@ -85,7 +85,7 @@ definitionJson（含 tree 或等价结构化描述）
 | Bug | Variant | 说明 |
 |-----|---------|------|
 | BUG-S10-COPY-FIDELITY-001 | `heading_magazine_left_bar` | **Fixed**（2026-06-08 · Copy 双嵌套 section 竖线）；根因即 DEBT-DSL-RC-002 |
-| BUG-S10-COPY-FIDELITY-002 | `heading_card_centered` | **Open** · `copy_fidelity_failed` gate |
+| BUG-S10-COPY-FIDELITY-002 | `heading_card_centered` | **Fixed**（2026-06-08 · Copy 移除 h3 横线/padding）；根因即 DEBT-DSL-RC-002 |
 
 ---
 
