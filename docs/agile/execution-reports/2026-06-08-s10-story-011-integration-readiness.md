@@ -205,7 +205,7 @@ preview 短横线 copy 也有 · 保留必要高度 · 短横线不全宽 · 保
 | 项 | 结论 |
 |----|------|
 | Integration 分支 | `feature/s10-story-011-integration-readiness` |
-| 当前 HEAD（merge 后） | `0b38aa5`（`28c4cfa` FF merge + 收口 commit） |
+| 当前 HEAD | `91d5157`（32 commits ahead of sprint · 含 FF merge + 收口） |
 | git status | clean（排除 untracked debug log / `.pnpm-store`） |
 | 自动化检查 | lint / test / build 全 PASS |
 | 是否建议提交用户人工验收 | **是** — 011 功能已统一，自动化门禁通过 |
@@ -214,4 +214,4 @@ preview 短横线 copy 也有 · 保留必要高度 · 短横线不全宽 · 保
 ## 16. commit hash
 
 - Merge 基线 HEAD：`28c4cfa`
-- Integration 收口 commit：`0b38aa5` — chore: S10-STORY-011 integration readiness — tests, build, docs
+- Integration 收口 commit：`91d5157` — chore: S10-STORY-011 integration readiness — tests, build, docs
