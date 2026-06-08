@@ -75,4 +75,6 @@ git log -1 --oneline
 
 ## 10. commit hash
 
-（文档 commit 后回填）
+`e7ef3ce` — docs(s10): mark S10-STORY-011 Done after merge to sprint
+
+**代码 merge HEAD：** `4c301d0`
