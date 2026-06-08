@@ -9,7 +9,7 @@
 - Sprint：Sprint 10
 - 关联 Story / Bug / Decision：S10-STORY-011
 - 执行者：Cursor
-- 状态：In Review
+- 状态：Done
 
 ## 2. 本轮目标
 
@@ -104,4 +104,4 @@ npx tsx -e "… decodeVariantDsl preview vs copy_wechat …"
 
 ## 15. commit hash
 
-未提交 / not committed
+`58e58cb041db4f706b25f58672138e26be910b29`
