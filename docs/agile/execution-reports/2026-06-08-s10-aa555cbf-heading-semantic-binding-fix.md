@@ -52,7 +52,7 @@
 
 ## 8. Commit
 
-- 见本轮 commit hash（下方更新）
+- `2266b5d` — `fix: infer heading title/number bindings for section-wrapped html_paste`
 
 ## 9. 建议下一步
 
