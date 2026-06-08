@@ -1,6 +1,7 @@
 import type { Block } from "@/core/blocks";
 import type { Article } from "@/core/article";
 import type { RendererOutputPlaceholder } from "@/core/renderer/types";
+import type { ThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
 
 import type { DecoderTrace } from "../runtime/dsl-trace-types";
 import type { DslRenderTarget, VariantDslV1 } from "../runtime/dsl-types";
@@ -11,6 +12,7 @@ export type DecodeVariantDslInput = {
   block: Block;
   article: Article;
   target: DslRenderTarget;
+  themePalette?: ThemePaletteTokens;
 };
 
 export type DecodeVariantDslResult =

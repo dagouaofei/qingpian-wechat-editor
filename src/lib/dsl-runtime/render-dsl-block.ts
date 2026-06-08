@@ -3,6 +3,7 @@ import type { Article } from "@/core/article";
 import type { DslRenderTarget } from "@/core/dsl/runtime";
 import { decodeVariantDsl } from "@/core/dsl/decoder";
 import { createRendererIssue } from "@/core/renderer/issues";
+import type { ThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
 import type {
   RendererOutputPlaceholder,
   RendererResult,
@@ -25,6 +26,7 @@ export type RenderDslBlockInput = {
   primarySourceType?: string | null;
   family?: string;
   label?: string;
+  themePalette?: ThemePaletteTokens;
 };
 
 export function renderDslBlock(input: RenderDslBlockInput): RendererResult<RendererOutputPlaceholder> {
@@ -69,6 +71,7 @@ export function renderDslBlock(input: RenderDslBlockInput): RendererResult<Rende
     block: input.block,
     variantDsl,
     target: input.target,
+    themePalette: input.themePalette,
   });
 
   if (!decoded.ok) {

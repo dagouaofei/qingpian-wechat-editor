@@ -2,6 +2,7 @@ import type { BlockType } from "@/core/blocks";
 import { buildClipboardPayload, type BuildClipboardPayloadOptions } from "@/core/copy/clipboard-payload";
 import type { DslRenderTarget } from "@/core/dsl/runtime";
 import { encodeRegistryVariantToDsl } from "@/core/dsl/encoder";
+import { resolveThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
 import type {
   RenderArticleBlocksOptions,
   RenderBlockOptions,
@@ -129,6 +130,13 @@ export function renderUserPreviewBlock(
     );
   }
 
+  const resolvedBlockStyle = options.input.resolvedArticleStyle.blocks.find(
+    (entry) => entry.blockId === options.input.block.id,
+  );
+  const themePalette = resolvedBlockStyle
+    ? resolveThemePaletteTokens(resolvedBlockStyle.tokens.theme)
+    : undefined;
+
   const result = renderDslBlock({
     article: options.input.article,
     block: options.input.block,
@@ -137,6 +145,7 @@ export function renderUserPreviewBlock(
     target: resolveDslTarget(options.input.mode),
     mode: options.input.mode,
     renderTarget: options.input.target,
+    themePalette,
   });
 
   if (resolvedDefinition.runtimeSource === "code_fallback") {

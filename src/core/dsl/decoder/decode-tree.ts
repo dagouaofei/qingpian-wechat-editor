@@ -9,9 +9,14 @@ import type {
   TextBlockCopyOutput,
   TitleBlockCopyOutput,
 } from "@/core/renderer/types";
+import type { ThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
 
 import type { DslRenderTarget, VariantDslV1 } from "../runtime/dsl-types";
 import { applyFidelityTreeArticleSubstitution } from "./fidelity-tree-substitution";
+import {
+  applyFidelityTreeThemeTokens,
+  shouldApplyFidelityThemeTokens,
+} from "./fidelity-tree-theme-tokens";
 import { listRequiredTreeSlots, resolveSlotsForDslDecode } from "./resolve-dsl-slots";
 import { renderDslTreeToHtml } from "./render-tree";
 
@@ -39,6 +44,7 @@ export function decodeTreeToOutput(
   block: Block,
   target: DslRenderTarget,
   article?: Article,
+  themePalette?: ThemePaletteTokens,
 ): {
   ok: boolean;
   output?: RendererOutputPlaceholder;
@@ -52,6 +58,9 @@ export function decodeTreeToOutput(
 
   const { tree: substitutedTree, trace: substitutionTrace } =
     applyFidelityTreeArticleSubstitution(dsl.tree, dsl, block, article);
+  if (shouldApplyFidelityThemeTokens(dsl, target, themePalette)) {
+    applyFidelityTreeThemeTokens(substitutedTree, dsl, themePalette);
+  }
   const slots = resolveSlotsForDslDecode(dsl, block);
   const requiredSlots = listRequiredTreeSlots(dsl);
   const rendered = renderDslTreeToHtml(substitutedTree, slots, target);

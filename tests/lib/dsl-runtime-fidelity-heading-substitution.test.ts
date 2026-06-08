@@ -93,10 +93,10 @@ describe("fidelity heading user preview substitution", () => {
     expect(html).toContain(ARTICLE_HEADING);
     expect(html).not.toContain("一、生产力暴击");
     expect(html).toMatch(/font-size\s*:\s*84px/i);
-    expect(html).toMatch(/color\s*:\s*#f0f0f0/i);
+    expect(html).toMatch(/color\s*:\s*#f1f5f9/i);
     expect(html).toMatch(/font-size\s*:\s*24px/i);
-    expect(html).toMatch(/color\s*:\s*#111/i);
-    expect(html).toMatch(/background-color\s*:\s*#E60012/i);
+    expect(html).toMatch(/color\s*:\s*#0f172a/i);
+    expect(html).toMatch(/background-color\s*:\s*#2563eb/i);
     expect(html).not.toMatch(/border-left\s*:\s*4px\s+solid\s+#1677ff/i);
 
     const bindings = encoded.meta?.semanticBindings as Record<string, { path: string }>;
