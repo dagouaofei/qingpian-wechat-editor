@@ -4498,6 +4498,22 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 - [x] AC-5 promote `compatibilityStatus` pass/failed/skipped/not_enforced
 - [x] AC-6 定向 harvest 测试 + build PASS（待用户本地 off/report 切换验收）
 
+### S10-CHORE-011B 全局 WeChat Compatibility Mode 默认 off + 债务归档
+
+**优先级：** P1 · **状态：** **In Review** · **工作分支：** `feature/s10-wechat-compatibility-global-off-default`
+
+**目标：** 全局 `QINGPIAN_WECHAT_COMPATIBILITY_MODE` 默认 off；统一 gate validator / copy filter / copy-safe-html；债务写入 [`wechat-compatibility-known-debt.md`](../architecture/wechat-compatibility-known-debt.md)（不重构）。
+
+**验收标准：**
+
+- [ ] AC-1 `getWechatCompatibilityMode()` 默认 off · legacy env alias · NEXT_PUBLIC 支持
+- [ ] AC-2 off 时 validator / filter / copy-safe 全部 no-op
+- [ ] AC-3 sanitize 不受 off 影响
+- [ ] AC-4 DECISION-109 + known-debt 文档 · `.env.example` 更新
+- [ ] AC-5 定向测试 PASS
+
+**关联债务（Deferred）：** DEBT-WC-001~007 · 见 DECISION-109
+
 ---
 
 ## S10-STORY-012 S10 Audit / Closeout

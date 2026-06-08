@@ -95,6 +95,7 @@
 | DECISION-106 | 2026-06-05 | 关闭 Sprint 9：Style Management System v0 · 接受 v2 audit Grade A- · P0=0 · HTML→user preview picker E2E PASS · Preview/Copy parity PASS · default/release1 未污染 · **不 merge `main`** · sprint→`release/1` 需另行确认 | **已确认** |
 | DECISION-107 | 2026-06-05 | S9-STORY-007C：user_selectable 暴露至用户预览页样式选择器；Gallery/AI/release1 边界不变 | **已确认** · merged sprint @ `da5be1e` |
 | DECISION-108 | 2026-06-07 | 正式启动 Sprint 10：Database-backed Style Management Admin v1；从 `release/1` 创建 `sprint/s10-db-backed-style-admin-v1`；第一闭环为既有 variant 入库→后台上下架→用户侧 DB 分发；HTML Harvest 放后半段；不 merge `main` | **已确认** |
+| DECISION-109 | 2026-06-08 | 全局 WeChat Compatibility Mode 默认 off；DEBT-WC-001~007 归档 deferred；sanitize 常开；Release 1 收口前恢复 report/enforce | **已确认** |
 
 ### DECISION-019 详情
 
@@ -1139,4 +1140,19 @@
 - **影响范围：** [`style-management-admin-v1.md`](../architecture/style-management-admin-v1.md) · [`sprint10-database-backed-style-admin-v1.md`](sprint10-database-backed-style-admin-v1.md) · sprint-plan · sprint-backlog · changelog
 - **关联：** DECISION-106 · DECISION-107 · DECISION-092 · S10-STORY-001
 - **状态：** **已确认**（2026-06-07 · S10-STORY-001）
+
+### DECISION-109 详情（全局 WeChat Compatibility Mode 默认 off · 债务 deferred）
+
+- **日期：** 2026-06-08
+- **背景：**
+  - html_paste variant 主要来自真实公众号 HTML 粘贴，开发阶段需最高保真 Harvest / Preview / Copy
+  - S8 `wechat-compat` 与 S10 `wechat-compatibility` 双轨、Harvest 开关与 Inspection 路径不一致（见 [`wechat-compatibility-known-debt.md`](../architecture/wechat-compatibility-known-debt.md)）
+- **决策：**
+  1. 引入 **全局** Compatibility Mode：`QINGPIAN_WECHAT_COMPATIBILITY_MODE`（`off` | `report` | `enforce`），**默认 `off`**
+  2. 客户端 decode 同步 `NEXT_PUBLIC_QINGPIAN_WECHAT_COMPATIBILITY_MODE`；`STYLE_HARVEST_WECHAT_COMPATIBILITY_MODE` 为 legacy alias
+  3. `off` 时跳过：Contract validator · Copy allowlist 过滤 · flex→block 整形 · `copy-safe-html` 规则；**sanitize 常开**
+  4. 有效 mode **暂仅来自全局 env**；DB `compatibilityJson.wechatCompatibilityMode` 保留 Harvest 历史审计
+  5. **DEBT-WC-001~007 归档 deferred**，本轮不合并模块
+  6. **S10 html_paste 开发暂态豁免** DECISION-006 严格 enforcement；Release 1 收口前须恢复 `report`/`enforce` 并 Paste QA
+- **状态：** **已确认**（2026-06-08 · 实现分支 `feature/s10-wechat-compatibility-global-off-default`）
 

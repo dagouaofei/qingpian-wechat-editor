@@ -6,6 +6,7 @@ import {
 import { renderCandidateViaDslDecoder } from "@/server/style-admin/inspection/candidate-dsl-render";
 import { buildCandidatePreviewBlock } from "@/server/style-admin/inspection/candidate-preview-block";
 import { runCandidateInspectionDryRun } from "@/server/style-admin/inspection/run-candidate-inspection";
+import { getWechatCompatibilityMode } from "@/core/wechat-compatibility/resolve-wechat-compatibility-mode";
 import {
   readHarvestCompatibilityModeFromCompatibilityJson,
   readHarvestCompatibilityModeFromDefinition,
@@ -43,6 +44,7 @@ export type CandidateInspectionPanelViewModel = {
   decoderIssues: string[];
   sourceExact: SourceExactTrace;
   wechatCompatibilityMode: string | null;
+  globalWechatCompatibilityMode: string;
 };
 
 function toInspectionSource(detail: AdminVariantDetail): DbCandidateInspectionSource {
@@ -148,5 +150,6 @@ export function buildCandidateInspectionPanelViewModel(
       readHarvestCompatibilityModeFromCompatibilityJson(currentVersion.compatibilityJson) ??
       readHarvestCompatibilityModeFromDefinition(source.definitionJson) ??
       null,
+    globalWechatCompatibilityMode: getWechatCompatibilityMode(),
   };
 }

@@ -26,6 +26,8 @@ type HarvestFormProps = {
     label: string;
     hint: string;
     envVar: string;
+    publicEnvVar: string;
+    legacyEnvVar: string;
     defaultMode: string;
   };
 };
@@ -120,7 +122,13 @@ export function HarvestForm({
           <span className="font-medium">{compatibilityMode.mode}:</span> {compatibilityMode.hint}
         </p>
         <p className="text-xs text-slate-500">
-          Env: {compatibilityMode.envVar} (default: {compatibilityMode.defaultMode})
+          Server env: {compatibilityMode.envVar} (default: {compatibilityMode.defaultMode})
+        </p>
+        <p className="text-xs text-slate-500">
+          Browser Preview/Copy also requires {compatibilityMode.publicEnvVar} to match.
+        </p>
+        <p className="text-xs text-slate-400">
+          Legacy alias: {compatibilityMode.legacyEnvVar}
         </p>
       </section>
 

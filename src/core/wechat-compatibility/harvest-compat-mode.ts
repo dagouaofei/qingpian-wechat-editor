@@ -2,19 +2,17 @@ import { analyzeWechatCompatibilityForHarvest } from "./compatibility-analyzer";
 import type { CompatibilityTransformResult } from "./compatibility-transformer";
 import type { WechatCompatibilityValidationResult } from "./compatibility-validator";
 import { normalizeAndValidateWechatHtml } from "./wechat-compatibility-spec";
+import {
+  parseWechatCompatibilityMode,
+  type WechatCompatibilityMode,
+} from "./resolve-wechat-compatibility-mode";
 
-export type HarvestWechatCompatibilityMode = "off" | "report" | "enforce";
+export type HarvestWechatCompatibilityMode = WechatCompatibilityMode;
 
-export const DEFAULT_HARVEST_WECHAT_COMPATIBILITY_MODE: HarvestWechatCompatibilityMode = "report";
-
-export function parseHarvestWechatCompatibilityMode(
-  value: string | undefined,
-): HarvestWechatCompatibilityMode {
-  if (value === "off" || value === "report" || value === "enforce") {
-    return value;
-  }
-  return DEFAULT_HARVEST_WECHAT_COMPATIBILITY_MODE;
-}
+export {
+  DEFAULT_WECHAT_COMPATIBILITY_MODE as DEFAULT_HARVEST_WECHAT_COMPATIBILITY_MODE,
+  parseWechatCompatibilityMode as parseHarvestWechatCompatibilityMode,
+} from "./resolve-wechat-compatibility-mode";
 
 export function applyWechatCompatibilityForHarvest(
   html: string,

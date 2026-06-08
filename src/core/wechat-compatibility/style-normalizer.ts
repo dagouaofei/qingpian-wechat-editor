@@ -1,4 +1,5 @@
 import { isWechatAllowedStyleProperty } from "./allowed-style-properties";
+import { isWechatCompatibilityActive } from "./resolve-wechat-compatibility-mode";
 
 export function normalizeStyleValue(value: string): string {
   const trimmed = value.trim();
@@ -32,6 +33,10 @@ export function serializeInlineStyle(styles: Record<string, string>): string {
 }
 
 export function filterAllowedInlineStyles(styles: Record<string, string>): Record<string, string> {
+  if (!isWechatCompatibilityActive()) {
+    return styles;
+  }
+
   const filtered: Record<string, string> = {};
   for (const [key, value] of Object.entries(styles)) {
     if (isWechatAllowedStyleProperty(key)) {

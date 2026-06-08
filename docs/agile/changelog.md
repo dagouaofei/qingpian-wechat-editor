@@ -677,6 +677,14 @@
 
 ---
 
+## 2026-06-08 · S10-CHORE-011B 全局 Compatibility Mode 默认 off
+
+| 日期 | Sprint | 变更 | 类型 | 关联 |
+|------|--------|------|------|------|
+| 2026-06-08 | Sprint 10 | **全局 Compatibility Mode** 默认 off · DEBT-WC 归档 · gate validator/copy filter/copy-safe | 代码 / 文档 | DECISION-109 · S10-CHORE-011B |
+
+---
+
 ## 2026-06-07 · S10-STORY-011 Harvest WeChat Compatibility Spec Mode
 
 | 日期 | Sprint | 变更 | 类型 | 关联 |

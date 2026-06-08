@@ -1,4 +1,5 @@
 import { filterAllowedInlineStyles } from "@/core/wechat-compatibility";
+import { isWechatCompatibilityActive } from "@/core/wechat-compatibility/resolve-wechat-compatibility-mode";
 import type { DslRenderTarget, DslStyle } from "../runtime/dsl-types";
 
 function dslStyleToCssMap(style: DslStyle): Record<string, string> {
@@ -41,10 +42,17 @@ export function dslStyleToInlineCss(
   if (!style) return "";
   const normalized = dslStyleToCssMap(style);
   const isCopyTarget = target === "copy_wechat" || target === "qa_snapshot";
-  const copyReady = isCopyTarget ? synthesizeBottomBorderForCopy(normalized) : normalized;
-  let serialized = isCopyTarget ? filterAllowedInlineStyles(copyReady) : copyReady;
+  const compatibilityActive = isWechatCompatibilityActive();
+  const copyReady =
+    isCopyTarget && compatibilityActive
+      ? synthesizeBottomBorderForCopy(normalized)
+      : normalized;
+  let serialized =
+    isCopyTarget && compatibilityActive
+      ? filterAllowedInlineStyles(copyReady)
+      : copyReady;
 
-  if (isCopyTarget) {
+  if (isCopyTarget && compatibilityActive) {
     const display = serialized.display?.trim().toLowerCase();
     if (display === "flex" || display === "inline-flex" || display === "grid") {
       serialized = { ...serialized, display: "block" };

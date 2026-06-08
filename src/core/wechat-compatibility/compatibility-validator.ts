@@ -1,6 +1,7 @@
 import { validateWechatCopyHtml } from "@/core/wechat-compat/copy-html-validator";
 
 import { isWechatAllowedTag, isWechatForbiddenTag } from "./allowed-tags";
+import { isWechatCompatibilityActive } from "./resolve-wechat-compatibility-mode";
 import { isWechatAllowedStyleProperty } from "./allowed-style-properties";
 import { parseInlineStyle } from "./style-normalizer";
 
@@ -21,6 +22,10 @@ const TAG_PATTERN = /<\/?([a-zA-Z][a-zA-Z0-9]*)\b[^>]*>/g;
 const STYLE_ATTR_PATTERN = /style\s*=\s*["']([^"']*)["']/gi;
 
 export function validateHtmlStructureCompatibility(html: string): WechatCompatibilityValidationResult {
+  if (!isWechatCompatibilityActive()) {
+    return { valid: true, issues: [] };
+  }
+
   const issues: WechatCompatibilityIssue[] = [];
 
   if (/<script\b/i.test(html)) {

@@ -1,13 +1,18 @@
 import {
-  DEFAULT_HARVEST_WECHAT_COMPATIBILITY_MODE,
-  parseHarvestWechatCompatibilityMode,
-  type HarvestWechatCompatibilityMode,
-} from "@/core/wechat-compatibility/harvest-compat-mode";
+  describeWechatCompatibilityMode,
+  getWechatCompatibilityMode,
+  type WechatCompatibilityMode,
+} from "@/core/wechat-compatibility/resolve-wechat-compatibility-mode";
 
-export type { HarvestWechatCompatibilityMode };
+export type HarvestWechatCompatibilityMode = WechatCompatibilityMode;
+
+export {
+  DEFAULT_WECHAT_COMPATIBILITY_MODE as DEFAULT_HARVEST_WECHAT_COMPATIBILITY_MODE,
+  parseWechatCompatibilityMode as parseHarvestWechatCompatibilityMode,
+} from "@/core/wechat-compatibility/resolve-wechat-compatibility-mode";
 
 export function getHarvestWechatCompatibilityMode(): HarvestWechatCompatibilityMode {
-  return parseHarvestWechatCompatibilityMode(process.env.STYLE_HARVEST_WECHAT_COMPATIBILITY_MODE);
+  return getWechatCompatibilityMode();
 }
 
 export const HARVEST_WECHAT_COMPATIBILITY_MODE_LABELS: Record<
@@ -23,7 +28,7 @@ export const HARVEST_WECHAT_COMPATIBILITY_MODE_HINTS: Record<
   HarvestWechatCompatibilityMode,
   string
 > = {
-  off: "sanitize only; compatibility risks are not enforced.",
+  off: "sanitize only; compatibility validation and copy shaping are disabled globally.",
   report: "compatibility issues are reported but not enforced.",
   enforce: "compatibility rules may downgrade or block candidate creation.",
 };
@@ -35,13 +40,18 @@ export function describeHarvestWechatCompatibilityMode(
   label: string;
   hint: string;
   envVar: string;
+  publicEnvVar: string;
+  legacyEnvVar: string;
   defaultMode: HarvestWechatCompatibilityMode;
 } {
+  const described = describeWechatCompatibilityMode(mode);
   return {
     mode,
     label: HARVEST_WECHAT_COMPATIBILITY_MODE_LABELS[mode],
     hint: HARVEST_WECHAT_COMPATIBILITY_MODE_HINTS[mode],
-    envVar: "STYLE_HARVEST_WECHAT_COMPATIBILITY_MODE",
-    defaultMode: DEFAULT_HARVEST_WECHAT_COMPATIBILITY_MODE,
+    envVar: described.envVar,
+    publicEnvVar: described.publicEnvVar,
+    legacyEnvVar: described.legacyEnvVar,
+    defaultMode: described.defaultMode,
   };
 }

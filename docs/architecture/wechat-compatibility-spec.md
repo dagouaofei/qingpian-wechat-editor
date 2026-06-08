@@ -66,26 +66,34 @@ src/core/wechat-compatibility/
 
 ---
 
-## 4. Harvest 诊断开关（S10-STORY-011）
+## 4. 全局 Compatibility Mode（DECISION-109）
 
-环境变量：`STYLE_HARVEST_WECHAT_COMPATIBILITY_MODE`（默认 `report`）
+**环境变量（优先级高 → 低）：**
+
+1. `QINGPIAN_WECHAT_COMPATIBILITY_MODE`（server）
+2. `NEXT_PUBLIC_QINGPIAN_WECHAT_COMPATIBILITY_MODE`（browser decode / Preview / Copy）
+3. `STYLE_HARVEST_WECHAT_COMPATIBILITY_MODE`（legacy alias）
+4. 默认：**`off`**
 
 | 模式 | 行为 |
 |------|------|
-| `off` | **仅 sanitize**（移除 script · event handler · dangerous URL）；不运行 compatibility transformer 降级；不产出 contract blocking issue；用于诊断「Spec 是否过度保守」 |
-| `report` | 运行 compatibility analyzer，生成 issues / warnings / risk，**不主动降级样式**，不阻断 candidate 创建（开发默认） |
-| `enforce` | 执行严格 transform / downgrade / blocking（后续 Copy-safe 严格输出） |
+| `off` | **仅 sanitize**（Harvest）；跳过 Contract validator · Copy allowlist 过滤 · flex→block 整形 · `copy-safe-html` 规则 |
+| `report` | 运行 compatibility analyzer / validator，生成 issues / warnings，**不主动降级样式** |
+| `enforce` | 严格 transform / downgrade / blocking |
 
 **永远开启：** `sanitizeHarvestHtml`（Harvest 入口）— sanitize 不可关闭。
 
 **代码：**
 
+- `src/core/wechat-compatibility/resolve-wechat-compatibility-mode.ts` — `getWechatCompatibilityMode`
 - `src/core/wechat-compatibility/harvest-compat-mode.ts` — `applyWechatCompatibilityForHarvest`
-- `src/server/style-admin/harvest/harvest-compatibility-mode.ts` — `getHarvestWechatCompatibilityMode`
+- `src/server/style-admin/harvest/harvest-compatibility-mode.ts` — Harvest UI 描述
 
-Trace / metadata 字段：`wechatCompatibilityMode`（`harvestMeta` · `compatibilityJson` · Harvest encoder trace）
+**已知债务（暂不处理）：** [`wechat-compatibility-known-debt.md`](wechat-compatibility-known-debt.md)
 
-Promote readiness：`compatibilityStatus` = `pass` | `failed` | `skipped` | `not_enforced`；`mode=off` 时为 `skipped`（不阻断 promote，UI 须标注 Paste QA 要求）。
+Trace / metadata 字段：`wechatCompatibilityMode`（`harvestMeta` · `compatibilityJson` · Harvest encoder trace）— **Harvest 历史审计**；有效 mode 暂仅来自全局 env。
+
+Promote readiness：`compatibilityStatus` = `pass` | `failed` | `skipped` | `not_enforced`；global `off` 时为 `skipped`（不阻断 promote，UI 须标注 Paste QA 要求）。
 
 ---
 

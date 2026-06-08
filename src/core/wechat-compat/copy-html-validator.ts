@@ -22,6 +22,7 @@ import {
   WECHAT_MP_EDITOR_PROFILE_ID,
   WECHAT_SAFE_CONTRACT_V1_PROFILE,
 } from "./wechat-compat-profile";
+import { isWechatCompatibilityActive } from "@/core/wechat-compatibility/resolve-wechat-compatibility-mode";
 
 export const WECHAT_COPY_ISSUE_CODES = {
   RED_TAG: "WECHAT_COPY_RED_TAG",
@@ -633,6 +634,15 @@ function scanRawHtmlPatterns(
 export function validateWechatCopyHtml(
   input: ValidateWechatCopyHtmlInput,
 ): WechatCopyValidationResult {
+  const contractVersionId =
+    input.contractVersionId ?? WECHAT_SAFE_CONTRACT_VERSION_ID;
+  const profileId =
+    (input.profile ?? WECHAT_SAFE_CONTRACT_V1_PROFILE).id ?? WECHAT_MP_EDITOR_PROFILE_ID;
+
+  if (!isWechatCompatibilityActive()) {
+    return buildResult(contractVersionId, profileId, createBucket());
+  }
+
   const profile =
     input.profile ??
     (input.contractVersionId &&
@@ -640,9 +650,6 @@ export function validateWechatCopyHtml(
       ? WECHAT_SAFE_CONTRACT_V1_PROFILE
       : WECHAT_SAFE_CONTRACT_V1_PROFILE);
 
-  const contractVersionId =
-    input.contractVersionId ?? WECHAT_SAFE_CONTRACT_VERSION_ID;
-  const profileId = profile.id ?? WECHAT_MP_EDITOR_PROFILE_ID;
   const maxDepth =
     WECHAT_SAFE_CONTRACT_V1_PROFILE.dom?.maxNestingDepth ?? 3;
 

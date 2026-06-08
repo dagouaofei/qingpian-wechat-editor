@@ -38,3 +38,12 @@ export {
   DEFAULT_HARVEST_WECHAT_COMPATIBILITY_MODE,
   type HarvestWechatCompatibilityMode,
 } from "./harvest-compat-mode";
+export {
+  DEFAULT_WECHAT_COMPATIBILITY_MODE,
+  WECHAT_COMPATIBILITY_MODE_ENV_VARS,
+  describeWechatCompatibilityMode,
+  getWechatCompatibilityMode,
+  isWechatCompatibilityActive,
+  parseWechatCompatibilityMode,
+  type WechatCompatibilityMode,
+} from "./resolve-wechat-compatibility-mode";

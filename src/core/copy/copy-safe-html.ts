@@ -1,3 +1,5 @@
+import { isWechatCompatibilityActive } from "@/core/wechat-compatibility/resolve-wechat-compatibility-mode";
+
 import { assertCopySafeHtml } from "./html-escape";
 
 export const COPY_SAFE_HTML_VIOLATION_CODES = [
@@ -93,6 +95,10 @@ export function collectCopySafeHtmlViolations(
   html: string,
   options?: CollectCopySafeHtmlOptions,
 ): CopySafeHtmlViolation[] {
+  if (!isWechatCompatibilityActive()) {
+    return [];
+  }
+
   const allowed = new Set(options?.allowedViolationCodes ?? []);
   return COPY_SAFE_HTML_PATTERNS.filter(({ pattern }) => pattern.test(html))
     .map(({ code, message }) => ({ code, message }))
@@ -104,6 +110,10 @@ export function assertCopySafeHtmlSnapshot(
   options?: CollectCopySafeHtmlOptions,
 ): void {
   assertCopySafeHtml(html);
+
+  if (!isWechatCompatibilityActive()) {
+    return;
+  }
 
   const violations = collectCopySafeHtmlViolations(html, options);
   if (violations.length > 0) {

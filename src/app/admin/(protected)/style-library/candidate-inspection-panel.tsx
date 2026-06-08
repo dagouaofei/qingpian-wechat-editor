@@ -114,7 +114,11 @@ export function CandidateInspectionPanel({
                   <dd>{inspection.decoderPath}</dd>
                 </div>
                 <div>
-                  <dt className="text-slate-500">wechatCompatibilityMode</dt>
+                  <dt className="text-slate-500">globalCompatibilityMode (env)</dt>
+                  <dd>{inspection.globalWechatCompatibilityMode}</dd>
+                </div>
+                <div>
+                  <dt className="text-slate-500">harvestCompatibilityMode (audit)</dt>
                   <dd>{inspection.wechatCompatibilityMode ?? "—"}</dd>
                 </div>
                 <div className="md:col-span-2">

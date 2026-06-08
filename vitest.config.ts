@@ -10,6 +10,7 @@ export default defineConfig({
     exclude: ["tests/e2e/**", "node_modules/**"],
     globals: true,
     passWithNoTests: true,
+    setupFiles: ["tests/setup/wechat-compatibility-mode.ts"],
   },
   resolve: {
     alias: {

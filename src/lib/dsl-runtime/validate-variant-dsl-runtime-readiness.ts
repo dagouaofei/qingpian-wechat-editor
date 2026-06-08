@@ -6,11 +6,13 @@ import type {
   VariantDslRuntimeReadiness,
 } from "@/core/dsl/runtime/dsl-trace-types";
 import { decodeVariantDsl } from "@/core/dsl/decoder";
-import { validateHtmlStructureCompatibility } from "@/core/wechat-compatibility";
+import {
+  getWechatCompatibilityMode,
+  validateHtmlStructureCompatibility,
+} from "@/core/wechat-compatibility";
 import type { DslRuntimeSource } from "@/lib/dsl-runtime-context-types";
 
 import { parseDefinitionJsonToVariantDsl } from "./parse-variant-dsl";
-import { readHarvestCompatibilityModeFromDefinition } from "./read-harvest-compatibility-mode";
 import { buildRuntimeTraceForVariant } from "./runtime-trace";
 
 export function validateVariantDslRuntimeReadiness(input: {
@@ -57,7 +59,7 @@ export function validateVariantDslRuntimeReadiness(input: {
   let copyReady = false;
   let compatibilityReady = true;
   let compatibilityStatus: CompatibilityReadinessStatus = "pass";
-  const harvestCompatibilityMode = readHarvestCompatibilityModeFromDefinition(input.definitionJson);
+  const globalCompatibilityMode = getWechatCompatibilityMode();
 
   if (parsed.ok) {
     const preview = decodeVariantDsl({
@@ -84,19 +86,19 @@ export function validateVariantDslRuntimeReadiness(input: {
     if (copy.ok) {
       copyReady = Boolean(copy.html?.trim());
       if (copy.html) {
-        if (harvestCompatibilityMode === "off") {
+        if (globalCompatibilityMode === "off") {
           compatibilityStatus = "skipped";
           compatibilityReady = true;
           issues.push({
             code: "compatibility_skipped",
             message:
-              "Compatibility Spec skipped by harvest mode=off; Paste QA required before production use.",
+              "Compatibility Spec skipped (global mode=off); Paste QA required before production use.",
             severity: "warning",
           });
         } else {
           const compat = validateHtmlStructureCompatibility(copy.html);
           if (!compat.valid) {
-            if (harvestCompatibilityMode === "report") {
+            if (globalCompatibilityMode === "report") {
               compatibilityStatus = "not_enforced";
               compatibilityReady = true;
             } else {
@@ -107,7 +109,7 @@ export function validateVariantDslRuntimeReadiness(input: {
               issues.push({
                 code: issue.code,
                 message: issue.message,
-                severity: harvestCompatibilityMode === "report" ? "warning" : "risk",
+                severity: globalCompatibilityMode === "report" ? "warning" : "risk",
               });
             }
           } else {
