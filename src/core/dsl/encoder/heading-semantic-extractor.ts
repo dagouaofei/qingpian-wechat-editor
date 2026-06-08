@@ -1,7 +1,7 @@
 import type { DslNode, DslStyle } from "../runtime/dsl-types";
 import type { TraceLossReportItem, TraceIssue } from "../runtime/dsl-trace-types";
 import type { SemanticBinding } from "./fidelity-html-tree";
-import { buildSemanticBindings } from "./fidelity-html-tree";
+import { buildSemanticBindings, collectTreeTextContent } from "./fidelity-html-tree";
 
 export type HeadingSemanticSlots = {
   eyebrow?: string;
@@ -92,6 +92,44 @@ function colorOpacity(color: string): number {
 
 function isPureNumber(text: string): boolean {
   return /^\d{1,3}$/.test(text.trim());
+}
+
+function isCircularRadiusValue(borderRadius: string | undefined): boolean {
+  if (!borderRadius) {
+    return false;
+  }
+  const trimmed = borderRadius.trim().toLowerCase();
+  return trimmed === "100%" || trimmed === "50%" || trimmed === "9999px";
+}
+
+function inferCircularBadgeNumberFromTree(tree: DslNode): string | undefined {
+  let found: string | undefined;
+
+  const walk = (node: DslNode) => {
+    if (found || node.type !== "element") {
+      return;
+    }
+
+    const style = node.style;
+    if (
+      style?.backgroundColor &&
+      isCircularRadiusValue(typeof style.borderRadius === "string" ? style.borderRadius : undefined)
+    ) {
+      const text = collectTreeTextContent(node).trim();
+      if (isPureNumber(text)) {
+        found = text;
+        return;
+      }
+    }
+
+    node.children?.forEach(walk);
+  };
+
+  if (tree.type === "element") {
+    walk(tree);
+  }
+
+  return found;
 }
 
 function isHeadingTag(tag: string): boolean {
@@ -288,6 +326,13 @@ function buildHeadingSemanticMetadata(
     .replace(EMPTY_BR_PATTERN, "");
   const blocks = collectStyledTextBlocks(htmlForSlotDetection);
   const slots = classifyHeadingSlots(blocks);
+
+  if (!slots.number && tree) {
+    const badgeNumber = inferCircularBadgeNumberFromTree(tree);
+    if (badgeNumber) {
+      slots.number = badgeNumber;
+    }
+  }
 
   if (!slots.title) {
     const headingText = blocks.find((b) => isHeadingTag(b.tag))?.text;

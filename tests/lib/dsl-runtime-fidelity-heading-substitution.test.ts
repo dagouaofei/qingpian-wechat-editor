@@ -11,6 +11,7 @@ import { articleFixtureBase, fixtureBlockId } from "../fixtures/articles/shared"
 import { BACKGROUND_NUMBER_HEADING_HTML } from "../fixtures/dsl/background-number-heading-html";
 import { BORDERED_HEADING_HTML } from "../fixtures/dsl/bordered-heading-html";
 import { COMPLEX_HEADING_HTML } from "../fixtures/dsl/complex-heading-html";
+import { E21_UPLOAD_HEADING_HTML } from "../fixtures/dsl/e21-heading-html";
 import { buildDatabaseDslRuntimeFixture } from "../fixtures/dsl/runtime-dsl-snapshot-fixtures";
 import {
   styleSelectionArticleFixture,
@@ -158,6 +159,50 @@ describe("fidelity heading user preview substitution", () => {
     }
 
     expect(numbers).toEqual(["01", "02", "03"]);
+  });
+
+  it("increments circular badge number for cdcdd32e-style flex heading", () => {
+    const runtimeVariantId = "heading_html_paste_cdcdd32e_candidate";
+    const encoded = encodeHtmlToVariantDsl({
+      html: E21_UPLOAD_HEADING_HTML,
+      runtimeVariantId,
+      blockType: "heading",
+      wechatCompatibilityMode: "off",
+    });
+    expect(encoded.ok).toBe(true);
+    if (!encoded.ok) return;
+
+    const bindings = encoded.value.meta?.semanticBindings as Record<string, { path: string }>;
+    expect(bindings.number?.path).toBeTruthy();
+    expect(encoded.value.meta?.extractedSlots?.number).toBe("1");
+
+    const h1 = fixtureBlockId(1);
+    const h2 = fixtureBlockId(3);
+    const article = parseArticle({
+      ...articleFixtureBase(),
+      blocks: [
+        { id: h1, type: "heading", content: { text: "第一节", level: 2 } },
+        { id: fixtureBlockId(2), type: "paragraph", content: { text: [{ text: "段落" }] } },
+        { id: h2, type: "heading", content: { text: "第二节", level: 2 } },
+      ],
+    });
+
+    const numbers: string[] = [];
+    for (const block of article.blocks.filter((entry) => entry.type === "heading")) {
+      const decoded = decodeVariantDsl({
+        article,
+        block,
+        variantDsl: encoded.value,
+        target: "preview",
+      });
+      expect(decoded.ok, JSON.stringify(decoded.issues)).toBe(true);
+      expect(decoded.substitutionTrace?.substitutedNumber).toBeTruthy();
+      numbers.push(decoded.substitutionTrace!.substitutedNumber!);
+      expect(decoded.html).toMatch(/border-radius:\s*100%/i);
+      expect(decoded.html).not.toMatch(/border-radius:\s*100%[^<]*>\s*<p[^>]*>\s*1\s*<\/p>/i);
+    }
+
+    expect(numbers).toEqual(["01", "02"]);
   });
 
   it("does not put article title into number decorative span", () => {
