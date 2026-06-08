@@ -4532,7 +4532,9 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 **优先级：** P2 · **状态：** **Planned** · **工作分支：** TBD
 
-**目标：** 清理 Variant DSL / trace / meta 冗余字段 · 统一 encoderVersion / semanticBindings / styleTokens 契约。**不在 S10-STORY-011 内继续散修。**
+**目标：** 清理 Variant DSL / trace / meta 冗余字段 · 统一 encoderVersion / semanticBindings / styleTokens 契约 · **收口 DEBT-DSL-RC-001~006**（Registry `renderContract` 双轨 → tree 单轨 · 废弃 `renderPublish*` / React preview 重复 layout）。**不在 S10-STORY-011 内继续散修。**
+
+**参考：** [`variant-dsl-legacy-render-contract-debt.md`](../architecture/variant-dsl-legacy-render-contract-debt.md) · DECISION-110
 
 **验收标准：** TBD
 

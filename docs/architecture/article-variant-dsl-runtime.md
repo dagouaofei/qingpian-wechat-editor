@@ -57,8 +57,8 @@ Article JSON / styleAssignment（现有 Article Schema）
 
 ### 3.1 两种渲染形态
 
-1. **`tree`** — HTML Harvest / 粘贴 HTML 编码产物；由 `decodeTreeToOutput` 渲染。
-2. **`renderContract`** — Registry import 产物；映射到既有 block renderer（`title_block_v1`、`info_card_v1` 等）。
+1. **`tree`** — HTML Harvest / 粘贴 HTML 编码产物；由 `decodeTreeToOutput` 渲染。**目标形态：Preview / Copy / admin_inspection 同源。**
+2. **`renderContract`** — Registry import 产物；映射到既有 block renderer（`title_block_v1`、`info_card_v1` 等）。**过渡形态 · 已废弃方向 · 见 [`variant-dsl-legacy-render-contract-debt.md`](variant-dsl-legacy-render-contract-debt.md)（DEBT-DSL-RC-001~006 · DECISION-110）。**
 
 Registry 编码时 `meta.legacySlots` 保留完整 slot 定义，供 `renderContract` 路径复用。
 

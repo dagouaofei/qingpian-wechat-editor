@@ -677,6 +677,14 @@
 
 ---
 
+## 2026-06-08 · DEBT-DSL-RC Legacy renderContract 双轨渲染归档
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-08 | Sprint 10 | 归档 **DEBT-DSL-RC-001~006**：Registry `title_block_v1` Preview/Copy 双轨（React vs `renderPublish*`）为过渡债务 · 目标 tree 统一 decode | 架构 / 文档 | DECISION-110 · S10-STORY-013 |
+
+---
+
 ## 2026-06-08 · BUG-S10-COPY-FIDELITY-001 杂志竖线 Preview/Copy parity
 
 | 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |

@@ -96,6 +96,7 @@
 | DECISION-107 | 2026-06-05 | S9-STORY-007C：user_selectable 暴露至用户预览页样式选择器；Gallery/AI/release1 边界不变 | **已确认** · merged sprint @ `da5be1e` |
 | DECISION-108 | 2026-06-07 | 正式启动 Sprint 10：Database-backed Style Management Admin v1；从 `release/1` 创建 `sprint/s10-db-backed-style-admin-v1`；第一闭环为既有 variant 入库→后台上下架→用户侧 DB 分发；HTML Harvest 放后半段；不 merge `main` | **已确认** |
 | DECISION-109 | 2026-06-08 | 全局 WeChat Compatibility Mode 默认 off；DEBT-WC-001~007 归档 deferred；sanitize 常开；Release 1 收口前恢复 report/enforce | **已确认** |
+| DECISION-110 | 2026-06-08 | Registry `renderContract` + title_block 双轨 Preview/Copy renderer 为过渡债务；目标为 DB tree DSL 统一 decode；DEBT-DSL-RC-001~006 deferred · 本轮不批量迁移 | **已确认** |
 
 ### DECISION-019 详情
 
@@ -1155,4 +1156,20 @@
   5. **DEBT-WC-001~007 归档 deferred**，本轮不合并模块
   6. **S10 html_paste 开发暂态豁免** DECISION-006 严格 enforcement；Release 1 收口前须恢复 `report`/`enforce` 并 Paste QA
 - **状态：** **已确认**（2026-06-08 · 实现分支 `feature/s10-wechat-compatibility-global-off-default`）
+
+### DECISION-110 详情（Registry renderContract 双轨渲染 · 过渡债务 deferred）
+
+- **日期：** 2026-06-08
+- **背景：**
+  - S10 目标为 DB `definitionJson` + 统一 Decoder Core（`tree` 单轨 · preview/copy 同源）
+  - Registry import 仍通过 `encodeRegistryVariantToDsl` 产出 **无 `tree` 的 `renderContract: title_block_v1`**
+  - `decodeRenderContract` 对 title/heading：**Preview → React `TitleHeadingPreviewBlock`**，**Copy → `renderPublish*` / `renderTitleBlockCopyHtml` 独立 HTML builder**
+  - BUG-S10-COPY-FIDELITY-001（杂志竖线）为该类双轨漂移的典型案例
+- **决策：**
+  1. 上述 **renderContract + 双轨 renderer 路径为过渡实现，视为废弃方向**；新 variant 不得再依赖
+  2. **目标形态：** release1 variant 的 `definitionJson` 迁移为带 `tree` 的结构，preview/copy/admin 均 `decodeTreeToOutput`
+  3. **DEBT-DSL-RC-001~006 归档 deferred** · 详见 [`variant-dsl-legacy-render-contract-debt.md`](../architecture/variant-dsl-legacy-render-contract-debt.md)
+  4. **收口归属 S10-STORY-013**（或后续 Sprint）；**S10-STORY-011 内不批量迁移、不散修**
+  5. 个案 Copy Fidelity bug 仍可 patch，但不替代架构收口
+- **状态：** **已确认**（2026-06-08 · 文档归档）
 

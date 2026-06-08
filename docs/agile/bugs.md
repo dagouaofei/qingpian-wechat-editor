@@ -48,7 +48,25 @@
 | 所属 | Sprint 10 · S10-STORY-005 FIX-B |
 | 严重级别 | P1 |
 | 状态 | **Fixed**（2026-06-08 · `renderPublishMagazineLeftBarCopy` 双嵌套 section 竖线 · 用户验收 PASS） |
-| 处理记录 | FIX-B 曾标记 `qualityStatus=copy_fidelity_failed` · 2026-06-08 修复 Copy 与 Preview 同源双轨（1px 浅线 + 3px 深线包裹编号/SECTION/标题）· **待 re-run quality gate / userSelectable 评估** |
+| 处理记录 | FIX-B 曾标记 `qualityStatus=copy_fidelity_failed` · 2026-06-08 个案修复 Copy 双嵌套 section 竖线 · **根因类 DEBT-DSL-RC-002（legacy renderContract 双轨）** · 待 quality gate / userSelectable 评估 |
+
+---
+
+## 架构债务登记（非 Bug · Deferred）
+
+### DEBT-DSL-RC Legacy renderContract 双轨渲染
+
+| 字段 | 内容 |
+|------|------|
+| 债务 ID | DEBT-DSL-RC-001~006 |
+| 标题 | Registry `title_block_v1`：Preview 走 React `TitleHeadingPreviewBlock`，Copy 走 `renderPublish*` 等 legacy HTML builder |
+| 发现时间 | 2026-06-08 |
+| 所属 | Sprint 10 · S10-STORY-013 · **DECISION-110** |
+| 严重级别 | P1（架构） |
+| 状态 | **Deferred** |
+| 处理记录 | 11 个 first-wave title/heading release1 variant 仍受影响；html_paste `tree` 为目标形态；**本轮不批量修复** · 详见 [`variant-dsl-legacy-render-contract-debt.md`](../architecture/variant-dsl-legacy-render-contract-debt.md) |
+
+---
 
 ---
 
@@ -62,8 +80,8 @@
 | 所属 | Sprint 10 · S10-STORY-005 FIX-B |
 | 严重级别 | P1 |
 | 状态 | **Open** |
-| 处理记录 | 同 BUG-S10-COPY-FIDELITY-001；`copy_fidelity_failed` 不得进入 userSelectable / defaultEligible / AI candidate pool |
+| 处理记录 | 同 DEBT-DSL-RC-002 模式；`copy_fidelity_failed` 不得进入 userSelectable / defaultEligible / AI candidate pool |
 
 ---
 
-暂无其它 Open Bug（除上述两条 Copy Fidelity 登记项）。
+暂无其它 Open Bug（除 BUG-S10-COPY-FIDELITY-002 与 DEBT-DSL-RC 架构债务）。
