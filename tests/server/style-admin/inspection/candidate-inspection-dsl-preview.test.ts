@@ -52,8 +52,10 @@ describe("candidate inspection DSL preview", () => {
 
     expect(previewBlock.output.html).toContain(fixture.sampleText);
     expect(previewBlock.output.html).not.toContain("怎么用");
-    expect(previewBlock.output.html).toContain("CHAPTER 03");
-    expect(previewBlock.output.html).toContain("03");
+    expect(previewBlock.output.html).toContain("CHAPTER 01");
+    expect(previewBlock.output.html).not.toContain("CHAPTER 03");
+    expect(previewBlock.output.html).toContain("01");
+    expect(previewBlock.output.html).not.toContain(">03<");
     expect(previewBlock.output.html).toContain("HOW TO");
   });
 });

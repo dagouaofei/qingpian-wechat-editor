@@ -1,6 +1,6 @@
 import type { Block } from "@/core/blocks";
 import type { Article } from "@/core/article";
-import { resolveHeadingIndexLabel } from "@/core/renderer/heading-ordinal";
+import { applyOrdinalToEyebrowLabel, resolveHeadingIndexLabel } from "@/core/renderer/heading-ordinal";
 
 import type { DslNode, VariantDslV1 } from "../runtime/dsl-types";
 import type { SemanticBinding } from "../encoder/fidelity-html-tree";
@@ -15,6 +15,8 @@ export type FidelitySubstitutionTrace = {
   substitutedSlot: string | null;
   numberSubstitutionTargetPath: string | null;
   substitutedNumber: string | null;
+  eyebrowSubstitutionTargetPath: string | null;
+  substitutedEyebrow: string | null;
   decorativeSlotsPreserved: string[];
   fallbackUsed: boolean;
   fallbackReason: string | null;
@@ -233,6 +235,40 @@ function substituteHeadingNumberInTree(
   return { targetPath: numberPath, label };
 }
 
+function substituteEyebrowOrdinalInTree(
+  tree: DslNode,
+  dsl: VariantDslV1,
+  block: Block,
+  article: Article | undefined,
+): { targetPath: string | null; label: string | null } {
+  if (!article) {
+    return { targetPath: null, label: null };
+  }
+
+  const bindings = readSemanticBindings(dsl);
+  const eyebrowPath = bindings.eyebrow?.path;
+  if (!eyebrowPath) {
+    return { targetPath: null, label: null };
+  }
+
+  const sourceEyebrow =
+    bindings.eyebrow?.text?.trim() || readExtractedSlots(dsl).eyebrow || "";
+  if (!sourceEyebrow || !/\b\d{1,3}\b/.test(sourceEyebrow)) {
+    return { targetPath: eyebrowPath, label: null };
+  }
+
+  const ordinalLabel = resolveHeadingIndexLabel(article, block.id, block.meta?.sourceIndex);
+  const label = applyOrdinalToEyebrowLabel(sourceEyebrow, ordinalLabel);
+
+  const target = resolveDslNodeAtPath(tree, eyebrowPath);
+  const replaced = target ? replaceTextInSubtree(target, label, eyebrowPath) : null;
+  if (!replaced?.ok) {
+    return { targetPath: eyebrowPath, label: null };
+  }
+
+  return { targetPath: eyebrowPath, label };
+}
+
 export function applyFidelityTreeArticleSubstitution(
   tree: DslNode,
   dsl: VariantDslV1,
@@ -249,6 +285,7 @@ export function applyFidelityTreeArticleSubstitution(
 
   const cloned = cloneDslNode(tree);
   const numberSubstitution = substituteHeadingNumberInTree(cloned, dsl, block, article);
+  const eyebrowSubstitution = substituteEyebrowOrdinalInTree(cloned, dsl, block, article);
 
   const baseTrace: FidelitySubstitutionTrace = {
     slotSubstitutionPath: null,
@@ -257,6 +294,8 @@ export function applyFidelityTreeArticleSubstitution(
     substitutedSlot: null,
     numberSubstitutionTargetPath: numberSubstitution.targetPath,
     substitutedNumber: numberSubstitution.label,
+    eyebrowSubstitutionTargetPath: eyebrowSubstitution.targetPath,
+    substitutedEyebrow: eyebrowSubstitution.label,
     decorativeSlotsPreserved,
     fallbackUsed: false,
     fallbackReason: null,

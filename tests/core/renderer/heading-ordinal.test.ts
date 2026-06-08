@@ -12,6 +12,7 @@ import {
 
 import { articleFixtureBase, fixtureBlockId } from "../../fixtures/articles/shared";
 import {
+  applyOrdinalToEyebrowLabel,
   formatHeadingOrdinalLabel,
   resolveHeadingIndexLabel,
   resolveHeadingOrdinalInArticle,
@@ -67,5 +68,13 @@ describe("heading ordinal", () => {
     expect(payload.textHtml).toMatch(/>02</);
     expect(payload.textHtml).toMatch(/border-radius:\s*6px/i);
     expect(payload.textHtml).toMatch(/padding:\s*3px 10px/i);
+  });
+
+  it("applyOrdinalToEyebrowLabel replaces 1–3 digit runs with chapter ordinal", () => {
+    expect(applyOrdinalToEyebrowLabel("CHAPTER 03", "01")).toBe("CHAPTER 01");
+    expect(applyOrdinalToEyebrowLabel("SECTION 9", "02")).toBe("SECTION 02");
+    expect(applyOrdinalToEyebrowLabel("HOW TO", "01")).toBe("HOW TO");
+    expect(applyOrdinalToEyebrowLabel("YEAR 2024", "01")).toBe("YEAR 2024");
+    expect(applyOrdinalToEyebrowLabel("PART 2 · CHAPTER 03", "03")).toBe("PART 03 · CHAPTER 03");
   });
 });

@@ -24,3 +24,16 @@ export function resolveHeadingIndexLabel(
   }
   return "01";
 }
+
+const EYEBROW_ORDINAL_DIGIT_PATTERN = /\b\d{1,3}\b/g;
+
+/** Replace every 1–3 digit run in eyebrow label with chapter ordinal (e.g. CHAPTER 03 → CHAPTER 01). */
+export function applyOrdinalToEyebrowLabel(
+  sourceEyebrow: string,
+  ordinalLabel: string,
+): string {
+  if (!sourceEyebrow.trim() || !/\b\d{1,3}\b/.test(sourceEyebrow)) {
+    return sourceEyebrow;
+  }
+  return sourceEyebrow.replace(EYEBROW_ORDINAL_DIGIT_PATTERN, ordinalLabel);
+}

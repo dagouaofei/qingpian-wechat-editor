@@ -241,15 +241,71 @@ describe("fidelity heading user preview substitution", () => {
     expect(html).not.toMatch(/border-left\s*:\s*4px\s+solid\s+#1677ff/i);
   });
 
-  it("chapter overlay heading substitutes ordinal number and title at binding", () => {
+  it("chapter overlay heading substitutes ordinal eyebrow, number, and title at bindings", () => {
     const runtimeVariantId = "heading_chapter_overlay_substitution";
     const { html, output } = renderHeadingPreview(COMPLEX_HEADING_HTML, runtimeVariantId);
 
+    expect(html).toContain("CHAPTER 01");
+    expect(html).not.toContain("CHAPTER 03");
     expect(html).toContain("01");
+    expect(html).not.toContain(">03<");
     expect(html).toContain(ARTICLE_HEADING);
     expect(html).not.toContain("怎么用");
+    expect(html).toContain("HOW TO");
     expect(html).toMatch(/display\s*:\s*flex/i);
     expect(output.runtimeTrace?.fallbackUsed).toBe(false);
     expect(output.runtimeTrace?.decorativeSlotsPreserved).toContain("number");
+    expect(output.runtimeTrace?.decorativeSlotsPreserved).toContain("eyebrow");
+  });
+
+  it("increments chapter overlay eyebrow and number per heading ordinal in article", () => {
+    const runtimeVariantId = "heading_html_paste_64e3b97a_candidate";
+    const encoded = encodeHtmlToVariantDsl({
+      html: COMPLEX_HEADING_HTML,
+      runtimeVariantId,
+      blockType: "heading",
+      wechatCompatibilityMode: "off",
+    });
+    expect(encoded.ok).toBe(true);
+    if (!encoded.ok) return;
+
+    const h1 = fixtureBlockId(1);
+    const h2 = fixtureBlockId(3);
+    const h3 = fixtureBlockId(4);
+    const article = parseArticle({
+      ...articleFixtureBase(),
+      styleAssignment: {
+        themeId: "businessBlue",
+        presetId: "business",
+        blockOverrides: [
+          { blockId: h1, variantId: runtimeVariantId },
+          { blockId: h2, variantId: runtimeVariantId },
+          { blockId: h3, variantId: runtimeVariantId },
+        ],
+      },
+      blocks: [
+        { id: h1, type: "heading", content: { text: "第一节", level: 2 } },
+        { id: fixtureBlockId(2), type: "paragraph", content: { text: [{ text: "段落" }] } },
+        { id: h2, type: "heading", content: { text: "第二节", level: 2 } },
+        { id: h3, type: "heading", content: { text: "第三节", level: 2 } },
+      ],
+    });
+
+    const numbers: string[] = [];
+    const eyebrows: string[] = [];
+    for (const block of article.blocks.filter((entry) => entry.type === "heading")) {
+      const decoded = decodeVariantDsl({
+        article,
+        block,
+        variantDsl: encoded.value,
+        target: "preview",
+      });
+      expect(decoded.ok, JSON.stringify(decoded.issues)).toBe(true);
+      numbers.push(decoded.substitutionTrace?.substitutedNumber ?? "");
+      eyebrows.push(decoded.substitutionTrace?.substitutedEyebrow ?? "");
+    }
+
+    expect(numbers).toEqual(["01", "02", "03"]);
+    expect(eyebrows).toEqual(["CHAPTER 01", "CHAPTER 02", "CHAPTER 03"]);
   });
 });
