@@ -81,9 +81,7 @@
 
 ## 11. 未完成事项
 
-- 用户本地 `/preview` 人工验收 html_paste fidelity variant 配色切换
-- commit（待用户请求）
-- merge 到 sprint（待用户确认）
+- merge 到 sprint（待用户确认；用户已要求本轮不 merge）
 
 ## 12. 风险与阻塞
 
