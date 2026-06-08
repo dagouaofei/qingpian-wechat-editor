@@ -1,11 +1,14 @@
 import type { BlockType } from "@prisma/client";
 
 import { buildCodeFallbackDslRuntime } from "@/lib/dsl-runtime/build-code-fallback-dsl-runtime";
+import type { DslRuntimeVariantSourceMeta } from "@/lib/dsl-runtime-context-types";
 
 import { getStyleAdminDbAvailability } from "../db-availability";
 import { buildRuntimeVariantPoolWhere } from "../mappers";
 import type { StyleAdminPrismaClient } from "../prisma";
 import { prisma } from "../prisma";
+import { pickInspectionHtmlSource } from "../inspection/pick-inspection-html-source";
+import { resolveRuntimePoolDefinitionJson } from "@/lib/dsl-runtime/resolve-runtime-pool-definition";
 import { mapDbRowToRuntimeDslDefinition } from "./runtime-variant-dsl-pool-mapper";
 import {
   buildRuntimeDslPoolCacheKey,
@@ -21,17 +24,24 @@ import { resolveUserSelectablePoolCacheTtlSeconds } from "./user-selectable-vari
 async function loadDatabaseRuntimeDslPool(
   db: StyleAdminPrismaClient,
   blockType?: BlockType,
-): Promise<Pick<RuntimeVariantDslPoolResult, "definitionJsonByVariantId" | "variantIds" | "issues">> {
+): Promise<
+  Pick<
+    RuntimeVariantDslPoolResult,
+    "definitionJsonByVariantId" | "variantSourceMetaByVariantId" | "variantIds" | "issues"
+  >
+> {
   const rows = await db.styleVariant.findMany({
     where: buildRuntimeVariantPoolWhere({ blockType }),
     include: {
       distribution: true,
       currentVersion: true,
+      sources: true,
     },
     orderBy: { runtimeVariantId: "asc" },
   });
 
   const definitionJsonByVariantId: Record<string, unknown> = {};
+  const variantSourceMetaByVariantId: Record<string, DslRuntimeVariantSourceMeta> = {};
   const variantIds: string[] = [];
   const issues: RuntimeVariantDslPoolResult["issues"] = [];
 
@@ -41,12 +51,31 @@ async function loadDatabaseRuntimeDslPool(
       issues.push(mapped.issue);
     }
     if (mapped.included && mapped.definitionJson) {
-      definitionJsonByVariantId[row.runtimeVariantId] = mapped.definitionJson;
+      const htmlSource = pickInspectionHtmlSource(row.sources);
+      const resolvedDefinitionJson = resolveRuntimePoolDefinitionJson({
+        definitionJson: mapped.definitionJson,
+        runtimeVariantId: row.runtimeVariantId,
+        blockType: row.blockType,
+        label: row.label,
+        styleFamily: row.styleFamily,
+        primarySourceType: htmlSource?.sourceType ?? null,
+        sourceHtml: htmlSource?.rawHtml ?? null,
+      });
+
+      definitionJsonByVariantId[row.runtimeVariantId] = resolvedDefinitionJson;
       variantIds.push(row.runtimeVariantId);
+
+      variantSourceMetaByVariantId[row.runtimeVariantId] = {
+        blockType: row.blockType,
+        styleFamily: row.styleFamily,
+        label: row.label,
+        primarySourceType: htmlSource?.sourceType ?? null,
+        sourceHtml: htmlSource?.rawHtml ?? null,
+      };
     }
   }
 
-  return { definitionJsonByVariantId, variantIds, issues };
+  return { definitionJsonByVariantId, variantSourceMetaByVariantId, variantIds, issues };
 }
 
 function buildCodeFallbackRuntimeResult(notice?: string): RuntimeVariantDslPoolResult {
@@ -55,6 +84,7 @@ function buildCodeFallbackRuntimeResult(notice?: string): RuntimeVariantDslPoolR
     source: fallback.source,
     cache: fallback.cache,
     definitionJsonByVariantId: fallback.definitionJsonByVariantId,
+    variantSourceMetaByVariantId: fallback.variantSourceMetaByVariantId,
     variantIds: fallback.variantIds,
     issues: [],
     notice: fallback.notice,
@@ -83,10 +113,8 @@ export async function getRuntimeVariantDslPool(
   }
 
   try {
-    const { definitionJsonByVariantId, variantIds, issues } = await loadDatabaseRuntimeDslPool(
-      db,
-      options.blockType,
-    );
+    const { definitionJsonByVariantId, variantSourceMetaByVariantId, variantIds, issues } =
+      await loadDatabaseRuntimeDslPool(db, options.blockType);
 
     if (variantIds.length === 0) {
       return buildCodeFallbackRuntimeResult(
@@ -102,6 +130,7 @@ export async function getRuntimeVariantDslPool(
         generatedAt: new Date().toISOString(),
       },
       definitionJsonByVariantId,
+      variantSourceMetaByVariantId,
       variantIds,
       issues,
     };

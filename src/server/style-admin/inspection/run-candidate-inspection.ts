@@ -19,6 +19,7 @@ import type {
 import { ADMIN_INSPECTION_CONTEXT } from "./candidate-inspection-types";
 import { inspectCandidateValidator } from "./candidate-validator";
 import { mapDbCandidateToVariantDefinition } from "./db-candidate-variant-mapper";
+import { pickInspectionHtmlSource } from "./pick-inspection-html-source";
 import { resolveQualityStatusFromInspection } from "./resolve-quality-status";
 
 function mapValidatorRunStatus(
@@ -120,7 +121,7 @@ export async function runCandidateInspectionAndPersist(
     return { ok: false, code: "not_found", message: "Variant or current version not found" };
   }
 
-  const primarySource = variant.sources[0] ?? null;
+  const htmlSource = pickInspectionHtmlSource(variant.sources);
   const source: DbCandidateInspectionSource = {
     variantId: variant.id,
     runtimeVariantId: variant.runtimeVariantId,
@@ -135,9 +136,9 @@ export async function runCandidateInspectionAndPersist(
     qualityStatus: variant.currentVersion.qualityStatus,
     versionId: variant.currentVersion.id,
     versionNumber: variant.currentVersion.versionNumber,
-    primarySourceType: primarySource?.sourceType ?? null,
-    hasRawHtml: Boolean(primarySource?.rawHtml),
-    rawHtml: primarySource?.rawHtml ?? null,
+    primarySourceType: htmlSource?.sourceType ?? null,
+    hasRawHtml: Boolean(htmlSource?.rawHtml?.trim()),
+    rawHtml: htmlSource?.rawHtml ?? null,
   };
 
   if (

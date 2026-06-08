@@ -4431,26 +4431,42 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 **优先级：** P1 · **状态：** **In Review / checkpoint** · **工作分支：** `feature/s10-story-011-promote-user-selectable-final` · **未 merge sprint**
 
-**Checkpoint 说明（2026-06-07）：** 已保存 promote + FIX-A + Harvest compatibility mode + encoder/compatibility decoupling 进行中改动；**非 Done**。
+**Checkpoint 说明（2026-06-08）：** promote + FIX-A + Harvest compatibility mode + **FIX-C fidelity refresh** 已收口；**In Review · 未 merge sprint**。
 
 - Promote gate 已恢复
 - DSL Runtime readiness 已接入
 - Source-exact trace 已补充
 - Harvest compatibility mode 已加入
-- Encoder / Decoder fidelity 与 compatibility decoupling 仍在继续验证
-- HTML → DSL → Promote → 用户侧 Preview/Copy 全量验收尚未最终通过
+- **FIX-C（2026-06-08）**：stale slot-tree DSL 从 `rawHtml` server-side 预刷新 · admin inspection + 用户 `/preview` / copy 共用 `meta.semanticBindings.title`
+- HTML → DSL → Promote → 用户侧 Preview/Copy：`heading_html_paste_4933bb91_candidate` 用户验收 PASS（2026-06-08）
 
 **目标：** candidate → user_selectable · promote record · 用户侧可见 · 不自动 defaultEligible · **须含 `validateVariantDslRuntimeReadiness` gate** · detail Preview inspection 样式化 DSL decode。
 
 **验收标准：**
 
 - [x] AC-1 promote 写操作产生 `style_variant_promote_records` + lifecycle + audit
-- [ ] AC-2 用户侧 E2E：promoted candidate 在 pool / `/preview` 可见且样式生效（待用户验收）
+- [x] AC-2 用户侧 E2E：promoted candidate 在 pool / `/preview` 可见且样式生效（用户验收 2026-06-08 · `heading_html_paste_4933bb91_candidate`）
 - [x] AC-3 defaultEligible / default preset / release1Required 未自动变更
 - [x] AC-4 Hide / Restore / Rollback 仍可用（既有 governance）
 - [x] AC-5 Promote 前 `paste_qa_pass` + `validateVariantDslRuntimeReadiness` OK
 - [x] AC-6 lint / test / build PASS（1211 tests）
 - [x] AC-7 Candidate detail Preview inspection 使用 DSL Decoder · 非裸文本 fallback
+- [x] AC-8 html_paste heading fidelity tree：`meta.semanticBindings.title` 替换 · 非 `slots.title` collapsed fallback（admin + 用户 preview/copy · 2026-06-08）
+
+### S10-STORY-011 FIX-C Fidelity DSL Refresh from sourceHtml
+
+**优先级：** P0 · **状态：** **In Review** · **工作分支：** `feature/s10-story-011-promote-user-selectable-final`
+
+**目标：** DB 存 stale slot-tree 时，admin inspection 与用户 runtime 从 `rawHtml` 重建 fidelity tree · 避免 `#1677ff` collapsed / `slots.title` 误替换。
+
+**验收标准：**
+
+- [x] AC-1 `pickInspectionHtmlSource` 选取含 `rawHtml` 的 source（非固定 `sources[0]`）
+- [x] AC-2 `shouldRefreshVariantDslFromSourceHtml` 统一 admin + user refresh 条件
+- [x] AC-3 server runtime pool 预解析 fidelity DSL（client 不调用 encoder · 避免 `randomUUID` 错误）
+- [x] AC-4 preview trace：`slotSubstitutionPath=meta.semanticBindings.title` · 无 `#1677ff`
+- [x] AC-5 copy 与 preview 结构一致 · copy target 将 flex/grid display 降级为 block
+- [x] AC-6 定向测试 PASS（`candidate-inspection-background-number-heading` · `dsl-tree-html-preview` · `resolve-runtime-pool-definition`）
 
 ### S10-STORY-011 FIX-A DSL Decode Source-Exact / No Fallback / Empty Is Failure
 

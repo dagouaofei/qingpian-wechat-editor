@@ -22,6 +22,9 @@ export type RenderDslBlockInput = {
   mode: RenderMode;
   renderTarget: RenderTarget;
   sourceHtml?: string | null;
+  primarySourceType?: string | null;
+  family?: string;
+  label?: string;
 };
 
 export function renderDslBlock(input: RenderDslBlockInput): RendererResult<RendererOutputPlaceholder> {
@@ -56,8 +59,9 @@ export function renderDslBlock(input: RenderDslBlockInput): RendererResult<Rende
     sourceHtml: input.sourceHtml,
     runtimeVariantId: input.runtimeVariantId,
     blockType: input.block.type,
-    label: parsed.value.label,
-    family: parsed.value.family,
+    label: input.label ?? parsed.value.label,
+    family: input.family ?? parsed.value.family,
+    primarySourceType: input.primarySourceType,
   });
 
   const decoded = decodeVariantDsl({

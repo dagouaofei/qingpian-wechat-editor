@@ -10,7 +10,10 @@ type CacheEntry = {
 const poolCache = new Map<string, CacheEntry>();
 
 export function buildRuntimeDslPoolCacheKey(blockType?: BlockType): string {
-  return blockType ? `runtime-dsl:blockType:${blockType}` : "runtime-dsl:all";
+  const version = "v2-fidelity-preresolve";
+  return blockType
+    ? `runtime-dsl:${version}:blockType:${blockType}`
+    : `runtime-dsl:${version}:all`;
 }
 
 export function readRuntimeDslPoolCache(

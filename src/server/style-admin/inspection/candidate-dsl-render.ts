@@ -6,7 +6,9 @@ import type { RendererOutputPlaceholder } from "@/core/renderer/types";
 import { renderTargetForMode } from "@/core/renderer/types";
 
 import { parseDefinitionJsonToVariantDsl } from "@/lib/dsl-runtime";
-import { resolveFidelityVariantDslForDecode } from "@/lib/dsl-runtime/resolve-fidelity-variant-dsl";
+import {
+  resolveFidelityVariantDslForDecode,
+} from "@/lib/dsl-runtime/resolve-fidelity-variant-dsl";
 import type { DbCandidateInspectionSource } from "./candidate-inspection-types";
 import { buildDbCandidateInspectionArticle } from "./db-candidate-admin-render";
 import type { CandidateInspectionFixture } from "./candidate-inspection-types";
@@ -30,12 +32,14 @@ function resolveInspectionVariantDsl(
   parsed: VariantDslV1,
 ): VariantDslV1 {
   const enriched = enrichVariantDslFromSource(source, parsed);
+
   return resolveFidelityVariantDslForDecode(enriched, {
     sourceHtml: source.rawHtml,
     runtimeVariantId: source.runtimeVariantId,
     blockType: source.blockType,
     label: source.label,
     family: source.styleFamily,
+    primarySourceType: source.primarySourceType,
   });
 }
 

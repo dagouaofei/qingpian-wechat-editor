@@ -14,6 +14,7 @@ import { buildSourceExactTrace } from "@/lib/dsl-runtime/source-exact-trace";
 import { mapPoolSourceToRuntimeSource } from "@/lib/dsl-runtime/runtime-trace";
 import type { SourceExactTrace } from "@/core/dsl/runtime/dsl-trace-types";
 import type { DbCandidateInspectionSource } from "@/server/style-admin/inspection/candidate-inspection-types";
+import { pickInspectionHtmlSource } from "@/server/style-admin/inspection/pick-inspection-html-source";
 import type { SerializedPreviewBlock } from "@/server/generation/generate-flow-types";
 
 export type CandidateInspectionPanelViewModel = {
@@ -45,7 +46,7 @@ export type CandidateInspectionPanelViewModel = {
 };
 
 function toInspectionSource(detail: AdminVariantDetail): DbCandidateInspectionSource {
-  const primarySource = detail.sources[0] ?? null;
+  const htmlSource = pickInspectionHtmlSource(detail.sources);
   const currentVersion = detail.currentVersion!;
   return {
     variantId: detail.variant.id,
@@ -61,9 +62,9 @@ function toInspectionSource(detail: AdminVariantDetail): DbCandidateInspectionSo
     qualityStatus: currentVersion.qualityStatus,
     versionId: currentVersion.id,
     versionNumber: currentVersion.versionNumber,
-    primarySourceType: primarySource?.sourceType ?? null,
-    hasRawHtml: Boolean(primarySource?.rawHtml),
-    rawHtml: primarySource?.rawHtml ?? null,
+    primarySourceType: htmlSource?.sourceType ?? null,
+    hasRawHtml: Boolean(htmlSource?.rawHtml?.trim()),
+    rawHtml: htmlSource?.rawHtml ?? null,
   };
 }
 
@@ -75,10 +76,10 @@ export function buildCandidateInspectionPanelViewModel(
     return null;
   }
 
-  const primarySource = detail.sources[0] ?? null;
+  const htmlSource = pickInspectionHtmlSource(detail.sources);
   const eligible = isCandidateInspectionEligible({
     lifecycle: detail.variant.lifecycle,
-    sourceType: primarySource?.sourceType ?? null,
+    sourceType: htmlSource?.sourceType ?? null,
     qualityStatus: currentVersion.qualityStatus,
   });
 

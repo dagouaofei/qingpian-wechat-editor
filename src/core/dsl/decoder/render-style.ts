@@ -16,8 +16,16 @@ export function dslStyleToInlineCss(
 ): string {
   if (!style) return "";
   const normalized = dslStyleToCssMap(style);
-  const serialized =
-    target === "copy_wechat" ? filterAllowedInlineStyles(normalized) : normalized;
+  const isCopyTarget = target === "copy_wechat" || target === "qa_snapshot";
+  let serialized = isCopyTarget ? filterAllowedInlineStyles(normalized) : normalized;
+
+  if (isCopyTarget) {
+    const display = serialized.display?.trim().toLowerCase();
+    if (display === "flex" || display === "inline-flex" || display === "grid") {
+      serialized = { ...serialized, display: "block" };
+    }
+  }
+
   return Object.entries(serialized)
     .map(([key, value]) => `${key}: ${value}`)
     .join("; ");

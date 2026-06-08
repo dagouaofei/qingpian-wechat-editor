@@ -12,7 +12,34 @@ export type ResolveFidelityVariantDslInput = {
   blockType: BlockType;
   label?: string;
   family?: string;
+  primarySourceType?: string | null;
 };
+
+export function shouldRefreshVariantDslFromSourceHtml(
+  dsl: VariantDslV1,
+  input: Pick<
+    ResolveFidelityVariantDslInput,
+    "blockType" | "family" | "primarySourceType"
+  >,
+): boolean {
+  if (requiresFidelityTreeRefresh(dsl)) {
+    return true;
+  }
+
+  const headingLike = input.blockType === "heading" || input.blockType === "title";
+  if (!headingLike) {
+    return false;
+  }
+
+  const styleFamily = input.family ?? dsl.family;
+  const primarySourceType = input.primarySourceType ?? null;
+
+  return (
+    primarySourceType === "html_paste" ||
+    styleFamily === "htmlPaste" ||
+    styleFamily === "htmlPasteCandidate"
+  );
+}
 
 export function refreshVariantDslFromSourceHtml(
   dsl: VariantDslV1,
@@ -48,7 +75,9 @@ export function resolveFidelityVariantDslForDecode(
   dsl: VariantDslV1,
   input: ResolveFidelityVariantDslInput,
 ): VariantDslV1 {
-  if (!requiresFidelityTreeRefresh(dsl)) {
+  const needsRefresh = shouldRefreshVariantDslFromSourceHtml(dsl, input);
+
+  if (!needsRefresh) {
     return dsl;
   }
 

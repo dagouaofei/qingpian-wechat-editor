@@ -6,6 +6,14 @@ export type DslRuntimeCacheMeta = {
   generatedAt: string;
 };
 
+export type DslRuntimeVariantSourceMeta = {
+  blockType: import("@prisma/client").BlockType;
+  styleFamily: string;
+  label: string;
+  primarySourceType?: string | null;
+  sourceHtml?: string | null;
+};
+
 /**
  * Serializable DSL runtime context for /preview user-side rendering.
  * When source=database, definitionJsonByVariantId is the sole runtime source of truth.
@@ -15,6 +23,8 @@ export type DslRuntimeSnapshot = {
   cache: DslRuntimeCacheMeta;
   /** All runtime-eligible variants keyed by runtimeVariantId. */
   definitionJsonByVariantId: Record<string, unknown>;
+  /** Source metadata for fidelity DSL refresh (html_paste headings, etc.). */
+  variantSourceMetaByVariantId?: Record<string, DslRuntimeVariantSourceMeta>;
   variantIds: string[];
   issues: Array<{
     runtimeVariantId: string;
