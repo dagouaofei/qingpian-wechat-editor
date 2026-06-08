@@ -612,7 +612,7 @@
 | 2026-06-08 | Sprint 10 | Admin inspection + 用户 `/preview` / copy 共用 `shouldRefreshVariantDslFromSourceHtml` | Inspection / preview | S10-STORY-011 FIX-C |
 | 2026-06-08 | Sprint 10 | copy target：`display:flex|grid` → `block` · 避免微信粘贴布局异常 | Copy / Decoder | S10-STORY-011 FIX-C |
 | 2026-06-08 | Sprint 10 | 用户验收 PASS：`heading_html_paste_4933bb91_candidate` preview + copy + variant 切换 | 验收 | S10-STORY-011 |
-| 2026-06-08 | Sprint 10 | 工作分支 `feature/s10-story-011-promote-user-selectable-final` · **未 merge sprint** | Git | S10-STORY-011 |
+| 2026-06-08 | Sprint 10 | commit `1a32f13` · 工作分支 `feature/s10-story-011-promote-user-selectable-final` · **未 merge sprint** | Git | S10-STORY-011 FIX-C |
 
 ---
 

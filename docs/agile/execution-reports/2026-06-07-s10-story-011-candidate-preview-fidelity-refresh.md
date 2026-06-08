@@ -90,4 +90,4 @@
 
 ## 15. Commit
 
-- Commit hash：（见本轮 `fix: preresolve fidelity DSL from sourceHtml for html_paste headings` commit）
+- Commit hash：`1a32f13`（与 FIX-C 用户 preview 修复同批提交）
