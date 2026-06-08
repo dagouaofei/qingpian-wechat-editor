@@ -104,7 +104,9 @@ export function decodeVariantDsl(input: DecodeVariantDslInput): DecodeVariantDsl
     output: decoded.output,
     html: decoded.html,
     issues: decoded.issues,
-    substitutionTrace: decoded.substitutionTrace,
+    substitutionTrace: input.variantDsl.tree
+      ? (decoded as ReturnType<typeof decodeTreeToOutput>).substitutionTrace
+      : undefined,
     trace: buildDecoderTrace({
       target: input.target,
       decoderPath,

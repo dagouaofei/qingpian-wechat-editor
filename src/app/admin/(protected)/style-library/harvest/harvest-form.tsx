@@ -53,14 +53,11 @@ export function HarvestForm({
   const effectiveBlockType = preview?.ok ? preview.effectiveBlockType : null;
   const compatibilityIssues = preview?.ok ? preview.issues : preview?.issues ?? [];
   const lossReport = preview?.ok ? preview.lossReport : preview?.lossReport ?? [];
-  const sanitizeLossReport =
-    preview?.ok ? preview.sanitizeLossReport : preview?.sanitizeLossReport ?? [];
-  const encoderLossReport =
-    preview?.ok ? preview.encoderLossReport : preview?.encoderLossReport ?? [];
-  const compatibilityTransformLossReport =
-    preview?.ok
-      ? preview.compatibilityTransformLossReport
-      : preview?.compatibilityTransformLossReport ?? [];
+  const sanitizeLossReport = preview?.ok ? preview.sanitizeLossReport : [];
+  const encoderLossReport = preview?.ok ? preview.encoderLossReport : [];
+  const compatibilityTransformLossReport = preview?.ok
+    ? preview.compatibilityTransformLossReport
+    : [];
   const canCreateCandidate = preview?.ok ? preview.canCreateCandidate : false;
   const previewBlockingMessage = preview && !preview.ok ? preview.message : null;
 

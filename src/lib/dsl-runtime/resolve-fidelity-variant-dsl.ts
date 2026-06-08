@@ -46,7 +46,7 @@ export function refreshVariantDslFromSourceHtml(
   input: Required<Pick<ResolveFidelityVariantDslInput, "sourceHtml">> &
     Omit<ResolveFidelityVariantDslInput, "sourceHtml">,
 ): VariantDslV1 {
-  const sourceHtml = input.sourceHtml.trim();
+  const sourceHtml = input.sourceHtml?.trim() ?? "";
   if (!sourceHtml) {
     return dsl;
   }

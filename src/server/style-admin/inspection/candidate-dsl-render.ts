@@ -99,7 +99,6 @@ export function renderCandidateViaDslDecoder(
       issues: [decoded.message, ...decoded.issues],
       usedAdminFallback: false,
       trace: decoded.trace,
-      substitutionTrace: decoded.substitutionTrace,
     };
   }
 
@@ -109,7 +108,6 @@ export function renderCandidateViaDslDecoder(
       issues: ["dsl_decode_empty_output"],
       usedAdminFallback: false,
       trace: decoded.trace,
-      substitutionTrace: decoded.substitutionTrace,
     };
   }
 

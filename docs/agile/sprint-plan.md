@@ -65,7 +65,7 @@
 | **Sprint 9** | **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · P0=0 · S9-STORY-001~009 Done · **已 merge `release/1`** @ `c96e869`） |
 | **Sprint 10** | **In Progress**（2026-06-07 · **DECISION-108** · S10-STORY-001~010 · **S10-STORY-011A Done**） |
 | **Release 1 主干** | `release/1` |
-| **下一步** | **S10-STORY-011** 本地 E2E 验收 · merge sprint · **S10-STORY-012** Closeout |
+| **下一步** | **S10-STORY-011** integration 人工验收 · merge sprint · **S10-STORY-012~014** 后续拆分 |
 
 ---
 

@@ -41,3 +41,5 @@ S8 建立 Contract v1 + `validateWechatCopyHtml`（`src/core/wechat-compat/`）�
 2. Copy decode `filterCopyStyles` 与 Contract 对齐或显式分层  
 3. 合并 DEBT-WC-005 copy-safe-html 规则进 Contract 或标注废弃  
 4. Release 1 收口前恢复 `report`/`enforce` 默认并跑 Paste QA（见 DECISION-109）
+
+**后续 Story（不在 S10-STORY-011 内）：** S10-STORY-012 WeChat Compatibility Spec Recalibration — 在 known-debt + DECISION-109 基础上重新校准 report/enforce 语义与 Contract 对齐。

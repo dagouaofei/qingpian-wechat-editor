@@ -4429,7 +4429,9 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 ## S10-STORY-011 采集样式 Promote 到 user-selectable
 
-**优先级：** P1 · **状态：** **In Review / checkpoint** · **工作分支：** `feature/s10-story-011-promote-user-selectable-final` · **未 merge sprint**
+**优先级：** P1 · **状态：** **In Review** · **工作分支：** `feature/s10-story-011-integration-readiness`（2026-06-08 · 统一 31 commits · **未 merge sprint**）
+
+**Integration 说明（2026-06-08）：** 今日分散在 `promote-user-selectable-final` / `html-paste-fidelity-theme-tokens` / `wechat-compatibility-global-off-default` / `fidelity-border-theme-all-sides` 的修复已 fast-forward 合入 `feature/s10-story-011-integration-readiness`。**仍为 In Review · 待用户人工验收 · 未 merge sprint。**
 
 **Checkpoint 说明（2026-06-08）：** promote + FIX-A + Harvest compatibility mode + **FIX-C fidelity refresh** 已收口；**In Review · 未 merge sprint**。
 
@@ -4500,27 +4502,47 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 ### S10-CHORE-011B 全局 WeChat Compatibility Mode 默认 off + 债务归档
 
-**优先级：** P1 · **状态：** **In Review** · **工作分支：** `feature/s10-wechat-compatibility-global-off-default`
+**优先级：** P1 · **状态：** **In Review** · **工作分支：** `feature/s10-story-011-integration-readiness`（含 `006c7c2`）
 
 **目标：** 全局 `QINGPIAN_WECHAT_COMPATIBILITY_MODE` 默认 off；统一 gate validator / copy filter / copy-safe-html；债务写入 [`wechat-compatibility-known-debt.md`](../architecture/wechat-compatibility-known-debt.md)（不重构）。
 
 **验收标准：**
 
-- [ ] AC-1 `getWechatCompatibilityMode()` 默认 off · legacy env alias · NEXT_PUBLIC 支持
-- [ ] AC-2 off 时 validator / filter / copy-safe 全部 no-op
-- [ ] AC-3 sanitize 不受 off 影响
-- [ ] AC-4 DECISION-109 + known-debt 文档 · `.env.example` 更新
-- [ ] AC-5 定向测试 PASS
+- [x] AC-1 `getWechatCompatibilityMode()` 默认 off · legacy env alias · NEXT_PUBLIC 支持
+- [x] AC-2 off 时 validator / filter / copy-safe 规则 no-op
+- [x] AC-3 sanitize 不受 off 影响
+- [x] AC-4 DECISION-109 + known-debt 文档 · `.env.example` 更新
+- [x] AC-5 定向测试 PASS（`global-compatibility-mode.test.ts`）
 
 **关联债务（Deferred）：** DEBT-WC-001~007 · 见 DECISION-109
 
 ---
 
-## S10-STORY-012 S10 Audit / Closeout
+## S10-STORY-012 WeChat Compatibility Spec Recalibration
 
-**优先级：** P0 · **状态：** **Planned** · **工作分支：** TBD（`docs/s10-story-012-audit-closeout`）
+**优先级：** P1 · **状态：** **Planned** · **工作分支：** TBD
 
-**目标：** 审计 database-backed admin v1 是否完成 · 验收既有 variant 入库 → 后台上下架 → 用户侧变化 → Preview / Copy 生效 · 验收 HTML candidate → validation → evidence → promote → 用户侧可选 · P0=0 才能关闭。
+**目标：** 在 DECISION-109 / known-debt 基础上，重新校准 Compatibility Spec（report/enforce 语义、Yellow/Red 规则、Harvest 与 runtime 一致性）。**不在 S10-STORY-011 内继续散修。**
+
+**验收标准：** TBD（Sprint 11 或后续拆分）
+
+---
+
+## S10-STORY-013 DSL Runtime Schema Cleanup
+
+**优先级：** P2 · **状态：** **Planned** · **工作分支：** TBD
+
+**目标：** 清理 Variant DSL / trace / meta 冗余字段 · 统一 encoderVersion / semanticBindings / styleTokens 契约。**不在 S10-STORY-011 内继续散修。**
+
+**验收标准：** TBD
+
+---
+
+## S10-STORY-014 S10 Architecture Audit / Closeout
+
+**优先级：** P0 · **状态：** **Planned** · **工作分支：** TBD（`docs/s10-story-014-audit-closeout`）
+
+**目标：** 审计 database-backed admin v1 是否完成 · 验收既有 variant 入库 → 后台上下架 → 用户侧变化 → Preview / Copy 生效 · 验收 HTML candidate → validation → evidence → promote → 用户侧可选 · P0=0 才能关闭 Sprint 10。
 
 **非目标：** 不 merge `main` · 不自行宣布 Sprint 10 Done（需用户确认）
 
@@ -4531,5 +4553,7 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 - [ ] AC-3 Audit Grade 达标 · P0=0
 - [ ] AC-4 closeout 文档 · 决策草案
 - [ ] AC-5 用户确认关闭 Sprint 10
+
+**说明：** 原「S10-STORY-012 Closeout」拆分为 012（Compat Recalibration）+ 013（Schema Cleanup）+ 014（Architecture Audit / Closeout）。
 
 ---

@@ -677,6 +677,19 @@
 
 ---
 
+## 2026-06-08 · S10-STORY-011 Integration Readiness
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-08 | Sprint 10 | **Integration 分支** `feature/s10-story-011-integration-readiness`：FF merge 31 commits（promote · theme tokens · compat off · border theme · aa555cbf fix） | Git / 011 | S10-STORY-011 |
+| 2026-06-08 | Sprint 10 | 修复 `fidelity-encoder.test.ts` ordinal 期望（decoder/runtime 01/02/03 vs raw encode 03） | 测试 | S10-STORY-011 |
+| 2026-06-08 | Sprint 10 | 修复 `runtime-variant-dsl-pool.test.ts` mock 缺 `sources` 导致误 `code_fallback` | 测试 / runtime | S10-STORY-011 · 011A |
+| 2026-06-08 | Sprint 10 | TS/build 收口（decoder theme tokens · harvest-form error branch · candidate-dsl-render） | 代码 | S10-STORY-011 |
+| 2026-06-08 | Sprint 10 | 全量 **1293 tests PASS** · lint PASS · build PASS · **未 merge sprint** | 验收 | S10-STORY-011 |
+| 2026-06-08 | Sprint 10 | 后续拆分：**012** Compat Recalibration · **013** Schema Cleanup · **014** Architecture Audit / Closeout | 敏捷 | S10-STORY-012~014 |
+
+---
+
 ## 2026-06-08 · S10-CHORE-011B 全局 Compatibility Mode 默认 off
 
 | 日期 | Sprint | 变更 | 类型 | 关联 |

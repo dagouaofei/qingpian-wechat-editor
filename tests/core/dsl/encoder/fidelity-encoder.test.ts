@@ -112,7 +112,9 @@ describe("fidelity HTML encoder (mode=off)", () => {
     expect(decoded.html).toMatch(/margin-top\s*:\s*-60px/i);
     expect(decoded.html).toContain("60px");
     expect(decoded.html).toContain("30px");
-    expect(decoded.html).toContain("03");
+    expect(decoded.html).toContain("01");
+    expect(decoded.html).toContain("CHAPTER 01");
+    expect(decoded.html).not.toContain("03");
     expect(decoded.html).toContain(articleTitle);
     expect(decoded.html).not.toContain("怎么用");
     expect(decoded.substitutionTrace?.substitutedSlot).toBe("title");

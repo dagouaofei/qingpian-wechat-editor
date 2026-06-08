@@ -122,7 +122,7 @@ function replaceTextInSubtree(
     return { ok: false, actualTextLeafPath: null };
   }
 
-  const leaves: Array<{ node: DslNode; path: string }> = [];
+  const leaves: Array<{ node: Extract<DslNode, { type: "text" }>; path: string }> = [];
   const collectLeaves = (current: DslNode, path: string) => {
     if (current.type === "text") {
       leaves.push({ node: current, path });
@@ -202,6 +202,9 @@ function findFallbackTitlePath(
 function treeContainsSlotNodes(node: DslNode): boolean {
   if (node.type === "slot") {
     return true;
+  }
+  if (node.type !== "element") {
+    return false;
   }
   return (node.children ?? []).some((child) => treeContainsSlotNodes(child));
 }

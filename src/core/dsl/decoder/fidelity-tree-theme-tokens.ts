@@ -457,15 +457,16 @@ function remapNumberTextStroke(node: DslNode, palette: ThemePaletteTokens): void
   }
 
   for (const key of WEBKIT_TEXT_STROKE_KEYS) {
-    const stroke = node.style[key];
+    const stroke: DslStyleValue | undefined = node.style[key];
     if (typeof stroke !== "string" || !stroke.trim()) {
       continue;
     }
-    const widthMatch = stroke.match(/^([\d.]+px)\s+/i);
-    const widthPrefix = widthMatch?.[1] ?? "1px";
+    const widthMatch: RegExpMatchArray | null = stroke.match(/^([\d.]+px)\s+/i);
+    const widthPrefix: string = widthMatch?.[1] ?? "1px";
+    const remappedStroke = `${widthPrefix} ${palette.borderLight}`;
     node.style = {
       ...node.style,
-      [key]: `${widthPrefix} ${palette.borderLight}`,
+      [key]: remappedStroke,
     };
   }
 }
@@ -482,8 +483,9 @@ function applyRoleColorAtPath(
   if (!node) {
     return;
   }
-  const beforeColor =
+  const beforeColorRaw =
     node.type === "element" || node.type === "slot" ? node.style?.color : undefined;
+  const beforeColor = typeof beforeColorRaw === "string" ? beforeColorRaw : undefined;
   const skipNumberColorRemap =
     role === "number" && !shouldRemapNumberRoleColor(node, beforeColor);
   if (!skipNumberColorRemap) {
@@ -505,9 +507,15 @@ function applyDecorativeLineThemeTokens(
   dsl: VariantDslV1,
   palette: ThemePaletteTokens,
 ): void {
+  const walkChildren = (node: DslNode) => {
+    if (node.type === "element") {
+      node.children?.forEach(walk);
+    }
+  };
+
   const walk = (node: DslNode) => {
     if ((node.type !== "element" && node.type !== "slot") || !node.style) {
-      node.children?.forEach(walk);
+      walkChildren(node);
       return;
     }
 
@@ -516,7 +524,7 @@ function applyDecorativeLineThemeTokens(
       node.style = remapped;
     }
 
-    node.children?.forEach(walk);
+    walkChildren(node);
   };
 
   walk(tree);
@@ -550,7 +558,7 @@ function applyCircularBadgeThemeTokens(
               matchesToken ||
               normalizeColor(borderColor) === normalizeColor(backgroundColor))
           ) {
-            setElementStyleColor(node, "borderColor", palette.textAccent);
+            node.style = { ...node.style, borderColor: palette.textAccent };
           }
         }
       }

@@ -28,7 +28,10 @@ function synthesizeBottomBorderForCopy(styles: Record<string, string>): Record<s
   }
 
   const borderStyle = styles["border-style"]?.trim() || "solid";
-  const next = { ...styles, "border-bottom": `${widthMatch[1]} ${borderStyle} ${borderColor}` };
+  const next: Record<string, string> = {
+    ...styles,
+    "border-bottom": `${widthMatch[1]} ${borderStyle} ${borderColor}`,
+  };
   delete next["border-width"];
   delete next["border-color"];
   delete next["border-style"];

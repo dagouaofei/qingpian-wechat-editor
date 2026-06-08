@@ -43,6 +43,7 @@ describe("getRuntimeVariantDslPool", () => {
         styleFamily: "editorial",
         label: "Short",
         lifecycle: "release1_required",
+        sources: [],
         distribution: {
           userSelectable: false,
           defaultEligible: false,
@@ -74,6 +75,7 @@ describe("getRuntimeVariantDslPool", () => {
         styleFamily: "htmlPasteCandidate",
         label: "Teal",
         lifecycle: "user_selectable",
+        sources: [],
         distribution: {
           userSelectable: true,
           defaultEligible: false,

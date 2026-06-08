@@ -210,6 +210,13 @@ Encoder 版本：`s10_html_encoder_v2_semantic` · `meta.extractedSlots` 供 Dec
 - Candidate detail **Preview inspection** 使用 DSL Decoder Core；`meta.extractedSlots` 优先于 fixture 样本文本；复杂 heading 映射 `layoutIntent=chapter_overlay_heading` → `magazine_left_bar` 等样式化 preview。
 - Promote 后用户侧 `/preview` 与 Copy 共用同一 `definitionJson` / `runtimeVariantId`（011A 单轨 `database_dsl`）。
 
+### 8.1 Integration 收口（2026-06-08 · S10-STORY-011）
+
+- 工作分支：`feature/s10-story-011-integration-readiness`（自 `sprint/s10-db-backed-style-admin-v1` FF merge 今日 011 相关 feature 分支）。
+- **DB 可用时** runtime pool / promote readiness **必须** `runtimeSource=database_dsl`（或 pool `source=database`）；`code_fallback` **仅** DB unavailable。
+- html_paste fidelity refresh、theme token remap、ordinal substitution、copy parity 与用户 preview 同源；admin_inspection 保留 source 色。
+- Compatibility recalibration、DSL schema cleanup、S10 closeout **不在 011 内继续散修** — 见 S10-STORY-012~014。
+
 ---
 
 ## 9. 明确不做（011A）
