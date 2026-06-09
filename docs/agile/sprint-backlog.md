@@ -12,8 +12,10 @@
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
 > **Sprint 8：** **Closed**（2026-06-05 · DECISION-093 · audit Grade A- · P0=0 · merged `release/1` @ `806fa47`）
 > **Sprint 9：** **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · **P0=0** · HTML→user preview picker E2E PASS · Preview/Copy parity PASS · default preset / release1_required 未污染 · **已 merge `release/1`** @ `c96e869` · **未 merge `main`**）
-> **当前 Sprint：** **Sprint 10** — Database-backed Style Management Admin v1 · **In Progress**（2026-06-08 · **DECISION-108** · S10-STORY-001~011 **Done** · **012~014 Planned**）
-> **Sprint 10 分支：** `sprint/s10-db-backed-style-admin-v1`（从 `release/1` · 2026-06-07 · @ `c96e869`）
+> **Sprint 10：** **Closed**（2026-06-08 · **DECISION-108** · **DECISION-111** · S10-STORY-001~011 Done · merge `release/1` 待确认）· 原 012~014 顺延 Sprint 12+
+> **当前 Sprint：** **Sprint 11** — Production Ops Go-Live（正式部署与运维上线）· **Planned**（2026-06-08 · **DECISION-111**）
+> **Sprint 11 分支：** `sprint/s11-production-ops-go-live`（从 `release/1` · 待创建）
+> **Sprint 10 分支：** `sprint/s10-db-backed-style-admin-v1`（已 merge 或待 merge `release/1` · @ `917244e`）
 > **Sprint 9 分支：** `sprint/s9-style-management-system-v0`（已 merge `release/1` · 2026-06-05）
 > **上一 Sprint：** **Sprint 8** — **Closed**（2026-06-05）；**Sprint 7** — **Done**（2026-06-03 · merge `release/1`）
 > **当前 Chore：** **Visible Progress & Legacy Convergence** — **Done**（DECISION-080 · 用户验收 2026-06-02 · merged @ `a5704d6`）
@@ -4091,7 +4093,8 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 
 # Sprint 10 — Database-backed Style Management Admin v1（数据库版正式样式管理后台 v1）
 
-> **分支：** `sprint/s10-db-backed-style-admin-v1`（从 `release/1` · 2026-06-07 · @ `c96e869`）  
+> **状态：** **Closed**（2026-06-08 · **DECISION-111** · 范围 S10-STORY-001~011 + CHORE-011B · 用户确认关闭）  
+> **分支：** `sprint/s10-db-backed-style-admin-v1`（从 `release/1` · 2026-06-07 · merge @ `917244e`）  
 > **文档：** [`sprint10-database-backed-style-admin-v1.md`](sprint10-database-backed-style-admin-v1.md) · [`style-management-admin-v1.md`](../architecture/style-management-admin-v1.md) · **DECISION-108**
 
 **Sprint Goal（第一验收闭环）：**
@@ -4100,13 +4103,15 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 既有 variant 入库 → /admin/style-library 可见 → 后台上下架 → 用户侧 1–5 分钟可见变化 → Preview / Copy 生效
 ```
 
-**建议执行顺序：**
+**建议执行顺序（已完成）：**
 
 ```text
 S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
   → —— 第一验收闭环 ——
-  → 009 → 010 → 011 → 012
+  → 009 → 010 → 011
 ```
+
+**顺延（→ Sprint 12+ · DECISION-111）：** 原 S10-STORY-012 Compat · 013 DSL Cleanup · 014 Closeout
 
 ---
 
@@ -4518,21 +4523,27 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 ---
 
-## S10-STORY-012 WeChat Compatibility Spec Recalibration
+# Deferred · Sprint 12+（原 S10-STORY-012~014 · DECISION-111 顺延）
 
-**优先级：** P1 · **状态：** **Planned** · **工作分支：** TBD
+> **说明：** Release 1 部署优先（Sprint 11）完成后启动。编号映射见 **DECISION-111**。
 
-**目标：** 在 DECISION-109 / known-debt 基础上，重新校准 Compatibility Spec（report/enforce 语义、Yellow/Red 规则、Harvest 与 runtime 一致性）。**不在 S10-STORY-011 内继续散修。**
+## S12-STORY-001 WeChat Compatibility Spec Recalibration（原 S10-STORY-012）
 
-**验收标准：** TBD（Sprint 11 或后续拆分）
+**优先级：** P1 · **状态：** **Planned** · **目标 Sprint：** Sprint 12 · **工作分支：** TBD
+
+**目标：** 在 DECISION-109 / known-debt 基础上，重新校准 Compatibility Spec（report/enforce 语义、Yellow/Red 规则、Harvest 与 runtime 一致性）。
+
+**参考：** [`wechat-compatibility-known-debt.md`](../architecture/wechat-compatibility-known-debt.md)
+
+**验收标准：** TBD（Sprint 12 启动时拆分）
 
 ---
 
-## S10-STORY-013 DSL Runtime Schema Cleanup
+## S12-STORY-002 DSL Runtime Schema Cleanup（原 S10-STORY-013）
 
-**优先级：** P2 · **状态：** **Planned** · **工作分支：** TBD
+**优先级：** P2 · **状态：** **Planned** · **目标 Sprint：** Sprint 12 或独立 Epic · **工作分支：** TBD
 
-**目标：** 清理 Variant DSL / trace / meta 冗余字段 · 统一 encoderVersion / semanticBindings / styleTokens 契约 · **收口 DEBT-DSL-RC-001~006**（Registry `renderContract` 双轨 → tree 单轨 · 废弃 `renderPublish*` / React preview 重复 layout）。**不在 S10-STORY-011 内继续散修。**
+**目标：** 清理 Variant DSL / trace / meta · 收口 **DEBT-DSL-RC-001~006**（Registry `renderContract` 双轨 → tree 单轨）。
 
 **参考：** [`variant-dsl-legacy-render-contract-debt.md`](../architecture/variant-dsl-legacy-render-contract-debt.md) · DECISION-110
 
@@ -4540,22 +4551,126 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 ---
 
-## S10-STORY-014 S10 Architecture Audit / Closeout
+## S13-STORY-001 Release 1 Architecture Audit / Closeout（原 S10-STORY-014）
 
-**优先级：** P0 · **状态：** **Planned** · **工作分支：** TBD（`docs/s10-story-014-audit-closeout`）
+**优先级：** P0 · **状态：** **Planned** · **目标 Sprint：** Sprint 13 或 Release 1 Closeout · **工作分支：** TBD
 
-**目标：** 审计 database-backed admin v1 是否完成 · 验收既有 variant 入库 → 后台上下架 → 用户侧变化 → Preview / Copy 生效 · 验收 HTML candidate → validation → evidence → promote → 用户侧可选 · P0=0 才能关闭 Sprint 10。
+**目标：** 审计 database-backed admin v1 + staging/production 上线 · HTML Harvest 全链路 · P0=0 · 用户确认关闭 Release 1（**不**自动 merge `main`）。
 
-**非目标：** 不 merge `main` · 不自行宣布 Sprint 10 Done（需用户确认）
+**验收标准：** TBD（须在 S11 上线 + 债务 Sprint 评估后）
+
+---
+
+# Sprint 11 — Production Ops Go-Live（正式部署与运维上线）
+
+> **分支：** `sprint/s11-production-ops-go-live`（从 `release/1`）  
+> **文档：** [`sprint11-production-ops-go-live.md`](sprint11-production-ops-go-live.md) · **DECISION-111**  
+> **状态：** **In Progress**（2026-06-08 启动 · Story 001~006 Planned）
+
+**Sprint Goal：**
+
+```text
+staging 全量验收（production-release-checklist）
+  → production 部署上线
+  → ECS / RDS / OSS / SLS / CloudMonitor
+  → DB migrate + import · admin 登录 · 监控报警 · 回滚演练
+```
+
+**建议执行顺序：**
+
+```text
+S11-STORY-001 → 002 → 003 → 004 → 005 → 006
+```
+
+**明确不做：** CI/CD · 复杂 RBAC · OSS SDK 全量 · SLS SDK 全量（可预留）· Compat/DSL 债务收口
+
+---
+
+## S11-STORY-001 阿里云资源开通与网络基线
+
+**优先级：** P0 · **状态：** **Planned** · **工作分支：** `docs/s11-story-001-aliyun-resource-provisioning`
+
+**目标：** 按 [`aliyun-resource-checklist.md`](../ops/aliyun-resource-checklist.md) 在华北 2 创建轻篇独立 ECS/RDS/OSS/SLS/CloudMonitor 并完成网络最小开放。
 
 **验收标准：**
 
-- [ ] AC-1 第一验收闭环 audit PASS
-- [ ] AC-2 HTML Harvest 链路 audit PASS（若后半段已执行）
-- [ ] AC-3 Audit Grade 达标 · P0=0
-- [ ] AC-4 closeout 文档 · 决策草案
-- [ ] AC-5 用户确认关闭 Sprint 10
+- [ ] AC-1 checklist §2~§6 staging + production 分别勾选
+- [ ] AC-2 无 secret 入库 · 环境变量仅 ECS
+- [ ] AC-3 资源隔离（不共用秒篇 DB/OSS/应用）
+- [ ] AC-4 [`docs/ops/environments/`](../ops/environments/) staging/production 资源登记表已回填（无密码）
 
-**说明：** 原「S10-STORY-012 Closeout」拆分为 012（Compat Recalibration）+ 013（Schema Cleanup）+ 014（Architecture Audit / Closeout）。
+---
+
+## S11-STORY-002 Staging 部署与数据库初始化
+
+**优先级：** P0 · **状态：** **Planned** · **工作分支：** `chore/s11-story-002-staging-deploy-db-init`
+
+**目标：** staging ECS 首次部署 · migrate · import · health · admin 列表可读。
+
+**验收标准：**
+
+- [ ] AC-1 `GET /api/health` → `database: ok`
+- [ ] AC-2 import 报告计数与 S10-STORY-003 dry-run 一致
+- [ ] AC-3 未登录 `/admin/style-library` → login
+- [ ] AC-4 [`production-release-checklist.md`](../ops/production-release-checklist.md) Section A + B staging PASS
+
+---
+
+## S11-STORY-003 Admin 登录与 Staging 治理/用户池验收
+
+**优先级：** P0 · **状态：** **Planned** · **工作分支：** TBD（验收为主）
+
+**目标：** S10-STORY-008 公网 staging 验收 · 治理与用户侧 DB pool 冒烟。
+
+**验收标准：**
+
+- [ ] AC-1 checklist Section C + D + E staging PASS
+- [ ] AC-2 未登录写操作 `auth_required`
+- [ ] AC-3 至少 1 条 user-selectable hide/restore 路径人工记录
+
+---
+
+## S11-STORY-004 Production 部署与上线
+
+**优先级：** P0 · **状态：** **Planned** · **工作分支：** `docs/s11-story-004-production-go-live`
+
+**目标：** staging 通过后 production 部署 · HTTPS · checklist A~E · 回滚演练。
+
+**验收标准：**
+
+- [ ] AC-1 production health PASS
+- [ ] AC-2 production admin 登录 + 治理 PASS
+- [ ] AC-3 production `/preview` DB pool（非长期 code_fallback）
+- [ ] AC-4 回滚演练记录（execution report）
+
+---
+
+## S11-STORY-005 监控、报警与运维闭环
+
+**优先级：** P1 · **状态：** **Planned** · **工作分支：** `docs/s11-story-005-monitoring-alerts`
+
+**目标：** CloudMonitor 基础告警 · SLS 预留 · `alert_events` 验证 · on-call 文档。
+
+**验收标准：**
+
+- [ ] AC-1 CloudMonitor 规则清单 + 测试/模拟记录
+- [ ] AC-2 SLS project/logstore 已创建 · 接入状态 documented
+- [ ] AC-3 [`monitoring-and-oncall.md`](../ops/monitoring-and-oncall.md) 已更新
+- [ ] AC-4 checklist Section F staging + production PASS
+
+---
+
+## S11-STORY-006 Sprint 11 Closeout
+
+**优先级：** P0 · **状态：** **Planned** · **工作分支：** `docs/s11-story-006-closeout`
+
+**目标：** S11 audit · staging/production checklist 归档 · 建议 merge `release/1`。
+
+**验收标准：**
+
+- [ ] AC-1 staging + production signed checklist 归档 execution report
+- [ ] AC-2 P0=0 · 无 blocking 安全项
+- [ ] AC-3 用户确认关闭 Sprint 11
+- [ ] AC-4 **不**宣布 Release 1 关闭 · **不** merge `main`
 
 ---

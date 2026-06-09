@@ -97,6 +97,7 @@
 | DECISION-108 | 2026-06-07 | 正式启动 Sprint 10：Database-backed Style Management Admin v1；从 `release/1` 创建 `sprint/s10-db-backed-style-admin-v1`；第一闭环为既有 variant 入库→后台上下架→用户侧 DB 分发；HTML Harvest 放后半段；不 merge `main` | **已确认** |
 | DECISION-109 | 2026-06-08 | 全局 WeChat Compatibility Mode 默认 off；DEBT-WC-001~007 归档 deferred；sanitize 常开；Release 1 收口前恢复 report/enforce | **已确认** |
 | DECISION-110 | 2026-06-08 | Registry `renderContract` + title_block 双轨 Preview/Copy renderer 为过渡债务；目标为 DB tree DSL 统一 decode；DEBT-DSL-RC-001~006 deferred · 本轮不批量迁移 | **已确认** |
+| DECISION-111 | 2026-06-08 | 关闭 Sprint 10（001~011）；新建 Sprint 11 Production Ops Go-Live（部署优先）；原 S10-012/013/014 顺延 Sprint 12+；staging 先于 production | **已确认** |
 
 ### DECISION-019 详情
 
@@ -1169,7 +1170,26 @@
   1. 上述 **renderContract + 双轨 renderer 路径为过渡实现，视为废弃方向**；新 variant 不得再依赖
   2. **目标形态：** release1 variant 的 `definitionJson` 迁移为带 `tree` 的结构，preview/copy/admin 均 `decodeTreeToOutput`
   3. **DEBT-DSL-RC-001~006 归档 deferred** · 详见 [`variant-dsl-legacy-render-contract-debt.md`](../architecture/variant-dsl-legacy-render-contract-debt.md)
-  4. **收口归属 S10-STORY-013**（或后续 Sprint）；**S10-STORY-011 内不批量迁移、不散修**
+  4. **收口归属 S12-STORY-002**（原 S10-STORY-013 · **DECISION-111** 顺延）；**S10-STORY-011 内不批量迁移、不散修**
   5. 个案 Copy Fidelity bug 仍可 patch，但不替代架构收口
 - **状态：** **已确认**（2026-06-08 · 文档归档）
+
+### DECISION-111 详情（Sprint 重排 · 部署优先 · Sprint 11）
+
+- **日期：** 2026-06-08
+- **背景：**
+  - Sprint 10 S10-STORY-001~011 已完成（DB admin · Harvest · Promote · DSL runtime）
+  - S10-STORY-007/008 交付 runbook 与 admin 登录代码，但 **未执行真实云资源创建与 production 部署**
+  - 原 S10-STORY-012~014（Compat / DSL / Closeout）与上线无直接依赖
+- **决策：**
+  1. **关闭 Sprint 10**（范围 = STORY-001~011 + CHORE-011B）
+  2. 新建 **Sprint 11：Production Ops Go-Live**（`sprint/s11-production-ops-go-live`）
+  3. S11 目标：ECS/RDS/OSS/SLS/CloudMonitor · staging 全量 checklist → production 上线 · 监控报警
+  4. **环境策略：** staging 验收通过后 production（与 runbook 一致）
+  5. 原 S10-STORY-012 → **S12-STORY-001** · 013 → **S12-STORY-002** · 014 → **S13-STORY-001**
+  6. Sprint 11 **不**宣布 Release 1 关闭 · **不** merge `main`
+  7. S11 明确不做：CI/CD · OSS/SLS SDK 全量 · Compat/DSL 批量迁移
+- **影响范围：** `sprint-backlog.md` · `sprint-plan.md` · `release-plan.md` · `docs/ops/`
+- **关联：** DECISION-108 · S10-STORY-007~008 · DEBT-WC · DEBT-DSL-RC
+- **状态：** **已确认**（2026-06-08）
 

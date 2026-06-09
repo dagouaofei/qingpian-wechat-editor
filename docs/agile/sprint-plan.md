@@ -63,9 +63,10 @@
 | **Sprint 7** | **Done**（2026-06-03 · S7-STORY-008 关闭 · merge `release/1`） |
 | **Sprint 8** | **Closed**（2026-06-05 · DECISION-093 · merged `release/1`） |
 | **Sprint 9** | **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · P0=0 · S9-STORY-001~009 Done · **已 merge `release/1`** @ `c96e869`） |
-| **Sprint 10** | **In Progress**（2026-06-08 · **DECISION-108** · S10-STORY-001~011 **Done**） |
+| **Sprint 10** | **Closed**（2026-06-08 · **DECISION-108** · **DECISION-111** · S10-STORY-001~011 Done） |
+| **Sprint 11** | **In Progress**（2026-06-08 · **DECISION-111** · Production Ops Go-Live） |
 | **Release 1 主干** | `release/1` |
-| **下一步** | **S10-STORY-012~014**（Compat Recalibration · DSL Schema Cleanup · Audit Closeout） |
+| **下一步** | **S11-STORY-001~006** 正式部署 · **S12+** Compat / DSL / Release1 Closeout |
 
 ---
 
@@ -661,7 +662,23 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 **Stories：** S10-STORY-001 ~ S10-STORY-012 — 见 `sprint-backlog.md`
 
-**进度：** S10-STORY-001~011 **Done** · S10-STORY-012~014 **Planned**
+**进度：** S10-STORY-001~011 **Done** · S10 **Closed** · S11-STORY-001~006 **Planned / In Progress**
+
+---
+
+### Sprint 11：Production Ops Go-Live — **In Progress**（2026-06-08 · **DECISION-111**）
+
+**中文名：** 正式部署与运维上线
+
+**分支：** `sprint/s11-production-ops-go-live`（从 `release/1`）
+
+**文档：** [`sprint11-production-ops-go-live.md`](sprint11-production-ops-go-live.md)
+
+**Sprint Goal：** staging 全量 checklist 验收 → production 上线 · ECS/RDS/OSS/SLS/CloudMonitor · DB init · admin 登录 · 监控报警
+
+**Stories：** S11-STORY-001 ~ S11-STORY-006 — 见 `sprint-backlog.md`
+
+**不做：** CI/CD · 复杂 RBAC · OSS/SLS SDK 全量 · Compat/DSL 债务（→ Sprint 12+）
 
 **与 S9 关系：**
 

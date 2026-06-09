@@ -2,7 +2,9 @@
 
 > S10-STORY-007 · 轻篇独立资源 · 华北 2（北京）
 
-用于部署前逐项勾选。**不在仓库记录真实账号 ID、密码、连接串或 AccessKey Secret。**
+用于部署前逐项勾选。**不在仓库记录密码、连接串或 AccessKey Secret。**
+
+开通后资源 ID / endpoint 登记（无 secret）：[`environments/`](environments/README.md)（staging · production 分开记录）。
 
 ---
 

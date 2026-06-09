@@ -686,6 +686,16 @@
 
 ---
 
+## 2026-06-08 · Sprint 10 Closed · Sprint 11 启动（DECISION-111）
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-08 | Sprint 10 | **Sprint 10 Closed**：范围 001~011 + CHORE-011B · 原 012~014 顺延 Sprint 12+ | 敏捷 | DECISION-111 |
+| 2026-06-08 | Sprint 11 | **Sprint 11 启动**：Production Ops Go-Live · staging→production 部署 · 监控报警 | 运维 / 敏捷 | DECISION-111 · S11-STORY-001~006 |
+| 2026-06-08 | Sprint 11 | 新增 `sprint11-production-ops-go-live.md` · `docs/ops/environments/` · `deploy/` 示例 | 文档 | S11 |
+
+---
+
 ## 2026-06-08 · S10-STORY-011 Done（merge sprint）
 
 | 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |

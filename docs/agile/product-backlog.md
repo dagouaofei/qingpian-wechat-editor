@@ -145,12 +145,14 @@
 | **Sprint 6** | Release 1 Visible AI Main Flow | S6-STORY-001 ~ S6-STORY-006 | **P0 · Closed**（DECISION-078） |
 | **Sprint 7** | WeChat Article Experience & Style Richness | S7-STORY-001 ~ S7-STORY-008 | **P0 · Done**（2026-06-03 · merge `release/1`） |
 | **Sprint 8** | WeChat-safe CSS Contract & Fidelity Test System | S8-STORY-001 ~ S8-STORY-009 | **P0 · Closed**（DECISION-093 · 2026-06-05 · merged `release/1`） |
-| **Sprint 9** | Style Management System v0（样式管理后台 v0） | S9-STORY-001 ~ S9-STORY-009 | **P0 · Closeout Recommended**（DECISION-094 · S9-STORY-009 v2 audit A- · 待用户确认关闭） |
-| **Sprint 10** | Style Expansion & Visual Quality Upgrade | TBD | **P1 · Planned（方向 only）** |
+| **Sprint 9** | Style Management System v0 | S9-STORY-001 ~ S9-STORY-009 | **P0 · Closed**（DECISION-106 · @ `c96e869`） |
+| **Sprint 10** | Database-backed Style Management Admin v1 | S10-STORY-001 ~ S10-STORY-011 | **P0 · Closed**（DECISION-108 · DECISION-111） |
+| **Sprint 11** | Production Ops Go-Live | S11-STORY-001 ~ S11-STORY-006 | **P0 · In Progress**（DECISION-111） |
+| **Sprint 12+** | Compat / DSL 债务（原 S10-012/013） | S12-STORY-001 ~ 002 | **P1/P2 · Planned** |
 
-Story 详情见 [`sprint-backlog.md`](sprint-backlog.md) · S9 见 [`sprint9-style-management-system-v0.md`](sprint9-style-management-system-v0.md)。
+Story 详情见 [`sprint-backlog.md`](sprint-backlog.md) · S11 见 [`sprint11-production-ops-go-live.md`](sprint11-production-ops-go-live.md)。
 
-**Sprint 9 定位（DECISION-092）：** 主项目内独立子系统 · file-backed · harvest 入库仅为入口之一 · 006D 两 candidate 为 seed assets。
+**Sprint 10 原「Style Expansion」方向** 已由 **DECISION-108**（Database-backed admin v1）取代；**DECISION-111** 将部署上线列为 Sprint 11 优先。
 
 **不要把未启动 Sprint 的 Story 混入当前执行分支。**
 

@@ -1,7 +1,7 @@
 # Sprint 10：Database-backed Style Management Admin v1（数据库版正式样式管理后台 v1）
 
 > 轻篇公众号排版 · qingpian-wechat-editor  
-> **状态：** **In Progress**（2026-06-07 · **DECISION-108** · S10-STORY-001~008 Done · **部署 Runbook 完成** · **第一验收闭环 PASS**）  
+> **状态：** **Closed**（2026-06-08 · **DECISION-111** · S10-STORY-001~011 Done · 原 012~014 顺延 Sprint 12+）  
 > **分支：** `sprint/s10-db-backed-style-admin-v1`（从 `release/1` · @ `c96e869`）  
 > **架构：** [`style-management-admin-v1.md`](../architecture/style-management-admin-v1.md)  
 > **决策：** **DECISION-108**
@@ -70,10 +70,8 @@ Next.js · Prisma · PostgreSQL · 阿里云 RDS / OSS / ECS · SLS / CloudMonit
 | S10-STORY-009 | HTML Harvest → Candidate Variant v1 | **Done**（2026-06-07 · merge @ `147c2e7`） |
 | S10-STORY-010 | Candidate Preview / Copy / Validator / Evidence | **Done**（2026-06-07 · merge @ `d5a6af3`） |
 | S10-STORY-011A | Article / Variant DSL Runtime + Encoder / Decoder | **Done**（2026-06-07 · checkpoint + FIX-A + FIX-B · 本地 E2E A/B/C PASS · merge sprint） |
-| S10-STORY-011 | 采集样式 Promote 到 user-selectable | **Done**（2026-06-08 · merge @ `4c301d0` · integration FF · 用户确认关闭） |
-| S10-STORY-012 | WeChat Compatibility Spec Recalibration | Planned |
-| S10-STORY-013 | DSL Runtime Schema Cleanup | Planned |
-| S10-STORY-014 | S10 Architecture Audit / Closeout | Planned |
+| S10-STORY-011 | 采集样式 Promote 到 user-selectable | **Done**（2026-06-08 · merge @ `4c301d0`） |
+| S10-STORY-012~014 | — | **Deferred** → Sprint 12+（DECISION-111） |
 
 完整 AC 见 [`sprint-backlog.md`](sprint-backlog.md) Sprint 10 章节。
 

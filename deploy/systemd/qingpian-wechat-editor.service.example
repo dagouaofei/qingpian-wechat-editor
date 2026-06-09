@@ -1,0 +1,19 @@
+# systemd unit example — qingpian-wechat-editor
+# Copy to /etc/systemd/system/qingpian-wechat-editor.service
+# Adjust User, WorkingDirectory, EnvironmentFile
+
+[Unit]
+Description=Qingpian WeChat Editor (Next.js)
+After=network.target
+
+[Service]
+Type=simple
+User=deploy
+WorkingDirectory=/opt/qingpian-wechat-editor
+EnvironmentFile=/opt/qingpian-wechat-editor/.env
+ExecStart=/usr/bin/corepack pnpm start
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
