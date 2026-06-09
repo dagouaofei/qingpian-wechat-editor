@@ -12,10 +12,10 @@
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
 > **Sprint 8：** **Closed**（2026-06-05 · DECISION-093 · audit Grade A- · P0=0 · merged `release/1` @ `806fa47`）
 > **Sprint 9：** **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · **P0=0** · HTML→user preview picker E2E PASS · Preview/Copy parity PASS · default preset / release1_required 未污染 · **已 merge `release/1`** @ `c96e869` · **未 merge `main`**）
-> **Sprint 10：** **Closed**（2026-06-08 · **DECISION-108** · **DECISION-111** · S10-STORY-001~011 Done · merge `release/1` 待确认）· 原 012~014 顺延 Sprint 12+
-> **当前 Sprint：** **Sprint 11** — Production Ops Go-Live（正式部署与运维上线）· **Planned**（2026-06-08 · **DECISION-111**）
-> **Sprint 11 分支：** `sprint/s11-production-ops-go-live`（从 `release/1` · 待创建）
-> **Sprint 10 分支：** `sprint/s10-db-backed-style-admin-v1`（已 merge 或待 merge `release/1` · @ `917244e`）
+> **Sprint 10：** **Closed**（2026-06-08 · **DECISION-108** · **DECISION-111** · S10-STORY-001~011 Done · **已 merge `release/1`** @ `6cd1dfc`）· 原 012~014 顺延 Sprint 12+
+> **当前 Sprint：** **Sprint 11** — Production Ops Go-Live（正式部署与运维上线）· **In Progress**（2026-06-08 · **DECISION-111**）
+> **Sprint 11 分支：** `sprint/s11-production-ops-go-live`（从 `release/1` · @ `6cd1dfc`）
+> **Sprint 10 分支：** `sprint/s10-db-backed-style-admin-v1`（已 merge `release/1` · @ `6cd1dfc`）
 > **Sprint 9 分支：** `sprint/s9-style-management-system-v0`（已 merge `release/1` · 2026-06-05）
 > **上一 Sprint：** **Sprint 8** — **Closed**（2026-06-05）；**Sprint 7** — **Done**（2026-06-03 · merge `release/1`）
 > **当前 Chore：** **Visible Progress & Legacy Convergence** — **Done**（DECISION-080 · 用户验收 2026-06-02 · merged @ `a5704d6`）
@@ -4588,7 +4588,7 @@ S11-STORY-001 → 002 → 003 → 004 → 005 → 006
 
 ## S11-STORY-001 阿里云资源开通与网络基线
 
-**优先级：** P0 · **状态：** **Planned** · **工作分支：** `docs/s11-story-001-aliyun-resource-provisioning`
+**优先级：** P0 · **状态：** **Planned** · **工作分支：** `docs/s11-story-001-aliyun-resource-provisioning` · **仓库脚手架：** Done @ kickoff（`environments/` · checklist 链接）
 
 **目标：** 按 [`aliyun-resource-checklist.md`](../ops/aliyun-resource-checklist.md) 在华北 2 创建轻篇独立 ECS/RDS/OSS/SLS/CloudMonitor 并完成网络最小开放。
 
@@ -4603,7 +4603,7 @@ S11-STORY-001 → 002 → 003 → 004 → 005 → 006
 
 ## S11-STORY-002 Staging 部署与数据库初始化
 
-**优先级：** P0 · **状态：** **Planned** · **工作分支：** `chore/s11-story-002-staging-deploy-db-init`
+**优先级：** P0 · **状态：** **Planned** · **工作分支：** `chore/s11-story-002-staging-deploy-db-init` · **仓库脚手架：** Done @ kickoff（`deploy/systemd` · `deploy/nginx/staging`）
 
 **目标：** staging ECS 首次部署 · migrate · import · health · admin 列表可读。
 
@@ -4618,7 +4618,7 @@ S11-STORY-001 → 002 → 003 → 004 → 005 → 006
 
 ## S11-STORY-003 Admin 登录与 Staging 治理/用户池验收
 
-**优先级：** P0 · **状态：** **Planned** · **工作分支：** TBD（验收为主）
+**优先级：** P0 · **状态：** **Planned** · **工作分支：** TBD（验收为主）· **仓库脚手架：** Done @ kickoff（`production-release-checklist.md` C~E）
 
 **目标：** S10-STORY-008 公网 staging 验收 · 治理与用户侧 DB pool 冒烟。
 
@@ -4632,7 +4632,7 @@ S11-STORY-001 → 002 → 003 → 004 → 005 → 006
 
 ## S11-STORY-004 Production 部署与上线
 
-**优先级：** P0 · **状态：** **Planned** · **工作分支：** `docs/s11-story-004-production-go-live`
+**优先级：** P0 · **状态：** **Planned** · **工作分支：** `docs/s11-story-004-production-go-live` · **仓库脚手架：** Done @ kickoff（`deploy/nginx/production` · `environments/production.md`）
 
 **目标：** staging 通过后 production 部署 · HTTPS · checklist A~E · 回滚演练。
 
@@ -4647,7 +4647,7 @@ S11-STORY-001 → 002 → 003 → 004 → 005 → 006
 
 ## S11-STORY-005 监控、报警与运维闭环
 
-**优先级：** P1 · **状态：** **Planned** · **工作分支：** `docs/s11-story-005-monitoring-alerts`
+**优先级：** P1 · **状态：** **Planned** · **工作分支：** `docs/s11-story-005-monitoring-alerts` · **仓库脚手架：** Done @ kickoff（`monitoring-and-oncall.md`）
 
 **目标：** CloudMonitor 基础告警 · SLS 预留 · `alert_events` 验证 · on-call 文档。
 
@@ -4662,7 +4662,7 @@ S11-STORY-001 → 002 → 003 → 004 → 005 → 006
 
 ## S11-STORY-006 Sprint 11 Closeout
 
-**优先级：** P0 · **状态：** **Planned** · **工作分支：** `docs/s11-story-006-closeout`
+**优先级：** P0 · **状态：** **Planned** · **工作分支：** `docs/s11-story-006-closeout` · **前置：** S11-STORY-001~005 运维验收 + **用户确认**
 
 **目标：** S11 audit · staging/production checklist 归档 · 建议 merge `release/1`。
 
