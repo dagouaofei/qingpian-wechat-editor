@@ -697,16 +697,19 @@
 
 ---
 
-## 2026-06-11 · S11 staging admin session bugfix
+## 2026-06-11 · S11 staging 部署验收收口
 
 | 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
 |------|--------|----------|----------|----------------------|
-| 2026-06-11 | Sprint 11 | **staging admin session bugfix**：登录改 `POST /api/admin/login` + `303` · logout 改 POST-only · 移除 GET logout 清 session | Admin auth / 部署 | bugfix/s11-staging-admin-session-cookie |
-| 2026-06-11 | Sprint 11 | 修复 RSC prefetch 触发 `GET /admin/logout?_rsc=...` 自动清 cookie（layout `<Link>` → POST form） | Admin auth | bugfix |
-| 2026-06-11 | Sprint 11 | Nginx example 补 `X-Forwarded-Host` / `X-Forwarded-Port` · `.env.example` 补 `STYLE_ADMIN_PUBLIC_ORIGIN` | 部署 / 配置 | bugfix |
-| 2026-06-11 | Sprint 11 | staging 验收 PASS：health · login cookie · refresh · Hide/Restore · Logout · 无 GET logout prefetch | 验收 | bugfix |
-| 2026-06-11 | Sprint 11 | 部署侧：`STYLE_ADMIN_SESSION_SECRET` 曾配置错误，已更正并轮换（不记录 secret 值） | 运维 | bugfix |
-| 2026-06-11 | Git | **`bugfix/s11-staging-admin-session-cookie` merge → `sprint/s11-production-ops-go-live`** @ `7f218e5` · **未 merge main** | Git | bugfix |
+| 2026-06-11 | Sprint 11 | **staging 部署验收收口**：ECS/RDS/Nginx HTTPS/systemd · migrate/import/health PASS | 运维 / 部署 | S11-STORY-001~003 **In Review** |
+| 2026-06-11 | Sprint 11 | 回填 [`environments/staging.md`](../ops/environments/staging.md) · checklist staging 列 · execution report | 文档 | S11 |
+| 2026-06-11 | Sprint 11 | staging admin · preview pool · Hide/Restore · Logout 验收 PASS | 验收 | S11-STORY-003 |
+| 2026-06-11 | Sprint 11 | **待办**：Volcengine AI 生成主链路 · CloudMonitor/SLS/OSS · production **未启动** | 运维 | S11-STORY-004~005 |
+| 2026-06-11 | Sprint 11 | `STYLE_ADMIN_SESSION_SECRET` 曾配置错误已轮换（不记录值）· `STYLE_ADMIN_PUBLIC_ORIGIN` 已配置 | 部署 | staging env |
+| 2026-06-11 | Sprint 11 | full test 2 failures `wechat-paste-qa-pack` 既有 · 非本轮修复 | 测试 | — |
+| 2026-06-11 | Sprint 11 | **admin session bugfix**：`POST /api/admin/login` + `303` · logout POST-only · 移除 GET logout 清 session | Admin auth | merge `7f218e5` |
+| 2026-06-11 | Sprint 11 | 修复 RSC prefetch `GET /admin/logout?_rsc=...` 自动清 cookie | Admin auth | bugfix |
+| 2026-06-11 | Git | **`bugfix/s11-staging-admin-session-cookie` merge → sprint** @ `7f218e5` · docs @ `7fb4d9e` · **未 merge main** | Git | bugfix |
 
 ---
 

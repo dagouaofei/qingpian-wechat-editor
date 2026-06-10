@@ -1,7 +1,7 @@
 # Sprint 11：Production Ops Go-Live（正式部署与运维上线）
 
 > **分支：** `sprint/s11-production-ops-go-live`（从 `release/1`）  
-> **状态：** **In Progress**（2026-06-08 启动 · **DECISION-111**）  
+> **状态：** **In Progress**（2026-06-08 启动 · **DECISION-111** · **staging 阶段验收完成 2026-06-11** · production 未启动）  
 > **前置：** Sprint 10 Closed（S10-STORY-001~011 · runbook + admin 登录代码已就绪）
 
 ---
@@ -37,12 +37,12 @@
 
 | Story | 名称 | 优先级 | 状态 |
 |-------|------|--------|------|
-| S11-STORY-001 | 阿里云资源开通与网络基线 | P0 | Planned |
-| S11-STORY-002 | Staging 部署与数据库初始化 | P0 | Planned |
-| S11-STORY-003 | Admin 登录与 Staging 治理/用户池验收 | P0 | Planned |
-| S11-STORY-004 | Production 部署与上线 | P0 | Planned |
-| S11-STORY-005 | 监控、报警与运维闭环 | P1 | Planned |
-| S11-STORY-006 | Sprint 11 Closeout | P0 | Planned |
+| S11-STORY-001 | 阿里云资源开通与网络基线 | P0 | **In Review**（ECS/RDS/网络/HTTPS 已完成 · OSS/SLS/CloudMonitor 未创建 · 后续 story） |
+| S11-STORY-002 | Staging 部署与数据库初始化 | P0 | **In Review**（staging deploy · migrate · import · health PASS） |
+| S11-STORY-003 | Admin 登录与 Staging 治理/用户池验收 | P0 | **In Review**（admin session · 治理 · preview pool PASS） |
+| S11-STORY-004 | Production 部署与上线 | P0 | **Pending** |
+| S11-STORY-005 | 监控、报警与运维闭环 | P1 | **Pending** |
+| S11-STORY-006 | Sprint 11 Closeout | P0 | **Pending** |
 
 完整 AC 见 [`sprint-backlog.md`](sprint-backlog.md) Sprint 11 章节。
 
@@ -83,7 +83,29 @@
 
 ---
 
-## 7. 顺延（DECISION-111）
+## 7. Staging 阶段收口（2026-06-11）
+
+**已完成：**
+
+- ECS + RDS + 安全组 + DNS + Nginx HTTPS + systemd staging 部署
+- DB migrate · variant import · `GET /api/health` PASS
+- Admin 登录 / session / 治理 / preview DB pool staging 验收 PASS
+- Admin session bugfix merge @ `7f218e5` · docs @ `7fb4d9e`
+
+**staging 登记：** [`environments/staging.md`](../ops/environments/staging.md)  
+**收口报告：** [`execution-reports/2026-06-11-s11-staging-deployment-verification.md`](execution-reports/2026-06-11-s11-staging-deployment-verification.md)
+
+**待办（非 staging 阻塞）：**
+
+- OSS / SLS / CloudMonitor 创建与告警（→ S11-STORY-005）
+- 首页 Volcengine AI 生成主链路 staging env 与验收
+- Production 部署（→ S11-STORY-004 · **未启动**）
+
+**明确未做：** merge `main` · 关闭 Release 1 · production 部署
+
+---
+
+## 8. 顺延（DECISION-111）
 
 | 原编号 | 新编号 | 目标 Sprint |
 |--------|--------|-------------|

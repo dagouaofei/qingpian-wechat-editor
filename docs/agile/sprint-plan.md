@@ -662,11 +662,11 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 **Stories：** S10-STORY-001 ~ S10-STORY-012 — 见 `sprint-backlog.md`
 
-**进度：** S10-STORY-001~011 **Done** · S10 **Closed** · S11-STORY-001~006 **Planned / In Progress**
+**进度：** S10-STORY-001~011 **Done** · S10 **Closed** · S11-STORY-001~003 **In Review**（staging 验收 2026-06-11）· S11-STORY-004~006 **Pending**
 
 ---
 
-### Sprint 11：Production Ops Go-Live — **In Progress**（2026-06-08 · **DECISION-111**）
+### Sprint 11：Production Ops Go-Live — **In Progress**（2026-06-08 · **DECISION-111** · staging 阶段验收 2026-06-11）
 
 **中文名：** 正式部署与运维上线
 
@@ -677,6 +677,8 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 **Sprint Goal：** staging 全量 checklist 验收 → production 上线 · ECS/RDS/OSS/SLS/CloudMonitor · DB init · admin 登录 · 监控报警
 
 **Stories：** S11-STORY-001 ~ S11-STORY-006 — 见 `sprint-backlog.md`
+
+**staging 进度（2026-06-11）：** Story 001~003 **In Review** · production **未启动** · 收口报告 [`2026-06-11-s11-staging-deployment-verification.md`](execution-reports/2026-06-11-s11-staging-deployment-verification.md)
 
 **不做：** CI/CD · 复杂 RBAC · OSS/SLS SDK 全量 · Compat/DSL 债务（→ Sprint 12+）
 

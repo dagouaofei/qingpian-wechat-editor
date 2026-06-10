@@ -4565,7 +4565,7 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 > **分支：** `sprint/s11-production-ops-go-live`（从 `release/1`）  
 > **文档：** [`sprint11-production-ops-go-live.md`](sprint11-production-ops-go-live.md) · **DECISION-111**  
-> **状态：** **In Progress**（2026-06-08 启动 · Story 001~006 Planned）
+> **状态：** **In Progress**（2026-06-08 启动 · **staging 阶段验收完成 2026-06-11** · production 未启动）
 
 **Sprint Goal：**
 
@@ -4588,51 +4588,58 @@ S11-STORY-001 → 002 → 003 → 004 → 005 → 006
 
 ## S11-STORY-001 阿里云资源开通与网络基线
 
-**优先级：** P0 · **状态：** **Planned** · **工作分支：** `docs/s11-story-001-aliyun-resource-provisioning` · **仓库脚手架：** Done @ kickoff（`environments/` · checklist 链接）
+**优先级：** P0 · **状态：** **In Review** · **工作分支：** `docs/s11-story-001-aliyun-resource-provisioning` · **staging 验收：** 2026-06-11
 
 **目标：** 按 [`aliyun-resource-checklist.md`](../ops/aliyun-resource-checklist.md) 在华北 2 创建轻篇独立 ECS/RDS/OSS/SLS/CloudMonitor 并完成网络最小开放。
 
+**staging 完成情况：**
+
+- ECS · RDS · 安全组 · DNS · HTTPS **已完成**
+- OSS · SLS · CloudMonitor **未创建**（optional / 预留 · → S11-STORY-005）
+
 **验收标准：**
 
-- [ ] AC-1 checklist §2~§6 staging + production 分别勾选
-- [ ] AC-2 无 secret 入库 · 环境变量仅 ECS
-- [ ] AC-3 资源隔离（不共用秒篇 DB/OSS/应用）
-- [ ] AC-4 [`docs/ops/environments/`](../ops/environments/) staging/production 资源登记表已回填（无密码）
+- [x] AC-1 checklist §2~§3 staging ECS/RDS 已勾选（§4~§6 OSS/SLS/CloudMonitor 待后续）
+- [x] AC-2 无 secret 入库 · 环境变量仅 ECS
+- [x] AC-3 资源隔离（不共用秒篇 DB/OSS/应用）
+- [x] AC-4 [`docs/ops/environments/staging.md`](../ops/environments/staging.md) 已回填（无密码）
 
 ---
 
 ## S11-STORY-002 Staging 部署与数据库初始化
 
-**优先级：** P0 · **状态：** **Planned** · **工作分支：** `chore/s11-story-002-staging-deploy-db-init` · **仓库脚手架：** Done @ kickoff（`deploy/systemd` · `deploy/nginx/staging`）
+**优先级：** P0 · **状态：** **In Review** · **工作分支：** `chore/s11-story-002-staging-deploy-db-init` · **staging 验收：** 2026-06-11
 
 **目标：** staging ECS 首次部署 · migrate · import · health · admin 列表可读。
 
 **验收标准：**
 
-- [ ] AC-1 `GET /api/health` → `database: ok`
-- [ ] AC-2 import 报告计数与 S10-STORY-003 dry-run 一致
-- [ ] AC-3 未登录 `/admin/style-library` → login
-- [ ] AC-4 [`production-release-checklist.md`](../ops/production-release-checklist.md) Section A + B staging PASS
+- [x] AC-1 `GET /api/health` → `database: ok`
+- [x] AC-2 import 已执行（release1_required 计数与 S10 dry-run 一致 · 见部署记录）
+- [x] AC-3 未登录 `/admin/style-library` → login
+- [x] AC-4 [`production-release-checklist.md`](../ops/production-release-checklist.md) Section A + B staging PASS
 
 ---
 
 ## S11-STORY-003 Admin 登录与 Staging 治理/用户池验收
 
-**优先级：** P0 · **状态：** **Planned** · **工作分支：** TBD（验收为主）· **仓库脚手架：** Done @ kickoff（`production-release-checklist.md` C~E）
+**优先级：** P0 · **状态：** **In Review** · **工作分支：** `bugfix/s11-staging-admin-session-cookie`（已 merge sprint @ `7f218e5`）· **staging 验收：** 2026-06-11
 
 **目标：** S10-STORY-008 公网 staging 验收 · 治理与用户侧 DB pool 冒烟。
 
 **验收标准：**
 
-- [ ] AC-1 checklist Section C + D + E staging PASS
-- [ ] AC-2 未登录写操作 `auth_required`
-- [ ] AC-3 至少 1 条 user-selectable hide/restore 路径人工记录
+- [x] AC-1 checklist Section C + D + E staging PASS
+- [x] AC-2 未登录写操作拒绝（login redirect / auth_required）
+- [x] AC-3 Hide / Restore 路径 staging 人工验收 PASS
+
+**关联 bugfix：** admin session · merge `7f218e5` · docs `7fb4d9e`
 
 ---
 
 ## S11-STORY-004 Production 部署与上线
 
-**优先级：** P0 · **状态：** **Planned** · **工作分支：** `docs/s11-story-004-production-go-live` · **仓库脚手架：** Done @ kickoff（`deploy/nginx/production` · `environments/production.md`）
+**优先级：** P0 · **状态：** **Pending** · **工作分支：** `docs/s11-story-004-production-go-live` · **前置：** staging 阶段收口完成 · **production 未启动**
 
 **目标：** staging 通过后 production 部署 · HTTPS · checklist A~E · 回滚演练。
 
@@ -4647,7 +4654,7 @@ S11-STORY-001 → 002 → 003 → 004 → 005 → 006
 
 ## S11-STORY-005 监控、报警与运维闭环
 
-**优先级：** P1 · **状态：** **Planned** · **工作分支：** `docs/s11-story-005-monitoring-alerts` · **仓库脚手架：** Done @ kickoff（`monitoring-and-oncall.md`）
+**优先级：** P1 · **状态：** **Pending** · **工作分支：** `docs/s11-story-005-monitoring-alerts` · **前置：** CloudMonitor/SLS 资源创建
 
 **目标：** CloudMonitor 基础告警 · SLS 预留 · `alert_events` 验证 · on-call 文档。
 
