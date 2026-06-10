@@ -164,6 +164,6 @@ GET https://staging.qingpianai.cn/api/health
 
 ## 16. Commit
 
-- 文档收口 commit：（本轮 `docs(s11): record staging deployment verification` · 见交付摘要）
+- 文档收口 commit：`e36b32a`
 - 前置 merge：`7f218e5` · 前置 docs：`7fb4d9e`
 - **未 push** · **未 merge main**
