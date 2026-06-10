@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
   }
 
   const token = createAdminSession(username, config);
-  const response = NextResponse.redirect(buildAdminLoginRedirectUrl(request, next));
+  const response = NextResponse.redirect(buildAdminLoginRedirectUrl(request, next), { status: 303 });
   response.cookies.set(
     STYLE_ADMIN_SESSION_COOKIE,
     token,

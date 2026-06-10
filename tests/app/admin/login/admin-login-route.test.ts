@@ -8,8 +8,9 @@ import {
 
 const { NextResponse } = vi.hoisted(() => ({
   NextResponse: {
-    redirect: vi.fn((url: URL) => ({
+    redirect: vi.fn((url: URL, init?: ResponseInit) => ({
       url,
+      status: init?.status ?? 307,
       cookies: {
         set: vi.fn(),
       },
@@ -71,7 +72,7 @@ describe("admin login route", () => {
     expect(response.cookies.set).not.toHaveBeenCalled();
   });
 
-  it("sets a secure session cookie and redirects to the public origin", async () => {
+  it("sets a secure session cookie and redirects with 303 See Other", async () => {
     configureAuth("correct-password");
 
     const response = await POST(
@@ -82,6 +83,8 @@ describe("admin login route", () => {
       }) as never,
     );
 
+    expect(response.status).toBe(303);
+    expect(NextResponse.redirect).toHaveBeenCalledWith(expect.any(URL), { status: 303 });
     expect(response.url.toString()).toBe("https://staging.qingpianai.cn/admin/style-library");
     expect(response.cookies.set).toHaveBeenCalledWith(
       STYLE_ADMIN_SESSION_COOKIE,
