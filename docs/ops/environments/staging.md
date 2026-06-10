@@ -104,6 +104,20 @@
 
 ---
 
+## 7.1 SEO / 爬虫防护（staging only）
+
+> **production 不应继承此配置。** 正式域名上线前须单独评估 SEO / robots 策略。
+
+| 项 | 值 |
+|----|-----|
+| 适用范围 | 仅 `staging.qingpianai.cn` |
+| Nginx 响应头 | `X-Robots-Tag: noindex, nofollow, noarchive, nosnippet` |
+| `/robots.txt` | `User-agent: *` · `Disallow: /` |
+| 验证方式 | `curl -I https://staging.qingpianai.cn/` · `curl https://staging.qingpianai.cn/robots.txt` |
+| 验证结果 | PASS（2026-06-11 · curl） |
+
+---
+
 ## 8. 部署记录（S11-STORY-002~003）
 
 | 项 | 值 |

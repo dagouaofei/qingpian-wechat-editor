@@ -701,6 +701,7 @@
 
 | 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
 |------|--------|----------|----------|----------------------|
+| 2026-06-11 | Sprint 11 | **staging 爬虫防护**：Nginx `X-Robots-Tag: noindex,nofollow,noarchive,nosnippet` · `/robots.txt Disallow: /` · curl 验证 PASS · **production 不继承** | 运维 / SEO | staging |
 | 2026-06-11 | Sprint 11 | **staging 部署验收收口**：ECS/RDS/Nginx HTTPS/systemd · migrate/import/health PASS | 运维 / 部署 | S11-STORY-001~003 **In Review** |
 | 2026-06-11 | Sprint 11 | 回填 [`environments/staging.md`](../ops/environments/staging.md) · checklist staging 列 · execution report | 文档 | S11 |
 | 2026-06-11 | Sprint 11 | staging admin · preview pool · Hide/Restore · Logout 验收 PASS | 验收 | S11-STORY-003 |

@@ -78,6 +78,16 @@
 | TLS | Certbot / Let's Encrypt |
 | Forwarded headers | Host · X-Forwarded-Host · X-Forwarded-Port · X-Real-IP · X-Forwarded-For · X-Forwarded-Proto |
 
+## 6.1 SEO / 爬虫防护（staging only）
+
+> **production 不应继承。** 正式域名须单独制定 robots / SEO 策略。
+
+| 项 | 结果 |
+|----|------|
+| Nginx `X-Robots-Tag` | `noindex, nofollow, noarchive, nosnippet` · PASS（curl） |
+| `/robots.txt` | `User-agent: *` · `Disallow: /` · PASS（curl） |
+| 适用范围 | 仅 `staging.qingpianai.cn` |
+
 ## 7. DB / 构建 / 启动
 
 | 步骤 | 结果 |
@@ -145,6 +155,7 @@ GET https://staging.qingpianai.cn/api/health
 - 未对公网开放 3000/3001/5432/3389
 - RDS 白名单仅 ECS 内网 IP
 - HTTPS 已配置 · admin auth 未关闭 · cookie 安全属性未降低
+- staging SEO/爬虫防护：`X-Robots-Tag` + `/robots.txt Disallow: /`（**staging only** · production 不继承）
 
 ## 14. 运行检查（文档收口轮）
 
