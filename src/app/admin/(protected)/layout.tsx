@@ -8,6 +8,8 @@ import {
   STYLE_ADMIN_AUTH_ENABLED_MESSAGE,
 } from "@/server/style-admin/auth";
 
+export const dynamic = "force-dynamic";
+
 export default async function ProtectedAdminLayout({
   children,
 }: {
