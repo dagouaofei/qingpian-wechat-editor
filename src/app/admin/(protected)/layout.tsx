@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import {
@@ -44,13 +43,15 @@ export default async function ProtectedAdminLayout({
             <span data-testid="admin-current-user">
               Signed in as <strong>{admin.username}</strong>
             </span>
-            <Link
-              href="/admin/logout"
-              className="rounded-lg border border-slate-200 px-3 py-1.5 hover:bg-slate-50"
-              data-testid="admin-logout-link"
-            >
-              Logout
-            </Link>
+            <form method="POST" action="/api/admin/logout">
+              <button
+                type="submit"
+                className="rounded-lg border border-slate-200 px-3 py-1.5 hover:bg-slate-50"
+                data-testid="admin-logout-button"
+              >
+                Logout
+              </button>
+            </form>
           </div>
         </div>
       </header>
