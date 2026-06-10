@@ -129,4 +129,5 @@
 
 ## 14. Commit
 
-- 未提交 / not committed（待用户审查）
+- Commit hash：`e9983c2`
+- 未 merge（待用户确认）
