@@ -1,7 +1,5 @@
 "use server";
 
-import { redirect } from "next/navigation";
-
 import {
   isStyleAdminAuthConfigured,
   sanitizeAdminNextPath,
@@ -11,7 +9,7 @@ import {
 import { getStyleAdminAuthConfig } from "@/server/style-admin/auth/admin-auth-config";
 
 export type AdminLoginState =
-  | { ok: true }
+  | { ok: true; redirectTo: string }
   | { ok: false; message: string };
 
 export async function loginAdminAction(input: {
@@ -36,5 +34,5 @@ export async function loginAdminAction(input: {
   }
 
   await setAdminSessionCookie(username);
-  redirect(sanitizeAdminNextPath(input.next));
+  return { ok: true, redirectTo: sanitizeAdminNextPath(input.next) };
 }
