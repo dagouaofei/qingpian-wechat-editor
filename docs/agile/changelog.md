@@ -697,6 +697,19 @@
 
 ---
 
+## 2026-06-11 · S11 staging admin session bugfix
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-11 | Sprint 11 | **staging admin session bugfix**：登录改 `POST /api/admin/login` + `303` · logout 改 POST-only · 移除 GET logout 清 session | Admin auth / 部署 | bugfix/s11-staging-admin-session-cookie |
+| 2026-06-11 | Sprint 11 | 修复 RSC prefetch 触发 `GET /admin/logout?_rsc=...` 自动清 cookie（layout `<Link>` → POST form） | Admin auth | bugfix |
+| 2026-06-11 | Sprint 11 | Nginx example 补 `X-Forwarded-Host` / `X-Forwarded-Port` · `.env.example` 补 `STYLE_ADMIN_PUBLIC_ORIGIN` | 部署 / 配置 | bugfix |
+| 2026-06-11 | Sprint 11 | staging 验收 PASS：health · login cookie · refresh · Hide/Restore · Logout · 无 GET logout prefetch | 验收 | bugfix |
+| 2026-06-11 | Sprint 11 | 部署侧：`STYLE_ADMIN_SESSION_SECRET` 曾配置错误，已更正并轮换（不记录 secret 值） | 运维 | bugfix |
+| 2026-06-11 | Git | **`bugfix/s11-staging-admin-session-cookie` merge → `sprint/s11-production-ops-go-live`** @ `7f218e5` · **未 merge main** | Git | bugfix |
+
+---
+
 ## 2026-06-08 · S10-STORY-011 Done（merge sprint）
 
 | 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
