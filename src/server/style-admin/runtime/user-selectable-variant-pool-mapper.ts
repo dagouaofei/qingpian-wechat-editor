@@ -103,18 +103,22 @@ export function mapDbPoolRowToVariantDefinition(
   }
 
   const isDsl = isVariantDslV1(definition);
-  const id = String(isDsl ? definition.id : (definition.id ?? row.runtimeVariantId));
-  const blockType = (isDsl ? definition.blockType : (definition.blockType ?? row.blockType)) as BlockType;
+  const blockType = (isDsl
+    ? definition.blockType
+    : (definition.blockType ?? row.blockType)) as BlockType;
 
   const variant: VariantDefinition = {
-    id,
+    id: row.runtimeVariantId,
     schemaVersion: isDsl
       ? STYLE_SCHEMA_VERSION
-      : ((definition.schemaVersion as VariantDefinition["schemaVersion"]) ?? STYLE_SCHEMA_VERSION),
+      : ((definition.schemaVersion as VariantDefinition["schemaVersion"]) ??
+        STYLE_SCHEMA_VERSION),
     blockType,
-    family: String(isDsl ? (definition.family ?? row.styleFamily) : (definition.family ?? row.styleFamily)),
-    name: String(isDsl ? definition.id : (definition.name ?? row.runtimeVariantId)),
-    label: String(isDsl ? (definition.label ?? row.label) : (definition.label ?? row.label)),
+    family: String(
+      isDsl ? (definition.family ?? row.styleFamily) : (definition.family ?? row.styleFamily),
+    ),
+    name: row.runtimeVariantId,
+    label: row.label,
     description:
       typeof definition.description === "string" ? definition.description : row.description ?? undefined,
     status: (definition.status as VariantStatus) ?? "experimental",

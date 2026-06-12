@@ -716,6 +716,7 @@
 | 2026-06-10 | Sprint 11 | **S11-STORY-003A 启动**：Volcengine staging provider · 首页生成主链路 · SSE 打字机回归 · HTML variant 章节编号回归 | 运维 / 生成 / 样式 | S11-STORY-003A |
 | 2026-06-10 | Sprint 11 | SSE：`X-Accel-Buffering: no` · Nginx `/api/generate/stream` `proxy_buffering off` | 生成 / 部署 | streaming fix |
 | 2026-06-10 | Sprint 11 | DSL：`semanticBindings.number` stale path 回退 infer · user preview 传 variant meta | 样式 / Preview / Copy | numbering fix |
+| 2026-06-10 | Sprint 11 | **preview heading picker 回归**：移除 release1 publish 与 DB userSelectable 混排 · canonical `row.label` / `runtimeVariantId` | 样式 / Preview | S11-STORY-003A |
 | 2026-06-10 | Git | 工作分支 `feature/s11-story-003a-staging-volcengine-streaming-numbering` · **未 merge main** · **production 未启动** | Git | S11-STORY-003A |
 | 2026-06-11 | Sprint 11 | `STYLE_ADMIN_SESSION_SECRET` 曾配置错误已轮换（不记录值）· `STYLE_ADMIN_PUBLIC_ORIGIN` 已配置 | 部署 | staging env |
 | 2026-06-11 | Sprint 11 | full test 2 failures `wechat-paste-qa-pack` 既有 · 非本轮修复 | 测试 | — |

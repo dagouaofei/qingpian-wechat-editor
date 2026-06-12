@@ -8,10 +8,8 @@ import {
 } from "@/lib/preview-style-controls";
 import { PREVIEW_COLOR_PALETTE_OPTIONS } from "@/lib/preview-color-palette";
 import {
-  PREVIEW_HEADING_PUBLISH_STYLE_OPTIONS,
-  PREVIEW_HEADING_STYLE_OPTIONS,
-} from "@/lib/preview-heading-style";
-import { isDbBackedRuntimePool } from "@/lib/preview-user-selectable-pool";
+  resolvePreviewHeadingStyleOptions,
+} from "@/lib/preview-user-selectable-pool";
 import type { UserSelectableVariantPoolSnapshot } from "@/lib/user-selectable-variant-pool-types";
 import type { PreviewUserSelectableHeadingOption } from "@/lib/preview-user-selectable-pool";
 import { ShellFieldLabel, ShellSelect } from "@/components/ui-shell/primitives";
@@ -36,16 +34,11 @@ export function PreviewStyleControls({
   poolSourceNotice?: string;
   onChange: (next: PreviewStyleControlState) => void;
 }) {
-  const useDbBackedHeadingPool =
-    userSelectablePool != null && isDbBackedRuntimePool(userSelectablePool);
-
-  const headingStyleOptions = includeUserSelectableHeadingOptions
-    ? useDbBackedHeadingPool
-      ? (userSelectableHeadingOptions ?? [])
-      : userSelectableHeadingOptions
-        ? [...PREVIEW_HEADING_PUBLISH_STYLE_OPTIONS, ...userSelectableHeadingOptions]
-        : PREVIEW_HEADING_STYLE_OPTIONS
-    : PREVIEW_HEADING_PUBLISH_STYLE_OPTIONS;
+  const headingStyleOptions = resolvePreviewHeadingStyleOptions({
+    includeUserSelectableHeadingOptions,
+    userSelectableHeadingOptions,
+    userSelectablePool,
+  });
   return (
     <div
       className="space-y-3 rounded-xl border border-slate-200 bg-slate-50/80 p-3"

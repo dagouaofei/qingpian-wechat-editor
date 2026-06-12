@@ -145,6 +145,39 @@ curl -I https://staging.qingpianai.cn/api/health
 # 首页生成人工验收
 ```
 
-## 15. Commit
+## 15. Commit（streaming + numbering）
 
-- Commit hash：`7f3afb3`
+- Commit hash：`7eff8f9ad9583ccfd3bb3534eae1f1142cc6cc3b`
+
+---
+
+## 16. 追加：Preview heading picker 回归（2026-06-10 staging 人工验收）
+
+### 根因
+
+1. `PreviewStyleControls` 在 `userSelectablePool.source !== "database"` 时，将 `PREVIEW_HEADING_PUBLISH_STYLE_OPTIONS`（release1 静态 8 项）与 DB userSelectable 选项 **concat 合并**。
+2. `source === "empty"` 且 `userSelectableHeadingOptions === []` 时，空数组 truthy → 仍展示全部 release1 publish 项。
+3. `mapDbPoolRowToVariantDefinition` 使用 `definitionJson.label/id`，与 admin `row.label` 不一致 → 英文/中文 label 混排。
+
+### 修复
+
+- `resolvePreviewHeadingStyleOptions()`：database/empty/code_fallback 路径均 **不再 merge** release1 publish pool。
+- `buildUserSelectableHeadingOptionsFromPool()`：`runtimeVariantId` 去重。
+- mapper：canonical `row.runtimeVariantId` + `row.label`。
+
+### 修改文件（追加）
+
+- `src/lib/preview-user-selectable-pool.ts`
+- `src/components/preview/preview-style-controls.tsx`
+- `src/server/style-admin/runtime/user-selectable-variant-pool-mapper.ts`
+- `tests/lib/preview-user-selectable-pool.test.tsx`
+- `tests/server/style-admin/runtime/user-selectable-variant-pool-mapper.test.ts`
+- `docs/agile/bugs.md` · `changelog.md` · `sprint-backlog.md`
+
+### ECS
+
+需 **pull + build + restart** staging 应用（`qingpian-wechat-editor-staging`）。无需 Nginx 变更。
+
+### Commit（picker fix）
+
+- 见本轮 commit

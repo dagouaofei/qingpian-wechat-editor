@@ -4657,6 +4657,7 @@ S11-STORY-001 → 002 → 003 → 004 → 005 → 006
 - [ ] AC-3 staging 生成 loading 有打字机/streaming 效果
 - [ ] AC-4 HTML 新增 variant 后章节数字按顺序递增
 - [ ] AC-5 Preview 与 Copy 编号一致
+- [ ] AC-5b `/preview` heading picker 与 admin userSelectable 池一致 · 无重复
 - [ ] AC-6 `/api/health` 仍为 ok · database ok
 - [ ] AC-7 admin / style-library / preview DB pool 不回归
 - [ ] AC-8 无 secret 入库

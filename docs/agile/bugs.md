@@ -118,4 +118,21 @@
 
 ---
 
+### BUG-S11-STAGING-003 Preview heading picker 与 admin userSelectable 不一致且重复
+
+| 字段 | 内容 |
+|------|------|
+| Bug ID | BUG-S11-STAGING-003 |
+| 标题 | `/preview` 小标题样式下拉与 admin userSelectable 池不一致 · 重复项 · 混排 release1 静态 label |
+| 发现时间 | 2026-06-10 |
+| 所属 | Sprint 11 · S11-STORY-003A |
+| 严重级别 | P1 |
+| 复现步骤 | staging 生成文章 → `/preview` → 打开「小标题样式」下拉 |
+| 预期结果 | 仅「跟随生成结果」+ DB userSelectable heading variants（与 admin `userSelectable=true&blockType=heading` 一致） |
+| 实际结果 | release1 publish 静态项与 DB 项混排 · 同 label 重复 · definitionJson 英文 label 与 admin 中文 label 混用 |
+| 状态 | **Fixed**（`resolvePreviewHeadingStyleOptions` · mapper 使用 `row.label`/`runtimeVariantId` · runtimeVariantId 去重） |
+| 处理记录 | **待 staging 人工复验** · ECS rebuild/restart 后验证 |
+
+---
+
 暂无其它 Open Bug（除 DEBT-DSL-RC 架构债务）。
