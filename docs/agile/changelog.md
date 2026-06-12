@@ -706,6 +706,17 @@
 | 2026-06-11 | Sprint 11 | 回填 [`environments/staging.md`](../ops/environments/staging.md) · checklist staging 列 · execution report | 文档 | S11 |
 | 2026-06-11 | Sprint 11 | staging admin · preview pool · Hide/Restore · Logout 验收 PASS | 验收 | S11-STORY-003 |
 | 2026-06-11 | Sprint 11 | **待办**：Volcengine AI 生成主链路 · CloudMonitor/SLS/OSS · production **未启动** | 运维 | S11-STORY-004~005 |
+
+---
+
+## 2026-06-10 · S11-STORY-003A 启动（staging Volcengine · streaming · numbering）
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-10 | Sprint 11 | **S11-STORY-003A 启动**：Volcengine staging provider · 首页生成主链路 · SSE 打字机回归 · HTML variant 章节编号回归 | 运维 / 生成 / 样式 | S11-STORY-003A |
+| 2026-06-10 | Sprint 11 | SSE：`X-Accel-Buffering: no` · Nginx `/api/generate/stream` `proxy_buffering off` | 生成 / 部署 | streaming fix |
+| 2026-06-10 | Sprint 11 | DSL：`semanticBindings.number` stale path 回退 infer · user preview 传 variant meta | 样式 / Preview / Copy | numbering fix |
+| 2026-06-10 | Git | 工作分支 `feature/s11-story-003a-staging-volcengine-streaming-numbering` · **未 merge main** · **production 未启动** | Git | S11-STORY-003A |
 | 2026-06-11 | Sprint 11 | `STYLE_ADMIN_SESSION_SECRET` 曾配置错误已轮换（不记录值）· `STYLE_ADMIN_PUBLIC_ORIGIN` 已配置 | 部署 | staging env |
 | 2026-06-11 | Sprint 11 | full test 2 failures `wechat-paste-qa-pack` 既有 · 非本轮修复 | 测试 | — |
 | 2026-06-11 | Sprint 11 | **admin session bugfix**：`POST /api/admin/login` + `303` · logout POST-only · 移除 GET logout 清 session | Admin auth | merge `7f218e5` |

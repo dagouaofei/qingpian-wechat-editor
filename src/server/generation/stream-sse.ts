@@ -1,5 +1,15 @@
 import type { GenerateMainFlowSuccess } from "./generate-flow-types";
 
+/** SSE response headers for `/api/generate/stream` — disable nginx/proxy buffering for typewriter UX. */
+export function buildGenerateStreamSseResponseHeaders(): HeadersInit {
+  return {
+    "Content-Type": "text/event-stream; charset=utf-8",
+    "Cache-Control": "no-cache, no-transform",
+    Connection: "keep-alive",
+    "X-Accel-Buffering": "no",
+  };
+}
+
 export type GenerateStreamFlowCompletePayload = {
   ok: true;
   data: GenerateMainFlowSuccess;

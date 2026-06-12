@@ -84,4 +84,38 @@
 
 ---
 
+### BUG-S11-STAGING-001 Staging 生成 loading 非打字机（SSE 被 Nginx 缓冲）
+
+| 字段 | 内容 |
+|------|------|
+| Bug ID | BUG-S11-STAGING-001 |
+| 标题 | staging 生成 loading 一块一块显示，dev 环境为打字机效果 |
+| 发现时间 | 2026-06-10 |
+| 所属 | Sprint 11 · S11-STORY-003A |
+| 严重级别 | P1 |
+| 复现步骤 | staging 首页输入主题 → 生成 → 观察 loading 文本出现方式 |
+| 预期结果 | 与 dev 一致：逐字/逐 chunk 打字机 streaming |
+| 实际结果 | 整块批量出现（Nginx 默认 `proxy_buffering on` 缓冲 SSE） |
+| 状态 | **Fixed**（代码：`X-Accel-Buffering: no` · `deploy/nginx/staging.conf.example` 专用 location） |
+| 处理记录 | ECS 需 reload Nginx · **待 staging 人工复验** |
+
+---
+
+### BUG-S11-STAGING-002 HTML 新增 variant 章节编号不递增
+
+| 字段 | 内容 |
+|------|------|
+| Bug ID | BUG-S11-STAGING-002 |
+| 标题 | HTML paste 新增 DB variant 后多 heading 编号均为 01 |
+| 发现时间 | 2026-06-10 |
+| 所属 | Sprint 11 · S11-STORY-003A · 关联 S10-STORY-011 |
+| 严重级别 | P1 |
+| 复现步骤 | admin HTML 新增 heading variant → 多章节文章 Preview/Copy |
+| 预期结果 | 编号 01 / 02 / 03 按章节顺序递增 |
+| 实际结果 | 静态 HTML 编号未替换（stale `semanticBindings.number.path` 覆盖 infer） |
+| 状态 | **Fixed**（`resolveEffectiveSemanticBindings` 校验 path · number 替换 fallback infer） |
+| 处理记录 | regression test 覆盖 stale binding · **待 staging 人工复验** |
+
+---
+
 暂无其它 Open Bug（除 DEBT-DSL-RC 架构债务）。

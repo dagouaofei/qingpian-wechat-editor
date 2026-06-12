@@ -153,9 +153,30 @@
 
 **部署侧说明：** `STYLE_ADMIN_SESSION_SECRET` 曾配置错误，已更正并轮换（不记录 secret 值）。
 
-未配置 / 待办：
+未配置 / 待办（S11-STORY-003A）：
 
-- [ ] `VOLCENGINE_*`（首页 AI 生成主链路 · 待配置与验收）
+- [ ] `VOLCENGINE_ENABLE_REAL_PROVIDER=true`
+- [ ] `VOLCENGINE_API_KEY`（**不入库**）
+- [ ] `VOLCENGINE_MODEL`（endpoint id · **不入库**）
+- [ ] `VOLCENGINE_BASE_URL`（可选 · 默认 Ark cn-beijing）
+- [ ] `VOLCENGINE_TIMEOUT_MS`（可选 · 默认 60000）
+
+**ECS 配置示例（仅变量名 · 替换占位符后执行）：**
+
+```bash
+sudo systemctl edit qingpian-wechat-editor-staging --full
+# 在 [Service] Environment= 段追加：
+# Environment=VOLCENGINE_ENABLE_REAL_PROVIDER=true
+# Environment=VOLCENGINE_API_KEY=<your-key>
+# Environment=VOLCENGINE_MODEL=<your-endpoint-id>
+# Environment=VOLCENGINE_BASE_URL=https://ark.cn-beijing.volces.com/api/v3
+# Environment=VOLCENGINE_TIMEOUT_MS=60000
+
+sudo systemctl daemon-reload
+sudo systemctl restart qingpian-wechat-editor-staging
+```
+
+**Nginx SSE（S11-STORY-003A · 打字机回归）：** 需在 staging Nginx 为 `/api/generate/stream` 配置 `proxy_buffering off`（见 [`deploy/nginx/staging.conf.example`](../../deploy/nginx/staging.conf.example)）后 `sudo nginx -t && sudo systemctl reload nginx`。
 
 其它见 [`environment-variables.md`](../environment-variables.md)
 

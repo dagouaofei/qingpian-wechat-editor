@@ -366,4 +366,87 @@ describe("fidelity heading user preview substitution", () => {
     expect(numbers).toEqual(["01", "02", "03"]);
     expect(eyebrows).toEqual(["CHAPTER 01", "CHAPTER 02", "CHAPTER 03"]);
   });
+
+  it("increments background number via preview and copy when stored number binding path is stale", () => {
+    const runtimeVariantId = "heading_html_paste_stale_number_binding";
+    const encoded = encodeHtmlToVariantDsl({
+      html: BACKGROUND_NUMBER_HEADING_HTML,
+      runtimeVariantId,
+      blockType: "heading",
+      wechatCompatibilityMode: "off",
+    });
+    expect(encoded.ok).toBe(true);
+    if (!encoded.ok) return;
+
+    const bindings = encoded.value.meta?.semanticBindings as Record<string, { path: string }>;
+    const staleDsl = {
+      ...encoded.value,
+      meta: {
+        ...encoded.value.meta,
+        semanticBindings: {
+          ...bindings,
+          number: {
+            ...(bindings.number ?? {}),
+            path: "tree.children[99].children[0]",
+          },
+        },
+      },
+    };
+
+    const h1 = fixtureBlockId(1);
+    const h2 = fixtureBlockId(3);
+    const article = parseArticle({
+      ...articleFixtureBase(),
+      styleAssignment: {
+        themeId: "businessBlue",
+        presetId: "business",
+        blockOverrides: [
+          { blockId: h1, variantId: runtimeVariantId },
+          { blockId: h2, variantId: runtimeVariantId },
+        ],
+      },
+      blocks: [
+        { id: h1, type: "heading", content: { text: "第一节", level: 2 } },
+        { id: fixtureBlockId(2), type: "paragraph", content: { text: [{ text: "段落" }] } },
+        { id: h2, type: "heading", content: { text: "第二节", level: 2 } },
+      ],
+    });
+
+    const dslRuntime = buildDatabaseDslRuntimeFixture({
+      [runtimeVariantId]: staleDsl,
+    });
+    dslRuntime.variantSourceMetaByVariantId = {
+      [runtimeVariantId]: {
+        blockType: "heading",
+        styleFamily: "htmlPaste",
+        label: runtimeVariantId,
+        primarySourceType: "html_paste",
+      },
+    };
+
+    const preview = renderArticlePreviewClient(
+      article,
+      styleSelectionNormalizedInput,
+      {
+        articleStyle: "business",
+        colorPalette: "businessBlue",
+        headingVariantId: runtimeVariantId,
+      },
+      { userSelectablePool: buildPool(runtimeVariantId, staleDsl), dslRuntime },
+    );
+
+    const previewNumbers = preview.previewBlocks
+      .filter((entry) => entry.blockType === "heading" && entry.ok)
+      .map((entry) => {
+        if (!entry.ok || entry.output?.kind !== "dsl_tree_html_preview") {
+          return "";
+        }
+        const match = entry.output.html.match(/font-size:\s*84px[^>]*>[\s\S]*?(\d{2})/i);
+        return match?.[1] ?? "";
+      });
+
+    expect(previewNumbers).toEqual(["01", "02"]);
+    expect(preview.clipboard.textHtml).toContain("01");
+    expect(preview.clipboard.textHtml).toContain("02");
+  });
 });
