@@ -42,6 +42,35 @@ describe("mapDbPoolRowToVariantDefinition", () => {
     expect(mapped.issue).toBeUndefined();
   });
 
+  it("uses admin row label and runtimeVariantId instead of definitionJson overrides", () => {
+    const mapped = mapDbPoolRowToVariantDefinition({
+      runtimeVariantId: "heading_html_paste_section_label",
+      blockType: "heading",
+      styleFamily: "htmlPaste",
+      label: "Section Label Heading",
+      description: null,
+      lifecycle: "user_selectable",
+      distribution: {
+        userSelectable: true,
+        defaultEligible: false,
+        release1Required: false,
+        hidden: false,
+        deprecated: false,
+      },
+      currentVersion: {
+        definitionJson: {
+          id: "legacy_definition_id",
+          blockType: "heading",
+          label: "Section Label Heading (HTML Paste · User Selectable)",
+        },
+        copySafety: "strict",
+      },
+    } as never);
+
+    expect(mapped.variant?.id).toBe("heading_html_paste_section_label");
+    expect(mapped.variant?.label).toBe("Section Label Heading");
+  });
+
   it("excludes release1Required-only rows", () => {
     const mapped = mapDbPoolRowToVariantDefinition({
       runtimeVariantId: "heading_short_line",

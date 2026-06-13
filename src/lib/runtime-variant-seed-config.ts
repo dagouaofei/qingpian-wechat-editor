@@ -61,7 +61,7 @@ export function resolveRuntimeVariantSeedOverride(
       sourceCohort: "s9_html_paste",
       qualityStatus: "paste_qa_pass",
       distribution: {
-        userSelectable: true,
+        userSelectable: false,
         defaultEligible: false,
         release1Required: false,
         hidden: false,
@@ -97,7 +97,7 @@ export function resolveRuntimeVariantSeedOverride(
       sourceCohort: "release1_required",
       qualityStatus: "paste_qa_pass",
       distribution: {
-        userSelectable: true,
+        userSelectable: false,
         defaultEligible: false,
         release1Required: true,
         hidden: false,
@@ -125,8 +125,6 @@ export function resolveRuntimeVariantSeedOverride(
 }
 
 export function getCodeBackedRuntimeAvailableVariantIds(): ReadonlySet<string> {
-  return new Set([
-    USER_SELECTABLE_HTML_PASTE_HEADING_ID,
-    ...USER_SELECTABLE_RELEASE1_HEADING_SEED_IDS,
-  ]);
+  /** Generation / gallery runtime availability — release1 publish headings only (not user pool). */
+  return RELEASE1_HEADING_PUBLISH_SET;
 }

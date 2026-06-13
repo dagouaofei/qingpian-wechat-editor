@@ -40,6 +40,7 @@
 | S11-STORY-001 | 阿里云资源开通与网络基线 | P0 | **In Review**（ECS/RDS/网络/HTTPS 已完成 · OSS/SLS/CloudMonitor 未创建 · 后续 story） |
 | S11-STORY-002 | Staging 部署与数据库初始化 | P0 | **In Review**（staging deploy · migrate · import · health PASS） |
 | S11-STORY-003 | Admin 登录与 Staging 治理/用户池验收 | P0 | **In Review**（admin session · 治理 · preview pool PASS） |
+| S11-STORY-003A | Staging Volcengine Provider + 首页生成主链路与样式回归验收 | P0 | **In Progress** · `feature/s11-story-003a-staging-volcengine-streaming-numbering` |
 | S11-STORY-004 | Production 部署与上线 | P0 | **Pending** |
 | S11-STORY-005 | 监控、报警与运维闭环 | P1 | **Pending** |
 | S11-STORY-006 | Sprint 11 Closeout | P0 | **Pending** |
@@ -98,7 +99,7 @@
 **待办（非 staging 阻塞）：**
 
 - OSS / SLS / CloudMonitor 创建与告警（→ S11-STORY-005）
-- 首页 Volcengine AI 生成主链路 staging env 与验收
+- ~~首页 Volcengine AI 生成主链路 staging env 与验收~~ → **S11-STORY-003A**（Volcengine env · streaming · HTML variant 编号回归）
 - Production 部署（→ S11-STORY-004 · **未启动**）
 
 **明确未做：** merge `main` · 关闭 Release 1 · production 部署

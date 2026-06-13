@@ -13,6 +13,7 @@ import type {
 } from "@prisma/client";
 
 import { getStyleAdminDbAvailability } from "../db-availability";
+import { buildUserSelectablePoolWhere } from "../mappers";
 import type { StyleAdminPrismaClient } from "../prisma";
 
 export type AdminVariantListFilter = {
@@ -62,6 +63,25 @@ export type StyleLibraryAdminQueryResult<T> =
   | { ok: false; error: "db_not_configured" | "db_unavailable" };
 
 function buildListWhere(filter: AdminVariantListFilter): Prisma.StyleVariantWhereInput {
+  if (filter.userSelectable === true) {
+    const search = filter.search?.trim();
+    const searchWhere: Prisma.StyleVariantWhereInput | undefined = search
+      ? {
+          OR: [
+            { runtimeVariantId: { contains: search, mode: "insensitive" } },
+            { label: { contains: search, mode: "insensitive" } },
+            { styleFamily: { contains: search, mode: "insensitive" } },
+          ],
+        }
+      : undefined;
+
+    return {
+      ...buildUserSelectablePoolWhere({ blockType: filter.blockType }),
+      ...(filter.lifecycle ? { lifecycle: filter.lifecycle } : {}),
+      ...(searchWhere ?? {}),
+    };
+  }
+
   const distributionWhere: Prisma.StyleVariantDistributionWhereInput = {};
 
   if (filter.userSelectable !== undefined) {

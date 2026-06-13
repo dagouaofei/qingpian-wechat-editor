@@ -137,6 +137,8 @@ export function renderUserPreviewBlock(
     ? resolveThemePaletteTokens(resolvedBlockStyle.tokens.theme)
     : undefined;
 
+  const variantSourceMeta = dslRuntime.variantSourceMetaByVariantId?.[variantId];
+
   const result = renderDslBlock({
     article: options.input.article,
     block: options.input.block,
@@ -146,6 +148,10 @@ export function renderUserPreviewBlock(
     mode: options.input.mode,
     renderTarget: options.input.target,
     themePalette,
+    sourceHtml: variantSourceMeta?.sourceHtml,
+    label: variantSourceMeta?.label,
+    family: variantSourceMeta?.styleFamily,
+    primarySourceType: variantSourceMeta?.primarySourceType,
   });
 
   if (resolvedDefinition.runtimeSource === "code_fallback") {

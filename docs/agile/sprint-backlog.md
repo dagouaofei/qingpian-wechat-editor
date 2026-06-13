@@ -4637,6 +4637,34 @@ S11-STORY-001 → 002 → 003 → 004 → 005 → 006
 
 ---
 
+## S11-STORY-003A Staging Volcengine Provider + 首页生成主链路与样式回归验收
+
+**优先级：** P0 · **状态：** **In Progress** · **工作分支：** `feature/s11-story-003a-staging-volcengine-streaming-numbering` · **前置：** S11-STORY-003 staging 基础验收 · **production 未启动**
+
+**背景：** staging 暴露 Provider 未配置、生成 loading 非打字机（Nginx SSE 缓冲）、HTML 新增 variant 后章节编号不递增。
+
+**目标：**
+
+- staging 配置 Volcengine provider（变量名见 [`environment-variables.md`](../ops/environment-variables.md) · [`environments/staging.md`](../ops/environments/staging.md)）
+- 首页真实生成主链路验收（主题 → 生成 → `/preview` · DB pool · 复制）
+- 修复 staging SSE 打字机/streaming 回归（`X-Accel-Buffering: no` · Nginx `proxy_buffering off`）
+- 修复 HTML variant 动态章节编号回归（stale `semanticBindings.number` · Preview/Copy 一致）
+
+**验收标准：**
+
+- [ ] AC-1 staging Volcengine provider 已配置并可用
+- [ ] AC-2 首页真实生成主链路跑通
+- [ ] AC-3 staging 生成 loading 有打字机/streaming 效果
+- [ ] AC-4 HTML 新增 variant 后章节数字按顺序递增
+- [ ] AC-5 Preview 与 Copy 编号一致
+- [ ] AC-5b `/preview` heading picker 与 admin userSelectable 池一致 · 无重复
+- [ ] AC-6 `/api/health` 仍为 ok · database ok
+- [ ] AC-7 admin / style-library / preview DB pool 不回归
+- [ ] AC-8 无 secret 入库
+- [ ] AC-9 production 未启动 · main 未 merge
+
+---
+
 ## S11-STORY-004 Production 部署与上线
 
 **优先级：** P0 · **状态：** **Pending** · **工作分支：** `docs/s11-story-004-production-go-live` · **前置：** staging 阶段收口完成 · **production 未启动**

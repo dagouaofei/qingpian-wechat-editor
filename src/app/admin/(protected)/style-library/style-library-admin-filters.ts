@@ -134,7 +134,7 @@ export const ADMIN_FILTER_PRESETS: AdminFilterPreset[] = [
   },
   {
     id: "user-selectable-true",
-    label: "userSelectable=true",
+    label: "distribution.userSelectable=true (user pool)",
     href: buildAdminListHref({ userSelectable: true }),
     filter: { userSelectable: true },
   },

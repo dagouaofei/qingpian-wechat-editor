@@ -90,9 +90,19 @@ S10 前半段（STORY-003~008）**不强制**配置 OSS。HTML Harvest / evidenc
 
 ---
 
-## 6. AI 生成（Volcengine · 非 S10 部署必需）
+## 6. AI 生成（Volcengine · S11-STORY-003A staging 必需）
 
-见 `.env.example` 中 `VOLCENGINE_*`。Style admin 部署可暂不配置。
+| 变量 | 说明 | staging | production |
+|------|------|---------|------------|
+| `VOLCENGINE_ENABLE_REAL_PROVIDER` | 启用真实 Volcengine provider（`true` / `1`） | **必需** | 待定 |
+| `VOLCENGINE_API_KEY` | Volcengine Ark API Key | **必需** · **不入库** | 待定 |
+| `VOLCENGINE_MODEL` | 模型 endpoint id（如 `ep-...`） | **必需** | 待定 |
+| `VOLCENGINE_BASE_URL` | API base（默认 `https://ark.cn-beijing.volces.com/api/v3`） | 可选 | 可选 |
+| `VOLCENGINE_TIMEOUT_MS` | Provider 超时毫秒（默认 `60000`） | 可选 | 可选 |
+
+未配置时首页生成报错：`未配置真实 AI 模型...`（`requireRealProvider` 路径）。
+
+Style admin 部署可暂不配置 Volcengine；**首页生成 staging 验收前必须配置**。
 
 ---
 

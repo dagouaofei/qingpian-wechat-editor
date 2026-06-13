@@ -2,7 +2,7 @@ import type { ThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
 
 import type { SemanticBinding } from "../encoder/fidelity-html-tree";
 import type { DslNode, DslRenderTarget, DslStyle, DslStyleValue, VariantDslV1 } from "../runtime/dsl-types";
-import { resolveDslNodeAtPath } from "./fidelity-tree-substitution";
+import { resolveDslNodeAtPath, resolveEffectiveSemanticBindings } from "./fidelity-tree-substitution";
 
 const HTML_PASTE_FAMILIES = new Set(["htmlPaste", "htmlPasteCandidate"]);
 
@@ -650,7 +650,7 @@ export function applyFidelityTreeThemeTokens(
   dsl: VariantDslV1,
   themePalette: ThemePaletteTokens,
 ): DslNode {
-  const bindings = readSemanticBindings(dsl);
+  const bindings = resolveEffectiveSemanticBindings(tree, dsl);
 
   for (const [role, tokenKey] of Object.entries(ROLE_COLOR_TOKEN)) {
     const path = bindings[role]?.path;
