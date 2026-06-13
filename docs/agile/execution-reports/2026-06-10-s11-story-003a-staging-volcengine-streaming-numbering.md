@@ -227,4 +227,4 @@ curl -I https://staging.qingpianai.cn/api/health
 
 ### Commit（pool authority）
 
-- 见本轮 commit
+- `a1967078e27776de6c2dc10e59cedd1871ced598`
