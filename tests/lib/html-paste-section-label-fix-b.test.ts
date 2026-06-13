@@ -15,7 +15,7 @@ import { renderTargetForMode } from "@/core/renderer/types";
 import { createUserPreviewStyleRegistry } from "@/lib/user-preview-style-registry";
 import { renderArticlePreviewClient } from "@/lib/render-article-preview-client";
 import { variantPoolForPresetBlock } from "@/lib/gallery-block-variants";
-import { PREVIEW_USER_SELECTABLE_HEADING_STYLE_OPTIONS } from "@/lib/preview-heading-style";
+import { getUserSelectablePreviewVariantAssetsForBlockType } from "@/core/style-library/user-selectable-preview-pool";
 import { HTML_PASTE_TEAL_SECTION_LABEL_ASSET } from "@/core/style-library/assets/html-paste-variant-assets";
 import { S9_STORY_007B_VARIANT_ID } from "../fixtures/style-library/s9-story-007b-html-paste-e2e-sample";
 import { articleFixtureBase, fixtureBlockId } from "../fixtures/articles/shared";
@@ -157,7 +157,7 @@ describe("S9-STORY-007C-FIX-B dynamic section label + theme tokens", () => {
     expect(variantPoolForPresetBlock("business", "heading")).not.toContain(
       S9_STORY_007B_VARIANT_ID,
     );
-    expect(PREVIEW_USER_SELECTABLE_HEADING_STYLE_OPTIONS[0]?.label).toBe(
+    expect(getUserSelectablePreviewVariantAssetsForBlockType("heading")[0]?.label).toBe(
       "章节标签标题（HTML 采集 · 用户可选）",
     );
     expect(HTML_PASTE_TEAL_SECTION_LABEL_ASSET.distribution.userSelectable).toBe(true);

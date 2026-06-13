@@ -16,8 +16,10 @@ import { TITLE_BLOCK_SUPPORTED_VARIANT_IDS } from "@/core/renderer/title-block-r
 import { pickRegisteredVariantForBlock } from "@/core/generation/style-selection-prompt";
 import { variantPoolForPresetBlock } from "@/lib/gallery-block-variants";
 import {
-  PREVIEW_USER_SELECTABLE_HEADING_STYLE_OPTIONS,
-} from "@/lib/preview-heading-style";
+  getUserSelectablePreviewVariantAssetsForBlockType,
+} from "@/core/style-library/user-selectable-preview-pool";
+import { headingTealSectionLabelHtmlPasteCandidate } from "@/core/styles/variants/html-paste-candidate-variants";
+import type { UserSelectableVariantPoolSnapshot } from "@/lib/user-selectable-variant-pool-types";
 import { renderArticlePreviewClient } from "@/lib/render-article-preview-client";
 import {
   S9_STORY_007B_HTML_PASTE_E2E_SOURCE_HTML,
@@ -60,22 +62,31 @@ describe("S9-STORY-009 v2 E2E closeout audit", () => {
     );
   });
 
-  it("exposes user-selectable variant on preview picker with zh label", () => {
-    expect(PREVIEW_USER_SELECTABLE_HEADING_STYLE_OPTIONS[0]?.label).toBe(
-      "章节标签标题（HTML 采集 · 用户可选）",
-    );
-    expect(PREVIEW_USER_SELECTABLE_HEADING_STYLE_OPTIONS[0]?.id).toBe(
-      S9_STORY_007B_VARIANT_ID,
-    );
+  it("exposes user-selectable manifest fixture label for dev/test audit", () => {
+    const manifestOptions = getUserSelectablePreviewVariantAssetsForBlockType("heading");
+    expect(manifestOptions[0]?.label).toBe("章节标签标题（HTML 采集 · 用户可选）");
+    expect(manifestOptions[0]?.runtimeVariantId).toBe(S9_STORY_007B_VARIANT_ID);
   });
 
   it("passes preview/copy parity with dynamic section labels and theme accent", () => {
+    const dbUserPool: UserSelectableVariantPoolSnapshot = {
+      source: "database",
+      cache: { hit: false, ttlSeconds: 120, generatedAt: "2026-06-07T00:00:00.000Z" },
+      variants: [headingTealSectionLabelHtmlPasteCandidate],
+      poolVariantIds: [headingTealSectionLabelHtmlPasteCandidate.id],
+      issues: [],
+    };
     const article = articleWithThreeHeadings();
-    const rendered = renderArticlePreviewClient(article, styleSelectionNormalizedInput, {
-      articleStyle: "business",
-      colorPalette: "businessBlue",
-      headingVariantId: S9_STORY_007B_VARIANT_ID,
-    });
+    const rendered = renderArticlePreviewClient(
+      article,
+      styleSelectionNormalizedInput,
+      {
+        articleStyle: "business",
+        colorPalette: "businessBlue",
+        headingVariantId: S9_STORY_007B_VARIANT_ID,
+      },
+      { userSelectablePool: dbUserPool },
+    );
 
     const headings = rendered.previewBlocks.filter((block) => block.blockType === "heading");
     expect(headings.map((block) => block.variantId)).toEqual([
@@ -98,7 +109,9 @@ describe("S9-STORY-009 v2 E2E closeout audit", () => {
 
   it("uses shared token helper for preview and copy renderers", () => {
     const article = articleWithThreeHeadings();
-    const registry = createUserPreviewStyleRegistry();
+    const registry = createUserPreviewStyleRegistry({
+      dbUserSelectableVariants: [headingTealSectionLabelHtmlPasteCandidate],
+    });
     const resolved = resolveArticleStyle(
       {
         ...article,

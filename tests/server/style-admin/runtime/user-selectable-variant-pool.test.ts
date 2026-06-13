@@ -27,7 +27,7 @@ describe("getUserSelectableVariantPool", () => {
   it("returns degraded empty pool when DATABASE_URL is missing", async () => {
     delete process.env.DATABASE_URL;
     const pool = await getUserSelectableVariantPool({ blockType: "heading" }, createMockDb([]) as never);
-    expect(pool.source).toBe("code_fallback");
+    expect(pool.source).toBe("db_unavailable");
     expect(pool.variants).toHaveLength(0);
     expect(pool.notice).toContain("degraded");
   });
