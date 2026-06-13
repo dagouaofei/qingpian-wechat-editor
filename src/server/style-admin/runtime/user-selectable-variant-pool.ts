@@ -5,9 +5,6 @@ import { getUserSelectablePreviewVariantDefinition } from "@/core/style-library/
 import type { VariantDefinition } from "@/core/styles/types";
 import type { BlockType as CoreBlockType } from "@/core/blocks";
 
-import { isCodeBackedRuntimeVariantAvailable } from "@/lib/runtime-variant-availability";
-import { getCodeBackedRuntimeAvailableVariantIds } from "@/lib/runtime-variant-seed-config";
-
 import { getStyleAdminDbAvailability } from "../db-availability";
 import { buildUserSelectablePoolWhere } from "../mappers";
 import type { StyleAdminPrismaClient } from "../prisma";
@@ -24,44 +21,6 @@ import type {
   UserSelectableVariantPoolOptions,
   UserSelectableVariantPoolResult,
 } from "./user-selectable-variant-pool-types";
-
-function resolveCodeFallbackVariantDefinition(
-  runtimeVariantId: string,
-): VariantDefinition | undefined {
-  const registry = createFirstWaveRequiredVariantRegistry();
-  return (
-    getVariantById(registry, runtimeVariantId) ??
-    getUserSelectablePreviewVariantDefinition(runtimeVariantId)
-  );
-}
-
-function buildCodeFallbackPool(blockType?: BlockType): UserSelectableVariantPoolResult {
-  const variants = [...getCodeBackedRuntimeAvailableVariantIds()]
-    .filter((runtimeVariantId) => isCodeBackedRuntimeVariantAvailable(runtimeVariantId))
-    .map((runtimeVariantId) => resolveCodeFallbackVariantDefinition(runtimeVariantId))
-    .filter((variant): variant is VariantDefinition => {
-      if (!variant) {
-        return false;
-      }
-      if (blockType && variant.blockType !== (blockType as CoreBlockType)) {
-        return false;
-      }
-      return true;
-    });
-
-  return {
-    source: "code_fallback",
-    cache: {
-      hit: false,
-      ttlSeconds: 0,
-      generatedAt: new Date().toISOString(),
-    },
-    variants,
-    issues: [],
-    notice:
-      "Using code-backed user-selectable pool fallback. DB-backed distribution is not active.",
-  };
-}
 
 async function loadDatabasePool(
   db: StyleAdminPrismaClient,
@@ -100,6 +59,20 @@ async function loadDatabasePool(
   return { variants, definitionJsonByVariantId, issues };
 }
 
+function buildDegradedEmptyPool(notice: string): UserSelectableVariantPoolResult {
+  return {
+    source: "code_fallback",
+    cache: {
+      hit: false,
+      ttlSeconds: 0,
+      generatedAt: new Date().toISOString(),
+    },
+    variants: [],
+    issues: [],
+    notice,
+  };
+}
+
 export async function getUserSelectableVariantPool(
   options: UserSelectableVariantPoolOptions = {},
   db: StyleAdminPrismaClient = prisma,
@@ -116,12 +89,9 @@ export async function getUserSelectableVariantPool(
 
   const availability = getStyleAdminDbAvailability();
   if (!availability.configured) {
-    const fallback = buildCodeFallbackPool(options.blockType);
-    return {
-      ...fallback,
-      notice:
-        "DATABASE_URL is not configured. Preview picker uses code-backed user-selectable pool.",
-    };
+    return buildDegradedEmptyPool(
+      "DATABASE_URL is not configured. User preview heading picker is in degraded mode (empty pool).",
+    );
   }
 
   try {
@@ -130,7 +100,7 @@ export async function getUserSelectableVariantPool(
       options.blockType,
     );
     const result: UserSelectableVariantPoolResult = {
-      source: variants.length > 0 ? "database" : "empty",
+      source: "database",
       cache: {
         hit: false,
         ttlSeconds,
@@ -141,17 +111,15 @@ export async function getUserSelectableVariantPool(
       issues,
       notice:
         variants.length === 0
-          ? "Database user-selectable pool is empty. Import variants or promote user-selectable entries."
+          ? "Database user-selectable pool is empty for current filters."
           : undefined,
     };
 
     writeUserSelectablePoolCache(cacheKey, result, ttlSeconds);
     return result;
   } catch {
-    const fallback = buildCodeFallbackPool(options.blockType);
-    return {
-      ...fallback,
-      notice: "Database is unavailable. Preview picker uses code-backed fallback.",
-    };
+    return buildDegradedEmptyPool(
+      "Database is unavailable. User preview heading picker is in degraded mode (empty pool).",
+    );
   }
 }

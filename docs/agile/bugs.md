@@ -135,4 +135,19 @@
 
 ---
 
+### BUG-S11-STAGING-004 用户池未以 distribution.userSelectable 为唯一权威
+
+| 字段 | 内容 |
+|------|------|
+| Bug ID | BUG-S11-STAGING-004 |
+| 标题 | teal candidate userSelectable=false 仍出现在 picker · d26a6370 userSelectable=true 未出现 |
+| 发现时间 | 2026-06-10 |
+| 所属 | Sprint 11 · S11-STORY-003A |
+| 严重级别 | P0 |
+| 根因 | ① `runtime-variant-seed-config` 硬编码 teal 为 code fallback userSelectable · ② degraded pool 仍注入 static manifest · ③ admin 列表 filter 未对齐 quality gate · ④ lifecycle `user_selectable` 与 distribution 概念混淆 |
+| 状态 | **Fixed** |
+| 处理记录 | DB-only pool · seed 清空 · 治理/inspection/import 后 cache invalidate · lifecycle 数据迁移 SQL · admin UI 分区 |
+
+---
+
 暂无其它 Open Bug（除 DEBT-DSL-RC 架构债务）。

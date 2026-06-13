@@ -95,7 +95,7 @@ describe("promoteCandidateToUserSelectable", () => {
       cacheVersion: 2,
     });
     transactionHandlers.variantUpdate.mockResolvedValue({
-      lifecycle: "user_selectable",
+      lifecycle: "paste_qa_pass",
     });
     transactionHandlers.promoteRecordCreate.mockResolvedValue({
       id: "promote-1",
@@ -188,7 +188,7 @@ describe("promoteCandidateToUserSelectable", () => {
       expect(result.distribution.userSelectable).toBe(true);
       expect(result.distribution.defaultEligible).toBe(false);
       expect(result.distribution.release1Required).toBe(false);
-      expect(result.lifecycle).toBe("user_selectable");
+      expect(result.lifecycle).toBe("paste_qa_pass");
       expect(result.promoteRecordId).toBe("promote-1");
     }
 
@@ -206,7 +206,7 @@ describe("promoteCandidateToUserSelectable", () => {
     expect(transactionHandlers.promoteRecordCreate).toHaveBeenCalled();
     expect(recordLifecycleEvent).toHaveBeenCalledWith(
       expect.objectContaining({
-        toLifecycle: "user_selectable",
+        toLifecycle: "paste_qa_pass",
         actor: "admin:ops",
       }),
     );

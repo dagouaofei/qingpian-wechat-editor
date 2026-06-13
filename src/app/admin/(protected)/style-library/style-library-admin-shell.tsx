@@ -178,7 +178,7 @@ export function StyleLibraryAdminDetailShell({
           ) : null}
 
           <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-            <h2 className="text-sm font-semibold text-slate-900">Basic info</h2>
+            <h2 className="text-sm font-semibold text-slate-900">Lifecycle / governance stage</h2>
             <dl className="mt-3 grid gap-2 text-sm md:grid-cols-2">
               <div>
                 <dt className="text-slate-500">blockType</dt>
@@ -189,7 +189,7 @@ export function StyleLibraryAdminDetailShell({
                 <dd>{viewModel.variant.styleFamily}</dd>
               </div>
               <div>
-                <dt className="text-slate-500">lifecycle</dt>
+                <dt className="text-slate-500">Lifecycle</dt>
                 <dd>
                   <LifecycleBadge lifecycle={viewModel.variant.lifecycle} />
                 </dd>
@@ -202,32 +202,32 @@ export function StyleLibraryAdminDetailShell({
           </section>
 
           <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-            <h2 className="text-sm font-semibold text-slate-900">Distribution</h2>
+            <h2 className="text-sm font-semibold text-slate-900">Distribution / user pool flags</h2>
             <p className="mt-1 text-xs text-slate-500">
-              userSelectable ≠ defaultEligible · release1Required ≠ userSelectable · defaultEligible
-              ≠ default preset · hidden / deprecated excluded from user pool (S10-STORY-005).
+              User-side heading picker membership is controlled only by User selectable (distribution)
+              plus quality gate · lifecycle does not grant picker access.
             </p>
             {viewModel.distribution ? (
               <dl className="mt-3 grid gap-2 text-sm md:grid-cols-3">
                 <div>
-                  <dt className="text-slate-500">userSelectable</dt>
-                  <dd>{String(viewModel.distribution.userSelectable)}</dd>
+                  <dt className="text-slate-500">User selectable</dt>
+                  <dd>{viewModel.distribution.userSelectable ? "Yes" : "No"}</dd>
                 </div>
                 <div>
-                  <dt className="text-slate-500">defaultEligible</dt>
-                  <dd>{String(viewModel.distribution.defaultEligible)}</dd>
+                  <dt className="text-slate-500">Default eligible</dt>
+                  <dd>{viewModel.distribution.defaultEligible ? "Yes" : "No"}</dd>
                 </div>
                 <div>
-                  <dt className="text-slate-500">release1Required</dt>
-                  <dd>{String(viewModel.distribution.release1Required)}</dd>
+                  <dt className="text-slate-500">Release 1 required</dt>
+                  <dd>{viewModel.distribution.release1Required ? "Yes" : "No"}</dd>
                 </div>
                 <div>
-                  <dt className="text-slate-500">hidden</dt>
-                  <dd>{String(viewModel.distribution.hidden)}</dd>
+                  <dt className="text-slate-500">Hidden</dt>
+                  <dd>{viewModel.distribution.hidden ? "Yes" : "No"}</dd>
                 </div>
                 <div>
-                  <dt className="text-slate-500">deprecated</dt>
-                  <dd>{String(viewModel.distribution.deprecated)}</dd>
+                  <dt className="text-slate-500">Deprecated</dt>
+                  <dd>{viewModel.distribution.deprecated ? "Yes" : "No"}</dd>
                 </div>
                 <div>
                   <dt className="text-slate-500">cacheVersion</dt>

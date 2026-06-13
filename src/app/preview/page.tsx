@@ -18,6 +18,8 @@ export const metadata: Metadata = {
   description: "真实 AI 生成结果预览",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function PreviewPage() {
   const [poolResult, dslPoolResult] = await Promise.all([
     getUserSelectableVariantPool({ blockType: "heading" }),

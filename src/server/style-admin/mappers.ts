@@ -115,6 +115,7 @@ export function defaultDistributionForLifecycle(
 
   switch (lifecycle) {
     case "user_selectable":
+      // Deprecated lifecycle value — visibility is distribution.userSelectable only.
       return { ...base, userSelectable: true };
     case "default_eligible":
       return {

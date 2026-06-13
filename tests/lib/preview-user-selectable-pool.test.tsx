@@ -93,8 +93,8 @@ describe("preview-user-selectable-pool", () => {
     const codeFallbackPool: UserSelectableVariantPoolSnapshot = {
       source: "code_fallback",
       cache: { hit: false, ttlSeconds: 0, generatedAt: "2026-06-07T00:00:00.000Z" },
-      variants: databasePool.variants,
-      poolVariantIds: databasePool.poolVariantIds,
+      variants: [],
+      poolVariantIds: [],
       issues: [],
     };
 

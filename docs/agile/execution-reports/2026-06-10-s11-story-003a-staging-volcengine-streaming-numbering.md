@@ -180,4 +180,51 @@ curl -I https://staging.qingpianai.cn/api/health
 
 ### Commit（picker fix）
 
+- `d11a34005d31fde235a2d5b020e0df6b24e94601`
+
+---
+
+## 17. 追加：用户池权威性与 lifecycle 混淆（2026-06-10 staging 验收）
+
+### 两个 variant 诊断链路（逻辑 trace · 非 staging DB 实查）
+
+#### `heading_teal_section_label_html_paste_candidate`（应隐藏 · 曾错误显示）
+
+| 阶段 | 修复前 | 修复后 |
+|------|--------|--------|
+| DB SQL (`userSelectable=true`) | 若 distribution=false → **不在 SQL** | 同左 |
+| code fallback seed | **强制 userSelectable=true** → 进入 degraded/static picker | **已移除** |
+| `PREVIEW_USER_SELECTABLE_*` | code_fallback 时 **注入 manifest** | degraded → **空列表** |
+| preview picker | **显示**（static/seed 绕过 DB） | **不显示**（distribution=false） |
+
+#### `heading_html_paste_d26a6370_candidate`（应显示 · 曾缺失）
+
+| 阶段 | 条件 | 结果 |
+|------|------|------|
+| SQL | `distribution.userSelectable=true` + quality 非 blocking + heading | 进入 query |
+| mapper | valid definitionJson | 进入 mapped pool |
+| 曾缺失原因 | admin 列表 filter 不含 quality gate · 或 quality blocking · 或 static 混排掩盖 | admin filter 已对齐 pool where |
+
+### lifecycle `user_selectable` 来源
+
+- Prisma enum `StyleVariantLifecycle.user_selectable`（历史 promote 写入）
+- **不等于** `distribution.userSelectable`
+- 迁移：`20260610120000_migrate_lifecycle_user_selectable` → `paste_qa_pass`
+- Promote 新行为：仅设 `distribution.userSelectable=true`，lifecycle → `paste_qa_pass`
+
+### 根因摘要
+
+1. Static seed / manifest 绕过 DB authority（teal 硬编码）
+2. Degraded pool 注入 legacy options
+3. Admin list `userSelectable=true` 未对齐 quality gate
+4. lifecycle 与 distribution 双轨「user selectable」概念
+
+### ECS
+
+1. `pnpm build` + restart staging
+2. **`pnpm db:migrate:deploy`**（lifecycle 数据迁移）
+3. 无需 Nginx 变更
+
+### Commit（pool authority）
+
 - 见本轮 commit

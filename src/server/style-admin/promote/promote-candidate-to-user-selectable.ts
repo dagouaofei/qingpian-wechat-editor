@@ -1,6 +1,6 @@
 import type { BlockType, StyleVariantDistribution } from "@prisma/client";
 
-import { isEligibleForUserSelectablePool, toDistributionSnapshot } from "../mappers";
+import { buildUserSelectablePoolWhere, isEligibleForUserSelectablePool, toDistributionSnapshot } from "../mappers";
 import { invalidateUserSelectableVariantPoolCache } from "../runtime/user-selectable-variant-pool-cache";
 import type { StyleAdminPrismaClient } from "../prisma";
 import { StyleVariantAuditRepository } from "../repositories/style-variant-audit-repository";
@@ -140,7 +140,12 @@ export async function promoteCandidateToUserSelectable(
 
       const updatedVariant = await tx.styleVariant.update({
         where: { id: variant.id },
-        data: { lifecycle: "user_selectable" },
+        data: {
+          lifecycle:
+            variant.lifecycle === "candidate" || variant.lifecycle === "validator_pass"
+              ? "paste_qa_pass"
+              : variant.lifecycle,
+        },
       });
 
       const auditRepo = new StyleVariantAuditRepository(tx);
@@ -158,7 +163,7 @@ export async function promoteCandidateToUserSelectable(
         data: {
           variantId: variant.id,
           fromLifecycle,
-          toLifecycle: "user_selectable",
+          toLifecycle: "paste_qa_pass",
           distributionBeforeJson: distributionBefore,
           distributionAfterJson: toDistributionSnapshot(after),
           reason,
@@ -169,7 +174,7 @@ export async function promoteCandidateToUserSelectable(
       await auditRepo.recordLifecycleEvent({
         variantId: variant.id,
         fromLifecycle,
-        toLifecycle: "user_selectable",
+        toLifecycle: "paste_qa_pass",
         reason,
         actor: input.actor,
       });
@@ -208,7 +213,7 @@ export async function promoteCandidateToUserSelectable(
     invalidateUserSelectableVariantPoolCache();
 
     const poolEligible = isEligibleForUserSelectablePool({
-      lifecycle: "user_selectable",
+      lifecycle: result.lifecycle,
       distribution: result.after,
     });
     const runtimeAvailable = wouldBeRuntimeAvailableAfterPromote({
