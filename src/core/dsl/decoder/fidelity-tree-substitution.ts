@@ -56,7 +56,7 @@ function semanticBindingPathResolves(
   return resolveDslNodeAtPath(tree, binding.path) !== null;
 }
 
-function resolveEffectiveSemanticBindings(
+export function resolveEffectiveSemanticBindings(
   tree: DslNode,
   dsl: VariantDslV1,
 ): Record<string, SemanticBinding> {
@@ -288,6 +288,41 @@ function substituteHeadingNumberInTree(
   }
 
   return { targetPath: candidatePaths[0] ?? null, label: null };
+}
+
+function readExtractedNumberSlot(dsl: VariantDslV1): string | null {
+  const meta = dsl.meta?.extractedSlots;
+  if (typeof meta !== "object" || meta === null || Array.isArray(meta)) {
+    return null;
+  }
+  const number = (meta as Record<string, unknown>).number;
+  return typeof number === "string" && number.trim() ? number.trim() : null;
+}
+
+/** Surface decode issues when a heading variant expects dynamic numbering but substitution failed. */
+export function collectFidelityNumberSubstitutionIssues(
+  dsl: VariantDslV1,
+  trace: FidelitySubstitutionTrace,
+): string[] {
+  const decorators = dsl.meta?.decorators;
+  const expectsNumber =
+    Boolean(readExtractedNumberSlot(dsl)) ||
+    Boolean(readSemanticBindings(dsl).number) ||
+    (Array.isArray(decorators) && decorators.includes("background_number"));
+
+  if (!expectsNumber) {
+    return [];
+  }
+
+  if (trace.substitutedNumber) {
+    return [];
+  }
+
+  if (trace.numberSubstitutionTargetPath) {
+    return ["fidelity_number_substitution_failed"];
+  }
+
+  return ["fidelity_number_binding_unresolved"];
 }
 
 function substituteEyebrowOrdinalInTree(

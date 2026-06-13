@@ -148,6 +148,7 @@ export function renderUserPreviewBlock(
     mode: options.input.mode,
     renderTarget: options.input.target,
     themePalette,
+    sourceHtml: variantSourceMeta?.sourceHtml,
     label: variantSourceMeta?.label,
     family: variantSourceMeta?.styleFamily,
     primarySourceType: variantSourceMeta?.primarySourceType,

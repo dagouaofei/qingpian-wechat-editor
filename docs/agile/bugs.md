@@ -150,4 +150,19 @@
 
 ---
 
+### BUG-S11-STAGING-005 d26 inline heading 编号不递增 · 编号色不随主题
+
+| 字段 | 内容 |
+|------|------|
+| Bug ID | BUG-S11-STAGING-005 |
+| 标题 | `heading_html_paste_d26a6370_candidate` 多 heading 编号均为 01 · 编号色保留 source rgb |
+| 发现时间 | 2026-06-10 |
+| 所属 | Sprint 11 · S11-STORY-003A · 关联 S10-STORY-011 |
+| 严重级别 | P1 |
+| 根因 | ① `inferSemanticBindingsFromTree` 仅 fontSize≥36 漏掉 23px inline accent number · ② stale stored path 时 substitution/theme 均失败 · ③ theme remap 仅读 stored path 未用 effective bindings |
+| 状态 | **Fixed** |
+| 处理记录 | infer 扩展 inline/bold/badge · theme 用 `resolveEffectiveSemanticBindings` · substitution diagnostic · **待 staging 人工复验** |
+
+---
+
 暂无其它 Open Bug（除 DEBT-DSL-RC 架构债务）。

@@ -228,3 +228,55 @@ curl -I https://staging.qingpianai.cn/api/health
 ### Commit（pool authority）
 
 - `a1967078e27776de6c2dc10e59cedd1871ced598`
+
+---
+
+## 18. 追加：d26a6370 inline 编号 ordinal + 主题色（2026-06-10 staging 验收）
+
+### variant 诊断（`heading_html_paste_d26a6370_candidate` · 逻辑 trace）
+
+| 项 | 值 |
+|----|-----|
+| runtimeVariantId | `heading_html_paste_d26a6370_candidate` |
+| 形态 | inline accent number + title flex row（与 49b0ec2b 同型 · font-size 23px · rgb accent） |
+| stored `semanticBindings.number.path` | encode 时通常为 `tree.children[0].children[0]`（styled section 包裹 p>strong>span） |
+| `inferSemanticBindingsFromTree`（修复前） | **undefined**（阈值 fontSize≥36 漏掉 23px inline number） |
+| number 节点文本 | 静态 `01`（substitution 失败时保留） |
+| number 节点 color | 源 HTML `rgb(41, 50, 225)` 等硬编码 |
+| palette 注入路径 | `decodeTreeToOutput` → `applyFidelityTreeThemeTokens` → `applyRoleColorAtPath(number)` |
+| theme 修复前 | 仅读 **stored** binding path；path stale 时 **不 remap** |
+| heading ordinal | `resolveHeadingOrdinalInArticle` — 仅 `block.type===heading` 计数，非 block index |
+| Preview / Copy | 共用 `decodeTreeToOutput` + `applyFidelityTreeArticleSubstitution` |
+| variantSourceMeta | server pool 已 refresh definitionJson；client 侧 meta 剥离 sourceHtml |
+
+### 根因
+
+1. **infer fallback 漏掉 <36px inline accent number** → stored path stale 时 substitution 失败，全部 heading 保留静态 `01`
+2. **theme remap 只用 stored path** → stale path 时保留 source rgb/hex
+3. staging DB definitionJson 可能存在 **tree 与 semanticBindings 不同步**（无 sourceHtml 时无法 re-encode 修复）
+
+### 修复
+
+- 扩展 `inferSemanticBindingsFromTree`：inline accent / bold / circular badge number 与 slot classifier 对齐
+- `applyFidelityTreeThemeTokens` 改用 `resolveEffectiveSemanticBindings`（stored 有效优先，否则 infer）
+- `collectFidelityNumberSubstitutionIssues` 诊断：`fidelity_number_substitution_failed` / `fidelity_number_binding_unresolved`
+- `user-preview-render` 传递 `sourceHtml`（server snapshot 有则二次 refresh）
+
+### 测试
+
+```bash
+npx vitest run tests/lib/html-paste-inline-number-ordinal-theme.test.ts \
+  tests/lib/dsl-runtime-fidelity-heading-substitution.test.ts \
+  tests/lib/heading-49b0ec2b-inline-number-color.test.ts
+```
+
+19/19 PASS · `pnpm build` PASS
+
+### DSL 契约
+
+- **未新增** `semanticBindings.number.colorToken` 字段
+- 颜色仍由 decode 阶段 `ROLE_COLOR_TOKEN` + `resolveNumberRoleColorToken` 解析（inline → `textAccent`）
+
+### Commit（inline number ordinal + theme）
+
+- 见本轮 commit

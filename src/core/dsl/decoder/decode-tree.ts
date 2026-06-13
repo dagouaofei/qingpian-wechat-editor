@@ -12,7 +12,7 @@ import type {
 import type { ThemePaletteTokens } from "@/core/styles/theme-palette-tokens";
 
 import type { DslRenderTarget, VariantDslV1 } from "../runtime/dsl-types";
-import { applyFidelityTreeArticleSubstitution } from "./fidelity-tree-substitution";
+import { applyFidelityTreeArticleSubstitution, collectFidelityNumberSubstitutionIssues } from "./fidelity-tree-substitution";
 import {
   applyFidelityTreeThemeTokens,
   shouldApplyFidelityThemeTokens,
@@ -64,7 +64,10 @@ export function decodeTreeToOutput(
   const slots = resolveSlotsForDslDecode(dsl, block);
   const requiredSlots = listRequiredTreeSlots(dsl);
   const rendered = renderDslTreeToHtml(substitutedTree, slots, target);
-  const issues = [...rendered.issues];
+  const issues = [
+    ...rendered.issues,
+    ...collectFidelityNumberSubstitutionIssues(dsl, substitutionTrace),
+  ];
 
   const missingSlots = requiredSlots.filter((slot) => !(slots[slot] ?? "").trim());
   for (const slot of missingSlots) {
