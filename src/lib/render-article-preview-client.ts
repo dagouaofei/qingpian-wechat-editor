@@ -31,7 +31,6 @@ import {
 import type { UserSelectableVariantPoolSnapshot } from "@/lib/user-selectable-variant-pool-types";
 
 import { resolveRuntimeAvailableVariantId } from "@/lib/runtime-variant-availability";
-import { getCodeBackedRuntimeAvailableVariantIds } from "@/lib/runtime-variant-seed-config";
 
 import { getUserSelectableVariantsForRegistry } from "./preview-user-selectable-pool";
 import { createUserPreviewStyleRegistry } from "./user-preview-style-registry";
@@ -85,7 +84,6 @@ export function renderArticlePreviewClient(
     : undefined;
   const previewStyleRegistry = createUserPreviewStyleRegistry({
     dbUserSelectableVariants: dbVariants,
-    preferDatabaseVariants: options?.userSelectablePool?.source === "database",
   });
 
   const themedArticle = applyPreviewThemeToArticle(article, control.colorPalette);
@@ -106,9 +104,7 @@ export function renderArticlePreviewClient(
     : styledArticleBase;
 
   if (control.headingVariantId) {
-    const availableHeadingIds =
-      options?.userSelectablePool?.poolVariantIds ??
-      [...getCodeBackedRuntimeAvailableVariantIds()];
+    const availableHeadingIds = options?.userSelectablePool?.poolVariantIds ?? [];
     const resolvedHeading = resolveRuntimeAvailableVariantId(
       control.headingVariantId,
       availableHeadingIds,

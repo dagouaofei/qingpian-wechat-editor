@@ -1,9 +1,6 @@
 import type { BlockType } from "@prisma/client";
 
-import { getVariantById, createFirstWaveRequiredVariantRegistry } from "@/core/styles";
-import { getUserSelectablePreviewVariantDefinition } from "@/core/style-library/user-selectable-preview-pool";
 import type { VariantDefinition } from "@/core/styles/types";
-import type { BlockType as CoreBlockType } from "@/core/blocks";
 
 import { getStyleAdminDbAvailability } from "../db-availability";
 import { buildUserSelectablePoolWhere } from "../mappers";
@@ -61,7 +58,7 @@ async function loadDatabasePool(
 
 function buildDegradedEmptyPool(notice: string): UserSelectableVariantPoolResult {
   return {
-    source: "code_fallback",
+    source: "db_unavailable",
     cache: {
       hit: false,
       ttlSeconds: 0,
