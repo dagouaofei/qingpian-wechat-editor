@@ -87,7 +87,8 @@ b55c9b7  Gate B batch 1
 48c80d0  Gate B batch 2
 be8c736  Gate B architecture guards
 d4665ed  Gate B execution report
-（本轮）  docs closeout + merge sprint --no-ff
+（本轮）  docs closeout **`a21c1f1`**
+8da62e9  merge(s11-003b): --no-ff → sprint
 ```
 
 ## 7. 明确未执行
@@ -107,4 +108,17 @@ d4665ed  Gate B execution report
 
 ## 9. merge sprint 后检查
 
-（merge 后填写 lint/build/architecture tests · push 结果 · sprint HEAD）
+| 项 | 值 |
+|----|-----|
+| closeout commit | **`a21c1f1`** |
+| **`--no-ff` merge commit** | **`8da62e9`** |
+| sprint HEAD | **`8da62e9`** |
+| merge 父 commit | `381e146`（sprint）· `a21c1f1`（003B） |
+
+| 命令（merge 后） | 结果 |
+|------------------|------|
+| `corepack pnpm lint` | **PASS**（0 errors） |
+| `corepack pnpm build` | **PASS** |
+| `vitest tests/architecture/legacy-path-guards.test.ts` | **PASS**（12） |
+
+| push | 见本轮 push 结果 |
