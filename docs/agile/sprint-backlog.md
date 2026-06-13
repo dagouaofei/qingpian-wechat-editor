@@ -4669,36 +4669,37 @@ S11-STORY-001 → 002 → 003 → 004 → 005 → 006
 
 ## S11-STORY-003B Legacy Path Removal & Parallel Implementation Audit
 
-**优先级：** P0 · **状态：** **In Progress**（Gate A **Approved** · Gate B **In Progress**） · **工作分支：** `refactor/s11-story-003b-legacy-path-removal` · **基线：** sprint @ `381e146`（003A `--no-ff` `2ee03c5`）+ Gate A docs cherry-pick · **前置：** 003A **Done** · **production 未启动**
+**优先级：** P0 · **状态：** **Done** · **工作分支：** `refactor/s11-story-003b-legacy-path-removal` · **staging 验收：** 2026-06-11 · **merge sprint：** `--no-ff`（本轮）· **production 未启动**
 
 **目标：**
 
-- 删除 003A 暴露问题背后的历史废弃分发/并行实现（P0，不含 LP-008）
-- 收敛为 DB `distribution.userSelectable` + 共享 eligibility + DSL fidelity 单轨
-- 全仓 legacy inventory（P1/P2/P3 backlog）
-- Production 在 003B staging 回归前保持 Pending
+- 删除 003A 暴露问题背后的历史废弃分发/并行实现（P0，不含 LP-008）✓
+- 收敛为 DB `distribution.userSelectable` + 共享 eligibility + DSL fidelity 单轨 ✓
+- 全仓 legacy inventory（P1/P2/P3 backlog）✓
+- Production 在 003B staging 回归前保持 Pending ✓
 
 **Gate A 交付（2026-06-11 · Approved）：**
 
-- [`docs/architecture/legacy-parallel-path-inventory.md`](../architecture/legacy-parallel-path-inventory.md)（每项含调用方/runtime/删除证据/测试计划）
+- [`docs/architecture/legacy-parallel-path-inventory.md`](../architecture/legacy-parallel-path-inventory.md)
 - P0 Gate B Approved：LP-001～007、LP-009、LP-010 · **LP-008 降 P1 · 不纳入**
-- 分支：`reset --hard sprint@381e146` + cherry-pick Gate A docs
 - 003A merge 修正：`--no-ff` @ `2ee03c5`
 
-**Gate B 验收标准（执行中）：**
+**Gate B 验收标准（staging 验收 2026-06-11 · 全部 PASS）：**
 
-- [ ] AC-1 P0 legacy user pool 路径已删除/隔离（LP-001～007、009、010）
-- [ ] AC-2 lifecycle 不再参与用户可见性 · Admin UI 无 User Selectable lifecycle
-- [ ] AC-3 eligibility 单契约 · admin/runtime/picker 一致
-- [ ] AC-4 canonical label = `row.label`
-- [ ] AC-5 治理后 cache invalidate · 无需 restart
-- [ ] AC-6 HTML paste 编号/主题仅 shared DSL 链路
-- [ ] AC-7 architecture regression tests PASS
-- [ ] AC-8 staging 验收清单（003B §八，不含 LP-008 SSE 收敛）
-- [ ] AC-9 production 未启动 · main 未 merge
-- [ ] AC-10 LP-008 **不在** 003B 范围（P1 独立 Story）
+- [x] AC-1 P0 legacy user pool 路径已删除/隔离（LP-001～007、009、010）
+- [x] AC-2 lifecycle 不再参与用户可见性 · Admin UI 无 User Selectable lifecycle
+- [x] AC-3 eligibility 单契约 · admin/runtime/picker 一致
+- [x] AC-4 canonical label = `row.label`
+- [x] AC-5 治理后 cache invalidate · 无需 restart
+- [x] AC-6 HTML paste 编号/主题仅 shared DSL 链路（d26 编号递增 · 主题色跟随）
+- [x] AC-7 architecture regression tests PASS
+- [x] AC-8 staging 验收清单（health · picker · Hide/Restore · SSE · admin auth · Preview/Copy）
+- [x] AC-9 production 未启动 · main 未 merge
+- [x] AC-10 LP-008 **不在** 003B 范围（P1 独立 Story）
 
-**Gate B 阻塞：** 无（Gate A Approved · 待 staging 回归后 merge sprint）
+**staging 人工验收摘要：** `/api/health` ok · Admin `userSelectable=true+heading` 与用户 picker 一致 · 仅额外「跟随生成结果」· 无静态 fallback · teal hidden 当 userSelectable=false · d26 正常 · Lifecycle 无 User Selectable · Hide/Restore · SSE 打字机 · admin 登录/刷新/logout · Preview/Copy 无回归
+
+**Gate B 阻塞：** 无（已关闭 · 待 merge sprint）
 
 ---
 

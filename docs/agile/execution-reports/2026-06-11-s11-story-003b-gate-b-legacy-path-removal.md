@@ -1,126 +1,110 @@
-# Execution Report：S11-STORY-003B Gate B — Legacy Path Removal
+# Execution Report：S11-STORY-003B Gate B — Legacy Path Removal（Closed）
 
 ## 1. 基本信息
 
-- 日期：2026-06-11
-- 当前分支：`refactor/s11-story-003b-legacy-path-removal` @ `be8c736`
+- 日期：2026-06-11（staging 验收 · Story **Done** · merge sprint）
+- 当前分支（closeout）：`refactor/s11-story-003b-legacy-path-removal` @ `d4665ed`
 - 来源分支：`sprint/s11-production-ops-go-live` @ `381e146`
-- 目标合并分支：`sprint/s11-production-ops-go-live`（**待 staging 回归 · 未 merge**）
-- Sprint：Sprint 11 · **In Progress**
-- Story：S11-STORY-003B · **In Progress**（Gate B 代码完成 · 待 staging）
-- S11-STORY-003A：**Done** · S11-STORY-004：**Pending**
+- 目标合并分支：`sprint/s11-production-ops-go-live`（`--no-ff` merge · 本轮）
+- Sprint：Sprint 11 · **In Progress**（未关闭）
+- Story：**S11-STORY-003B Done** · S11-STORY-004 **Pending**
 - **production：未启动** · **main：未 merge**
 
-## 2. 003A merge 修正（sprint · 已完成）
+## 2. Staging 部署与验收
 
-| 项 | Hash |
+| 项 | 值 |
+|----|-----|
+| 部署分支 | `refactor/s11-story-003b-legacy-path-removal` |
+| 部署 commit | **`d4665ed`**（含 Gate B 代码 + docs） |
+| 验收日期 | 2026-06-11 |
+| 结果 | **PASS**（用户人工回归） |
+
+**验收摘要：**
+
+- `/api/health`：`ok:true`、`database:"ok"`
+- Admin `userSelectable=true + heading` 与用户侧 picker 一致
+- 用户侧仅额外「跟随生成结果」· 无重复静态 fallback
+- `userSelectable=false` 的 teal variant 不显示 · d26 正常显示
+- d26 编号按章节递增 · 编号颜色跟随主题
+- Lifecycle 筛选无 `User Selectable` · Hide/Restore 正常
+- SSE 打字机正常 · Admin 登录/刷新/Logout 正常
+- Preview/Copy 无本轮相关回归
+
+## 3. Gate B P0 完成状态
+
+| LP | 状态 |
 |----|------|
-| 备份 `backup/s11-003a-before-no-ff-fix` | 旧 sprint FF 指针 |
-| 备份 `backup/s11-003b-gate-a-before-rebase` | 旧 003B Gate A |
-| reset 至合并前 | `9ac6edf` |
-| `--no-ff` merge commit | **`2ee03c5`** |
-| 003A closeout docs | **`381e146`** |
-| sprint HEAD（已 push） | **`381e146`** |
+| LP-001～007 | **已删除/隔离** |
+| LP-009、LP-010 | **已删除/隔离** |
+| LP-008 | **P1 · 未处理** |
+| P1/P2/P3（LP-101+ 等） | **inventory backlog · 未批量删除** |
 
-## 3. 003B 重建与 Gate A
+## 4. 全量测试失败基线对比
 
-| 项 | Hash |
-|----|------|
-| Gate A docs cherry-pick tip | `73b71a8` |
-| **Gate A Approved** | **`9fec9c3`** |
-| 003B HEAD（已 push） | **`be8c736`** |
+对比基线：`sprint/s11-production-ops-go-live` @ **`381e146`** vs `refactor/s11-story-003b-legacy-path-removal` @ **`d4665ed`**
 
-## 4. Gate B commits（小批次）
+| 分支 | 结果 | 说明 |
+|------|------|------|
+| sprint @ 381e146 | **1323/1334 PASS · 11 failures** | 无 architecture guards 测试文件 |
+| 003B @ d4665ed | **1340/1348 PASS · 8 failures** | +14 tests（含 architecture guards） |
 
-| Batch | Hash | 范围 |
-|-------|------|------|
-| 1 · user pool paths | **`b55c9b7`** | LP-001～005、LP-010 |
-| 2 · lifecycle + eligibility | **`48c80d0`** | LP-006、LP-007、LP-009 |
-| 3 · architecture guards | **`be8c736`** | tests + 回归测试更新 |
+### 两边均失败（既有失败 · 可 merge）
 
-## 5. 删除 / 隔离 symbol 清单
+1. `tests/app/admin/style-library/style-library-admin-page.test.tsx` › renders detail shell with governance placeholders
+2. `tests/core/wechat-compat/wechat-paste-qa-pack-006d.test.ts` › matches committed 006D QA pack markdown
+3. `tests/core/wechat-compat/wechat-paste-qa-pack.test.ts` › matches committed QA pack markdown
+4. `tests/lib/dsl-tree-html-preview.test.ts` › does not route article title through slots.title when semantic binding exists
+5. `tests/server/style-admin/import/collect-existing-style-variants.test.ts` › keeps userSelectable independent from defaultEligible
+6. `tests/server/style-admin/import/collect-existing-style-variants.test.ts` › marks release1_required registry variants with seed-based userSelectable only
+7. `tests/server/style-admin/import/import-existing-style-variants.test.ts` › builds report summary with collected counts
+8. `tests/server/style-admin/import/import-existing-style-variants.test.ts` › reports release1_required lifecycle separately from default_eligible
 
-| LP | Symbol / 路径 | 处置 |
-|----|---------------|------|
-| LP-001 | `resolvePreviewHeadingStyleOptions` → `PREVIEW_HEADING_STYLE_OPTIONS` | 改为 `[]` fail-closed |
-| LP-002 | `user-selectable-preview-pool.ts` runtime 逻辑 | 隔离至 `style-library-manifest-preview-fixtures.ts`（dev/test） |
-| LP-002 | `PREVIEW_USER_SELECTABLE_HEADING_STYLE_OPTIONS` | 从 `preview-heading-style.ts` 移除 |
-| LP-002 | `getCodeBackedUserSelectableVariants` | 删除 |
-| LP-002 | `preferDatabaseVariants` | 删除 |
-| LP-003 | `buildDegradedEmptyPool` `source: "code_fallback"` | 改为 `db_unavailable` |
-| LP-004 | html-paste 注入 `buildCodeFallbackDslRuntime` | 删除 |
-| LP-005 | `getCodeBackedRuntimeAvailableVariantIds` fallback in preview client | 删除 · 仅 `poolVariantIds` |
-| LP-006 | manifest `lifecycle === "user_selectable"` filter | 删除（distribution-only） |
-| LP-007 | admin lifecycle filter `user_selectable` 选项 | 从 dropdown 移除 |
-| LP-009 | duplicate `isEligibleForUserSelectablePool` body | 委托 `isUserSelectablePoolMember` |
-| LP-010 | dead import `getUserSelectablePreviewVariantDefinition` | 删除 |
+### 仅 sprint 失败 · 003B 已修复（非回归）
 
-**未删除：** LP-008 · Release1 renderer assets · Preview/Copy fidelity compatibility · Nginx SSE config
+1. `tests/core/style-library/sprint9-e2e-closeout-audit-v2.test.ts` › passes preview/copy parity…
+2. `tests/lib/dsl-runtime-single-track.test.ts` › decodes all userSelectable heading variants…
+3. `tests/lib/user-selectable-preview-picker-007c.test.ts` › renders preview and copy when user manually selects user_selectable heading
 
-## 6. 净删除代码行数
+### 003B 新增失败
 
-| 范围 | 统计 |
-|------|------|
-| Gate B `src/` + `tests/`（`9fec9c3..be8c736`） | +291 / −171（含新 fixtures + architecture tests） |
-| `src/` only 净变化 | 约 −45 LOC（隔离/删除 runtime fallback） |
+**无** — merge 前无需额外修复。
 
-## 7. 检查命令与结果
+## 5. 检查命令（closeout 前 · 003B 分支）
 
 | 命令 | 结果 |
 |------|------|
-| `corepack pnpm lint` | **PASS**（0 errors · 既有 warnings） |
-| `corepack pnpm build` | **PASS** |
-| `vitest tests/architecture/legacy-path-guards.test.ts` | **PASS**（12 tests） |
-| Gate B 相关 tests（pool/picker/mappers/filters） | **PASS** |
-| `pnpm test` 全量 | **1340/1348 PASS** · 8 failures **与 Gate B 无关**（import collect 计数、wechat-paste-qa-pack snapshot、admin detail 文案、dsl-tree-html-preview） |
+| `corepack pnpm lint` | PASS |
+| `corepack pnpm build` | PASS |
+| `vitest tests/architecture/legacy-path-guards.test.ts` | PASS（12） |
+| Gate B targeted tests | PASS |
 
-## 8. push 结果
+## 6. commit hash 链
 
-| 分支 | 结果 |
-|------|------|
-| `sprint/s11-production-ops-go-live` | **成功** `9ac6edf..381e146`（无 force） |
-| `refactor/s11-story-003b-legacy-path-removal` | **成功**（新分支） |
+```
+381e146  sprint · 003A closeout
+9fec9c3  Gate A Approved
+b55c9b7  Gate B batch 1
+48c80d0  Gate B batch 2
+be8c736  Gate B architecture guards
+d4665ed  Gate B execution report
+（本轮）  docs closeout + merge sprint --no-ff
+```
 
-## 9. Staging 部署步骤（Gate B 回归）
+## 7. 明确未执行
 
-1. 在 staging ECS 拉取 `refactor/s11-story-003b-legacy-path-removal` @ `be8c736`
-2. `corepack pnpm install --frozen-lockfile && corepack pnpm build`
-3. 重启应用进程（同 Sprint 11 staging runbook）
-4. 确认 `DATABASE_URL` 有效 · 无需新 migration（M-1 已在 sprint）
-5. **人工回归：**
-   - `/preview` heading picker 仅 DB pool · degraded 空列表 + notice
-   - Admin `/admin/style-library` lifecycle 下拉无 `user_selectable` · distribution.userSelectable 筛选可用
-   - Promote candidate → paste_qa_pass · pool 可见性
-   - HTML paste 编号/主题 · Preview/Copy 一致
-   - 生成 SSE 打字机（LP-008 未改 · 应无回归）
-6. 回归通过后用户确认 merge 003B → sprint
-
-## 10. 验收标准（Gate B · 待 staging）
-
-| AC | 代码 | staging |
-|----|------|---------|
-| AC-1 P0 paths 删除/隔离 | Done | 待验 |
-| AC-2 lifecycle 不参与用户可见性 | Done | 待验 |
-| AC-3 eligibility 单契约 | Done | 待验 |
-| AC-7 architecture tests | PASS | — |
-| AC-8 staging 清单 | — | 待验 |
-| AC-9 production/main | 未启动/未 merge | — |
-| AC-10 LP-008 排除 | 是 | — |
-
-## 11. 明确未执行
-
-- merge 003B → sprint
-- production 部署
-- merge main
+- production 启动
+- main merge
+- Sprint 11 / Release 1 关闭
 - LP-008 删除
+- P1/P2/P3 批量删除
 
-## 12. commit hash 汇总
+## 8. 剩余债务摘要（P1/P2/P3）
 
-```
-2ee03c5  merge(s11-003a): --no-ff
-381e146  docs(s11-003a): closeout Done
-9fec9c3  docs(s11-003b): Gate A Approved
-b55c9b7  fix(s11-003b-gate-b): user pool paths
-48c80d0  fix(s11-003b-gate-b): lifecycle + eligibility
-be8c736  test(s11-003b-gate-b): architecture guards
-```
+见 [`legacy-parallel-path-inventory.md`](../../architecture/legacy-parallel-path-inventory.md)：
+
+- **P1：** LP-008（SSE registry vs DSL render 双轨）· LP-101～108 等
+- **P2/P3：** 文档登记的 backlog 项 · 不批量删除
+
+## 9. merge sprint 后检查
+
+（merge 后填写 lint/build/architecture tests · push 结果 · sprint HEAD）

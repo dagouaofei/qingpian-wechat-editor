@@ -178,6 +178,6 @@
 | 发现时间 | 2026-06-11 |
 | 所属 | Sprint 11 · S11-STORY-003B |
 | 文档 | [`docs/architecture/legacy-parallel-path-inventory.md`](../architecture/legacy-parallel-path-inventory.md) |
-| P0 项 | LP-001~010 |
-| 状态 | **Gate A 修订** · Gate B **未批准** · LP-008 降 P1 |
-| 处理记录 | 003A merge sprint @ 75fecb9 · 003B reset+cherry-pick · 未删代码 |
+| P0 项 | LP-001～007、LP-009、LP-010 **Done**（Gate B 2026-06-11）· LP-008 **P1 backlog** |
+| 状态 | **P0 已收口** · P1/P2/P3 见 inventory backlog |
+| 处理记录 | Gate B staging 验收 PASS @ `d4665ed` · merge sprint `--no-ff` 本轮 · LP-008 未处理 |

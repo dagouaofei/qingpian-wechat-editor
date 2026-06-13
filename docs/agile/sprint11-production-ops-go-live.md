@@ -41,7 +41,7 @@
 | S11-STORY-002 | Staging 部署与数据库初始化 | P0 | **In Review**（staging deploy · migrate · import · health PASS） |
 | S11-STORY-003 | Admin 登录与 Staging 治理/用户池验收 | P0 | **In Review**（admin session · 治理 · preview pool PASS） |
 | S11-STORY-003A | Staging Volcengine Provider + 首页生成主链路与样式回归验收 | P0 | **Done**（staging 验收 2026-06-11 · merge sprint `2ee03c5` `--no-ff`） |
-| S11-STORY-003B | Legacy Path Removal & Parallel Implementation Audit | P0 | **In Progress**（Gate A **Approved** · Gate B LP-001～010 · 不含 LP-008 · `refactor/s11-story-003b-legacy-path-removal`） |
+| S11-STORY-003B | Legacy Path Removal & Parallel Implementation Audit | P0 | **Done**（staging 验收 2026-06-11 · merge sprint `--no-ff` 待本轮 · `refactor/s11-story-003b-legacy-path-removal` @ `d4665ed`） |
 | S11-STORY-004 | Production 部署与上线 | P0 | **Pending** |
 | S11-STORY-005 | 监控、报警与运维闭环 | P1 | **Pending** |
 | S11-STORY-006 | Sprint 11 Closeout | P0 | **Pending** |

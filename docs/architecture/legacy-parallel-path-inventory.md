@@ -1,7 +1,8 @@
 # Legacy / Parallel / Fallback Path Inventory
 
 > **Story:** S11-STORY-003B · Legacy Path Removal & Parallel Implementation Audit  
-> **Gate:** A **Approved**（2026-06-11）· Gate B approved for LP-001～007、LP-009、LP-010 · **LP-008 P1 不纳入**  
+> **Gate B P0：** **Done**（staging 2026-06-11 · LP-001～007、LP-009、LP-010 已删除/隔离）  
+> **LP-008 / P1/P2/P3：** backlog · 未批量删除  
 > **Branch basis:** `sprint/s11-production-ops-go-live` @ `381e146`（003A `--no-ff` merge `2ee03c5` + closeout）+ Gate A docs cherry-pick  
 > **Production:** Pending · **main:** 不 merge
 
