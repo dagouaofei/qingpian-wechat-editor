@@ -213,8 +213,14 @@ export async function promoteCandidateToUserSelectable(
     invalidateUserSelectableVariantPoolCache();
 
     const poolEligible = isEligibleForUserSelectablePool({
+      runtimeVariantId: variant.runtimeVariantId,
+      blockType: variant.blockType,
       lifecycle: result.lifecycle,
       distribution: result.after,
+      currentVersion: variant.currentVersion
+        ? { qualityStatus: variant.currentVersion.qualityStatus }
+        : null,
+      definitionJson: variant.currentVersion?.definitionJson,
     });
     const runtimeAvailable = wouldBeRuntimeAvailableAfterPromote({
       runtimeVariantId: variant.runtimeVariantId,
@@ -268,6 +274,7 @@ export function isVariantInUserSelectablePoolAfterPromote(input: {
   distribution: StyleVariantDistribution;
 }): boolean {
   return isEligibleForUserSelectablePool({
+    runtimeVariantId: input.distribution.variantId,
     lifecycle: input.lifecycle as Parameters<typeof isEligibleForUserSelectablePool>[0]["lifecycle"],
     distribution: input.distribution,
   });
