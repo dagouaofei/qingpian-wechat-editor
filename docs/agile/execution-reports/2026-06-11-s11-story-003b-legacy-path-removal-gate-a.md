@@ -74,7 +74,9 @@ git cherry-pick ec24ccc   # → a618beb
 
 ## 7. commit hash
 
-见本轮修订 commit
+| 修订 | `b6eb713` |
+| Gate A 初版 cherry-pick | `bed56ce`（原 `bd2e469` 内容） |
+| sprint（003A merge 后） | `75fecb9` |
 
 ## 8. 下一步（待用户）
 
