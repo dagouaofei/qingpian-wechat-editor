@@ -279,4 +279,4 @@ npx vitest run tests/lib/html-paste-inline-number-ordinal-theme.test.ts \
 
 ### Commit（inline number ordinal + theme）
 
-- 见本轮 commit
+- `6fc8b46a1b936bf35a249025abf4e3848ae0d824`
