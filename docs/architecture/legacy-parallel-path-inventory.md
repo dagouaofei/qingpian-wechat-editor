@@ -3,7 +3,7 @@
 > **Story:** S11-STORY-003B · Legacy Path Removal & Parallel Implementation Audit  
 > **Gate B P0：** **Done**（staging 2026-06-11 · LP-001～007、LP-009、LP-010 已删除/隔离）  
 > **LP-008 / P1/P2/P3：** backlog · 未批量删除  
-> **Branch basis:** `sprint/s11-production-ops-go-live` @ `381e146`（003A `--no-ff` merge `2ee03c5` + closeout）+ Gate A docs cherry-pick  
+> **Branch basis:** `sprint/s11-production-ops-go-live` @ `8da62e9`（003B `--no-ff` merge）· 003A merge `2ee03c5` · closeout `381e146`  
 > **Production:** Pending · **main:** 不 merge
 
 本文档为 Gate B 删除/隔离的唯一事实输入。
@@ -16,7 +16,7 @@
 
 | 级别 | Gate B |
 |------|--------|
-| **P0** | LP-001～007、LP-009、LP-010 — **Gate B Approved**（2026-06-11） |
+| **P0** | LP-001～007、LP-009、LP-010 — **Done**（Gate B 2026-06-11 · staging 验收 PASS） |
 | **P1** | 含 **LP-008**（SSE 双渲染轨）— **默认不纳入 003B**；仅当证明污染 production-like 主链路且可小范围删除时重新申请 |
 | **P2/P3** | backlog · 不批量删除 |
 
@@ -28,17 +28,19 @@
 |------|------|
 | 1 | `003A` `--no-ff` merge → `sprint/s11-production-ops-go-live` @ `2ee03c5` · closeout `381e146` |
 | 2 | `refactor/s11-story-003b-legacy-path-removal`：`git reset --hard sprint` + cherry-pick Gate A docs |
+| 3 | Gate B merge → sprint **`8da62e9`**（`--no-ff` · closeout `a21c1f1`） |
 | **未采用** | 保留 003B 以未 merge 的 003A feature tip 为独立基线 |
 | **未采用** | rebase 003B  onto sprint（等价于 reset + cherry-pick，更清晰保留仅 docs 提交） |
 
 ---
 
-## P0 — Gate B 批准评估项（LP-008 除外）
+## P0 — Gate B 已完成项（LP-008 除外 · backlog）
 
 ### LP-001 · User picker 静态 fallback 链
 
 | 字段 | 内容 |
 |------|------|
+| **Gate B 状态** | **Done** · 已删除 |
 | **ID** | LP-001 |
 | **类别** | UserSelectable 多套分发 |
 | **Symbol / 文件** | `PREVIEW_HEADING_STYLE_OPTIONS` · `resolvePreviewHeadingStyleOptions()` 最终 fallback · `src/lib/preview-user-selectable-pool.ts` L88–92 |
@@ -56,6 +58,7 @@
 
 | 字段 | 内容 |
 |------|------|
+| **Gate B 状态** | **Done** · 已隔离（`style-library-manifest-preview-fixtures.ts` · dev/test only） |
 | **ID** | LP-002 |
 | **类别** | UserSelectable 多套分发 |
 | **Symbol / 文件** | `src/core/style-library/user-selectable-preview-pool.ts` · `PREVIEW_USER_SELECTABLE_HEADING_STYLE_OPTIONS` · `src/lib/preview-heading-style.ts` |
@@ -73,6 +76,7 @@
 
 | 字段 | 内容 |
 |------|------|
+| **Gate B 状态** | **Done** · 已修正（`db_unavailable`） |
 | **ID** | LP-003 |
 | **类别** | UserSelectable 多套分发 |
 | **Symbol / 文件** | `buildDegradedEmptyPool()` · `source: "code_fallback"` · `src/server/style-admin/runtime/user-selectable-variant-pool.ts` L62–74 |
@@ -90,6 +94,7 @@
 
 | 字段 | 内容 |
 |------|------|
+| **Gate B 状态** | **Done** · 已删除 |
 | **ID** | LP-004 |
 | **类别** | UserSelectable / DSL runtime |
 | **Symbol / 文件** | `buildCodeFallbackDslRuntime()` · `getUserSelectablePreviewVariantDefinition(USER_SELECTABLE_HTML_PASTE_HEADING_ID)` · `src/lib/dsl-runtime/build-code-fallback-dsl-runtime.ts` |
@@ -107,6 +112,7 @@
 
 | 字段 | 内容 |
 |------|------|
+| **Gate B 状态** | **Done** · 已删除 |
 | **ID** | LP-005 |
 | **类别** | UserSelectable 多套分发 |
 | **Symbol / 文件** | `getCodeBackedRuntimeAvailableVariantIds()` · `resolveRuntimeAvailableVariantId()` · `src/lib/render-article-preview-client.ts` L108–116 |
@@ -124,6 +130,7 @@
 
 | 字段 | 内容 |
 |------|------|
+| **Gate B 状态** | **Done** · 已删除 lifecycle gate（distribution-only） |
 | **ID** | LP-006 |
 | **类别** | lifecycle vs distribution |
 | **Symbol / 文件** | `getUserSelectablePreviewVariantAssets()` filter `lifecycle === "user_selectable"` · `user-selectable-preview-pool.ts` L16–23 |
@@ -141,6 +148,7 @@
 
 | 字段 | 内容 |
 |------|------|
+| **Gate B 状态** | **Done** · lifecycle filter 选项已移除 |
 | **ID** | LP-007 |
 | **类别** | lifecycle vs distribution |
 | **Symbol / 文件** | `LIFECYCLE_FILTER_OPTIONS` · `style-library-admin-filters.ts` · `LifecycleBadge` · `admin-display-labels.ts` `user_selectable: "Legacy (migrating)"` |
@@ -158,6 +166,7 @@
 
 | 字段 | 内容 |
 |------|------|
+| **Gate B 状态** | **Done** · mappers 已委托 `isUserSelectablePoolMember` |
 | **ID** | LP-009 |
 | **类别** | Admin vs runtime eligibility |
 | **Symbol / 文件** | `isEligibleForUserSelectablePool()` · `src/server/style-admin/mappers.ts` L24 · vs `evaluateUserSelectablePoolMembership()` · `user-selectable-pool-eligibility.ts` |
@@ -175,6 +184,7 @@
 
 | 字段 | 内容 |
 |------|------|
+| **Gate B 状态** | **Done** · 已删除 dead import |
 | **ID** | LP-010 |
 | **类别** | UserSelectable 清理 |
 | **Symbol / 文件** | `import { getUserSelectablePreviewVariantDefinition }` · `user-selectable-variant-pool.ts` L4（未使用） |
@@ -412,10 +422,12 @@
 
 ---
 
-## 003A 已 merge sprint（@ 75fecb9）— 勿重复删除
+## 003A 已 merge sprint — 勿重复删除
 
 | 项 | 状态 |
 |----|------|
+| `--no-ff` merge | **`2ee03c5`** |
+| closeout docs | **`381e146`** |
 | DB pool + static publish merge | 已移除 |
 | teal seed userSelectable override | 已改 false |
 | degraded empty pool（无 manifest 注入） | 已改 |
@@ -426,13 +438,23 @@
 
 ---
 
-## Gate B P0 删除清单（批准范围 · 未执行）
+## Gate B P0 删除清单（**Done** · 2026-06-11）
 
-LP-001 · LP-002 · LP-003 · LP-004 · LP-005 · LP-006 · LP-007 · LP-009 · LP-010
+| LP | 状态 |
+|----|------|
+| LP-001 | **Done** · 已删除 |
+| LP-002 | **Done** · 已隔离 |
+| LP-003 | **Done** · 已修正 |
+| LP-004 | **Done** · 已删除 |
+| LP-005 | **Done** · 已删除 |
+| LP-006 | **Done** · 已删除 lifecycle gate |
+| LP-007 | **Done** · admin filter 已移除 |
+| LP-009 | **Done** · eligibility 已统一 |
+| LP-010 | **Done** · dead import 已删除 |
 
-**排除：** LP-008（P1 · 独立 Story）
+**排除（backlog）：** LP-008（P1 · 独立 Story）· P1/P2/P3 见上文
 
-**预计净删除：** ~350–650 LOC（不含 LP-008）
+**实际净变化：** Gate B `src/` 约 −45 LOC runtime fallback（含 fixtures 隔离 · 不含 LP-008）
 
 ---
 
@@ -441,16 +463,16 @@ LP-001 · LP-002 · LP-003 · LP-004 · LP-005 · LP-006 · LP-007 · LP-009 · 
 | 步骤 | 内容 | 状态 |
 |------|------|------|
 | M-1 | `20260610120000_migrate_lifecycle_user_selectable` | SQL 在 sprint · staging 需 `db:migrate:deploy` |
-| M-2 | 停写 lifecycle=user_selectable | Gate B |
-| M-3 | Admin UI 移除 lifecycle filter | Gate B · LP-007 |
+| M-2 | 停写 lifecycle=user_selectable | **Done**（Promote → `paste_qa_pass`） |
+| M-3 | Admin UI 移除 lifecycle filter | **Done**（Gate B · LP-007） |
 | M-4 | PG enum 物理删除 | P1 · LP-106 |
 | M-5 | 不自动改 distribution.userSelectable | 契约 |
 
 ---
 
-## Architecture 测试计划（Gate B · 批准范围）
+## Architecture 测试计划（Gate B · **Done**）
 
-`tests/architecture/legacy-path-guards.test.ts`：
+`tests/architecture/legacy-path-guards.test.ts` — **12/12 PASS**（merge 后 sprint）
 
 1. `/preview` user path 不 import `PREVIEW_USER_SELECTABLE_*` / manifest pool
 2. DB source=database 不 merge publish pool
@@ -467,11 +489,22 @@ LP-001 · LP-002 · LP-003 · LP-004 · LP-005 · LP-006 · LP-007 · LP-009 · 
 
 ---
 
-## 003A merge 记录
+## Merge 记录
 
-```text
-sprint/s11-production-ops-go-live @ 75fecb9（fast-forward from feature/s11-story-003a）
-003B @ sprint + bed56ce + a618beb（Gate A docs cherry-pick from bd2e469）
-```
+### 003A → sprint
 
-**Staging 验收：** 003A Done（2026-06-11 · merge `2ee03c5` `--no-ff` · closeout `381e146`）。
+| 项 | Commit |
+|----|--------|
+| `--no-ff` merge | **`2ee03c5`** |
+| closeout docs | **`381e146`** |
+
+**Staging 验收：** 003A **Done**（2026-06-11）
+
+### 003B → sprint
+
+| 项 | Commit |
+|----|--------|
+| closeout docs | **`a21c1f1`** |
+| **`--no-ff` merge** | **`8da62e9`** |
+
+**Staging 验收：** 003B **Done**（2026-06-11 · LP-001～007、LP-009、LP-010）· LP-008 / P1/P2/P3 **backlog**

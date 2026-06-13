@@ -2,12 +2,13 @@
 
 ## 1. 基本信息
 
-- 日期：2026-06-11（staging 验收 · Story **Done** · merge sprint）
-- 当前分支（closeout）：`refactor/s11-story-003b-legacy-path-removal` @ `d4665ed`
-- 来源分支：`sprint/s11-production-ops-go-live` @ `381e146`
-- 目标合并分支：`sprint/s11-production-ops-go-live`（`--no-ff` merge · 本轮）
+- 日期：2026-06-11（staging 验收 · Story **Done** · **已 merge sprint**）
+- 当前分支：`sprint/s11-production-ops-go-live` @ **`8da62e9`**（`--no-ff` merge commit）
+- 003B 工作分支：`refactor/s11-story-003b-legacy-path-removal` @ `a21c1f1`（已 merge）
+- 来源分支：`sprint/s11-production-ops-go-live` @ `381e146`（merge 前）
+- 目标合并分支：`sprint/s11-production-ops-go-live` — **已完成**（`--no-ff` @ `8da62e9`）
 - Sprint：Sprint 11 · **In Progress**（未关闭）
-- Story：**S11-STORY-003B Done** · S11-STORY-004 **Pending**
+- Story：**S11-STORY-003B Done** · 已 merge sprint · S11-STORY-004 **Pending**
 - **production：未启动** · **main：未 merge**
 
 ## 2. Staging 部署与验收
@@ -99,6 +100,8 @@ d4665ed  Gate B execution report
 - LP-008 删除
 - P1/P2/P3 批量删除
 
+**已执行：** 003B `--no-ff` merge sprint @ `8da62e9` · Story **Done** · sprint push **成功**
+
 ## 8. 剩余债务摘要（P1/P2/P3）
 
 见 [`legacy-parallel-path-inventory.md`](../../architecture/legacy-parallel-path-inventory.md)：
@@ -112,8 +115,10 @@ d4665ed  Gate B execution report
 |----|-----|
 | closeout commit | **`a21c1f1`** |
 | **`--no-ff` merge commit** | **`8da62e9`** |
-| sprint HEAD | **`8da62e9`** |
+| **sprint HEAD（merge 基线）** | **`8da62e9`** |
 | merge 父 commit | `381e146`（sprint）· `a21c1f1`（003B） |
+| **003B merge sprint** | **Done** |
+| **Story 状态** | **S11-STORY-003B Done** |
 
 | 命令（merge 后） | 结果 |
 |------------------|------|
@@ -121,4 +126,4 @@ d4665ed  Gate B execution report
 | `corepack pnpm build` | **PASS** |
 | `vitest tests/architecture/legacy-path-guards.test.ts` | **PASS**（12） |
 
-| push | 见本轮 push 结果 |
+| push `origin sprint/s11-production-ops-go-live` | **成功**（`381e146..7e8ff66` · 无 force · merge 含于 `8da62e9`） |
