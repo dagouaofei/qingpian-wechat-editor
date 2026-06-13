@@ -129,7 +129,6 @@ describe("copy background number heading diagnostic", () => {
     );
     const registry = createUserPreviewStyleRegistry({
       dbUserSelectableVariants: userSelectablePool.variants,
-      preferDatabaseVariants: true,
     });
     const resolved = resolveArticleStyle(themed, registry);
     const headingBlock = themed.blocks.find((block) => block.type === "heading")!;
@@ -159,7 +158,6 @@ describe("copy background number heading diagnostic", () => {
         applyHeadingVariantToArticle(styleSelectionArticleFixture, RUNTIME_VARIANT_ID),
         createUserPreviewStyleRegistry({
           dbUserSelectableVariants: userSelectablePool.variants,
-          preferDatabaseVariants: true,
         }),
       ),
       registry: createRelease1FirstWaveCopyRendererRegistry(),
@@ -278,7 +276,6 @@ describe("copy background number heading diagnostic", () => {
       article,
       createUserPreviewStyleRegistry({
         dbUserSelectableVariants: userSelectablePool.variants,
-        preferDatabaseVariants: true,
       }),
     );
     const headingBlock = article.blocks.find((block) => block.type === "heading")!;

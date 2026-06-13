@@ -21,7 +21,6 @@ describe("user-selectable variant pool DB integration", () => {
   it("extends preview registry from database pool without code fallback duplicates", () => {
     const registry = createUserPreviewStyleRegistry({
       dbUserSelectableVariants: databasePool.variants,
-      preferDatabaseVariants: true,
     });
 
     expect(registry.variants.map((variant) => variant.id)).toContain(

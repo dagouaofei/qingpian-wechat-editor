@@ -125,6 +125,14 @@ describe("preview-user-selectable-pool", () => {
     expect(html).not.toContain("heading_short_line");
   });
 
+  it("returns empty options when no pool snapshot and no explicit options", () => {
+    const resolved = resolvePreviewHeadingStyleOptions({
+      includeUserSelectableHeadingOptions: true,
+    });
+
+    expect(resolved).toEqual([]);
+  });
+
   it("tracks pool membership by snapshot ids", () => {
     expect(
       isVariantInUserSelectablePool("heading_teal_section_label_html_paste_candidate", databasePool),

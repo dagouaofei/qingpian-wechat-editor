@@ -166,3 +166,18 @@
 ---
 
 暂无其它 Open Bug（除 DEBT-DSL-RC 架构债务）。
+
+---
+
+### TECH-DEBT-S11-003B Legacy parallel paths（Gate A 登记）
+
+| 字段 | 内容 |
+|------|------|
+| ID | TECH-DEBT-S11-003B |
+| 标题 | Legacy user pool / SSE dual render / lifecycle enum 并行路径 |
+| 发现时间 | 2026-06-11 |
+| 所属 | Sprint 11 · S11-STORY-003B |
+| 文档 | [`docs/architecture/legacy-parallel-path-inventory.md`](../architecture/legacy-parallel-path-inventory.md) |
+| P0 项 | LP-001～007、LP-009、LP-010 **Done**（Gate B 2026-06-11）· LP-008 **P1 backlog** |
+| 状态 | **P0 已收口** · P1/P2/P3 见 inventory backlog |
+| 处理记录 | Gate B staging 验收 PASS @ `d4665ed` · merge sprint `--no-ff` 本轮 · LP-008 未处理 |

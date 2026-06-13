@@ -3,16 +3,9 @@ import {
   HEADING_PUBLISH_VARIANT_IDS,
   type HeadingPublishVariantId,
 } from "@/core/styles/variants/heading-publish-pool";
-import {
-  getUserSelectablePreviewVariantAssetsForBlockType,
-  getUserSelectablePreviewVariantLabel,
-  type UserSelectablePreviewHeadingVariantId,
-} from "@/core/style-library/user-selectable-preview-pool";
 
 export type { HeadingPublishVariantId };
 import { HEADING_PUBLISH_LABELS } from "@/core/renderer/heading-publish-visual";
-
-export type { UserSelectablePreviewHeadingVariantId };
 
 export const DEFAULT_PREVIEW_HEADING_VARIANT_ID: HeadingPublishVariantId =
   "heading_short_line";
@@ -25,21 +18,10 @@ export const PREVIEW_HEADING_PUBLISH_STYLE_OPTIONS = HEADING_PUBLISH_VARIANT_IDS
   }),
 );
 
-export const PREVIEW_USER_SELECTABLE_HEADING_STYLE_OPTIONS =
-  getUserSelectablePreviewVariantAssetsForBlockType("heading").map((asset) => ({
-    id: asset.runtimeVariantId as UserSelectablePreviewHeadingVariantId,
-    label: getUserSelectablePreviewVariantLabel(asset.runtimeVariantId),
-    source: "user_selectable" as const,
-  }));
+/** Gallery / non-user-preview paths — release1 publish pool only. */
+export const PREVIEW_HEADING_STYLE_OPTIONS = PREVIEW_HEADING_PUBLISH_STYLE_OPTIONS;
 
-export const PREVIEW_HEADING_STYLE_OPTIONS = [
-  ...PREVIEW_HEADING_PUBLISH_STYLE_OPTIONS,
-  ...PREVIEW_USER_SELECTABLE_HEADING_STYLE_OPTIONS,
-];
-
-export type PreviewHeadingVariantId =
-  | HeadingPublishVariantId
-  | UserSelectablePreviewHeadingVariantId;
+export type PreviewHeadingVariantId = HeadingPublishVariantId | string;
 
 export function applyHeadingVariantToArticle(
   article: Article,

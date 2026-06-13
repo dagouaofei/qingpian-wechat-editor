@@ -1,6 +1,5 @@
 import { encodeRegistryVariantToDsl } from "@/core/dsl/encoder";
 import { createFirstWaveRequiredVariantRegistry } from "@/core/styles";
-import { getUserSelectablePreviewVariantDefinition } from "@/core/style-library/user-selectable-preview-pool";
 import type { VariantDefinition } from "@/core/styles/types";
 
 import type { DslRuntimeSnapshot } from "../dsl-runtime-context-types";
@@ -24,17 +23,6 @@ export function buildCodeFallbackDslRuntime(notice?: string): DslRuntimeSnapshot
     if (dsl) {
       definitionJsonByVariantId[variant.id] = dsl;
       variantIds.push(variant.id);
-    }
-  }
-
-  const htmlPaste = getUserSelectablePreviewVariantDefinition(
-    "heading_teal_section_label_html_paste_candidate",
-  );
-  if (htmlPaste && !definitionJsonByVariantId[htmlPaste.id]) {
-    const dsl = encodeVariantDefinition(htmlPaste);
-    if (dsl) {
-      definitionJsonByVariantId[htmlPaste.id] = dsl;
-      variantIds.push(htmlPaste.id);
     }
   }
 

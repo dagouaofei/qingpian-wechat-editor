@@ -1,7 +1,6 @@
 import type { BlockType } from "@/core/blocks";
 import {
   PREVIEW_HEADING_PUBLISH_STYLE_OPTIONS,
-  PREVIEW_HEADING_STYLE_OPTIONS,
 } from "@/lib/preview-heading-style";
 import type { UserSelectableVariantPoolSnapshot } from "@/lib/user-selectable-variant-pool-types";
 import type { VariantDefinition } from "@/core/styles/types";
@@ -66,7 +65,6 @@ export function resolvePreviewHeadingStyleOptions(input: {
 }): Array<
   | PreviewUserSelectableHeadingOption
   | (typeof PREVIEW_HEADING_PUBLISH_STYLE_OPTIONS)[number]
-  | (typeof PREVIEW_HEADING_STYLE_OPTIONS)[number]
 > {
   if (!input.includeUserSelectableHeadingOptions) {
     return PREVIEW_HEADING_PUBLISH_STYLE_OPTIONS;
@@ -89,7 +87,7 @@ export function resolvePreviewHeadingStyleOptions(input: {
     return input.userSelectableHeadingOptions;
   }
 
-  return PREVIEW_HEADING_STYLE_OPTIONS;
+  return [];
 }
 
 export function isVariantInUserSelectablePool(
