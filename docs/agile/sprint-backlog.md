@@ -4639,7 +4639,7 @@ S11-STORY-001 → 002 → 003 → 004 → 005 → 006
 
 ## S11-STORY-003A Staging Volcengine Provider + 首页生成主链路与样式回归验收
 
-**优先级：** P0 · **状态：** **In Progress** · **工作分支：** `feature/s11-story-003a-staging-volcengine-streaming-numbering` · **前置：** S11-STORY-003 staging 基础验收 · **production 未启动**
+**优先级：** P0 · **状态：** **Done** · **工作分支：** `feature/s11-story-003a-staging-volcengine-streaming-numbering` · **merge：** sprint @ `2ee03c5`（`--no-ff`）· **staging 验收：** 2026-06-11 · **production 未启动**
 
 **背景：** staging 暴露 Provider 未配置、生成 loading 非打字机（Nginx SSE 缓冲）、HTML 新增 variant 后章节编号不递增。
 
@@ -4652,16 +4652,18 @@ S11-STORY-001 → 002 → 003 → 004 → 005 → 006
 
 **验收标准：**
 
-- [ ] AC-1 staging Volcengine provider 已配置并可用
-- [ ] AC-2 首页真实生成主链路跑通
-- [ ] AC-3 staging 生成 loading 有打字机/streaming 效果
-- [ ] AC-4 HTML 新增 variant 后章节数字按顺序递增
-- [ ] AC-5 Preview 与 Copy 编号一致
-- [ ] AC-5b `/preview` heading picker 与 admin userSelectable 池一致 · 无重复
-- [ ] AC-6 `/api/health` 仍为 ok · database ok
-- [ ] AC-7 admin / style-library / preview DB pool 不回归
-- [ ] AC-8 无 secret 入库
-- [ ] AC-9 production 未启动 · main 未 merge
+- [x] AC-1 staging Volcengine provider 已配置并可用
+- [x] AC-2 首页真实生成主链路跑通
+- [x] AC-3 staging 生成 loading 有打字机/streaming 效果
+- [x] AC-4 HTML 新增 variant 后章节数字按顺序递增
+- [x] AC-5 Preview 与 Copy 编号一致
+- [x] AC-5b `/preview` heading picker 与 admin userSelectable 池一致 · 无重复
+- [x] AC-6 `/api/health` 仍为 ok · database ok
+- [x] AC-7 admin / style-library / preview DB pool 不回归
+- [x] AC-8 无 secret 入库
+- [x] AC-9 production 未启动 · main 未 merge
+
+**关闭说明：** 用户确认 staging 验收（Volcengine · 打字机 · userSelectable pool · HTML paste 编号/主题 · Preview/Copy 无回归）。Execution report：[`2026-06-10-s11-story-003a-staging-volcengine-streaming-numbering.md`](execution-reports/2026-06-10-s11-story-003a-staging-volcengine-streaming-numbering.md)
 
 ---
 

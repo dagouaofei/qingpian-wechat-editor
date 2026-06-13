@@ -9,7 +9,7 @@
 - Sprint：Sprint 11
 - 关联 Story / Bug / Decision：S11-STORY-003A · BUG-S11-STAGING-001 · BUG-S11-STAGING-002 · DECISION-111
 - 执行者：Cursor
-- 状态：**In Review**（代码/文档完成 · staging 人工验收待用户）
+- 状态：**Done**（staging 验收 2026-06-11 · merge sprint `2ee03c5` `--no-ff` · 用户确认关闭）
 
 ## 2. 本轮目标
 
@@ -280,3 +280,12 @@ npx vitest run tests/lib/html-paste-inline-number-ordinal-theme.test.ts \
 ### Commit（inline number ordinal + theme）
 
 - `6fc8b46a1b936bf35a249025abf4e3848ae0d824`
+
+---
+
+## 19. Story 关闭（2026-06-11）
+
+- **状态：** Done（用户确认 staging 验收）
+- **Sprint merge：** `2ee03c5`（`--no-ff` from `feature/s11-story-003a-staging-volcengine-streaming-numbering`）
+- **S11-STORY-004 Production：** Pending
+- **Sprint 11 / Release 1 / main：** 未关闭 · 未 merge main
