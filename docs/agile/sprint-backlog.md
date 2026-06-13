@@ -4667,6 +4667,39 @@ S11-STORY-001 → 002 → 003 → 004 → 005 → 006
 
 ---
 
+## S11-STORY-003B Legacy Path Removal & Parallel Implementation Audit
+
+**优先级：** P0 · **状态：** **In Progress**（Gate A 完成 · Gate B 待审查） · **工作分支：** `refactor/s11-story-003b-legacy-path-removal` · **前置：** S11-STORY-003A merge sprint + staging 回归 · **production 未启动**
+
+**目标：**
+
+- 删除 003A 暴露问题背后的历史废弃分发/并行实现（P0）
+- 收敛为 DB `distribution.userSelectable` + 共享 eligibility + DSL fidelity 单轨
+- 全仓 legacy inventory（P1/P2/P3 backlog）
+- Production 在 003B staging 回归前保持 Pending
+
+**Gate A 交付（2026-06-11）：**
+
+- [`docs/architecture/legacy-parallel-path-inventory.md`](../architecture/legacy-parallel-path-inventory.md)
+- P0 删除清单 LP-001~010 · 未改 `src/**`
+
+**Gate B 验收标准（待执行）：**
+
+- [ ] AC-1 P0 legacy user pool 路径已删除/隔离
+- [ ] AC-2 lifecycle 不再参与用户可见性 · Admin UI 无 User Selectable lifecycle
+- [ ] AC-3 eligibility 单契约 · admin/runtime/picker 一致
+- [ ] AC-4 canonical label = `row.label`
+- [ ] AC-5 治理后 cache invalidate · 无需 restart
+- [ ] AC-6 HTML paste 编号/主题仅 shared DSL 链路
+- [ ] AC-7 SSE 主链路不启用 mock/block-batch fallback（staging）
+- [ ] AC-8 architecture regression tests PASS
+- [ ] AC-9 staging 验收清单 §八 12 项
+- [ ] AC-10 production 未启动 · main 未 merge
+
+**阻塞：** 003A 尚未 merge 至 `sprint/s11-production-ops-go-live`（+6 commits）
+
+---
+
 ## S11-STORY-004 Production 部署与上线
 
 **优先级：** P0 · **状态：** **Pending** · **工作分支：** `docs/s11-story-004-production-go-live` · **前置：** staging 阶段收口完成 · **production 未启动**
