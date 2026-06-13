@@ -4669,7 +4669,7 @@ S11-STORY-001 → 002 → 003 → 004 → 005 → 006
 
 ## S11-STORY-003B Legacy Path Removal & Parallel Implementation Audit
 
-**优先级：** P0 · **状态：** **In Progress**（Gate A 修订 · **Gate B 未批准**） · **工作分支：** `refactor/s11-story-003b-legacy-path-removal` · **基线：** sprint @ `75fecb9` + Gate A docs cherry-pick · **前置：** 003A merge sprint ✓ · **production 未启动**
+**优先级：** P0 · **状态：** **In Progress**（Gate A **Approved** · Gate B **In Progress**） · **工作分支：** `refactor/s11-story-003b-legacy-path-removal` · **基线：** sprint @ `381e146`（003A `--no-ff` `2ee03c5`）+ Gate A docs cherry-pick · **前置：** 003A **Done** · **production 未启动**
 
 **目标：**
 
@@ -4678,14 +4678,14 @@ S11-STORY-001 → 002 → 003 → 004 → 005 → 006
 - 全仓 legacy inventory（P1/P2/P3 backlog）
 - Production 在 003B staging 回归前保持 Pending
 
-**Gate A 交付（2026-06-11 修订）：**
+**Gate A 交付（2026-06-11 · Approved）：**
 
 - [`docs/architecture/legacy-parallel-path-inventory.md`](../architecture/legacy-parallel-path-inventory.md)（每项含调用方/runtime/删除证据/测试计划）
-- P0 批准评估：LP-001～007、LP-009、LP-010 · **LP-008 降 P1**
-- 分支：`reset --hard sprint` + cherry-pick Gate A docs（保留 bd2e469 内容）
-- 未改 `src/**`
+- P0 Gate B Approved：LP-001～007、LP-009、LP-010 · **LP-008 降 P1 · 不纳入**
+- 分支：`reset --hard sprint@381e146` + cherry-pick Gate A docs
+- 003A merge 修正：`--no-ff` @ `2ee03c5`
 
-**Gate B 验收标准（待用户批准后执行）：**
+**Gate B 验收标准（执行中）：**
 
 - [ ] AC-1 P0 legacy user pool 路径已删除/隔离（LP-001～007、009、010）
 - [ ] AC-2 lifecycle 不再参与用户可见性 · Admin UI 无 User Selectable lifecycle
@@ -4698,7 +4698,7 @@ S11-STORY-001 → 002 → 003 → 004 → 005 → 006
 - [ ] AC-9 production 未启动 · main 未 merge
 - [ ] AC-10 LP-008 **不在** 003B 范围（P1 独立 Story）
 
-**Gate B 阻塞：** 用户 Gate A 未批准进入 Gate B
+**Gate B 阻塞：** 无（Gate A Approved · 待 staging 回归后 merge sprint）
 
 ---
 

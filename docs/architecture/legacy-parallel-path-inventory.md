@@ -1,8 +1,8 @@
 # Legacy / Parallel / Fallback Path Inventory
 
 > **Story:** S11-STORY-003B · Legacy Path Removal & Parallel Implementation Audit  
-> **Gate:** A（审计 · 2026-06-11 修订 · **Gate B 未批准**）  
-> **Branch basis:** `sprint/s11-production-ops-go-live` @ `75fecb9`（含 003A merge）+ Gate A docs cherry-pick  
+> **Gate:** A **Approved**（2026-06-11）· Gate B approved for LP-001～007、LP-009、LP-010 · **LP-008 P1 不纳入**  
+> **Branch basis:** `sprint/s11-production-ops-go-live` @ `381e146`（003A `--no-ff` merge `2ee03c5` + closeout）+ Gate A docs cherry-pick  
 > **Production:** Pending · **main:** 不 merge
 
 本文档为 Gate B 删除/隔离的唯一事实输入。
@@ -15,7 +15,7 @@
 
 | 级别 | Gate B |
 |------|--------|
-| **P0** | LP-001～007、LP-009、LP-010 — **批准继续评估**（未执行删除） |
+| **P0** | LP-001～007、LP-009、LP-010 — **Gate B Approved**（2026-06-11） |
 | **P1** | 含 **LP-008**（SSE 双渲染轨）— **默认不纳入 003B**；仅当证明污染 production-like 主链路且可小范围删除时重新申请 |
 | **P2/P3** | backlog · 不批量删除 |
 
@@ -25,9 +25,8 @@
 
 | 步骤 | 操作 |
 |------|------|
-| 1 | `003A` fast-forward merge → `sprint/s11-production-ops-go-live` @ `75fecb9` |
-| 2 | `refactor/s11-story-003b-legacy-path-removal`：`git reset --hard sprint/s11-production-ops-go-live` |
-| 3 | Cherry-pick Gate A 文档：`bd2e469` → `bed56ce` · `ec24ccc` → `a618beb`（内容等价，新 hash） |
+| 1 | `003A` `--no-ff` merge → `sprint/s11-production-ops-go-live` @ `2ee03c5` · closeout `381e146` |
+| 2 | `refactor/s11-story-003b-legacy-path-removal`：`git reset --hard sprint` + cherry-pick Gate A docs |
 | **未采用** | 保留 003B 以未 merge 的 003A feature tip 为独立基线 |
 | **未采用** | rebase 003B  onto sprint（等价于 reset + cherry-pick，更清晰保留仅 docs 提交） |
 
@@ -474,4 +473,4 @@ sprint/s11-production-ops-go-live @ 75fecb9（fast-forward from feature/s11-stor
 003B @ sprint + bed56ce + a618beb（Gate A docs cherry-pick from bd2e469）
 ```
 
-**Staging 验收：** 用户指令确认 003A 完成 staging 验收并 merge sprint（2026-06-11）。Story 状态保持 **In Review**（非 Done · 待用户关闭 Story）。
+**Staging 验收：** 003A Done（2026-06-11 · merge `2ee03c5` `--no-ff` · closeout `381e146`）。
