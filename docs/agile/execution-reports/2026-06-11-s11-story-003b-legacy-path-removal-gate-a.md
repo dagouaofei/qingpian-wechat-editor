@@ -142,7 +142,7 @@ Gate B 部署后执行（Story §八 · 12 项）— Gate A **未验收**。
 
 ## 19. commit hash
 
-见本轮 commit（Gate A docs only）
+`bd2e46985f115b61b85cb77fbda54c47078c7f63`
 
 ## 20. 是否已 push
 
