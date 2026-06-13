@@ -179,5 +179,5 @@
 | 所属 | Sprint 11 · S11-STORY-003B |
 | 文档 | [`docs/architecture/legacy-parallel-path-inventory.md`](../architecture/legacy-parallel-path-inventory.md) |
 | P0 项 | LP-001~010 |
-| 状态 | **Gate A Done** · Gate B 待审查 |
-| 处理记录 | 003A 未 merge sprint · 未删代码 |
+| 状态 | **Gate A 修订** · Gate B **未批准** · LP-008 降 P1 |
+| 处理记录 | 003A merge sprint @ 75fecb9 · 003B reset+cherry-pick · 未删代码 |

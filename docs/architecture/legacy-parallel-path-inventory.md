@@ -1,413 +1,477 @@
 # Legacy / Parallel / Fallback Path Inventory
 
 > **Story:** S11-STORY-003B · Legacy Path Removal & Parallel Implementation Audit  
-> **Gate:** A（审计与计划 · 2026-06-11）  
-> **Branch basis:** `feature/s11-story-003a-staging-volcengine-streaming-numbering` @ `75fecb9`（**003A 尚未 merge 至 sprint**）  
+> **Gate:** A（审计 · 2026-06-11 修订 · **Gate B 未批准**）  
+> **Branch basis:** `sprint/s11-production-ops-go-live` @ `75fecb9`（含 003A merge）+ Gate A docs cherry-pick  
 > **Production:** Pending · **main:** 不 merge
 
-本文档为 Gate B 删除/隔离的唯一事实输入。每项含：ID、类别、symbol、历史用途、当前调用方、是否进入 staging/production runtime、替代实现、处置、删除风险、测试证据、目标 Sprint。
+本文档为 Gate B 删除/隔离的唯一事实输入。
+
+**每项必填字段：** ID · 类别 · Symbol/文件/路由 · 历史用途 · 当前调用方 · Staging/Production runtime 影响 · 替代实现 · 处置 · 删除风险 · 删除证据 · 测试计划 · 目标 Sprint
 
 ---
 
-## 优先级定义
+## 优先级与 Gate B 范围（2026-06-11 用户裁定）
 
-| 级别 | 含义 |
+| 级别 | Gate B |
+|------|--------|
+| **P0** | LP-001～007、LP-009、LP-010 — **批准继续评估**（未执行删除） |
+| **P1** | 含 **LP-008**（SSE 双渲染轨）— **默认不纳入 003B**；仅当证明污染 production-like 主链路且可小范围删除时重新申请 |
+| **P2/P3** | backlog · 不批量删除 |
+
+---
+
+## 分支基线（003B 重建记录）
+
+| 步骤 | 操作 |
 |------|------|
-| **P0** | 仍可能污染用户主链路；003B Gate B 必须处理 |
-| **P1** | 确认废弃但删除风险较高；建议后续专门 Story |
-| **P2** | 有意保留的 compatibility / dev-only / release1 资产 |
-| **P3** | 文档、命名、低风险清理 |
+| 1 | `003A` fast-forward merge → `sprint/s11-production-ops-go-live` @ `75fecb9` |
+| 2 | `refactor/s11-story-003b-legacy-path-removal`：`git reset --hard sprint/s11-production-ops-go-live` |
+| 3 | Cherry-pick Gate A 文档：`bd2e469` → `bed56ce` · `ec24ccc` → `a618beb`（内容等价，新 hash） |
+| **未采用** | 保留 003B 以未 merge 的 003A feature tip 为独立基线 |
+| **未采用** | rebase 003B  onto sprint（等价于 reset + cherry-pick，更清晰保留仅 docs 提交） |
 
 ---
 
-## P0 — Gate B 必须处理
+## P0 — Gate B 批准评估项（LP-008 除外）
 
 ### LP-001 · User picker 静态 fallback 链
 
 | 字段 | 内容 |
 |------|------|
+| **ID** | LP-001 |
 | **类别** | UserSelectable 多套分发 |
-| **Symbol / 文件** | `PREVIEW_HEADING_STYLE_OPTIONS` · `resolvePreviewHeadingStyleOptions` L92 · `src/lib/preview-user-selectable-pool.ts` |
-| **历史用途** | DB pool 不可用时 merge release1 publish + file manifest userSelectable |
-| **当前调用方** | `/preview` `PreviewStyleControls`（当 pool 非 database 且无 server options） |
-| **Staging/production runtime** | **是**（DB 异常路径） |
-| **替代实现** | `buildUserSelectableHeadingOptionsFromPool` + fail closed 空列表 |
-| **处置** | **删除** L88–92 fallback 至 `PREVIEW_HEADING_STYLE_OPTIONS` |
-| **删除风险** | 低；003A 已覆盖 database/degraded 分支 |
-| **测试证据** | `tests/lib/preview-user-selectable-pool.test.tsx` · Gate B 增 architecture test |
+| **Symbol / 文件** | `PREVIEW_HEADING_STYLE_OPTIONS` · `resolvePreviewHeadingStyleOptions()` 最终 fallback · `src/lib/preview-user-selectable-pool.ts` L88–92 |
+| **历史用途** | DB pool 不可用或无 server options 时，合并 release1 publish + file manifest `PREVIEW_USER_SELECTABLE_*` |
+| **当前调用方** | `src/components/preview/preview-style-controls.tsx` → `resolvePreviewHeadingStyleOptions` · `tests/lib/preview-user-selectable-pool.test.tsx` |
+| **Runtime 影响** | **Staging/Prod 是** — 仅当 `userSelectablePool.source` ≠ `database` 且无 `userSelectableHeadingOptions` 时触发；003A 已覆盖 database/degraded 分支，此为**最后静默降级口** |
+| **替代实现** | 返回 `[]`（fail closed）+ optional degraded notice；「跟随生成结果」由 UI 层保留 |
+| **处置** | **删除** L92 `return PREVIEW_HEADING_STYLE_OPTIONS` |
+| **删除风险** | 低 |
+| **删除证据** | 003A `resolvePreviewHeadingStyleOptions` 已拒绝 publish+DB merge；grep 仅 `preview-user-selectable-pool.ts` + S9 测试引用静态常量 |
+| **测试计划** | 扩 `preview-user-selectable-pool.test.tsx` degraded/empty → `[]` · architecture guard 禁止 import merge |
 | **目标 Sprint** | S11-STORY-003B Gate B |
 
 ### LP-002 · File manifest userSelectable 池
 
 | 字段 | 内容 |
 |------|------|
+| **ID** | LP-002 |
 | **类别** | UserSelectable 多套分发 |
 | **Symbol / 文件** | `src/core/style-library/user-selectable-preview-pool.ts` · `PREVIEW_USER_SELECTABLE_HEADING_STYLE_OPTIONS` · `src/lib/preview-heading-style.ts` |
-| **历史用途** | S9 HTML paste apply patch 后 file-backed user_selectable 预览池 |
-| **当前调用方** | `preview-heading-style.ts` 常量 · `user-preview-style-registry.ts` · `build-code-fallback-dsl-runtime.ts` |
-| **Staging/production runtime** | **间接是**（registry / code_fallback DSL 注入 teal variant） |
-| **替代实现** | DB `getUserSelectableVariantPool` + `distribution.userSelectable` |
-| **处置** | **隔离** → dev/import/test only；**禁止** user runtime import；重命名去掉 `USER_SELECTABLE` 语义 |
-| **删除风险** | 中（大量 S9 测试引用 lifecycle `user_selectable`） |
-| **测试证据** | `tests/lib/user-selectable-preview-picker-007c.test.ts` 等需改写 scope |
+| **历史用途** | S9 file-backed manifest 标记 `lifecycle=user_selectable` 的 HTML paste asset 进入用户预览池 |
+| **当前调用方** | `preview-heading-style.ts`（常量） · `user-preview-style-registry.ts` · `build-code-fallback-dsl-runtime.ts` · `src/core/style-library/index.ts` re-export · S9 tests |
+| **Runtime 影响** | **间接是** — 经 LP-001/LP-004 链进入 user path；003A DB 主路径不再读 manifest 入 picker |
+| **替代实现** | DB `getUserSelectableVariantPool` + `distribution.userSelectable` + `evaluateUserSelectablePoolMembership` |
+| **处置** | **隔离** → 重命名为 `style-library-manifest-preview-fixtures.ts` 或限 dev/test import；禁止 `/preview` runtime import |
+| **删除风险** | 中 — S9 e2e/audit 测试依赖 |
+| **删除证据** | `/preview/page.tsx` 仅 `getUserSelectableVariantPool`；003A 移除 seed merge |
+| **测试计划** | 改写 `user-selectable-preview-picker-007c.test.ts` scope → dev manifest · architecture test 禁止 `user-preview-render` import |
 | **目标 Sprint** | S11-STORY-003B Gate B |
 
 ### LP-003 · Degraded pool 错误 source 标签
 
 | 字段 | 内容 |
 |------|------|
+| **ID** | LP-003 |
 | **类别** | UserSelectable 多套分发 |
-| **Symbol / 文件** | `buildDegradedEmptyPool` · `source: "code_fallback"` · `src/server/style-admin/runtime/user-selectable-variant-pool.ts` L62–74 |
-| **历史用途** | DB 不可用时语义上表示 code fallback |
-| **当前调用方** | `getUserSelectableVariantPool` catch / no DATABASE_URL |
-| **Staging/production runtime** | **是**（fail closed 已 empty，但 source 误导） |
-| **替代实现** | `source: "db_unavailable"` 或 `"empty"`（与 `UserSelectableVariantPoolSnapshot` 对齐） |
-| **处置** | **删除/修正** source 语义；确保无 consumer 把 degraded 当 code_fallback 渲染 |
+| **Symbol / 文件** | `buildDegradedEmptyPool()` · `source: "code_fallback"` · `src/server/style-admin/runtime/user-selectable-variant-pool.ts` L62–74 |
+| **历史用途** | DB 异常时语义上表示「code fallback pool」 |
+| **当前调用方** | `getUserSelectableVariantPool()` — `!DATABASE_URL` · catch 分支 |
+| **Runtime 影响** | **Staging/Prod 是** — variants 已 empty（003A），但 `source` 误导 consumer 区分 degraded vs code_fallback |
+| **替代实现** | `UserSelectableVariantPoolSnapshot.source = "db_unavailable"`（类型已存在于 client 分支 L84） |
+| **处置** | **修正** source 字段；审计所有 `source === "code_fallback"` 分支 |
 | **删除风险** | 低 |
-| **测试证据** | `tests/server/style-admin/runtime/user-selectable-variant-pool.test.ts` |
+| **删除证据** | `preview-user-selectable-pool.ts` L84–85 已单独处理 code_fallback/db_unavailable；server 不应再 emit code_fallback for empty pool |
+| **测试计划** | 更新 `user-selectable-variant-pool.test.ts` expect `db_unavailable` · architecture guard |
 | **目标 Sprint** | S11-STORY-003B Gate B |
 
-### LP-004 · code_fallback DSL 注入 html-paste userSelectable
+### LP-004 · code_fallback DSL 注入 html-paste manifest variant
 
 | 字段 | 内容 |
 |------|------|
+| **ID** | LP-004 |
 | **类别** | UserSelectable / DSL runtime |
-| **Symbol / 文件** | `buildCodeFallbackDslRuntime` · `getUserSelectablePreviewVariantDefinition` · `src/lib/dsl-runtime/build-code-fallback-dsl-runtime.ts` |
-| **历史用途** | 无 DB 时仍渲染 teal section label |
-| **当前调用方** | `user-preview-render.ts` DEFAULT_CODE_FALLBACK_RUNTIME |
-| **Staging/production runtime** | **staging 不应**（有 DATABASE_URL）；dev 可能 |
-| **替代实现** | 空 DSL runtime + 明确 degraded 警告 |
-| **处置** | **删除** html-paste 注入；保留 registry encode 仅用于非 user pool 场景 |
-| **删除风险** | 中（本地无 DB 开发体验） |
-| **测试证据** | `tests/server/style-admin/runtime/runtime-variant-dsl-pool.test.ts` |
+| **Symbol / 文件** | `buildCodeFallbackDslRuntime()` · `getUserSelectablePreviewVariantDefinition(USER_SELECTABLE_HTML_PASTE_HEADING_ID)` · `src/lib/dsl-runtime/build-code-fallback-dsl-runtime.ts` |
+| **历史用途** | 无 DATABASE_URL 时注入 teal html-paste variant DSL |
+| **当前调用方** | `user-preview-render.ts` `DEFAULT_CODE_FALLBACK_RUNTIME` · `runtime-variant-dsl-pool.ts` `buildCodeFallbackRuntimeResult` |
+| **Runtime 影响** | **Staging 不应**（有 RDS）；**本地 dev 可能** — 无 DB 时 user preview 仍可能渲染 manifest variant |
+| **替代实现** | 空 `definitionJsonByVariantId` + `source: "code_fallback"` notice；registry-only encode 限非 user pool |
+| **处置** | **删除** html-paste 注入块 |
+| **删除风险** | 中 — 本地无 DB 体验 |
+| **删除证据** | staging `getRuntimeVariantDslPool` 走 database；003A 要求 user pool DB-only |
+| **测试计划** | `runtime-variant-dsl-pool.test.ts` · `user-preview-render` degraded 无 teal 注入 |
 | **目标 Sprint** | S11-STORY-003B Gate B |
 
 ### LP-005 · Heading variant 解析 seed fallback
 
 | 字段 | 内容 |
 |------|------|
+| **ID** | LP-005 |
 | **类别** | UserSelectable 多套分发 |
-| **Symbol / 文件** | `getCodeBackedRuntimeAvailableVariantIds` · `resolveRuntimeAvailableVariantId` · `src/lib/render-article-preview-client.ts` L108–116 |
-| **历史用途** | pool 空时用 seed 列表解析 headingVariantId |
-| **当前调用方** | `/preview` style control |
-| **Staging/production runtime** | **是**（pool 为空时） |
-| **替代实现** | 仅 `userSelectablePool.poolVariantIds` |
-| **处置** | **删除** seed fallback on user path |
+| **Symbol / 文件** | `getCodeBackedRuntimeAvailableVariantIds()` · `resolveRuntimeAvailableVariantId()` · `src/lib/render-article-preview-client.ts` L108–116 |
+| **历史用途** | `userSelectablePool.poolVariantIds` 空时用 release1 seed set 解析 picker 选择 |
+| **当前调用方** | `renderArticlePreviewClient()` · `runtime-variant-availability.ts` · `runtime-variant-seed-config.ts` · tests |
+| **Runtime 影响** | **Staging/Prod 是** — pool 空或 id 不在 pool 时 fallback 到 seed |
+| **替代实现** | 仅 `poolSnapshot.poolVariantIds`；无效 id → 保持生成结果或 first pool entry |
+| **处置** | **删除** user preview path 的 seed fallback |
 | **删除风险** | 低 |
-| **测试证据** | Gate B architecture test |
+| **删除证据** | 003A AC：picker 与 admin userSelectable 一致；seed 列表 ≠ DB pool |
+| **测试计划** | architecture guard · preview client test pool-only resolution |
 | **目标 Sprint** | S11-STORY-003B Gate B |
 
 ### LP-006 · Manifest lifecycle 过滤 user_selectable
 
 | 字段 | 内容 |
 |------|------|
+| **ID** | LP-006 |
 | **类别** | lifecycle vs distribution |
-| **Symbol / 文件** | `getUserSelectablePreviewVariantAssets` filter `lifecycle === "user_selectable"` · `user-selectable-preview-pool.ts` L16–23 |
-| **历史用途** | file-backed 池 membership |
-| **当前调用方** | LP-002 链 |
-| **Staging/production runtime** | 不应（003A 后 DB 为主） |
-| **替代实现** | `distribution.userSelectable` only |
-| **处置** | **删除** lifecycle gate（模块隔离后整体退役） |
+| **Symbol / 文件** | `getUserSelectablePreviewVariantAssets()` filter `lifecycle === "user_selectable"` · `user-selectable-preview-pool.ts` L16–23 |
+| **历史用途** | File manifest 池 membership 由 lifecycle 决定 |
+| **当前调用方** | LP-002 链 · `STYLE_LIBRARY_MANIFEST` assets |
+| **Runtime 影响** | **否**（DB 主路径）· **是**（manifest/code_fallback 链） |
+| **替代实现** | 删除 lifecycle 条件；若保留 manifest 仅用 `distribution.userSelectable` metadata |
+| **处置** | 随 LP-002 **隔离/删除** lifecycle gate |
 | **删除风险** | 低（与 LP-002 同批） |
-| **测试证据** | S9 style-library tests |
+| **删除证据** | `evaluateUserSelectablePoolMembership` 明确 lifecycle 不授予可见性 |
+| **测试计划** | manifest unit tests 改 distribution-only |
 | **目标 Sprint** | S11-STORY-003B Gate B |
 
-### LP-007 · Admin lifecycle filter 仍含 user_selectable
+### LP-007 · Admin lifecycle filter / badge user_selectable
 
 | 字段 | 内容 |
 |------|------|
+| **ID** | LP-007 |
 | **类别** | lifecycle vs distribution |
-| **Symbol / 文件** | `style-library-admin-filters.ts` L24 · `LifecycleBadge` `user_selectable` 分支 · `admin-display-labels.ts` |
-| **历史用途** | Admin 筛选「已 promote 可选」 |
-| **当前调用方** | `/admin/style-library` |
-| **Staging/production runtime** | **是**（UI 混淆） |
-| **替代实现** | Distribution filter `userSelectable=true`；lifecycle 仅治理阶段 |
-| **处置** | **删除** lifecycle filter 选项；badge 标 Legacy 或隐藏 |
-| **删除风险** | 低（迁移 SQL 已备） |
-| **测试证据** | admin view-model tests |
+| **Symbol / 文件** | `LIFECYCLE_FILTER_OPTIONS` · `style-library-admin-filters.ts` · `LifecycleBadge` · `admin-display-labels.ts` `user_selectable: "Legacy (migrating)"` |
+| **历史用途** | Admin 按 lifecycle「User Selectable」筛选 |
+| **当前调用方** | `/admin/style-library` shell · filters · components · view-model tests |
+| **Runtime 影响** | **Admin UI 是** — 混淆 lifecycle 与 distribution.userSelectable |
+| **替代实现** | Distribution 区 filter `userSelectable` · Lifecycle 仅 candidate/paste_qa_pass/… |
+| **处置** | **删除** lifecycle filter 选项 · badge 仅只读历史行或隐藏 |
+| **删除风险** | 低 |
+| **删除证据** | 003A Promote → `paste_qa_pass` · migration SQL M-1 |
+| **测试计划** | `style-library-admin-view-model.test.ts` · 无 lifecycle user_selectable filter option |
 | **目标 Sprint** | S11-STORY-003B Gate B |
 
-### LP-008 · SSE 与 post-preview 双渲染轨
+### LP-009 · 重复 eligibility 实现
 
 | 字段 | 内容 |
 |------|------|
-| **类别** | Streaming / Renderer 并行 |
-| **Symbol / 文件** | `renderArticleBlocks` · `src/lib/render-streaming-preview.ts` · `src/server/generation/run-generate-stream-flow.ts` L161 |
-| **历史用途** | 流式生成过程中 registry renderer 预览 |
-| **当前调用方** | 首页 SSE · `preview-page-client` streaming phase |
-| **Staging/production runtime** | **是** |
-| **替代实现** | 流式阶段仅文本/结构；样式化 block 在 done 后 `renderUserPreviewArticleBlocks`；或 SSE 也走 DSL user renderer |
-| **处置** | **隔离/收敛** — Gate B 需设计决策（不重写已通过验收的 SSE 传输层） |
-| **删除风险** | **高**（003A 刚验打字机；勿误删 Nginx/SSE headers） |
-| **测试证据** | 003A streaming 人工验收 · Gate B 增 parity test |
-| **目标 Sprint** | S11-STORY-003B Gate B（分步） |
-
-### LP-009 · 重复 eligibility：`isEligibleForUserSelectablePool` vs `evaluateUserSelectablePoolMembership`
-
-| 字段 | 内容 |
-|------|------|
+| **ID** | LP-009 |
 | **类别** | Admin vs runtime eligibility |
-| **Symbol / 文件** | `isEligibleForUserSelectablePool` · `src/server/style-admin/mappers.ts` L24 · promote / distribution repo |
-| **历史用途** | 早期 pool SQL 后处理 |
-| **当前调用方** | promote · distribution repository · **不含 quality gate** |
-| **Staging/production runtime** | **是**（promote 验证与 pool mapper 可能不一致） |
-| **替代实现** | `evaluateUserSelectablePoolMembership` / `buildUserSelectablePoolWhere` |
-| **处置** | **删除** duplicate；admin filter 已对齐 SQL where（003A） |
-| **删除风险** | 中 |
-| **测试证据** | `tests/lib/user-selectable-pool-eligibility.test.ts` · admin query tests |
+| **Symbol / 文件** | `isEligibleForUserSelectablePool()` · `src/server/style-admin/mappers.ts` L24 · vs `evaluateUserSelectablePoolMembership()` · `user-selectable-pool-eligibility.ts` |
+| **历史用途** | Promote / distribution repo 后置过滤 |
+| **当前调用方** | `promote-candidate-to-user-selectable.ts` · `style-variant-distribution-repository.ts` · harvest tests · **不含** quality gate / definitionJson gate |
+| **Runtime 影响** | **是** — promote 成功提示与 runtime pool 可能不一致 |
+| **替代实现** | 共享 `evaluateUserSelectablePoolMembership` 或 thin wrapper；SQL 用 `buildUserSelectablePoolWhere` |
+| **处置** | **删除** duplicate · mappers 委托 eligibility 模块 |
+| **删除风险** | 中 — 多测试文件 import mappers helper |
+| **删除证据** | 003A admin query 已用 `buildUserSelectablePoolWhere`；mapper 已用 `evaluateUserSelectablePoolMembership` |
+| **测试计划** | `user-selectable-pool-eligibility.test.ts` · promote test poolEligible 与 mapper 一致 |
 | **目标 Sprint** | S11-STORY-003B Gate B |
 
-### LP-010 · Unused import 残留（manifest pool）
+### LP-010 · Dead import manifest pool in server loader
 
 | 字段 | 内容 |
 |------|------|
-| **类别** | UserSelectable |
-| **Symbol / 文件** | `getUserSelectablePreviewVariantDefinition` import · `user-selectable-variant-pool.ts` L4 |
-| **历史用途** | code_fallback 合并 static variants |
-| **当前调用方** | **无**（003A 已移除合并逻辑） |
+| **ID** | LP-010 |
+| **类别** | UserSelectable 清理 |
+| **Symbol / 文件** | `import { getUserSelectablePreviewVariantDefinition }` · `user-selectable-variant-pool.ts` L4（未使用） |
+| **历史用途** | 003A 前 code_fallback 合并 static variants |
+| **当前调用方** | **无** |
+| **Runtime 影响** | **否** |
 | **替代实现** | — |
-| **处置** | **删除** dead import |
+| **处置** | **删除** import |
 | **删除风险** | 无 |
-| **测试证据** | lint |
+| **删除证据** | grep 文件内无 symbol 使用 · lint unused |
+| **测试计划** | `pnpm lint` |
 | **目标 Sprint** | S11-STORY-003B Gate B |
 
 ---
 
-## P1 — 后续专门清理（003B 登记 backlog）
+## P1 — 后续 Story / 003B 不默认处理
 
-### LP-101 · `user-preview-style-registry` manifest merge
+### LP-008 · SSE registry render vs DSL user render（**用户降级为 P1**）
 
 | 字段 | 内容 |
 |------|------|
+| **ID** | LP-008 |
+| **类别** | Streaming / Renderer 并行 |
+| **Symbol / 文件** | `renderArticleBlocks()` · `renderBlock()` · `src/lib/render-streaming-preview.ts` · `src/server/generation/run-generate-stream-flow.ts` L161 · `src/app/preview/preview-page-client.tsx` |
+| **历史用途** | SSE 流式阶段用 registry renderer 增量展示 styled blocks |
+| **当前调用方** | 首页 generate stream · preview streaming phase · `tests/lib/render-streaming-preview.test.ts` |
+| **Runtime 影响** | **Staging/Prod 是** — 流式阶段与 done 后 `renderUserPreviewArticleBlocks`（DSL）可能视觉不一致 |
+| **污染主链路？** | **部分** — 003A 已验收打字机/SSE 传输；问题在**渲染轨双轨**非 SSE 本身。**不满足**「小范围删除即可解决」— 需设计 streaming 是否仅文本或延迟 styled render |
+| **替代实现** | 流式仅 markdown/结构；done 后统一 DSL user render；或 SSE payload 去 styled blocks |
+| **处置** | **defer** → 独立 Story（建议 S11-STORY-003C 或 S12）· **禁止** Gate B 重写 SSE 主链路 |
+| **删除风险** | **高** — 003A Nginx/`X-Accel-Buffering` 依赖 |
+| **删除证据** | 需 Gate B 前 parity 度量报告（非本 Gate A 范围） |
+| **测试计划** | 后续：streaming vs post-done HTML diff test |
+| **重新纳入条件** | 证明污染 production-like 路径 + 可 <200 LOC 删除且无 SSE 回归 |
+| **目标 Sprint** | **P1 backlog** |
+
+### LP-101 · user-preview-style-registry manifest merge
+
+| 字段 | 内容 |
+|------|------|
+| **ID** | LP-101 |
 | **类别** | UserSelectable |
 | **Symbol** | `createUserPreviewStyleRegistry` · `getCodeBackedUserSelectableVariants` · `src/lib/user-preview-style-registry.ts` |
-| **Runtime** | 当 `preferDatabaseVariants: false` |
-| **处置** | **defer** — Gate B 强制 `preferDatabaseVariants: true` on `/preview` |
-| **风险** | 中 |
+| **历史用途** | DB variants 与 manifest variants 合并 registry |
+| **当前调用方** | `render-article-preview-client.ts` when `preferDatabaseVariants: false` |
+| **Runtime 影响** | **否** on `/preview`（`preferDatabaseVariants: true`） |
+| **替代实现** | DB-only registry |
+| **处置** | **defer** · Gate B 可 hardcode prefer true |
+| **删除风险** | 中 |
+| **删除证据** | `render-article-preview-client.ts` L86–88 |
+| **测试计划** | preview client test |
+| **目标 Sprint** | P1 |
 
-### LP-102 · `renderBlock` registry 主链路（非 DSL）
+### LP-102 · renderBlock registry 主链路
 
 | 字段 | 内容 |
 |------|------|
-| **类别** | Renderer 并行 |
+| **ID** | LP-102 |
 | **Symbol** | `src/core/renderer/render-block.ts` |
-| **Runtime** | SSE done payload · style-library inspection |
-| **替代** | `renderUserPreviewBlock` / `renderDslBlock` |
-| **处置** | **defer** — DEBT-DSL-RC · 与 LP-008 同批规划 |
-| **风险** | 高 |
+| **历史用途** | Release1 registry 渲染 |
+| **当前调用方** | LP-008 SSE · style-library inspection · generation done payload |
+| **Runtime 影响** | 见 LP-008 |
+| **替代实现** | `renderDslBlock` / DEBT-DSL-RC migration |
+| **处置** | **defer** |
+| **删除风险** | 高 |
+| **测试计划** | DEBT-DSL-RC checklist |
+| **目标 Sprint** | P1 |
 
-### LP-103 · `decodeRenderContract` html_paste 旁路
+### LP-103 · decodeRenderContract html_paste 旁路
 
 | 字段 | 内容 |
 |------|------|
-| **类别** | HTML paste / Renderer |
-| **Symbol** | `isHtmlPasteCandidateDsl` · `src/core/dsl/decoder/decode-contract.ts` |
-| **Runtime** | title_block_v1 contract 路径 |
-| **替代** | `decodeTreeToOutput` fidelity tree |
-| **处置** | **defer** · `docs/architecture/variant-dsl-legacy-render-contract-debt.md` |
-| **风险** | 高 |
+| **ID** | LP-103 |
+| **Symbol** | `decodeRenderContract` · `isHtmlPasteCandidateDsl` · `decode-contract.ts` |
+| **调用方** | `decode-variant-dsl.ts` when no tree |
+| **Runtime 影响** | contract-path html_paste variants |
+| **替代** | tree-only fidelity |
+| **处置** | defer · `variant-dsl-legacy-render-contract-debt.md` |
+| **测试计划** | fidelity tree tests |
+| **目标 Sprint** | P1 |
 
 ### LP-104 · Registry → DB import 桥
 
 | 字段 | 内容 |
 |------|------|
-| **类别** | 数据权威双轨 |
-| **Symbol** | `map-style-registry-variant-to-db.ts` · `collect-existing-style-variants` |
-| **Runtime** | import CLI / 初始 seed |
-| **处置** | **保留** 至全量 DB DSL；标记 non-runtime |
-| **风险** | 低 |
+| **ID** | LP-104 |
+| **Symbol** | `map-style-registry-variant-to-db.ts` · import CLI |
+| **Runtime 影响** | **否** runtime · import only |
+| **处置** | **保留** 至全量 DB |
+| **测试计划** | import integration tests |
+| **目标 Sprint** | P1 |
 
-### LP-105 · `defaultDistributionForLifecycle("user_selectable")`
-
-| 字段 | 内容 |
-|------|------|
-| **类别** | lifecycle |
-| **Symbol** | `src/server/style-admin/mappers.ts` |
-| **Runtime** | import 默认值 |
-| **处置** | **defer** — 改为 `paste_qa_pass` + explicit distribution |
-| **风险** | 中 |
-
-### LP-106 · PostgreSQL enum `user_selectable` 物理删除
+### LP-105 · defaultDistributionForLifecycle(user_selectable)
 
 | 字段 | 内容 |
 |------|------|
-| **类别** | Schema / migration |
-| **Symbol** | `StyleVariantLifecycle` enum · Prisma |
-| **Runtime** | 只读历史行（迁移 SQL 已写） |
-| **处置** | **defer** — 标为 DB legacy enum value；Gate B 完成无写入/无查询依赖后再评估 DROP |
-| **风险** | **高**（PG enum 缩值需专用 migration + rollback） |
-| **迁移计划** | 见 §数据迁移计划 |
+| **ID** | LP-105 |
+| **Symbol** | `defaultDistributionForLifecycle` · `mappers.ts` |
+| **调用方** | import / create variant |
+| **Runtime 影响** | 新行默认值 · 非 runtime visibility |
+| **处置** | defer → `paste_qa_pass` + explicit distribution |
+| **测试计划** | mappers.test.ts |
+| **目标 Sprint** | P1 |
 
-### LP-107 · `cacheVersion` DB increment 未接 runtime
+### LP-106 · PG enum user_selectable 物理删除
 
 | 字段 | 内容 |
 |------|------|
-| **类别** | Cache |
+| **ID** | LP-106 |
+| **Symbol** | Prisma `StyleVariantLifecycle.user_selectable` |
+| **Runtime 影响** | 历史行只读；M-1 迁移 SQL 已备 |
+| **处置** | **defer** 物理 DROP · 003B 逻辑退役 |
+| **删除风险** | 高 |
+| **测试计划** | migration dry-run on staging |
+| **目标 Sprint** | P1 |
+
+### LP-107 · cacheVersion DB increment 未接 runtime
+
+| 字段 | 内容 |
+|------|------|
+| **ID** | LP-107 |
 | **Symbol** | `style-variant-distribution-repository.ts` |
-| **Runtime** | 否 |
-| **处置** | **defer** 或删除无效字段 |
-| **风险** | 低 |
+| **Runtime 影响** | **否** |
+| **处置** | defer |
+| **测试计划** | — |
+| **目标 Sprint** | P1 |
 
-### LP-108 · `definitionJson.label` vs `row.label`
+### LP-108 · definitionJson.label vs row.label
 
 | 字段 | 内容 |
 |------|------|
-| **类别** | Canonical label |
-| **Symbol** | pool mapper 已用 `row.label`（003A） |
-| **Runtime** | admin 列表 · picker 已 canonical |
-| **处置** | **defer** — 审计 admin UI 是否仍读 definitionJson.label |
-| **风险** | 低 |
+| **ID** | LP-108 |
+| **Symbol** | pool mapper `row.label`（003A canonical） |
+| **Runtime 影响** | picker/admin 已 canonical · 审计 admin detail 是否仍显示 definitionJson.label |
+| **处置** | defer audit |
+| **测试计划** | admin view-model label assertions |
+| **目标 Sprint** | P1 |
 
 ---
 
-## P2 — 有意保留（compatibility / dev-only）
+## P2 — 有意保留
 
 ### LP-201 · Gallery release1 publish pool
 
 | 字段 | 内容 |
 |------|------|
-| **Symbol** | `PREVIEW_HEADING_PUBLISH_STYLE_OPTIONS` · `includeUserSelectableHeadingOptions={false}` |
-| **保留原因** | Gallery 展示 release1 静态 heading，**非** userSelectable 分发 |
-| **边界** | 不得被 `/preview` user picker import |
+| **Symbol** | `PREVIEW_HEADING_PUBLISH_STYLE_OPTIONS` · `gallery-page-client.tsx` `includeUserSelectableHeadingOptions={false}` |
+| **保留原因** | Gallery 展示 release1 静态 heading · **非** userSelectable 分发 |
+| **Runtime 影响** | Gallery only |
+| **边界** | architecture test：`/preview` 不得 import publish pool for picker |
+| **测试计划** | existing gallery tests |
 
-### LP-202 · Registry variants / heading publish pool
+### LP-202 · Registry variants / HEADING_PUBLISH_VARIANT_IDS
 
 | 字段 | 内容 |
 |------|------|
-| **Symbol** | `src/core/styles/variants/*` · `HEADING_PUBLISH_VARIANT_IDS` |
-| **保留原因** | Release1 renderer · generation · Gallery |
-| **边界** | 不得决定 userSelectable 可见性 |
+| **保留原因** | Generation · Gallery · release1 renderer assets |
+| **边界** | 不得决定 userSelectable |
+| **测试计划** | `runtime-variant-availability.test.ts` scope |
 
-### LP-203 · `/dev/style-library` file manifest workbench
+### LP-203 · /dev/style-library
 
 | 字段 | 内容 |
 |------|------|
 | **Symbol** | `src/app/dev/style-library/*` |
-| **保留原因** | HTML paste 提案 · import 前 inspection |
-| **边界** | `isDevApiEnabled` · 非 production admin |
+| **保留原因** | HTML paste 提案 · manifest workbench |
+| **边界** | `isDevApiEnabled` |
+| **测试计划** | dev route tests |
 
-### LP-204 · `deterministicGenerationStreamProvider` (test provider)
+### LP-204 · deterministicGenerationStreamProvider
 
 | 字段 | 内容 |
 |------|------|
 | **Symbol** | `src/core/generation/test-provider.ts` |
-| **保留原因** | vitest · 本地无 API key |
-| **边界** | `/preview` 已 `requireRealProvider: true` |
+| **保留原因** | vitest / 无 API key |
+| **边界** | `/preview` `requireRealProvider: true` |
+| **测试计划** | generate stream tests |
 
-### LP-205 · Fidelity tree encode/decode（003A 正确路径）
-
-| 字段 | 内容 |
-|------|------|
-| **Symbol** | `resolveEffectiveSemanticBindings` · `fidelity-tree-substitution.ts` · `fidelity-tree-theme-tokens.ts` |
-| **保留原因** | 唯一 HTML paste 编号/主题共享链路 |
-| **边界** | 不得再增 runtimeVariantId 特判 |
-
-### LP-206 · Nginx SSE buffering 配置
+### LP-205 · Fidelity tree shared path（003A）
 
 | 字段 | 内容 |
 |------|------|
-| **Symbol** | `deploy/nginx/staging.conf.example` |
-| **保留原因** | 003A 打字机验收依赖 |
-| **边界** | 部署配置，非代码删除对象 |
+| **Symbol** | `resolveEffectiveSemanticBindings` · substitution · theme tokens |
+| **保留原因** | 唯一 HTML paste 编号/主题 Preview+Copy 链路 |
+| **测试计划** | `html-paste-inline-number-ordinal-theme.test.ts` |
 
-### LP-207 · `buildRuntimeVariantPoolWhere` vs `buildUserSelectablePoolWhere`
+### LP-206 · Nginx SSE buffering
 
 | 字段 | 内容 |
 |------|------|
-| **保留原因** | runtime DSL pool ⊃ user pool（含 release1_required 治理用 variant） |
-| **边界** | 文档化 contract；user pool 不得 widen |
+| **Symbol** | `deploy/nginx/staging.conf.example` · `stream-sse.ts` headers |
+| **保留原因** | 003A 打字机验收 |
+| **边界** | 部署配置 · Gate B 勿删 |
+
+### LP-207 · buildRuntimeVariantPoolWhere vs buildUserSelectablePoolWhere
+
+| 字段 | 内容 |
+|------|------|
+| **保留原因** | Runtime DSL pool ⊃ user pool |
+| **边界** | 文档化；user pool 不得 widen |
+| **测试计划** | pool mapper tests |
 
 ---
 
 ## P3 — 文档 / 命名 / 低风险
 
-### LP-301 · `LEGACY_PRESET_ID_ALIASES` (`classic-news` → `business`)
+### LP-301 · LEGACY_PRESET_ID_ALIASES
 
-### LP-302 · `LEGACY_SOURCE_TYPES` in seed config
+| **Symbol** | `src/config/miaopian-preset-bundles.ts` |
+| **处置** | keep alias |
+| **测试** | input normalize tests |
 
-### LP-303 · `docs/architecture/style-library-storage.md` file-backed 叙述
+### LP-302 · LEGACY_SOURCE_TYPES
 
-### LP-304 · Style library lifecycle 单元测试仍断言 `user_selectable` transitions
+| **Symbol** | `runtime-variant-seed-config.ts` |
+| **处置** | keep import guard |
+| **测试** | import tests |
 
-### LP-305 · `generationModeSchema: "batch" | "stream"` 类型无 active batch 路径
+### LP-303 · style-library-storage.md file-backed 叙述
 
-### LP-306 · Duplicate dev/admin promote view-models
+| **处置** | 标记 superseded by DB admin |
+
+### LP-304 · lifecycle 单测仍断言 user_selectable transitions
+
+| **Symbol** | `style-library-lifecycle.test.ts` |
+| **处置** | defer 更新为 paste_qa_pass 模型 |
+
+### LP-305 · generationModeSchema batch
+
+| **处置** | keep type · 无 active batch path |
+
+### LP-306 · duplicate dev/admin promote view-models
+
+| **处置** | defer consolidate |
 
 ---
 
-## 003A 已收敛项（Gate B 勿重复删除）
+## 003A 已 merge sprint（@ 75fecb9）— 勿重复删除
 
-以下在 `feature/s11-story-003a` @ `6fc8b46` 已修复，inventory 仅作 baseline：
-
-| 项 | 003A 状态 |
-|----|-----------|
-| DB pool + static publish merge | **已移除**（`resolvePreviewHeadingStyleOptions`） |
-| teal seed `userSelectable: true` override | **已改 false** |
-| degraded pool 注入 manifest variants | **已改 empty** |
-| admin `userSelectable=true` filter quality gate | **已对齐** |
-| Promote lifecycle → `paste_qa_pass` | **已改** |
-| inline number infer + theme effective bindings | **已改** |
-| lifecycle 数据迁移 SQL | **已添加**（待 staging `db:migrate:deploy`） |
-
----
-
-## Gate B P0 删除清单（摘要）
-
-| ID | 动作 |
+| 项 | 状态 |
 |----|------|
-| LP-001 | 删除 `PREVIEW_HEADING_STYLE_OPTIONS` picker fallback |
-| LP-002 | 隔离/重命名 manifest userSelectable 模块 |
-| LP-003 | 修正 degraded `source` 语义 |
-| LP-004 | 移除 code_fallback html-paste 注入 |
-| LP-005 | 移除 heading variant seed fallback |
-| LP-006 | 移除 manifest lifecycle gate |
-| LP-007 | Admin lifecycle UI 清理 |
-| LP-008 | SSE/DSL 渲染收敛（分步，保留 SSE 传输） |
-| LP-009 | 统一 eligibility contract |
-| LP-010 | 删除 dead import |
+| DB pool + static publish merge | 已移除 |
+| teal seed userSelectable override | 已改 false |
+| degraded empty pool（无 manifest 注入） | 已改 |
+| admin userSelectable filter + quality gate | 已对齐 |
+| Promote → paste_qa_pass | 已改 |
+| inline number infer + theme effective bindings | 已改 |
+| lifecycle 迁移 SQL | 已添加 |
 
-**预计 Gate B 净删除：** ~400–800 LOC（不含测试改写）· **Gate A 未删代码**
+---
+
+## Gate B P0 删除清单（批准范围 · 未执行）
+
+LP-001 · LP-002 · LP-003 · LP-004 · LP-005 · LP-006 · LP-007 · LP-009 · LP-010
+
+**排除：** LP-008（P1 · 独立 Story）
+
+**预计净删除：** ~350–650 LOC（不含 LP-008）
 
 ---
 
 ## 数据迁移计划
 
-| 步骤 | 内容 | Gate |
+| 步骤 | 内容 | 状态 |
 |------|------|------|
-| M-1 | `20260610120000_migrate_lifecycle_user_selectable` — `lifecycle` 行 → `paste_qa_pass` | 003A 已备 · staging deploy |
-| M-2 | 确认无代码再 **写入** `lifecycle=user_selectable` | Gate B |
-| M-3 | Admin UI 移除 lifecycle `user_selectable` 筛选 | Gate B |
-| M-4 | 评估 PG enum DROP VALUE（**不强制** 003B） | P1 backlog |
-| M-5 | 不自动修改 `distribution.userSelectable` | 契约 |
-
-**Enum 物理删除风险：** PostgreSQL 不能直接 DROP enum value；需新 enum + column swap + 回滚脚本。建议 **003B 仅逻辑退役**，物理清理单独 Story。
+| M-1 | `20260610120000_migrate_lifecycle_user_selectable` | SQL 在 sprint · staging 需 `db:migrate:deploy` |
+| M-2 | 停写 lifecycle=user_selectable | Gate B |
+| M-3 | Admin UI 移除 lifecycle filter | Gate B · LP-007 |
+| M-4 | PG enum 物理删除 | P1 · LP-106 |
+| M-5 | 不自动改 distribution.userSelectable | 契约 |
 
 ---
 
-## Architecture 测试计划（Gate B）
+## Architecture 测试计划（Gate B · 批准范围）
 
-新增 `tests/architecture/legacy-path-guards.test.ts`（或扩展现有 audit tests）：
+`tests/architecture/legacy-path-guards.test.ts`：
 
-1. `/preview` runtime 不得 import `PREVIEW_USER_SELECTABLE_*` / manifest pool
-2. DB `source=database` 时 picker 不得 merge publish pool
-3. degraded 返回 empty · 非 static merge
+1. `/preview` user path 不 import `PREVIEW_USER_SELECTABLE_*` / manifest pool
+2. DB source=database 不 merge publish pool
+3. degraded → empty · source ≠ misleading code_fallback
 4. lifecycle 不参与 `evaluateUserSelectablePoolMembership`
-5. Promote 不写 `user_selectable`
-6. Admin list filter 与 `buildUserSelectablePoolWhere` 同源
-7. Picker label 来自 `row.label` / pool variant label
-8. HTML paste 编号走 shared substitution（已有 targeted tests 扩展）
-9. `requireRealProvider` on production-like preview path
-10. 无 GET admin mutation routes
+5. Promote 不写 user_selectable
+6. Admin filter 与 `buildUserSelectablePoolWhere` 同源
+7. Picker label 来自 pool variant / row.label
+8. HTML paste 编号 shared substitution（扩展现有 tests）
+9. requireRealProvider on preview generate path
+10. 无 GET admin mutation
+
+**不含 LP-008 streaming parity**（P1 Story）
 
 ---
 
-## 前置阻塞：003A merge
+## 003A merge 记录
 
 ```text
-sprint/s11-production-ops-go-live @ 9ac6edf
-feature/s11-story-003a @ 75fecb9  (+6 commits 未 merge)
+sprint/s11-production-ops-go-live @ 75fecb9（fast-forward from feature/s11-story-003a）
+003B @ sprint + bed56ce + a618beb（Gate A docs cherry-pick from bd2e469）
 ```
 
-**Gate B 开始前必须：** 003A staging 验收确认 + merge feature → sprint（用户确认）。
-
-本 Gate A 分支基于 **003A feature tip**，以便 inventory 反映最新修复。
+**Staging 验收：** 用户指令确认 003A 完成 staging 验收并 merge sprint（2026-06-11）。Story 状态保持 **In Review**（非 Done · 待用户关闭 Story）。

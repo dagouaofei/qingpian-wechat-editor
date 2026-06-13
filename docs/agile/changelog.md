@@ -718,6 +718,7 @@
 | 2026-06-10 | Sprint 11 | DSL：`semanticBindings.number` stale path 回退 infer · user preview 传 variant meta | 样式 / Preview / Copy | numbering fix |
 | 2026-06-10 | Sprint 11 | **preview heading picker 回归**：移除 release1 publish 与 DB userSelectable 混排 · canonical `row.label` / `runtimeVariantId` | 样式 / Preview | S11-STORY-003A |
 | 2026-06-10 | Sprint 11 | **用户池权威**：`distribution.userSelectable` 唯一可见性 · 移除 static seed fallback · lifecycle 数据迁移 | 样式 / Admin / Preview | S11-STORY-003A |
+| 2026-06-11 | Sprint 11 | **003A merge sprint** @ `75fecb9` · **003B Gate A 修订**：分支 reset+cherry-pick · LP-008 降 P1 · inventory 补全 | Git / 架构 | S11-STORY-003A / 003B |
 | 2026-06-11 | Sprint 11 | **S11-STORY-003B Gate A**：legacy/parallel/fallback 全仓审计 · P0 删除清单 · inventory 文档 | 架构 / 敏捷 | S11-STORY-003B |
 | 2026-06-10 | Sprint 11 | **d26 inline 编号/主题色**：infer 覆盖 <36px accent number · theme 用 effective bindings · Preview/Copy parity | Decoder / theme tokens | S11-STORY-003A |
 | 2026-06-10 | Git | 工作分支 `feature/s11-story-003a-staging-volcengine-streaming-numbering` · **未 merge main** · **production 未启动** | Git | S11-STORY-003A |
