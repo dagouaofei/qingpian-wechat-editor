@@ -107,3 +107,4 @@ sleep 2
 check_health_and_version "${OPS_APP_ENV}" "${RESOLVED_COMMIT_SHORT}"
 
 log_ok "Rollback complete · code=${RESOLVED_COMMIT_SHORT} · DB unchanged"
+print_environment_status

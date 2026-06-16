@@ -313,3 +313,20 @@ print_systemd_status() {
   systemctl is-active "${OPS_SERVICE}" || true
   systemctl show "${OPS_SERVICE}" -p ActiveState -p SubState -p MainPID --no-pager || true
 }
+
+print_environment_status() {
+  if [[ -z "${OPS_ENV_NAME:-}" ]]; then
+    log_err "Cannot print environment status without OPS_ENV_NAME"
+    exit 1
+  fi
+
+  case "${OPS_ENV_NAME}" in
+    staging|production)
+      bash "${OPS_SCRIPT_DIR}/status-environment.sh" "${OPS_ENV_NAME}"
+      ;;
+    *)
+      log_err "Unsupported environment for status: ${OPS_ENV_NAME}"
+      exit 1
+      ;;
+  esac
+}

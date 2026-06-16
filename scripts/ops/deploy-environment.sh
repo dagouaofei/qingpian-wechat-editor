@@ -131,4 +131,4 @@ check_health_and_version "${OPS_APP_ENV}" "${RESOLVED_COMMIT_SHORT}"
 AFTER_COMMIT="$(current_deployed_commit)"
 log_ok "Deploy complete"
 log_info "After commit: ${AFTER_COMMIT}"
-print_systemd_status
+print_environment_status

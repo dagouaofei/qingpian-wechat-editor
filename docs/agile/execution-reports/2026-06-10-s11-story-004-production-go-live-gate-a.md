@@ -388,6 +388,11 @@ Gate A 代码在本地 PASS；**AC-A1~A6 需在 ECS 完成**：
 - `require_acceptable_worktree` 在 `acquire_deploy_lock` **之前**执行
 - `flock` 持有 fd · EXIT 释放 · 不污染 Git worktree
 
+### Status 命令修正（追加）
+
+- deploy / rollback 结束阶段调用 `print_environment_status` → 直接执行 `status-environment.sh "$OPS_ENV_NAME"`
+- 不再通过错误的 `pnpm ops:status` 间接调用
+
 ## 24. 明确未执行
 
 - production DNS 修改
