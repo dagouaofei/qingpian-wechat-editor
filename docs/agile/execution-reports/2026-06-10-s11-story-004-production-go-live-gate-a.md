@@ -361,7 +361,7 @@ Gate A 代码在本地 PASS；**AC-A1~A6 需在 ECS 完成**：
 ## 23. Commit
 
 - Gate A commit hash：`2a416df`
-- Env path fix commit：（本轮 commit 后填入）
+- Env path fix commit：`c314ffc`
 - Message：`fix(s11-004): use canonical /etc env paths for ops scripts`
 - **未 merge sprint** · **未启动 production**
 
