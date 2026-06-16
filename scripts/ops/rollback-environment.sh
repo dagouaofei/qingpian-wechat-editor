@@ -56,9 +56,6 @@ if [[ "${OPS_ENV_NAME}" == "production" && "${CONFIRM_PRODUCTION}" != "true" ]];
   exit 1
 fi
 
-acquire_deploy_lock
-trap 'restore_script_induced_worktree_changes; release_deploy_lock' EXIT
-
 log_warn "Code rollback only — database migrations are NOT reverted."
 log_warn "If a non-reversible migration was applied, stop and perform manual DBA review."
 
@@ -68,6 +65,9 @@ if [[ ! -d "${OPS_APP_DIR}/.git" ]]; then
 fi
 
 require_acceptable_worktree
+
+acquire_deploy_lock
+trap 'restore_script_induced_worktree_changes; release_deploy_lock' EXIT
 
 BEFORE_COMMIT="$(current_deployed_commit)"
 resolve_git_ref "${OPS_ENV_NAME}" "${TARGET_REF}"

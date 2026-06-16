@@ -62,8 +62,6 @@ if [[ "${OPS_ENV_NAME}" == "production" && "${CONFIRM_PRODUCTION}" != "true" ]];
 fi
 
 mkdir -p "${OPS_APP_DIR}"
-acquire_deploy_lock
-trap 'restore_script_induced_worktree_changes; release_deploy_lock' EXIT
 
 BEFORE_COMMIT="$(current_deployed_commit)"
 log_info "=== Deploy ${OPS_ENV_NAME} ==="
@@ -79,6 +77,9 @@ if [[ ! -d "${OPS_APP_DIR}/.git" ]]; then
 fi
 
 require_acceptable_worktree
+
+acquire_deploy_lock
+trap 'restore_script_induced_worktree_changes; release_deploy_lock' EXIT
 
 resolve_git_ref "${OPS_ENV_NAME}" "${TARGET_REF}"
 log_info "Resolved commit: ${RESOLVED_COMMIT} (${RESOLVED_COMMIT_SHORT})"

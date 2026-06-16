@@ -362,7 +362,8 @@ Gate A 代码在本地 PASS；**AC-A1~A6 需在 ECS 完成**：
 
 - Gate A commit hash：`2a416df`
 - Env path fix commit：`c314ffc`
-- Message：`fix(s11-004): use canonical /etc env paths for ops scripts`
+- pnpm build approval commit：`9a78b6b`
+- Deploy lock fix commit：（本轮 commit 后填入）
 - **未 merge sprint** · **未启动 production**
 
 ### Env path 修正（追加）
@@ -375,6 +376,17 @@ Gate A 代码在本地 PASS；**AC-A1~A6 需在 ECS 完成**：
 - deploy 在 `prisma generate` **之前**加载 env（修复 Prisma 缺 `DATABASE_URL`）
 - 脚本启动校验 env 存在且可读 · 不输出内容
 - 拒绝不可解释 dirty worktree（如 `pnpm-workspace.yaml`）；脚本产生的 tracked 变更在 EXIT 时恢复
+
+### Deploy lock 修正（追加）
+
+| 环境 | Lock path（仓库外） |
+|------|---------------------|
+| staging | `/tmp/qingpian-wechat-editor-staging-deploy.lock` |
+| production | `/tmp/qingpian-wechat-editor-production-deploy.lock` |
+
+- 不再在 `${OPS_APP_DIR}/.deploy.lock` 创建锁文件
+- `require_acceptable_worktree` 在 `acquire_deploy_lock` **之前**执行
+- `flock` 持有 fd · EXIT 释放 · 不污染 Git worktree
 
 ## 24. 明确未执行
 

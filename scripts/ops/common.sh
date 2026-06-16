@@ -8,6 +8,8 @@ REPO_ROOT="$(cd "${OPS_SCRIPT_DIR}/../.." && pwd)"
 # Canonical ECS environment files (override with OPS_ENV_FILE only when intentional).
 readonly OPS_CANONICAL_STAGING_ENV_FILE="/etc/qingpian-wechat-editor-staging.env"
 readonly OPS_CANONICAL_PRODUCTION_ENV_FILE="/etc/qingpian-wechat-editor-production.env"
+readonly OPS_CANONICAL_STAGING_LOCK_FILE="/tmp/qingpian-wechat-editor-staging-deploy.lock"
+readonly OPS_CANONICAL_PRODUCTION_LOCK_FILE="/tmp/qingpian-wechat-editor-production-deploy.lock"
 
 RED=$'\033[0;31m'
 GREEN=$'\033[0;32m'
@@ -42,6 +44,7 @@ resolve_environment_config() {
       OPS_HEALTH_URL="${OPS_HEALTH_URL:-http://127.0.0.1:3001/api/health}"
       OPS_VERSION_URL="${OPS_VERSION_URL:-http://127.0.0.1:3001/api/version}"
       OPS_APP_ENV="${OPS_APP_ENV:-staging}"
+      OPS_LOCK_FILE="${OPS_LOCK_FILE:-${OPS_CANONICAL_STAGING_LOCK_FILE}}"
       ;;
     production)
       OPS_APP_DIR="${OPS_APP_DIR:-/opt/qingpian-wechat-editor/production}"
@@ -51,6 +54,7 @@ resolve_environment_config() {
       OPS_HEALTH_URL="${OPS_HEALTH_URL:-http://127.0.0.1:3000/api/health}"
       OPS_VERSION_URL="${OPS_VERSION_URL:-http://127.0.0.1:3000/api/version}"
       OPS_APP_ENV="${OPS_APP_ENV:-production}"
+      OPS_LOCK_FILE="${OPS_LOCK_FILE:-${OPS_CANONICAL_PRODUCTION_LOCK_FILE}}"
       ;;
     *)
       log_err "Unknown environment: ${env_name}"
@@ -58,7 +62,34 @@ resolve_environment_config() {
       exit 1
       ;;
   esac
-  OPS_LOCK_FILE="${OPS_APP_DIR}/.deploy.lock"
+}
+
+assert_canonical_lock_paths() {
+  if [[ "${OPS_CANONICAL_STAGING_LOCK_FILE}" == "${OPS_CANONICAL_PRODUCTION_LOCK_FILE}" ]]; then
+    log_err "Canonical staging and production lock paths must differ"
+    exit 1
+  fi
+  if [[ "${OPS_ENV_NAME:-}" == "staging" && "${OPS_LOCK_FILE}" == "${OPS_CANONICAL_PRODUCTION_LOCK_FILE}" ]]; then
+    log_err "staging must not use production deploy lock: ${OPS_LOCK_FILE}"
+    exit 1
+  fi
+  if [[ "${OPS_ENV_NAME:-}" == "production" && "${OPS_LOCK_FILE}" == "${OPS_CANONICAL_STAGING_LOCK_FILE}" ]]; then
+    log_err "production must not use staging deploy lock: ${OPS_LOCK_FILE}"
+    exit 1
+  fi
+}
+
+assert_lock_path_outside_worktree() {
+  assert_canonical_lock_paths
+
+  if [[ "${OPS_LOCK_FILE}" == "${OPS_APP_DIR}"/* ]]; then
+    log_err "Deploy lock must not live inside app directory: ${OPS_LOCK_FILE}"
+    exit 1
+  fi
+  if [[ "${OPS_LOCK_FILE}" == *"/.deploy.lock" ]]; then
+    log_err "Deploy lock must not use in-repo .deploy.lock: ${OPS_LOCK_FILE}"
+    exit 1
+  fi
 }
 
 assert_canonical_env_paths() {
@@ -168,16 +199,19 @@ require_ops_prerequisites() {
 }
 
 acquire_deploy_lock() {
-  mkdir -p "${OPS_APP_DIR}"
-  exec 9>"${OPS_LOCK_FILE}"
+  assert_lock_path_outside_worktree
+
+  exec 9>>"${OPS_LOCK_FILE}"
   if ! flock -n 9; then
     log_err "Another deploy/rollback is in progress for ${OPS_ENV_NAME} (${OPS_LOCK_FILE})"
     exit 1
   fi
+  log_info "Deploy lock: ${OPS_LOCK_FILE}"
 }
 
 release_deploy_lock() {
-  flock -u 9 || true
+  flock -u 9 2>/dev/null || true
+  exec 9>&- 2>/dev/null || true
 }
 
 git_is_exact_commit() {
