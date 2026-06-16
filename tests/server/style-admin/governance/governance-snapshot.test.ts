@@ -154,4 +154,99 @@ describe("governance snapshot export/import", () => {
     ]);
     expect(result.report.errors.length).toBeGreaterThan(0);
   });
+
+  it("round-trips all staging qualityStatus values through export, validate, and dry-run import", async () => {
+    const qualityStatusCases = [
+      {
+        runtimeVariantId: "heading_not_checked",
+        qualityStatus: "not_checked" as const,
+      },
+      {
+        runtimeVariantId: "heading_validator_pass",
+        qualityStatus: "validator_pass" as const,
+      },
+      {
+        runtimeVariantId: "heading_paste_qa_pass",
+        qualityStatus: "paste_qa_pass" as const,
+      },
+      {
+        runtimeVariantId: "heading_copy_fidelity_failed",
+        qualityStatus: "copy_fidelity_failed" as const,
+      },
+    ];
+
+    const dbRows = qualityStatusCases.map(({ runtimeVariantId, qualityStatus }) => ({
+      runtimeVariantId,
+      label: runtimeVariantId,
+      lifecycle: "paste_qa_pass",
+      distribution: {
+        userSelectable: false,
+        defaultEligible: false,
+        release1Required: false,
+        hidden: false,
+        deprecated: false,
+      },
+      currentVersion: { qualityStatus },
+    }));
+
+    const exportDb = {
+      styleVariant: {
+        findMany: vi.fn().mockResolvedValue(dbRows),
+      },
+    } as unknown as StyleAdminPrismaClient;
+
+    const exported = await exportGovernanceSnapshot(exportDb, { sourceEnvironment: "staging" });
+    const validated = parseGovernanceSnapshot(exported);
+
+    expect(validated.variants.map((variant) => variant.qualityStatus).sort()).toEqual(
+      qualityStatusCases.map((entry) => entry.qualityStatus).sort(),
+    );
+
+    const importDb = {
+      styleVariant: {
+        findMany: vi.fn().mockResolvedValue(
+          qualityStatusCases.map(({ runtimeVariantId, qualityStatus }, index) => ({
+            id: `v${index + 1}`,
+            runtimeVariantId,
+            blockType: "heading",
+            label: runtimeVariantId,
+            lifecycle: "paste_qa_pass",
+            distribution: {
+              userSelectable: false,
+              defaultEligible: false,
+              release1Required: false,
+              hidden: false,
+              deprecated: false,
+            },
+            currentVersion: { id: `ver${index + 1}`, qualityStatus },
+          })),
+        ),
+      },
+      $transaction: vi.fn(),
+    } as unknown as StyleAdminPrismaClient;
+
+    const dryRun = await importGovernanceSnapshot(importDb, validated, { dryRun: true });
+
+    expect(dryRun.report.errors).toEqual([]);
+    expect(dryRun.report.missing).toEqual([]);
+    expect(dryRun.report.qualityStatusDiffCount).toBe(0);
+    expect(importDb.$transaction).not.toHaveBeenCalled();
+  });
+
+  it("rejects unknown qualityStatus during snapshot validation", () => {
+    expect(() =>
+      parseGovernanceSnapshot({
+        ...sampleSnapshot,
+        variants: [
+          {
+            ...sampleSnapshot.variants[0]!,
+            runtimeVariantId: "heading_unknown_quality",
+            qualityStatus: "preview_only",
+          },
+        ],
+      }),
+    ).toThrow(
+      "Governance snapshot invalid qualityStatus for heading_unknown_quality: preview_only",
+    );
+  });
 });

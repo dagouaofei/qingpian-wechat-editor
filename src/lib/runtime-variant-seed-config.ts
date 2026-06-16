@@ -1,3 +1,5 @@
+import type { StyleVariantQualityStatus } from "@prisma/client";
+
 import { HEADING_PUBLISH_VARIANT_IDS } from "@/core/styles/variants/heading-publish-pool";
 
 /** Canonical sourceType values for new imports — legacy enum values must not be used. */
@@ -12,13 +14,8 @@ export const CANONICAL_SOURCE_TYPES = [
 
 export const LEGACY_SOURCE_TYPES = ["style_library_manifest"] as const;
 
-export type RuntimeVariantQualityStatus =
-  | "not_checked"
-  | "validator_pass"
-  | "validator_failed"
-  | "copy_fidelity_failed"
-  | "paste_qa_pass"
-  | "blocked";
+/** Aligns with Prisma StyleVariantQualityStatus — single DB/runtime contract. */
+export type RuntimeVariantQualityStatus = StyleVariantQualityStatus;
 
 export const COPY_FIDELITY_FAILED_HEADING_IDS = [
   "heading_magazine_left_bar",

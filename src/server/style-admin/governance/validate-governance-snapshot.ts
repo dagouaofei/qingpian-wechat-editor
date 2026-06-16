@@ -1,6 +1,7 @@
-import type { StyleVariantLifecycle, StyleVariantQualityStatus } from "@prisma/client";
+import type { StyleVariantLifecycle } from "@prisma/client";
 
 import { normalizeImportLifecycle } from "../import/lifecycle-distribution-mapper";
+import { assertGovernanceSnapshotQualityStatus } from "../quality-status-contract";
 import {
   GOVERNANCE_SNAPSHOT_SCHEMA_VERSION,
   type GovernanceSnapshot,
@@ -18,13 +19,6 @@ const ALLOWED_LIFECYCLES = new Set<string>([
   "default_eligible",
   "deprecated",
   "user_selectable",
-]);
-
-const ALLOWED_QUALITY = new Set<string>([
-  "not_checked",
-  "copy_fidelity_pass",
-  "copy_fidelity_failed",
-  "preview_only",
 ]);
 
 function assertNoForbiddenKeys(value: unknown, path = "$"): void {
@@ -79,9 +73,10 @@ function parseVariant(raw: Record<string, unknown>): GovernanceSnapshotVariant {
   if (typeof raw.lifecycle !== "string" || !ALLOWED_LIFECYCLES.has(raw.lifecycle)) {
     throw new Error(`Governance snapshot invalid lifecycle for ${raw.runtimeVariantId}`);
   }
-  if (typeof raw.qualityStatus !== "string" || !ALLOWED_QUALITY.has(raw.qualityStatus)) {
-    throw new Error(`Governance snapshot invalid qualityStatus for ${raw.runtimeVariantId}`);
-  }
+  const qualityStatus = assertGovernanceSnapshotQualityStatus(
+    raw.qualityStatus,
+    raw.runtimeVariantId as string,
+  );
   if (!raw.distribution || typeof raw.distribution !== "object") {
     throw new Error(`Governance snapshot missing distribution for ${raw.runtimeVariantId}`);
   }
@@ -95,7 +90,7 @@ function parseVariant(raw: Record<string, unknown>): GovernanceSnapshotVariant {
     label: raw.label,
     lifecycle,
     distribution: parseDistribution(raw.distribution as Record<string, unknown>),
-    qualityStatus: raw.qualityStatus as StyleVariantQualityStatus,
+    qualityStatus,
   };
 }
 
