@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node scripts/build/inject-build-metadata.mjs && next build",
     "start": "next start",
     "lint": "eslint",
     "format": "prettier --write .",
@@ -19,7 +19,13 @@
     "db:migrate:deploy": "prisma migrate deploy",
     "style-admin:import-existing-variants": "tsx scripts/style-admin/import-existing-variants.ts",
     "style-admin:import-existing-variants:dry-run": "tsx scripts/style-admin/import-existing-variants.ts --dry-run",
-    "style-admin:hash-password": "tsx scripts/style-admin/hash-admin-password.ts"
+    "style-admin:hash-password": "tsx scripts/style-admin/hash-admin-password.ts",
+    "ops:deploy:staging": "bash scripts/ops/deploy-environment.sh staging",
+    "ops:deploy:production": "bash scripts/ops/deploy-environment.sh production",
+    "ops:status:staging": "bash scripts/ops/status-environment.sh staging",
+    "ops:status:production": "bash scripts/ops/status-environment.sh production",
+    "ops:rollback:staging": "bash scripts/ops/rollback-environment.sh staging",
+    "ops:rollback:production": "bash scripts/ops/rollback-environment.sh production"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",

@@ -111,10 +111,26 @@ Style admin 部署可暂不配置 Volcengine；**首页生成 staging 验收前�
 | 变量 | 说明 |
 |------|------|
 | `NODE_ENV` | production 部署设为 `production` |
+| `PORT` | staging `3001` · production `3000` |
 
 ---
 
-## 8. 安全规则
+## 8. 部署版本标识（S11-STORY-004）
+
+| 变量 | 必填 | Secret | 说明 |
+|------|------|--------|------|
+| `APP_ENV` | 推荐 | 否 | `staging` / `production` / local 缺省为 `dev` |
+| `APP_VERSION` | 否 | 否 | 默认 `release-1` |
+| `APP_GIT_SHA` | 构建时 | 否 | 完整构建 commit 短 hash（≤12）· **由 deploy/build 写入** |
+| `APP_BUILD_TIME` | 构建时 | 否 | ISO UTC · **由 deploy/build 写入** |
+
+- `GET /api/version` 返回上述字段 · **不返回** branch、DB host、env 文件内容
+- `GET /api/health` 保持独立 · 仅健康状态
+- systemd `EnvironmentFile` 应设置 `APP_ENV` · deploy 脚本在 build 前导出 `APP_GIT_SHA` / `APP_BUILD_TIME`
+
+---
+
+## 9. 安全规则
 
 1. **不提交** `.env.local` · production `.env` · 私钥 · AccessKey Secret
 2. **不写入** Runbook / 代码仓库的真实 `DATABASE_URL`
