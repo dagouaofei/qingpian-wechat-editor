@@ -360,7 +360,7 @@ Gate A 代码在本地 PASS；**AC-A1~A6 需在 ECS 完成**：
 
 ## 23. Commit
 
-- Gate A commit hash：（本轮 commit 后填入）
+- Gate A commit hash：`2a416df`
 - Message：`feat(s11-004): add environment ops and prelaunch production safeguards`
 - **未 merge sprint** · **未启动 production**
 
