@@ -117,6 +117,7 @@ export function formatImportReportSummary(
     `created_versions=${report.totalCreatedVersions}`,
     `user_selectable=${report.byDistribution.userSelectable}`,
     `release1_required=${report.byDistribution.release1Required}`,
+    `lifecycle_user_selectable=${report.byLifecycle.user_selectable ?? 0}`,
     `deprecated=${report.byDistribution.deprecated}`,
     `legacy_source_type=${report.legacySourceTypeCount}`,
     `historical_first_wave_33=${report.historicalFirstWave33Imported.length}`,

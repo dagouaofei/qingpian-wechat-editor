@@ -135,6 +135,16 @@
 | `pnpm ops:rollback:staging -- <commit>` | staging 代码回滚 |
 | `pnpm ops:rollback:production -- <commit> --confirm-production` | production 代码回滚（Gate B） |
 
+## 8b. Production 治理 bootstrap（Gate B · 不复制整库）
+
+| 命令 | 用途 |
+|------|------|
+| `pnpm style-admin:export-governance-snapshot -- <file.json>` | 从 staging DB 导出治理 snapshot（无 secret） |
+| `pnpm style-admin:import-governance-snapshot:dry-run -- <file.json>` | production 空库/已 import variants 后 dry-run |
+| `pnpm style-admin:import-governance-snapshot -- <file.json>` | 用户确认后写入（Gate B · 非本轮默认） |
+
+**顺序：** `db:migrate:deploy` → `style-admin:import-existing-variants:dry-run` → export snapshot（staging）→ governance import dry-run（production）→ 用户确认 → 正式 governance import。
+
 脚本不打印 env/secret · 部署失败不 restart · production 仅精确 commit。
 
 ---

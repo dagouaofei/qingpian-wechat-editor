@@ -4705,14 +4705,14 @@ S11-STORY-001 → 002 → 003 → 004 → 005 → 006
 
 ## S11-STORY-004 Production 部署与上线
 
-**优先级：** P0 · **状态：** **In Progress · Gate B Pending** · **Gate A：** **Done**（staging 验证 2026-06-10 @ `8e01438` · merge sprint 待本轮） · **production 未启动**
+**优先级：** P0 · **状态：** **In Progress · Gate B** · **Gate A：** **Done** @ `8e01438` · **production 未启动**
 
 **Story 分阶段：**
 
 | Gate | 范围 | 状态 |
 |------|------|------|
-| **Gate A** | `/api/version` · 运维脚本 · production 模板 · staging 验证 · 回滚演练 | **Done**（2026-06-10 · @ `8e01438`） |
-| **Gate B** | 用户确认后 production Prelaunch deploy · migrate · import · 回滚演练 · checklist | **Pending** |
+| **Gate A** | `/api/version` · 运维脚本 · production 模板 · staging 验证 · 回滚演练 | **Done** @ `8e01438` |
+| **Gate B** | production Prelaunch bootstrap · governance snapshot · migrate/import dry-run · 回滚演练 | **In Progress** |
 
 **Gate A 交付：**
 
