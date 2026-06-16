@@ -9,7 +9,7 @@ After=network.target
 Type=simple
 User=qingpian
 WorkingDirectory=/opt/qingpian-wechat-editor/staging
-EnvironmentFile=/opt/qingpian-wechat-editor/staging/.env
+EnvironmentFile=/etc/qingpian-wechat-editor-staging.env
 Environment=APP_ENV=staging
 Environment=PORT=3001
 Environment=NODE_ENV=production

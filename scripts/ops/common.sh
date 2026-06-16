@@ -5,6 +5,10 @@ set -euo pipefail
 OPS_SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${OPS_SCRIPT_DIR}/../.." && pwd)"
 
+# Canonical ECS environment files (override with OPS_ENV_FILE only when intentional).
+readonly OPS_CANONICAL_STAGING_ENV_FILE="/etc/qingpian-wechat-editor-staging.env"
+readonly OPS_CANONICAL_PRODUCTION_ENV_FILE="/etc/qingpian-wechat-editor-production.env"
+
 RED=$'\033[0;31m'
 GREEN=$'\033[0;32m'
 YELLOW=$'\033[1;33m'
@@ -34,7 +38,7 @@ resolve_environment_config() {
       OPS_APP_DIR="${OPS_APP_DIR:-/opt/qingpian-wechat-editor/staging}"
       OPS_SERVICE="${OPS_SERVICE:-qingpian-wechat-editor-staging}"
       OPS_PORT="${OPS_PORT:-3001}"
-      OPS_ENV_FILE="${OPS_ENV_FILE:-${OPS_APP_DIR}/.env}"
+      OPS_ENV_FILE="${OPS_ENV_FILE:-${OPS_CANONICAL_STAGING_ENV_FILE}}"
       OPS_HEALTH_URL="${OPS_HEALTH_URL:-http://127.0.0.1:3001/api/health}"
       OPS_VERSION_URL="${OPS_VERSION_URL:-http://127.0.0.1:3001/api/version}"
       OPS_APP_ENV="${OPS_APP_ENV:-staging}"
@@ -43,7 +47,7 @@ resolve_environment_config() {
       OPS_APP_DIR="${OPS_APP_DIR:-/opt/qingpian-wechat-editor/production}"
       OPS_SERVICE="${OPS_SERVICE:-qingpian-wechat-editor-production}"
       OPS_PORT="${OPS_PORT:-3000}"
-      OPS_ENV_FILE="${OPS_ENV_FILE:-${OPS_APP_DIR}/.env}"
+      OPS_ENV_FILE="${OPS_ENV_FILE:-${OPS_CANONICAL_PRODUCTION_ENV_FILE}}"
       OPS_HEALTH_URL="${OPS_HEALTH_URL:-http://127.0.0.1:3000/api/health}"
       OPS_VERSION_URL="${OPS_VERSION_URL:-http://127.0.0.1:3000/api/version}"
       OPS_APP_ENV="${OPS_APP_ENV:-production}"
@@ -55,6 +59,96 @@ resolve_environment_config() {
       ;;
   esac
   OPS_LOCK_FILE="${OPS_APP_DIR}/.deploy.lock"
+}
+
+assert_canonical_env_paths() {
+  if [[ "${OPS_CANONICAL_STAGING_ENV_FILE}" == "${OPS_CANONICAL_PRODUCTION_ENV_FILE}" ]]; then
+    log_err "Canonical staging and production env paths must differ"
+    exit 1
+  fi
+  if [[ "${OPS_ENV_NAME:-}" == "staging" && "${OPS_ENV_FILE}" == "${OPS_CANONICAL_PRODUCTION_ENV_FILE}" ]]; then
+    log_err "staging must not use production env file: ${OPS_ENV_FILE}"
+    exit 1
+  fi
+  if [[ "${OPS_ENV_NAME:-}" == "production" && "${OPS_ENV_FILE}" == "${OPS_CANONICAL_STAGING_ENV_FILE}" ]]; then
+    log_err "production must not use staging env file: ${OPS_ENV_FILE}"
+    exit 1
+  fi
+}
+
+require_env_file_accessible() {
+  assert_canonical_env_paths
+
+  if [[ ! -e "${OPS_ENV_FILE}" ]]; then
+    log_err "Environment file not found: ${OPS_ENV_FILE}"
+    exit 1
+  fi
+  if [[ ! -f "${OPS_ENV_FILE}" ]]; then
+    log_err "Environment path is not a regular file: ${OPS_ENV_FILE}"
+    exit 1
+  fi
+  if [[ ! -r "${OPS_ENV_FILE}" ]]; then
+    log_err "Environment file is not readable by $(id -un): ${OPS_ENV_FILE}"
+    exit 1
+  fi
+
+  log_info "Environment file: ${OPS_ENV_FILE} (readable; contents not shown)"
+}
+
+WORKTREE_DIRTY_AT_START=""
+
+worktree_list_dirty_paths() {
+  {
+    git -C "${OPS_APP_DIR}" diff --name-only 2>/dev/null || true
+    git -C "${OPS_APP_DIR}" diff --cached --name-only 2>/dev/null || true
+    git -C "${OPS_APP_DIR}" ls-files -o --exclude-standard 2>/dev/null || true
+  } | sed '/^$/d' | sort -u
+}
+
+worktree_path_allowed_at_start() {
+  local path="$1"
+  case "${path}" in
+    .next/*|.next|src/generated/*|src/generated)
+      return 0
+      ;;
+  esac
+  return 1
+}
+
+require_acceptable_worktree() {
+  if [[ ! -d "${OPS_APP_DIR}/.git" ]]; then
+    return 0
+  fi
+
+  WORKTREE_DIRTY_AT_START="$(worktree_list_dirty_paths)"
+  local path
+  while IFS= read -r path; do
+    [[ -z "${path}" ]] && continue
+    if ! worktree_path_allowed_at_start "${path}"; then
+      log_err "Working tree has uncommitted changes; resolve before deploy/rollback: ${path}"
+      log_err "Only .next/ and src/generated/ may be dirty at script start."
+      log_err "Unexpected changes (e.g. pnpm-workspace.yaml) must be committed or stashed first."
+      exit 1
+    fi
+  done <<< "${WORKTREE_DIRTY_AT_START}"
+}
+
+restore_script_induced_worktree_changes() {
+  if [[ ! -d "${OPS_APP_DIR}/.git" ]]; then
+    return 0
+  fi
+
+  local after path
+  after="$(worktree_list_dirty_paths)"
+  while IFS= read -r path; do
+    [[ -z "${path}" ]] && continue
+    if ! grep -Fxq "${path}" <<< "${WORKTREE_DIRTY_AT_START}"; then
+      if git -C "${OPS_APP_DIR}" ls-files --error-unmatch "${path}" >/dev/null 2>&1; then
+        log_warn "Restoring script-modified tracked file: ${path}"
+        git -C "${OPS_APP_DIR}" checkout -- "${path}" 2>/dev/null || true
+      fi
+    fi
+  done <<< "${after}"
 }
 
 require_command() {
@@ -133,10 +227,7 @@ current_deployed_commit() {
 }
 
 load_env_file_safely() {
-  if [[ ! -f "${OPS_ENV_FILE}" ]]; then
-    log_err "Environment file not found: ${OPS_ENV_FILE}"
-    exit 1
-  fi
+  require_env_file_accessible
   set -a
   # shellcheck disable=SC1090
   source "${OPS_ENV_FILE}"

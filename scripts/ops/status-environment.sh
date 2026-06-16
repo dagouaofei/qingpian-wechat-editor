@@ -14,6 +14,7 @@ fi
 
 resolve_environment_config "${OPS_ENV_NAME}"
 require_ops_prerequisites
+require_env_file_accessible
 
 DEPLOYED_COMMIT="$(current_deployed_commit)"
 DEPLOYED_SHORT="$(git -C "${OPS_APP_DIR}" rev-parse --short=12 HEAD 2>/dev/null || echo unknown)"
@@ -21,6 +22,7 @@ DEPLOYED_SHORT="$(git -C "${OPS_APP_DIR}" rev-parse --short=12 HEAD 2>/dev/null 
 log_info "=== Status: ${OPS_ENV_NAME} ==="
 log_info "Environment: ${OPS_ENV_NAME}"
 log_info "App directory: ${OPS_APP_DIR}"
+log_info "Env file: ${OPS_ENV_FILE}"
 log_info "Systemd service: ${OPS_SERVICE}"
 log_info "Listen port: ${OPS_PORT}"
 log_info "Deployed commit: ${DEPLOYED_COMMIT} (${DEPLOYED_SHORT})"

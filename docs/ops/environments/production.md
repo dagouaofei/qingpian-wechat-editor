@@ -20,14 +20,14 @@
 ├─ staging
 │  ├─ 目录 /opt/qingpian-wechat-editor/staging
 │  ├─ systemd qingpian-wechat-editor-staging
-│  ├─ .env（独立）
+│  ├─ env `/etc/qingpian-wechat-editor-staging.env`
 │  ├─ PORT 3001
 │  ├─ DB qingpian_style_admin_staging
 │  └─ https://staging.qingpianai.cn
 └─ production（待启用）
    ├─ 目录 /opt/qingpian-wechat-editor/production
    ├─ systemd qingpian-wechat-editor-production
-   ├─ .env（独立 · 独立 session secret / admin hash）
+   ├─ env `/etc/qingpian-wechat-editor-production.env`（独立 · 独立 session secret / admin hash）
    ├─ PORT 3000
    ├─ DB（独立 · 待创建）
    └─ 域名（待填）
@@ -59,7 +59,7 @@
 | 应用目录 | `/opt/qingpian-wechat-editor/staging` | `/opt/qingpian-wechat-editor/production` ☐ 待创建 |
 | systemd | `qingpian-wechat-editor-staging` | `qingpian-wechat-editor-production` ☐ 待安装 |
 | 端口 | 3001 | 3000 |
-| env 文件 | `staging/.env` | `production/.env` ☐ 待创建 |
+| env 文件 | `/etc/qingpian-wechat-editor-staging.env` | `/etc/qingpian-wechat-editor-production.env` ☐ 待创建 |
 
 ---
 
@@ -111,7 +111,7 @@
 
 1. ☐ 创建/确认 production 独立 database + 业务账号  
 2. ☐ RDS 快照或手动备份（deploy 前）  
-3. ☐ 写入 production `.env`（`DATABASE_URL` 等 · **不入库**）  
+3. ☐ 写入 production env 文件 `/etc/qingpian-wechat-editor-production.env`（`DATABASE_URL` 等 · **不入库**）  
 4. ☐ `pnpm prisma generate`  
 5. ☐ `pnpm db:migrate:deploy`  
 6. ☐ `pnpm style-admin:import-existing-variants:dry-run` → 审查统计  

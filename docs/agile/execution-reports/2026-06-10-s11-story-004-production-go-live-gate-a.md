@@ -130,7 +130,7 @@ Gate A：生产上线准备、轻量运维工具、staging 验证方案与文档
 | production 业务账号 | ☐ 待填 |
 | RDS 白名单（ECS 内网） | 已知 staging：`172.26.166.87` · production 同规则待确认 |
 | RDS 备份 / 快照策略 | ☐ 待确认 |
-| production `.env` 路径 | 规划：`/opt/qingpian-wechat-editor/production/.env` ☐ 待创建 |
+| production env 文件 | `/etc/qingpian-wechat-editor-production.env` ☐ 待创建 |
 | systemd service | `qingpian-wechat-editor-production` ☐ 待安装 |
 | Nginx server block | 模板就绪 · ☐ 待部署 |
 | CloudMonitor / SLS（B4） | → S11-STORY-005 Pending |
@@ -219,7 +219,7 @@ Gate A 代码在本地 PASS；**AC-A1~A6 需在 ECS 完成**：
 
 1. 创建 production 独立 database + 业务账号（仅 ECS 内网）
 2. deploy 前 RDS 快照或手动备份
-3. 写入 production `.env`（独立 `DATABASE_URL` · `ADMIN_PASSWORD_HASH` · `SESSION_SECRET`）
+3. 创建 production env `/etc/qingpian-wechat-editor-production.env`（独立 `DATABASE_URL` · **不入库** · 不得复制到应用目录）
 4. `pnpm prisma generate && pnpm db:migrate:deploy`
 5. `pnpm style-admin:import-existing-variants:dry-run` → 审查
 6. `pnpm style-admin:import-existing-variants`（首次 `ops:deploy:production ... --first-import`）
@@ -239,7 +239,7 @@ Gate A 代码在本地 PASS；**AC-A1~A6 需在 ECS 完成**：
 | `PORT` | 3001 | 3000 |
 | `NODE_ENV` | `production` | `production` |
 | systemd | `qingpian-wechat-editor-staging` | `qingpian-wechat-editor-production` |
-| EnvironmentFile | `staging/.env` | `production/.env`（独立） |
+| EnvironmentFile | `/etc/qingpian-wechat-editor-staging.env` | `/etc/qingpian-wechat-editor-production.env`（独立） |
 | Nginx robots | `X-Robots-Tag` noindex + `/robots.txt Disallow: /` | **Prelaunch 同策略**（全站 HTML/API） |
 | 公开发布 | N/A | **阻断** · checklist I1~I5 未勾选 |
 | SSE `/api/generate/stream` | `proxy_buffering off` | **保留** |
@@ -270,7 +270,7 @@ Gate A 代码在本地 PASS；**AC-A1~A6 需在 ECS 完成**：
 
 1. 回填 [`production.md`](../../ops/environments/production.md) 域名、DNS、证书、DB 名、备份策略
 2. 控制台创建 production DB + 账号 · RDS 白名单
-3. 创建 `/opt/qingpian-wechat-editor/production` · 复制 `.env.example` 占位（**不入库**）
+3. 创建 `/opt/qingpian-wechat-editor/production` · 创建 `/etc/qingpian-wechat-editor-production.env`（**不入库**）
 4. 安装 systemd + Nginx（production **Prelaunch** 模板 · noindex + Disallow robots）
 5. RDS 快照
 6. `pnpm ops:deploy:production -- <exact-commit> --confirm-production --first-import`
@@ -361,8 +361,20 @@ Gate A 代码在本地 PASS；**AC-A1~A6 需在 ECS 完成**：
 ## 23. Commit
 
 - Gate A commit hash：`2a416df`
-- Message：`feat(s11-004): add environment ops and prelaunch production safeguards`
+- Env path fix commit：（本轮 commit 后填入）
+- Message：`fix(s11-004): use canonical /etc env paths for ops scripts`
 - **未 merge sprint** · **未启动 production**
+
+### Env path 修正（追加）
+
+| 环境 | Canonical env |
+|------|---------------|
+| staging | `/etc/qingpian-wechat-editor-staging.env` |
+| production | `/etc/qingpian-wechat-editor-production.env` |
+
+- deploy 在 `prisma generate` **之前**加载 env（修复 Prisma 缺 `DATABASE_URL`）
+- 脚本启动校验 env 存在且可读 · 不输出内容
+- 拒绝不可解释 dirty worktree（如 `pnpm-workspace.yaml`）；脚本产生的 tracked 变更在 EXIT 时恢复
 
 ## 24. 明确未执行
 

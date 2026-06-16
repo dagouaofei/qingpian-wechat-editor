@@ -16,6 +16,7 @@ fi
 
 resolve_environment_config "${OPS_ENV_NAME}"
 require_ops_prerequisites
+require_env_file_accessible
 
 TARGET_REF=""
 CONFIRM_PRODUCTION=false
@@ -62,11 +63,12 @@ fi
 
 mkdir -p "${OPS_APP_DIR}"
 acquire_deploy_lock
-trap release_deploy_lock EXIT
+trap 'restore_script_induced_worktree_changes; release_deploy_lock' EXIT
 
 BEFORE_COMMIT="$(current_deployed_commit)"
 log_info "=== Deploy ${OPS_ENV_NAME} ==="
 log_info "App dir: ${OPS_APP_DIR}"
+log_info "Env file: ${OPS_ENV_FILE}"
 log_info "Service: ${OPS_SERVICE}"
 log_info "Before commit: ${BEFORE_COMMIT}"
 log_info "Target ref: ${TARGET_REF}"
@@ -76,10 +78,14 @@ if [[ ! -d "${OPS_APP_DIR}/.git" ]]; then
   exit 1
 fi
 
+require_acceptable_worktree
+
 resolve_git_ref "${OPS_ENV_NAME}" "${TARGET_REF}"
 log_info "Resolved commit: ${RESOLVED_COMMIT} (${RESOLVED_COMMIT_SHORT})"
 
 git -C "${OPS_APP_DIR}" checkout --detach "${RESOLVED_COMMIT}"
+
+load_env_file_safely
 
 rm -rf "${OPS_APP_DIR}/.next"
 
@@ -93,8 +99,6 @@ export APP_BUILD_TIME="$(date -u +%Y-%m-%dT%H:%M:%S.000Z)"
   corepack pnpm install --frozen-lockfile
   corepack pnpm exec prisma generate
 )
-
-load_env_file_safely
 
 (
   cd "${OPS_APP_DIR}"

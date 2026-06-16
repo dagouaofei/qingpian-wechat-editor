@@ -16,6 +16,7 @@ fi
 
 resolve_environment_config "${OPS_ENV_NAME}"
 require_ops_prerequisites
+require_env_file_accessible
 
 TARGET_REF=""
 CONFIRM_PRODUCTION=false
@@ -56,27 +57,35 @@ if [[ "${OPS_ENV_NAME}" == "production" && "${CONFIRM_PRODUCTION}" != "true" ]];
 fi
 
 acquire_deploy_lock
-trap release_deploy_lock EXIT
+trap 'restore_script_induced_worktree_changes; release_deploy_lock' EXIT
 
 log_warn "Code rollback only — database migrations are NOT reverted."
 log_warn "If a non-reversible migration was applied, stop and perform manual DBA review."
+
+if [[ ! -d "${OPS_APP_DIR}/.git" ]]; then
+  log_err "Git repository not initialized at ${OPS_APP_DIR}."
+  exit 1
+fi
+
+require_acceptable_worktree
 
 BEFORE_COMMIT="$(current_deployed_commit)"
 resolve_git_ref "${OPS_ENV_NAME}" "${TARGET_REF}"
 
 log_info "=== Rollback ${OPS_ENV_NAME} ==="
+log_info "Env file: ${OPS_ENV_FILE}"
 log_info "Before: ${BEFORE_COMMIT}"
 log_info "Target: ${RESOLVED_COMMIT} (${RESOLVED_COMMIT_SHORT})"
 
 git -C "${OPS_APP_DIR}" checkout --detach "${RESOLVED_COMMIT}"
 rm -rf "${OPS_APP_DIR}/.next"
 
+load_env_file_safely
+
 export APP_ENV="${OPS_APP_ENV}"
 export APP_VERSION="${APP_VERSION:-release-1}"
 export APP_GIT_SHA="${RESOLVED_COMMIT_SHORT}"
 export APP_BUILD_TIME="$(date -u +%Y-%m-%dT%H:%M:%S.000Z)"
-
-load_env_file_safely
 
 (
   cd "${OPS_APP_DIR}"

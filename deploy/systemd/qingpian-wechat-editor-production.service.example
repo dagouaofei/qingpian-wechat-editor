@@ -9,7 +9,7 @@ After=network.target
 Type=simple
 User=qingpian
 WorkingDirectory=/opt/qingpian-wechat-editor/production
-EnvironmentFile=/opt/qingpian-wechat-editor/production/.env
+EnvironmentFile=/etc/qingpian-wechat-editor-production.env
 Environment=APP_ENV=production
 Environment=PORT=3000
 Environment=NODE_ENV=production
