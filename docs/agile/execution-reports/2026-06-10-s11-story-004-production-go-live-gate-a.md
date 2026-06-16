@@ -383,8 +383,8 @@ Gate A：生产上线准备、轻量运维工具、staging 验证方案与文档
 - pnpm build approval commit：`9a78b6b`
 - Deploy lock fix commit：`e7a7b98`
 - Status command fix commit：`8e01438`
-- Gate A closeout commit：`44a235f`
-- Sprint `--no-ff` merge commit：（merge 后填入）
+- Gate A closeout commit：`5178b1f`
+- Sprint `--no-ff` merge commit：`2f09b0d`
 - **Gate A Done** · **Gate B Pending** · **production 未启动**
 
 ### Env path 修正（追加）
