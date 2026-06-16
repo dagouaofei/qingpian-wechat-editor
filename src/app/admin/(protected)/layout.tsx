@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 
+import { AdminVersionFooter } from "@/components/admin/admin-version-footer";
 import {
   getAdminLoginRedirectPath,
   getCurrentStyleAdmin,
@@ -56,6 +57,7 @@ export default async function ProtectedAdminLayout({
         </div>
       </header>
       {children}
+      <AdminVersionFooter />
     </div>
   );
 }

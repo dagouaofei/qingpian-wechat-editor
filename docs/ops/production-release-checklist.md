@@ -31,6 +31,7 @@
 | # | 检查项 | Staging | Production |
 |---|--------|---------|------------|
 | B1 | `GET /api/health` → `ok: true` · `database: ok` | ✅ | ☐ |
+| B1a | `GET /api/version` → 正确 `environment` · `gitSha` · `buildTime`（S11-STORY-004） | ☐ Gate A | ☐ |
 | B2 | HTTPS 反代正常（如 Nginx） | ✅ | ☐ |
 | B3 | 进程守护（systemd / PM2）运行中 | ✅ | ☐ |
 | B4 | CloudMonitor ECS / RDS 基础告警已配置 | ☐ 待 S11-STORY-005 | ☐ |
@@ -110,3 +111,17 @@
 | H1 | 首页 AI 生成主链路 · Volcengine provider env | ☐ 曾报「未配置真实 AI 模型」 |
 | H2 | CloudMonitor / SLS 告警 | ☐ → S11-STORY-005 |
 | H3 | OSS bucket | ☐ optional / 预留 |
+
+---
+
+## I. 正式公开发布阻断项（Production Prelaunch → Public Launch）
+
+> **未经用户明确批准，不得解除防爬。** 首次 production 部署为 **Prelaunch**（链路验证 · **不代表公开发布**）。**必须保留** `X-Robots-Tag: noindex, nofollow, noarchive, nosnippet` · **`robots.txt` 必须 `Disallow: /`**。解除 noindex 须作为后续独立发布动作。
+
+| # | 检查项 | Staging | Production |
+|---|--------|---------|------------|
+| I1 | 产品达到对外使用标准 | N/A | ☐ |
+| I2 | 用户明确批准公开发布 | N/A | ☐ |
+| I3 | 删除 Nginx `X-Robots-Tag` noindex（或改为允许索引） | N/A | ☐ |
+| I4 | `robots.txt` 允许正式抓取（非 `Disallow: /`） | N/A | ☐ |
+| I5 | 完成 SEO 与公开页面检查 | N/A | ☐ |

@@ -1,0 +1,21 @@
+# systemd unit example — production
+# Copy to /etc/systemd/system/qingpian-wechat-editor-production.service
+
+[Unit]
+Description=Qingpian WeChat Editor — production (Next.js)
+After=network.target
+
+[Service]
+Type=simple
+User=qingpian
+WorkingDirectory=/opt/qingpian-wechat-editor/production
+EnvironmentFile=/etc/qingpian-wechat-editor-production.env
+Environment=APP_ENV=production
+Environment=PORT=3000
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/corepack pnpm start
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

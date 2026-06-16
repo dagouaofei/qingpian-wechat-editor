@@ -13,8 +13,19 @@
 | 环境 | 用途 | secret 存放 |
 |------|------|-------------|
 | **local** | 开发者本机 · Docker PostgreSQL | `.env.local`（gitignored） |
-| **staging** | 预发验证（可选） | ECS 环境变量 / 密钥管理 |
-| **production** | 正式对外 | ECS 环境变量 / 密钥管理 · **禁止写入仓库** |
+| **staging** | 预发验证（可选） | `/etc/qingpian-wechat-editor-staging.env`（ECS · 权限 600 · **不入库**） |
+| **production** | 正式对外（Prelaunch 链路验证） | `/etc/qingpian-wechat-editor-production.env`（ECS · **不入库**） |
+
+### ECS canonical env 文件（S11-STORY-004）
+
+| 环境 | 路径 | 说明 |
+|------|------|------|
+| staging | `/etc/qingpian-wechat-editor-staging.env` | systemd `EnvironmentFile` · ops 脚本默认路径 |
+| production | `/etc/qingpian-wechat-editor-production.env` | 独立文件 · **不得**与 staging 共用 |
+
+- 应用目录（如 `/opt/qingpian-wechat-editor/staging`）**不要求**存在 `.env`
+- 运维脚本仅读取上述 canonical 路径；可通过 `OPS_ENV_FILE` **显式覆盖**（不自动搜索多个 `.env`）
+- 脚本校验：文件存在 · 当前用户可读 · **不输出**文件内容
 
 ---
 
@@ -111,10 +122,26 @@ Style admin 部署可暂不配置 Volcengine；**首页生成 staging 验收前�
 | 变量 | 说明 |
 |------|------|
 | `NODE_ENV` | production 部署设为 `production` |
+| `PORT` | staging `3001` · production `3000` |
 
 ---
 
-## 8. 安全规则
+## 8. 部署版本标识（S11-STORY-004）
+
+| 变量 | 必填 | Secret | 说明 |
+|------|------|--------|------|
+| `APP_ENV` | 推荐 | 否 | `staging` / `production` / local 缺省为 `dev` |
+| `APP_VERSION` | 否 | 否 | 默认 `release-1` |
+| `APP_GIT_SHA` | 构建时 | 否 | 完整构建 commit 短 hash（≤12）· **由 deploy/build 写入** |
+| `APP_BUILD_TIME` | 构建时 | 否 | ISO UTC · **由 deploy/build 写入** |
+
+- `GET /api/version` 返回上述字段 · **不返回** branch、DB host、env 文件内容
+- `GET /api/health` 保持独立 · 仅健康状态
+- systemd `EnvironmentFile` 指向 canonical env（staging `/etc/qingpian-wechat-editor-staging.env` · production `/etc/qingpian-wechat-editor-production.env`）· 应设置 `APP_ENV` · deploy 脚本在 build 前导出 `APP_GIT_SHA` / `APP_BUILD_TIME`
+
+---
+
+## 9. 安全规则
 
 1. **不提交** `.env.local` · production `.env` · 私钥 · AccessKey Secret
 2. **不写入** Runbook / 代码仓库的真实 `DATABASE_URL`
@@ -126,7 +153,12 @@ Style admin 部署可暂不配置 Volcengine；**首页生成 staging 验收前�
 
 ## 9. ECS 配置示例（占位）
 
-在 ECS 上通过 systemd `EnvironmentFile` 或 PM2 `ecosystem.config.js` 引用**服务器本地**文件（不入库）：
+在 ECS 上创建 **canonical env 文件**（权限 `600` · 所有者部署用户 · **不入库**）：
+
+- staging：`/etc/qingpian-wechat-editor-staging.env`
+- production：`/etc/qingpian-wechat-editor-production.env`
+
+systemd unit 使用 `EnvironmentFile=` 指向上述路径（见 `deploy/systemd/*.service.example`）。
 
 ```env
 NODE_ENV=production

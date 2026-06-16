@@ -4705,16 +4705,43 @@ S11-STORY-001 → 002 → 003 → 004 → 005 → 006
 
 ## S11-STORY-004 Production 部署与上线
 
-**优先级：** P0 · **状态：** **Pending** · **工作分支：** `docs/s11-story-004-production-go-live` · **前置：** staging 阶段收口完成 · **production 未启动**
+**优先级：** P0 · **状态：** **In Progress · Gate B Pending** · **Gate A：** **Done**（staging 验证 2026-06-10 @ `8e01438` · merge sprint 待本轮） · **production 未启动**
 
-**目标：** staging 通过后 production 部署 · HTTPS · checklist A~E · 回滚演练。
+**Story 分阶段：**
 
-**验收标准：**
+| Gate | 范围 | 状态 |
+|------|------|------|
+| **Gate A** | `/api/version` · 运维脚本 · production 模板 · staging 验证 · 回滚演练 | **Done**（2026-06-10 · @ `8e01438`） |
+| **Gate B** | 用户确认后 production Prelaunch deploy · migrate · import · 回滚演练 · checklist | **Pending** |
+
+**Gate A 交付：**
+
+- `GET /api/version` + Admin 版本 footer
+- `scripts/ops/{deploy,status,rollback,common}.sh` + `pnpm ops:*`
+- `deploy/systemd/*-{staging,production}.service.example`
+- `deploy/nginx/{staging,production}.conf.example`（production **Prelaunch** noindex + Disallow robots）
+- [`docs/ops/environments/production.md`](../ops/environments/production.md) · [`production-rollback-drill.md`](../ops/production-rollback-drill.md)
+
+**Gate A 验收标准：**
+
+- [x] AC-A1 staging `/api/version` 正确
+- [x] AC-A2 Admin 版本 footer 可见
+- [x] AC-A3 `ops:status:staging` 输出正确
+- [x] AC-A4 staging 用新脚本 redeploy
+- [x] AC-A5 staging rollback 演练一次（`8e01438 ↔ 275cc51` · 最终 `8e01438`）
+- [x] AC-A6 脚本不泄漏 secret
+- [x] AC-A7 lint/build/test PASS（无新增失败）
+
+**staging 人工验收摘要（Gate A closeout）：** `/api/health` PASS · `/api/version` staging/commit/buildTime 正确 · Admin footer PASS · deploy 结束自动 status PASS · rollback 演练 PASS · SSE · Admin 登录/Logout · userSelectable · Preview/Copy PASS · env canonical path / pnpm build approvals / deploy lock / status command 均已修复
+
+**Gate B 验收标准（未执行）：**
 
 - [ ] AC-1 production health PASS
 - [ ] AC-2 production admin 登录 + 治理 PASS
-- [ ] AC-3 production `/preview` DB pool（非长期 code_fallback）
-- [ ] AC-4 回滚演练记录（execution report）
+- [ ] AC-3 production `/preview` DB pool
+- [ ] AC-4 production 回滚演练记录
+
+**明确不做（Gate A）：** production DNS · DB migrate · systemd 启动 · Nginx 切流 · merge main
 
 ---
 
