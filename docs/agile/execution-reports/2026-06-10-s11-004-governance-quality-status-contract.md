@@ -96,7 +96,7 @@ npx vitest run tests/server/style-admin/quality-status-contract.test.ts tests/se
 
 ## 15. commit hash
 
-`61a3bf2`
+`d99aa1a`
 
 ## 16. merge 状态
 
