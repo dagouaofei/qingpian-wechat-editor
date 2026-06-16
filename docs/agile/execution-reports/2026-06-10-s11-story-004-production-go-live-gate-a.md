@@ -363,7 +363,7 @@ Gate A 代码在本地 PASS；**AC-A1~A6 需在 ECS 完成**：
 - Gate A commit hash：`2a416df`
 - Env path fix commit：`c314ffc`
 - pnpm build approval commit：`9a78b6b`
-- Deploy lock fix commit：（本轮 commit 后填入）
+- Deploy lock fix commit：`e7a7b98`
 - **未 merge sprint** · **未启动 production**
 
 ### Env path 修正（追加）
