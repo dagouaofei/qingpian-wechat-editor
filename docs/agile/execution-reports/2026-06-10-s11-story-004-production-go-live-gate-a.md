@@ -4,20 +4,20 @@
 
 | 项 | 值 |
 |----|-----|
-| 日期 | 2026-06-10 |
-| 当前分支 | `ops/s11-story-004-production-go-live` |
+| 日期 | 2026-06-10（Gate A closeout） |
+| 当前分支 | `ops/s11-story-004-production-go-live` → merge `sprint/s11-production-ops-go-live` |
 | 来源分支 | `sprint/s11-production-ops-go-live` @ `edc1fd7` |
 | 目标合并分支 | `sprint/s11-production-ops-go-live` |
 | Sprint | Sprint 11 — Production Ops Go-Live |
-| 关联 Story | **S11-STORY-004** · Gate A |
+| 关联 Story | **S11-STORY-004** · Gate A **Done** · Story **In Progress · Gate B Pending** |
 | 执行者 | Cursor |
-| 状态 | **In Review**（Gate A 已 commit · ECS staging 验证待用户 · **production 未启动** · **main 未 merge**） |
-| Commit | 见 §23（Gate A commit 含 Prelaunch 修正）
+| 状态 | **Done（Gate A）** · staging 验证 PASS · merge sprint 本轮 · **production 未启动** · **main 未 merge** |
+| Commit | 见 §23 |
 
 **前置确认：**
 
-- S11-STORY-003A、003B：**Done** · 已 merge sprint（003B `--no-ff` @ `8da62e9`）
-- Working tree：有未提交 Gate A 变更（无 secret）
+- S11-STORY-003A、003B：**Done** · 已 merge sprint
+- Gate A staging 验收：**PASS** @ `8e01438`
 - production：**未启动**
 - main：**未 merge**
 
@@ -38,16 +38,16 @@ Gate A：生产上线准备、轻量运维工具、staging 验证方案与文档
 - `scripts/ops/*` 部署/状态/回滚脚本 + `pnpm ops:*`
 - production/staging systemd、Nginx 模板
 - production 环境登记、DB migration/import 方案、回滚演练计划
-- 单元测试（version route）
-- lint / build / 全量 test 基线对比
+- ECS staging deploy / rollback 验证（用户确认 2026-06-10 @ `8e01438`）
+- 单元测试（version route + ops scripts）
+- lint / build / test 基线对比
 
 **未执行（按 Story 边界）：**
 
 - production DNS / HTTPS / systemd / Nginx 切流
 - production 数据库创建、migrate、import
-- ECS staging 实际 deploy / rollback（待用户）
-- Gate B production 部署与回滚演练
-- merge sprint / merge main / Sprint 11 closeout
+- Gate B production Prelaunch 部署与回滚演练
+- merge `main` / Sprint 11 closeout
 - B4 CloudMonitor / SLS（→ S11-STORY-005 Pending）
 
 ---
@@ -187,19 +187,39 @@ Gate A：生产上线准备、轻量运维工具、staging 验证方案与文档
 
 ---
 
-## 11. Staging 部署与 rollback 验证（待 ECS 执行）
+## 11. Staging 部署与 rollback 验证（**Done · 2026-06-10**）
 
-Gate A 代码在本地 PASS；**AC-A1~A6 需在 ECS 完成**：
+**staging 最终部署 commit：** `8e01438`（`https://staging.qingpianai.cn`）
 
-1. `pnpm ops:deploy:staging -- <gate-a-commit>` 重新部署
-2. `curl https://staging.qingpianai.cn/api/version` — environment=staging · gitSha/buildTime 正确
-3. Admin 页右下角版本 footer
-4. `pnpm ops:status:staging`
-5. SSE 打字机 · Admin 登录/logout · userSelectable pool · Preview/Copy
-6. rollback 演练：commit A → deploy B → verify B → rollback A → verify A（见 [`production-rollback-drill.md`](../../ops/production-rollback-drill.md)）
-7. 确认脚本 stdout 无 DATABASE_URL / password / secret
+| 项 | 结果 |
+|----|------|
+| `/api/health` | **PASS** |
+| `/api/version` | **PASS** · environment=staging · commit · buildTime 正确 |
+| Admin 版本 footer | **PASS** |
+| `pnpm ops:status:staging` | **PASS** |
+| deploy 结束自动 status | **PASS**（`print_environment_status`） |
+| SSE 打字机 | **PASS** |
+| Admin 登录 / Logout | **PASS** |
+| userSelectable pool | **PASS** |
+| Preview / Copy | **PASS** |
+| 部署过程无 secret 输出 | **PASS** |
 
-**未通过 staging 不得进入 Gate B。**
+**Rollback 演练：**
+
+| 步骤 | commit | 验证 |
+|------|--------|------|
+| 1 | 自 `8e01438` 回滚至 `275cc51` | `/api/version` gitSha 正确变化 |
+| 2 | 自 `275cc51` 再部署 `8e01438` | 恢复至 Gate A 最终 commit |
+| 最终 staging | **`8e01438`** | health / version / 冒烟 PASS |
+
+**Gate A 期间修复项（均已验证）：**
+
+- canonical env path（`/etc/qingpian-wechat-editor-staging.env`）
+- pnpm `allowBuilds`（sharp / unrs-resolver）
+- deploy lock 移出 Git worktree（`/tmp/...-deploy.lock`）
+- status 命令（`status-environment.sh` 直连，非 `pnpm ops:status`）
+
+**Gate B 前置：** staging PASS · 用户确认后可启动 production **Prelaunch**（仍须 noindex · 非公开发布）。
 
 ---
 
@@ -208,7 +228,8 @@ Gate A 代码在本地 PASS；**AC-A1~A6 需在 ECS 完成**：
 | 项 | 值 |
 |----|-----|
 | 建议 baseline | sprint 003B merge `8da62e9` |
-| Gate A 合并后 | 本分支 merge commit 或用户指定的 **exact hash** |
+| **Gate A staging 验证 commit** | **`8e01438`** |
+| Gate B 建议 ref | **`8e01438`** 或 sprint merge 后 exact hash |
 | 策略 | production **仅精确 commit** · 禁止分支 HEAD 隐式部署 |
 
 当前工作分支基于 `edc1fd7`（003B closeout 文档对齐）；Gate B 前应以 **staging 验证通过的 exact commit** 为准。
@@ -231,7 +252,7 @@ Gate A 代码在本地 PASS；**AC-A1~A6 需在 ECS 完成**：
 
 ## 14. Production env / Nginx / systemd 差异
 
-**Production Prelaunch：** 首次 production 部署仅验证正式环境链路，**不代表公开发布**。全站 `X-Robots-Tag: noindex, nofollow, noarchive, nosnippet` + `/robots.txt Disallow: /`。解除 noindex 须独立发布动作（checklist Section I）。
+**Production Prelaunch（Gate B 仍须遵守）：** 首次 production 部署仅为链路验证 · **不代表公开发布** · **必须保留** `X-Robots-Tag: noindex, nofollow, noarchive, nosnippet` · **`robots.txt` 必须 `Disallow: /`** · **未经用户明确批准不得解除防爬** · 模板 [`production.conf.example`](../../../deploy/nginx/production.conf.example) 已配置 · checklist Section I 未勾选
 
 | 维度 | staging | production（Prelaunch） |
 |------|---------|-------------------------|
@@ -255,13 +276,13 @@ Gate A 代码在本地 PASS；**AC-A1~A6 需在 ECS 完成**：
 |---------|---------|------------|
 | A 部署前 | PASS（2026-06-11） | Gate B |
 | B1~B3 基础设施 | PASS | ☐ 待创建 |
-| B1a `/api/version` | Gate A 代码就绪 · ECS 待验 | ☐ |
+| B1a `/api/version` | **PASS**（Gate A @ `8e01438`） | Gate B |
 | B4 CloudMonitor/SLS | → **S11-STORY-005 Pending** | ☐ |
 | C Admin 认证 | PASS | Gate B |
 | D Admin 数据与治理 | PASS | Gate B |
 | E 用户侧 DB pool | PASS | Gate B |
 | F 安全 | 部分 | Gate B |
-| 回滚演练 | Gate A 计划就绪 · ECS 待执行 | Gate B |
+| 回滚演练 | **PASS**（staging · Gate A） | Gate B |
 | 发布记录 | Gate B | Gate B |
 
 ---
@@ -297,13 +318,13 @@ Gate A 代码在本地 PASS；**AC-A1~A6 需在 ECS 完成**：
 
 | AC | 结果 | 说明 |
 |----|------|------|
-| AC-A1 staging `/api/version` | **Pending** | 待 ECS |
-| AC-A2 Admin footer | **Pending** | 待 ECS |
-| AC-A3 `ops:status:staging` | **Pending** | 待 ECS |
-| AC-A4 staging redeploy | **Pending** | 待 ECS |
-| AC-A5 staging rollback | **Pending** | 待 ECS |
-| AC-A6 无 secret 泄漏 | **Pending** | 待 ECS |
-| AC-A7 lint/build/test | **PASS** | 见下节 |
+| AC-A1 staging `/api/version` | **PASS** | @ `8e01438` |
+| AC-A2 Admin footer | **PASS** | |
+| AC-A3 `ops:status:staging` | **PASS** | |
+| AC-A4 staging redeploy | **PASS** | ops 脚本 |
+| AC-A5 staging rollback | **PASS** | `8e01438 ↔ 275cc51` |
+| AC-A6 无 secret 泄漏 | **PASS** | |
+| AC-A7 lint/build/test | **PASS** | closeout 复验 |
 | Gate B AC-1~4 | **N/A** | 未执行 |
 
 ---
@@ -331,30 +352,27 @@ Gate A 代码在本地 PASS；**AC-A1~A6 需在 ECS 完成**：
 
 ## 20. 未完成事项
 
-- ECS staging 全量 Gate A 验收（AC-A1~A6）
-- 用户 commit / merge 本分支至 sprint
-- Gate B production 全流程
+- Gate B production Prelaunch 部署（用户确认后）
 - S11-STORY-005 监控告警
 - S11-STORY-006 closeout
+- merge `main`（未执行）
 
 ---
 
 ## 21. 需要用户 / ChatGPT 审查的问题
 
-1. Gate A 代码是否可 commit 并 merge sprint（staging 验证前 vs 后）？
+1. Gate B 是否以 `8e01438`（或 sprint merge hash）为 production exact commit？
 2. production 域名与 DB 命名是否采用建议值 `qingpian_style_admin_production`？
-3. Gate B 目标 commit：固定 `8da62e9` 还是 Gate A merge 后的新 hash？
-4. 既有 8 test failures 是否纳入 Sprint 11 尾项或顺延？
+3. Gate B 启动前是否需先完成 S11-STORY-005（B4）或允许 Prelaunch 先行？
 
 ---
 
 ## 22. 建议下一步
 
-1. **Commit** Gate A 变更至 `ops/s11-story-004-production-go-live`
-2. 在 ECS 执行 staging deploy + rollback 演练（AC-A1~A6）
-3. 通过后 merge sprint · 更新 Story 004 Gate A → Done
-4. 用户确认后启动 **Gate B**（production 资源创建 + deploy）
-5. 并行或后续启动 S11-STORY-005（B4 监控）
+1. 用户确认后启动 **Gate B**（production 资源 · Prelaunch deploy · migrate · import）
+2. 保持 production **Prelaunch 防爬**直至 checklist Section I 全部 PASS
+3. 并行或后续 S11-STORY-005（CloudMonitor / SLS）
+4. Sprint 11 closeout（S11-STORY-006 · 用户确认）
 
 ---
 
@@ -365,7 +383,9 @@ Gate A 代码在本地 PASS；**AC-A1~A6 需在 ECS 完成**：
 - pnpm build approval commit：`9a78b6b`
 - Deploy lock fix commit：`e7a7b98`
 - Status command fix commit：`8e01438`
-- **未 merge sprint** · **未启动 production**
+- Gate A closeout commit：`44a235f`
+- Sprint `--no-ff` merge commit：（merge 后填入）
+- **Gate A Done** · **Gate B Pending** · **production 未启动**
 
 ### Env path 修正（追加）
 
@@ -401,7 +421,7 @@ Gate A 代码在本地 PASS；**AC-A1~A6 需在 ECS 完成**：
 - production systemd 启动
 - production Nginx 切流
 - production 上线（含 Prelaunch deploy）
-- merge sprint
 - merge `main`
 - Sprint 11 closeout
-- checklist Section I 公开发布阻断项（保持未勾选）
+- S11-STORY-005 启动
+- checklist Section I 公开发布阻断项（保持未勾选 · **Prelaunch 防爬仍有效**）

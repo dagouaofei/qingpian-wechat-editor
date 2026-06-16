@@ -4705,32 +4705,34 @@ S11-STORY-001 → 002 → 003 → 004 → 005 → 006
 
 ## S11-STORY-004 Production 部署与上线
 
-**优先级：** P0 · **状态：** **In Progress · Gate A** · **工作分支：** `ops/s11-story-004-production-go-live` · **前置：** 003A/003B Done · **production 未启动**
+**优先级：** P0 · **状态：** **In Progress · Gate B Pending** · **Gate A：** **Done**（staging 验证 2026-06-10 @ `8e01438` · merge sprint 待本轮） · **production 未启动**
 
 **Story 分阶段：**
 
 | Gate | 范围 | 状态 |
 |------|------|------|
-| **Gate A** | `/api/version` · 运维脚本 · production 模板 · staging 验证 · 回滚演练计划 | **In Progress（本轮）** |
-| **Gate B** | 用户确认后 production deploy · migrate · import · 回滚演练 · checklist | **Pending** |
+| **Gate A** | `/api/version` · 运维脚本 · production 模板 · staging 验证 · 回滚演练 | **Done**（2026-06-10 · @ `8e01438`） |
+| **Gate B** | 用户确认后 production Prelaunch deploy · migrate · import · 回滚演练 · checklist | **Pending** |
 
-**Gate A 交付（本轮）：**
+**Gate A 交付：**
 
 - `GET /api/version` + Admin 版本 footer
 - `scripts/ops/{deploy,status,rollback,common}.sh` + `pnpm ops:*`
 - `deploy/systemd/*-{staging,production}.service.example`
-- `deploy/nginx/{staging,production}.conf.example`（production 无 staging robots）
+- `deploy/nginx/{staging,production}.conf.example`（production **Prelaunch** noindex + Disallow robots）
 - [`docs/ops/environments/production.md`](../ops/environments/production.md) · [`production-rollback-drill.md`](../ops/production-rollback-drill.md)
 
 **Gate A 验收标准：**
 
-- [ ] AC-A1 staging `/api/version` 正确
-- [ ] AC-A2 Admin 版本 footer 可见
-- [ ] AC-A3 `ops:status:staging` 输出正确
-- [ ] AC-A4 staging 用新脚本 redeploy
-- [ ] AC-A5 staging rollback 演练一次
-- [ ] AC-A6 脚本不泄漏 secret
-- [ ] AC-A7 lint/build/test PASS（无新增失败）
+- [x] AC-A1 staging `/api/version` 正确
+- [x] AC-A2 Admin 版本 footer 可见
+- [x] AC-A3 `ops:status:staging` 输出正确
+- [x] AC-A4 staging 用新脚本 redeploy
+- [x] AC-A5 staging rollback 演练一次（`8e01438 ↔ 275cc51` · 最终 `8e01438`）
+- [x] AC-A6 脚本不泄漏 secret
+- [x] AC-A7 lint/build/test PASS（无新增失败）
+
+**staging 人工验收摘要（Gate A closeout）：** `/api/health` PASS · `/api/version` staging/commit/buildTime 正确 · Admin footer PASS · deploy 结束自动 status PASS · rollback 演练 PASS · SSE · Admin 登录/Logout · userSelectable · Preview/Copy PASS · env canonical path / pnpm build approvals / deploy lock / status command 均已修复
 
 **Gate B 验收标准（未执行）：**
 

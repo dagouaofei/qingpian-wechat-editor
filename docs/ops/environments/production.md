@@ -2,14 +2,16 @@
 
 > S11-STORY-004 · 华北 2（北京）· **勿提交 secret**  
 > **须在 staging checklist A~E 全部 PASS 后** 创建或启用 production 资源。  
-> **Gate A（2026-06）：** 工具与文档就绪 · **production 未启动**
+> **Gate A（2026-06-10）：** **Done** · staging 验证 PASS @ `8e01438` · **production 未启动** · **Gate B Pending**
 
-### Production Prelaunch
+### Production Prelaunch（Gate B 仍须遵守）
 
-首次 production 部署仅用于**验证正式环境链路**，**不代表公开发布**。
+首次 production 部署仅为 **Prelaunch** · **不代表公开发布**。
 
-- **搜索引擎禁止抓取**：Nginx 全站 `X-Robots-Tag: noindex, nofollow, noarchive, nosnippet` · `/robots.txt` → `Disallow: /`
-- **解除 noindex** 必须作为后续**独立发布动作**（产品达标 + 用户明确批准 + checklist 公开发布阻断项全部 PASS）
+- **必须保留** Nginx 全站 `X-Robots-Tag: noindex, nofollow, noarchive, nosnippet`
+- **`/robots.txt` 必须** `Disallow: /`
+- **未经用户明确批准，不得解除防爬** · 不得将 production 模板恢复为可抓取状态
+- 解除 noindex 须作为后续**独立发布动作**（checklist Section I1~I5 全部 PASS）
 
 ---
 

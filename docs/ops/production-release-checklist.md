@@ -116,7 +116,7 @@
 
 ## I. 正式公开发布阻断项（Production Prelaunch → Public Launch）
 
-> **S11-STORY-004 保持未勾选。** 首次 production 部署为 **Prelaunch**（链路验证 · 搜索引擎禁止抓取），**不代表公开发布**。解除 noindex 须作为后续独立发布动作。
+> **未经用户明确批准，不得解除防爬。** 首次 production 部署为 **Prelaunch**（链路验证 · **不代表公开发布**）。**必须保留** `X-Robots-Tag: noindex, nofollow, noarchive, nosnippet` · **`robots.txt` 必须 `Disallow: /`**。解除 noindex 须作为后续独立发布动作。
 
 | # | 检查项 | Staging | Production |
 |---|--------|---------|------------|
