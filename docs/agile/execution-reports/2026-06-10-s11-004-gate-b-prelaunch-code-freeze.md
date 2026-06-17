@@ -102,10 +102,11 @@ npx vitest run tests/server/style-admin/quality-status-contract.test.ts tests/se
 
 ## 15. commit hash
 
-- 文档 commit：（见 merge 后填写）
-- sprint merge commit：（见 merge 后填写）
+- 文档 commit：`7dd2013`
+- fix commit（qualityStatus）：`d99aa1a`
+- **sprint merge commit：`385422d`**（`merge(s11-004): gate b governance bootstrap and prelaunch code freeze`）
 
 ## 16. merge 状态
 
-- 工作分支 → sprint：**已 merge `--no-ff`**（待填写 hash）
+- 工作分支 → sprint：**已 merge `--no-ff`** @ `385422d`
 - sprint → release / main：**未 merge**（待用户确认）
