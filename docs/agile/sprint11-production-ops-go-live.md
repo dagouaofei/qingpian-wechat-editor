@@ -42,7 +42,7 @@
 | S11-STORY-003 | Admin 登录与 Staging 治理/用户池验收 | P0 | **In Review**（admin session · 治理 · preview pool PASS） |
 | S11-STORY-003A | Staging Volcengine Provider + 首页生成主链路与样式回归验收 | P0 | **Done**（staging 验收 2026-06-11 · merge sprint `2ee03c5` `--no-ff`） |
 | S11-STORY-003B | Legacy Path Removal & Parallel Implementation Audit | P0 | **Done**（merge sprint `8da62e9` `--no-ff` · staging 2026-06-11） |
-| S11-STORY-004 | Production 部署与上线 | P0 | **In Progress · Gate B Pending** · Gate A **Done** @ `8e01438` |
+| S11-STORY-004 | Production 部署与上线 | P0 | **In Progress · Gate B · 代码冻结** @ `d99aa1a` · Gate A **Done** @ `8e01438` |
 | S11-STORY-005 | 监控、报警与运维闭环 | P1 | **Pending** |
 | S11-STORY-006 | Sprint 11 Closeout | P0 | **Pending** |
 
@@ -104,6 +104,23 @@
 - Production 部署（→ S11-STORY-004 · **未启动**）
 
 **明确未做：** merge `main` · 关闭 Release 1 · production 部署
+
+---
+
+## 9. Gate B 代码冻结（2026-06-10 · DECISION-112）
+
+**Prelaunch deploy 前 sprint 代码冻结点：** `d99aa1a`（governance `qualityStatus` 契约对齐）及 Gate B governance bootstrap 链。
+
+| 项 | 决策 |
+|----|------|
+| Production variant 基线 | **100** 条（`import-existing-variants` 已执行） |
+| Staging 独有测试 variant | **2** 条 · **不迁移** production |
+| Governance snapshot apply | **暂不执行** |
+| DB 事实来源 | 各环境 PostgreSQL DB |
+| 代码 importer | 历史 bootstrap · **待审计** |
+| 环境间 DB 同步方案 | **Deferred** → product-backlog **P1-S11-001** · **不阻塞 Prelaunch** |
+
+**未做：** production 启动 · DNS/Nginx/systemd · production DB 变更 · merge `main`
 
 ---
 

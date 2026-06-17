@@ -158,6 +158,16 @@ Story 详情见 [`sprint-backlog.md`](sprint-backlog.md) · S11 见 [`sprint11-p
 
 ---
 
+## Sprint 11 待办（不阻塞 Production Prelaunch · DECISION-112）
+
+> **登记日期：** 2026-06-10 · Gate B 代码冻结 · **方案未定 · 本轮不设计、不实现**
+
+| ID | 问题 | 状态 | 说明 |
+|----|------|------|------|
+| **P1-S11-001** | Dev / Staging / Production 数据库内容维护、发布与同步方案 | **Deferred** | DB 为 variant **唯一事实来源**；`import-existing-variants` 为待审计历史 bootstrap；governance snapshot apply 暂缓；staging 独有 2 条测试 variant 不迁移 production |
+
+---
+
 ## Sprint 8 Audit 遗留（S8-STORY-009 登记 · 2026-06-05）
 
 > 来源：[`sprint8-wechat-contract-fidelity-audit.md`](../architecture/audits/sprint8-wechat-contract-fidelity-audit.md)；**不阻塞 S8 closeout**。

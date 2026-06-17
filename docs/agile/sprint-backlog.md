@@ -4712,7 +4712,17 @@ S11-STORY-001 → 002 → 003 → 004 → 005 → 006
 | Gate | 范围 | 状态 |
 |------|------|------|
 | **Gate A** | `/api/version` · 运维脚本 · production 模板 · staging 验证 · 回滚演练 | **Done** @ `8e01438` |
-| **Gate B** | production Prelaunch bootstrap · governance snapshot · migrate/import dry-run · 回滚演练 | **In Progress** |
+| **Gate B** | production Prelaunch bootstrap · governance snapshot · migrate/import dry-run · 回滚演练 | **In Progress · 代码冻结** @ `d99aa1a` |
+
+**Gate B 代码冻结（Prelaunch deploy 前 · DECISION-112 · 2026-06-10）：**
+
+- Production DB 已初始化 **100** 条 variant（`import-existing-variants` · **本轮不修改 production DB**）
+- Staging 较 production 多 **2** 条 staging 独有测试 variant → **不迁移** production
+- **暂不执行** governance snapshot apply（`import-governance-snapshot` apply）；export / dry-run 工具保留
+- **待办（不阻塞 Prelaunch）：** Dev / Staging / Production DB 内容维护与同步方案 → [`product-backlog.md`](../product-backlog.md) **P1-S11-001**
+- **事实来源：** 各环境 DB 为 variant 唯一事实来源；代码 importer 为待审计历史 bootstrap 路径
+
+**Gate B 工作分支（已含 `d99aa1a`）：** `ops/s11-story-004-gate-b-governance-bootstrap` → merge sprint `--no-ff`
 
 **Gate A 交付：**
 

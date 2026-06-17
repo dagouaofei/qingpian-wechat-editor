@@ -2,7 +2,8 @@
 
 > S11-STORY-004 · 华北 2（北京）· **勿提交 secret**  
 > **须在 staging checklist A~E 全部 PASS 后** 创建或启用 production 资源。  
-> **Gate A（2026-06-10）：** **Done** · staging 验证 PASS @ `8e01438` · **production 未启动** · **Gate B Pending**
+> **Gate A（2026-06-10）：** **Done** · staging 验证 PASS @ `8e01438` · **production 未启动**  
+> **Gate B 代码冻结（2026-06-10 · DECISION-112）：** @ `d99aa1a` · production **100 variant 已初始化** · staging 独有 **2** 测试 variant **不迁移** · **暂不 governance snapshot apply**
 
 ### Production Prelaunch（Gate B 仍须遵守）
 
@@ -140,10 +141,17 @@
 | 命令 | 用途 |
 |------|------|
 | `pnpm style-admin:export-governance-snapshot -- <file.json>` | 从 staging DB 导出治理 snapshot（无 secret） |
-| `pnpm style-admin:import-governance-snapshot:dry-run -- <file.json>` | production 空库/已 import variants 后 dry-run |
-| `pnpm style-admin:import-governance-snapshot -- <file.json>` | 用户确认后写入（Gate B · 非本轮默认） |
+| `pnpm style-admin:import-governance-snapshot:dry-run -- <file.json>` | production 已 import variants 后 dry-run |
+| `pnpm style-admin:import-governance-snapshot -- <file.json>` | 用户确认后写入（**代码冻结期暂不执行 apply**） |
 
-**顺序：** `db:migrate:deploy` → `style-admin:import-existing-variants:dry-run` → export snapshot（staging）→ governance import dry-run（production）→ 用户确认 → 正式 governance import。
+**代码冻结事实（DECISION-112 · 2026-06-10）：**
+
+- Production 已通过 `import-existing-variants` 初始化 **100** 条 variant
+- Staging 较 production 多 **2** 条 staging 独有测试 variant → **不迁移**
+- **暂不执行** governance snapshot **apply**；export / dry-run 保留供后续 P1-S11-001 决策
+- 各环境 **DB 为 variant 唯一事实来源**；代码 importer 为待审计历史 bootstrap
+
+**顺序（Prelaunch）：** `db:migrate:deploy`（已完成）→ variant import（已完成 · 100 条）→ Prelaunch app deploy @ 冻结 commit → 验收 → 回滚演练。Governance snapshot apply **不在** Prelaunch 默认路径。
 
 脚本不打印 env/secret · 部署失败不 restart · production 仅精确 commit。
 

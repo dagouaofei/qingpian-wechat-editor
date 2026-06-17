@@ -721,6 +721,7 @@
 | 2026-06-11 | Sprint 11 | **S11-STORY-003A Done**：staging 验收通过 · sprint `--no-ff` merge `2ee03c5` · closeout `381e146` | Git / 样式 / 生成 | S11-STORY-003A |
 | 2026-06-16 | Sprint 11 | **S11-STORY-004 Gate A 启动**：`/api/version` · ops 脚本 · production 模板 · 回滚演练计划 | 运维 | S11-STORY-004 |
 | 2026-06-10 | Sprint 11 | **S11-STORY-004 Gate B 启动**：import lifecycle 规范化 · governance snapshot export/import | 运维 / Admin | S11-STORY-004 |
+| 2026-06-10 | Sprint 11 | **Gate B 代码冻结**：`qualityStatus` 契约 @ `d99aa1a` · production 100 variant · staging +2 不迁移 · governance apply 暂缓 · P1-S11-001 deferred | 运维 / 文档 | DECISION-112 |
 | 2026-06-11 | Sprint 11 | **003A merge sprint** @ `75fecb9` · **003B Gate A 修订**：分支 reset+cherry-pick · LP-008 降 P1 · inventory 补全 | Git / 架构 | S11-STORY-003A / 003B |
 | 2026-06-11 | Sprint 11 | **S11-STORY-003B Gate A**：legacy/parallel/fallback 全仓审计 · P0 删除清单 · inventory 文档 | 架构 / 敏捷 | S11-STORY-003B |
 | 2026-06-10 | Sprint 11 | **d26 inline 编号/主题色**：infer 覆盖 <36px accent number · theme 用 effective bindings · Preview/Copy parity | Decoder / theme tokens | S11-STORY-003A |

@@ -98,6 +98,7 @@
 | DECISION-109 | 2026-06-08 | 全局 WeChat Compatibility Mode 默认 off；DEBT-WC-001~007 归档 deferred；sanitize 常开；Release 1 收口前恢复 report/enforce | **已确认** |
 | DECISION-110 | 2026-06-08 | Registry `renderContract` + title_block 双轨 Preview/Copy renderer 为过渡债务；目标为 DB tree DSL 统一 decode；DEBT-DSL-RC-001~006 deferred · 本轮不批量迁移 | **已确认** |
 | DECISION-111 | 2026-06-08 | 关闭 Sprint 10（001~011）；新建 Sprint 11 Production Ops Go-Live（部署优先）；原 S10-012/013/014 顺延 Sprint 12+；staging 先于 production | **已确认** |
+| DECISION-112 | 2026-06-10 | Gate B Prelaunch 代码冻结：各环境 DB 为 variant 唯一事实来源；`import-existing-variants` 为待审计历史 bootstrap；Dev/Staging/Production DB 同步方案 deferred；production 100 variant 已初始化；staging 独有 2 条测试 variant 不迁移；暂不 governance snapshot apply | **已确认** |
 
 ### DECISION-019 详情
 
@@ -1192,4 +1193,23 @@
 - **影响范围：** `sprint-backlog.md` · `sprint-plan.md` · `release-plan.md` · `docs/ops/`
 - **关联：** DECISION-108 · S10-STORY-007~008 · DEBT-WC · DEBT-DSL-RC
 - **状态：** **已确认**（2026-06-08）
+
+### DECISION-112 详情（Gate B Prelaunch 代码冻结 · DB 权威 · 同步方案 deferred）
+
+- **日期：** 2026-06-10
+- **背景：**
+  - Gate B 已完成 governance snapshot export/import 工具链与 `qualityStatus` 契约对齐（`d99aa1a`）
+  - Production 独立 DB 已通过 `import-existing-variants` 初始化 **100** 条 variant
+  - Staging DB 较 production 多 **2** 条 staging 独有测试 variant（**不迁移** production）
+  - Dev / Staging / Production 之间 variant 内容维护、发布与同步的最终方案 **尚未确定**
+- **决策：**
+  1. **各环境 PostgreSQL DB 为 variant 治理与内容的唯一事实来源**（lifecycle · distribution · qualityStatus · label 等）
+  2. 代码侧 `pnpm style-admin:import-existing-variants` 属于 **历史 bootstrap 路径**，Prelaunch 后须单独审计，不得视为长期同步机制
+  3. **Dev / Staging / Production 数据库内容维护、发布与同步方案** 登记为后续待办（**本轮不设计、不实现**）
+  4. 上述待办 **不阻塞** Production Prelaunch 代码冻结与 deploy
+  5. **暂不执行** governance snapshot **apply**（`import-governance-snapshot` 非 apply）；dry-run / export 工具保留供后续决策
+  6. Staging 独有 2 条测试 variant **明确不迁移** production
+- **影响范围：** `product-backlog.md` · `production.md` · S11-STORY-004 Gate B
+- **关联：** S11-STORY-004 · DECISION-111 · `quality-status-contract.ts`
+- **状态：** **已确认**（2026-06-10 · Gate B 代码冻结）
 
