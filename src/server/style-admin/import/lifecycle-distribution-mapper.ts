@@ -75,7 +75,17 @@ export function mapRegistryStatusToDistribution(
 export function mapStyleLibraryAssetToLifecycle(
   asset: StyleLibraryVariantAsset,
 ): StyleVariantLifecycle {
-  return asset.lifecycle;
+  return normalizeImportLifecycle(asset.lifecycle);
+}
+
+/** Legacy manifest/DB value — visibility is distribution.userSelectable only. */
+export function normalizeImportLifecycle(
+  lifecycle: StyleVariantLifecycle,
+): StyleVariantLifecycle {
+  if (lifecycle === "user_selectable") {
+    return "paste_qa_pass";
+  }
+  return lifecycle;
 }
 
 export function mapStyleLibraryAssetToDistribution(
