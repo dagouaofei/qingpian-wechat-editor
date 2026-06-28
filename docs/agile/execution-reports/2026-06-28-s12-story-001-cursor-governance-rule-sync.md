@@ -149,6 +149,6 @@
   - `9738652` — execution report commit hash 补齐
   - `121c283` — 审查修正：闸门适用范围收窄；删除过期 Sprint 状态硬编码
   - `99784cc` — execution report 记录第二轮审查修正
-  - `<FINALIZE_HASH>` — execution report 最终纠正
+  - `c63e2a9` — execution report 最终纠正
 - Merge 状态：已 merge 至 `sprint/s12-product-governance-r2-planning`（merge commit 见最终报告）
 - Push 状态：未 push
