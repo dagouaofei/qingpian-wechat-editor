@@ -2,14 +2,14 @@
 
 ## 1. 基本信息
 
-- 日期：2026-06-10
+- 日期：2026-06-28
 - 当前分支：`ops/s11-story-005-monitoring-observation`
 - 来源分支：`sprint/s11-production-ops-go-live`
 - 目标合并分支：`sprint/s11-production-ops-go-live`
 - Sprint：S11
 - 关联 Story：**S11-STORY-005 In Progress** · DECISION-113
 - 执行者：Cursor
-- 状态：**In Review**（脚本/文档完成 · **未部署 ECS cron**）
+- 状态：**In Review**（脚本/文档完成 · **未部署 ECS cron** · T+24h/T+72h 未完成）
 
 ## 2. 本轮目标
 

@@ -1,7 +1,7 @@
 # Production 环境登记
 
 > S11-STORY-004 **Done** · 华北 2（北京）· **勿提交 secret**  
-> **Production Prelaunch 已部署（2026-06-10 · 用户验收 PASS）** · **非正式公开上线**
+> **Production Prelaunch 已部署（2026-06-28 · 用户验收 PASS）** · **非正式公开上线**
 
 ### Production Prelaunch（当前必须遵守）
 
@@ -57,7 +57,7 @@
 | 公网 URL | **https://paiban.aiqingpian.cn** |
 | 原规划域名 | `qingpianai.cn` — **未备案 · 未使用** |
 | HTTPS | Certbot · 自动续期任务已创建 |
-| 登记日期 | 2026-06-10 |
+| 登记日期 | 2026-06-28 |
 | Prelaunch 状态 | **Active** · 非公开发布 |
 
 ---

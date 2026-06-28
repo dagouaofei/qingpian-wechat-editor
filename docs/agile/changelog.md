@@ -722,8 +722,8 @@
 | 2026-06-16 | Sprint 11 | **S11-STORY-004 Gate A 启动**：`/api/version` · ops 脚本 · production 模板 · 回滚演练计划 | 运维 | S11-STORY-004 |
 | 2026-06-10 | Sprint 11 | **S11-STORY-004 Gate B 启动**：import lifecycle 规范化 · governance snapshot export/import | 运维 / Admin | S11-STORY-004 |
 | 2026-06-10 | Sprint 11 | **Gate B 代码冻结**：`qualityStatus` 契约 @ `d99aa1a` · production 100 variant · staging +2 不迁移 · governance apply 暂缓 · P1-S11-001 deferred | 运维 / 文档 | DECISION-112 |
-| 2026-06-10 | Sprint 11 | **S11-STORY-004 Done**：Production Prelaunch @ `385422d` · https://paiban.aiqingpian.cn · 回滚 `2f09b0d` PASS · Basic Auth + noindex | 运维 | DECISION-113 |
-| 2026-06-10 | Sprint 11 | **S11-STORY-005 启动**：`ops:observe` 监控脚本 · P0/P1/P2 · Prelaunch 24h/72h checklist | 运维 | S11-STORY-005 |
+| 2026-06-28 | Sprint 11 | **S11-STORY-004 Done**：Production Prelaunch @ `385422d` · https://paiban.aiqingpian.cn · 回滚 `2f09b0d` PASS · Basic Auth + noindex · 用户确认 | 运维 | DECISION-113 |
+| 2026-06-28 | Sprint 11 | **S11-STORY-005 启动**：`ops:observe` 监控脚本 · P0/P1/P2 · Prelaunch 24h/72h checklist · **In Review** | 运维 | S11-STORY-005 |
 | 2026-06-11 | Sprint 11 | **003A merge sprint** @ `75fecb9` · **003B Gate A 修订**：分支 reset+cherry-pick · LP-008 降 P1 · inventory 补全 | Git / 架构 | S11-STORY-003A / 003B |
 | 2026-06-11 | Sprint 11 | **S11-STORY-003B Gate A**：legacy/parallel/fallback 全仓审计 · P0 删除清单 · inventory 文档 | 架构 / 敏捷 | S11-STORY-003B |
 | 2026-06-10 | Sprint 11 | **d26 inline 编号/主题色**：infer 覆盖 <36px accent number · theme 用 effective bindings · Preview/Copy parity | Decoder / theme tokens | S11-STORY-003A |

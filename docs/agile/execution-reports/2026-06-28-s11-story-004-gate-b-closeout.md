@@ -2,14 +2,14 @@
 
 ## 1. 基本信息
 
-- 日期：2026-06-10
+- 日期：2026-06-28
 - 当前分支：`ops/s11-story-005-monitoring-observation`（含 004 closeout 文档）
 - 来源分支：`sprint/s11-production-ops-go-live`
 - 目标合并分支：`sprint/s11-production-ops-go-live`（审查后）
 - Sprint：S11 Production Ops Go-Live
 - 关联 Story / Decision：**S11-STORY-004 Done** · **DECISION-112** · **DECISION-113**
 - 执行者：Cursor + 用户人工验收
-- 状态：**Done**（用户确认 2026-06-10）
+- 状态：**Done**（用户确认 2026-06-28 · Production Prelaunch 验收 · 回滚演练）
 
 ## 2. 本轮目标
 

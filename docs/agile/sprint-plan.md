@@ -662,7 +662,7 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 **Stories：** S10-STORY-001 ~ S10-STORY-012 — 见 `sprint-backlog.md`
 
-**进度：** S10-STORY-001~011 **Done** · S10 **Closed** · S11-STORY-001~003 **In Review** · **S11-STORY-003A/003B Done** · **S11-STORY-004 Done** · **S11-STORY-005 In Progress** · S11-STORY-006 **Pending**
+**进度：** S10-STORY-001~011 **Done** · S10 **Closed** · S11-STORY-001~003 **In Review** · **S11-STORY-003A/003B Done** · **S11-STORY-004 Done** · **S11-STORY-005 In Review** · S11-STORY-006 **Pending**
 
 ---
 

@@ -43,7 +43,7 @@
 | S11-STORY-003A | Staging Volcengine Provider + 首页生成主链路与样式回归验收 | P0 | **Done**（staging 验收 2026-06-11 · merge sprint `2ee03c5` `--no-ff`） |
 | S11-STORY-003B | Legacy Path Removal & Parallel Implementation Audit | P0 | **Done**（merge sprint `8da62e9` `--no-ff` · staging 2026-06-11） |
 | S11-STORY-004 | Production 部署与上线 | P0 | **Done** · Prelaunch @ `385422d` · https://paiban.aiqingpian.cn |
-| S11-STORY-005 | Production Monitoring, Alerting & Observation | P1 | **In Progress** · `ops/s11-story-005-monitoring-observation` |
+| S11-STORY-005 | Production Monitoring, Alerting & Observation | P1 | **In Review** · `ops/s11-story-005-monitoring-observation` |
 | S11-STORY-006 | Sprint 11 Closeout | P0 | **Pending** |
 
 完整 AC 见 [`sprint-backlog.md`](sprint-backlog.md) Sprint 11 章节。
@@ -102,7 +102,7 @@
 - OSS / SLS / CloudMonitor 创建与告警（→ S11-STORY-005）
 - ~~首页 Volcengine AI 生成主链路 staging env 与验收~~ → **S11-STORY-003A**（Volcengine env · streaming · HTML variant 编号回归）
 - Production Prelaunch 部署（→ S11-STORY-004 · **Done** @ `385422d`）
-- Production 监控观察（→ S11-STORY-005 · **In Progress**）
+- Production 监控观察（→ S11-STORY-005 · **In Review**）
 
 **明确未做：** merge `main` · 关闭 Release 1 · 正式公开发布（Prelaunch 仍 active）
 
@@ -125,7 +125,7 @@
 
 ---
 
-## 10. Production Prelaunch 上线（2026-06-10 · S11-STORY-004 Done）
+## 10. Production Prelaunch 上线（2026-06-28 · S11-STORY-004 Done）
 
 | 项 | 值 |
 |----|-----|

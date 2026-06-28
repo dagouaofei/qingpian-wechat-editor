@@ -4705,7 +4705,7 @@ S11-STORY-001 → 002 → 003 → 004 → 005 → 006
 
 ## S11-STORY-004 Production 部署与上线
 
-**优先级：** P0 · **状态：** **Done**（2026-06-10 · 用户确认 Gate B · Prelaunch @ `385422d`）· **Gate A：** **Done** @ `8e01438`
+**优先级：** P0 · **状态：** **Done**（2026-06-28 · 用户确认 Gate B · Prelaunch @ `385422d`）· **Gate A：** **Done** @ `8e01438`
 
 **工作分支：** `ops/s11-story-004-gate-b-governance-bootstrap`（已 merge sprint @ `385422d` `--no-ff`）
 
@@ -4716,7 +4716,7 @@ S11-STORY-001 → 002 → 003 → 004 → 005 → 006
 | **Gate A** | `/api/version` · 运维脚本 · production 模板 · staging 验证 · 回滚演练 | **Done** @ `8e01438` |
 | **Gate B** | production Prelaunch deploy · 验收 · 回滚演练 | **Done** @ `385422d` |
 
-**Production Prelaunch 事实（用户验收 2026-06-10）：**
+**Production Prelaunch 事实（用户验收 · 回滚演练 · 用户确认 2026-06-28）：**
 
 | 项 | 值 |
 |----|-----|
@@ -4744,7 +4744,7 @@ S11-STORY-001 → 002 → 003 → 004 → 005 → 006
 
 ## S11-STORY-005 Production Monitoring, Alerting & Observation
 
-**优先级：** P1 · **状态：** **In Progress** · **工作分支：** `ops/s11-story-005-monitoring-observation` · **前置：** S11-STORY-004 **Done**
+**优先级：** P1 · **状态：** **In Review**（脚本/文档完成 · ECS cron / T+24h / T+72h 未完成）· **工作分支：** `ops/s11-story-005-monitoring-observation` · **前置：** S11-STORY-004 **Done**
 
 **目标：** 最小可运行监控闭环 · 复用 `status-environment.sh` · `ops:observe` 严格检查 · P0/P1/P2 告警策略 · Prelaunch 24h/72h 观察清单。**本轮提交设计与脚本 · 服务器 cron/CloudMonitor 待审查后部署。**
 
