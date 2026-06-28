@@ -147,20 +147,20 @@
 
 ## 9. 验收标准完成情况
 
-| AC                                     | 结果         | 说明                                                      |
-| -------------------------------------- | ------------ | --------------------------------------------------------- |
-| 已扫描并列出仓库内所有相关文档         | PASS         | 已记录目录、数量和关键文件                                |
-| 审计结论基于实际文件                   | PASS         | 结论基于读取的 docs、规则与分支状态                       |
-| 明确已有能力和真实缺口                 | PASS         | 见 `s12-current-system-audit.md`                          |
-| 明确新旧体系增量兼容                   | PASS         | 见 target model 与 migration plan                         |
-| 未破坏 Release 1 或 Sprint 11 历史     | PASS         | 只补当前说明，不改关闭结论                                |
-| 未批量重写现有文档                     | PASS         | 已撤回 Prettier 对历史大文档的全文件格式化，只保留小 diff |
-| 未开发产品代码                         | PASS         | 本轮无 `src/` 产品代码变更                                |
-| 已建立 Sprint 12 和 Story 001 正式记录 | PASS         | 新增 Sprint 12 Plan，并更新 Backlog                       |
-| 文档内部引用有效                       | PASS         | 新增链接均指向已存在或本轮新增文件                        |
-| 检查通过                               | PASS         | Prettier targeted / lint / build 通过                     |
-| working tree 最终干净                  | 待提交后确认 | 提交后执行 `git status`                                   |
-| 完成 commit，不 merge                  | 待提交后确认 | 本报告生成时尚未提交                                      |
+| AC                                     | 结果 | 说明                                                      |
+| -------------------------------------- | ---- | --------------------------------------------------------- |
+| 已扫描并列出仓库内所有相关文档         | PASS | 已记录目录、数量和关键文件                                |
+| 审计结论基于实际文件                   | PASS | 结论基于读取的 docs、规则与分支状态                       |
+| 明确已有能力和真实缺口                 | PASS | 见 `s12-current-system-audit.md`                          |
+| 明确新旧体系增量兼容                   | PASS | 见 target model 与 migration plan                         |
+| 未破坏 Release 1 或 Sprint 11 历史     | PASS | 只补当前说明，不改关闭结论                                |
+| 未批量重写现有文档                     | PASS | 已撤回 Prettier 对历史大文档的全文件格式化，只保留小 diff |
+| 未开发产品代码                         | PASS | 本轮无 `src/` 产品代码变更                                |
+| 已建立 Sprint 12 和 Story 001 正式记录 | PASS | 新增 Sprint 12 Plan，并更新 Backlog                       |
+| 文档内部引用有效                       | PASS | 新增链接均指向已存在或本轮新增文件                        |
+| 检查通过                               | PASS | Prettier targeted / lint / build 通过                     |
+| working tree 最终干净                  | PASS | 主提交后仅剩本 report hash 回填；回填提交后再次确认       |
+| 完成 commit，不 merge                  | PASS | 主提交 `b499bf2`，未 merge                                |
 
 ## 10. 运行检查
 
@@ -204,6 +204,6 @@
 
 ## 15. Commit
 
-- Commit hash：待提交后由最终回复补充
-- 是否已 commit：报告生成时待提交
+- Commit hash：`b499bf2`（本轮主要治理审计变更提交）
+- 是否已 commit：已提交
 - 是否已 merge：未 merge
