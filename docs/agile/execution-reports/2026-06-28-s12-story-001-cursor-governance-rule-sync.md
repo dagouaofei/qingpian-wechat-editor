@@ -83,6 +83,8 @@
 - `collaboration-rules.mdc`：参考文档列表增加 `agile-governance.mdc`。
 - `project-rules.mdc`：无直接冲突，未修改。
 
+**changelog 修正：** 初版 commit 中 Prettier 误格式化整个 `changelog.md`；已回滚为最小增量追加，避免重写历史表格格式。
+
 ## 8. 验收标准完成情况
 
 | AC                                          | 结果 | 说明                           |
@@ -102,14 +104,14 @@
 
 ## 9. 运行检查
 
-| 命令                                                                | 结果   | 说明               |
-| ------------------------------------------------------------------- | ------ | ------------------ |
-| `git diff --check`                                                  | PASS   | 无冲突标记         |
-| `pnpm exec prettier --check .cursor/rules/agile-governance.mdc ...` | PASS   | 见 commit 前执行   |
-| `pnpm lint`                                                         | PASS   | —                  |
-| `git status`                                                        | PASS   | commit 后 clean    |
-| `pnpm build`                                                        | 未运行 | 本轮无产品代码变更 |
-| `pnpm test`                                                         | 未运行 | 本轮无产品代码变更 |
+| 命令                                                                | 结果    | 说明                                                     |
+| ------------------------------------------------------------------- | ------- | -------------------------------------------------------- |
+| `git diff --check`                                                  | PASS    | 无冲突标记                                               |
+| `pnpm exec prettier --check .cursor/rules/agile-governance.mdc ...` | PARTIAL | `.mdc` 无 Prettier parser；已对 Markdown 文件 check PASS |
+| `pnpm lint`                                                         | PASS    | —                                                        |
+| `git status`                                                        | PASS    | commit 后 clean                                          |
+| `pnpm build`                                                        | 未运行  | 本轮无产品代码变更                                       |
+| `pnpm test`                                                         | 未运行  | 本轮无产品代码变更                                       |
 
 ## 10. 未完成事项
 
@@ -133,6 +135,6 @@
 
 ## 14. Commit
 
-- Commit hash：（提交后填写）
+- Commit hash：`1ddc3f6`（初版）；changelog 批量格式化已回滚，见修正 commit
 - Merge 状态：未 merge
 - Push 状态：未 push
