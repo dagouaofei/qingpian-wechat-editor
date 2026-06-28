@@ -189,4 +189,4 @@ sprint-backlog\.md|release-plan\.md|每个 Sprint 必须更新|Sprint Backlog|Re
 
 ## 15. Commit（含残留审计）
 
-- （提交后更新）
+- Commit hash：`7b4ad18` — 残留审计报告、TSV、execution report 补充
