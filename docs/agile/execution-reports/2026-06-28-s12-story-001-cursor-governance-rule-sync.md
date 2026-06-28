@@ -135,6 +135,6 @@
 
 ## 14. Commit
 
-- Commit hash：`1ddc3f6`（初版）；changelog 批量格式化已回滚，见修正 commit
+- Commit hash：`1ddc3f6`（主变更）、`eabec10`（changelog 格式化回滚修正）
 - Merge 状态：未 merge
 - Push 状态：未 push
