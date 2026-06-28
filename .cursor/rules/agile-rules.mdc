@@ -5,6 +5,8 @@ alwaysApply: true
 
 # 敏捷规则
 
+> Sprint / Story 启动、DoR、范围、合并与强制停止闸门见 [`.cursor/rules/agile-governance.mdc`](./agile-governance.mdc)。
+
 ## 任务管理
 
 - 所有任务必须对应 **Story / Bug / Decision**

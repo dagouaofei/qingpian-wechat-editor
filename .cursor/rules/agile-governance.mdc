@@ -1,0 +1,141 @@
+---
+description: Agile governance gates for Sprint, Story, scope, review and merge control
+alwaysApply: true
+---
+
+# 敏捷治理闸门
+
+> 本文件补充 `.cursor/rules/agile-rules.mdc`、`.cursor/rules/collaboration-rules.mdc` 与 `.cursor/rules/project-rules.mdc`，重点固化 Sprint / Story 启动、范围、审查、合并与停止条件。  
+> 与既有规则冲突时，以**更严格**的闸门为准；流程细节仍以 `docs/agile/git-workflow.md` 与 `docs/agile/chatgpt-cursor-docs-workflow.md` 为事实来源。
+
+## 1. 产品决策权限
+
+- **用户**是 Product Owner，负责产品目标、范围、优先级和最终取舍。
+- **ChatGPT**可提出方案、分析风险和组织规划，但建议**不等于**批准。
+- **Cursor**只执行已经批准的计划和**明确指令**。
+- Cursor **不得**自行改变 Sprint Goal、Release 范围、Story 优先级或产品方案。
+- 不得把推断、建议或技术偏好视为已批准决策。
+
+## 2. Sprint Planning 闸门
+
+Sprint 开发启动前，必须存在经用户确认并标记为：
+
+```text
+Approved
+```
+
+的 Sprint Plan。
+
+Sprint Plan 至少应明确：
+
+- Sprint Goal；
+- committed Stories；
+- Story 优先级和执行顺序；
+- 范围边界与非目标；
+- 主要依赖和风险；
+- 验收方式。
+
+**没有 `Approved` 状态，不得启动 Sprint 开发。**
+
+## 3. Story DoR 闸门
+
+Story 启动前必须明确：
+
+- Story ID 和名称；
+- 目标；
+- 用户价值或治理价值；
+- 验收标准；
+- 明确不做事项；
+- 来源分支；
+- 工作分支；
+- 目标合并分支；
+- 依赖和风险；
+- 停止条件。
+
+信息不完整时**必须停止并报告**，不得自行补齐关键产品决策。
+
+## 4. 单 Story 推进
+
+- 默认**一次只执行一个 Story**。
+- 当前 Story 未完成审查和处理结论前，**不启动下一 Story**。
+- 不得在同一指令中顺带实现后续 Story。
+- 不得以「代码相关」「方便一起改」或「顺手」为理由扩大范围。
+
+## 5. 范围与变更控制
+
+- 严格遵守当前指令的执行范围与明确不做事项。
+- 范围外问题只能登记到 Product Backlog、Bug、Debt 或 Deferred Register。
+- 不得静默扩大当前 Sprint 或 Story 范围。
+- 新工作插入当前 Sprint 时，必须已有明确的产品决策和容量调整记录。
+
+## 6. Execution Report
+
+每轮完成后**必须**提交 execution report（模板与路径见 `agile-rules.mdc`），至少包含：
+
+- 当前分支和来源分支；
+- 实际执行范围；
+- 实际修改文件；
+- 明确未做事项；
+- 检查命令与结果；
+- commit hash；
+- 风险、遗留项和范围外发现；
+- working tree 状态；
+- merge 和 push 状态。
+
+完成报告后**必须停止等待审查**。
+
+## 7. 状态与合并闸门
+
+未经用户**明确授权**，Cursor 不得：
+
+- 将 Story 标记为 Done；
+- 将 Sprint 标记为 Closed；
+- 将 Release 标记为 Closed；
+- merge Story 分支到 Sprint 分支；
+- merge Sprint 分支到 Release 分支；
+- merge Release 分支到 `main`；
+- push 远程仓库。
+
+只有**当前 Cursor 指令明确授权**的 merge 才能执行。
+
+「代码已完成」「检查通过」或「已 merge 到 Sprint」**均不自动等于** Story 已被用户验收。
+
+## 8. Sprint 关闭闸门
+
+关闭 Sprint 前必须确认：
+
+- Sprint Review 已完成；
+- 用户验收或明确接受遗留问题；
+- Sprint Retrospective 已完成；
+- 未完成项已返回 Product Backlog；
+- Backlog、Decision、Changelog 和证据已同步；
+- 分支与 working tree 状态已检查；
+- **用户明确确认关闭**。
+
+## 9. 历史保护
+
+- 不重写已关闭 Sprint、Story、Decision 和 Release 的历史事实。
+- 不重新编号已经正式使用的记录。
+- 历史冲突通过新增说明、映射或新 Decision 修正。
+- 新治理规则默认**只向前生效**。
+
+## 10. 强制停止条件
+
+出现以下任一情况，**必须停止并报告**：
+
+- 用户指令与仓库事实冲突；
+- 多份权威文档状态不一致；
+- 当前分支或来源基线不符合指令；
+- Story ID 冲突未解决；
+- Sprint Plan 尚未 Approved；
+- Story DoR 不完整；
+- 必须扩大范围才能继续；
+- 检查失败，且修复超出当前范围；
+- 指令未授权必要的 merge、状态修改或产品决策。
+
+## 参考文档
+
+- `docs/agile/git-workflow.md`
+- `docs/agile/chatgpt-cursor-docs-workflow.md`
+- `docs/agile/sprint-backlog.md`
+- `docs/agile/execution-reports/README.md`

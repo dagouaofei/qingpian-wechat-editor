@@ -86,6 +86,7 @@ alwaysApply: true
 
 ## 参考文档
 
+- `.cursor/rules/agile-governance.mdc` — Sprint / Story 治理闸门与产品决策权限
 - `docs/agile/git-workflow.md`
 - `docs/agile/chatgpt-cursor-docs-workflow.md`
 - `docs/agile/execution-reports/README.md`

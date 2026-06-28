@@ -103,6 +103,7 @@ Sprint 12 聚焦产品治理与 Release 2 规划前置工作：
 - [`../governance/product-governance-migration-plan.md`](../governance/product-governance-migration-plan.md)
 - 本文件
 - `docs/agile/execution-reports/2026-06-28-s12-story-001-governance-document-audit.md`
+- `.cursor/rules/agile-governance.mdc`（S12-STORY-001 治理验收补充；见 `2026-06-28-s12-story-001-cursor-governance-rule-sync.md`）
 
 ## 7. 建议后续顺序
 
