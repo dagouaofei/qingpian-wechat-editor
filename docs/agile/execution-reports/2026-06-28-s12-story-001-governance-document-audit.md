@@ -10,7 +10,7 @@
 - Sprint：Sprint 12 — Product Governance & Release 2 Planning
 - 关联 Story / Bug / Decision：S12-STORY-001；DECISION-111（旧 S12 deferred 映射来源）；DECISION-113（S11 Prelaunch 事实）
 - 执行者：Cursor
-- 状态：In Review
+- 状态：Merged to Sprint / Awaiting Review
 
 ## 2. 本轮目标
 
@@ -240,4 +240,23 @@
 - `pnpm build`：PASS
 
 修正 commit：`de847e6`  
-Sprint merge commit：待 merge 后回填
+修正 report hash commit：`86d1cea`  
+Sprint merge commit：`ea5dd07`
+
+## 17. Sprint Merge Verification（2026-06-28）
+
+S12-STORY-001 已通过 `--no-ff` merge 回 `sprint/s12-product-governance-r2-planning`。
+
+Merge 后检查：
+
+- `pnpm exec prettier --check docs/governance/product-governance-target-model.md docs/governance/product-governance-migration-plan.md docs/governance/s12-current-system-audit.md docs/agile/sprint12-product-governance-r2-planning.md docs/agile/execution-reports/2026-06-28-s12-story-001-governance-document-audit.md`：PASS
+- `pnpm lint`：PASS（0 errors，34 existing warnings）
+- `pnpm build`：PASS
+- `git status --short --branch`：clean on `sprint/s12-product-governance-r2-planning` before this report merge-verification update
+
+明确未做：
+
+- 未启动 S12-STORY-002。
+- 未 merge `release/1`。
+- 未 merge `main`。
+- 未 push。
