@@ -1,0 +1,1117 @@
+path	line	matched_text	classification	reason	recommended_action
+README.md	82	sprint-backlog.md	A	README 仍将 sprint-backlog.md 标注为「当前 Sprint Backlog」，未区分全局索引角色	merge 前或后续 docs 任务修正
+.cursor/rules/agile-rules.mdc	14	sprints/sprint-	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+.cursor/rules/agile-rules.mdc	15	sprint-backlog.md	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+.cursor/rules/agile-rules.mdc	17	全局索引	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+.cursor/rules/agile-rules.mdc	21	每个 Release	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+.cursor/rules/agile-rules.mdc	22	每个 Sprint	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+.cursor/rules/agile-rules.mdc	30	必须更新	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+.cursor/rules/agile-rules.mdc	31	releases/release-	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+.cursor/rules/agile-rules.mdc	32	release-plan.md	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+.cursor/rules/agile-rules.mdc	38	sprints/sprint-	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+.cursor/rules/agile-rules.mdc	39	sprint-backlog.md	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+.cursor/rules/agile-rules.mdc	105	release-plan.md	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+.cursor/rules/agile-rules.mdc	106	sprint-backlog.md	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+.cursor/rules/agile-rules.mdc	107	sprint-plan.md	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+docs/governance/s12-current-system-audit.md	39	release-plan.md	D	审计报告引用	无需修改
+docs/governance/s12-current-system-audit.md	40	sprint-plan.md	D	审计报告引用	无需修改
+docs/governance/s12-current-system-audit.md	41	sprint-backlog.md	D	审计报告引用	无需修改
+docs/governance/s12-current-system-audit.md	74	Sprint Backlog	D	审计报告引用	无需修改
+docs/governance/s12-current-system-audit.md	86	sprint-backlog.md	D	审计报告引用	无需修改
+docs/governance/s12-current-system-audit.md	103	sprint-backlog.md	E	S12 初始审计历史结论（变更前状态）；需确认是否追加 DECISION-114 补充说明	登记待审，非阻塞 merge
+docs/governance/s12-current-system-audit.md	114	sprint-plan.md	D	审计报告引用	无需修改
+docs/governance/s12-current-system-audit.md	115	sprint-backlog.md	D	审计报告引用	无需修改
+docs/governance/s12-current-system-audit.md	129	release-plan.md	D	审计报告引用	无需修改
+docs/governance/s12-current-system-audit.md	130	sprint-plan.md	D	审计报告引用	无需修改
+docs/governance/s12-current-system-audit.md	131	sprint-backlog.md	D	审计报告引用	无需修改
+docs/governance/s12-current-system-audit.md	142	sprint-backlog.md	D	S12 审计报告中的前向结构结论	无需修改
+docs/governance/s12-current-system-audit.md	147	每个 Sprint	D	S12 审计报告中的前向结构结论	无需修改
+docs/governance/s12-current-system-audit.md	150	独立目录	D	S12 审计报告中的前向结构结论	无需修改
+docs/governance/s12-current-system-audit.md	165	release-plan.md	D	审计报告引用	无需修改
+docs/governance/s12-current-system-audit.md	166	sprint-backlog.md	D	审计报告引用	无需修改
+docs/governance/s12-current-system-audit.md	167	sprint-backlog.md	D	审计报告引用	无需修改
+docs/governance/s12-current-system-audit.md	187	sprint-backlog.md	D	审计报告引用	无需修改
+docs/governance/s12-current-system-audit.md	189	Release Backlog	D	S12 审计报告中的前向结构结论	无需修改
+.cursor/rules/agile-governance.mdc	152	sprint-backlog.md	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+.cursor/rules/agile-governance.mdc	153	release-plan.md	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+docs/agile/decisions.md	103	sprint-backlog.md	D	DECISION-114 记录	无需修改
+docs/agile/decisions.md	121	每个 Sprint	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	151	sprint-plan.md	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	171	sprint-plan.md	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	173	sprint-plan.md	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	227	sprint-backlog.md	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	251	sprint-backlog.md	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	413	sprint-backlog.md	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	453	sprint-backlog.md	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	470	sprint-backlog.md	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	510	每个 Sprint	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	511	release-plan.md	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	513	sprint-backlog.md	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	525	Sprint Backlog	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	534	Sprint Backlog	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	536	sprint-backlog.md	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	643	sprint-backlog.md	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	665	sprint-backlog.md	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	787	sprint-backlog.md	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	793	sprint-backlog.md	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	812	sprint-backlog.md	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	862	sprint-backlog.md	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	881	sprint-backlog.md	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	899	sprint-backlog.md	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	917	sprint-backlog.md	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	934	sprint-backlog.md	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	965	sprint-backlog.md	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	983	sprint-backlog.md	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	1195	sprint-backlog.md	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	1234	全局索引	D	DECISION-114 记录	无需修改
+docs/agile/decisions.md	1238	sprint-backlog.md	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	1239	sprint-backlog.md	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	1241	sprints/sprint-	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	1242	releases/release-	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	1244	sprint-backlog.md	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	1245	release-plan.md	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	1246	primaryRelease	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	1247	Sprint Backlog	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	1248	独立目录	C	历史 Decision 正文或影响范围	保留，不重写
+docs/agile/decisions.md	1249	全局索引	C	历史 Decision 正文或影响范围	保留，不重写
+docs/governance/product-governance-migration-plan.md	26	release-plan.md	D	迁移计划中的结构原则或历史保留说明	无需修改
+docs/governance/product-governance-migration-plan.md	27	sprint-plan.md	D	迁移计划中的结构原则或历史保留说明	无需修改
+docs/governance/product-governance-migration-plan.md	28	sprint-backlog.md	D	迁移计划中的结构原则或历史保留说明	无需修改
+docs/governance/product-governance-migration-plan.md	44	release-plan.md	D	迁移计划中的结构原则或历史保留说明	无需修改
+docs/governance/product-governance-migration-plan.md	45	sprint-backlog.md	D	迁移计划中的结构原则或历史保留说明	无需修改
+docs/governance/product-governance-migration-plan.md	60	Release Backlog	D	迁移计划引用	无需修改
+docs/governance/product-governance-migration-plan.md	68	全局索引	D	迁移计划中的结构原则或历史保留说明	无需修改
+docs/governance/product-governance-migration-plan.md	72	release-plan.md	D	迁移计划中的结构原则或历史保留说明	无需修改
+docs/governance/product-governance-migration-plan.md	73	sprint-backlog.md	D	迁移计划中的结构原则或历史保留说明	无需修改
+docs/governance/product-governance-migration-plan.md	93	sprint-backlog.md	D	迁移计划中的结构原则或历史保留说明	无需修改
+docs/governance/product-governance-migration-plan.md	94	独立目录	D	迁移计划中的结构原则或历史保留说明	无需修改
+docs/governance/product-governance-migration-plan.md	95	primaryRelease	D	迁移计划中的结构原则或历史保留说明	无需修改
+docs/governance/product-governance-migration-plan.md	105	sprint-plan.md	D	迁移计划中的结构原则或历史保留说明	无需修改
+docs/governance/product-governance-migration-plan.md	107	release-plan.md	E	迁移计划表中 release-plan 状态权威表述需 PO 确认与 DECISION-114 索引角色边界	登记待审
+docs/governance/product-governance-migration-plan.md	127	Sprint Backlog	D	迁移计划中的结构原则或历史保留说明	无需修改
+docs/governance/product-governance-migration-plan.md	146	release-plan.md	D	迁移计划引用	无需修改
+docs/governance/product-governance-target-model.md	22	Release Backlog	D	目标模型引用	无需修改
+docs/governance/product-governance-target-model.md	23	Sprint Backlog	D	目标模型引用	无需修改
+docs/governance/product-governance-target-model.md	54	sprint-backlog.md	E	对象表仍将 sprint-backlog.md 列为 Sprint Backlog 主文档路径，需确认是否补充双轨表述	S12-STORY-006 或后续治理 Story 统一
+docs/governance/product-governance-target-model.md	55	Sprint Backlog	D	目标模型引用	无需修改
+docs/governance/product-governance-target-model.md	56	Release Backlog	E	Release Backlog 记录位置仍写「后续新增或升级 release plan」	待 S12-STORY-005/006 模板化
+docs/governance/product-governance-target-model.md	57	sprint-backlog.md	E	对象表仍将 sprint-backlog.md 列为 Sprint Backlog 主文档路径，需确认是否补充双轨表述	S12-STORY-006 或后续治理 Story 统一
+docs/governance/product-governance-target-model.md	93	sprint-backlog.md	D	目标模型引用	无需修改
+docs/governance/product-governance-target-model.md	94	sprint-backlog.md	D	目标模型中的结构原则或反例说明	无需修改
+docs/governance/product-governance-target-model.md	118	Release Backlog	D	目标模型引用	无需修改
+docs/governance/product-governance-target-model.md	132	Sprint Backlog	D	目标模型引用	无需修改
+docs/governance/product-governance-target-model.md	134	Release Backlog	D	目标模型引用	无需修改
+docs/governance/product-governance-target-model.md	177	release-plan.md	D	目标模型引用	无需修改
+docs/governance/product-governance-target-model.md	178	sprint-backlog.md	D	目标模型引用	无需修改
+docs/governance/product-governance-target-model.md	186	全局索引	D	目标模型中的结构原则或反例说明	无需修改
+docs/governance/product-governance-target-model.md	188	sprint-backlog.md	D	目标模型中的结构原则或反例说明	无需修改
+docs/governance/product-governance-target-model.md	194	release-plan.md	D	目标模型引用	无需修改
+docs/governance/product-governance-target-model.md	195	sprint-backlog.md	D	目标模型引用	无需修改
+docs/governance/product-governance-target-model.md	215	release-plan.md	D	目标模型引用	无需修改
+docs/governance/product-governance-target-model.md	219	releases/release-	D	目标模型引用	无需修改
+docs/governance/product-governance-target-model.md	220	Release Backlog	D	目标模型引用	无需修改
+docs/governance/product-governance-target-model.md	222	sprint-backlog.md	E	对象表仍将 sprint-backlog.md 列为 Sprint Backlog 主文档路径，需确认是否补充双轨表述	S12-STORY-006 或后续治理 Story 统一
+docs/governance/product-governance-target-model.md	226	sprints/sprint-	D	目标模型引用	无需修改
+docs/governance/product-governance-target-model.md	229	Sprint Backlog	D	目标模型中的结构原则或反例说明	无需修改
+docs/governance/product-governance-target-model.md	231	独立目录	D	目标模型中的结构原则或反例说明	无需修改
+docs/governance/product-governance-target-model.md	233	每个 Sprint	D	目标模型引用	无需修改
+docs/governance/product-governance-target-model.md	234	每个 Release	D	目标模型引用	无需修改
+docs/governance/product-governance-target-model.md	243	primaryRelease	D	目标模型引用	无需修改
+docs/governance/product-governance-target-model.md	244	supportsReleases	D	目标模型引用	无需修改
+docs/governance/product-governance-target-model.md	246	sprintType	D	目标模型引用	无需修改
+docs/governance/product-governance-target-model.md	254	primaryRelease	D	目标模型引用	无需修改
+docs/governance/product-governance-target-model.md	255	supportsReleases	D	目标模型引用	无需修改
+docs/governance/product-governance-target-model.md	257	sprintType	D	目标模型引用	无需修改
+docs/governance/product-governance-target-model.md	262	primaryRelease	D	目标模型引用	无需修改
+docs/governance/product-governance-target-model.md	263	supportsReleases	D	目标模型引用	无需修改
+docs/governance/product-governance-target-model.md	264	sprintType	D	目标模型引用	无需修改
+docs/governance/product-governance-target-model.md	266	全局索引	D	目标模型中的结构原则或反例说明	无需修改
+docs/governance/product-governance-target-model.md	272	Release Backlog	D	目标模型引用	无需修改
+docs/governance/product-governance-target-model.md	273	Sprint Backlog	D	目标模型引用	无需修改
+docs/governance/product-governance-target-model.md	280	Sprint Backlog	D	目标模型引用	无需修改
+docs/governance/product-governance-target-model.md	281	Release Backlog	D	目标模型引用	无需修改
+docs/governance/product-governance-target-model.md	282	primaryRelease	D	目标模型引用	无需修改
+docs/governance/product-governance-target-model.md	283	supportsReleases	D	目标模型引用	无需修改
+docs/governance/product-governance-target-model.md	287	独立目录	D	目标模型中的结构原则或反例说明	无需修改
+docs/governance/product-governance-target-model.md	289	sprint-backlog.md	D	目标模型中的结构原则或反例说明	无需修改
+docs/governance/product-governance-target-model.md	293	每个 Release	D	目标模型引用	无需修改
+docs/governance/product-governance-target-model.md	307	Release Backlog	D	目标模型中的结构原则或反例说明	无需修改
+.cursor/rules/collaboration-rules.mdc	66	sprint-backlog.md	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+.cursor/rules/project-rules.mdc	34	sprint-backlog.md	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+.cursor/rules/project-rules.mdc	40	每个 Release	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+.cursor/rules/project-rules.mdc	41	每个 Sprint	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+docs/product/user-story-map.md	122	release-plan.md	E	产品文档指向全局 backlog/plan 的链接语义需 PO 确认	登记待审
+docs/product/user-story-map.md	124	sprint-plan.md	E	产品文档指向全局 backlog/plan 的链接语义需 PO 确认	登记待审
+docs/product/user-story-map.md	125	sprint-backlog.md	E	产品文档指向全局 backlog/plan 的链接语义需 PO 确认	登记待审
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	2	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	3	每个 Sprint	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	4	每个 Release	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	5	每个 Sprint	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	6	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	7	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	8	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	9	独立目录	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	10	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	11	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	12	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	13	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	14	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	15	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	16	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	17	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	18	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	19	Sprint Backlog	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	20	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	21	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	22	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	23	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	24	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	25	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	26	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	27	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	28	每个 Sprint	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	29	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	30	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	31	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	32	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	33	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	34	Release Backlog	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	35	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	36	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	37	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	38	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	39	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	40	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	41	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	42	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	43	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	44	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	45	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	46	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	47	Release Backlog	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	48	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	49	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	50	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	51	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	52	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	53	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	54	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	55	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	56	Sprint Backlog	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	57	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	58	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	59	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	60	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	61	每个 Release	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	62	每个 Sprint	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	63	必须更新	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	64	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	65	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	66	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	67	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	68	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	69	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	70	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	71	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	72	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	73	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	74	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	75	每个 Sprint	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	76	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	77	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	78	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	79	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	80	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	81	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	82	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	83	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	84	每个 Sprint	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	85	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	86	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	87	Sprint Backlog	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	88	Sprint Backlog	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	89	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	90	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	91	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	92	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	93	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	94	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	95	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	96	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	97	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	98	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	99	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	100	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	101	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	102	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	103	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	104	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	105	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	106	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	107	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	108	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	109	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	110	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	111	Sprint Backlog	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	112	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	113	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	114	Release Backlog	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	115	Sprint Backlog	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	116	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	117	Sprint Backlog	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	118	Release Backlog	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	119	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	120	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	121	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	122	Release Backlog	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	123	Sprint Backlog	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	124	Release Backlog	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	125	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	126	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	127	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	128	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	129	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	130	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	131	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	132	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	133	Release Backlog	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	134	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	135	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	136	Sprint Backlog	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	137	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	138	每个 Sprint	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	139	每个 Release	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	140	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	141	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	142	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	143	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	144	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	145	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	146	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	147	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	148	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	149	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	150	Release Backlog	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	151	Sprint Backlog	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	152	Sprint Backlog	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	153	Release Backlog	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	154	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	155	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	156	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	157	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	158	每个 Release	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	159	Release Backlog	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	160	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	161	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	162	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	163	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	164	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	165	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	166	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	167	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	168	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	169	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	170	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	171	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	172	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	173	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	174	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	175	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	176	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	177	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	178	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	179	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	180	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	181	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	182	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	183	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	184	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	185	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	186	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	187	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	188	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	189	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	190	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	191	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	192	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	193	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	194	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	195	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	196	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	197	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	198	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	199	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	200	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	201	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	202	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	203	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	204	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	205	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	206	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	207	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	208	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	209	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	210	每个 Release	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	211	每个 Sprint	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	212	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	213	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	214	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	215	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	216	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	217	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	218	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	219	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	220	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	221	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	222	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	223	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	224	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	225	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	226	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	227	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	228	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	229	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	230	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	231	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	232	Sprint Backlog	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	233	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	234	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	235	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	236	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	237	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	238	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	239	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	240	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	241	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	242	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	243	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	244	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	245	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	246	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	247	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	248	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	249	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	250	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	251	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	252	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	253	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	254	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	255	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	256	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	257	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	258	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	259	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	260	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	261	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	262	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	263	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	264	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	265	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	266	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	267	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	268	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	269	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	270	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	271	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	272	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	273	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	274	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	275	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	276	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	277	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	278	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	279	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	280	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	281	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	282	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	283	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	284	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	285	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	286	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	287	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	288	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	289	Sprint Backlog	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	290	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	291	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	292	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	293	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	294	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	295	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	296	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	297	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	298	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	299	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	300	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	301	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	302	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	303	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	304	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	305	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	306	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	307	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	308	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	309	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	310	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	311	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	312	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	313	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	314	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	315	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	316	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	317	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	318	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	319	Sprint Backlog	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	320	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	321	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	322	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	323	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	324	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	325	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	326	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	327	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	328	Release Backlog	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	329	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	330	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	331	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	332	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	333	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	334	Release Backlog	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	335	每个 Sprint	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	336	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	337	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	338	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	339	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	340	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	341	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	342	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	343	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	344	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	345	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	346	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	347	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	348	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	349	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	350	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	351	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	352	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	353	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	354	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	355	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	356	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	357	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	358	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	359	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	360	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	361	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	362	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	363	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	364	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	365	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	366	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	367	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	368	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	369	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	370	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	371	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	372	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	373	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	374	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	375	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	376	Sprint Backlog	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	377	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	378	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	379	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	380	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	381	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	382	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	383	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	384	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	385	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	386	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	387	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	388	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	389	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	390	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	391	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	392	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	393	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	394	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	395	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	396	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	397	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	398	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	399	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	400	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	401	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	402	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	403	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	404	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	405	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	406	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	407	Sprint Backlog	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	408	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	409	Sprint Backlog	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	410	独立目录	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	411	独立目录	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	412	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	413	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	414	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	415	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	416	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	417	sprints/sprint-	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	418	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	419	primaryRelease	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	420	Sprint Backlog	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	421	sprints/sprint-	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	422	releases/release-	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	423	独立目录	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	424	独立目录	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	425	releases/.../sprints/	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	426	primaryRelease	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	427	全局索引	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	428	sprints/sprint-	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	429	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	430	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	431	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	432	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	433	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	434	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	435	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	436	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	437	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	438	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	439	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	440	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	441	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	442	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	443	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	444	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	445	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	446	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	447	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	448	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	449	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	450	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	451	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	452	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	453	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	454	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	455	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	456	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	457	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	458	所有 Sprint	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	459	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	460	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	461	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	462	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	463	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	464	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	465	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	466	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	467	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	468	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	469	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	470	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	471	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	472	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	473	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	474	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	475	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	476	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	477	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	478	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	479	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	480	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	481	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	482	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	483	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	484	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	485	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	486	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	487	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	488	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	489	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	490	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	491	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	492	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	493	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	494	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	495	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	496	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	497	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	498	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	499	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	500	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	501	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	502	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	503	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	504	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	505	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	506	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	507	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	508	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	509	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	510	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	511	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	512	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	513	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	514	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	515	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	516	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	517	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	518	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	519	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	520	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	521	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	522	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	523	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	524	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	525	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	526	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	527	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	528	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	529	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	530	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	531	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	532	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	533	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	534	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	535	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	536	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	537	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	538	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	539	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	540	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	541	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	542	release-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	543	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	544	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	545	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	546	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	547	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	548	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	549	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	550	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	551	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	552	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	553	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	554	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	555	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	556	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	557	sprint-backlog.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	558	sprint-plan.md	D	审计材料自身	无需修改
+docs/governance/s12-sprint-release-structure-residual-matches.tsv	559	sprint-backlog.md	D	审计材料自身	无需修改
+docs/agile/sprint-backlog.md	1	Sprint Backlog	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+docs/agile/sprint-backlog.md	3	全局索引	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+docs/agile/sprint-backlog.md	91	sprint-plan.md	B	sprint-backlog.md 历史 Sprint 详细正文	保留，不修正
+docs/agile/sprint-backlog.md	250	每个 Sprint	B	sprint-backlog.md 历史 Sprint 详细正文	保留，不修正
+docs/agile/sprint-backlog.md	259	每个 Sprint	B	sprint-backlog.md 历史 Sprint 详细正文	保留，不修正
+docs/agile/sprint-backlog.md	308	sprint-plan.md	B	sprint-backlog.md 历史 Sprint 详细正文	保留，不修正
+docs/agile/sprint-backlog.md	350	sprint-plan.md	B	sprint-backlog.md 历史 Sprint 详细正文	保留，不修正
+docs/agile/sprint-backlog.md	382	sprint-plan.md	B	sprint-backlog.md 历史 Sprint 详细正文	保留，不修正
+docs/agile/sprint-backlog.md	507	sprint-backlog.md	B	sprint-backlog.md 历史 Sprint 详细正文	保留，不修正
+docs/agile/sprint-backlog.md	508	sprint-plan.md	B	sprint-backlog.md 历史 Sprint 详细正文	保留，不修正
+docs/agile/sprint-backlog.md	705	sprint-backlog.md	B	sprint-backlog.md 历史 Sprint 详细正文	保留，不修正
+docs/agile/sprint-backlog.md	706	sprint-plan.md	B	sprint-backlog.md 历史 Sprint 详细正文	保留，不修正
+docs/agile/sprint-backlog.md	959	sprint-backlog.md	B	sprint-backlog.md 历史 Sprint 详细正文	保留，不修正
+docs/agile/sprint-backlog.md	960	sprint-plan.md	B	sprint-backlog.md 历史 Sprint 详细正文	保留，不修正
+docs/agile/sprint-backlog.md	1229	sprint-backlog.md	B	sprint-backlog.md 历史 Sprint 详细正文	保留，不修正
+docs/agile/sprint-backlog.md	1230	sprint-plan.md	B	sprint-backlog.md 历史 Sprint 详细正文	保留，不修正
+docs/agile/sprint-backlog.md	1576	sprint-backlog.md	B	sprint-backlog.md 历史 Sprint 详细正文	保留，不修正
+docs/agile/sprint-backlog.md	1577	sprint-plan.md	B	sprint-backlog.md 历史 Sprint 详细正文	保留，不修正
+docs/agile/sprint-backlog.md	1653	sprint-backlog.md	B	sprint-backlog.md 历史 Sprint 详细正文	保留，不修正
+docs/agile/sprint-backlog.md	1740	sprint-backlog.md	B	sprint-backlog.md 历史 Sprint 详细正文	保留，不修正
+docs/agile/sprint-backlog.md	1820	sprint-backlog.md	B	sprint-backlog.md 历史 Sprint 详细正文	保留，不修正
+docs/agile/sprint-backlog.md	1899	sprint-backlog.md	B	sprint-backlog.md 历史 Sprint 详细正文	保留，不修正
+docs/agile/sprint-backlog.md	1961	sprint-backlog.md	B	sprint-backlog.md 历史 Sprint 详细正文	保留，不修正
+docs/agile/sprint-backlog.md	1988	sprint-backlog.md	B	sprint-backlog.md 历史 Sprint 详细正文	保留，不修正
+docs/agile/sprint-backlog.md	1989	sprint-plan.md	B	sprint-backlog.md 历史 Sprint 详细正文	保留，不修正
+docs/agile/sprint-backlog.md	2014	sprint-backlog.md	B	sprint-backlog.md 历史 Sprint 详细正文	保留，不修正
+docs/agile/sprint-backlog.md	2015	sprint-plan.md	B	sprint-backlog.md 历史 Sprint 详细正文	保留，不修正
+docs/agile/sprint-backlog.md	2036	sprint-plan.md	B	sprint-backlog.md 历史 Sprint 详细正文	保留，不修正
+docs/agile/sprint-backlog.md	2085	sprint-backlog.md	B	sprint-backlog.md 历史 Sprint 详细正文	保留，不修正
+docs/agile/sprint-backlog.md	2086	sprint-plan.md	B	sprint-backlog.md 历史 Sprint 详细正文	保留，不修正
+docs/agile/sprint-backlog.md	2329	sprint-backlog.md	B	sprint-backlog.md 历史 Sprint 详细正文	保留，不修正
+docs/agile/sprint-backlog.md	2869	Sprint Backlog	B	sprint-backlog.md 历史 Sprint 详细正文	保留，不修正
+docs/agile/sprint-backlog.md	3749	release-plan.md	B	sprint-backlog.md 历史 Sprint 详细正文	保留，不修正
+docs/agile/chatgpt-cursor-docs-workflow.md	63	sprint-backlog.md	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+docs/agile/chatgpt-cursor-docs-workflow.md	86	sprint-backlog.md	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+docs/agile/chatgpt-cursor-docs-workflow.md	87	独立目录	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+docs/agile/chatgpt-cursor-docs-workflow.md	98	全局索引	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+docs/agile/product-backlog.md	101	release-plan.md	C	其他历史或上下文引用	保留
+docs/agile/product-backlog.md	128	release-plan.md	C	其他历史或上下文引用	保留
+docs/agile/product-backlog.md	157	sprint-backlog.md	C	其他历史或上下文引用	保留
+docs/agile/product-backlog.md	217	sprint-backlog.md	C	其他历史或上下文引用	保留
+docs/agile/git-workflow.md	28	每个 Sprint	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+docs/agile/git-workflow.md	71	每个 Release	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+docs/agile/git-workflow.md	83	每个 Sprint	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+docs/agile/git-workflow.md	114	sprint-backlog.md	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+docs/agile/git-workflow.md	133	sprint-backlog.md	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+docs/agile/git-workflow.md	261	sprint-backlog.md	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+docs/agile/git-workflow.md	262	独立目录	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+docs/agile/git-workflow.md	263	全局索引	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+docs/agile/git-workflow.md	264	sprint-backlog.md	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+docs/agile/git-workflow.md	276	全局索引	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+docs/agile/git-workflow.md	280	release-plan.md	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+docs/agile/git-workflow.md	281	sprint-backlog.md	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+docs/agile/git-workflow.md	282	sprint-plan.md	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+docs/agile/sprint12-product-governance-r2-planning.md	56	sprint-backlog.md	B	Sprint 12 专项 Plan 中的历史 ID 兼容说明	保留；后续可迁入 sprints/sprint-12/
+docs/agile/sprint12-product-governance-r2-planning.md	107	全局索引	D	Sprint 12 当前 Plan 文档引用	无需修改
+docs/agile/sprint10-database-backed-style-admin-v1.md	76	sprint-backlog.md	B	历史/专项 Sprint 文档交叉引用	保留
+docs/agile/sprint-plan.md	5	sprint-backlog.md	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+docs/agile/sprint-plan.md	196	sprint-backlog.md	B	sprint-plan.md 历史 Sprint 叙事正文	保留，不修正
+docs/agile/sprint-plan.md	219	sprint-backlog.md	B	sprint-plan.md 历史 Sprint 叙事正文	保留，不修正
+docs/agile/sprint-plan.md	235	sprint-backlog.md	B	sprint-plan.md 历史 Sprint 叙事正文	保留，不修正
+docs/agile/sprint-plan.md	325	sprint-backlog.md	B	sprint-plan.md 历史 Sprint 叙事正文	保留，不修正
+docs/agile/sprint-plan.md	377	sprint-backlog.md	B	sprint-plan.md 历史 Sprint 叙事正文	保留，不修正
+docs/agile/sprint-plan.md	475	sprint-backlog.md	B	sprint-plan.md 历史 Sprint 叙事正文	保留，不修正
+docs/agile/sprint-plan.md	536	sprint-backlog.md	B	sprint-plan.md 历史 Sprint 叙事正文	保留，不修正
+docs/agile/sprint-plan.md	595	sprint-backlog.md	B	sprint-plan.md 历史 Sprint 叙事正文	保留，不修正
+docs/agile/sprint-plan.md	633	sprint-backlog.md	B	sprint-plan.md 历史 Sprint 叙事正文	保留，不修正
+docs/agile/sprint-plan.md	665	sprint-backlog.md	B	sprint-plan.md 历史 Sprint 叙事正文	保留，不修正
+docs/agile/sprint-plan.md	681	sprint-backlog.md	B	sprint-plan.md 历史 Sprint 叙事正文	保留，不修正
+docs/agile/changelog.md	339	release-plan.md	C	changelog 历史条目	保留，不重写
+docs/agile/changelog.md	352	Sprint Backlog	C	changelog 历史条目	保留，不重写
+docs/agile/changelog.md	887	sprint-backlog.md	C	changelog 历史条目	保留，不重写
+docs/agile/changelog.md	907	全局索引	C	changelog 历史条目	保留，不重写
+docs/agile/changelog.md	909	sprint-backlog.md	C	changelog 历史条目	保留，不重写
+docs/agile/release-plan.md	5	Release Backlog	D	当前生效规范已对齐 DECISION-114 或索引角色声明	无需修改
+docs/agile/release-plan.md	88	sprint-plan.md	B	release-plan.md Release 1 历史详细正文	保留，不修正
+docs/agile/release-plan.md	89	sprint-backlog.md	B	release-plan.md Release 1 历史详细正文	保留，不修正
+docs/agile/sprint9-style-management-system-v0.md	84	sprint-backlog.md	B	历史/专项 Sprint 文档交叉引用	保留
+docs/agile/sprint8-wechat-safe-css-contract.md	67	sprint-backlog.md	B	历史/专项 Sprint 文档交叉引用	保留
+docs/agile/sprint8-wechat-safe-css-contract.md	95	release-plan.md	B	历史/专项 Sprint 文档交叉引用	保留
+docs/agile/sprint11-production-ops-go-live.md	49	sprint-backlog.md	B	历史/专项 Sprint 文档交叉引用	保留
+docs/agile/execution-reports/2026-06-10-s11-story-003a-staging-volcengine-streaming-numbering.md	46	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-10-s11-story-003a-staging-volcengine-streaming-numbering.md	47	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-10-s11-story-003a-staging-volcengine-streaming-numbering.md	175	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-30-s1b-component-dsl-style-system-alignment.md	29	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-30-s1b-component-dsl-style-system-alignment.md	31	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-04-s8-story-006b-fix-harvest-extraction-workflow.md	31	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-04-s8-story-006b-fix-harvest-extraction-workflow.md	32	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4b-start-backlog-split-merge.md	36	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-31-s2-inline-content-contract.md	34	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-05-s9-story-003-fix-b-i18n-toggle.md	45	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-05-s9-story-003-fix-b-i18n-toggle.md	46	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-05-s9-story-005-html-paste-to-candidate-proposal.md	45	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-05-s9-story-005-html-paste-to-candidate-proposal.md	47	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-05-s8-story-009-contract-audit-closeout.md	28	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-05-s8-story-009-contract-audit-closeout.md	29	release-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-07-s10-story-010-candidate-inspection-evidence.md	43	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-07-s10-story-010-candidate-inspection-evidence.md	44	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4a-renderer-contract-audit-close-readiness.md	26	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4a-renderer-contract-audit-close-readiness.md	42	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4a-renderer-contract-audit-close-readiness.md	43	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-31-s3a-title-layout-compatibility.md	35	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-31-s3a-style-validation-policy.md	44	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-08-s10-story-011-integration-readiness.md	176	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-08-s10-story-011-integration-readiness.md	177	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s3b-first-wave-coverage.md	52	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s6-story-005-close-merge.md	20	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s6-story-005-close-merge.md	44	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s3c-close-release-merge.md	29	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s3c-close-release-merge.md	30	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-03-heading-publish-8-paste-qa-fix.md	44	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-31-s3a-style-resolver-merge.md	26	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-release1-replan-visible-main-flow.md	22	release-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-release1-replan-visible-main-flow.md	37	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-release1-replan-visible-main-flow.md	38	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-release1-replan-visible-main-flow.md	45	release-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-07-s10-story-011a-fix-a-harvest-compatibility-no-500.md	51	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-11-s11-staging-deployment-verification.md	30	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-30-s1b-execution-report-workflow.md	38	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-30-s1b-execution-report-workflow.md	39	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-30-s1b-execution-report-workflow.md	52	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-30-s1b-architecture-finalization.md	50	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-30-s1b-final-audit.md	19	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-30-s1b-final-audit.md	36	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-07-s10-story-003-import-existing-variants.md	40	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-07-s10-story-003-import-existing-variants.md	41	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-07-s10-story-002-prisma-db-schema.md	39	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-05-s9-story-007-promote-user-selectable-variant.md	38	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-05-s9-story-007-promote-user-selectable-variant.md	40	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s5-done-article-normalize.md	39	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s5-done-article-normalize.md	40	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-04-s8-story-004-copy-html-validator.md	55	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s3c-start-backlog-split.md	25	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s3c-start-backlog-split.md	44	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s3c-start-backlog-split.md	45	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s3c-start-backlog-split.md	47	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s3c-start-backlog-split.md	66	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s3c-start-backlog-split.md	67	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s3c-start-backlog-split.md	91	release-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s3c-start-backlog-split.md	120	release-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4b-structured-copy-snapshot-paste-plan.md	29	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4b-structured-copy-snapshot-paste-plan.md	48	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-05-s9-story-001-domain-model.md	25	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-05-s9-story-001-domain-model.md	39	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-05-s9-story-001-domain-model.md	40	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s5-merge-005-to-sprint.md	22	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s5-merge-005-to-sprint.md	27	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-03-s7-story-008-heading-publish-aesthetic.md	42	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-30-s1b-close.md	39	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-30-s1b-close.md	40	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s6-home-ai-preview-flow.md	37	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-05-s9-story-003-style-library-admin-shell.md	37	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-05-s9-story-003-style-library-admin-shell.md	38	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-07-s10-story-006-distribution-rollback-alerts.md	56	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-07-s10-story-006-distribution-rollback-alerts.md	57	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4b-structured-copy-snapshot-paste-plan-merge.md	39	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-30-s1b-architecture-finalization-merge.md	58	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-30-s1b-architecture-finalization-merge.md	72	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s5-main-flow-e2e-close-readiness.md	41	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s5-main-flow-e2e-close-readiness.md	42	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-30-s1b-pre-implementation-contract-audit.md	25	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-30-s1b-pre-implementation-contract-audit.md	44	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4b-quote-highlight-renderer.md	26	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4b-quote-highlight-renderer.md	44	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-31-s2-article-schema-contract.md	33	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-08-s10-story-011-merge-sprint-close.md	23	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-05-s9-story-007c-user-preview-style-picker.md	45	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-05-s9-story-007c-user-preview-style-picker.md	46	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s7-story-002-003-005-po-signoff.md	22	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s7-story-002-003-005-po-signoff.md	34	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s7-story-002-003-005-po-signoff.md	35	release-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-05-s8-drift-003-product-clarification.md	29	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-30-s1b-iteration-branch-workflow.md	44	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-30-s1b-iteration-branch-workflow.md	55	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s5-real-model-provider-plan-update.md	22	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s5-real-model-provider-plan-update.md	23	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s5-real-model-provider-plan-update.md	39	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s5-real-model-provider-plan-update.md	40	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s5-real-model-provider-plan-update.md	66	Sprint Backlog	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-04-s8-story-006b-closeout-merge.md	27	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-04-s8-story-006b-closeout-merge.md	28	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-08-s11-sprint-replan-kickoff.md	42	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-08-s11-sprint-replan-kickoff.md	43	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-08-s11-sprint-replan-kickoff.md	44	release-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-05-s9-story-006-preview-copy-validator-integration.md	39	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s3b-close-and-merge-release.md	37	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s3b-close-and-merge-release.md	38	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-04-s8-story-003-compatibility-profile.md	45	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-31-s3a-style-resolver.md	41	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-07-s10-story-001-architecture-backlog.md	16	Sprint Backlog	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-07-s10-story-001-architecture-backlog.md	41	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-07-s10-story-001-architecture-backlog.md	42	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-31-s3a-style-system-schema.md	26	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-30-s1b-sprint2-readiness-contract-closure.md	25	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-30-s1b-sprint2-readiness-contract-closure.md	27	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-30-s1b-sprint2-readiness-contract-closure.md	53	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-10-s11-story-004-production-go-live-gate-a.md	62	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-10-s11-story-004-production-go-live-gate-a.md	63	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4a-story-branch-cleanup.md	14	所有 Sprint	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4a-story-branch-cleanup.md	33	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s5-ai-style-selection.md	38	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s5-ai-style-selection.md	39	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4a-copy-html-clipboard-paste-seed-merge.md	21	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4a-copy-html-clipboard-paste-seed-merge.md	27	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-31-s2-close-release-merge.md	35	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-31-s2-close-release-merge.md	36	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-28-s11-story-004-gate-b-closeout.md	47	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-28-s11-story-004-gate-b-closeout.md	48	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-31-s1b-cleanup-story-branches.md	40	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-31-s1b-cleanup-story-branches.md	51	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s7-story-003-gallery-heading-variants.md	36	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s7-story-003-gallery-heading-variants.md	37	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-08-debt-dsl-rc-legacy-render-contract.md	23	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-31-s3b-title-heading-variants.md	42	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-08-s10-wechat-compatibility-global-off-default.md	54	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-31-s2-start-backlog-split.md	35	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-31-s2-start-backlog-split.md	36	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s5-generate-ui-main-flow.md	28	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s5-generate-ui-main-flow.md	43	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s5-generate-ui-main-flow.md	44	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-04-s8-story-001-sprint-init.md	24	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-04-s8-story-001-sprint-init.md	28	release-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-04-s8-story-001-sprint-init.md	40	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-04-s8-story-001-sprint-init.md	42	release-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-04-s8-story-001-sprint-init.md	43	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-04-s8-story-001-sprint-init.md	59	release-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-07-s10-story-011a-fix-b-harvest-encoder-fidelity-runtime-trace.md	62	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s6-real-sse-block-aware-stream-v2.md	35	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s6-ux-shell-miaopian-reference.md	34	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s7-story-006-article-rhythm-card-fix.md	44	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s5-input-request-contract.md	38	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s5-input-request-contract.md	39	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-29-s12-story-001-sprint-release-structure-alignment.md	16	sprint-backlog.md	D	本轮 execution report 审计过程记录	无需修改
+docs/agile/execution-reports/2026-06-29-s12-story-001-sprint-release-structure-alignment.md	25	全局索引	D	本轮 execution report 审计过程记录	无需修改
+docs/agile/execution-reports/2026-06-29-s12-story-001-sprint-release-structure-alignment.md	33	sprint-backlog.md	D	本轮 execution report 审计过程记录	无需修改
+docs/agile/execution-reports/2026-06-29-s12-story-001-sprint-release-structure-alignment.md	54	Sprint Backlog	D	本轮 execution report 审计过程记录	无需修改
+docs/agile/execution-reports/2026-06-29-s12-story-001-sprint-release-structure-alignment.md	63	sprint-backlog.md	D	本轮 execution report 审计过程记录	无需修改
+docs/agile/execution-reports/2026-06-29-s12-story-001-sprint-release-structure-alignment.md	64	Sprint Backlog	D	本轮 execution report 审计过程记录	无需修改
+docs/agile/execution-reports/2026-06-29-s12-story-001-sprint-release-structure-alignment.md	65	独立目录	D	本轮 execution report 审计过程记录	无需修改
+docs/agile/execution-reports/2026-06-29-s12-story-001-sprint-release-structure-alignment.md	66	独立目录	D	本轮 execution report 审计过程记录	无需修改
+docs/agile/execution-reports/2026-06-29-s12-story-001-sprint-release-structure-alignment.md	72	sprint-backlog.md	D	本轮 execution report 审计过程记录	无需修改
+docs/agile/execution-reports/2026-06-29-s12-story-001-sprint-release-structure-alignment.md	76	sprint-backlog.md	D	本轮 execution report 审计过程记录	无需修改
+docs/agile/execution-reports/2026-06-29-s12-story-001-sprint-release-structure-alignment.md	91	release-plan.md	D	本轮 execution report 审计过程记录	无需修改
+docs/agile/execution-reports/2026-06-29-s12-story-001-sprint-release-structure-alignment.md	92	sprint-backlog.md	D	本轮 execution report 审计过程记录	无需修改
+docs/agile/execution-reports/2026-06-29-s12-story-001-sprint-release-structure-alignment.md	93	sprint-plan.md	D	本轮 execution report 审计过程记录	无需修改
+docs/agile/execution-reports/2026-06-29-s12-story-001-sprint-release-structure-alignment.md	106	sprints/sprint-	D	本轮 execution report 审计过程记录	无需修改
+docs/agile/execution-reports/2026-06-29-s12-story-001-sprint-release-structure-alignment.md	107	sprint-backlog.md	D	本轮 execution report 审计过程记录	无需修改
+docs/agile/execution-reports/2026-06-29-s12-story-001-sprint-release-structure-alignment.md	108	primaryRelease	D	本轮 execution report 审计过程记录	无需修改
+docs/agile/execution-reports/2026-06-29-s12-story-001-sprint-release-structure-alignment.md	109	Sprint Backlog	D	本轮 execution report 审计过程记录	无需修改
+docs/agile/execution-reports/2026-06-29-s12-story-001-sprint-release-structure-alignment.md	113	sprints/sprint-	D	本轮 execution report 审计过程记录	无需修改
+docs/agile/execution-reports/2026-06-29-s12-story-001-sprint-release-structure-alignment.md	114	releases/release-	D	本轮 execution report 审计过程记录	无需修改
+docs/agile/execution-reports/2026-06-29-s12-story-001-sprint-release-structure-alignment.md	122	独立目录	D	本轮 execution report 审计过程记录	无需修改
+docs/agile/execution-reports/2026-06-29-s12-story-001-sprint-release-structure-alignment.md	123	独立目录	D	本轮 execution report 审计过程记录	无需修改
+docs/agile/execution-reports/2026-06-29-s12-story-001-sprint-release-structure-alignment.md	124	releases/.../sprints/	D	本轮 execution report 审计过程记录	无需修改
+docs/agile/execution-reports/2026-06-29-s12-story-001-sprint-release-structure-alignment.md	125	primaryRelease	D	本轮 execution report 审计过程记录	无需修改
+docs/agile/execution-reports/2026-06-29-s12-story-001-sprint-release-structure-alignment.md	150	全局索引	D	本轮 execution report 审计过程记录	无需修改
+docs/agile/execution-reports/2026-06-29-s12-story-001-sprint-release-structure-alignment.md	151	sprints/sprint-	D	本轮 execution report 审计过程记录	无需修改
+docs/agile/execution-reports/2026-06-02-s7-miaopian-preset-variant-expansion.md	39	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s6-close-readiness-audit.md	53	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s6-close-readiness-audit.md	54	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s6-generation-feedback-typewriter.md	31	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4a-inline-content-renderer.md	45	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-30-s1b-style-scope-chain-merge.md	52	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4a-start-backlog-split.md	25	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4a-start-backlog-split.md	61	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4a-start-backlog-split.md	62	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-30-s1b-style-system-readiness-audit.md	18	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-30-s1b-style-system-readiness-audit.md	34	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-30-s1b-pre-implementation-contract-gaps.md	38	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-30-s1b-pre-implementation-contract-gaps.md	49	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-30-s1b-pre-implementation-contract-gaps.md	50	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-30-merge-s1b-branch-workflow.md	44	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-30-s1b-release1-style-scope-closure.md	42	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-30-s1b-release1-style-scope-closure.md	44	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4b-info-card-renderer-merge.md	22	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4b-info-card-renderer-merge.md	30	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4b-info-card-renderer-merge.md	44	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4b-info-card-renderer-merge.md	126	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4b-info-card-renderer-merge.md	134	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4b-info-card-renderer-merge.md	148	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s3b-contract-audit.md	52	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s3b-contract-audit.md	53	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-31-s3b-titleblock-mapping-slot-copysafety.md	53	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/README.md	79	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-28-s12-story-001-governance-document-audit.md	27	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-28-s12-story-001-governance-document-audit.md	63	release-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-28-s12-story-001-governance-document-audit.md	64	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-28-s12-story-001-governance-document-audit.md	78	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-28-s12-story-001-governance-document-audit.md	102	Release Backlog	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-28-s12-story-001-governance-document-audit.md	112	release-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-28-s12-story-001-governance-document-audit.md	113	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-28-s12-story-001-governance-document-audit.md	124	release-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-28-s12-story-001-governance-document-audit.md	125	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-28-s12-story-001-governance-document-audit.md	144	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-28-s12-story-001-governance-document-audit.md	183	Release Backlog	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-28-s12-story-001-governance-document-audit.md	220	每个 Sprint	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-28-s12-story-001-governance-document-audit.md	230	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-28-s12-story-001-governance-document-audit.md	232	release-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-31-s3a-start-backlog-split.md	33	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-31-s3a-start-backlog-split.md	34	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-07-s10-story-009-html-harvest-candidate.md	47	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-07-s10-story-009-html-harvest-candidate.md	48	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-05-s8-story-007-head-002-preview-copy-audit.md	30	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4a-title-heading-renderer.md	31	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-05-s9-operator-workbench-reframe.md	43	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-05-s9-operator-workbench-reframe.md	44	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4b-quote-highlight-renderer-merge.md	22	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4b-quote-highlight-renderer-merge.md	30	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4b-quote-highlight-renderer-merge.md	44	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s3c-style-system-contract-audit.md	35	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s3c-style-system-contract-audit.md	36	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s3c-visual-asset-protocol-validation.md	39	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s3c-visual-asset-protocol-validation.md	63	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-07-s10-story-011-fix-a-dsl-decode-source-exact.md	54	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s7-story-007a-r1-style-fidelity.md	47	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s7-icon-decor-card-title-slots.md	46	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-28-s12-story-001-cursor-governance-rule-sync.md	85	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-28-s12-story-001-cursor-governance-rule-sync.md	93	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s3c-style-orchestrator.md	68	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-31-s3a-close-and-merge-release.md	42	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-31-s3a-close-and-merge-release.md	43	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-07-s10-story-011a-dsl-runtime-encoder-decoder.md	52	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-07-s10-story-011a-dsl-runtime-encoder-decoder.md	53	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s3c-style-selection-validation-fixtures.md	38	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s5-generation-event-sse-runtime.md	42	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s5-generation-event-sse-runtime.md	43	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-31-s3a-contract-audit.md	36	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-31-s3a-contract-audit.md	37	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s5-model-article-candidate-enrichment.md	46	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s5-model-article-candidate-enrichment.md	47	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-31-s2-contract-audit-close-readiness.md	34	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-31-s2-contract-audit-close-readiness.md	35	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-07-s10-story-011-promote-user-selectable.md	48	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4a-divider-renderer.md	41	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4a-renderer-base-contract.md	28	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s3c-style-assignment-contract.md	24	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s3c-style-assignment-contract.md	49	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-31-s3a-wechat-compatibility-profile.md	41	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-05-s8-story-006d-matrix-regression-paste-retest.md	46	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-05-s9-story-002-file-backed-storage.md	40	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-05-s9-story-002-file-backed-storage.md	41	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-30-s1b-component-dsl-style-system-readiness.md	50	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-04-s8-story-006b-style-research-drift-triage.md	27	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-04-s8-story-006b-style-research-drift-triage.md	28	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-03-heading-publish-round5-po-fixes.md	39	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4b-renderer-contract-audit-close-readiness.md	27	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4b-renderer-contract-audit-close-readiness.md	28	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4b-renderer-contract-audit-close-readiness.md	45	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4b-renderer-contract-audit-close-readiness.md	46	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4b-renderer-contract-audit-close-readiness.md	80	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-30-s1b-close-readiness-sync.md	35	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-30-s1b-close-readiness-sync.md	36	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4b-cta-image-placeholder-renderer.md	26	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4b-cta-image-placeholder-renderer.md	46	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4b-cta-image-placeholder-renderer.md	69	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-07-s10-story-011a-fix-a-eliminate-runtime-dual-track.md	44	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4a-divider-renderer-merge.md	21	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4a-divider-renderer-merge.md	27	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4b-start-backlog-split.md	25	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4b-start-backlog-split.md	61	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4b-start-backlog-split.md	62	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-10-s11-004-gate-b-prelaunch-code-freeze.md	38	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-31-s3b-start-backlog-split.md	41	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-31-s3b-start-backlog-split.md	42	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-04-s8-story-005-fidelity-matrix.md	50	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4a-inline-content-renderer-merge.md	21	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4a-inline-content-renderer-merge.md	27	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-05-s9-story-004-variant-lifecycle-management.md	38	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-05-s9-story-004-variant-lifecycle-management.md	39	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4a-close-and-merge-release.md	27	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4a-close-and-merge-release.md	28	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s6-story-001-sprint-planning.md	16	Sprint Backlog	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s6-story-001-sprint-planning.md	38	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s6-story-001-sprint-planning.md	39	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s6-story-001-sprint-planning.md	40	release-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s5-main-flow-ui-plan-update.md	23	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s5-main-flow-ui-plan-update.md	24	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s5-main-flow-ui-plan-update.md	40	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s5-main-flow-ui-plan-update.md	41	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s5-main-flow-ui-plan-update.md	66	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-04-s8-story-006-paste-qa-workflow.md	50	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-05-s9-story-003-fix-a-workbench-ux-reframe.md	54	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4b-close-release-merge.md	47	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4b-close-release-merge.md	48	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4a-copy-html-clipboard-paste-seed.md	41	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4a-copy-html-clipboard-paste-seed.md	60	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-31-s2-block-schema-contract.md	28	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-07-s10-story-004-admin-style-library.md	39	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-07-s10-story-004-admin-style-library.md	40	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-04-s8-story-002-wechat-safe-contract-v1.md	41	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-04-s8-story-002-wechat-safe-contract-v1.md	44	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-31-s2-schema-fixtures.md	33	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-05-31-s3b-text-first-variants.md	63	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-05-s9-story-009-end-to-end-audit-closeout-v2.md	39	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-05-s9-story-009-end-to-end-audit-closeout-v2.md	40	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-05-s9-story-009-end-to-end-audit-closeout-v2.md	43	release-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4b-list-renderer-merge.md	24	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4b-list-renderer-merge.md	30	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4b-list-renderer-merge.md	45	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s6-style-palette-copy-paste-qa.md	38	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s3b-structured-block-variants.md	69	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s5-volcengine-model-provider.md	49	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-02-s5-volcengine-model-provider.md	50	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4b-list-renderer.md	28	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4b-list-renderer.md	45	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-05-s8-story-008-s9-style-management-replanning.md	26	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-05-s8-story-008-s9-style-management-replanning.md	27	sprint-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-05-s8-story-008-s9-style-management-replanning.md	29	release-plan.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-07-s10-story-007-aliyun-deployment-runbook.md	36	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4b-info-card-renderer.md	25	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-01-s4b-info-card-renderer.md	43	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-28-s11-story-005-monitoring-observation.md	36	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-05-s9-story-008-style-palette-rule-management-v0.md	33	sprint-backlog.md	C	历史 execution report	保留，不重写
+docs/agile/execution-reports/2026-06-05-s9-story-008-style-palette-rule-management-v0.md	34	sprint-plan.md	C	历史 execution report	保留，不重写

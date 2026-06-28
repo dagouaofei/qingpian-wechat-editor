@@ -158,6 +158,35 @@ sprint-backlog\.md|release-plan\.md|每个 Sprint 必须更新|Sprint Backlog|Re
 
 ## 13. Commit
 
-- Commit hash：`81fa694`
+- Commit hash：
+  - `81fa694` — 结构对齐主变更
+  - `8fd449e` — execution report 记录 commit hash
+  - （残留审计 commit 见 §15）
 - Merge 状态：未 merge
 - Push 状态：未 push
+
+## 14. 残留审计（只读，2026-06-29）
+
+**定位：** S12-STORY-001 治理结构补充的只读残留审计与审查材料打包；**未修改**现有规范文件。
+
+**搜索范围：** `.cursor/rules/` · `docs/governance/` · `docs/agile/` · `docs/product/` · `README.md`
+
+**搜索命令：** 见 `docs/governance/s12-sprint-release-structure-residual-audit.md` §3
+
+**命中统计：** 1116 行 · 181 文件 · A:1 · B:50 · C:355 · D:701 · E:9
+
+**新发现 A 类：** 1 项 — `README.md:82` 仍将 `sprint-backlog.md` 标注为「当前 Sprint Backlog」（未区分全局索引）
+
+**E 类：** 9 项 — 目标模型对象表、初始审计历史结论、迁移计划废弃表、user-story-map 链接语义（详见审计报告 §7）
+
+**审计报告：** `docs/governance/s12-sprint-release-structure-residual-audit.md`
+
+**TSV：** `docs/governance/s12-sprint-release-structure-residual-matches.tsv`
+
+**审查 ZIP：** `review-package/s12-story-001-sprint-release-structure-review.zip`（本地，不 commit）
+
+**merge 建议：** 可 merge；无必须修正项；README A-1 为可选后续修正
+
+## 15. Commit（含残留审计）
+
+- （提交后更新）
