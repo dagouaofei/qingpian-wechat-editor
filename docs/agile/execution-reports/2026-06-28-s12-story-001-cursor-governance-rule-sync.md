@@ -43,8 +43,10 @@
 
 ## 4. 修改文件
 
-- `.cursor/rules/agile-rules.mdc` — 增加指向 `agile-governance.mdc` 的引用
+- `.cursor/rules/agile-rules.mdc` — 增加指向 `agile-governance.mdc` 的引用；审查修正：Sprint 创建默认规则 + 特殊基线例外
 - `.cursor/rules/collaboration-rules.mdc` — 参考文档增加治理闸门文件
+- `.cursor/rules/project-rules.mdc` — 审查修正：删除硬编码 Sprint 1 状态；状态从 docs 读取；Sprint 特殊基线例外
+- `.cursor/rules/agile-governance.mdc` — 审查修正：`Approved`/DoR 闸门适用范围收窄至 Story 启动与执行
 - `docs/agile/changelog.md` — 记录本轮治理补充
 - `docs/agile/sprint12-product-governance-r2-planning.md` — 关键输出索引补充
 
@@ -84,6 +86,16 @@
 - `project-rules.mdc`：无直接冲突，未修改。
 
 **changelog 修正：** 初版 commit 中 Prettier 误格式化整个 `changelog.md`；已回滚为最小增量追加，避免重写历史表格格式。
+
+### 审查修正（第二轮）
+
+根据人工审查，对三个 `.mdc` 规则做最小修正：
+
+1. **`project-rules.mdc`**：删除「Sprint 1 整体状态为 In Review」等过期硬编码状态；改为从 `release-plan.md`、`sprint-backlog.md` 及对应 Sprint 文档读取动态状态；Sprint 分支默认从 release 主干创建，允许用户批准并文档记录的特殊基线例外。
+2. **`agile-rules.mdc`**：Sprint 创建改为默认规则 + 特殊基线例外说明。
+3. **`agile-governance.mdc`**：`Plan 未 Approved` 仅禁止启动/执行 Sprint Story、产品开发和范围交付；Planning / Review / Retro / Closeout / 治理修正可在明确指令下作为前置活动执行；`Story DoR 不完整` 仅在启动或执行 Story 时触发；前置活动不得顺带实施产品功能或未经批准 Story 范围。
+
+**修改原因：** 初版闸门过宽，可能误阻 Sprint Planning、治理文档修正等前置活动；`project-rules.mdc` 硬编码 Sprint 1 状态已过期，与 docs 事实源原则冲突。
 
 ## 8. 验收标准完成情况
 
@@ -135,6 +147,10 @@
 
 ## 14. Commit
 
-- Commit hash：`1ddc3f6`（主变更）、`eabec10`（changelog 格式化回滚修正）
+- Commit hash：
+  - `1ddc3f6` — 主变更：新增 `agile-governance.mdc` 与引用更新
+  - `eabec10` — changelog 格式化回滚修正
+  - `9738652` — execution report commit hash 补齐
+  - （审查修正 commit 见提交后更新）
 - Merge 状态：未 merge
 - Push 状态：未 push

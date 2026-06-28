@@ -37,9 +37,19 @@ Sprint Plan 至少应明确：
 
 **没有 `Approved` 状态，不得启动 Sprint 开发。**
 
+上述 `Approved` 要求**仅禁止**启动或执行 Sprint Story、产品开发和范围交付。
+
+以下**达成闸门所需的前置活动**，可在用户**明确指令**下执行，且不得顺带实施产品功能或未经批准的 Story 范围：
+
+- Sprint Planning；
+- Sprint Review；
+- Sprint Retrospective；
+- Sprint Closeout；
+- 治理文档与规则修正。
+
 ## 3. Story DoR 闸门
 
-Story 启动前必须明确：
+**启动或执行 Story 时**，必须明确：
 
 - Story ID 和名称；
 - 目标；
@@ -52,7 +62,9 @@ Story 启动前必须明确：
 - 依赖和风险；
 - 停止条件。
 
-信息不完整时**必须停止并报告**，不得自行补齐关键产品决策。
+**启动或执行 Story 时**，若上述信息不完整，**必须停止并报告**，不得自行补齐关键产品决策。
+
+前置活动（如 Planning、Review、治理修正）**不触发**本闸门；但前置活动不得顺带实施产品功能或未经批准的 Story 范围。
 
 ## 4. 单 Story 推进
 
@@ -127,8 +139,8 @@ Story 启动前必须明确：
 - 多份权威文档状态不一致；
 - 当前分支或来源基线不符合指令；
 - Story ID 冲突未解决；
-- Sprint Plan 尚未 Approved；
-- Story DoR 不完整；
+- **启动或执行** Sprint Story、产品开发或范围交付时，Sprint Plan 尚未 `Approved`；
+- **启动或执行 Story 时**，Story DoR 不完整；
 - 必须扩大范围才能继续；
 - 检查失败，且修复超出当前范围；
 - 指令未授权必要的 merge、状态修改或产品决策。
