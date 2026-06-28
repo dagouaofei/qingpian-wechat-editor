@@ -3,13 +3,19 @@
 ## 1. 基本信息
 
 - 日期：
-- 当前分支：
+- 执行分支：
 - 来源分支：
 - 目标合并分支：
+- HEAD at review time 所在分支：
+- merge 后所在分支：（未 merge 时写 N/A）
 - Sprint：
 - 关联 Story / Bug / Decision：
 - 执行者：Cursor
-- 状态：Done / In Review / Blocked / Partial
+- 状态：Draft / In Progress / In Review / Blocked / Partial / Done
+
+**状态说明：** `Done` 只能在 Product Owner 明确验收并允许标记 Done 后使用。Cursor 完成执行并提交报告时，默认应为 `In Review`，而不是 `Done`。
+
+**分支说明：** 不得将「执行分支」与「merge 后所在分支」混为一谈。未 merge 时，`merge 后所在分支` 写 N/A。
 
 ## 2. 本轮目标
 
@@ -71,7 +77,7 @@
 
 - `<hash>` — （说明）
 
-### 修正 commit（如有）
+### 影响实际成果的修正 commit（如有）
 
 - `<hash>` — （说明；不含 report-only）
 
@@ -81,7 +87,7 @@
 
 ### report-only commit
 
-不要求写回本报告。
+仅修改 execution report 自身；**不要求**写回本报告。
 
 ### 状态
 
@@ -89,4 +95,4 @@
 - Push 状态：未 push / 已 push
 - working tree：clean / 有未提交变更
 
-`HEAD at review time` 由 Cursor 最终回复报告，不要求写回本文件。
+`HEAD at review time` 由 Cursor 最终回复报告，不要求写回本文件。不得为回填最新 HEAD 循环产生 report-only commit。

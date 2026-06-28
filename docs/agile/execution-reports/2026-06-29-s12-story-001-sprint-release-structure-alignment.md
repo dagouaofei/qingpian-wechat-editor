@@ -6,6 +6,8 @@
 - 执行分支：`docs/s12-story-001-sprint-release-structure-alignment`
 - 来源分支：`sprint/s12-product-governance-r2-planning`
 - 目标合并分支：`sprint/s12-product-governance-r2-planning`（本轮未 merge，待用户确认）
+- HEAD at review time 所在分支：`docs/s12-story-001-sprint-release-structure-alignment`
+- merge 后所在分支：N/A（未 merge）
 - Sprint：Sprint 12 — Product Governance & Release 2 Planning
 - 关联 Story / Bug / Decision：S12-STORY-001（治理结构补充）· **DECISION-114**
 - 执行者：Cursor
@@ -156,12 +158,15 @@ sprint-backlog\.md|release-plan\.md|每个 Sprint 必须更新|Sprint Backlog|Re
 2. 若通过，授权 merge 至 `sprint/s12-product-governance-r2-planning`。
 3. S12-STORY-006 可据此完善 DoR/DoD 与 Sprint / Release 目录模板。
 
-## 13. Commit
+## 13. Commit（结构对齐主轮）
 
-- Commit hash：
-  - `81fa694` — 结构对齐主变更
-  - `8fd449e` — execution report 记录 commit hash
-  - （残留审计 commit 见 §15）
+完整分类见 **§19**。本节保留历史记录摘要。
+
+- 主要实现：`81fa694`
+- report-only：`8fd449e`（execution report 回填 commit hash）
+
+### 状态
+
 - Merge 状态：未 merge
 - Push 状态：未 push
 
@@ -189,8 +194,8 @@ sprint-backlog\.md|release-plan\.md|每个 Sprint 必须更新|Sprint Backlog|Re
 
 ## 15. Commit（含残留审计）
 
-- Commit hash：`7b4ad18` — 残留审计报告、TSV、execution report 补充
-- Commit hash：`60981b6` — execution report 记录残留审计 commit
+- 影响实际成果的修正 commit：`7b4ad18` — 新增残留审计报告与 TSV（含 execution report 补充，因同时新增审计材料仍属实际成果）
+- report-only：`60981b6` — execution report 记录残留审计 commit
 
 ## 16. merge 前最小修正（2026-06-29）
 
@@ -221,13 +226,17 @@ sprint-backlog\.md|release-plan\.md|每个 Sprint 必须更新|Sprint Backlog|Re
 
 ### 主要实现 commit
 
-- `81fa694` — 结构对齐主变更（规则、目标模型、DECISION-114 等）
+- `81fa694` — Sprint / Release 文档结构对齐主变更
 
-### 修正 commit
+### 影响实际成果的修正 commit
 
-- `7b4ad18` — 残留审计报告与 TSV
-- `60981b6` — execution report 记录残留审计 commit
-- `d79b6fd` — merge 前最小修正（README、目标模型、迁移计划、user-story-map、残留审计复检）
+- `7b4ad18` — 新增残留审计报告与 TSV
+- `d79b6fd` — 关闭 README、目标模型、迁移计划和 Story Map 残留
+
+### report-only commit（不要求写回本报告）
+
+- `8fd449e`
+- `60981b6`
 
 ### 状态
 
@@ -249,13 +258,43 @@ sprint-backlog\.md|release-plan\.md|每个 Sprint 必须更新|Sprint Backlog|Re
 
 **当前模板：** 已找到并更新唯一生效模板 `docs/agile/execution-reports/_template.md` §14（与 `agile-rules.mdc` 引用一致）。
 
-**Commit 记录：**
+**Commit 记录（规则同步轮）：**
 
-| 类型                    | Hash      | 说明                                                 |
-| ----------------------- | --------- | ---------------------------------------------------- |
-| 上一轮修正 commit       | `d79b6fd` | merge 前 Sprint/Release 结构残留关闭                 |
-| 本轮治理规则修正 commit | `1bf00b9` | execution report commit 记录规则（RULE_SYNC_COMMIT） |
-
-report-only commit（`docs(s12): record execution report rule sync`）不要求写回本报告。
+| 类型                      | Hash      | 说明                                                             |
+| ------------------------- | --------- | ---------------------------------------------------------------- |
+| 影响实际成果的修正 commit | `1bf00b9` | 同步 Execution Report commit 记录规则与模板                      |
+| report-only               | `ec754f6` | `docs(s12): record execution report rule sync`；不要求写回本报告 |
 
 **明确未做：** 未 merge；未 push；未启动 S12-STORY-002；未批量修改历史 execution reports。
+
+## 19. Commit 分类汇总（merge 前审查用）
+
+### 主要实现 commit
+
+- `81fa694` — Sprint / Release 文档结构对齐主变更
+
+### 影响实际成果的修正 commit
+
+- `7b4ad18` — 新增残留审计报告与 TSV
+- `d79b6fd` — 关闭 README、目标模型、迁移计划和 Story Map 残留
+- `1bf00b9` — 同步 Execution Report commit 记录规则与模板
+
+### report-only commit
+
+以下只修改 execution report 自身，不列入实际成果 commit：
+
+- `8fd449e`
+- `60981b6`
+- `ec754f6`
+
+### 已授权 merge commit
+
+（无 — 本轮未 merge）
+
+### 状态
+
+- Merge 状态：未 merge
+- Push 状态：未 push
+- 报告状态：In Review
+
+`HEAD at review time` 由 Cursor 最终回复报告，不要求写回本文件。不得为记录 report-only commit 或回填最新 HEAD 循环产生新的 report-only commit。
