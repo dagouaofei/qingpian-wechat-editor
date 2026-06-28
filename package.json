@@ -27,6 +27,8 @@
     "ops:deploy:production": "bash scripts/ops/deploy-environment.sh production",
     "ops:status:staging": "bash scripts/ops/status-environment.sh staging",
     "ops:status:production": "bash scripts/ops/status-environment.sh production",
+    "ops:observe:staging": "bash scripts/ops/observe-environment.sh staging",
+    "ops:observe:production": "bash scripts/ops/observe-environment.sh production",
     "ops:rollback:staging": "bash scripts/ops/rollback-environment.sh staging",
     "ops:rollback:production": "bash scripts/ops/rollback-environment.sh production"
   },

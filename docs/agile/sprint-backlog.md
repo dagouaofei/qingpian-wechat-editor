@@ -4705,68 +4705,61 @@ S11-STORY-001 → 002 → 003 → 004 → 005 → 006
 
 ## S11-STORY-004 Production 部署与上线
 
-**优先级：** P0 · **状态：** **In Progress · Gate B** · **Gate A：** **Done** @ `8e01438` · **production 未启动**
+**优先级：** P0 · **状态：** **Done**（2026-06-28 · 用户确认 Gate B · Prelaunch @ `385422d`）· **Gate A：** **Done** @ `8e01438`
+
+**工作分支：** `ops/s11-story-004-gate-b-governance-bootstrap`（已 merge sprint @ `385422d` `--no-ff`）
 
 **Story 分阶段：**
 
 | Gate | 范围 | 状态 |
 |------|------|------|
 | **Gate A** | `/api/version` · 运维脚本 · production 模板 · staging 验证 · 回滚演练 | **Done** @ `8e01438` |
-| **Gate B** | production Prelaunch bootstrap · governance snapshot · migrate/import dry-run · 回滚演练 | **In Progress · 代码冻结** @ `d99aa1a` |
+| **Gate B** | production Prelaunch deploy · 验收 · 回滚演练 | **Done** @ `385422d` |
 
-**Gate B 代码冻结（Prelaunch deploy 前 · DECISION-112 · 2026-06-10）：**
+**Production Prelaunch 事实（用户验收 · 回滚演练 · 用户确认 2026-06-28）：**
 
-- Production DB 已初始化 **100** 条 variant（`import-existing-variants` · **本轮不修改 production DB**）
-- Staging 较 production 多 **2** 条 staging 独有测试 variant → **不迁移** production
-- **暂不执行** governance snapshot apply（`import-governance-snapshot` apply）；export / dry-run 工具保留
-- **待办（不阻塞 Prelaunch）：** Dev / Staging / Production DB 内容维护与同步方案 → [`product-backlog.md`](../product-backlog.md) **P1-S11-001**
-- **事实来源：** 各环境 DB 为 variant 唯一事实来源；代码 importer 为待审计历史 bootstrap 路径
+| 项 | 值 |
+|----|-----|
+| URL | **https://paiban.aiqingpian.cn**（`qingpianai.cn` 未备案未使用） |
+| Deploy commit | **`385422d`** |
+| systemd | `qingpian-wechat-editor-production` · PORT 3000 |
+| health / database | ok |
+| Basic Auth + noindex + robots Disallow | **生效 · 观察期不得移除** |
+| Variant 基线 | **100** 条 · `heading_highlight_marker` userSelectable=true |
+| 回滚演练 | `385422d` → `2f09b0d` → `385422d` PASS · DB 未丢失 |
+| 定位 | **Prelaunch** · **非正式公开上线** |
 
-**Gate B 工作分支（已含 `d99aa1a`）：** `ops/s11-story-004-gate-b-governance-bootstrap` → merge sprint `--no-ff`
+**Deferred（DECISION-112 · 不阻塞 Story 004 Done）：** P1-S11-001 · governance apply 暂缓 · staging +2 测试 variant 不迁移
 
-**Gate A 交付：**
+**Gate B 验收标准：**
 
-- `GET /api/version` + Admin 版本 footer
-- `scripts/ops/{deploy,status,rollback,common}.sh` + `pnpm ops:*`
-- `deploy/systemd/*-{staging,production}.service.example`
-- `deploy/nginx/{staging,production}.conf.example`（production **Prelaunch** noindex + Disallow robots）
-- [`docs/ops/environments/production.md`](../ops/environments/production.md) · [`production-rollback-drill.md`](../ops/production-rollback-drill.md)
+- [x] AC-1 production health PASS
+- [x] AC-2 production admin 登录 + 治理 PASS
+- [x] AC-3 production `/preview` DB pool + 主链路 PASS
+- [x] AC-4 production 回滚演练记录（`2f09b0d` 基线）
 
-**Gate A 验收标准：**
-
-- [x] AC-A1 staging `/api/version` 正确
-- [x] AC-A2 Admin 版本 footer 可见
-- [x] AC-A3 `ops:status:staging` 输出正确
-- [x] AC-A4 staging 用新脚本 redeploy
-- [x] AC-A5 staging rollback 演练一次（`8e01438 ↔ 275cc51` · 最终 `8e01438`）
-- [x] AC-A6 脚本不泄漏 secret
-- [x] AC-A7 lint/build/test PASS（无新增失败）
-
-**staging 人工验收摘要（Gate A closeout）：** `/api/health` PASS · `/api/version` staging/commit/buildTime 正确 · Admin footer PASS · deploy 结束自动 status PASS · rollback 演练 PASS · SSE · Admin 登录/Logout · userSelectable · Preview/Copy PASS · env canonical path / pnpm build approvals / deploy lock / status command 均已修复
-
-**Gate B 验收标准（未执行）：**
-
-- [ ] AC-1 production health PASS
-- [ ] AC-2 production admin 登录 + 治理 PASS
-- [ ] AC-3 production `/preview` DB pool
-- [ ] AC-4 production 回滚演练记录
-
-**明确不做（Gate A）：** production DNS · DB migrate · systemd 启动 · Nginx 切流 · merge main
+**明确未做：** 解除 Basic Auth/noindex · 正式公开发布 · governance apply · merge `main`
 
 ---
 
-## S11-STORY-005 监控、报警与运维闭环
+## S11-STORY-005 Production Monitoring, Alerting & Observation
 
-**优先级：** P1 · **状态：** **Pending** · **工作分支：** `docs/s11-story-005-monitoring-alerts` · **前置：** CloudMonitor/SLS 资源创建
+**优先级：** P1 · **状态：** **In Review**（脚本/文档完成 · ECS cron / T+24h / T+72h 未完成）· **工作分支：** `ops/s11-story-005-monitoring-observation` · **前置：** S11-STORY-004 **Done**
 
-**目标：** CloudMonitor 基础告警 · SLS 预留 · `alert_events` 验证 · on-call 文档。
+**目标：** 最小可运行监控闭环 · 复用 `status-environment.sh` · `ops:observe` 严格检查 · P0/P1/P2 告警策略 · Prelaunch 24h/72h 观察清单。**本轮提交设计与脚本 · 服务器 cron/CloudMonitor 待审查后部署。**
+
+**技术方案：** [`s11-story-005-monitoring-observation.md`](../agile/s11-story-005-monitoring-observation.md)
 
 **验收标准：**
 
-- [ ] AC-1 CloudMonitor 规则清单 + 测试/模拟记录
-- [ ] AC-2 SLS project/logstore 已创建 · 接入状态 documented
-- [ ] AC-3 [`monitoring-and-oncall.md`](../ops/monitoring-and-oncall.md) 已更新
-- [ ] AC-4 checklist Section F staging + production PASS
+- [x] AC-1 技术方案 + 告警分级 + observation checklist
+- [x] AC-2 `pnpm ops:observe:{staging,production}` · 失败 exit 1 · 无 secret
+- [x] AC-3 [`monitoring-and-oncall.md`](../ops/monitoring-and-oncall.md) 更新
+- [x] AC-4 脚本 wiring 测试 · lint · build
+- [ ] AC-5 ECS cron / CloudMonitor 接入（待审查后部署）
+- [ ] AC-6 T+24h / T+72h 观察记录归档
+
+**明确不做：** 移除 Basic Auth/noindex · 正式公开上线 · governance apply · P1-S11-001 · merge main/release/1
 
 ---
 

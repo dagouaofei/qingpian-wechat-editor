@@ -99,6 +99,7 @@
 | DECISION-110 | 2026-06-08 | Registry `renderContract` + title_block 双轨 Preview/Copy renderer 为过渡债务；目标为 DB tree DSL 统一 decode；DEBT-DSL-RC-001~006 deferred · 本轮不批量迁移 | **已确认** |
 | DECISION-111 | 2026-06-08 | 关闭 Sprint 10（001~011）；新建 Sprint 11 Production Ops Go-Live（部署优先）；原 S10-012/013/014 顺延 Sprint 12+；staging 先于 production | **已确认** |
 | DECISION-112 | 2026-06-10 | Gate B Prelaunch 代码冻结：各环境 DB 为 variant 唯一事实来源；`import-existing-variants` 为待审计历史 bootstrap；Dev/Staging/Production DB 同步方案 deferred；production 100 variant 已初始化；staging 独有 2 条测试 variant 不迁移；暂不 governance snapshot apply | **已确认** |
+| DECISION-113 | 2026-06-28 | Production Prelaunch 已部署 @ `385422d` · URL `paiban.aiqingpian.cn`（`qingpianai.cn` 未备案）；Prelaunch 非公开发布；Basic Auth + noindex 观察期不得移除；回滚基线 `2f09b0d` | **已确认** |
 
 ### DECISION-019 详情
 
@@ -1212,4 +1213,20 @@
 - **影响范围：** `product-backlog.md` · `production.md` · S11-STORY-004 Gate B
 - **关联：** S11-STORY-004 · DECISION-111 · `quality-status-contract.ts`
 - **状态：** **已确认**（2026-06-10 · Gate B 代码冻结）
+
+### DECISION-113 详情（Production Prelaunch 部署完成 · 域名与观察约束）
+
+- **日期：** 2026-06-28
+- **背景：**
+  - S11-STORY-004 Gate B 用户人工验收 PASS
+  - Production 部署 commit **`385422d`** · systemd `qingpian-wechat-editor-production` · PORT 3000
+  - 原计划 `qingpianai.cn` 因 **ICP 未备案** 未继续使用
+- **决策：**
+  1. Production 公网 URL 为 **`https://paiban.aiqingpian.cn`**
+  2. 当前阶段为 **Prelaunch** · **非正式公开上线**
+  3. **不得移除** Nginx Basic Auth · **不得移除** noindex / robots Disallow，直至独立 go-live 批准
+  4. 回滚演练基线 commit：**`2f09b0d`** · 当前恢复版本：**`385422d`**
+  5. S11-STORY-004 标记 **Done** · 监控观察移交 S11-STORY-005
+- **关联：** S11-STORY-004 · DECISION-112 · `production.md`
+- **状态：** **已确认**（2026-06-28 · 用户验收 · 回滚演练）
 
