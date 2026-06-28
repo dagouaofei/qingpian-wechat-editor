@@ -21,15 +21,15 @@
 
 ## 4. 修改文件
 
-- 
+-
 
 ## 5. 新增文件
 
-- 
+-
 
 ## 6. 阅读但未修改的关键文件
 
-- 
+-
 
 ## 7. 关键变更说明
 
@@ -37,17 +37,17 @@
 
 ## 8. 验收标准完成情况
 
-| AC | 结果 | 说明 |
-|----|------|------|
-| AC-1 | PASS / FAIL / N/A | |
-| AC-2 | PASS / FAIL / N/A | |
+| AC   | 结果              | 说明 |
+| ---- | ----------------- | ---- |
+| AC-1 | PASS / FAIL / N/A |      |
+| AC-2 | PASS / FAIL / N/A |      |
 
 ## 9. 运行检查
 
-| 命令 | 结果 | 说明 |
-|------|------|------|
-| pnpm lint | PASS / FAIL / 未运行 | |
-| pnpm build | PASS / FAIL / 未运行 | |
+| 命令       | 结果                 | 说明 |
+| ---------- | -------------------- | ---- |
+| pnpm lint  | PASS / FAIL / 未运行 |      |
+| pnpm build | PASS / FAIL / 未运行 |      |
 
 ## 10. 未完成事项
 
@@ -59,12 +59,34 @@
 
 ## 12. 需要用户 / ChatGPT 审查的问题
 
-- 
+-
 
 ## 13. 建议下一步
 
-- 
+-
 
 ## 14. Commit
 
-- Commit hash：
+### 主要实现 commit
+
+- `<hash>` — （说明）
+
+### 修正 commit（如有）
+
+- `<hash>` — （说明；不含 report-only）
+
+### 已授权 merge commit（如有）
+
+- `<hash>` — merge 至 `<target-branch>`
+
+### report-only commit
+
+不要求写回本报告。
+
+### 状态
+
+- Merge 状态：未 merge / 已 merge 至 `<branch>`（须用户授权）
+- Push 状态：未 push / 已 push
+- working tree：clean / 有未提交变更
+
+`HEAD at review time` 由 Cursor 最终回复报告，不要求写回本文件。
