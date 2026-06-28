@@ -4531,7 +4531,7 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 > **分支：** `sprint/s12-product-governance-r2-planning`  
 > **来源基线：** `sprint/s11-production-ops-go-live` @ `653c70a`  
 > **状态：** In Progress / Needs Review  
-> **说明：** `release/1` 尚未包含 Sprint 11 最新完整状态；本 Sprint 分支从当前完整的 `sprint/s11-production-ops-go-live` 创建，等待人工审查后决定后续合并路径。
+> **说明：** `release/1` 尚未包含 Sprint 11 最新完整状态；本 Sprint 分支从当前完整的 `sprint/s11-production-ops-go-live` 创建，等待人工审查后决定后续合并路径。S12-STORY-001 可 merge 回 Sprint 12 分支；启动 S12-STORY-002 前必须确认 Sprint 11 最终 merge 状态，并在 Sprint 11 merge `release/1` 后对齐 Sprint 12 与最新 `release/1`（本轮不执行）。
 
 ## S12-STORY-001 现有项目管理与产品文档体系审计
 
@@ -4573,18 +4573,23 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 | Story | 名称 | 状态 |
 |-------|------|------|
-| S12-STORY-002 | Product Module Tree & Feature Catalog | Proposed |
-| S12-STORY-003 | Release 2 Scope & Release Backlog | Proposed |
-| S12-STORY-004 | Traceability & Evidence Index | Proposed |
-| S12-STORY-005 | Agile Events & Governance Rule Cleanup | Proposed |
-| S12-STORY-006 | Deferred Debt Replanning | Proposed |
+| S12-STORY-002 | 产品愿景、目标用户、核心场景与系统边界 | Proposed |
+| S12-STORY-003 | 完整产品模块树与产品功能目录 | Proposed |
+| S12-STORY-004 | 用户旅程、用户活动与完整 Story Map | Proposed |
+| S12-STORY-005 | Product Backlog、Release、Sprint 与模块覆盖追踪体系 | Proposed |
+| S12-STORY-006 | 敏捷事件、流程闸门、DoR/DoD 与标准模板 | Proposed |
+| S12-STORY-007 | Release 1 历史能力、模块及功能映射 | Proposed |
+| S12-STORY-008 | Release 2 及后续产品路线与渐进式迭代计划 | Proposed |
+| S12-STORY-009 | 全局一致性审计、治理验收与 Sprint 12 关闭 | Proposed |
+
+Deferred Debt Replanning 不作为 Sprint 12 核心 Story；Compat / DSL / DB sync 等 deferred 项回到 Product Backlog / Deferred Register 候选池。
 
 ---
 
 # Deferred · Sprint 12+（原 S10-STORY-012~014 · DECISION-111 顺延）
 
 > **说明：** Release 1 部署优先（Sprint 11）完成后启动。编号映射见 **DECISION-111**。
-> **S12-STORY-001 ID 冲突说明（2026-06-28）：** 本 section 中的旧占位项早于 Sprint 12 Product Governance 重新规划；本轮不删除、不重编号旧记录。当前执行的正式 S12-STORY-001 为上方 “现有项目管理与产品文档体系审计”。Compat / DSL deferred 项需在后续治理 Story 中重新确认编号与执行顺序。
+> **S12-STORY-001 ID 冲突说明（2026-06-28）：** 当前治理 Sprint 的 `S12-STORY-001~009` 为正式 Sprint 12 Story。本 section 中的旧 Compat / DSL 占位项早于 Sprint 12 Product Governance 重新规划，仅保留为历史 deferred 占位，不得继续作为正式 Story ID 使用。本轮不删除、不重编号旧记录，也不修改旧 Decision 原文；后续需在专门治理决策中为旧 deferred 项分配新的 Backlog / Story ID。
 
 ## S12-STORY-001 WeChat Compatibility Spec Recalibration（原 S10-STORY-012）
 

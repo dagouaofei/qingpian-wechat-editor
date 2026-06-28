@@ -200,10 +200,44 @@
 
 - 先由用户 / ChatGPT 审查本 execution report 和三份治理文档。
 - 审查通过后，再决定是否将 `docs/s12-story-001-governance-document-audit` merge 回 `sprint/s12-product-governance-r2-planning`。
-- 后续建议优先执行 Product Module Tree & Feature Catalog，再执行 Release 2 Scope & Release Backlog。
+- 后续建议按修正后的 9 Story 顺序执行：先 S12-STORY-002 产品愿景/用户/场景/边界，再 S12-STORY-003 模块树与功能目录；Release 2 正式范围留到 S12-STORY-008 重新制定。
 
 ## 15. Commit
 
 - Commit hash：`b499bf2`（本轮主要治理审计变更提交）
 - 是否已 commit：已提交
 - 是否已 merge：未 merge
+
+## 16. 审查修正记录（2026-06-28）
+
+本轮根据人工审查结论进行小范围文档修正：
+
+- Sprint 12 从 6 Story 恢复为 9 Story 完整治理范围。
+- `Deferred Debt Replanning` 移出 Sprint 12 核心 Story，回到 Product Backlog / Deferred Register 候选池。
+- 目标治理链路修正为 Product Goal → User / Scenario → User Journey → User Activity → User Step → User Story Map → Product Module / Feature → Backlog。
+- 明确 `User Story` 是 `Product Backlog Item` 的一种类型；其他 PBI 类型包括 Enabler Story、Technical Story、Bug、Spike、Ops Task、Governance Task。
+- 标记旧 Release 2 规划为 `Superseded / Pending Replanning`，正式 Release 2 Scope 由 S12-STORY-008 重新制定。
+- 增补“全局索引 + 每个 Sprint / Release 独立目录”文档结构原则。
+- 增补 Sprint 11 / Sprint 12 分支同步闸门：S12-STORY-002 启动前必须确认 Sprint 11 最终 merge 状态，Sprint 11 merge `release/1` 后需对齐 Sprint 12。
+- 明确治理 Sprint 的 `S12-STORY-001~009` 为正式 Story；旧 Compat / DSL `S12-STORY-001/002` 仅为历史 deferred 占位，不得继续作为正式 Story ID 使用。
+
+修正涉及文件：
+
+- `docs/governance/product-governance-target-model.md`
+- `docs/governance/product-governance-migration-plan.md`
+- `docs/governance/s12-current-system-audit.md`
+- `docs/agile/sprint12-product-governance-r2-planning.md`
+- `docs/agile/sprint-backlog.md`
+- `docs/agile/product-backlog.md`
+- `docs/agile/release-plan.md`
+- `docs/agile/changelog.md`
+- `docs/agile/execution-reports/2026-06-28-s12-story-001-governance-document-audit.md`
+
+修正检查：
+
+- `pnpm exec prettier --check docs/governance/product-governance-target-model.md docs/governance/product-governance-migration-plan.md docs/governance/s12-current-system-audit.md docs/agile/sprint12-product-governance-r2-planning.md docs/agile/execution-reports/2026-06-28-s12-story-001-governance-document-audit.md`：PASS
+- `pnpm lint`：PASS（0 errors，34 existing warnings）
+- `pnpm build`：PASS
+
+修正 commit：待提交  
+Sprint merge commit：待 merge 后回填

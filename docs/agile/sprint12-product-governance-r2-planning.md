@@ -20,7 +20,7 @@ Sprint 12 聚焦产品治理与 Release 2 规划前置工作：
 
 ## 2. Sprint 12 本轮边界
 
-本 Sprint 可以包含产品治理、文档体系升级、Release 2 planning、deferred debt replanning。
+本 Sprint 核心范围是产品治理、文档体系升级和 Release 2 planning。Deferred debt 仅登记为 Product Backlog / Deferred Register 候选，不作为 Sprint 12 核心 Story。
 
 本 Sprint 不自动包含：
 
@@ -31,18 +31,31 @@ Sprint 12 聚焦产品治理与 Release 2 规划前置工作：
 - Release 1 closeout；
 - merge `release/1` 或 `main`。
 
+## 2.1 Sprint 11 / Sprint 12 分支关系闸门
+
+- 当前 Sprint 12 基于未关闭的 `sprint/s11-production-ops-go-live` 分支建立。
+- 本轮允许将 S12-STORY-001 merge 回 `sprint/s12-product-governance-r2-planning`，用于完成治理审计闭环。
+- 在启动 S12-STORY-002 前，必须先确认 Sprint 11 的最终 merge 状态。
+- Sprint 11 merge 至 `release/1` 后，需要将 Sprint 12 与最新 `release/1` 对齐。
+- 本轮不执行该同步，不 merge `release/1`，不 merge `main`。
+
 ## 3. Story 索引
 
-| Story         | 名称                                   | 优先级 | 状态      | 工作分支                                       |
-| ------------- | -------------------------------------- | ------ | --------- | ---------------------------------------------- |
-| S12-STORY-001 | 现有项目管理与产品文档体系审计         | P0     | In Review | `docs/s12-story-001-governance-document-audit` |
-| S12-STORY-002 | Product Module Tree & Feature Catalog  | P0     | Proposed  | TBD                                            |
-| S12-STORY-003 | Release 2 Scope & Release Backlog      | P0     | Proposed  | TBD                                            |
-| S12-STORY-004 | Traceability & Evidence Index          | P1     | Proposed  | TBD                                            |
-| S12-STORY-005 | Agile Events & Governance Rule Cleanup | P1     | Proposed  | TBD                                            |
-| S12-STORY-006 | Deferred Debt Replanning               | P1     | Proposed  | TBD                                            |
+| Story         | 名称                                                | 优先级 | 状态      | 工作分支                                       |
+| ------------- | --------------------------------------------------- | ------ | --------- | ---------------------------------------------- |
+| S12-STORY-001 | 现有项目管理与产品文档体系审计                      | P0     | In Review | `docs/s12-story-001-governance-document-audit` |
+| S12-STORY-002 | 产品愿景、目标用户、核心场景与系统边界              | P0     | Proposed  | TBD                                            |
+| S12-STORY-003 | 完整产品模块树与产品功能目录                        | P0     | Proposed  | TBD                                            |
+| S12-STORY-004 | 用户旅程、用户活动与完整 Story Map                  | P0     | Proposed  | TBD                                            |
+| S12-STORY-005 | Product Backlog、Release、Sprint 与模块覆盖追踪体系 | P0     | Proposed  | TBD                                            |
+| S12-STORY-006 | 敏捷事件、流程闸门、DoR/DoD 与标准模板              | P1     | Proposed  | TBD                                            |
+| S12-STORY-007 | Release 1 历史能力、模块及功能映射                  | P1     | Proposed  | TBD                                            |
+| S12-STORY-008 | Release 2 及后续产品路线与渐进式迭代计划            | P0     | Proposed  | TBD                                            |
+| S12-STORY-009 | 全局一致性审计、治理验收与 Sprint 12 关闭           | P0     | Proposed  | TBD                                            |
 
-> ID 兼容说明：`sprint-backlog.md` 中已有 DECISION-111 产生的旧占位 “S12-STORY-001 WeChat Compatibility Spec Recalibration / S12-STORY-002 DSL Runtime Schema Cleanup”。本 Sprint 不删除、不重编号旧占位；先将冲突记录为治理问题，后续由用户确认映射策略。
+> ID 兼容说明：当前治理 Sprint 的 `S12-STORY-001~009` 为正式 Sprint 12 Story。`sprint-backlog.md` 中 DECISION-111 产生的旧占位 “S12-STORY-001 WeChat Compatibility Spec Recalibration / S12-STORY-002 DSL Runtime Schema Cleanup” 仅保留为历史 deferred 占位，不得继续作为正式 Story ID 使用；后续在专门治理决策中为旧 deferred 项分配新的 Backlog / Story ID。
+>
+> Deferred Debt Replanning 不作为 Sprint 12 核心 Story；Compat / DSL / DB sync 等 deferred 项回到 Product Backlog / Deferred Register 候选池。
 
 ## 4. S12-STORY-001
 
@@ -97,11 +110,16 @@ Sprint 12 聚焦产品治理与 Release 2 规划前置工作：
 
 ```text
 S12-STORY-001 Governance Audit
-  → S12-STORY-002 Product Module Tree & Feature Catalog
-  → S12-STORY-003 Release 2 Scope & Release Backlog
-  → S12-STORY-004 Traceability & Evidence Index
-  → S12-STORY-005 Agile Events & Governance Rule Cleanup
-  → S12-STORY-006 Deferred Debt Replanning
+  → S12-STORY-002 Vision / Users / Scenarios / Boundaries
+  → S12-STORY-003 Product Module Tree & Feature Catalog
+  → S12-STORY-004 Journey / Activity / Story Map
+  → S12-STORY-005 Backlog / Release / Sprint Coverage Tracking
+  → S12-STORY-006 Agile Events / Gates / DoR / DoD / Templates
+  → S12-STORY-007 Release 1 Historical Capability Mapping
+  → S12-STORY-008 Release 2+ Roadmap & Iteration Plan
+  → S12-STORY-009 Consistency Audit / Governance Acceptance / Closeout
 ```
 
 Compat / DSL 旧占位项必须先完成 ID 冲突处理，再进入正式执行。
+
+S12-STORY-002 尚未启动；启动前必须先确认 Sprint 11 最终 merge 状态，并处理 Sprint 12 与最新 `release/1` 的对齐问题。

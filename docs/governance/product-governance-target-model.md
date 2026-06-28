@@ -13,9 +13,11 @@
 产品愿景与目标
   → 用户与场景
   → 用户旅程
+  → 用户活动
+  → 用户步骤
+  → 用户故事地图
   → 产品模块树
   → 产品功能目录
-  → User Story Map
   → Product Backlog
   → Release Backlog
   → Sprint Backlog
@@ -38,38 +40,47 @@
 
 ## 2. 产品管理对象
 
-| 对象                 | 定义                                             | 建议权威文档                                     | 说明                                         |
-| -------------------- | ------------------------------------------------ | ------------------------------------------------ | -------------------------------------------- |
-| Product Goal         | 产品长期目标和阶段目标                           | `docs/product/product-vision.md`                 | 不直接等于 backlog                           |
-| User / Scenario      | 用户类型、使用场景、优先级                       | `docs/product/product-scope.md`                  | 后续可升级为用户与场景目录                   |
-| User Journey         | 用户从输入到发布前检查的路径                     | `docs/product/user-story-map.md`                 | 应覆盖 R1/R2/R3，而非只覆盖 Sprint 6         |
-| Product Module       | 稳定产品模块，如生成、排版、样式、复制、运营后台 | 后续新增产品模块树                               | 是产品能力结构，不等同代码目录               |
-| Product Feature      | 产品应具备的稳定功能                             | 后续新增功能目录                                 | 功能目录描述“产品有什么能力”                 |
-| User Story           | 面向用户/团队价值的增量交付项                    | `docs/agile/sprint-backlog.md`                   | 一个 Story 可涉及多个模块/功能               |
-| Product Backlog Item | 为实现/完善/修复功能而产生的工作项               | `docs/agile/product-backlog.md`                  | Backlog 描述工作，不描述完整产品静态能力     |
-| Release Backlog      | 某个 Release 承诺或候选交付集合                  | 后续新增或升级 release plan                      | 从 Product Backlog 选取，并绑定 Release goal |
-| Sprint Backlog       | 当前 Sprint committed stories                    | `docs/agile/sprint-backlog.md` + Sprint 专项文档 | 承接具体 AC、分支和证据                      |
-| Evidence             | 代码、commit、测试、QA、报告、上线证据           | execution reports / paste QA / ops docs          | 需要后续建立索引层                           |
+| 对象                 | 定义                                              | 建议权威文档                                     | 说明                                                               |
+| -------------------- | ------------------------------------------------- | ------------------------------------------------ | ------------------------------------------------------------------ |
+| Product Goal         | 产品长期目标和阶段目标                            | `docs/product/product-vision.md`                 | 不直接等于 backlog                                                 |
+| User / Scenario      | 用户类型、使用场景、优先级                        | `docs/product/product-scope.md`                  | 后续可升级为用户与场景目录                                         |
+| User Journey         | 用户围绕某个目标完成的一条端到端旅程              | `docs/product/user-story-map.md`                 | Journey 下分 Activity / Step / Story，不直接跳到 Product Feature   |
+| User Activity        | 用户旅程中的一组连续活动                          | 后续 Story Map 升级文档                          | 例如准备内容、生成文章、排版检查、复制发布                         |
+| User Step            | Activity 下可观察的用户步骤                       | 后续 Story Map 升级文档                          | 是拆分 User Story 的直接输入                                       |
+| User Story Map       | Journey → Activity → Step → User Story 的结构化图 | 后续升级 `docs/product/user-story-map.md`        | 是用户视角的需求地图，不等同模块树或功能目录                       |
+| Product Module       | 稳定产品模块，如生成、排版、样式、复制、运营后台  | 后续新增产品模块树                               | 是产品能力结构，不等同代码目录                                     |
+| Product Feature      | 产品应具备的稳定功能                              | 后续新增功能目录                                 | 功能目录描述“产品有什么能力”                                       |
+| Product Backlog Item | 为实现/完善/修复功能而产生的工作项总类            | `docs/agile/product-backlog.md`                  | User Story 是 PBI 的一种类型；Backlog 描述工作，不描述完整静态能力 |
+| User Story           | 从用户价值表达的 Product Backlog Item             | `docs/agile/sprint-backlog.md`                   | 一个 User Story 可涉及多个模块/功能                                |
+| Enabler / Tech / Ops | Enabler Story、Technical Story、Ops Task 等 PBI   | `docs/agile/product-backlog.md` / Sprint Backlog | 非用户故事类 PBI，支撑架构、运维、治理、调研、风险收口等           |
+| Release Backlog      | 某个 Release 承诺或候选交付集合                   | 后续新增或升级 release plan                      | 从 Product Backlog 选取，并绑定 Release goal                       |
+| Sprint Backlog       | 当前 Sprint committed PBIs / Stories              | `docs/agile/sprint-backlog.md` + Sprint 专项文档 | 承接具体 AC、分支和证据                                            |
+| Evidence             | 代码、commit、测试、QA、报告、上线证据            | execution reports / paste QA / ops docs          | 需要后续建立索引层                                                 |
 
 ## 3. 对象关系
 
 ```text
 Product Goal 1..n User Journey
-User Journey 1..n Product Feature
+User Journey 1..n User Activity
+User Activity 1..n User Step
+User Step 0..n User Story
+Product Backlog Item includes User Story / Enabler Story / Technical Story / Bug / Spike / Ops Task / Governance Task
 Product Module n..n Product Feature
-Product Feature n..n User Story
-User Story n..n Product Backlog Item
+Product Feature n..n Product Backlog Item
+Product Module n..n Product Backlog Item
 Product Backlog Item n..n Release
 Release 1..n Sprint
-Sprint 1..n Story
-Story 1..n Branch / Commit / Check / Evidence
+Sprint 1..n Product Backlog Item
+Product Backlog Item 1..n Branch / Commit / Check / Evidence
 ```
 
 关键原则：
 
-- 模块与 Story 是多对多关系，不强制一个 Release 对应一个模块。
+- User Story 不是与 Product Backlog Item 并列的独立对象；User Story 是 Product Backlog Item 的一种类型。
+- Product Backlog Item 是总类，其他类型包括 Enabler Story、Technical Story、Bug、Spike、Ops Task、Governance Task。
+- 模块、功能与 Product Backlog Item 是多对多关系，不强制一个 Release 对应一个模块。
 - 一个模块可以被多个 Release、Sprint、Story 渐进完善。
-- 一个 Story 可以横跨多个模块和功能，只要 AC 与验收证据清晰。
+- 一个 Product Backlog Item / Story 可以横跨多个模块和功能，只要 AC 与验收证据清晰。
 - Release 可以跨模块做端到端切片，也可以集中深化关键模块，也可以做技术基础阶段。
 - Product Backlog 与产品功能目录必须分离：功能目录是稳定能力清单，Backlog 是实现、完善和修复这些能力的工作队列。
 
@@ -94,11 +105,11 @@ Story 1..n Branch / Commit / Check / Evidence
 
 - ID
 - 标题
-- 类型：Feature / Enhancement / Bug / Debt / Research / Governance
+- 类型：User Story / Enabler Story / Technical Story / Bug / Spike / Ops Task / Governance Task / Debt / Research
 - 关联目标
 - 关联模块
 - 关联功能
-- 关联用户旅程
+- 关联用户旅程 / 用户活动 / 用户步骤（如适用）
 - 优先级
 - 候选 Release
 - 状态
@@ -120,11 +131,11 @@ Story 1..n Branch / Commit / Check / Evidence
 
 ### Sprint Backlog
 
-从 Release Backlog 或 Product Backlog 中选择当前 Sprint 可执行的 Story / Bug / Chore / Docs 任务，并记录 AC、工作分支、commit、检查和验收。
+从 Release Backlog 或 Product Backlog 中选择当前 Sprint 可执行的 Product Backlog Item，并记录 AC、工作分支、commit、检查和验收。
 
 建议字段：
 
-- Story / Bug / Task ID
+- PBI / Story / Bug / Task ID
 - 用户故事或任务目标
 - 状态
 - AC
@@ -137,26 +148,26 @@ Story 1..n Branch / Commit / Check / Evidence
 
 ## 6. Story 与模块/功能的多对多关系
 
-Story 不应被绑定为“一个模块的一次开发”。推荐记录方式：
+Story / PBI 不应被绑定为“一个模块的一次开发”。推荐记录方式：
 
-| Story                       | 关联模块                     | 关联功能                               | 交付模式         |
-| --------------------------- | ---------------------------- | -------------------------------------- | ---------------- |
-| 用户生成主链路              | 输入、生成、预览、复制       | 主题输入、AI 生成、样式预览、一键复制  | 跨模块端到端切片 |
-| 样式管理后台                | 样式、运营后台、分发         | variant 管理、promote、用户池          | 集中深化关键模块 |
-| Compatibility Recalibration | 复制、兼容、Harvest、DSL     | report/enforce、Validator、loss report | 技术基础阶段     |
-| Product Governance Audit    | 产品治理、敏捷治理、文档体系 | 模块树、功能目录、Backlog 分层         | 治理基础阶段     |
+| PBI / Story                 | 类型            | 关联模块                     | 关联功能                               | 交付模式         |
+| --------------------------- | --------------- | ---------------------------- | -------------------------------------- | ---------------- |
+| 用户生成主链路              | User Story      | 输入、生成、预览、复制       | 主题输入、AI 生成、样式预览、一键复制  | 跨模块端到端切片 |
+| 样式管理后台                | Enabler Story   | 样式、运营后台、分发         | variant 管理、promote、用户池          | 集中深化关键模块 |
+| Compatibility Recalibration | Technical Story | 复制、兼容、Harvest、DSL     | report/enforce、Validator、loss report | 技术基础阶段     |
+| Product Governance Audit    | Governance Task | 产品治理、敏捷治理、文档体系 | 模块树、功能目录、Backlog 分层         | 治理基础阶段     |
 
 ## 7. Release / Sprint 渐进覆盖模式
 
 Release 和 Sprint 可采用以下模式：
 
-| 模式             | 适用场景                   | 示例                                   |
-| ---------------- | -------------------------- | -------------------------------------- |
-| 跨模块端到端切片 | 需要验证用户价值闭环       | Release 1 主链路、Sprint 6             |
-| 关键模块深化     | 某模块成为瓶颈或战略重点   | 样式管理后台、Compatibility            |
-| 多模块并行渐进   | 多个能力需要同步演进       | Release 2 轻编辑 + 手动配图 + 样式增强 |
-| 技术基础阶段     | 为后续产品能力清障         | DSL cleanup、治理升级                  |
-| 治理与计划阶段   | 产品全景和交付机制需要升级 | Sprint 12 Product Governance           |
+| 模式             | 适用场景                   | 示例                                               |
+| ---------------- | -------------------------- | -------------------------------------------------- |
+| 跨模块端到端切片 | 需要验证用户价值闭环       | Release 1 主链路、Sprint 6                         |
+| 关键模块深化     | 某模块成为瓶颈或战略重点   | 样式管理后台、Compatibility                        |
+| 多模块并行渐进   | 多个能力需要同步演进       | Release 2+ 多能力路线（由 S12-STORY-008 重新制定） |
+| 技术基础阶段     | 为后续产品能力清障         | DSL cleanup、治理升级                              |
+| 治理与计划阶段   | 产品全景和交付机制需要升级 | Sprint 12 Product Governance                       |
 
 ## 8. 敏捷事件进入流程
 
@@ -170,17 +181,51 @@ Release 和 Sprint 可采用以下模式：
 | Sprint Audit / Closeout    | Sprint 证据、P0/P1/P2                 | closeout 结论、是否 merge release         | audit / execution report / decisions      |
 | Retrospective              | 执行问题、流程问题                    | 改进项、规则更新候选                      | decisions 或 governance backlog           |
 
-## 9. 追踪链路模板
+## 9. Sprint / Release 文档结构原则
+
+后续采用“全局索引 + 每个 Sprint / Release 独立目录”结构。历史大文件保持原样，不在本 Story 中迁移；从后续新 Sprint / Release 开始逐步采用。
+
+目标结构：
+
+```text
+docs/agile/
+├─ sprint-backlog.md              # 全局 Sprint 索引与状态总览
+├─ release-plan.md                # 全局 Release 索引与状态总览
+├─ sprints/
+│  └─ sprint-<id>/
+│     ├─ plan.md
+│     ├─ backlog.md
+│     ├─ review.md
+│     ├─ retrospective.md
+│     └─ closeout.md
+└─ releases/
+   └─ release-<id>/
+      ├─ plan.md
+      ├─ backlog.md
+      ├─ coverage.md
+      ├─ review.md
+      └─ closeout.md
+```
+
+执行原则：
+
+- `sprint-backlog.md` 只保留全局 Sprint 索引、状态总览和跨 Sprint 链接。
+- `release-plan.md` 只保留全局 Release 索引、状态总览和 Release 级入口。
+- 详细 Story、AC、Review、Retrospective、Closeout 放入独立 Sprint / Release 目录。
+- 避免同一状态在多个文件重复维护；如需摘要，必须指向唯一权威文件。
+- 历史 `sprint-plan.md` / `sprint-backlog.md` / `release-plan.md` 不批量拆分，只在后续 Sprint 中前向采用。
+
+## 10. 追踪链路模板
 
 后续可为每个 Release 或重要产品能力建立以下追踪矩阵：
 
-| 目标                 | 模块               | 功能                           | User Story / PB      | Release     | Sprint   | Branch / Commit       | 测试                    | 验收证据               |
-| -------------------- | ------------------ | ------------------------------ | -------------------- | ----------- | -------- | --------------------- | ----------------------- | ---------------------- |
-| 公众号文章可复制使用 | 复制 / 兼容        | 微信兼容 HTML                  | PB-R1-05 / US-R1-009 | R1          | S6 / S8  | execution report 记录 | lint / build / Paste QA | Matrix / Drift / PO QA |
-| 样式可运营治理       | 样式 / 后台 / 分发 | variant 上下架与用户池         | S9 / S10 stories     | R1          | S9 / S10 | execution report 记录 | unit / e2e / build      | admin / preview 验收   |
-| Release 2 产品全景   | 产品治理           | 模块树 / 功能目录 / R2 backlog | S12 后续 Story       | R2 planning | S12      | 待定                  | docs check              | 目标文档审查           |
+| 目标                 | Journey / Activity / Step | 模块               | 功能                           | PBI / Story          | Release     | Sprint   | Branch / Commit       | 测试                    | 验收证据               |
+| -------------------- | ------------------------- | ------------------ | ------------------------------ | -------------------- | ----------- | -------- | --------------------- | ----------------------- | ---------------------- |
+| 公众号文章可复制使用 | 复制使用 / 复制到公众号   | 复制 / 兼容        | 微信兼容 HTML                  | PB-R1-05 / US-R1-009 | R1          | S6 / S8  | execution report 记录 | lint / build / Paste QA | Matrix / Drift / PO QA |
+| 样式可运营治理       | 运营治理 / 上下架样式     | 样式 / 后台 / 分发 | variant 上下架与用户池         | S9 / S10 stories     | R1          | S9 / S10 | execution report 记录 | unit / e2e / build      | admin / preview 验收   |
+| Release 2 产品全景   | 待 S12-STORY-004 定义     | 产品治理           | 模块树 / 功能目录 / R2 backlog | S12 后续 Story       | R2 planning | S12      | 待定                  | docs check              | 目标文档审查           |
 
-## 10. 与历史体系的兼容方式
+## 11. 与历史体系的兼容方式
 
 - 不迁移历史 execution reports，只新增索引。
 - 不重写已关闭 Sprint 结论，只在新文档中说明当前权威来源。

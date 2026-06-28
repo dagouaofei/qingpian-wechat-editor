@@ -27,6 +27,9 @@
 
 ### Release 2：样式增强、轻编辑与手动配图
 
+> **状态：Superseded / Pending Replanning（2026-06-28 · S12-STORY-001 审查修正）**  
+> 本小节为早期规划保留，不再作为当前正式 Release 2 承诺。Release 2 正式范围将在 **S12-STORY-008 Release 2 及后续产品路线与渐进式迭代计划** 中重新制定。新的 Release 2 Scope 获批前，不得将本旧规划直接拆入 Sprint。
+
 **目标：** 支持更多样式、基础编辑、整篇风格切换、手动上传 / 替换图片。
 
 ---
@@ -148,8 +151,8 @@
 | **Sprint 9** | Style Management System v0 | S9-STORY-001 ~ S9-STORY-009 | **P0 · Closed**（DECISION-106 · @ `c96e869`） |
 | **Sprint 10** | Database-backed Style Management Admin v1 | S10-STORY-001 ~ S10-STORY-011 | **P0 · Closed**（DECISION-108 · DECISION-111） |
 | **Sprint 11** | Production Ops Go-Live | S11-STORY-001 ~ S11-STORY-006 | **P0 · In Progress**（DECISION-111） |
-| **Sprint 12** | Product Governance & Release 2 Planning | S12-STORY-001 ~ 006 | **P0/P1 · In Progress / Proposed** |
-| **Sprint 12+** | Compat / DSL 债务（原 S10-012/013） | 旧 S12-STORY-001 ~ 002 占位，需重新确认编号 | **P1/P2 · Planned** |
+| **Sprint 12** | Product Governance & Release 2 Planning | S12-STORY-001 ~ 009 | **P0/P1 · In Progress / Proposed** |
+| **Sprint 12+** | Compat / DSL 债务（原 S10-012/013） | 旧 S12-STORY-001 ~ 002 历史占位，需分配新 Backlog / Story ID | **P1/P2 · Planned** |
 
 Story 详情见 [`sprint-backlog.md`](sprint-backlog.md) · S11 见 [`sprint11-production-ops-go-live.md`](sprint11-production-ops-go-live.md) · S12 治理见 [`sprint12-product-governance-r2-planning.md`](sprint12-product-governance-r2-planning.md)。
 

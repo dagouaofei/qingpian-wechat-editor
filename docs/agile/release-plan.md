@@ -11,7 +11,7 @@
 | **已完成 Sprint** | Sprint 1-A/B · Sprint 2 · Sprint 3-A/B/C · Sprint 4-A/B · Sprint 5 · Sprint 6 · Sprint 7 · **Sprint 8** · **Sprint 9** · **Sprint 10** |
 | **当前 Sprint** | **Sprint 11** — Production Ops Go-Live（**In Progress** · **DECISION-111**） |
 | **专项 Sprint（治理）** | **Sprint 12** — Product Governance & Release 2 Planning（In Progress / Needs Review · 从 `sprint/s11-production-ops-go-live` 建立） |
-| **后续 Sprint（规划）** | Sprint 12+ / 13+ — Compat Recalibration · DSL Cleanup · Release 1 Closeout（需先处理 S12 ID 冲突） |
+| **后续 Sprint（规划）** | Sprint 12+ / 13+ — Compat Recalibration · DSL Cleanup · Release 1 Closeout（旧 Compat / DSL 占位需分配新 Backlog / Story ID） |
 | **merge `main`** | **未执行** — Release 1 整体验收通过后才 merge |
 
 > Sprint 5~10 已交付可见主链路、样式管理 v0/v1、DSL runtime、Harvest/Promote 等；**Release 1 不能以 lint/test/build alone 关闭**。S11 目标为 **staging/production 正式部署上线**（DECISION-111）。
@@ -45,8 +45,8 @@
 | **Sprint 9** | Style Management System v0 | file-backed `/dev/style-library` | **Closed** @ `c96e869` |
 | **Sprint 10** | Database-backed Style Admin v1 | DB admin · pool · Harvest · Promote · DSL | **Closed**（001~011） |
 | **Sprint 11** | **Production Ops Go-Live** | ECS/RDS/OSS/SLS · staging→prod 部署 · 监控 | **In Progress** |
-| **Sprint 12** | Product Governance & Release 2 Planning | 文档体系审计 · 产品治理目标模型 · Release 2 规划前置 | **In Progress / Needs Review** |
-| **Sprint 12+** | Compat + DSL 债务 | 原 S10-012/013 · 需重新确认编号 | **Planned** |
+| **Sprint 12** | Product Governance & Release 2 Planning | 9 Story：文档体系审计 · 产品模型 · Story Map · Backlog/覆盖追踪 · R2 路线 · closeout | **In Progress / Needs Review** |
+| **Sprint 12+** | Compat + DSL 债务 | 原 S10-012/013 · 旧 S12 ID 不再作为正式 Story ID | **Planned** |
 | **Sprint 13+** | Release 1 Closeout | 原 S10-014 · audit · merge main 决策 | **Planned** |
 
 **Sprint 分支：**

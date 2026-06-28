@@ -39,7 +39,7 @@
 
 | 文档                                         | 升级目标                                     | 风险                  | 验收方式                           |
 | -------------------------------------------- | -------------------------------------------- | --------------------- | ---------------------------------- |
-| `docs/product/user-story-map.md`             | 扩展为覆盖 R1/R2/R3 的用户旅程与 Story Map   | 误改 R1 历史          | 新增章节，不重写 R1                |
+| `docs/product/user-story-map.md`             | 扩展为 Journey → Activity → Step → Story Map | 误改 R1 历史          | 新增章节，不重写 R1                |
 | `docs/agile/product-backlog.md`              | 明确 Product Backlog 与功能目录分工          | 打断历史 backlog 语义 | 保留旧内容，新增说明或索引         |
 | `docs/agile/release-plan.md`                 | 作为 Release dashboard，减少 Sprint 状态重复 | 与 sprint-plan 重复   | 只定义当前权威来源                 |
 | `docs/agile/sprint-backlog.md`               | 建立 Sprint 12 / Story 001 正式记录          | S12 ID 冲突           | 明确冲突，不重编号旧占位           |
@@ -63,6 +63,37 @@
 | `docs/governance/evidence-index.md`             | execution report / QA / ops / audit 证据索引  | S12 后续 Story |
 | `docs/governance/debt-and-deferred-register.md` | 风险、债务、deferred 统一索引                 | S12 后续 Story |
 
+## 4.1 后续 Sprint / Release 文档结构
+
+后续采用“全局索引 + 每个 Sprint / Release 独立目录”。历史大文件保持原样，从后续新 Sprint / Release 开始逐步采用。
+
+```text
+docs/agile/
+├─ sprint-backlog.md              # 全局 Sprint 索引与状态总览
+├─ release-plan.md                # 全局 Release 索引与状态总览
+├─ sprints/
+│  └─ sprint-<id>/
+│     ├─ plan.md
+│     ├─ backlog.md
+│     ├─ review.md
+│     ├─ retrospective.md
+│     └─ closeout.md
+└─ releases/
+   └─ release-<id>/
+      ├─ plan.md
+      ├─ backlog.md
+      ├─ coverage.md
+      ├─ review.md
+      └─ closeout.md
+```
+
+执行原则：
+
+- 全局文件只保留索引和状态总览。
+- 详细 Story、AC、Review、Retro、Closeout 放入独立目录。
+- 同一状态只维护在一个权威位置，其他文档只做链接或摘要。
+- Release 1 / Sprint 1~11 历史大文件不在本轮拆分。
+
 ## 5. 后续可能废弃或合并的文档
 
 本 Story 不废弃、不删除。后续仅在用户确认后处理：
@@ -85,28 +116,43 @@
 
 ## 7. Sprint 12 后续 Story 建议
 
-| 顺序 | Story 建议                                           | 目标                                             | 验收方式                              |
-| ---- | ---------------------------------------------------- | ------------------------------------------------ | ------------------------------------- |
-| 1    | S12-STORY-001 Governance Document Audit              | 完成本轮审计、蓝图、迁移计划                     | 本轮 execution report + commit        |
-| 2    | S12-STORY-002 Product Module Tree & Feature Catalog  | 建立模块树和功能目录                             | 新增产品文档，映射 R1/R2，不改历史    |
-| 3    | S12-STORY-003 Release 2 Scope & Release Backlog      | 建立 R2 scope、候选 backlog、非目标              | R2 scope 文档 + release backlog       |
-| 4    | S12-STORY-004 Traceability & Evidence Index          | 建立目标→Story→证据索引                          | execution reports / QA / ops 链接可查 |
-| 5    | S12-STORY-005 Agile Events & Governance Rule Cleanup | 定义敏捷事件，修正规则滞后                       | 修正协作文档/规则，检查通过           |
-| 6    | S12-STORY-006 Deferred Debt Replanning               | 对 Compat / DSL / DB sync 等 deferred 做重新归类 | 不直接实现债务，只拆分候选 Story      |
+| 顺序 | Story 建议                                                        | 目标                                           | 验收方式                               |
+| ---- | ----------------------------------------------------------------- | ---------------------------------------------- | -------------------------------------- |
+| 1    | S12-STORY-001 现有项目管理与产品文档体系审计                      | 完成本轮审计、蓝图、迁移计划                   | 本轮 execution report + commit         |
+| 2    | S12-STORY-002 产品愿景、目标用户、核心场景与系统边界              | 重新梳理产品愿景、用户、场景和边界             | 更新产品愿景/范围，不定义 R2 详细范围  |
+| 3    | S12-STORY-003 完整产品模块树与产品功能目录                        | 建立模块树和功能目录                           | 新增产品文档，映射 R1/R2，不改历史     |
+| 4    | S12-STORY-004 用户旅程、用户活动与完整 Story Map                  | 建立 Journey → Activity → Step → Story Map     | 升级 Story Map，不直接拆 Sprint        |
+| 5    | S12-STORY-005 Product Backlog、Release、Sprint 与模块覆盖追踪体系 | 建立 Product/Release/Sprint Backlog 与覆盖追踪 | 追踪矩阵和索引，不迁移历史 report      |
+| 6    | S12-STORY-006 敏捷事件、流程闸门、DoR/DoD 与标准模板              | 定义 Planning/Review/Audit/Closeout 与模板     | 新增治理模板，不关闭 Sprint            |
+| 7    | S12-STORY-007 Release 1 历史能力、模块及功能映射                  | 将 R1 历史能力映射到模块/功能目录              | 只建立映射，不重写 R1 历史             |
+| 8    | S12-STORY-008 Release 2 及后续产品路线与渐进式迭代计划            | 重新制定 R2 正式范围与后续路线                 | 新 Release 2 Scope 获批前不拆入 Sprint |
+| 9    | S12-STORY-009 全局一致性审计、治理验收与 Sprint 12 关闭           | 审计 S12 治理体系一致性并准备 closeout         | 用户确认后才能关闭 Sprint 12           |
 
-说明：仓库已有 “S12-STORY-001/002” 作为 DECISION-111 下 Compat / DSL deferred 占位。因本轮用户已指定 Product Governance 审计为 S12-STORY-001，后续必须先做 ID 冲突处理，再正式执行 Compat / DSL 债务 Story。
+说明：
+
+- `Deferred Debt Replanning` 不再作为 Sprint 12 核心 Story。
+- Compat / DSL / DB sync 等 deferred 项应回到 Product Backlog / 后续 `debt-and-deferred-register` 候选池，待专门治理决策分配新的 Backlog / Story ID。
+- 仓库已有 “S12-STORY-001/002” 作为 DECISION-111 下 Compat / DSL deferred 占位。它们仅保留为历史占位，不得继续作为正式 Sprint 12 Story ID 使用。
 
 ## 8. 分步风险与验收
 
-| 步骤                             | 风险                           | 验收方式                                  |
-| -------------------------------- | ------------------------------ | ----------------------------------------- |
-| 建立治理审计文档                 | 结论脱离实际文件               | 文档列出扫描范围和矩阵                    |
-| 建立 Sprint 12 记录              | 与 S11 未关闭、旧 S12 占位冲突 | 明确基线依赖与 ID 冲突                    |
-| 新增模块树/功能目录              | 把 Backlog 当功能目录          | 明确稳定能力 vs 工作项                    |
-| 新增 Release Backlog             | 与 `release-plan.md` 重复      | 定义 release backlog 是选取项，不是状态页 |
-| 新增追踪矩阵                     | 人工维护成本高                 | 从当前高价值链路开始，不追求一次全量      |
-| 清理规则/协作文档                | 误改历史结论                   | 只修当前规范，不改旧 decision 原文        |
-| Compat / DSL deferred replanning | 误把债务修复混入治理 Story     | 单独 Story，先规划再实现                  |
+| 步骤                             | 风险                           | 验收方式                                                |
+| -------------------------------- | ------------------------------ | ------------------------------------------------------- |
+| 建立治理审计文档                 | 结论脱离实际文件               | 文档列出扫描范围和矩阵                                  |
+| 建立 Sprint 12 记录              | 与 S11 未关闭、旧 S12 占位冲突 | 明确基线依赖与 ID 冲突                                  |
+| 新增模块树/功能目录              | 把 Backlog 当功能目录          | 明确稳定能力 vs 工作项                                  |
+| 新增 Release Backlog             | 与 `release-plan.md` 重复      | 定义 release backlog 是选取项，不是状态页               |
+| 新增追踪矩阵                     | 人工维护成本高                 | 从当前高价值链路开始，不追求一次全量                    |
+| 清理规则/协作文档                | 误改历史结论                   | 只修当前规范，不改旧 decision 原文                      |
+| Compat / DSL deferred replanning | 误把债务修复混入治理 Story     | 移回 Product Backlog / Deferred Register 候选，另行决策 |
+
+## 8.1 Sprint 11 / Sprint 12 分支同步闸门
+
+- 当前 Sprint 12 基于未关闭的 `sprint/s11-production-ops-go-live` 分支建立。
+- 本轮允许将 S12-STORY-001 merge 回 `sprint/s12-product-governance-r2-planning`，用于完成治理审计闭环。
+- 在启动 S12-STORY-002 前，必须先确认 Sprint 11 的最终 merge 状态。
+- Sprint 11 merge 至 `release/1` 后，需要将 Sprint 12 与最新 `release/1` 对齐，再继续后续 Story。
+- 本轮不执行该同步，不 merge `release/1`，不 merge `main`。
 
 ## 9. 本 Story 停止线
 
@@ -116,6 +162,7 @@
 - 完成目标体系蓝图。
 - 完成增量迁移方案。
 - 建立 Sprint 12 / S12-STORY-001 正式记录。
+- 按审查结论修正 Sprint 12 9 Story 结构、Story Map 层级、PBI 类型关系、Release 2 旧规划状态、文档结构原则与 S11/S12 分支闸门。
 - 生成 execution report 并提交。
 
 本 Story 不做：
@@ -123,6 +170,8 @@
 - 不开发 Release 2 功能。
 - 不实现 Compatibility Recalibration。
 - 不实现 DSL Runtime Cleanup。
+- 不启动 S12-STORY-002。
 - 不批量重构历史文档。
 - 不关闭 Sprint 11、Sprint 12 或 Release 1。
-- 不 merge `sprint`、`release/1` 或 `main`。
+- 本轮允许 S12-STORY-001 工作分支 merge 回 `sprint/s12-product-governance-r2-planning`。
+- 不 merge `release/1` 或 `main`。
