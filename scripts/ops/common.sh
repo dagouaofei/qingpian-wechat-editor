@@ -29,6 +29,9 @@ Examples:
   pnpm ops:deploy:staging -- origin/sprint/s11-production-ops-go-live
   pnpm ops:deploy:production -- edc1fd7 --confirm-production
   pnpm ops:status:staging
+  pnpm ops:status:production
+  pnpm ops:observe:staging
+  pnpm ops:observe:production
   pnpm ops:rollback:staging -- <commit>
 EOF
 }
@@ -43,6 +46,7 @@ resolve_environment_config() {
       OPS_ENV_FILE="${OPS_ENV_FILE:-${OPS_CANONICAL_STAGING_ENV_FILE}}"
       OPS_HEALTH_URL="${OPS_HEALTH_URL:-http://127.0.0.1:3001/api/health}"
       OPS_VERSION_URL="${OPS_VERSION_URL:-http://127.0.0.1:3001/api/version}"
+      OPS_PUBLIC_URL="${OPS_PUBLIC_URL:-https://staging.qingpianai.cn}"
       OPS_APP_ENV="${OPS_APP_ENV:-staging}"
       OPS_LOCK_FILE="${OPS_LOCK_FILE:-${OPS_CANONICAL_STAGING_LOCK_FILE}}"
       ;;
@@ -53,6 +57,7 @@ resolve_environment_config() {
       OPS_ENV_FILE="${OPS_ENV_FILE:-${OPS_CANONICAL_PRODUCTION_ENV_FILE}}"
       OPS_HEALTH_URL="${OPS_HEALTH_URL:-http://127.0.0.1:3000/api/health}"
       OPS_VERSION_URL="${OPS_VERSION_URL:-http://127.0.0.1:3000/api/version}"
+      OPS_PUBLIC_URL="${OPS_PUBLIC_URL:-https://paiban.aiqingpian.cn}"
       OPS_APP_ENV="${OPS_APP_ENV:-production}"
       OPS_LOCK_FILE="${OPS_LOCK_FILE:-${OPS_CANONICAL_PRODUCTION_LOCK_FILE}}"
       ;;
