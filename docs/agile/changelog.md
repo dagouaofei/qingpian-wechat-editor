@@ -875,3 +875,16 @@
 | 2026-06-07 | Sprint 10 | 新增 `GET /api/health` · `pnpm db:migrate:deploy` · `.env.example` pool/OSS 占位 | 代码 / 运维 | S10-STORY-007 |
 | 2026-06-07 | Sprint 10 | 阿里云资源隔离：独立 ECS / RDS / OSS · 华北 2 · 不共用秒篇服务 | 文档 / 架构 | S10-STORY-007 |
 | 2026-06-07 | Sprint 10 | **S10-STORY-007 Done**：fast-forward merge `docs/s10-story-007-aliyun-deployment-runbook` → `sprint/s10-db-backed-style-admin-v1` @ `03ec49b` · 审查通过 | Git / 运维 | S10-STORY-007 |
+
+---
+
+## 2026-06-28 · Sprint 12 Product Governance Audit
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-28 | Sprint 12 | **S12-STORY-001 启动并进入审查**：现有项目管理与产品文档体系审计 · Product Governance & Release 2 Planning | 产品治理 / 敏捷 | S12-STORY-001 |
+| 2026-06-28 | Sprint 12 | 新增 `docs/governance/s12-current-system-audit.md`、`product-governance-target-model.md`、`product-governance-migration-plan.md` | 文档 / 治理 | S12-STORY-001 |
+| 2026-06-28 | Sprint 12 | 新增 `sprint12-product-governance-r2-planning.md`，并在 `sprint-backlog.md` 记录 Sprint 12 基线依赖与 S12 ID 冲突 | 敏捷 / Backlog | S12-STORY-001 |
+| 2026-06-28 | Sprint 12 | **S12-STORY-001 审查修正**：Sprint 12 恢复为 9 Story；Deferred Debt Replanning 移回 Product Backlog / Deferred Register 候选 | 产品治理 / 敏捷 | S12-STORY-001 |
+| 2026-06-28 | Sprint 12 | 修正目标模型：Journey → Activity → Step → User Story；User Story 明确为 Product Backlog Item 类型之一 | 产品治理 | S12-STORY-001 |
+| 2026-06-28 | Sprint 12 | 旧 Release 2 规划标记为 Superseded / Pending Replanning；S12-STORY-008 重新制定正式 Release 2 Scope | Product Backlog / Release Planning | S12-STORY-001 |
