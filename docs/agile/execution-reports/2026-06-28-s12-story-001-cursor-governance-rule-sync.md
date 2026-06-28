@@ -3,7 +3,8 @@
 ## 1. 基本信息
 
 - 日期：2026-06-28
-- 当前分支：`docs/s12-story-001-cursor-governance-rule-sync`
+- 执行分支：`docs/s12-story-001-cursor-governance-rule-sync`
+- merge 后当前分支：`sprint/s12-product-governance-r2-planning`
 - 来源分支：`sprint/s12-product-governance-r2-planning`
 - 目标合并分支：`sprint/s12-product-governance-r2-planning`
 - Sprint：Sprint 12 — Product Governance & Release 2 Planning
@@ -97,20 +98,20 @@
 
 ## 8. 验收标准完成情况
 
-| AC                                          | 结果 | 说明                             |
-| ------------------------------------------- | ---- | -------------------------------- |
-| `.cursor/rules/agile-governance.mdc` 已创建 | PASS | 已创建并 `alwaysApply: true`     |
-| 格式符合现有 `.mdc` 规范                    | PASS | frontmatter 与结构对齐现有规则   |
-| 覆盖全部核心闸门                            | PASS | 10 节全部覆盖                    |
-| 与现有规则无明显冲突                        | PASS | 互补引用，更严格闸门优先         |
-| 既有规则仅最小必要修改                      | PASS | 见第 7 节：3 个 `.mdc` 均已更新  |
-| 已记录本轮治理补充                          | PASS | changelog + sprint12 索引        |
-| 未启动 S12-STORY-002                        | PASS | —                                |
-| 未修改产品代码                              | PASS | —                                |
-| 检查通过                                    | PASS | 见第 9 节                        |
-| 已 commit                                   | PASS | 见第 14 节                       |
-| working tree clean                          | PASS | commit 后确认                    |
-| 未 merge、未 push                           | PASS | 已 merge 至 Sprint 分支；未 push |
+| AC                                          | 结果 | 说明                            |
+| ------------------------------------------- | ---- | ------------------------------- |
+| `.cursor/rules/agile-governance.mdc` 已创建 | PASS | 已创建并 `alwaysApply: true`    |
+| 格式符合现有 `.mdc` 规范                    | PASS | frontmatter 与结构对齐现有规则  |
+| 覆盖全部核心闸门                            | PASS | 10 节全部覆盖                   |
+| 与现有规则无明显冲突                        | PASS | 互补引用，更严格闸门优先        |
+| 既有规则仅最小必要修改                      | PASS | 见第 7 节：3 个 `.mdc` 均已更新 |
+| 已记录本轮治理补充                          | PASS | changelog + sprint12 索引       |
+| 未启动 S12-STORY-002                        | PASS | —                               |
+| 未修改产品代码                              | PASS | —                               |
+| 检查通过                                    | PASS | 见第 9 节                       |
+| 已 commit                                   | PASS | 见第 14 节                      |
+| working tree clean                          | PASS | commit 后确认                   |
+| 已 merge 至 Sprint，未 push                 | PASS | merge commit `5b15808`          |
 
 ## 9. 运行检查
 
@@ -150,5 +151,7 @@
   - `121c283` — 审查修正：闸门适用范围收窄；删除过期 Sprint 状态硬编码
   - `99784cc` — execution report 记录第二轮审查修正
   - `c63e2a9` — execution report 最终纠正
-- Merge 状态：已 merge 至 `sprint/s12-product-governance-r2-planning`（merge commit 见最终报告）
+  - `aa47c42` — execution report 记录 finalize commit hash
+- Sprint merge commit：`5b15808` — `--no-ff` merge `docs/s12-story-001-cursor-governance-rule-sync` → `sprint/s12-product-governance-r2-planning`
+- Merge 状态：已 merge 至 `sprint/s12-product-governance-r2-planning`
 - Push 状态：未 push
