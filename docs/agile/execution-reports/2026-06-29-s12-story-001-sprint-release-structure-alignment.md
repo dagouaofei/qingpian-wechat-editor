@@ -158,6 +158,6 @@ sprint-backlog\.md|release-plan\.md|每个 Sprint 必须更新|Sprint Backlog|Re
 
 ## 13. Commit
 
-- Commit hash：（提交后填写）
+- Commit hash：`81fa694`
 - Merge 状态：未 merge
 - Push 状态：未 push
