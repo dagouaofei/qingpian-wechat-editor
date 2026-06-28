@@ -63,7 +63,7 @@
 
 ## 7. commit hash
 
-（见 closeout commit）
+`7e95a4a`
 
 ## 8. merge 状态
 

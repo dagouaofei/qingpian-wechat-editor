@@ -51,7 +51,8 @@ npm run build
 
 ## 8. commit hash
 
-（见 feat commit）
+- closeout docs：`7e95a4a`
+- **feat：`d906af2`**
 
 ## 9. 建议下一步
 
