@@ -888,3 +888,12 @@
 | 2026-06-28 | Sprint 12 | **S12-STORY-001 审查修正**：Sprint 12 恢复为 9 Story；Deferred Debt Replanning 移回 Product Backlog / Deferred Register 候选 | 产品治理 / 敏捷 | S12-STORY-001 |
 | 2026-06-28 | Sprint 12 | 修正目标模型：Journey → Activity → Step → User Story；User Story 明确为 Product Backlog Item 类型之一 | 产品治理 | S12-STORY-001 |
 | 2026-06-28 | Sprint 12 | 旧 Release 2 规划标记为 Superseded / Pending Replanning；S12-STORY-008 重新制定正式 Release 2 Scope | Product Backlog / Release Planning | S12-STORY-001 |
+
+---
+
+## 2026-06-28 · S12-STORY-001 Cursor Governance Rule Sync
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-28 | Sprint 12 | **S12-STORY-001 治理验收补充**：新增 `.cursor/rules/agile-governance.mdc`，固化 Sprint / Story 启动、DoR、范围、合并与停止闸门 | Cursor 规则 / 治理 | S12-STORY-001 |
+| 2026-06-28 | Sprint 12 | `agile-rules.mdc`、`collaboration-rules.mdc` 最小引用更新，指向新治理闸门文件 | Cursor 规则 | S12-STORY-001 |
