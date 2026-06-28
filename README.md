@@ -58,6 +58,8 @@ pnpm dev
 ```
 docs/
   agile/          # 敏捷管理文档
+    sprints/      # 各 Sprint 独立详细文档
+    releases/     # 各 Release 独立详细文档
   product/        # 产品文档
   governance/     # 产品治理与文档体系升级
   architecture/   # 架构文档
@@ -73,12 +75,12 @@ tests/            # 测试
 
 ## 文档索引
 
-| 目录 | 说明 |
-|------|------|
-| [docs/product/product-vision.md](docs/product/product-vision.md) | 产品愿景 |
-| [docs/product/release-1-scope.md](docs/product/release-1-scope.md) | Release 1 范围 |
+| 目录                                                                                       | 说明                       |
+| ------------------------------------------------------------------------------------------ | -------------------------- |
+| [docs/product/product-vision.md](docs/product/product-vision.md)                           | 产品愿景                   |
+| [docs/product/release-1-scope.md](docs/product/release-1-scope.md)                         | Release 1 范围             |
 | [docs/governance/s12-current-system-audit.md](docs/governance/s12-current-system-audit.md) | Sprint 12 当前治理体系审计 |
-| [docs/agile/product-backlog.md](docs/agile/product-backlog.md) | Product Backlog |
-| [docs/agile/sprint-backlog.md](docs/agile/sprint-backlog.md) | 当前 Sprint Backlog |
-| [docs/agile/git-workflow.md](docs/agile/git-workflow.md) | Git 工作流与分支策略 |
-| [docs/architecture/architecture-overview.md](docs/architecture/architecture-overview.md) | 架构总览 |
+| [docs/agile/product-backlog.md](docs/agile/product-backlog.md)                             | Product Backlog            |
+| [docs/agile/sprint-backlog.md](docs/agile/sprint-backlog.md)                               | Sprint 全局索引与状态总览  |
+| [docs/agile/git-workflow.md](docs/agile/git-workflow.md)                                   | Git 工作流与分支策略       |
+| [docs/architecture/architecture-overview.md](docs/architecture/architecture-overview.md)   | 架构总览                   |

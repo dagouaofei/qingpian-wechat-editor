@@ -185,8 +185,42 @@ sprint-backlog\.md|release-plan\.md|每个 Sprint 必须更新|Sprint Backlog|Re
 
 **审查 ZIP：** `review-package/s12-story-001-sprint-release-structure-review.zip`（本地，不 commit）
 
-**merge 建议：** 可 merge；无必须修正项；README A-1 为可选后续修正
+**merge 建议：** 可 merge；第二轮复检 **A = 0 · E = 0**（详见 §16）
 
 ## 15. Commit（含残留审计）
 
 - Commit hash：`7b4ad18` — 残留审计报告、TSV、execution report 补充
+- Commit hash：`60981b6` — execution report 记录残留审计 commit
+
+## 16. merge 前最小修正（2026-06-29）
+
+**定位：** 关闭第一轮残留审计 A-1 与原 E 类误分类项；重新运行残留审计，**A = 0 · E = 0**。
+
+**修正文件：**
+
+| 文件                                                                | 修正摘要                                                                     |
+| ------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `README.md`                                                         | 文档索引「Sprint 全局索引与状态总览」；目录结构补充 `sprints/` / `releases/` |
+| `docs/governance/product-governance-target-model.md`                | 对象表双轨权威；Backlog/Delivery 分层；Release/Sprint Backlog 章节           |
+| `docs/governance/product-governance-migration-plan.md`              | release-plan 索引 + `releases/release-<id>/` 详细事实源                      |
+| `docs/product/user-story-map.md`                                    | 相关文档链接标注；补充独立目录说明                                           |
+| `docs/governance/s12-sprint-release-structure-residual-audit.md`    | 第二轮复检统计与 merge 建议                                                  |
+| `docs/governance/s12-sprint-release-structure-residual-matches.tsv` | 重新生成                                                                     |
+
+**第二轮残留审计统计：** 1699 行 · 182 文件 · **A:0 · B:65 · C:355 · D:1279 · E:0**
+
+**已关闭：** README 索引问题；目标模型对象表 / 分层表误分类；迁移计划状态权威表述；user-story-map 链接语义。
+
+**Commit（本轮）：** 见 §17
+
+**Merge 状态：** 未 merge
+
+**Push 状态：** 未 push
+
+## 17. Commit（merge 前最小修正）
+
+- Commit hash：
+  - `60981b6` — execution report 记录残留审计 commit
+  - 本轮 — `docs(s12): close sprint release structure residuals`（branch tip，审查时 `git log -1 --format=%h`）
+- Merge 状态：未 merge
+- Push 状态：未 push

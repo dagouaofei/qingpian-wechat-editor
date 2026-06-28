@@ -40,22 +40,22 @@
 
 ## 2. 产品管理对象
 
-| 对象                 | 定义                                              | 建议权威文档                                     | 说明                                                               |
-| -------------------- | ------------------------------------------------- | ------------------------------------------------ | ------------------------------------------------------------------ |
-| Product Goal         | 产品长期目标和阶段目标                            | `docs/product/product-vision.md`                 | 不直接等于 backlog                                                 |
-| User / Scenario      | 用户类型、使用场景、优先级                        | `docs/product/product-scope.md`                  | 后续可升级为用户与场景目录                                         |
-| User Journey         | 用户围绕某个目标完成的一条端到端旅程              | `docs/product/user-story-map.md`                 | Journey 下分 Activity / Step / Story，不直接跳到 Product Feature   |
-| User Activity        | 用户旅程中的一组连续活动                          | 后续 Story Map 升级文档                          | 例如准备内容、生成文章、排版检查、复制发布                         |
-| User Step            | Activity 下可观察的用户步骤                       | 后续 Story Map 升级文档                          | 是拆分 User Story 的直接输入                                       |
-| User Story Map       | Journey → Activity → Step → User Story 的结构化图 | 后续升级 `docs/product/user-story-map.md`        | 是用户视角的需求地图，不等同模块树或功能目录                       |
-| Product Module       | 稳定产品模块，如生成、排版、样式、复制、运营后台  | 后续新增产品模块树                               | 是产品能力结构，不等同代码目录                                     |
-| Product Feature      | 产品应具备的稳定功能                              | 后续新增功能目录                                 | 功能目录描述“产品有什么能力”                                       |
-| Product Backlog Item | 为实现/完善/修复功能而产生的工作项总类            | `docs/agile/product-backlog.md`                  | User Story 是 PBI 的一种类型；Backlog 描述工作，不描述完整静态能力 |
-| User Story           | 从用户价值表达的 Product Backlog Item             | `docs/agile/sprint-backlog.md`                   | 一个 User Story 可涉及多个模块/功能                                |
-| Enabler / Tech / Ops | Enabler Story、Technical Story、Ops Task 等 PBI   | `docs/agile/product-backlog.md` / Sprint Backlog | 非用户故事类 PBI，支撑架构、运维、治理、调研、风险收口等           |
-| Release Backlog      | 某个 Release 承诺或候选交付集合                   | 后续新增或升级 release plan                      | 从 Product Backlog 选取，并绑定 Release goal                       |
-| Sprint Backlog       | 当前 Sprint committed PBIs / Stories              | `docs/agile/sprint-backlog.md` + Sprint 专项文档 | 承接具体 AC、分支和证据                                            |
-| Evidence             | 代码、commit、测试、QA、报告、上线证据            | execution reports / paste QA / ops docs          | 需要后续建立索引层                                                 |
+| 对象                 | 定义                                              | 建议权威文档                                                                                                                                               | 说明                                                               |
+| -------------------- | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| Product Goal         | 产品长期目标和阶段目标                            | `docs/product/product-vision.md`                                                                                                                           | 不直接等于 backlog                                                 |
+| User / Scenario      | 用户类型、使用场景、优先级                        | `docs/product/product-scope.md`                                                                                                                            | 后续可升级为用户与场景目录                                         |
+| User Journey         | 用户围绕某个目标完成的一条端到端旅程              | `docs/product/user-story-map.md`                                                                                                                           | Journey 下分 Activity / Step / Story，不直接跳到 Product Feature   |
+| User Activity        | 用户旅程中的一组连续活动                          | 后续 Story Map 升级文档                                                                                                                                    | 例如准备内容、生成文章、排版检查、复制发布                         |
+| User Step            | Activity 下可观察的用户步骤                       | 后续 Story Map 升级文档                                                                                                                                    | 是拆分 User Story 的直接输入                                       |
+| User Story Map       | Journey → Activity → Step → User Story 的结构化图 | 后续升级 `docs/product/user-story-map.md`                                                                                                                  | 是用户视角的需求地图，不等同模块树或功能目录                       |
+| Product Module       | 稳定产品模块，如生成、排版、样式、复制、运营后台  | 后续新增产品模块树                                                                                                                                         | 是产品能力结构，不等同代码目录                                     |
+| Product Feature      | 产品应具备的稳定功能                              | 后续新增功能目录                                                                                                                                           | 功能目录描述“产品有什么能力”                                       |
+| Product Backlog Item | 为实现/完善/修复功能而产生的工作项总类            | `docs/agile/product-backlog.md`                                                                                                                            | User Story 是 PBI 的一种类型；Backlog 描述工作，不描述完整静态能力 |
+| User Story           | 从用户价值表达的 Product Backlog Item             | Product 阶段：`docs/agile/product-backlog.md`；Sprint 承诺后详细执行：`docs/agile/sprints/sprint-<id>/backlog.md`；`docs/agile/sprint-backlog.md` 仅为索引 | 一个 User Story 可涉及多个模块/功能                                |
+| Enabler / Tech / Ops | Enabler Story、Technical Story、Ops Task 等 PBI   | Product 阶段：`docs/agile/product-backlog.md`；Sprint 执行：`docs/agile/sprints/sprint-<id>/backlog.md`                                                    | 非用户故事类 PBI，支撑架构、运维、治理、调研、风险收口等           |
+| Release Backlog      | 某个 Release 承诺或候选交付集合                   | `docs/agile/releases/release-<id>/backlog.md`；`docs/agile/release-plan.md` 仅为全局索引                                                                   | 从 Product Backlog 选取，并绑定 Release goal                       |
+| Sprint Backlog       | 当前 Sprint committed PBIs / Stories              | `docs/agile/sprints/sprint-<id>/backlog.md`；`docs/agile/sprint-backlog.md` 仅为全局索引                                                                   | 承接具体 AC、分支和证据                                            |
+| Evidence             | 代码、commit、测试、QA、报告、上线证据            | execution reports / paste QA / ops docs                                                                                                                    | 需要后续建立索引层                                                 |
 
 ## 3. 对象关系
 
@@ -86,14 +86,14 @@ Product Backlog Item 1..n Branch / Commit / Check / Evidence
 
 ## 4. 文档分层
 
-| 层级        | 作用                           | 当前文档                                  | 目标处理                                     |
-| ----------- | ------------------------------ | ----------------------------------------- | -------------------------------------------- |
-| 产品愿景层  | 定义为什么做、为谁做           | `product-vision.md`, `product-scope.md`   | 保留并补映射                                 |
-| 产品结构层  | 定义模块、功能、旅程           | `user-story-map.md` 部分承担              | 新增模块树和功能目录                         |
-| Backlog 层  | 管理实现工作项                 | `product-backlog.md`, `sprint-backlog.md` | 明确 Product / Release / Sprint Backlog 边界 |
-| Delivery 层 | 管理 Story、分支、commit、检查 | `sprint-backlog.md`, execution reports    | 保留并增加证据索引                           |
-| Decision 层 | 管理决策与变更                 | `decisions.md`, `changelog.md`            | 保留，补当前权威说明                         |
-| Evidence 层 | 管理测试、QA、上线、审计证据   | execution reports, paste QA, ops, audits  | 新增索引，避免移动历史证据                   |
+| 层级        | 作用                           | 当前文档                                                                                                                                                                   | 目标处理                                                |
+| ----------- | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
+| 产品愿景层  | 定义为什么做、为谁做           | `product-vision.md`, `product-scope.md`                                                                                                                                    | 保留并补映射                                            |
+| 产品结构层  | 定义模块、功能、旅程           | `user-story-map.md` 部分承担                                                                                                                                               | 新增模块树和功能目录                                    |
+| Backlog 层  | 管理实现工作项                 | `product-backlog.md`（Product）；`releases/release-<id>/backlog.md`（Release）；`sprints/sprint-<id>/backlog.md`（Sprint）；`release-plan.md` / `sprint-backlog.md` 仅索引 | 明确 Product / Release / Sprint Backlog 边界            |
+| Delivery 层 | 管理 Story、分支、commit、检查 | `sprints/sprint-<id>/`、execution reports                                                                                                                                  | 详细执行与证据；全局 backlog 文件不作 Delivery 权威容器 |
+| Decision 层 | 管理决策与变更                 | `decisions.md`, `changelog.md`                                                                                                                                             | 保留，补当前权威说明                                    |
+| Evidence 层 | 管理测试、QA、上线、审计证据   | execution reports, paste QA, ops, audits                                                                                                                                   | 新增索引，避免移动历史证据                              |
 
 ## 5. Backlog 分层
 
@@ -117,7 +117,7 @@ Product Backlog Item 1..n Branch / Commit / Check / Evidence
 
 ### Release Backlog
 
-从 Product Backlog 中选择某个 Release 的候选或承诺范围，说明 Release goal、范围边界、验收条件和非目标。
+从 Product Backlog 中选择某个 Release 的候选或承诺范围，说明 Release goal、范围边界、验收条件和非目标。**权威记录位置：** `docs/agile/releases/release-<id>/backlog.md`；`docs/agile/release-plan.md` 仅为全局索引。
 
 建议字段：
 
@@ -131,7 +131,7 @@ Product Backlog Item 1..n Branch / Commit / Check / Evidence
 
 ### Sprint Backlog
 
-从 Release Backlog 或 Product Backlog 中选择当前 Sprint 可执行的 Product Backlog Item，并记录 AC、工作分支、commit、检查和验收。
+从 Release Backlog 或 Product Backlog 中选择当前 Sprint 可执行的 Product Backlog Item，并记录 AC、工作分支、commit、检查和验收。**权威记录位置：** `docs/agile/sprints/sprint-<id>/backlog.md`；`docs/agile/sprint-backlog.md` 仅为全局索引。
 
 建议字段：
 

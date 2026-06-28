@@ -100,13 +100,13 @@ docs/agile/
 
 本 Story 不废弃、不删除。后续仅在用户确认后处理：
 
-| 对象                                                          | 建议                           | 前置条件                                    |
-| ------------------------------------------------------------- | ------------------------------ | ------------------------------------------- |
-| `sprint-plan.md` 中重复的 Sprint 状态摘要                     | 停止继续扩张，转为历史叙事     | Release dashboard 和 Sprint docs 权威明确后 |
-| `product-backlog.md` 中非 backlog 的静态能力描述              | 抽到功能目录并保留历史引用     | 功能目录建立后                              |
-| `release-plan.md` 与 `product-backlog.md` 的 Release 状态重复 | `release-plan.md` 作为状态权威 | 用户确认 Release dashboard 责任             |
-| 过时 `src/core/**/README.md`                                  | 按模块更新或归档               | 独立模块审计 Story                          |
-| 早期协作文档中的 sprint→main 文字                             | 修为当前 release 模型          | 单独治理修正文档 Story                      |
+| 对象                                                          | 建议                                                                                                                                | 前置条件                                    |
+| ------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
+| `sprint-plan.md` 中重复的 Sprint 状态摘要                     | 停止继续扩张，转为历史叙事                                                                                                          | Release dashboard 和 Sprint docs 权威明确后 |
+| `product-backlog.md` 中非 backlog 的静态能力描述              | 抽到功能目录并保留历史引用                                                                                                          | 功能目录建立后                              |
+| `release-plan.md` 与 `product-backlog.md` 的 Release 状态重复 | `release-plan.md` 为 Release 全局索引与状态总览；`docs/agile/releases/release-<id>/plan.md` 与 `backlog.md` 为该 Release 详细事实源 | 用户确认 Release 索引与独立目录职责边界     |
+| 过时 `src/core/**/README.md`                                  | 按模块更新或归档                                                                                                                    | 独立模块审计 Story                          |
+| 早期协作文档中的 sprint→main 文字                             | 修为当前 release 模型                                                                                                               | 单独治理修正文档 Story                      |
 
 ## 6. 历史内容处理原则
 
