@@ -239,5 +239,5 @@
 - `pnpm lint`：PASS（0 errors，34 existing warnings）
 - `pnpm build`：PASS
 
-修正 commit：待提交  
+修正 commit：`de847e6`  
 Sprint merge commit：待 merge 后回填
