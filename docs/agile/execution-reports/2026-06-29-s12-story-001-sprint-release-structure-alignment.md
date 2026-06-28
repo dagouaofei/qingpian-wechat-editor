@@ -219,8 +219,43 @@ sprint-backlog\.md|release-plan\.md|每个 Sprint 必须更新|Sprint Backlog|Re
 
 ## 17. Commit（merge 前最小修正）
 
-- Commit hash：
-  - `60981b6` — execution report 记录残留审计 commit
-  - 本轮 — `docs(s12): close sprint release structure residuals`（branch tip，审查时 `git log -1 --format=%h`）
+### 主要实现 commit
+
+- `81fa694` — 结构对齐主变更（规则、目标模型、DECISION-114 等）
+
+### 修正 commit
+
+- `7b4ad18` — 残留审计报告与 TSV
+- `60981b6` — execution report 记录残留审计 commit
+- `d79b6fd` — merge 前最小修正（README、目标模型、迁移计划、user-story-map、残留审计复检）
+
+### 状态
+
 - Merge 状态：未 merge
 - Push 状态：未 push
+
+## 18. Execution Report commit 记录规则同步
+
+**定位：** S12-STORY-001 merge 前治理规则补充；非新 Story。
+
+**本轮治理规则（`.cursor/rules/agile-governance.mdc` §6）：**
+
+1. 必须记录：主要实现 commit、影响实际成果的修正 commit、已授权 merge commit。
+2. 不要求记录：report-only commit（仅改 execution report 自身）。
+3. 最终状态使用 `HEAD at review time`；由 Cursor 最终回复报告，不要求写回本报告。
+4. 不得为回填最新 HEAD 循环产生 report-only commit。
+5. 必须区分：主要实现 / 修正 / report-only / merge commit / 当前 HEAD / merge 状态 / push 状态。
+6. 禁止：已 commit 写成已 merge；本地 merge 写成已 push。
+
+**当前模板：** 已找到并更新唯一生效模板 `docs/agile/execution-reports/_template.md` §14（与 `agile-rules.mdc` 引用一致）。
+
+**Commit 记录：**
+
+| 类型                    | Hash      | 说明                                                 |
+| ----------------------- | --------- | ---------------------------------------------------- |
+| 上一轮修正 commit       | `d79b6fd` | merge 前 Sprint/Release 结构残留关闭                 |
+| 本轮治理规则修正 commit | `1bf00b9` | execution report commit 记录规则（RULE_SYNC_COMMIT） |
+
+report-only commit（`docs(s12): record execution report rule sync`）不要求写回本报告。
+
+**明确未做：** 未 merge；未 push；未启动 S12-STORY-002；未批量修改历史 execution reports。
