@@ -148,9 +148,10 @@
 | **Sprint 9** | Style Management System v0 | S9-STORY-001 ~ S9-STORY-009 | **P0 · Closed**（DECISION-106 · @ `c96e869`） |
 | **Sprint 10** | Database-backed Style Management Admin v1 | S10-STORY-001 ~ S10-STORY-011 | **P0 · Closed**（DECISION-108 · DECISION-111） |
 | **Sprint 11** | Production Ops Go-Live | S11-STORY-001 ~ S11-STORY-006 | **P0 · In Progress**（DECISION-111） |
-| **Sprint 12+** | Compat / DSL 债务（原 S10-012/013） | S12-STORY-001 ~ 002 | **P1/P2 · Planned** |
+| **Sprint 12** | Product Governance & Release 2 Planning | S12-STORY-001 ~ 006 | **P0/P1 · In Progress / Proposed** |
+| **Sprint 12+** | Compat / DSL 债务（原 S10-012/013） | 旧 S12-STORY-001 ~ 002 占位，需重新确认编号 | **P1/P2 · Planned** |
 
-Story 详情见 [`sprint-backlog.md`](sprint-backlog.md) · S11 见 [`sprint11-production-ops-go-live.md`](sprint11-production-ops-go-live.md)。
+Story 详情见 [`sprint-backlog.md`](sprint-backlog.md) · S11 见 [`sprint11-production-ops-go-live.md`](sprint11-production-ops-go-live.md) · S12 治理见 [`sprint12-product-governance-r2-planning.md`](sprint12-product-governance-r2-planning.md)。
 
 **Sprint 10 原「Style Expansion」方向** 已由 **DECISION-108**（Database-backed admin v1）取代；**DECISION-111** 将部署上线列为 Sprint 11 优先。
 

@@ -14,6 +14,8 @@
 > **Sprint 9：** **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · **P0=0** · HTML→user preview picker E2E PASS · Preview/Copy parity PASS · default preset / release1_required 未污染 · **已 merge `release/1`** @ `c96e869` · **未 merge `main`**）
 > **Sprint 10：** **Closed**（2026-06-08 · **DECISION-108** · **DECISION-111** · S10-STORY-001~011 Done · **已 merge `release/1`** @ `6cd1dfc`）· 原 012~014 顺延 Sprint 12+
 > **当前 Sprint：** **Sprint 11** — Production Ops Go-Live（正式部署与运维上线）· **In Progress**（2026-06-08 · **DECISION-111**）
+> **专项 Sprint 12：** Product Governance & Release 2 Planning · **In Progress / Needs Review**（2026-06-28 · 从 `sprint/s11-production-ops-go-live` @ `653c70a` 建立；S11 尚未关闭，依赖需审查）
+> **Sprint 12 分支：** `sprint/s12-product-governance-r2-planning` · 当前 Story 分支：`docs/s12-story-001-governance-document-audit`
 > **Sprint 11 分支：** `sprint/s11-production-ops-go-live`（从 `release/1` · @ `6cd1dfc`）
 > **Sprint 10 分支：** `sprint/s10-db-backed-style-admin-v1`（已 merge `release/1` · @ `6cd1dfc`）
 > **Sprint 9 分支：** `sprint/s9-style-management-system-v0`（已 merge `release/1` · 2026-06-05）
@@ -4523,9 +4525,66 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 ---
 
+# Sprint 12 — Product Governance & Release 2 Planning
+
+> **文档：** [`sprint12-product-governance-r2-planning.md`](sprint12-product-governance-r2-planning.md)  
+> **分支：** `sprint/s12-product-governance-r2-planning`  
+> **来源基线：** `sprint/s11-production-ops-go-live` @ `653c70a`  
+> **状态：** In Progress / Needs Review  
+> **说明：** `release/1` 尚未包含 Sprint 11 最新完整状态；本 Sprint 分支从当前完整的 `sprint/s11-production-ops-go-live` 创建，等待人工审查后决定后续合并路径。
+
+## S12-STORY-001 现有项目管理与产品文档体系审计
+
+**优先级：** P0 · **状态：** **In Review** · **工作分支：** `docs/s12-story-001-governance-document-audit`
+
+**用户故事：** 作为产品负责人，我希望审计当前项目管理与产品文档体系，明确已有能力、重复冲突、真实缺口和增量升级路径，以便 Sprint 12 后续为 Release 2 建立完整产品全景。
+
+**目标：**
+
+- 审计产品规划、用户故事地图、Backlog、Sprint/Release 状态、DoR/DoD、Review/Audit/Closeout、Decision、Changelog、Risk/Debt/Deferred、分支/commit/测试/验收证据、Cursor 规则、目录结构和命名方式。
+- 输出当前体系审计报告、目标体系蓝图、增量迁移方案。
+- 建立 Sprint 12 与 S12-STORY-001 正式记录。
+
+**验收标准：**
+
+- [x] AC-1 已扫描并列出仓库内相关文档目录、数量和关键文件。
+- [x] AC-2 审计结论基于实际文件和规则。
+- [x] AC-3 已明确当前体系已有能力和真实缺口。
+- [x] AC-4 已明确新旧体系增量兼容方式。
+- [x] AC-5 未破坏 Release 1 或 Sprint 11 历史。
+- [x] AC-6 未批量重写现有文档。
+- [x] AC-7 未开发产品代码。
+- [x] AC-8 已建立 Sprint 12 和 Story 001 正式记录。
+- [x] AC-9 已记录 S12 ID 冲突和后续处理原则。
+- [x] AC-10 检查命令已运行；commit hash 提交后在 execution report / 最终回复中记录。
+
+**关键输出：**
+
+- [`../governance/s12-current-system-audit.md`](../governance/s12-current-system-audit.md)
+- [`../governance/product-governance-target-model.md`](../governance/product-governance-target-model.md)
+- [`../governance/product-governance-migration-plan.md`](../governance/product-governance-migration-plan.md)
+- [`sprint12-product-governance-r2-planning.md`](sprint12-product-governance-r2-planning.md)
+
+**明确不做：** 不开发 Release 2 功能 · 不实现 Compat / DSL 债务 · 不重写 Release 1 历史 · 不关闭 Sprint 11 / Release 1 · 不 merge `release/1` / `main`。
+
+## Sprint 12 后续候选 Story（Proposed）
+
+> 以下为治理迁移建议，未由 Cursor 自行关闭或启动，需用户确认后逐个执行。
+
+| Story | 名称 | 状态 |
+|-------|------|------|
+| S12-STORY-002 | Product Module Tree & Feature Catalog | Proposed |
+| S12-STORY-003 | Release 2 Scope & Release Backlog | Proposed |
+| S12-STORY-004 | Traceability & Evidence Index | Proposed |
+| S12-STORY-005 | Agile Events & Governance Rule Cleanup | Proposed |
+| S12-STORY-006 | Deferred Debt Replanning | Proposed |
+
+---
+
 # Deferred · Sprint 12+（原 S10-STORY-012~014 · DECISION-111 顺延）
 
 > **说明：** Release 1 部署优先（Sprint 11）完成后启动。编号映射见 **DECISION-111**。
+> **S12-STORY-001 ID 冲突说明（2026-06-28）：** 本 section 中的旧占位项早于 Sprint 12 Product Governance 重新规划；本轮不删除、不重编号旧记录。当前执行的正式 S12-STORY-001 为上方 “现有项目管理与产品文档体系审计”。Compat / DSL deferred 项需在后续治理 Story 中重新确认编号与执行顺序。
 
 ## S12-STORY-001 WeChat Compatibility Spec Recalibration（原 S10-STORY-012）
 
