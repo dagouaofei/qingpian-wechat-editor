@@ -2,6 +2,8 @@
 
 > 轻篇公众号排版 · qingpian-wechat-editor
 
+> **文档角色（DECISION-114）：** 本文件为 **Release 全局索引与状态总览**。Release 名称、目标摘要、状态、时间范围及指向 `docs/agile/releases/release-<id>/` 的链接在此维护。**不**作为全部详细 Release Backlog 与验收内容的唯一容器。下方 Release 1 历史详细内容保留；从后续新 Release 起，详细 Plan / Backlog / Coverage / Review / Closeout 写入独立 Release 目录。
+
 ## Release 1 状态
 
 | 项 | 状态 |

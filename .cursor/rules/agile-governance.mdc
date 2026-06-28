@@ -149,5 +149,7 @@ Sprint Plan 至少应明确：
 
 - `docs/agile/git-workflow.md`
 - `docs/agile/chatgpt-cursor-docs-workflow.md`
-- `docs/agile/sprint-backlog.md`
+- `docs/agile/sprint-backlog.md`（全局 Sprint 索引）
+- `docs/agile/release-plan.md`（全局 Release 索引）
+- `docs/governance/product-governance-target-model.md`（Sprint / Release 目录结构与归属 · DECISION-114）
 - `docs/agile/execution-reports/README.md`

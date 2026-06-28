@@ -100,6 +100,7 @@
 | DECISION-111 | 2026-06-08 | 关闭 Sprint 10（001~011）；新建 Sprint 11 Production Ops Go-Live（部署优先）；原 S10-012/013/014 顺延 Sprint 12+；staging 先于 production | **已确认** |
 | DECISION-112 | 2026-06-10 | Gate B Prelaunch 代码冻结：各环境 DB 为 variant 唯一事实来源；`import-existing-variants` 为待审计历史 bootstrap；Dev/Staging/Production DB 同步方案 deferred；production 100 variant 已初始化；staging 独有 2 条测试 variant 不迁移；暂不 governance snapshot apply | **已确认** |
 | DECISION-113 | 2026-06-28 | Production Prelaunch 已部署 @ `385422d` · URL `paiban.aiqingpian.cn`（`qingpianai.cn` 未备案）；Prelaunch 非公开发布；Basic Auth + noindex 观察期不得移除；回滚基线 `2f09b0d` | **已确认** |
+| DECISION-114 | 2026-06-29 | Sprint / Release 独立平级目录与全局索引：`sprints/` 与 `releases/` 平级；`release-plan.md` / `sprint-backlog.md` 仅索引；详细 Backlog 进独立目录；归属用元数据表达；历史不批量迁移 | **已确认** |
 
 ### DECISION-019 详情
 
@@ -1229,4 +1230,23 @@
   5. S11-STORY-004 标记 **Done** · 监控观察移交 S11-STORY-005
 - **关联：** S11-STORY-004 · DECISION-112 · `production.md`
 - **状态：** **已确认**（2026-06-28 · 用户验收 · 回滚演练）
+
+### DECISION-114 详情（Sprint / Release 独立平级目录与全局索引原则）
+
+- **日期：** 2026-06-29
+- **背景：**
+  - S12-STORY-001 目标模型已提出「全局索引 + 独立目录」，但 Cursor 规则与部分协作文档仍将 `sprint-backlog.md` / `release-plan.md` 表述为必须更新的详细唯一容器
+  - 历史 `sprint-backlog.md` / `release-plan.md` / `sprint-plan.md` 体积大、职责与索引混存，继续扩张会放大重复维护风险
+- **决策：**
+  1. **每个新 Sprint** 建立 `docs/agile/sprints/sprint-<id>/`（含 `plan.md`、`backlog.md`、`review.md`、`retrospective.md`、`closeout.md`）
+  2. **每个新 Release** 建立 `docs/agile/releases/release-<id>/`（含 `plan.md`、`backlog.md`、`coverage.md`、`review.md`、`closeout.md`）
+  3. **`docs/agile/sprints/` 与 `docs/agile/releases/` 平级**；**不**采用 Release 目录下嵌套 Sprint 目录
+  4. **`docs/agile/sprint-backlog.md`** 只作 Sprint 全局索引（名称、Goal 摘要、状态、Release 关系、目录链接）
+  5. **`docs/agile/release-plan.md`** 只作 Release 全局索引（名称、目标摘要、状态、时间范围、目录链接）
+  6. Sprint 归属通过 `plan.md` 元数据表达：`primaryRelease` · `supportsReleases` · `sprintType`（`product` / `governance` / `operations` / `hardening` / `release-closeout`）
+  7. Backlog 追踪：`Product Backlog Item → Release Backlog Item → Sprint Backlog Item → Story/Task → Execution Evidence`
+  8. **历史已关闭 Sprint / Release 详细内容保留原位**；不批量迁移；旧链接继续有效；Sprint 12 是否立即迁入独立目录由后续迁移 Story 决定
+- **影响范围：** `.cursor/rules/agile-rules.mdc` · `product-governance-target-model.md` · `git-workflow.md` · `chatgpt-cursor-docs-workflow.md` · 全局索引文件头说明
+- **关联：** S12-STORY-001 · S12-STORY-006（DoR/DoD 模板）· `product-governance-migration-plan.md`
+- **状态：** **已确认**（2026-06-29 · S12-STORY-001 治理结构补充）
 

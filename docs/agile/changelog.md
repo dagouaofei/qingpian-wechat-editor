@@ -897,3 +897,13 @@
 |------|--------|----------|----------|----------------------|
 | 2026-06-28 | Sprint 12 | **S12-STORY-001 治理验收补充**：新增 `.cursor/rules/agile-governance.mdc`，固化 Sprint / Story 启动、DoR、范围、合并与停止闸门 | Cursor 规则 / 治理 | S12-STORY-001 |
 | 2026-06-28 | Sprint 12 | `agile-rules.mdc`、`collaboration-rules.mdc` 最小引用更新，指向新治理闸门文件 | Cursor 规则 | S12-STORY-001 |
+
+---
+
+## 2026-06-29 · S12-STORY-001 Sprint / Release 文档结构对齐
+
+| 日期 | Sprint | 变更摘要 | 影响范围 | 关联 Story / Decision |
+|------|--------|----------|----------|----------------------|
+| 2026-06-29 | Sprint 12 | **DECISION-114**：Sprint / Release 独立平级目录与全局索引原则 | 治理 / 敏捷 | S12-STORY-001 · DECISION-114 |
+| 2026-06-29 | Sprint 12 | 修正 `.cursor/rules/agile-rules.mdc` 等当前规范：全局文件仅索引，详细 Backlog 进 `sprints/` / `releases/` | Cursor 规则 | S12-STORY-001 |
+| 2026-06-29 | Sprint 12 | `release-plan.md` / `sprint-backlog.md` / `sprint-plan.md` 增加索引角色说明；历史详细内容保留 | 敏捷文档 | S12-STORY-001 |

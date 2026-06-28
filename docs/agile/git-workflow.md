@@ -254,16 +254,31 @@ git merge --no-ff release/1
 
 ---
 
+## 8. 敏捷文档结构（DECISION-114）
+
+Git 分支与敏捷文档结构分离管理：
+
+- **全局索引：** `docs/agile/release-plan.md`（Release 索引）· `docs/agile/sprint-backlog.md`（Sprint 索引）— 只保存名称、目标摘要、状态、链接；**不**作为全部详细 Backlog 的唯一容器。
+- **独立目录：** `docs/agile/releases/release-<id>/` 与 `docs/agile/sprints/sprint-<id>/` **平级**；**不**使用 `releases/.../sprints/...` 嵌套。
+- **新 Sprint / Release：** 详细 `plan.md`、`backlog.md`、Review / Retro / Closeout 写入对应独立目录；同步更新全局索引。
+- **历史：** 现有 `sprint-plan.md`、`sprint-backlog.md`、`release-plan.md` 中的历史详细内容保留；不批量迁移；旧链接继续有效。
+
+详见 `docs/governance/product-governance-target-model.md` §9。
+
+---
+
 ## 相关决策
 
 - DECISION-016：Git 主分支为 `main`
 - DECISION-017：Remote 仓库已配置（`origin`）
 - DECISION-020：建立 Sprint 分支与迭代内工作分支机制
 - DECISION-052：建立 `release/1` 作为 Release 1 主干；Sprint 1-B merge 至 release/1
+- DECISION-114：Sprint / Release 独立平级目录与全局索引原则
 
 ## 相关文档
 
-- [Sprint Plan](sprint-plan.md)
-- [Sprint Backlog](sprint-backlog.md)
+- [Release Plan（全局索引）](release-plan.md)
+- [Sprint Backlog（全局索引）](sprint-backlog.md)
+- [Sprint Plan（历史叙事）](sprint-plan.md)
 - [Decisions](decisions.md)
 - [ChatGPT + Cursor + docs 协作机制](chatgpt-cursor-docs-workflow.md)

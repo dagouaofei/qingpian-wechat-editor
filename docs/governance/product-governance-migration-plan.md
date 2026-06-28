@@ -16,37 +16,37 @@
 
 以下文档继续保留为历史和当前事实来源：
 
-| 文档                              | 保留原因                        | 后续动作                       |
-| --------------------------------- | ------------------------------- | ------------------------------ |
-| `docs/product/product-vision.md`  | 产品目标源头                    | 补到产品全景索引               |
-| `docs/product/product-scope.md`   | 用户与场景源头                  | 后续升级用户/场景目录          |
-| `docs/product/release-1-scope.md` | Release 1 历史范围              | 不迁移，不改关闭事实           |
-| `docs/product/user-story-map.md`  | R1 用户旅程和 US 依据           | 前向升级为多 Release Story Map |
-| `docs/agile/product-backlog.md`   | 既有 backlog 与债务登记         | 保留历史，后续拆清职责         |
-| `docs/agile/release-plan.md`      | Release 1 当前状态和关闭标准    | 保留为 Release dashboard       |
-| `docs/agile/sprint-plan.md`       | Sprint 历史叙事与 close summary | 保留历史，不再无限扩张         |
-| `docs/agile/sprint-backlog.md`    | Story ledger                    | 保留，新增 Sprint 12 section   |
-| `docs/agile/decisions.md`         | 决策记录                        | 保留历史，后续补当前权威说明   |
-| `docs/agile/changelog.md`         | 时间线                          | 保留为历史索引                 |
-| `docs/agile/bugs.md`              | Bug / debt backlog              | 保留并纳入 debt index          |
-| `docs/agile/execution-reports/`   | 执行证据                        | 保留原地，后续加索引           |
-| `docs/agile/paste-qa/`            | 粘贴证据                        | 保留原始证据                   |
-| `docs/architecture/`              | 架构契约与债务                  | 保留，映射到模块/功能          |
-| `docs/ops/`                       | 部署与运维证据                  | 保留，映射到验收证据           |
-| `.cursor/rules/`                  | Cursor 执行规则                 | 小步修正滞后项                 |
+| 文档                              | 保留原因                        | 后续动作                                                                                       |
+| --------------------------------- | ------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `docs/product/product-vision.md`  | 产品目标源头                    | 补到产品全景索引                                                                               |
+| `docs/product/product-scope.md`   | 用户与场景源头                  | 后续升级用户/场景目录                                                                          |
+| `docs/product/release-1-scope.md` | Release 1 历史范围              | 不迁移，不改关闭事实                                                                           |
+| `docs/product/user-story-map.md`  | R1 用户旅程和 US 依据           | 前向升级为多 Release Story Map                                                                 |
+| `docs/agile/product-backlog.md`   | 既有 backlog 与债务登记         | 保留历史，后续拆清职责                                                                         |
+| `docs/agile/release-plan.md`      | Release 1 当前状态和关闭标准    | 保留为 **Release 全局索引**；历史详细内容保留；新 Release 详细内容进 `releases/release-<id>/`  |
+| `docs/agile/sprint-plan.md`       | Sprint 历史叙事与 close summary | 保留历史，不再无限扩张；新 Sprint 优先 `sprints/sprint-<id>/plan.md`                           |
+| `docs/agile/sprint-backlog.md`    | Story ledger（历史）            | 保留历史详细内容；**前向**仅作 Sprint 全局索引，详细 Story 进 `sprints/sprint-<id>/backlog.md` |
+| `docs/agile/decisions.md`         | 决策记录                        | 保留历史，后续补当前权威说明                                                                   |
+| `docs/agile/changelog.md`         | 时间线                          | 保留为历史索引                                                                                 |
+| `docs/agile/bugs.md`              | Bug / debt backlog              | 保留并纳入 debt index                                                                          |
+| `docs/agile/execution-reports/`   | 执行证据                        | 保留原地，后续加索引                                                                           |
+| `docs/agile/paste-qa/`            | 粘贴证据                        | 保留原始证据                                                                                   |
+| `docs/architecture/`              | 架构契约与债务                  | 保留，映射到模块/功能                                                                          |
+| `docs/ops/`                       | 部署与运维证据                  | 保留，映射到验收证据                                                                           |
+| `.cursor/rules/`                  | Cursor 执行规则                 | 小步修正滞后项                                                                                 |
 
 ## 3. 升级文档
 
-| 文档                                         | 升级目标                                     | 风险                  | 验收方式                           |
-| -------------------------------------------- | -------------------------------------------- | --------------------- | ---------------------------------- |
-| `docs/product/user-story-map.md`             | 扩展为 Journey → Activity → Step → Story Map | 误改 R1 历史          | 新增章节，不重写 R1                |
-| `docs/agile/product-backlog.md`              | 明确 Product Backlog 与功能目录分工          | 打断历史 backlog 语义 | 保留旧内容，新增说明或索引         |
-| `docs/agile/release-plan.md`                 | 作为 Release dashboard，减少 Sprint 状态重复 | 与 sprint-plan 重复   | 只定义当前权威来源                 |
-| `docs/agile/sprint-backlog.md`               | 建立 Sprint 12 / Story 001 正式记录          | S12 ID 冲突           | 明确冲突，不重编号旧占位           |
-| `docs/agile/git-workflow.md`                 | 与协作文档/Decision 早期文字对齐             | 改写历史              | 只修当前规范，不改旧 Decision 原文 |
-| `docs/agile/chatgpt-cursor-docs-workflow.md` | 修正 Sprint merge main 的旧表述              | 与旧历史不一致        | 引用 release 分支模型              |
-| `.cursor/rules/project-rules.mdc`            | 修正 Sprint 1 状态滞后                       | 规则变更影响执行      | 单独 Story 执行，用户审查          |
-| `src/core/**/README.md`                      | 模块 README 状态校准                         | 容易扩大到代码重构    | 后续按模块小步审计                 |
+| 文档                                         | 升级目标                                                   | 风险                  | 验收方式                           |
+| -------------------------------------------- | ---------------------------------------------------------- | --------------------- | ---------------------------------- |
+| `docs/product/user-story-map.md`             | 扩展为 Journey → Activity → Step → Story Map               | 误改 R1 历史          | 新增章节，不重写 R1                |
+| `docs/agile/product-backlog.md`              | 明确 Product Backlog 与功能目录分工                        | 打断历史 backlog 语义 | 保留旧内容，新增说明或索引         |
+| `docs/agile/release-plan.md`                 | 作为 **Release 全局索引**；详细 Release Backlog 进独立目录 | 与 sprint-plan 重复   | DECISION-114；历史内容保留         |
+| `docs/agile/sprint-backlog.md`               | 作为 **Sprint 全局索引**；详细 Sprint Backlog 进独立目录   | S12 ID 冲突           | DECISION-114；历史内容保留         |
+| `docs/agile/git-workflow.md`                 | 与协作文档/Decision 早期文字对齐                           | 改写历史              | 只修当前规范，不改旧 Decision 原文 |
+| `docs/agile/chatgpt-cursor-docs-workflow.md` | 修正 Sprint merge main 的旧表述                            | 与旧历史不一致        | 引用 release 分支模型              |
+| `.cursor/rules/project-rules.mdc`            | 修正 Sprint 1 状态滞后                                     | 规则变更影响执行      | 单独 Story 执行，用户审查          |
+| `src/core/**/README.md`                      | 模块 README 状态校准                                       | 容易扩大到代码重构    | 后续按模块小步审计                 |
 
 ## 4. 新增文档
 
@@ -65,34 +65,36 @@
 
 ## 4.1 后续 Sprint / Release 文档结构
 
-后续采用“全局索引 + 每个 Sprint / Release 独立目录”。历史大文件保持原样，从后续新 Sprint / Release 开始逐步采用。
+正式原则见 **`docs/governance/product-governance-target-model.md` §9** 与 **DECISION-114**：**全局索引 + Sprint / Release 平级独立目录**。
 
 ```text
 docs/agile/
-├─ sprint-backlog.md              # 全局 Sprint 索引与状态总览
-├─ release-plan.md                # 全局 Release 索引与状态总览
-├─ sprints/
-│  └─ sprint-<id>/
+├─ release-plan.md              # Release 全局索引
+├─ sprint-backlog.md            # Sprint 全局索引
+├─ product-backlog.md
+├─ releases/
+│  └─ release-<id>/
 │     ├─ plan.md
 │     ├─ backlog.md
+│     ├─ coverage.md
 │     ├─ review.md
-│     ├─ retrospective.md
 │     └─ closeout.md
-└─ releases/
-   └─ release-<id>/
+└─ sprints/
+   └─ sprint-<id>/
       ├─ plan.md
       ├─ backlog.md
-      ├─ coverage.md
       ├─ review.md
+      ├─ retrospective.md
       └─ closeout.md
 ```
 
 执行原则：
 
-- 全局文件只保留索引和状态总览。
-- 详细 Story、AC、Review、Retro、Closeout 放入独立目录。
-- 同一状态只维护在一个权威位置，其他文档只做链接或摘要。
-- Release 1 / Sprint 1~11 历史大文件不在本轮拆分。
+- `release-plan.md` / `sprint-backlog.md` **只**保留索引、状态摘要和目录链接。
+- 详细 Plan、Backlog、Review、Retro、Closeout 放入 `releases/` / `sprints/` 独立目录。
+- Sprint 与 Release 目录**平级**；归属通过 `primaryRelease` / `supportsReleases` / `sprintType` 等元数据表达，**不**目录嵌套。
+- 同一状态只维护在一个权威位置；其他文档只做链接或摘要。
+- Release 1 / Sprint 1~11 及当前 Sprint 12 历史大文件**不在本轮物理迁移**；旧链接继续有效。
 
 ## 5. 后续可能废弃或合并的文档
 

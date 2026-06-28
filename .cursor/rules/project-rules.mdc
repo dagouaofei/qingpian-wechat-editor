@@ -31,7 +31,7 @@ alwaysApply: true
 
 ## Sprint 约束
 
-- 当前 Sprint、Release、Story 状态必须从 `docs/agile/release-plan.md`、`docs/agile/sprint-backlog.md` 和对应 Sprint 文档读取；**规则文件不得硬编码动态状态**。
+- 当前 Sprint、Release、Story 状态必须从 `docs/agile/release-plan.md`、`docs/agile/sprint-backlog.md`、对应 `docs/agile/sprints/sprint-<id>/` / `docs/agile/releases/release-<id>/` 文档读取；**规则文件不得硬编码动态状态**。
 - 后续 Sprint 按合理工作量拆分，业务功能实现必须在核心技术方案完成之后进入
 - 不允许把 Release 1 的全部实现范围塞进单个 Sprint
 
