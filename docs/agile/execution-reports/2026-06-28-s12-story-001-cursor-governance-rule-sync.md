@@ -151,6 +151,6 @@
   - `1ddc3f6` — 主变更：新增 `agile-governance.mdc` 与引用更新
   - `eabec10` — changelog 格式化回滚修正
   - `9738652` — execution report commit hash 补齐
-  - （审查修正 commit 见提交后更新）
+  - `121c283` — 审查修正：闸门适用范围收窄；删除过期 Sprint 状态硬编码
 - Merge 状态：未 merge
 - Push 状态：未 push
