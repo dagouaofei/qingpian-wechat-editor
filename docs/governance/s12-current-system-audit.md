@@ -120,22 +120,22 @@ Product Backlog / Decision
 
 ## 7. 文档职责矩阵
 
-| 文档                             | 当前职责                    | 是否权威来源     | 重复对象                           | 当前问题                                               | 建议处理                                                      |
-| -------------------------------- | --------------------------- | ---------------- | ---------------------------------- | ------------------------------------------------------ | ------------------------------------------------------------- |
-| `docs/product/product-vision.md` | 产品目标、用户、阶段方向    | 是，愿景层       | README、product-scope              | 不含模块/功能全景                                      | 保留，后续补充到产品全景索引                                  |
-| `docs/product/product-scope.md`  | 用户、场景、第一阶段做/不做 | 是，范围层       | product-vision、release-1-scope    | 停留第一阶段                                           | 保留，后续与 Release 2 scope 关联                             |
-| `docs/product/user-story-map.md` | Release 1 用户路径与 P0 US  | 部分             | product-backlog、sprint-backlog    | 仅覆盖 R1/S6 主体，缺少 Journey / Activity / Step 层级 | 升级为多 Release Story Map                                    |
-| `docs/agile/product-backlog.md`  | Epic、PB、enabler、debt     | 部分             | release-plan、bugs、sprint-plan    | 职责过宽                                               | 拆清 Product Backlog vs 功能目录                              |
-| `docs/agile/release-plan.md`     | Release 1 状态和关闭标准    | 是，Release 状态 | sprint-plan、product-backlog       | 只覆盖 R1                                              | 保留为 Release dashboard，后续加 R2/R3 或独立 Release backlog |
-| `docs/agile/sprint-plan.md`      | 多 Sprint 叙事与关闭摘要    | 历史权威         | release-plan、sprint-backlog       | 状态重复、体量大                                       | 保留历史，新 Sprint 使用独立 Sprint plan                      |
-| `docs/agile/sprint-backlog.md`   | Story AC、状态、分支        | 是，Story ledger | sprint docs、execution reports     | 文件过大，S12 ID 冲突                                  | 保留，新增 Sprint 12 section 并标冲突                         |
-| `docs/agile/decisions.md`        | 决策记录                    | 是，决策层       | changelog、audit                   | 早期决策有旧模型文字                                   | 保留历史，新增当前权威说明                                    |
-| `docs/agile/changelog.md`        | 事件时间线                  | 否，历史索引     | decisions、reports                 | 不总是当前状态权威                                     | 保留，仅作时间线                                              |
-| `docs/agile/bugs.md`             | Bug / debt backlog          | 是，缺陷债务层   | product-backlog、architecture debt | 风险/债务分散                                          | 后续建立 debt register 索引                                   |
-| `docs/agile/execution-reports/`  | 执行证据                    | 是，执行证据层   | changelog、sprint-backlog          | 缺少总索引                                             | 保留，后续建立 evidence index                                 |
-| `docs/architecture/*`            | 模块契约、审计、债务        | 是，技术契约层   | product-backlog enabler            | 偏工程，不表达产品能力树                               | 保留，映射到模块/功能目录                                     |
-| `docs/ops/*`                     | 部署、环境、监控、回滚      | 是，运维证据层   | sprint11 doc、reports              | 与 Sprint 状态重复                                     | 保留，纳入验收证据链                                          |
-| `.cursor/rules/*`                | Cursor 执行约束             | 是，执行规则     | agile docs                         | 个别状态/流程滞后                                      | 小步修正规则，不批量改历史                                    |
+| 文档                             | 当前职责                     | 是否权威来源           | 重复对象                           | 当前问题                                               | 建议处理                                                 |
+| -------------------------------- | ---------------------------- | ---------------------- | ---------------------------------- | ------------------------------------------------------ | -------------------------------------------------------- |
+| `docs/product/product-vision.md` | 产品目标、用户、阶段方向     | 是，愿景层             | README、product-scope              | 不含模块/功能全景                                      | 保留，后续补充到产品全景索引                             |
+| `docs/product/product-scope.md`  | 用户、场景、第一阶段做/不做  | 是，范围层             | product-vision、release-1-scope    | 停留第一阶段                                           | 保留，后续与 Release 2 scope 关联                        |
+| `docs/product/user-story-map.md` | Release 1 用户路径与 P0 US   | 部分                   | product-backlog、sprint-backlog    | 仅覆盖 R1/S6 主体，缺少 Journey / Activity / Step 层级 | 升级为多 Release Story Map                               |
+| `docs/agile/product-backlog.md`  | Epic、PB、enabler、debt      | 部分                   | release-plan、bugs、sprint-plan    | 职责过宽                                               | 拆清 Product Backlog vs 功能目录                         |
+| `docs/agile/release-plan.md`     | Release 索引与 R1 历史详情   | 前向：Release 全局索引 | sprint-plan、product-backlog       | 历史详细内容与索引混存                                 | 保留历史；新 Release 详细内容进 `releases/release-<id>/` |
+| `docs/agile/sprint-plan.md`      | 多 Sprint 叙事与关闭摘要     | 历史权威               | release-plan、sprint-backlog       | 状态重复、体量大                                       | 保留历史；新 Sprint 优先 `sprints/sprint-<id>/plan.md`   |
+| `docs/agile/sprint-backlog.md`   | Story AC、状态、分支（历史） | 前向：Sprint 全局索引  | sprint docs、execution reports     | 文件过大，S12 ID 冲突                                  | 保留历史详细内容；新 Sprint 详细 Backlog 进独立目录      |
+| `docs/agile/decisions.md`        | 决策记录                     | 是，决策层             | changelog、audit                   | 早期决策有旧模型文字                                   | 保留历史，新增当前权威说明                               |
+| `docs/agile/changelog.md`        | 事件时间线                   | 否，历史索引           | decisions、reports                 | 不总是当前状态权威                                     | 保留，仅作时间线                                         |
+| `docs/agile/bugs.md`             | Bug / debt backlog           | 是，缺陷债务层         | product-backlog、architecture debt | 风险/债务分散                                          | 后续建立 debt register 索引                              |
+| `docs/agile/execution-reports/`  | 执行证据                     | 是，执行证据层         | changelog、sprint-backlog          | 缺少总索引                                             | 保留，后续建立 evidence index                            |
+| `docs/architecture/*`            | 模块契约、审计、债务         | 是，技术契约层         | product-backlog enabler            | 偏工程，不表达产品能力树                               | 保留，映射到模块/功能目录                                |
+| `docs/ops/*`                     | 部署、环境、监控、回滚       | 是，运维证据层         | sprint11 doc、reports              | 与 Sprint 状态重复                                     | 保留，纳入验收证据链                                     |
+| `.cursor/rules/*`                | Cursor 执行约束              | 是，执行规则           | agile docs                         | 个别状态/流程滞后                                      | 小步修正规则，不批量改历史                               |
 
 ## 7.1 文档结构审计结论
 
@@ -147,7 +147,7 @@ Product Backlog / Decision
 全局索引 + 每个 Sprint / Release 独立目录
 ```
 
-全局文件只保留索引和状态总览；详细 Story、AC、Review、Retro、Closeout 放入 `docs/agile/sprints/sprint-<id>/` 和 `docs/agile/releases/release-<id>/`。历史大文件保持原样，从后续新 Sprint / Release 开始逐步采用。
+全局文件只保留索引和状态总览；详细 Story、AC、Review、Retro、Closeout 放入 `docs/agile/sprints/sprint-<id>/` 和 `docs/agile/releases/release-<id>/`。**Sprint 与 Release 目录平级**，不嵌套；归属通过元数据（`primaryRelease`、`supportsReleases`、`sprintType`）表达。详见 `product-governance-target-model.md` §9 · **DECISION-114**。历史大文件保持原样，从后续新 Sprint / Release 开始渐进采用；Sprint 12 是否立即迁入独立目录由后续迁移计划决定。
 
 ## 8. 管理能力矩阵
 

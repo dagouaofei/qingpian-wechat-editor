@@ -84,15 +84,56 @@ Sprint Plan 至少应明确：
 
 每轮完成后**必须**提交 execution report（模板与路径见 `agile-rules.mdc`），至少包含：
 
-- 当前分支和来源分支；
+- 执行分支、来源分支、目标合并分支；
+- `HEAD at review time` 所在分支与 merge 后所在分支（未 merge 时写 N/A）；
 - 实际执行范围；
 - 实际修改文件；
 - 明确未做事项；
 - 检查命令与结果；
-- commit hash；
+- commit 记录（见下方规则）；
 - 风险、遗留项和范围外发现；
 - working tree 状态；
 - merge 和 push 状态。
+
+**状态默认 `In Review`：** Cursor 完成执行并提交报告时，默认标记为 `In Review`。**`Done` 只能在 Product Owner 明确验收并允许标记 Done 后使用。**
+
+**分支不得混淆：** 不得将「执行分支」与「merge 后所在分支」混为一谈。
+
+### Commit 记录规则
+
+**必须记录：**
+
+- **主要实现 commit** — 承载本轮实际交付成果（代码、文档规范、治理规则等）；
+- **修正 commit** — 影响实际成果的 follow-up 修正；
+- **已授权执行的 merge commit** — 用户明确授权 merge 至目标分支后产生的 commit。
+
+**不要求记录：**
+
+- **report-only commit** — 仅用于创建、修改或回填 execution report 自身的 commit。
+
+**HEAD at review time：**
+
+- 审查时的 branch tip 记为 `HEAD at review time`；
+- 可由 Cursor 在**最终回复**中报告；
+- **不要求**写回 execution report；
+- **不得**为回填最新 HEAD 循环产生新的 report-only commit。
+
+**必须区分（不得混淆）：**
+
+| 概念             | 说明                                       |
+| ---------------- | ------------------------------------------ |
+| 主要实现 commit  | 本轮核心交付                               |
+| 修正 commit      | 修正实际成果；非 report-only               |
+| report-only commit | 仅改 execution report；不要求写回本报告 |
+| merge commit     | 已授权 merge 产生的 commit                 |
+| 当前 HEAD        | 审查时 branch tip；由最终回复报告          |
+| merge 状态       | 是否已 merge 至目标分支                    |
+| push 状态        | 是否已 push 远程                           |
+
+**禁止：**
+
+- 不得把「已 commit」写成「已 merge」；
+- 不得把「本地 merge」写成「已 push」。
 
 完成报告后**必须停止等待审查**。
 
@@ -149,5 +190,7 @@ Sprint Plan 至少应明确：
 
 - `docs/agile/git-workflow.md`
 - `docs/agile/chatgpt-cursor-docs-workflow.md`
-- `docs/agile/sprint-backlog.md`
+- `docs/agile/sprint-backlog.md`（全局 Sprint 索引）
+- `docs/agile/release-plan.md`（全局 Release 索引）
+- `docs/governance/product-governance-target-model.md`（Sprint / Release 目录结构与归属 · DECISION-114）
 - `docs/agile/execution-reports/README.md`

@@ -1,5 +1,7 @@
 # Sprint Backlog
 
+> **文档角色（DECISION-114）：** 本文件为 **Sprint 全局索引与状态总览**。Sprint 名称、Sprint Goal 摘要、状态、所属或服务的 Release 及指向 `docs/agile/sprints/sprint-<id>/` 的链接在此维护。**不**作为全部 Story 详细 AC、非目标和执行记录的唯一容器。下方 Sprint 1~12 历史详细 Backlog 保留；从后续新 Sprint 起，详细 Plan / Backlog / Review / Retro / Closeout 写入独立 Sprint 目录。
+
 > **Sprint 1：** 正式项目启动、核心技术方案定稿与工程治理 · Sprint 1-A / 1-B：**Closed**
 > **Sprint 2：** Article / Block Schema + InlineContent 代码契约 · **Closed**（2026-05-31；DECISION-054）
 > **Sprint 3-A：** Style System Contract & Registry Infrastructure · **Closed**（2026-05-31；DECISION-057）

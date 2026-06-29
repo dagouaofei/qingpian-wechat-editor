@@ -2,6 +2,8 @@
 
 > 轻篇公众号排版 · qingpian-wechat-editor
 
+> **文档角色（DECISION-114）：** 本文件保留 **Sprint 1~11 历史叙事与关闭摘要**。新 Sprint 优先使用 `docs/agile/sprints/sprint-<id>/plan.md`；全局 Sprint 索引见 [`sprint-backlog.md`](sprint-backlog.md)。
+
 ## Sprint 周期原则
 
 - 后续 Sprint 可按合理工作量拆分，避免单个 Sprint 塞入过多 Release 1 范围
