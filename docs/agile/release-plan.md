@@ -4,14 +4,14 @@
 
 ## Release 1 状态
 
-| 项 | 状态 |
-|----|------|
-| **Release** | Release 1 — **进行中（未关闭）** |
-| **主干分支** | `release/1` |
-| **已完成 Sprint** | Sprint 1-A/B · Sprint 2 · Sprint 3-A/B/C · Sprint 4-A/B · Sprint 5 · Sprint 6 · Sprint 7 · **Sprint 8** · **Sprint 9** · **Sprint 10** |
-| **当前 Sprint** | **Sprint 11** — Production Ops Go-Live（**In Progress** · **DECISION-111**） |
-| **下一 Sprint（规划）** | Sprint 12+ — Compat Recalibration · DSL Cleanup · Release 1 Closeout |
-| **merge `main`** | **未执行** — Release 1 整体验收通过后才 merge |
+| 项                      | 状态                                                                                                                                   |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| **Release**             | Release 1 — **进行中（未关闭）**                                                                                                       |
+| **主干分支**            | `release/1`                                                                                                                            |
+| **已完成 Sprint**       | Sprint 1-A/B · Sprint 2 · Sprint 3-A/B/C · Sprint 4-A/B · Sprint 5 · Sprint 6 · Sprint 7 · **Sprint 8** · **Sprint 9** · **Sprint 10** |
+| **当前 Sprint**         | **Sprint 11** — Production Ops Go-Live（**In Progress** · Review 2026-06-30 · **未 merge `release/1`**）                               |
+| **下一 Sprint（规划）** | Sprint 12+ — Compat Recalibration · DSL Cleanup · Release 1 Closeout                                                                   |
+| **merge `main`**        | **未执行** — Release 1 整体验收通过后才 merge                                                                                          |
 
 > Sprint 5~10 已交付可见主链路、样式管理 v0/v1、DSL runtime、Harvest/Promote 等；**Release 1 不能以 lint/test/build alone 关闭**。S11 目标为 **staging/production 正式部署上线**（DECISION-111）。
 
@@ -36,16 +36,16 @@
 
 ## Release 1 Sprint 索引（方案 B · DECISION-070 + 108 + 111）
 
-| Sprint | 名称 | 核心目标 | 状态 |
-|--------|------|----------|------|
-| **Sprint 6** | Release 1 Visible AI Main Flow | 首页 → AI 生成 → 预览 → 复制 → 最小粘贴 QA | **Closed** |
-| **Sprint 7** | WeChat Article Experience & Style Richness | Gallery · heading publish 8 款 | **Done** |
-| **Sprint 8** | WeChat-safe CSS Contract & Fidelity | Contract · Validator · Paste QA | **Closed** |
-| **Sprint 9** | Style Management System v0 | file-backed `/dev/style-library` | **Closed** @ `c96e869` |
-| **Sprint 10** | Database-backed Style Admin v1 | DB admin · pool · Harvest · Promote · DSL | **Closed**（001~011） |
-| **Sprint 11** | **Production Ops Go-Live** | ECS/RDS/OSS/SLS · staging→prod 部署 · 监控 | **In Progress** |
-| **Sprint 12+** | Compat + DSL 债务 | 原 S10-012/013 | **Planned** |
-| **Sprint 13+** | Release 1 Closeout | 原 S10-014 · audit · merge main 决策 | **Planned** |
+| Sprint         | 名称                                       | 核心目标                                   | 状态                   |
+| -------------- | ------------------------------------------ | ------------------------------------------ | ---------------------- |
+| **Sprint 6**   | Release 1 Visible AI Main Flow             | 首页 → AI 生成 → 预览 → 复制 → 最小粘贴 QA | **Closed**             |
+| **Sprint 7**   | WeChat Article Experience & Style Richness | Gallery · heading publish 8 款             | **Done**               |
+| **Sprint 8**   | WeChat-safe CSS Contract & Fidelity        | Contract · Validator · Paste QA            | **Closed**             |
+| **Sprint 9**   | Style Management System v0                 | file-backed `/dev/style-library`           | **Closed** @ `c96e869` |
+| **Sprint 10**  | Database-backed Style Admin v1             | DB admin · pool · Harvest · Promote · DSL  | **Closed**（001~011）  |
+| **Sprint 11**  | **Production Ops Go-Live**                 | ECS/RDS/OSS/SLS · staging→prod 部署 · 监控 | **In Progress**        |
+| **Sprint 12+** | Compat + DSL 债务                          | 原 S10-012/013                             | **Planned**            |
+| **Sprint 13+** | Release 1 Closeout                         | 原 S10-014 · audit · merge main 决策       | **Planned**            |
 
 **Sprint 分支：**
 
