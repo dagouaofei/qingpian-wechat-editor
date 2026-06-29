@@ -41,17 +41,17 @@ Sprint 12 聚焦产品治理与 Release 2 规划前置工作：
 
 ## 3. Story 索引
 
-| Story         | 名称                                                | 优先级 | 状态      | 工作分支                                       |
-| ------------- | --------------------------------------------------- | ------ | --------- | ---------------------------------------------- |
-| S12-STORY-001 | 现有项目管理与产品文档体系审计                      | P0     | In Review | `docs/s12-story-001-governance-document-audit` |
-| S12-STORY-002 | 产品愿景、目标用户、核心场景与系统边界              | P0     | Proposed  | TBD                                            |
-| S12-STORY-003 | 完整产品模块树与产品功能目录                        | P0     | Proposed  | TBD                                            |
-| S12-STORY-004 | 用户旅程、用户活动与完整 Story Map                  | P0     | Proposed  | TBD                                            |
-| S12-STORY-005 | Product Backlog、Release、Sprint 与模块覆盖追踪体系 | P0     | Proposed  | TBD                                            |
-| S12-STORY-006 | 敏捷事件、流程闸门、DoR/DoD 与标准模板              | P1     | Proposed  | TBD                                            |
-| S12-STORY-007 | Release 1 历史能力、模块及功能映射                  | P1     | Proposed  | TBD                                            |
-| S12-STORY-008 | Release 2 及后续产品路线与渐进式迭代计划            | P0     | Proposed  | TBD                                            |
-| S12-STORY-009 | 全局一致性审计、治理验收与 Sprint 12 关闭           | P0     | Proposed  | TBD                                            |
+| Story         | 名称                                                | 优先级 | 状态     | 工作分支                                                            |
+| ------------- | --------------------------------------------------- | ------ | -------- | ------------------------------------------------------------------- |
+| S12-STORY-001 | 现有项目管理与产品文档体系审计                      | P0     | **Done** | `docs/s12-story-001-sprint-release-structure-alignment`（已 merge） |
+| S12-STORY-002 | 产品愿景、目标用户、核心场景与系统边界              | P0     | Proposed | TBD                                                                 |
+| S12-STORY-003 | 完整产品模块树与产品功能目录                        | P0     | Proposed | TBD                                                                 |
+| S12-STORY-004 | 用户旅程、用户活动与完整 Story Map                  | P0     | Proposed | TBD                                                                 |
+| S12-STORY-005 | Product Backlog、Release、Sprint 与模块覆盖追踪体系 | P0     | Proposed | TBD                                                                 |
+| S12-STORY-006 | 敏捷事件、流程闸门、DoR/DoD 与标准模板              | P1     | Proposed | TBD                                                                 |
+| S12-STORY-007 | Release 1 历史能力、模块及功能映射                  | P1     | Proposed | TBD                                                                 |
+| S12-STORY-008 | Release 2 及后续产品路线与渐进式迭代计划            | P0     | Proposed | TBD                                                                 |
+| S12-STORY-009 | 全局一致性审计、治理验收与 Sprint 12 关闭           | P0     | Proposed | TBD                                                                 |
 
 > ID 兼容说明：当前治理 Sprint 的 `S12-STORY-001~009` 为正式 Sprint 12 Story。`sprint-backlog.md` 中 DECISION-111 产生的旧占位 “S12-STORY-001 WeChat Compatibility Spec Recalibration / S12-STORY-002 DSL Runtime Schema Cleanup” 仅保留为历史 deferred 占位，不得继续作为正式 Story ID 使用；后续在专门治理决策中为旧 deferred 项分配新的 Backlog / Story ID。
 >
@@ -70,6 +70,8 @@ Sprint 12 聚焦产品治理与 Release 2 规划前置工作：
 - 建立 Sprint 12 与 S12-STORY-001 正式记录。
 - 生成 execution report，完成 commit，等待人工审查。
 
+**验收（2026-06-29）：** Product Owner 验收结论 **Accepted**；允许标记 **Done**；已 merge 至 `sprint/s12-product-governance-r2-planning`（merge commit 见 execution report §21）。Sprint 12 Plan **未** Approved；S12-STORY-002 **未**启动。
+
 **明确不做：**
 
 - 不开发 Release 2 功能。
@@ -81,20 +83,20 @@ Sprint 12 聚焦产品治理与 Release 2 规划前置工作：
 
 ## 5. S12-STORY-001 验收标准
 
-| AC    | 验收标准                                 | 状态      |
-| ----- | ---------------------------------------- | --------- |
-| AC-1  | 已扫描并列出仓库内所有相关文档           | In Review |
-| AC-2  | 审计结论基于实际文件，不凭空假设         | In Review |
-| AC-3  | 明确当前体系已有能力和真实缺口           | In Review |
-| AC-4  | 明确新旧体系如何增量兼容                 | In Review |
-| AC-5  | 没有破坏 Release 1 或 Sprint 11 历史     | In Review |
-| AC-6  | 没有批量重写现有文档                     | In Review |
-| AC-7  | 没有开发产品代码                         | In Review |
-| AC-8  | 已建立 Sprint 12 和 Story 001 的正式记录 | In Review |
-| AC-9  | 文档内部引用有效                         | In Review |
-| AC-10 | 必要检查通过；若未运行须说明原因         | In Review |
-| AC-11 | working tree 最终干净                    | In Review |
-| AC-12 | 完成 commit，不 merge，等待审查          | In Review |
+| AC    | 验收标准                                 | 状态 |
+| ----- | ---------------------------------------- | ---- |
+| AC-1  | 已扫描并列出仓库内所有相关文档           | Done |
+| AC-2  | 审计结论基于实际文件，不凭空假设         | Done |
+| AC-3  | 明确当前体系已有能力和真实缺口           | Done |
+| AC-4  | 明确新旧体系如何增量兼容                 | Done |
+| AC-5  | 没有破坏 Release 1 或 Sprint 11 历史     | Done |
+| AC-6  | 没有批量重写现有文档                     | Done |
+| AC-7  | 没有开发产品代码                         | Done |
+| AC-8  | 已建立 Sprint 12 和 Story 001 的正式记录 | Done |
+| AC-9  | 文档内部引用有效                         | Done |
+| AC-10 | 必要检查通过；若未运行须说明原因         | Done |
+| AC-11 | working tree 最终干净                    | Done |
+| AC-12 | 完成 commit，不 merge，等待审查          | Done |
 
 ## 6. 关键输出
 
