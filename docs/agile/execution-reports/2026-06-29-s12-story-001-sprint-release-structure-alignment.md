@@ -369,3 +369,11 @@ sprint-backlog\.md|release-plan\.md|每个 Sprint 必须更新|Sprint Backlog|Re
 - 提交信息：`docs(s12): refresh style and copy rule scope`
 - 性质：影响实际成果的修正 commit（含领域规则与 execution report §20）
 - `HEAD at review time` 由 Cursor 最终回复报告，不写回本文件
+
+### §20 补充（事实源层级，2026-06-29）
+
+- 已修正 `style-system-rules.mdc`「正式交付范围」：全局文件与独立目录职责不再混写
+- **全局索引：** `docs/agile/sprint-backlog.md`、`docs/agile/release-plan.md` 仅为索引、状态摘要和入口
+- **详细事实源：** `docs/agile/sprints/sprint-<id>/`、`docs/agile/releases/release-<id>/`
+- `wechat-copy-rules.mdc` 本轮未修改
+- 未 merge；未 push；未启动 S12-STORY-002

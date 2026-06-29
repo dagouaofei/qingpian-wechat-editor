@@ -9,7 +9,10 @@ alwaysApply: false
 ## 正式交付范围
 
 - 样式系统是产品正式交付范围的长期核心能力，不是后置预留或临时页面样式
-- 正式交付范围以当前 Approved Release / Sprint 文档及 `docs/agile/release-plan.md`、`docs/agile/releases/` 事实源为准
+- 正式交付范围以当前 Approved Sprint / Release 独立文档为准：
+  - `docs/agile/sprints/sprint-<id>/`
+  - `docs/agile/releases/release-<id>/`
+- `docs/agile/sprint-backlog.md` 与 `docs/agile/release-plan.md` 仅作为全局索引、状态摘要和入口，不作为详细范围事实源
 - 未做完整样式市场时，仍须按正式样式系统实现 registry、variant、assignment 等架构
 - 实际 variant、block 数量与生命周期 tier 以 registry、数据库及当前代码事实为准；代码或枚举中的 `release1_required` 等标识是正式兼容字段，不表示当前 Release 编号或范围状态
 
