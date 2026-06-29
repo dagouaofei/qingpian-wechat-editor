@@ -1,15 +1,17 @@
 ---
-description: 样式系统规则与 Release 1 样式约束
+description: 样式系统长期技术约束（theme / preset / variant / registry）
 globs: src/core/styles/**,docs/architecture/style-system.md
 alwaysApply: false
 ---
 
 # 样式系统规则
 
-## Release 1 定位
+## 正式交付范围
 
-- 样式系统属于 **Release 1 核心范围**，不是后置预留
-- Release 1 不做完整样式市场，但必须按正式样式系统实现第一批样式
+- 样式系统是产品正式交付范围的长期核心能力，不是后置预留或临时页面样式
+- 正式交付范围以当前 Approved Release / Sprint 文档及 `docs/agile/release-plan.md`、`docs/agile/releases/` 事实源为准
+- 未做完整样式市场时，仍须按正式样式系统实现 registry、variant、assignment 等架构
+- 实际 variant、block 数量与生命周期 tier 以 registry、数据库及当前代码事实为准；代码或枚举中的 `release1_required` 等标识是正式兼容字段，不表示当前 Release 编号或范围状态
 
 ## 架构方向
 
@@ -41,6 +43,10 @@ alwaysApply: false
 
 - 可参考旧一键成稿项目中的 Component DSL、slot、density、variant、registry 等探索经验
 - 但不得照搬旧项目混杂方案（Visual Layer、Space Style 等）
+
+## 治理边界
+
+敏捷治理、验收闸门、分支、merge、push 与 Story 状态遵循 `.cursor/rules/agile-governance.mdc`。本文件仅定义样式系统领域技术约束。
 
 ## 参考文档
 

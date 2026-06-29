@@ -298,3 +298,74 @@ sprint-backlog\.md|release-plan\.md|每个 Sprint 必须更新|Sprint Backlog|Re
 - 报告状态：In Review
 
 `HEAD at review time` 由 Cursor 最终回复报告，不要求写回本文件。不得为记录 report-only commit 或回填最新 HEAD 循环产生新的 report-only commit。
+
+## 20. 样式与复制领域规则时效性审计（2026-06-29）
+
+**定位：** S12-STORY-001 merge 前治理补充；审计 `.cursor/rules/style-system-rules.mdc` 与 `.cursor/rules/wechat-copy-rules.mdc`，去除易过期硬编码，保留长期领域技术约束。
+
+### 审计结论
+
+| 文件                     | 结论                                                                     |
+| ------------------------ | ------------------------------------------------------------------------ |
+| `style-system-rules.mdc` | 原「Release 1 定位」为动态规划硬编码；架构/复制/扩展约束为长期规则，保留 |
+| `wechat-copy-rules.mdc`  | 原「Release 1 P0」为动态范围硬编码；渲染共享与粘贴兼容为长期规则，保留   |
+
+### 移除的动态硬编码
+
+| 原表述                                              | 处理                                                       |
+| --------------------------------------------------- | ---------------------------------------------------------- |
+| `Release 1 核心范围` / `Release 1 不做完整样式市场` | 改为 Approved Release / Sprint 文档 + registry / DB 事实源 |
+| `Release 1 P0 质量标准`                             | 改为产品 P0 + Approved 文档为准                            |
+| frontmatter `Release 1 样式约束`                    | 改为长期技术约束描述                                       |
+
+### 保留的正式兼容标识
+
+| 标识                                    | 原因                                                                 |
+| --------------------------------------- | -------------------------------------------------------------------- |
+| `release1_required`（规则内说明性引用） | registry / Prisma lifecycle tier 正式枚举名；非当前 Release 状态描述 |
+
+未在规则正文中硬编码 variant 数量、Sprint 编号、Story ID 或分支名。
+
+### 路径核对
+
+| 引用路径                                             | 存在                                            |
+| ---------------------------------------------------- | ----------------------------------------------- |
+| `docs/architecture/style-system.md`                  | 是                                              |
+| `docs/architecture/wechat-copy-style-rules.md`       | 是                                              |
+| `docs/architecture/copy-to-wechat-pipeline.md`       | 是                                              |
+| `docs/architecture/wechat-safe-html-css-contract.md` | 新增引用（wechat-copy 补充 Contract v1 事实源） |
+
+无失效路径；未修改架构文档正文。
+
+### `globs` / `alwaysApply`
+
+| 文件                     | 调整                | 理由                                                                                                                                                    |
+| ------------------------ | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `style-system-rules.mdc` | **未改**            | `src/core/styles/**` 与 `style-system.md` 仍对应该规则主链路；`src/core/style-library/**` 偏 lifecycle / promote，无本文件直接引用证据，不凭猜测扩 glob |
+| `wechat-copy-rules.mdc`  | **未改**            | `src/core/copy/**`、`src/core/renderer/**` 与所列架构文档仍覆盖复制主链路                                                                               |
+| 两者 `alwaysApply`       | **未改**（`false`） | 领域规则应通过准确 `globs` 触发，避免干扰无关任务                                                                                                       |
+
+### 与 `agile-governance.mdc` 去重
+
+- 原文件无完整 Sprint Planning / DoR / merge / push / Done 重复定义
+- 新增「治理边界」短引用，明确领域文件只保留样式 / 复制技术约束
+
+### 待 Product Owner 决策项
+
+**无。** 未发现需改变微信兼容标准、Preview/Copy 架构或 registry 策略的 E 类项。
+
+### 本轮检查
+
+| 命令                         | 结果                                         |
+| ---------------------------- | -------------------------------------------- |
+| `git diff --check`           | 见 commit 前                                 |
+| 动态硬编码 `rg`              | PASS（修正后无 Release 1 / Sprint 编号残留） |
+| 治理重复 `rg`                | PASS（仅治理边界引用）                       |
+| `pnpm lint`                  | 见 commit 前                                 |
+| frontmatter / globs 人工检查 | PASS                                         |
+
+### 本轮实际治理修正 commit
+
+- 提交信息：`docs(s12): refresh style and copy rule scope`
+- 性质：影响实际成果的修正 commit（含领域规则与 execution report §20）
+- `HEAD at review time` 由 Cursor 最终回复报告，不写回本文件
