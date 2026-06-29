@@ -3,15 +3,15 @@
 ## 1. 基本信息
 
 - 日期：2026-06-29
-- 执行分支：`docs/s12-story-001-sprint-release-structure-alignment`
+- 执行分支：`docs/s12-story-001-sprint-release-structure-alignment`（Story 工作分支；非当前 Sprint 常驻分支）
 - 来源分支：`sprint/s12-product-governance-r2-planning`
-- 目标合并分支：`sprint/s12-product-governance-r2-planning`（已 merge）
-- HEAD at review time 所在分支：`docs/s12-story-001-sprint-release-structure-alignment`（验收时）
-- merge 后所在分支：`sprint/s12-product-governance-r2-planning`
+- 目标合并分支：`sprint/s12-product-governance-r2-planning`
+- HEAD at review time 所在分支：`docs/s12-story-001-sprint-release-structure-alignment`（各执行/审查轮次当时分支）
+- merge 后所在分支：`sprint/s12-product-governance-r2-planning`（Story 关闭后的代码与文档所在分支）
 - Sprint：Sprint 12 — Product Governance & Release 2 Planning
 - 关联 Story / Bug / Decision：S12-STORY-001（治理结构补充）· **DECISION-114**
 - 执行者：Cursor
-- 状态：**Done**
+- Story 状态：**Done** · 验收结论：**Accepted**（最终状态见 **§21**）
 
 ## 2. 本轮目标
 
@@ -28,7 +28,7 @@
 - 新增 **DECISION-114**。
 - 运行检查并 commit。
 
-**明确未做：**
+**明确未做（工作分支执行阶段当时范围）：**
 
 - 未创建历史 Sprint / Release 目录。
 - 未移动或批量迁移历史文件。
@@ -37,8 +37,8 @@
 - 未启动 S12-STORY-002。
 - 未将 Sprint 12 Plan 标记为 Approved。
 - 未开发产品代码。
-- 未 merge 到 Sprint 分支 / `release/1` / `main`。
-- 未 push。
+- 工作分支执行阶段未 merge 至 Sprint 分支 / `release/1` / `main`（**当时状态**；后续经 Product Owner 授权，已 merge 至 `sprint/s12-product-governance-r2-planning`，见 **§21**）。
+- 未 push（**仍适用**）。
 
 ## 4. 排查范围与命中统计
 
@@ -132,9 +132,11 @@ sprint-backlog\.md|release-plan\.md|每个 Sprint 必须更新|Sprint Backlog|Re
 | 未批量迁移                      | PASS | —                                              |
 | 未启动 S12-STORY-002            | PASS | —                                              |
 | 未修改产品代码                  | PASS | —                                              |
-| 已 commit                       | PASS | 见 §14                                         |
+| 已 commit                       | PASS | 见 §13–§19                                     |
 | working tree clean              | PASS | commit 后确认                                  |
-| 未 merge、未 push               | PASS | —                                              |
+| merge 至 Sprint 分支            | PASS | 最终已完成 · `c18753c`（见 §21）               |
+| push                            | PASS | **仍未执行**（见 §21）                         |
+| Story 验收                      | PASS | **Accepted / Done**（见 §21）                  |
 
 ## 10. 运行检查
 
@@ -154,9 +156,21 @@ sprint-backlog\.md|release-plan\.md|每个 Sprint 必须更新|Sprint Backlog|Re
 
 ## 12. 建议下一步
 
+**当前（Story 关闭后）：**
+
+1. **S12-STORY-001 已关闭**（Accepted / Done · merge `c18753c` · 状态同步 `b4d7724`）。
+2. **Sprint 12 Plan 尚未 Approved** — 不得启动 Sprint 开发 Story。
+3. **S12-STORY-002 尚未启动** — 后续须先完成 Sprint 12 Planning 与相关基线检查（含 Sprint 11 / `release/1` 对齐闸门）。
+4. S12-STORY-006 可据此完善 DoR/DoD 与 Sprint / Release 目录模板（待 Sprint Plan Approved 后按序执行）。
+
+<details>
+<summary>历史建议（merge 前当时状态，已 superseded）</summary>
+
 1. 用户 / ChatGPT 审查 DECISION-114 与规则修正。
 2. 若通过，授权 merge 至 `sprint/s12-product-governance-r2-planning`。
 3. S12-STORY-006 可据此完善 DoR/DoD 与 Sprint / Release 目录模板。
+
+</details>
 
 ## 13. Commit（结构对齐主轮）
 
@@ -165,10 +179,12 @@ sprint-backlog\.md|release-plan\.md|每个 Sprint 必须更新|Sprint Backlog|Re
 - 主要实现：`81fa694`
 - report-only：`8fd449e`（execution report 回填 commit hash）
 
-### 状态
+### 状态（该阶段当时状态）
 
 - Merge 状态：未 merge
 - Push 状态：未 push
+
+最终 merge 与验收状态见 **§21**。
 
 ## 14. 残留审计（只读，2026-06-29）
 
@@ -218,9 +234,11 @@ sprint-backlog\.md|release-plan\.md|每个 Sprint 必须更新|Sprint Backlog|Re
 
 **Commit（本轮）：** 见 §17
 
-**Merge 状态：** 未 merge
+**Merge 状态（merge 前当时状态）：** 未 merge
 
 **Push 状态：** 未 push
+
+最终 merge 与验收状态见 **§21**。
 
 ## 17. Commit（merge 前最小修正）
 
@@ -238,10 +256,12 @@ sprint-backlog\.md|release-plan\.md|每个 Sprint 必须更新|Sprint Backlog|Re
 - `8fd449e`
 - `60981b6`
 
-### 状态
+### 状态（merge 前当时状态）
 
 - Merge 状态：未 merge
 - Push 状态：未 push
+
+最终 merge 与验收状态见 **§21**。
 
 ## 18. Execution Report commit 记录规则同步
 
@@ -265,9 +285,11 @@ sprint-backlog\.md|release-plan\.md|每个 Sprint 必须更新|Sprint Backlog|Re
 | 影响实际成果的修正 commit | `1bf00b9` | 同步 Execution Report commit 记录规则与模板                      |
 | report-only               | `ec754f6` | `docs(s12): record execution report rule sync`；不要求写回本报告 |
 
-**明确未做：** 未 merge；未 push；未启动 S12-STORY-002；未批量修改历史 execution reports。
+**明确未做（规则同步轮当时状态）：** 未 merge；未 push；未启动 S12-STORY-002；未批量修改历史 execution reports。最终状态见 **§21**。
 
-## 19. Commit 分类汇总（merge 前审查用）
+## 19. Commit 分类汇总（merge 前审查用 · 历史快照）
+
+> 本节为 merge 前审查时的 commit 分类快照；**最终** merge 与验收状态见 **§21**。
 
 ### 主要实现 commit
 
@@ -289,13 +311,15 @@ sprint-backlog\.md|release-plan\.md|每个 Sprint 必须更新|Sprint Backlog|Re
 
 ### 已授权 merge commit
 
-（无 — 本轮未 merge）
+- `c18753c` — merge 至 `sprint/s12-product-governance-r2-planning`（Story 关闭时完成；见 §21）
 
-### 状态
+### 状态（§19 撰写时 vs 最终）
 
-- Merge 状态：已 merge 至 `sprint/s12-product-governance-r2-planning`（`c18753c`）
-- Push 状态：未 push
-- 报告状态：**Done**（见 §21）
+| 项    | §19 当时           | 最终（§21）          |
+| ----- | ------------------ | -------------------- |
+| Merge | merge 前审查用快照 | 已 merge · `c18753c` |
+| Push  | 未 push            | 未 push              |
+| Story | In Review          | **Accepted / Done**  |
 
 `HEAD at review time` 由 Cursor 最终回复报告，不要求写回本文件。不得为记录 report-only commit 或回填最新 HEAD 循环产生新的 report-only commit。
 
@@ -376,19 +400,31 @@ sprint-backlog\.md|release-plan\.md|每个 Sprint 必须更新|Sprint Backlog|Re
 - **全局索引：** `docs/agile/sprint-backlog.md`、`docs/agile/release-plan.md` 仅为索引、状态摘要和入口
 - **详细事实源：** `docs/agile/sprints/sprint-<id>/`、`docs/agile/releases/release-<id>/`
 - `wechat-copy-rules.mdc` 本轮未修改
-- 未 merge；未 push；未启动 S12-STORY-002
+- merge 前当时状态：未 merge；未 push；未启动 S12-STORY-002。最终状态见 **§21**。
 
 ## 21. 用户验收与 merge 关闭（2026-06-29）
 
+### 最终状态（权威）
+
+| 项                          | 值                                                      |
+| --------------------------- | ------------------------------------------------------- |
+| 验收结论                    | **Accepted**                                            |
+| Story 状态                  | **Done**                                                |
+| Story merge commit          | `c18753c`                                               |
+| 状态同步 commit             | `b4d7724`                                               |
+| 执行分支（历史）            | `docs/s12-story-001-sprint-release-structure-alignment` |
+| 当前分支 / merge 后所在分支 | `sprint/s12-product-governance-r2-planning`             |
+| Push 状态                   | **未 push**                                             |
+| Sprint 12 Plan              | **未 Approved**                                         |
+| S12-STORY-002               | **未启动**                                              |
+| 报告状态                    | **Done**                                                |
+
+### 关闭记录
+
 - **用户验收日期：** 2026-06-29
-- **验收结论：** **Accepted**
 - **Product Owner 授权：** 允许标记 S12-STORY-001 为 **Done**；允许 merge 工作分支至 Sprint 分支
 - **merge 目标分支：** `sprint/s12-product-governance-r2-planning`
 - **STORY_MERGE_COMMIT：** `c18753c` — `Merge S12-STORY-001 product governance audit`
-- **merge 后所在分支：** `sprint/s12-product-governance-r2-planning`
-- **Push 状态：** 未 push
-- **Sprint 12 Plan：** 未 Approved
-- **S12-STORY-002：** 未启动
-- **报告状态：** Done
+- **STATUS_SYNC_COMMIT：** `b4d7724` — `docs(s12): accept and close story 001`
 
-`HEAD at review time` 由 Cursor 最终回复报告；不为记录状态同步 commit 回填本报告。
+`HEAD at review time` 由 Cursor 最终回复报告；不为 report-only commit 回填本报告。
