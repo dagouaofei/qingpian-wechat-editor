@@ -1,5 +1,8 @@
 # Execution Report：<任务名称>
 
+> 模板文件 · 复制后须替换全部占位内容 · **不得**将本模板直接作为最终报告提交
+> 固定顺序见 `.cursor/rules/agile-rules.mdc` · 事实源边界见 **DECISION-115**
+
 ## 1. 基本信息
 
 - 日期：
@@ -50,10 +53,12 @@
 
 ## 9. 运行检查
 
-| 命令       | 结果                 | 说明 |
-| ---------- | -------------------- | ---- |
-| pnpm lint  | PASS / FAIL / 未运行 |      |
-| pnpm build | PASS / FAIL / 未运行 |      |
+| 命令             | 结果                                     | 说明 |
+| ---------------- | ---------------------------------------- | ---- |
+| git diff --check | PASS / FAIL：具体原因 / 未运行：具体原因 |      |
+| prettier         | PASS / FAIL：具体原因 / 未运行：具体原因 |      |
+| pnpm lint        | PASS / FAIL：具体原因 / 未运行：具体原因 |      |
+| pnpm build       | PASS / FAIL / 未运行                     |      |
 
 ## 10. 未完成事项
 
@@ -89,10 +94,13 @@
 
 仅修改 execution report 自身；**不要求**写回本报告。
 
-### 状态
+### merge / push / working tree
 
-- Merge 状态：未 merge / 已 merge 至 `<branch>`（须用户授权）
-- Push 状态：未 push / 已 push
-- working tree：clean / 有未提交变更
+| 项                    | 状态                       |
+| --------------------- | -------------------------- |
+| merge 至 sprint       | 未执行 / 已执行 @ `<hash>` |
+| merge 至 release/main | 未执行                     |
+| push                  | 未 push / 已 push          |
+| working tree          | clean / 有未提交变更       |
 
 `HEAD at review time` 由 Cursor 最终回复报告，不要求写回本文件。不得为回填最新 HEAD 循环产生 report-only commit。
