@@ -45,28 +45,28 @@
 
 ## Sprint 1-B Closure Summary
 
-| 项 | 内容 |
-|----|------|
-| **关闭日期** | 2026-05-30 |
-| **关闭结论** | Final audit **B 级**通过 |
-| **P0** | 0 |
-| **P1 / P2** | 已登记至后续 Sprint / Product Backlog（见下方登记表） |
-| **用户确认** | Checklist #10：已确认接受 B 级 final audit；Checklist #11：已确认可以关闭 Sprint 1-B |
-| **Sprint 2** | **Closed**（2026-05-31；DECISION-054） |
-| **Sprint 3-A** | **Closed**（2026-05-31；DECISION-057） |
-| **Sprint 3-B** | **Closed**（2026-06-01；DECISION-059） |
-| **Sprint 4-A** | **Closed**（2026-06-01；DECISION-061） |
-| **Sprint 4-B** | **Closed**（2026-06-01；DECISION-063） |
-| **Sprint 3-C** | **Closed**（2026-06-01；DECISION-065；audit Grade A；merged `release/1`） |
-| **Sprint 5** | **Closed**（2026-06-02；DECISION-069；S5-STORY-001~008 Done；audit Grade A- · P0=0；merged `release/1`） |
-| **Sprint 6** | **Closed**（2026-06-02；DECISION-078；merge `release/1`） |
-| **Sprint 7** | **Done**（2026-06-03 · S7-STORY-008 关闭 · merge `release/1`） |
-| **Sprint 8** | **Closed**（2026-06-05 · DECISION-093 · merged `release/1`） |
-| **Sprint 9** | **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · P0=0 · S9-STORY-001~009 Done · **已 merge `release/1`** @ `c96e869`） |
-| **Sprint 10** | **Closed**（2026-06-08 · **DECISION-108** · **DECISION-111** · S10-STORY-001~011 Done） |
-| **Sprint 11** | **In Progress**（2026-06-08 · **DECISION-111** · Production Ops Go-Live） |
-| **Release 1 主干** | `release/1` |
-| **下一步** | **S11-STORY-001~006** 正式部署 · **S12+** Compat / DSL / Release1 Closeout |
+| 项                 | 内容                                                                                                                                   |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
+| **关闭日期**       | 2026-05-30                                                                                                                             |
+| **关闭结论**       | Final audit **B 级**通过                                                                                                               |
+| **P0**             | 0                                                                                                                                      |
+| **P1 / P2**        | 已登记至后续 Sprint / Product Backlog（见下方登记表）                                                                                  |
+| **用户确认**       | Checklist #10：已确认接受 B 级 final audit；Checklist #11：已确认可以关闭 Sprint 1-B                                                   |
+| **Sprint 2**       | **Closed**（2026-05-31；DECISION-054）                                                                                                 |
+| **Sprint 3-A**     | **Closed**（2026-05-31；DECISION-057）                                                                                                 |
+| **Sprint 3-B**     | **Closed**（2026-06-01；DECISION-059）                                                                                                 |
+| **Sprint 4-A**     | **Closed**（2026-06-01；DECISION-061）                                                                                                 |
+| **Sprint 4-B**     | **Closed**（2026-06-01；DECISION-063）                                                                                                 |
+| **Sprint 3-C**     | **Closed**（2026-06-01；DECISION-065；audit Grade A；merged `release/1`）                                                              |
+| **Sprint 5**       | **Closed**（2026-06-02；DECISION-069；S5-STORY-001~008 Done；audit Grade A- · P0=0；merged `release/1`）                               |
+| **Sprint 6**       | **Closed**（2026-06-02；DECISION-078；merge `release/1`）                                                                              |
+| **Sprint 7**       | **Done**（2026-06-03 · S7-STORY-008 关闭 · merge `release/1`）                                                                         |
+| **Sprint 8**       | **Closed**（2026-06-05 · DECISION-093 · merged `release/1`）                                                                           |
+| **Sprint 9**       | **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · P0=0 · S9-STORY-001~009 Done · **已 merge `release/1`** @ `c96e869`） |
+| **Sprint 10**      | **Closed**（2026-06-08 · **DECISION-108** · **DECISION-111** · S10-STORY-001~011 Done）                                                |
+| **Sprint 11**      | **In Progress**（2026-06-08 · **DECISION-111** · Production Ops Go-Live）                                                              |
+| **Release 1 主干** | `release/1`                                                                                                                            |
+| **下一步**         | **S11-STORY-001~006** 正式部署 · **S12+** Compat / DSL / Release1 Closeout                                                             |
 
 ---
 
@@ -74,19 +74,19 @@
 
 > 登记于 S1-STORY-029；Sprint 1-B 已于 2026-05-30 正式关闭（DECISION-051）。
 
-| # | 检查项 | 状态 |
-|---|--------|------|
-| 1 | final audit 已 merge 至 `sprint/s1b-core-tech-governance`（`25b9bad`） | ✅ |
-| 2 | S1-STORY-021~028 状态已同步（Done + merge 标注） | ✅ |
-| 3 | P0 = 0（见 `sprint1b-final-audit.md`） | ✅ |
-| 4 | P1/P2 已登记 Product Backlog 或后续 Sprint | ✅ |
-| 5 | Style Quality Gate 已登记 Product Backlog（TECH-ARCH-023） | ✅ |
-| 6 | Sprint 2 范围明确：Article / Block Schema + InlineContent 代码契约 | ✅ |
-| 7 | Sprint 3-A/B/C、4-A/B、5、**6/7/8** 拆分清晰（Release 1 尾声方案 B · DECISION-070） | ✅ |
-| 8 | Release 1 first wave 11×3 + expansion 策略已确认（DECISION-043） | ✅ |
-| 9 | 受控 AI Style Selection 边界已确认（DECISION-040） | ✅ |
-| 10 | 用户确认接受 B 级 final audit | ✅ **已确认** |
-| 11 | 用户确认可以关闭 Sprint 1-B | ✅ **已确认** |
+| #   | 检查项                                                                              | 状态          |
+| --- | ----------------------------------------------------------------------------------- | ------------- |
+| 1   | final audit 已 merge 至 `sprint/s1b-core-tech-governance`（`25b9bad`）              | ✅            |
+| 2   | S1-STORY-021~028 状态已同步（Done + merge 标注）                                    | ✅            |
+| 3   | P0 = 0（见 `sprint1b-final-audit.md`）                                              | ✅            |
+| 4   | P1/P2 已登记 Product Backlog 或后续 Sprint                                          | ✅            |
+| 5   | Style Quality Gate 已登记 Product Backlog（TECH-ARCH-023）                          | ✅            |
+| 6   | Sprint 2 范围明确：Article / Block Schema + InlineContent 代码契约                  | ✅            |
+| 7   | Sprint 3-A/B/C、4-A/B、5、**6/7/8** 拆分清晰（Release 1 尾声方案 B · DECISION-070） | ✅            |
+| 8   | Release 1 first wave 11×3 + expansion 策略已确认（DECISION-043）                    | ✅            |
+| 9   | 受控 AI Style Selection 边界已确认（DECISION-040）                                  | ✅            |
+| 10  | 用户确认接受 B 级 final audit                                                       | ✅ **已确认** |
+| 11  | 用户确认可以关闭 Sprint 1-B                                                         | ✅ **已确认** |
 
 ---
 
@@ -96,32 +96,32 @@
 
 ### P1（登记项 · 见 `sprint1b-final-audit.md` §10）
 
-| ID | 问题 | 建议 Sprint | Sprint 1-B 处理 |
-|----|------|-------------|-----------------|
-| P1-001 | block 文本字段 `body` vs `text` 命名不一致 | Sprint 2 启动前 | **已解决**（DECISION-034） |
-| P1-002 | InlineMark → copy-safe CSS 映射表缺失 | Sprint 3 / Sprint 4 | 登记 · TECH-ARCH-002 |
-| P1-003 | StyleOrchestrator 文章级节奏代码未实现 | Sprint 3-C | 登记 · TECH-ARCH-011 |
-| P1-004 | WeChatCompatibilityProfile 无 machine-readable fixture | Sprint 3-A | **已解决**（S3A-STORY-004） |
-| P1-005 | list / info_card copy 结构保真规则未细化 | Sprint 4-B | 登记 |
-| P1-006 | Clipboard text/html + text/plain 双格式未写清 | Sprint 4 | 登记 |
-| P1-007 | requireTextNodeTypography 细则未展开 | Sprint 4 | 登记 |
-| P1-008 | rendering-pipeline.md 实现顺序与 Sprint 2~6 不一致 | Sprint 1-B | **已解决**（S1-STORY-023） |
-| P1-009 | sprint-backlog 021~024 状态滞后 | Sprint 1-B | **已解决**（S1-STORY-029） |
-| P1-010 | architecture-overview §19 仍写 S1-STORY-021 In Review | Sprint 1-B 关闭 | **已解决**（S1-STORY-029 关闭轮） |
-| P1-011 | 各 variant copySafety tier 未逐项登记 | Sprint 3-B | 登记 · TECH-ARCH-018 |
-| P1-012 | Style Quality Gate 未登记 product-backlog | Backlog | **已解决**（TECH-ARCH-023） |
+| ID     | 问题                                                   | 建议 Sprint         | Sprint 1-B 处理                   |
+| ------ | ------------------------------------------------------ | ------------------- | --------------------------------- |
+| P1-001 | block 文本字段 `body` vs `text` 命名不一致             | Sprint 2 启动前     | **已解决**（DECISION-034）        |
+| P1-002 | InlineMark → copy-safe CSS 映射表缺失                  | Sprint 3 / Sprint 4 | 登记 · TECH-ARCH-002              |
+| P1-003 | StyleOrchestrator 文章级节奏代码未实现                 | Sprint 3-C          | 登记 · TECH-ARCH-011              |
+| P1-004 | WeChatCompatibilityProfile 无 machine-readable fixture | Sprint 3-A          | **已解决**（S3A-STORY-004）       |
+| P1-005 | list / info_card copy 结构保真规则未细化               | Sprint 4-B          | 登记                              |
+| P1-006 | Clipboard text/html + text/plain 双格式未写清          | Sprint 4            | 登记                              |
+| P1-007 | requireTextNodeTypography 细则未展开                   | Sprint 4            | 登记                              |
+| P1-008 | rendering-pipeline.md 实现顺序与 Sprint 2~6 不一致     | Sprint 1-B          | **已解决**（S1-STORY-023）        |
+| P1-009 | sprint-backlog 021~024 状态滞后                        | Sprint 1-B          | **已解决**（S1-STORY-029）        |
+| P1-010 | architecture-overview §19 仍写 S1-STORY-021 In Review  | Sprint 1-B 关闭     | **已解决**（S1-STORY-029 关闭轮） |
+| P1-011 | 各 variant copySafety tier 未逐项登记                  | Sprint 3-B          | 登记 · TECH-ARCH-018              |
+| P1-012 | Style Quality Gate 未登记 product-backlog              | Backlog             | **已解决**（TECH-ARCH-023）       |
 
 ### P2（登记项）
 
-| ID | 问题 | 建议 Sprint / 归属 |
-|----|------|-------------------|
-| P2-001 | quote / highlight / cta 未升级 InlineContent | Release 2 |
-| P2-002 | classic-news slot 无 SlotRenderSpec 示例 | Sprint 3-B |
-| P2-003 | semantic → visual 映射表未写 | Sprint 3 |
-| P2-004 | article-schema InlineContent 说明重复 | **已解决**（S1-STORY-023） |
-| P2-005 | Story 018/019 编号缺口 | 文档 chore |
-| P2-006 | first wave 33 variants 视觉效果可能偏保守 | TECH-ARCH-023 / Sprint 4+ |
-| P2-007 | expansion variants 未拆独立 Story | Release 1 expansion planning（TECH-ARCH-019） |
+| ID     | 问题                                         | 建议 Sprint / 归属                            |
+| ------ | -------------------------------------------- | --------------------------------------------- |
+| P2-001 | quote / highlight / cta 未升级 InlineContent | Release 2                                     |
+| P2-002 | classic-news slot 无 SlotRenderSpec 示例     | Sprint 3-B                                    |
+| P2-003 | semantic → visual 映射表未写                 | Sprint 3                                      |
+| P2-004 | article-schema InlineContent 说明重复        | **已解决**（S1-STORY-023）                    |
+| P2-005 | Story 018/019 编号缺口                       | 文档 chore                                    |
+| P2-006 | first wave 33 variants 视觉效果可能偏保守    | TECH-ARCH-023 / Sprint 4+                     |
+| P2-007 | expansion variants 未拆独立 Story            | Release 1 expansion planning（TECH-ARCH-019） |
 
 ---
 
@@ -129,50 +129,50 @@
 
 > 登记于 S2-STORY-007；Sprint 2 已于 2026-05-31 正式关闭（DECISION-054）。
 
-| # | 检查项 | 状态 |
-|---|--------|------|
-| 1 | S2-STORY-002~007 全部 Done | ✅ |
-| 2 | Contract audit A 级，P0=0（`sprint2-contract-audit.md`） | ✅ |
-| 3 | Code audit A 级，P0=0（`sprint2-code-audit.md`） | ✅ |
-| 4 | lint / test / build PASS | ✅ |
-| 5 | Sprint 2 范围未越界 | ✅ |
-| 6 | 用户确认接受 contract audit（A，P1=1，P2=3） | ✅ **已确认** |
-| 7 | 用户确认接受 code audit（A，P1=3，P2=5） | ✅ **已确认** |
-| 8 | 用户确认关闭 Sprint 2 | ✅ **已确认** |
-| 9 | merge `sprint/s2-article-block-schema` → `release/1` | ✅ **已确认** |
+| #   | 检查项                                                   | 状态          |
+| --- | -------------------------------------------------------- | ------------- |
+| 1   | S2-STORY-002~007 全部 Done                               | ✅            |
+| 2   | Contract audit A 级，P0=0（`sprint2-contract-audit.md`） | ✅            |
+| 3   | Code audit A 级，P0=0（`sprint2-code-audit.md`）         | ✅            |
+| 4   | lint / test / build PASS                                 | ✅            |
+| 5   | Sprint 2 范围未越界                                      | ✅            |
+| 6   | 用户确认接受 contract audit（A，P1=1，P2=3）             | ✅ **已确认** |
+| 7   | 用户确认接受 code audit（A，P1=3，P2=5）                 | ✅ **已确认** |
+| 8   | 用户确认关闭 Sprint 2                                    | ✅ **已确认** |
+| 9   | merge `sprint/s2-article-block-schema` → `release/1`     | ✅ **已确认** |
 
 ### Sprint 2 audit P1/P2 登记（不阻塞关闭）
 
-| ID | 问题 | 建议 Sprint |
-|----|------|-------------|
-| P1-S2-001 | 测试 fixture 与 `tests/fixtures/articles/` 重复维护 | Chore / Sprint 3-A 前 |
-| P1-CODE-001 | streaming partial Article vs `blocks.min(1)` | Sprint 5 |
-| P1-CODE-002 | InlineMark color token 未接 Style registry | Sprint 3-B / 4-A（P2-S3A-003） |
-| P2-S2-001 ~ P2-CODE-005 | 见 `sprint2-contract-audit.md` / `sprint2-code-audit.md` §10 | Sprint 3~6 / Release 2 |
+| ID                      | 问题                                                         | 建议 Sprint                    |
+| ----------------------- | ------------------------------------------------------------ | ------------------------------ |
+| P1-S2-001               | 测试 fixture 与 `tests/fixtures/articles/` 重复维护          | Chore / Sprint 3-A 前          |
+| P1-CODE-001             | streaming partial Article vs `blocks.min(1)`                 | Sprint 5                       |
+| P1-CODE-002             | InlineMark color token 未接 Style registry                   | Sprint 3-B / 4-A（P2-S3A-003） |
+| P2-S2-001 ~ P2-CODE-005 | 见 `sprint2-contract-audit.md` / `sprint2-code-audit.md` §10 | Sprint 3~6 / Release 2         |
 
 ### Sprint 3-A Close Readiness Checklist
 
 > 登记于 S3A-STORY-007；详见 `docs/architecture/audits/sprint3a-contract-audit.md` §11。
 
-| # | 检查项 | 状态 |
-|---|--------|------|
-| 1 | S3A-STORY-002~006 Done 且 merge 至 sprint | ✅ |
-| 2 | Contract audit grade **A**，P0=0 | ✅ |
-| 3 | lint / test / build PASS（221 tests） | ✅ |
-| 4 | Sprint 3-A 范围未越界 | ✅ |
-| 5 | layoutMode / copySafety 文档最小同步 | ✅ |
-| 6 | **用户确认关闭 Sprint 3-A** | ✅ **已确认**（2026-05-31；DECISION-057） |
-| 7 | merge sprint → `release/1` | ✅ **已确认**（2026-05-31；DECISION-057） |
+| #   | 检查项                                    | 状态                                      |
+| --- | ----------------------------------------- | ----------------------------------------- |
+| 1   | S3A-STORY-002~006 Done 且 merge 至 sprint | ✅                                        |
+| 2   | Contract audit grade **A**，P0=0          | ✅                                        |
+| 3   | lint / test / build PASS（221 tests）     | ✅                                        |
+| 4   | Sprint 3-A 范围未越界                     | ✅                                        |
+| 5   | layoutMode / copySafety 文档最小同步      | ✅                                        |
+| 6   | **用户确认关闭 Sprint 3-A**               | ✅ **已确认**（2026-05-31；DECISION-057） |
+| 7   | merge sprint → `release/1`                | ✅ **已确认**（2026-05-31；DECISION-057） |
 
 ### Sprint 3-A audit P1/P2 登记（不阻塞关闭）
 
-| ID | 问题 | 建议 Sprint |
-|----|------|-------------|
-| P1-S3A-001 | §11.4 catalog layoutMode 与代码 enum 映射 | Sprint 3-B |
-| P1-S3A-002 | wechat-copy-style-rules profile 字段与代码结构差异 | Sprint 3-B / 4-A |
-| P1-S3A-003 | validateStyleRegistry 命名易混淆 | Sprint 3-B |
-| P1-S3A-004 | ResolvedBlockStyle 未展开 componentProtocol | Sprint 4-A |
-| P2-S3A-001 ~ P2-S3A-003 | 见 `sprint3a-contract-audit.md` §10 | Sprint 3-B~6 |
+| ID                      | 问题                                               | 建议 Sprint      |
+| ----------------------- | -------------------------------------------------- | ---------------- |
+| P1-S3A-001              | §11.4 catalog layoutMode 与代码 enum 映射          | Sprint 3-B       |
+| P1-S3A-002              | wechat-copy-style-rules profile 字段与代码结构差异 | Sprint 3-B / 4-A |
+| P1-S3A-003              | validateStyleRegistry 命名易混淆                   | Sprint 3-B       |
+| P1-S3A-004              | ResolvedBlockStyle 未展开 componentProtocol        | Sprint 4-A       |
+| P2-S3A-001 ~ P2-S3A-003 | 见 `sprint3a-contract-audit.md` §10                | Sprint 3-B~6     |
 
 ---
 
@@ -267,14 +267,14 @@
 
 ### Sprint 3-B audit P1/P2 登记（不阻塞关闭）
 
-| ID | 问题 | 建议 Sprint |
-|----|------|-------------|
-| P1-S3B-001 | 33 variants 尚未经过 Preview / Copy Renderer 实际保真验证 | Sprint 4-A / 4-B |
-| P1-S3B-002 | `balanced` copySafety variants 需要 WeChat paste QA 验证 | Sprint 4 / 6-B |
-| P1-S3B-003 | cta / image_placeholder 仍为占位契约 | Sprint 4-B / Release 2+ |
-| P1-S3B-004 | 缺少 style quality gallery / 人工视觉验收入口 | Sprint 4 / 6 |
-| P1-S3B-005 | optional slot 字段需 Renderer 明确 disabled/fallback 行为 | Sprint 4-B |
-| P2-S3B-001 ~ P2-S3B-003 | 见 `sprint3b-contract-audit.md` §11 | Sprint 4~6 / Release 2 |
+| ID                      | 问题                                                      | 建议 Sprint             |
+| ----------------------- | --------------------------------------------------------- | ----------------------- |
+| P1-S3B-001              | 33 variants 尚未经过 Preview / Copy Renderer 实际保真验证 | Sprint 4-A / 4-B        |
+| P1-S3B-002              | `balanced` copySafety variants 需要 WeChat paste QA 验证  | Sprint 4 / 6-B          |
+| P1-S3B-003              | cta / image_placeholder 仍为占位契约                      | Sprint 4-B / Release 2+ |
+| P1-S3B-004              | 缺少 style quality gallery / 人工视觉验收入口             | Sprint 4 / 6            |
+| P1-S3B-005              | optional slot 字段需 Renderer 明确 disabled/fallback 行为 | Sprint 4-B              |
+| P2-S3B-001 ~ P2-S3B-003 | 见 `sprint3b-contract-audit.md` §11                       | Sprint 4~6 / Release 2  |
 
 ### Sprint 3-C：Style Assignment / Selection Validation + Orchestrator + VisualAssetRegistry — **Closed**（2026-06-01）
 
@@ -306,13 +306,13 @@
 
 **Story 拆分调整（相对 sprint-plan 原叙事）：**
 
-| 原 sprint-plan 项 | 纳入 Story |
-|-------------------|------------|
-| StyleSelectionRequest / Patch validation | S3C-STORY-002 / S3C-STORY-005 |
-| StyleOrchestrator R1/R2/R8 | S3C-STORY-003 |
-| VisualAssetRegistry 15~30 assets | S3C-STORY-004 |
-| ComponentProtocol / BlockVisualProtocol 校验链 | S3C-STORY-004 / S3C-STORY-005 |
-| expansion variants 规划 | S3C-STORY-006（规划文档，非 registry 实现） |
+| 原 sprint-plan 项                              | 纳入 Story                                  |
+| ---------------------------------------------- | ------------------------------------------- |
+| StyleSelectionRequest / Patch validation       | S3C-STORY-002 / S3C-STORY-005               |
+| StyleOrchestrator R1/R2/R8                     | S3C-STORY-003                               |
+| VisualAssetRegistry 15~30 assets               | S3C-STORY-004                               |
+| ComponentProtocol / BlockVisualProtocol 校验链 | S3C-STORY-004 / S3C-STORY-005               |
+| expansion variants 规划                        | S3C-STORY-006（规划文档，非 registry 实现） |
 
 **登记 P1/P2：** P1-003（已收口）、TECH-ARCH-010~012 / TECH-ARCH-017（Done）、P1-S3B-004、P1-S3C-001~005 — 见 `sprint3c-style-system-contract-audit.md` §11
 
@@ -360,13 +360,13 @@
 
 ### Sprint 4-A audit P1/P2 登记（不阻塞 Close Readiness）
 
-| ID | 问题 | 建议 Sprint / 归属 |
-|----|------|-------------------|
-| P1-S4A-001 | 尚未执行真实微信公众号 Paste QA | Sprint 6-B / Paste QA 回归 |
-| P1-S4A-002 | `balanced` copySafety variants 仍需粘贴细节验证 | Sprint 4-B / 6-B |
-| P1-S4A-003 | Copy HTML snapshot seed 仅覆盖 6 个代表 variants，未覆盖全部 15 个已实现 text-first variants | Sprint 6-A / 6-B |
-| P1-S4A-004 | InlineMark color 与 Style registry 完整 cross-registry 校验仍未完成 | Sprint 6 / Release 1 hardening |
-| P2-S4A-001 | Style Gallery / 人工视觉验收入口仍缺失 | Sprint 6 / Release 2 |
+| ID         | 问题                                                                                         | 建议 Sprint / 归属             |
+| ---------- | -------------------------------------------------------------------------------------------- | ------------------------------ |
+| P1-S4A-001 | 尚未执行真实微信公众号 Paste QA                                                              | Sprint 6-B / Paste QA 回归     |
+| P1-S4A-002 | `balanced` copySafety variants 仍需粘贴细节验证                                              | Sprint 4-B / 6-B               |
+| P1-S4A-003 | Copy HTML snapshot seed 仅覆盖 6 个代表 variants，未覆盖全部 15 个已实现 text-first variants | Sprint 6-A / 6-B               |
+| P1-S4A-004 | InlineMark color 与 Style registry 完整 cross-registry 校验仍未完成                          | Sprint 6 / Release 1 hardening |
+| P2-S4A-001 | Style Gallery / 人工视觉验收入口仍缺失                                                       | Sprint 6 / Release 2           |
 
 ### Sprint 4-B：Preview / Copy Renderer for Structured Blocks — **Closed**（2026-06-01；DECISION-063；audit Grade A；P0=0）
 
@@ -393,14 +393,14 @@
 
 **Sprint 4-B 前置遗留纳入 planning（S4B-STORY-001）：**
 
-| ID | 问题 | 纳入 Story |
-|----|------|------------|
-| P1-005 | list / info_card copy 结构保真规则未细化 | S4B-STORY-002 / S4B-STORY-004 |
-| P1-S3B-003 | cta / image_placeholder 占位契约，无真实 QR / 链接 / 小程序 / 图片能力 | S4B-STORY-005 |
-| P1-S3B-005 | optional 字段需 renderer 明确 disabled / fallback 行为 | S4B-STORY-004 / S4B-STORY-005 |
-| P1-S4A-002 | balanced copySafety 粘贴细节验证 | S4B-STORY-006 / 6-B |
-| P1-S4A-003 | Copy HTML snapshot seed 覆盖不足 | S4B-STORY-006 |
-| P2-S4A-001 | Style Gallery / 人工视觉验收入口缺失 | 登记 · 不要求 Sprint 4-B 实现 |
+| ID         | 问题                                                                   | 纳入 Story                    |
+| ---------- | ---------------------------------------------------------------------- | ----------------------------- |
+| P1-005     | list / info_card copy 结构保真规则未细化                               | S4B-STORY-002 / S4B-STORY-004 |
+| P1-S3B-003 | cta / image_placeholder 占位契约，无真实 QR / 链接 / 小程序 / 图片能力 | S4B-STORY-005                 |
+| P1-S3B-005 | optional 字段需 renderer 明确 disabled / fallback 行为                 | S4B-STORY-004 / S4B-STORY-005 |
+| P1-S4A-002 | balanced copySafety 粘贴细节验证                                       | S4B-STORY-006 / 6-B           |
+| P1-S4A-003 | Copy HTML snapshot seed 覆盖不足                                       | S4B-STORY-006                 |
+| P2-S4A-001 | Style Gallery / 人工视觉验收入口缺失                                   | 登记 · 不要求 Sprint 4-B 实现 |
 
 **Audit / Close Readiness 摘要（S4B-STORY-007）：**
 
@@ -427,14 +427,14 @@
 
 ### Sprint 4-B audit P1/P2 登记（不阻塞 Close Readiness）
 
-| ID | 问题 | 建议 Sprint / 归属 |
-|----|------|-------------------|
-| P1-S4B-001 | 33 variants 真实微信公众号 Paste QA 尚未执行 | Sprint 6-B |
-| P1-S4B-002 | `balanced` copySafety variants 仍需真实粘贴细节验证 | Sprint 6-B |
-| P1-S4B-003 | text-first snapshot 仍是 S4A 代表 seed，非全量 15 text-first variants snapshot | Sprint 6-A / 6-B |
-| P1-S4B-004 | PasteTestRecord / fixture triple 体系尚未建立 | Sprint 6-A / 6-B |
-| P2-S4B-001 | Style Gallery / 人工视觉验收入口仍缺失 | Sprint 6 / Release 2 |
-| P2-S4B-002 | cta / image_placeholder 真实 QR / link / image 能力仍未实现 | Release 2+ |
+| ID         | 问题                                                                           | 建议 Sprint / 归属   |
+| ---------- | ------------------------------------------------------------------------------ | -------------------- |
+| P1-S4B-001 | 33 variants 真实微信公众号 Paste QA 尚未执行                                   | Sprint 6-B           |
+| P1-S4B-002 | `balanced` copySafety variants 仍需真实粘贴细节验证                            | Sprint 6-B           |
+| P1-S4B-003 | text-first snapshot 仍是 S4A 代表 seed，非全量 15 text-first variants snapshot | Sprint 6-A / 6-B     |
+| P1-S4B-004 | PasteTestRecord / fixture triple 体系尚未建立                                  | Sprint 6-A / 6-B     |
+| P2-S4B-001 | Style Gallery / 人工视觉验收入口仍缺失                                         | Sprint 6 / Release 2 |
+| P2-S4B-002 | cta / image_placeholder 真实 QR / link / image 能力仍未实现                    | Release 2+           |
 
 ### Sprint 5：Generation / Streaming + Release 1 真实 UI 主流程闭环 — **Closed**（2026-06-02）
 
@@ -678,7 +678,7 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 **Stories：** S11-STORY-001 ~ S11-STORY-006 — 见 `sprint-backlog.md`
 
-**staging 进度（2026-06-11）：** Story 001~003 **In Review** · **003A/003B Done** · **004 Done** · **005 In Progress** · production Prelaunch **Active**
+**staging 进度（2026-06-30）：** Story 001~003 **In Review** · **003A/003B Done** · **004 Done** · **005 In Review** · **006 Pending** · Production Prelaunch **Active** · Review **Partially Ready** · **未 merge `release/1`**
 
 **不做：** CI/CD · 复杂 RBAC · OSS/SLS SDK 全量 · Compat/DSL 债务（→ Sprint 12+）
 
