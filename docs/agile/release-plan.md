@@ -4,14 +4,14 @@
 
 ## Release 1 状态
 
-| 项                      | 状态                                                                                                                                   |
-| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| **Release**             | Release 1 — **进行中（未关闭）**                                                                                                       |
-| **主干分支**            | `release/1`                                                                                                                            |
-| **已完成 Sprint**       | Sprint 1-A/B · Sprint 2 · Sprint 3-A/B/C · Sprint 4-A/B · Sprint 5 · Sprint 6 · Sprint 7 · **Sprint 8** · **Sprint 9** · **Sprint 10** |
-| **当前 Sprint**         | **Sprint 11** — Production Ops Go-Live（**In Progress** · Review 2026-06-30 · **未 merge `release/1`**）                               |
-| **下一 Sprint（规划）** | Sprint 12+ — Compat Recalibration · DSL Cleanup · Release 1 Closeout                                                                   |
-| **merge `main`**        | **未执行** — Release 1 整体验收通过后才 merge                                                                                          |
+| 项                      | 状态                                                                                                                                                      |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Release**             | Release 1 — **进行中（未关闭）**                                                                                                                          |
+| **主干分支**            | `release/1`                                                                                                                                               |
+| **已完成 Sprint**       | Sprint 1-A/B · Sprint 2 · Sprint 3-A/B/C · Sprint 4-A/B · Sprint 5 · Sprint 6 · Sprint 7 · **Sprint 8** · **Sprint 9** · **Sprint 10**                    |
+| **当前 Sprint**         | **Sprint 11** — Production Ops Go-Live（**In Progress** · Stories 001～005 **Done** · PO 2026-06-30 · Closeout **Not Ready** · **未 merge `release/1`**） |
+| **下一 Sprint（规划）** | Sprint 12+ — Compat Recalibration · DSL Cleanup · Release 1 Closeout                                                                                      |
+| **merge `main`**        | **未执行** — Release 1 整体验收通过后才 merge                                                                                                             |
 
 > Sprint 5~10 已交付可见主链路、样式管理 v0/v1、DSL runtime、Harvest/Promote 等；**Release 1 不能以 lint/test/build alone 关闭**。S11 目标为 **staging/production 正式部署上线**（DECISION-111）。
 

@@ -746,6 +746,17 @@
 
 ---
 
+## 2026-06-30 · Sprint 11 Story Acceptance（PO 确认）
+
+| 日期       | Sprint    | 变更摘要                                                                                                           | 影响范围 | 关联 Story / Backlog  |
+| ---------- | --------- | ------------------------------------------------------------------------------------------------------------------ | -------- | --------------------- |
+| 2026-06-30 | Sprint 11 | **PO 验收**：001 **Accepted with follow-ups** · 002/003 **Accepted** · 005 **Accepted with follow-ups** · **Done** | 敏捷     | S11-STORY-001~003/005 |
+| 2026-06-30 | Sprint 11 | Follow-ups 保留 Open：**P1-S11-002**（005 运行时）· **P1-S11-004**（OSS/SLS/CloudMonitor）                         | Backlog  | P1-S11-002/004        |
+| 2026-06-30 | Sprint 11 | **P1-S11-003 Resolved**（001～003 PO 签收治理项已解决）                                                            | 治理     | P1-S11-003            |
+| 2026-06-30 | Sprint 11 | Closeout Readiness **仍为 Not Ready** · Sprint **In Progress / Not Closed** · **006 未启动**                       | 敏捷     | S11-STORY-006         |
+
+---
+
 | 2026-06-11 | Git | **`bugfix/s11-staging-admin-session-cookie` merge → sprint** @ `7f218e5` · docs @ `7fb4d9e` · **未 merge main** | Git | bugfix |
 
 ---

@@ -16,16 +16,16 @@
 
 ## 2. Committed Stories
 
-| Story          | 名称                                | 文档状态  | Review 证据状态                                                             |
-| -------------- | ----------------------------------- | --------- | --------------------------------------------------------------------------- |
-| S11-STORY-001  | 阿里云资源开通与网络基线            | In Review | **部分完成**（ECS/RDS/网络/HTTPS 有证据 · OSS/SLS/CloudMonitor 未创建）     |
-| S11-STORY-002  | Staging 部署与数据库初始化          | In Review | **完成有证据**（2026-06-11 staging 验收 · health/import PASS）              |
-| S11-STORY-003  | Admin 登录与 Staging 治理/用户池    | In Review | **完成有证据**（2026-06-11 · session bugfix `7f218e5`）                     |
-| S11-STORY-003A | Staging Volcengine + 生成主链路     | Done      | **完成有证据**（用户 staging 验收 2026-06-11）                              |
-| S11-STORY-003B | Legacy Path Removal 审计            | Done      | **完成有证据**（merge sprint `8da62e9` · staging 2026-06-11）               |
-| S11-STORY-004  | Production 部署与上线               | Done      | **完成有证据**（Prelaunch @ `385422d` · 用户确认 **2026-06-28**）           |
-| S11-STORY-005  | Production Monitoring & Observation | In Review | **部分完成**（`ops:observe` 脚本与文档 · **无** ECS cron/T+24h/T+72h 证据） |
-| S11-STORY-006  | Sprint 11 Closeout                  | Planned   | **未开始**                                                                  |
+| Story          | 名称                                | 文档状态 | Review 证据状态                                                                                                              |
+| -------------- | ----------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| S11-STORY-001  | 阿里云资源开通与网络基线            | Done     | **Accepted with follow-ups**（PO 2026-06-30 · ECS/RDS/网络/HTTPS 有证据 · OSS/SLS/CloudMonitor **未创建** → P1-S11-004）     |
+| S11-STORY-002  | Staging 部署与数据库初始化          | Done     | **Accepted**（PO 2026-06-30 · 2026-06-11 staging 验收 · health/import PASS）                                                 |
+| S11-STORY-003  | Admin 登录与 Staging 治理/用户池    | Done     | **Accepted**（PO 2026-06-30 · 2026-06-11 · session bugfix `7f218e5`）                                                        |
+| S11-STORY-003A | Staging Volcengine + 生成主链路     | Done     | **完成有证据**（用户 staging 验收 2026-06-11）                                                                               |
+| S11-STORY-003B | Legacy Path Removal 审计            | Done     | **完成有证据**（merge sprint `8da62e9` · staging 2026-06-11）                                                                |
+| S11-STORY-004  | Production 部署与上线               | Done     | **完成有证据**（Prelaunch @ `385422d` · 用户确认 **2026-06-28**）                                                            |
+| S11-STORY-005  | Production Monitoring & Observation | Done     | **Accepted with follow-ups**（PO 2026-06-30 · `ops:observe` 脚本/文档已验收 · ECS cron/T+24h/T+72h **无证据** → P1-S11-002） |
+| S11-STORY-006  | Sprint 11 Closeout                  | Planned  | **未开始**                                                                                                                   |
 
 ---
 
@@ -62,17 +62,16 @@
 
 ## 4. 未交付 / 未完成
 
-| 项                               | 说明                                       |
-| -------------------------------- | ------------------------------------------ |
-| OSS / SLS / CloudMonitor         | 资源 **未创建**（STORY-001/005 文档登记）  |
-| S11-STORY-005 运行时闭环         | ECS cron · T+24h · T+72h 观察 **无证据**   |
-| S11-STORY-006 Closeout           | **Planned** · 未执行                       |
-| Stories 001~003 正式 Done        | 仍为 **In Review** · 缺 PO 单独签收记录    |
-| governance snapshot apply        | **Deferred**（DECISION-112）               |
-| P1-S11-001 DB 跨环境同步         | **Deferred**                               |
-| merge `sprint/s11` → `release/1` | **未执行**（git 事实：56 commits ahead）   |
-| 正式公开发布                     | Prelaunch only · Basic Auth/noindex 仍生效 |
-| merge `main` / Release 1 关闭    | **未执行**                                 |
+| 项                               | 说明                                                                |
+| -------------------------------- | ------------------------------------------------------------------- |
+| OSS / SLS / CloudMonitor         | 资源 **未创建**（S11-STORY-001 follow-up → **P1-S11-004** · Open）  |
+| S11-STORY-005 运行时闭环         | ECS cron · T+24h · T+72h 观察 **无证据**（→ **P1-S11-002** · Open） |
+| S11-STORY-006 Closeout           | **Planned** · 未执行                                                |
+| governance snapshot apply        | **Deferred**（DECISION-112）                                        |
+| P1-S11-001 DB 跨环境同步         | **Deferred**                                                        |
+| merge `sprint/s11` → `release/1` | **未执行**（Sprint 关闭 + PO 授权后待执行动作）                     |
+| 正式公开发布                     | Prelaunch only · Basic Auth/noindex 仍生效                          |
+| merge `main` / Release 1 关闭    | **未执行**                                                          |
 
 ---
 
@@ -128,8 +127,8 @@
 
 - staging 全量验收：**是**（有证据）
 - production 上线：**Prelaunch 是** · 正式公开发布：**否**（by design）
-- 监控报警闭环：**否**（005 In Review · CloudMonitor 无）
-- Sprint 11 Closeout：**否**（006 Pending）
+- 监控报警闭环：**部分**（005 脚本/文档已验收 · 运行时观察 follow-up 未完成）
+- Sprint 11 Closeout：**否**（006 Pending · Sprint 级 PO 验收/关闭未完成）
 
 ---
 
@@ -139,9 +138,7 @@
 Partially Ready
 ```
 
-**说明：** 核心部署与 Prelaunch 验收已达用户确认标准，但监控观察运行时闭环、Closeout、若干 Story 正式签收、`release/1` merge 与 Release 1 收口均未完成。**不得**由 Cursor 写 Accepted；须 Product Owner 决定。
-
-**PO 待决策清单（建议 · 未批准）：** 见 [`sprint11-closeout.md`](sprint11-closeout.md) §4。
+**说明：** 交付 Stories（001～005）已完成 Product Owner 验收（2026-06-30）。当前仅剩 **S11-STORY-006**、最终 Closeout checklist 和 **Sprint 级**验收/关闭。**不得**将本次 Story 验收解释为 Sprint 11 整体 Accepted 或 Closed。
 
 ---
 

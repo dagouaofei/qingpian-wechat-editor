@@ -662,7 +662,7 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 **Stories：** S10-STORY-001 ~ S10-STORY-012 — 见 `sprint-backlog.md`
 
-**进度：** S10-STORY-001~011 **Done** · S10 **Closed** · S11-STORY-001~003 **In Review** · **S11-STORY-003A/003B Done** · **S11-STORY-004 Done** · **S11-STORY-005 In Review** · S11-STORY-006 **Pending**
+**进度：** S10-STORY-001~011 **Done** · S10 **Closed** · S11-STORY-001~005 **Done**（PO 2026-06-30）· **S11-STORY-003A/003B/004 Done** · S11-STORY-006 **Planned**
 
 ---
 
@@ -678,7 +678,7 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 **Stories：** S11-STORY-001 ~ S11-STORY-006 — 见 `sprint-backlog.md`
 
-**staging 进度（2026-06-30）：** Story 001~003 **In Review** · **003A/003B Done** · **004 Done** · **005 In Review** · **006 Pending** · Production Prelaunch **Active** · Review **Partially Ready** · **未 merge `release/1`**
+**staging 进度（2026-06-30）：** Story 001~005 **Done**（PO 验收 2026-06-30）· **006 Planned** · Production Prelaunch **Active** · Review **Partially Ready** · Closeout **Not Ready** · **未 merge `release/1`**
 
 **不做：** CI/CD · 复杂 RBAC · OSS/SLS SDK 全量 · Compat/DSL 债务（→ Sprint 12+）
 

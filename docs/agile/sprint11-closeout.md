@@ -10,7 +10,7 @@
 | 项                            | 状态                                                       | 说明                                                                                   |
 | ----------------------------- | ---------------------------------------------------------- | -------------------------------------------------------------------------------------- |
 | Sprint Review 文档            | **完成**                                                   | [`sprint11-review.md`](sprint11-review.md) · 结论 **Partially Ready**                  |
-| Product Owner Sprint 验收     | **未完成**                                                 | 无 PO Accepted 记录 · Review 仅 **Partially Ready**                                    |
+| Product Owner Sprint 验收     | **部分完成**                                               | Stories 001～005 **PO 已验收**（2026-06-30）· **Sprint 级**验收/关闭 **未完成**        |
 | Retrospective 文档            | **完成**                                                   | [`sprint11-retrospective.md`](sprint11-retrospective.md)                               |
 | 未完成项回到 Product Backlog  | **完成**                                                   | § Sprint 11 Closeout Carryover                                                         |
 | Sprint 全局索引同步           | **本轮更新**                                               | `sprint-backlog.md` · `sprint-plan.md` · `release-plan.md` 摘要                        |
@@ -34,11 +34,9 @@ Closeout Readiness: Not Ready
 
 **理由（摘要 — Closeout Readiness 前置阻塞）：**
 
-1. **S11-STORY-005** 尚未完成，或尚未获得 Product Owner 接受遗留项
-2. **S11-STORY-006** 尚未执行
-3. **S11-STORY-001～003** 尚未获得 Product Owner 验收
-4. **Product Owner** 尚未接受 Sprint 11
-5. **Closeout checklist** 尚未完成
+1. **S11-STORY-006** 尚未启动和完成
+2. **最终 Closeout checklist** 尚未完成
+3. **Product Owner** 尚未接受并授权关闭 Sprint 11
 
 **说明（非 Story 006 前阻塞 · git 事实）：**
 
@@ -52,8 +50,8 @@ S11 → `release/1` merge 是 **Sprint 关闭和用户授权后的待执行动�
 
 **约束：** 不得在 **S11-STORY-006 完成前** merge S11 → `release/1`；merge **不是** Sprint 关闭的替代步骤。
 
-1. **Product Owner** 对 S11-STORY-001～005 作出验收结论，或明确接受遗留项（见 §4 待决策清单）；
-2. 未完成、延期或 `Accepted with follow-ups` 项同步进入 Product Backlog；
+1. ~~**Product Owner** 对 S11-STORY-001～005 作出验收结论~~ **已完成**（2026-06-30 · 见 §4）；
+2. ~~未完成、延期或 `Accepted with follow-ups` 项同步进入 Product Backlog~~ **已完成**（P1-S11-002 · P1-S11-004 等）；
 3. 启动并完成 **S11-STORY-006** Closeout；
 4. 完成 Closeout checklist、最终分支与证据核对；
 5. **Product Owner 明确允许：**
@@ -67,17 +65,19 @@ S11 → `release/1` merge 是 **Sprint 关闭和用户授权后的待执行动�
 
 ---
 
-## 4. 待 Product Owner 决策（建议 · 未批准）
+## 4. Product Owner 已确认验收（2026-06-30）
 
-> **以上均为建议，尚未获得 Product Owner 批准。** Cursor **不得**将任何 Story 标记 Done 或 Accepted。
+> **PO 原文：**「明确这些结论。全按你的建议做。」
+> Cursor **不得**将 Sprint 11 标记 Closed 或 Sprint Accepted。
 
-| Story / 项                        | 建议                                                                                                                         |
-| --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| **S11-STORY-001**                 | 建议 **Accepted with follow-ups**；OSS / SLS / CloudMonitor 进入 Product Backlog                                             |
-| **S11-STORY-002**                 | 建议 **Accepted**                                                                                                            |
-| **S11-STORY-003**                 | 建议 **Accepted**                                                                                                            |
-| **S11-STORY-005**                 | **选项 A：** 完成 cron、T+24h、T+72h 后再验收；**选项 B：** **Accepted with follow-ups**，运行时观察继续留在 Product Backlog |
-| **RDS 恢复演练 · On-call 联系人** | 建议作为遗留项登记；**不**自动判定阻塞或豁免                                                                                 |
+| Story / 项                         | PO 验收结论                                                                                         | Story 状态   | Follow-up Backlog                                              |
+| ---------------------------------- | --------------------------------------------------------------------------------------------------- | ------------ | -------------------------------------------------------------- |
+| **S11-STORY-001**                  | **Accepted with follow-ups**                                                                        | **Done**     | OSS / SLS / CloudMonitor → **P1-S11-004**（**未创建** · Open） |
+| **S11-STORY-002**                  | **Accepted**                                                                                        | **Done**     | —                                                              |
+| **S11-STORY-003**                  | **Accepted**                                                                                        | **Done**     | —                                                              |
+| **S11-STORY-005**                  | **Accepted with follow-ups**（`ops:observe` 脚本/文档已验收 · ECS cron/T+24h/T+72h **未认定完成**） | **Done**     | 运行时观察 → **P1-S11-002**（Open）                            |
+| **RDS 恢复演练 · On-call 联系人**  | 遗留项登记 · **不**自动判定阻塞或豁免                                                               | —            | **P2-S11-001** · **P2-S11-002**（Open）                        |
+| **P1-S11-003**（001～003 PO 签收） | **已解决**（2026-06-30）                                                                            | **Resolved** | 历史登记保留 · 不再作为 carryover 阻塞                         |
 
 ---
 
