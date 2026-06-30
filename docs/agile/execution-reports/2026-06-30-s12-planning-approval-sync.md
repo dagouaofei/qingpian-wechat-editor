@@ -122,7 +122,9 @@ Accepted with follow-ups；允许仅修正 execution report，随后重新进行
 | `pnpm test`              | 未运行 | 本轮无产品代码变更         |
 | `pnpm build`             | 未运行 | 本轮无产品代码变更         |
 
-**远程核查：** `git fetch origin --prune` 因 SSH 断开失败（`Connection closed by 198.18.0.11 port 22`）；本地来源 HEAD `93a13ff` 已确认；Release 远程状态未在本轮重新验证。
+**远程核查（原轮）：** `git fetch origin --prune` 因 SSH 断开失败（`Connection closed by 198.18.0.11 port 22`）；本地来源 HEAD `93a13ff` 已确认。
+
+**远程核查（Follow-up 2 · 2026-06-30）：** `git fetch origin --prune` **PASS** · `release/1` = `origin/release/1` = `3a8203b` · ahead/behind **0/0** · `origin/sprint/s12-product-governance-r2-planning` **不存在** · Merge readiness 见 Cursor 最终回复（**Safe to Merge** · 本轮未 merge）。
 
 ## 12. 未完成事项
 
@@ -137,17 +139,17 @@ Accepted with follow-ups；允许仅修正 execution report，随后重新进行
 
 ## 14. Follow-ups
 
-| ID          | 项                                     | 状态                                                      |
-| ----------- | -------------------------------------- | --------------------------------------------------------- |
-| Follow-up 1 | execution report 补记停止条件执行偏差  | **本 follow-up 已处理**                                   |
-| Follow-up 2 | 重新获取远程状态，确认 merge readiness | **本 follow-up 执行中**（见最终回复 Remote verification） |
-| —           | 本轮不修改 Sprint Plan 内容            | **遵守**                                                  |
-| —           | 本轮不启动 S12-STORY-002               | **遵守**                                                  |
-| —           | merge 仍需 Product Owner 后续单独授权  | **Open**                                                  |
+| ID          | 项                                     | 状态                                                                                      |
+| ----------- | -------------------------------------- | ----------------------------------------------------------------------------------------- |
+| Follow-up 1 | execution report 补记停止条件执行偏差  | **本 follow-up 已处理**                                                                   |
+| Follow-up 2 | 重新获取远程状态，确认 merge readiness | **本 follow-up 已处理**（Remote verification: PASS · Safe to Merge · 见 Cursor 最终回复） |
+| —           | 本轮不修改 Sprint Plan 内容            | **遵守**                                                                                  |
+| —           | 本轮不启动 S12-STORY-002               | **遵守**                                                                                  |
+| —           | merge 仍需 Product Owner 后续单独授权  | **Open**                                                                                  |
 
 ## 15. 风险与阻塞
 
-- 原轮 `git fetch origin --prune` 因 SSH 断开失败；Follow-up 2 重新核查（见最终回复）
+- 原轮 `git fetch origin --prune` 因 SSH 断开失败；Follow-up 2 重新核查 **PASS**（`release/1` @ `3a8203b` · 0/0 · S12 远程不存在）
 - 执行偏差（§13）：未在 `sprint-12/` 缺失时停止；已获 PO **Accepted with follow-ups** 补记，不改变已批准 Planning 内容事实
 
 ## 16. Commit
