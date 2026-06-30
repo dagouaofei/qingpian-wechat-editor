@@ -746,6 +746,16 @@
 
 ---
 
+## 2026-06-30 · S11-STORY-006 Closeout 准备
+
+| 日期       | Sprint    | 变更摘要                                                                                            | 影响范围 | 关联               |
+| ---------- | --------- | --------------------------------------------------------------------------------------------------- | -------- | ------------------ |
+| 2026-06-30 | Sprint 11 | **S11-STORY-006 In Review**：Closeout checklist · 状态同步 · **Ready for PO Decision**              | 敏捷     | S11-STORY-006      |
+| 2026-06-30 | Sprint 11 | Review 推荐 **Ready for Acceptance** · 建议 Sprint **Accepted with follow-ups**（**待 PO**）        | 敏捷     | Sprint 11 Closeout |
+| 2026-06-30 | Git       | S11 @ `4596f7d` · origin @ `653c70a`（本地 +11）· `release/1` @ `6cd1dfc` · **67 ahead** · 未 merge | Git      | DECISION-111       |
+
+---
+
 ## 2026-06-30 · Sprint 11 Story Acceptance（PO 确认）
 
 | 日期       | Sprint    | 变更摘要                                                                                                           | 影响范围 | 关联 Story / Backlog  |

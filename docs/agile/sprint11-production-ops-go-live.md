@@ -44,17 +44,17 @@
 | S11-STORY-003B | Legacy Path Removal & Parallel Implementation Audit        | P0     | **Done**（merge sprint `8da62e9` `--no-ff` · staging 2026-06-11）                                                                |
 | S11-STORY-004  | Production 部署与上线                                      | P0     | **Done** · Prelaunch @ `385422d` · https://paiban.aiqingpian.cn                                                                  |
 | S11-STORY-005  | Production Monitoring, Alerting & Observation              | P1     | **Done** · **Accepted with follow-ups**（PO 2026-06-30 · `ops:observe` 脚本/文档已验收 · ECS cron/T+24h/T+72h → **P1-S11-002**） |
-| S11-STORY-006  | Sprint 11 Closeout                                         | P0     | **Pending**                                                                                                                      |
+| S11-STORY-006  | Sprint 11 Closeout                                         | P0     | **In Review** · 工作分支 `docs/s11-story-006-closeout` · Closeout **Ready for PO Decision**                                      |
 
 完整 AC 见 [`sprint-backlog.md`](sprint-backlog.md) Sprint 11 章节。
 
-**Review / Closeout（2026-06-30 · 未关闭）：**
+**Review / Closeout（2026-06-30 · Sprint 未关闭）：**
 
-| 文档                                                     | 用途                                            |
-| -------------------------------------------------------- | ----------------------------------------------- |
-| [`sprint11-review.md`](sprint11-review.md)               | Sprint Review · **Partially Ready**             |
-| [`sprint11-retrospective.md`](sprint11-retrospective.md) | Retrospective                                   |
-| [`sprint11-closeout.md`](sprint11-closeout.md)           | Closeout Readiness · **Not Ready / Not Closed** |
+| 文档                                                     | 用途                                                          |
+| -------------------------------------------------------- | ------------------------------------------------------------- |
+| [`sprint11-review.md`](sprint11-review.md)               | Sprint Review · **Ready for Acceptance**（待 PO Sprint 决定） |
+| [`sprint11-retrospective.md`](sprint11-retrospective.md) | Retrospective                                                 |
+| [`sprint11-closeout.md`](sprint11-closeout.md)           | Closeout · **Ready for PO Decision / Not Closed**             |
 
 ---
 

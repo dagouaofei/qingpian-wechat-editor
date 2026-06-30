@@ -13,7 +13,7 @@
 > **Sprint 8：** **Closed**（2026-06-05 · DECISION-093 · audit Grade A- · P0=0 · merged `release/1` @ `806fa47`）
 > **Sprint 9：** **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · **P0=0** · HTML→user preview picker E2E PASS · Preview/Copy parity PASS · default preset / release1_required 未污染 · **已 merge `release/1`** @ `c96e869` · **未 merge `main`**）
 > **Sprint 10：** **Closed**（2026-06-08 · **DECISION-108** · **DECISION-111** · S10-STORY-001~011 Done · **已 merge `release/1`** @ `6cd1dfc`）· 原 012~014 顺延 Sprint 12+
-> **当前 Sprint：** **Sprint 11** — Production Ops Go-Live · **In Progress** · Stories 001～005 **Done**（PO 2026-06-30）· Closeout Readiness **Not Ready**
+> **当前 Sprint：** **Sprint 11** — Production Ops Go-Live · **In Progress / Not Closed** · S11-STORY-006 **In Review** · Closeout **Ready for PO Decision**
 > **Sprint 11 分支：** `sprint/s11-production-ops-go-live`（从 `release/1` · @ `6cd1dfc`）
 > **Sprint 10 分支：** `sprint/s10-db-backed-style-admin-v1`（已 merge `release/1` · @ `6cd1dfc`）
 > **Sprint 9 分支：** `sprint/s9-style-management-system-v0`（已 merge `release/1` · 2026-06-05）
@@ -4769,15 +4769,21 @@ S11-STORY-001 → 002 → 003 → 004 → 005 → 006
 
 ## S11-STORY-006 Sprint 11 Closeout
 
-**优先级：** P0 · **状态：** **Planned** · **工作分支：** `docs/s11-story-006-closeout` · **前置：** S11-STORY-001~005 运维验收 + **用户确认**
+**优先级：** P0 · **状态：** **In Review** · **工作分支：** `docs/s11-story-006-closeout` · **前置：** S11-STORY-001~005 PO 验收 **Done**（2026-06-30）
 
-**目标：** S11 audit · staging/production checklist 归档 · 建议 merge `release/1`。
+**目标：** S11 audit · staging/production checklist 归档 · Closeout 状态同步 · 给出 Sprint 关闭与 merge `release/1` 建议 · **不**自行 Closed / merge。
+
+**Closeout 结论（2026-06-30）：**
+
+- Closeout Readiness：**Ready for PO Decision**
+- 推荐 Sprint 验收：**Accepted with follow-ups**（待 PO 确认）
+- Git：S11 @ `4596f7d` · `release/1` @ `6cd1dfc` · **67 commits ahead** · **未 merge** · 本地领先 origin **11 commits** · **未 push**（本轮）
 
 **验收标准：**
 
-- [ ] AC-1 staging + production signed checklist 归档 execution report
-- [ ] AC-2 P0=0 · 无 blocking 安全项
-- [ ] AC-3 用户确认关闭 Sprint 11
-- [ ] AC-4 **不**宣布 Release 1 关闭 · **不** merge `main`
+- [x] AC-1 staging + production signed checklist 归档 execution report（2026-06-11 staging · 2026-06-28 production · closeout report 2026-06-30）
+- [x] AC-2 P0=0 · 无 blocking 安全项（Prelaunch 约束保留 · follow-ups Open）
+- [ ] AC-3 用户确认关闭 Sprint 11（**待 PO**）
+- [x] AC-4 **不**宣布 Release 1 关闭 · **不** merge `main` · **不** merge `release/1`（本轮）
 
 ---
