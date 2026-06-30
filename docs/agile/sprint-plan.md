@@ -64,9 +64,9 @@
 | **Sprint 8**       | **Closed**（2026-06-05 · DECISION-093 · merged `release/1`）                                                                           |
 | **Sprint 9**       | **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · P0=0 · S9-STORY-001~009 Done · **已 merge `release/1`** @ `c96e869`） |
 | **Sprint 10**      | **Closed**（2026-06-08 · **DECISION-108** · **DECISION-111** · S10-STORY-001~011 Done）                                                |
-| **Sprint 11**      | **In Progress**（2026-06-08 · **DECISION-111** · Production Ops Go-Live）                                                              |
+| **Sprint 11**      | **Closed**（2026-06-30 · **Accepted with follow-ups** · **DECISION-114** · Production Ops Go-Live）                                    |
 | **Release 1 主干** | `release/1`                                                                                                                            |
-| **下一步**         | **S11-STORY-001~006** 正式部署 · **S12+** Compat / DSL / Release1 Closeout                                                             |
+| **下一步**         | **S12+** Compat / DSL / Release1 Closeout（Sprint 12 Planning 尚未重新 Approved）                                                      |
 
 ---
 
@@ -662,11 +662,11 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 **Stories：** S10-STORY-001 ~ S10-STORY-012 — 见 `sprint-backlog.md`
 
-**进度：** S10-STORY-001~011 **Done** · S10 **Closed** · S11-STORY-001~005 **Done**（PO 2026-06-30）· **S11-STORY-006 In Review** · Closeout **Ready for PO Decision**
+**进度：** S10-STORY-001~011 **Done** · S10 **Closed** · S11-STORY-001~006 **Done** · S11 **Closed**（Accepted with follow-ups · 2026-06-30）
 
 ---
 
-### Sprint 11：Production Ops Go-Live — **In Progress**（2026-06-08 · **DECISION-111** · staging 阶段验收 2026-06-11）
+### Sprint 11：Production Ops Go-Live — **Closed**（2026-06-30 · **Accepted with follow-ups** · **DECISION-114**）
 
 **中文名：** 正式部署与运维上线
 
@@ -678,7 +678,7 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 **Stories：** S11-STORY-001 ~ S11-STORY-006 — 见 `sprint-backlog.md`
 
-**staging 进度（2026-06-30）：** Story 001~005 **Done** · **006 In Review** · Production Prelaunch **Active** · Review **Ready for Acceptance** · Closeout **Ready for PO Decision** · Sprint **In Progress / Not Closed** · **未 merge `release/1`**
+**staging / production 进度（2026-06-30）：** Story 001~006 **Done** · Sprint 11 **Accepted with follow-ups / Closed** · Production Prelaunch **Active** · follow-ups **Open** · Release 1 **In Progress / Not Closed** · Sprint 12 Planning 尚未重新 Approved
 
 **不做：** CI/CD · 复杂 RBAC · OSS/SLS SDK 全量 · Compat/DSL 债务（→ Sprint 12+）
 

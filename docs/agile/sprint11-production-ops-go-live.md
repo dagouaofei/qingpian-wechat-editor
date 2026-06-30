@@ -1,7 +1,8 @@
 # Sprint 11：Production Ops Go-Live（正式部署与运维上线）
 
 > **分支：** `sprint/s11-production-ops-go-live`（从 `release/1`）  
-> **状态：** **In Progress**（2026-06-08 · **DECISION-111** · staging 2026-06-11 · Production Prelaunch 2026-06-28 · Review 2026-06-30）
+> **状态：** **Accepted with follow-ups / Closed**（2026-06-30 · **DECISION-114**）
+> **Production：** **Prelaunch** · Basic Auth / noindex / robots Disallow 保留 · Release 1 **In Progress / Not Closed**
 > **前置：** Sprint 10 Closed（S10-STORY-001~011 · runbook + admin 登录代码已就绪）
 
 ---
@@ -44,17 +45,17 @@
 | S11-STORY-003B | Legacy Path Removal & Parallel Implementation Audit        | P0     | **Done**（merge sprint `8da62e9` `--no-ff` · staging 2026-06-11）                                                                |
 | S11-STORY-004  | Production 部署与上线                                      | P0     | **Done** · Prelaunch @ `385422d` · https://paiban.aiqingpian.cn                                                                  |
 | S11-STORY-005  | Production Monitoring, Alerting & Observation              | P1     | **Done** · **Accepted with follow-ups**（PO 2026-06-30 · `ops:observe` 脚本/文档已验收 · ECS cron/T+24h/T+72h → **P1-S11-002**） |
-| S11-STORY-006  | Sprint 11 Closeout                                         | P0     | **In Review** · 工作分支 `docs/s11-story-006-closeout` · Closeout **Ready for PO Decision**                                      |
+| S11-STORY-006  | Sprint 11 Closeout                                         | P0     | **Done** · **Accepted**（Product Owner confirmed 2026-06-30）                                                                    |
 
 完整 AC 见 [`sprint-backlog.md`](sprint-backlog.md) Sprint 11 章节。
 
-**Review / Closeout（2026-06-30 · Sprint 未关闭）：**
+**Review / Closeout（2026-06-30 · Sprint Closed）：**
 
-| 文档                                                     | 用途                                                          |
-| -------------------------------------------------------- | ------------------------------------------------------------- |
-| [`sprint11-review.md`](sprint11-review.md)               | Sprint Review · **Ready for Acceptance**（待 PO Sprint 决定） |
-| [`sprint11-retrospective.md`](sprint11-retrospective.md) | Retrospective                                                 |
-| [`sprint11-closeout.md`](sprint11-closeout.md)           | Closeout · **Ready for PO Decision / Not Closed**             |
+| 文档                                                     | 用途                                             |
+| -------------------------------------------------------- | ------------------------------------------------ |
+| [`sprint11-review.md`](sprint11-review.md)               | Sprint Review · **Accepted with follow-ups**     |
+| [`sprint11-retrospective.md`](sprint11-retrospective.md) | Retrospective                                    |
+| [`sprint11-closeout.md`](sprint11-closeout.md)           | Closeout · **Accepted with follow-ups / Closed** |
 
 ---
 
@@ -107,7 +108,7 @@
 
 **待办（非 staging 阻塞）：**
 
-- OSS / SLS / CloudMonitor 创建与告警（→ **P1-S11-004** · S11-STORY-001 follow-up · **未创建**）
+- OSS / SLS / CloudMonitor 创建与告警（→ **P1-S11-004** · Backlog 已登记并保持 Open；资源未创建）
 - ~~首页 Volcengine AI 生成主链路 staging env 与验收~~ → **S11-STORY-003A**（Volcengine env · streaming · HTML variant 编号回归）
 - Production Prelaunch 部署（→ S11-STORY-004 · **Done** @ `385422d`）
 - Production 监控观察运行时闭环（→ **P1-S11-002** · S11-STORY-005 follow-up · ECS cron/T+24h/T+72h **未完成**）

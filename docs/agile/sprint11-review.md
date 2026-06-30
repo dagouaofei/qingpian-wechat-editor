@@ -1,7 +1,7 @@
 # Sprint 11 Review
 
 > **Sprint：** Production Ops Go-Live · **分支：** `sprint/s11-production-ops-go-live`  
-> **Review 日期：** 2026-06-30 · **Sprint 状态：** **In Progress**（未关闭）  
+> **Review 日期：** 2026-06-30 · **Sprint 状态：** **Accepted with follow-ups / Closed**（Product Owner confirmed 2026-06-30）
 > **S11 来源分支 HEAD at audit time：** `653c70a` · **Review 工作分支首次提交审查 HEAD：** `8b07847`
 
 ---
@@ -16,16 +16,16 @@
 
 ## 2. Committed Stories
 
-| Story          | 名称                                | 文档状态  | Review 证据状态                                                                                                              |
-| -------------- | ----------------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| S11-STORY-001  | 阿里云资源开通与网络基线            | Done      | **Accepted with follow-ups**（PO 2026-06-30 · ECS/RDS/网络/HTTPS 有证据 · OSS/SLS/CloudMonitor **未创建** → P1-S11-004）     |
-| S11-STORY-002  | Staging 部署与数据库初始化          | Done      | **Accepted**（PO 2026-06-30 · 2026-06-11 staging 验收 · health/import PASS）                                                 |
-| S11-STORY-003  | Admin 登录与 Staging 治理/用户池    | Done      | **Accepted**（PO 2026-06-30 · 2026-06-11 · session bugfix `7f218e5`）                                                        |
-| S11-STORY-003A | Staging Volcengine + 生成主链路     | Done      | **完成有证据**（用户 staging 验收 2026-06-11）                                                                               |
-| S11-STORY-003B | Legacy Path Removal 审计            | Done      | **完成有证据**（merge sprint `8da62e9` · staging 2026-06-11）                                                                |
-| S11-STORY-004  | Production 部署与上线               | Done      | **完成有证据**（Prelaunch @ `385422d` · 用户确认 **2026-06-28**）                                                            |
-| S11-STORY-005  | Production Monitoring & Observation | Done      | **Accepted with follow-ups**（PO 2026-06-30 · `ops:observe` 脚本/文档已验收 · ECS cron/T+24h/T+72h **无证据** → P1-S11-002） |
-| S11-STORY-006  | Sprint 11 Closeout                  | In Review | Closeout checklist 完成 · **待 PO 决定 Closed / merge**                                                                      |
+| Story          | 名称                                | 文档状态 | Review 证据状态                                                                                                               |
+| -------------- | ----------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| S11-STORY-001  | 阿里云资源开通与网络基线            | Done     | **Accepted with follow-ups**（PO 2026-06-30 · ECS/RDS/网络/HTTPS 有证据 · OSS/SLS/CloudMonitor 资源未创建 → P1-S11-004 Open） |
+| S11-STORY-002  | Staging 部署与数据库初始化          | Done     | **Accepted**（PO 2026-06-30 · 2026-06-11 staging 验收 · health/import PASS）                                                  |
+| S11-STORY-003  | Admin 登录与 Staging 治理/用户池    | Done     | **Accepted**（PO 2026-06-30 · 2026-06-11 · session bugfix `7f218e5`）                                                         |
+| S11-STORY-003A | Staging Volcengine + 生成主链路     | Done     | **完成有证据**（用户 staging 验收 2026-06-11）                                                                                |
+| S11-STORY-003B | Legacy Path Removal 审计            | Done     | **完成有证据**（merge sprint `8da62e9` · staging 2026-06-11）                                                                 |
+| S11-STORY-004  | Production 部署与上线               | Done     | **完成有证据**（Prelaunch @ `385422d` · 用户确认 **2026-06-28**）                                                             |
+| S11-STORY-005  | Production Monitoring & Observation | Done     | **Accepted with follow-ups**（PO 2026-06-30 · `ops:observe` 脚本/文档已验收 · ECS cron/T+24h/T+72h **无证据** → P1-S11-002）  |
+| S11-STORY-006  | Sprint 11 Closeout                  | Done     | **Accepted**（Product Owner confirmed 2026-06-30）                                                                            |
 
 ---
 
@@ -64,9 +64,9 @@
 
 | 项                               | 说明                                                                |
 | -------------------------------- | ------------------------------------------------------------------- |
-| OSS / SLS / CloudMonitor         | 资源 **未创建**（S11-STORY-001 follow-up → **P1-S11-004** · Open）  |
+| OSS / SLS / CloudMonitor         | **P1-S11-004** Backlog 已登记并保持 **Open**；资源未创建            |
 | S11-STORY-005 运行时闭环         | ECS cron · T+24h · T+72h 观察 **无证据**（→ **P1-S11-002** · Open） |
-| S11-STORY-006 Closeout           | **In Review** · checklist 完成 · 待 PO 决定                         |
+| S11-STORY-006 Closeout           | **Done / Accepted**（PO 2026-06-30）                                |
 | governance snapshot apply        | **Deferred**（DECISION-112）                                        |
 | P1-S11-001 DB 跨环境同步         | **Deferred**                                                        |
 | merge `sprint/s11` → `release/1` | **未执行**（Sprint 关闭 + PO 授权后待执行动作）                     |
@@ -117,7 +117,7 @@
 
 - 首次 **staging + production Prelaunch** 可运行部署（DECISION-111 目标主体）
 - 运维脚本与 env 登记体系落地
-- Production 仍 **Prelaunch** · Release 1 **未关闭** · `release/1` **尚未**包含 S11 sprint 全部 commit
+- Production 仍 **Prelaunch** · Release 1 **未关闭** · S11 → `release/1` merge 已由 **DECISION-114** 授权并由最终 release merge report 记录
 
 ---
 
@@ -128,25 +128,26 @@
 - staging 全量验收：**是**（有证据）
 - production 上线：**Prelaunch 是** · 正式公开发布：**否**（by design）
 - 监控报警闭环：**部分**（005 脚本/文档已验收 · 运行时观察 follow-up 未完成）
-- Sprint 11 Closeout：**准备完成**（006 In Review · Sprint 级 PO 验收/关闭 **待 PO**）
+- Sprint 11 Closeout：**完成**（006 Accepted / Done · Sprint 11 Closed）
 
 ---
 
 ## 10. 推荐验收结论
 
 ```text
-Ready for Acceptance
+Accepted with follow-ups
 ```
 
 **说明：**
 
 - committed delivery Stories（001～005）均已获得 Product Owner 验收（2026-06-30）；
-- S11-STORY-006 Closeout checklist 与证据核查 **已完成**（Story **In Review**）；
+- S11-STORY-006 Closeout checklist 与证据核查 **已完成**，且 PO 已确认 **Accepted / Done**；
 - 未完成运维事项（P1/P2 follow-ups）均明确保留为 **Open**，**未**改写为 PASS；
 - Production 仍为 **Prelaunch**（Basic Auth / noindex 保留），**不代表**正式公开发布；
-- **不得**将本结论解释为 Sprint 11 已 **Accepted** 或 **Closed** — 须 Product Owner 明确决定。
+- Sprint 11 已由 Product Owner 确认为 **Accepted with follow-ups / Closed**；
+- Release 1 仍为 **In Progress / Not Closed**。
 
-**推荐 Sprint 级验收（Closeout 建议 · 待 PO）：** **Accepted with follow-ups** — 见 [`sprint11-closeout.md`](sprint11-closeout.md) §6。
+**Follow-ups remain Open：** P1-S11-002 · P1-S11-004 · P2-S11-001 · P2-S11-002 · P2-S11-003。
 
 ---
 
