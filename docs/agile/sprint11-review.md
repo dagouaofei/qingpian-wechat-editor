@@ -2,7 +2,7 @@
 
 > **Sprint：** Production Ops Go-Live · **分支：** `sprint/s11-production-ops-go-live`  
 > **Review 日期：** 2026-06-30 · **Sprint 状态：** **In Progress**（未关闭）  
-> **HEAD at review time：** `653c70a`
+> **S11 来源分支 HEAD at audit time：** `653c70a` · **Review 工作分支首次提交审查 HEAD：** `8b07847`
 
 ---
 
@@ -140,6 +140,8 @@ Partially Ready
 ```
 
 **说明：** 核心部署与 Prelaunch 验收已达用户确认标准，但监控观察运行时闭环、Closeout、若干 Story 正式签收、`release/1` merge 与 Release 1 收口均未完成。**不得**由 Cursor 写 Accepted；须 Product Owner 决定。
+
+**PO 待决策清单（建议 · 未批准）：** 见 [`sprint11-closeout.md`](sprint11-closeout.md) §4。
 
 ---
 

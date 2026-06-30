@@ -47,16 +47,38 @@ Closeout Readiness: Not Ready
 
 ## 3. 建议 Closeout 顺序（PO 确认后）
 
-1. 完成或豁免 S11-STORY-005 剩余 AC（cron · 观察节点）
-2. PO 签收 Review 结论（Partially Ready → Accepted 或带遗留 Accepted）
-3. `--no-ff` merge `sprint/s11-production-ops-go-live` → `release/1`
-4. 执行 S11-STORY-006（checklist 归档 · audit）
-5. 对齐 Sprint 12 与最新 `release/1`（治理闸门）
-6. **用户确认** Sprint 11 Closed
+**约束：** 不得在 **S11-STORY-006 完成前** merge S11 → `release/1`；merge **不是** Sprint 关闭的替代步骤。
+
+1. **Product Owner** 对 S11-STORY-001～005 作出验收结论，或明确接受遗留项（见 §4 待决策清单）；
+2. 未完成、延期或 `Accepted with follow-ups` 项同步进入 Product Backlog；
+3. 启动并完成 **S11-STORY-006** Closeout；
+4. 完成 Closeout checklist、最终分支与证据核对；
+5. **Product Owner 明确允许：**
+   - Sprint 11 标记 **Closed**；
+   - `sprint/s11-production-ops-go-live` merge 至 `release/1`；
+6. 使用 `--no-ff` merge S11 → `release/1`；
+7. 对齐 Sprint 12 分支与最新 `release/1`；
+8. 再进行 Sprint 12 正式 Planning / Approved。
+
+**当前 Sprint 11 状态：** **In Progress / Not Closed** · **Closeout Readiness: Not Ready**（不变）。
 
 ---
 
-## 4. 禁止项（当前有效）
+## 4. 待 Product Owner 决策（建议 · 未批准）
+
+> **以上均为建议，尚未获得 Product Owner 批准。** Cursor **不得**将任何 Story 标记 Done 或 Accepted。
+
+| Story / 项                        | 建议                                                                                                                         |
+| --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| **S11-STORY-001**                 | 建议 **Accepted with follow-ups**；OSS / SLS / CloudMonitor 进入 Product Backlog                                             |
+| **S11-STORY-002**                 | 建议 **Accepted**                                                                                                            |
+| **S11-STORY-003**                 | 建议 **Accepted**                                                                                                            |
+| **S11-STORY-005**                 | **选项 A：** 完成 cron、T+24h、T+72h 后再验收；**选项 B：** **Accepted with follow-ups**，运行时观察继续留在 Product Backlog |
+| **RDS 恢复演练 · On-call 联系人** | 建议作为遗留项登记；**不**自动判定阻塞或豁免                                                                                 |
+
+---
+
+## 5. 禁止项（当前有效）
 
 - 不得移除 Production Basic Auth / noindex
 - 不得将 Prelaunch 宣称为正式公开上线
@@ -65,7 +87,7 @@ Closeout Readiness: Not Ready
 
 ---
 
-## 5. 相关文档
+## 6. 相关文档
 
 - [`sprint11-review.md`](sprint11-review.md)
 - [`sprint11-retrospective.md`](sprint11-retrospective.md)

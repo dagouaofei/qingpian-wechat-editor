@@ -3,9 +3,9 @@
 ## 1. 基本信息
 
 - 日期：2026-06-30
-- 执行分支：`docs/s11-review-retro-closeout-readiness`
-- 来源分支：`sprint/s11-production-ops-go-live`
-- 目标合并分支：`sprint/s11-production-ops-go-live`
+- **执行分支：** `docs/s11-review-retro-closeout-readiness`
+- **来源分支：** `sprint/s11-production-ops-go-live`
+- **目标合并分支：** `sprint/s11-production-ops-go-live`
 - Sprint：S11 Production Ops Go-Live
 - 执行者：Cursor
 - 状态：**In Review**
@@ -16,17 +16,18 @@ Sprint 11 只读事实核查 · Review / Retrospective / Closeout Readiness 文�
 
 ## 3. Git 事实（2026-06-30 核查）
 
-| 项                                         | SHA / 结果                                        |
-| ------------------------------------------ | ------------------------------------------------- |
-| **HEAD at review time**                    | `653c70a4524a7cc9b6c796d0b814d5ed0f0b506f`        |
-| `sprint/s11-production-ops-go-live` 本地   | `653c70a`                                         |
-| `origin/sprint/s11-production-ops-go-live` | `653c70a` · **与本地一致**                        |
-| `release/1` 本地                           | `6cd1dfc252738a4406bc6fa0b3c92cf43a01e074`        |
-| `origin/release/1`                         | `6cd1dfc` · **与本地一致**                        |
-| S11 是否 merge 至 `release/1`              | **否**（`merge-base --is-ancestor` 失败）         |
-| S11 是否 merge 至 `origin/release/1`       | **否**                                            |
-| S11 比 `release/1` 多 commit 数            | **56**                                            |
-| 未经授权 merge 冲突                        | **未发现**（文档与 git 一致：S11 未入 release/1） |
+| 项                                         | SHA / 结果                                                                       |
+| ------------------------------------------ | -------------------------------------------------------------------------------- |
+| **S11 来源分支 HEAD at audit time**        | `653c70a4524a7cc9b6c796d0b814d5ed0f0b506f`                                       |
+| **工作分支首次提交审查 HEAD**              | `8b07847`（`docs(s11): record closeout readiness execution report commit hash`） |
+| `sprint/s11-production-ops-go-live` 本地   | `653c70a`                                                                        |
+| `origin/sprint/s11-production-ops-go-live` | `653c70a` · **与本地一致**                                                       |
+| `release/1` 本地                           | `6cd1dfc252738a4406bc6fa0b3c92cf43a01e074`                                       |
+| `origin/release/1`                         | `6cd1dfc` · **与本地一致**                                                       |
+| S11 是否 merge 至 `release/1`              | **否**（`merge-base --is-ancestor` 失败）                                        |
+| S11 是否 merge 至 `origin/release/1`       | **否**                                                                           |
+| S11 比 `release/1` 多 commit 数            | **56**                                                                           |
+| 未经授权 merge 冲突                        | **未发现**（文档与 git 一致：S11 未入 release/1）                                |
 
 **S11 领先 `release/1` 最近 3 commit：**
 
@@ -114,22 +115,27 @@ git status
 
 ## 12. 检查结果
 
-| 检查 | 结果 |
-|------|------|
-| `git diff --check` | PASS |
-| `npx prettier --check`（本轮 Markdown） | PASS |
-| `npx eslint .` | PASS（0 errors · 34 warnings 既有） |
-| `pnpm lint` | 未单独跑（与 eslint 同脚本 · npx eslint PASS） |
+| 检查                                    | 结果                                           |
+| --------------------------------------- | ---------------------------------------------- |
+| `git diff --check`                      | PASS                                           |
+| `npx prettier --check`（本轮 Markdown） | PASS                                           |
+| `npx eslint .`                          | PASS（0 errors · 34 warnings 既有）            |
+| `pnpm lint`                             | 未单独跑（与 eslint 同脚本 · npx eslint PASS） |
 
-## 13. commit
+## 13. commit 分类
 
-`eefd20a` — `docs(s11): prepare review retrospective and closeout`
+| Hash            | 类型             | 说明                                                           |
+| --------------- | ---------------- | -------------------------------------------------------------- |
+| `eefd20a`       | **主要文档实现** | `docs(s11): prepare review retrospective and closeout`         |
+| `8b07847`       | **report-only**  | 仅补记 execution report commit hash                            |
+| 本轮修正 commit | **实际治理修正** | Closeout 顺序 · PO 待决策清单 · HEAD 语义 · 见 Cursor 最终回复 |
+
+本轮最终 HEAD **不再回填**本 execution report。
 
 ## 14. working tree
 
-- **分支：** `docs/s11-review-retro-closeout-readiness`
-- **Tracked：** clean
-- **未跟踪：** `.pnpm-store/`（未提交）
+- **working tree clean**
+- `.pnpm-store/` 已加入本地 `.git/info/exclude`，未修改仓库 `.gitignore`，未提交该目录
 
 ## 15. merge / push 状态
 
