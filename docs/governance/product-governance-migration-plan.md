@@ -41,8 +41,8 @@
 | -------------------------------------------- | ---------------------------------------------------------- | --------------------- | ---------------------------------- |
 | `docs/product/user-story-map.md`             | 扩展为 Journey → Activity → Step → Story Map               | 误改 R1 历史          | 新增章节，不重写 R1                |
 | `docs/agile/product-backlog.md`              | 明确 Product Backlog 与功能目录分工                        | 打断历史 backlog 语义 | 保留旧内容，新增说明或索引         |
-| `docs/agile/release-plan.md`                 | 作为 **Release 全局索引**；详细 Release Backlog 进独立目录 | 与 sprint-plan 重复   | DECISION-114；历史内容保留         |
-| `docs/agile/sprint-backlog.md`               | 作为 **Sprint 全局索引**；详细 Sprint Backlog 进独立目录   | S12 ID 冲突           | DECISION-114；历史内容保留         |
+| `docs/agile/release-plan.md`                 | 作为 **Release 全局索引**；详细 Release Backlog 进独立目录 | 与 sprint-plan 重复   | DECISION-115；历史内容保留         |
+| `docs/agile/sprint-backlog.md`               | 作为 **Sprint 全局索引**；详细 Sprint Backlog 进独立目录   | S12 ID 冲突           | DECISION-115；历史内容保留         |
 | `docs/agile/git-workflow.md`                 | 与协作文档/Decision 早期文字对齐                           | 改写历史              | 只修当前规范，不改旧 Decision 原文 |
 | `docs/agile/chatgpt-cursor-docs-workflow.md` | 修正 Sprint merge main 的旧表述                            | 与旧历史不一致        | 引用 release 分支模型              |
 | `.cursor/rules/project-rules.mdc`            | 修正 Sprint 1 状态滞后                                     | 规则变更影响执行      | 单独 Story 执行，用户审查          |
@@ -65,7 +65,7 @@
 
 ## 4.1 后续 Sprint / Release 文档结构
 
-正式原则见 **`docs/governance/product-governance-target-model.md` §9** 与 **DECISION-114**：**全局索引 + Sprint / Release 平级独立目录**。
+正式原则见 **`docs/governance/product-governance-target-model.md` §9** 与 **DECISION-115**：**全局索引 + Sprint / Release 平级独立目录**。
 
 ```text
 docs/agile/

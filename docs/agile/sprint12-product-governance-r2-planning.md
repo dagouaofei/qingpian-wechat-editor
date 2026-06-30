@@ -2,9 +2,15 @@
 
 > 轻篇公众号排版 · qingpian-wechat-editor  
 > **分支：** `sprint/s12-product-governance-r2-planning`  
-> **来源基线：** `sprint/s11-production-ops-go-live` @ `653c70a`  
-> **状态：** In Progress / Needs Review  
-> **启动说明：** `release/1` 尚未包含 Sprint 11 最新完整状态；本 Sprint 分支从当前完整的 `sprint/s11-production-ops-go-live` 创建，依赖 Sprint 11 后续人工审查与合并决策。
+> **Current release baseline:** `release/1` @ `3a8203b`  
+> **Baseline alignment date:** 2026-06-30  
+> **Sprint 11：** Accepted with follow-ups / Closed（DECISION-114）  
+> **Sprint 12 Plan：** Not Approved  
+> **S12-STORY-002：** Not Started  
+> **状态：** Planning Baseline Aligned / Not Approved  
+> **基线对齐工作分支：** `docs/s12-release1-baseline-alignment`（merge `release/1` @ `3a8203b` · 未 merge 回 sprint 分支）
+
+> **说明：** 当前仅完成 `release/1` 基线对齐与治理事实源合并；**不代表** Sprint 12 已启动产品开发。Sprint Planning 仍需 Product Owner 明确 **Approved**；committed Stories、顺序、容量与非目标仍待正式确认。
 
 ## 1. Sprint Goal
 
@@ -33,11 +39,10 @@ Sprint 12 聚焦产品治理与 Release 2 规划前置工作：
 
 ## 2.1 Sprint 11 / Sprint 12 分支关系闸门
 
-- 当前 Sprint 12 基于未关闭的 `sprint/s11-production-ops-go-live` 分支建立。
-- 本轮允许将 S12-STORY-001 merge 回 `sprint/s12-product-governance-r2-planning`，用于完成治理审计闭环。
-- 在启动 S12-STORY-002 前，必须先确认 Sprint 11 的最终 merge 状态。
-- Sprint 11 merge 至 `release/1` 后，需要将 Sprint 12 与最新 `release/1` 对齐。
-- 本轮不执行该同步，不 merge `release/1`，不 merge `main`。
+- Sprint 11 已 **Accepted with follow-ups / Closed** 并 merge 至 `release/1` @ `3a8203b`（DECISION-114）。
+- Sprint 12 规划分支已与最新 `release/1` 在 `docs/s12-release1-baseline-alignment` 完成基线对齐（2026-06-30）；**未** merge 回 `sprint/s12-product-governance-r2-planning`。
+- 在 Sprint 12 Plan **Approved** 且 PO 明确启动前，**不得**启动 S12-STORY-002 或任何 Sprint 12 产品开发 Story。
+- 本轮不 merge `main`；Release 1 未关闭。
 
 ## 3. Story 索引
 
@@ -106,7 +111,7 @@ Sprint 12 聚焦产品治理与 Release 2 规划前置工作：
 - 本文件
 - `docs/agile/execution-reports/2026-06-28-s12-story-001-governance-document-audit.md`
 - `.cursor/rules/agile-governance.mdc`（S12-STORY-001 治理验收补充；见 `2026-06-28-s12-story-001-cursor-governance-rule-sync.md`）
-- **DECISION-114** — Sprint / Release 独立平级目录与全局索引（见 `2026-06-29-s12-story-001-sprint-release-structure-alignment.md`）
+- **DECISION-115** — Sprint / Release 独立平级目录与全局索引（见 `2026-06-29-s12-story-001-sprint-release-structure-alignment.md`）
 
 ## 7. 建议后续顺序
 
@@ -126,4 +131,4 @@ S12-STORY-001 Governance Audit
 
 Compat / DSL 旧占位项必须先完成 ID 冲突处理，再进入正式执行。
 
-S12-STORY-002 尚未启动；启动前必须先确认 Sprint 11 最终 merge 状态，并处理 Sprint 12 与最新 `release/1` 的对齐问题。
+S12-STORY-002 尚未启动；启动前须 Sprint 12 Plan 经 Product Owner **Approved**，且基线对齐工作分支已 merge 回 `sprint/s12-product-governance-r2-planning` 并经审查。

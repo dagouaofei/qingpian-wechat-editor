@@ -1,6 +1,6 @@
 # Sprint Backlog
 
-> **文档角色（DECISION-114）：** 本文件为 **Sprint 全局索引与状态总览**。Sprint 名称、Sprint Goal 摘要、状态、所属或服务的 Release 及指向 `docs/agile/sprints/sprint-<id>/` 的链接在此维护。**不**作为全部 Story 详细 AC、非目标和执行记录的唯一容器。下方 Sprint 1~12 历史详细 Backlog 保留；从后续新 Sprint 起，详细 Plan / Backlog / Review / Retro / Closeout 写入独立 Sprint 目录。
+> **文档角色（DECISION-115）：** 本文件为 **Sprint 全局索引与状态总览**。Sprint 名称、Sprint Goal 摘要、状态、所属或服务的 Release 及指向 `docs/agile/sprints/sprint-<id>/` 的链接在此维护。**不**作为全部 Story 详细 AC、非目标和执行记录的唯一容器。下方 Sprint 1~12 历史详细 Backlog 保留；从后续新 Sprint 起，详细 Plan / Backlog / Review / Retro / Closeout 写入独立 Sprint 目录。
 
 > **Sprint 1：** 正式项目启动、核心技术方案定稿与工程治理 · Sprint 1-A / 1-B：**Closed**
 > **Sprint 2：** Article / Block Schema + InlineContent 代码契约 · **Closed**（2026-05-31；DECISION-054）
@@ -15,9 +15,9 @@
 > **Sprint 8：** **Closed**（2026-06-05 · DECISION-093 · audit Grade A- · P0=0 · merged `release/1` @ `806fa47`）
 > **Sprint 9：** **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · **P0=0** · HTML→user preview picker E2E PASS · Preview/Copy parity PASS · default preset / release1_required 未污染 · **已 merge `release/1`** @ `c96e869` · **未 merge `main`**）
 > **Sprint 10：** **Closed**（2026-06-08 · **DECISION-108** · **DECISION-111** · S10-STORY-001~011 Done · **已 merge `release/1`** @ `6cd1dfc`）· 原 012~014 顺延 Sprint 12+
-> **当前 Sprint：** **Sprint 11** — Production Ops Go-Live（正式部署与运维上线）· **In Progress**（2026-06-08 · **DECISION-111**）
-> **专项 Sprint 12：** Product Governance & Release 2 Planning · **In Progress / Needs Review**（2026-06-28 · 从 `sprint/s11-production-ops-go-live` @ `653c70a` 建立；S11 尚未关闭，依赖需审查）
-> **Sprint 12 分支：** `sprint/s12-product-governance-r2-planning` · 当前 Story 分支：`docs/s12-story-001-governance-document-audit`
+> **Sprint 11：** Production Ops Go-Live · **Accepted with follow-ups / Closed**（2026-06-30 · Product Owner confirmed · **DECISION-114**）
+> **专项 Sprint 12：** Product Governance & Release 2 Planning · **Planning Baseline Aligned / Not Approved**（2026-06-30 · `release/1` @ `3a8203b` · S12-STORY-001 **Done** · S12-STORY-002 未启动）
+> **Sprint 12 分支：** `sprint/s12-product-governance-r2-planning` · 基线对齐工作分支：`docs/s12-release1-baseline-alignment`
 > **Sprint 11 分支：** `sprint/s11-production-ops-go-live`（从 `release/1` · @ `6cd1dfc`）
 > **Sprint 10 分支：** `sprint/s10-db-backed-style-admin-v1`（已 merge `release/1` · @ `6cd1dfc`）
 > **Sprint 9 分支：** `sprint/s9-style-management-system-v0`（已 merge `release/1` · 2026-06-05）
@@ -4631,7 +4631,7 @@ Deferred Debt Replanning 不作为 Sprint 12 核心 Story；Compat / DSL / DB sy
 
 > **分支：** `sprint/s11-production-ops-go-live`（从 `release/1`）  
 > **文档：** [`sprint11-production-ops-go-live.md`](sprint11-production-ops-go-live.md) · **DECISION-111**  
-> **状态：** **In Progress**（2026-06-08 启动 · **staging 阶段验收完成 2026-06-11** · production 未启动）
+> **状态：** **Accepted with follow-ups / Closed**（2026-06-30 · DECISION-114 · Production Prelaunch 保持）
 
 **Sprint Goal：**
 
@@ -4654,7 +4654,9 @@ S11-STORY-001 → 002 → 003 → 004 → 005 → 006
 
 ## S11-STORY-001 阿里云资源开通与网络基线
 
-**优先级：** P0 · **状态：** **In Review** · **工作分支：** `docs/s11-story-001-aliyun-resource-provisioning` · **staging 验收：** 2026-06-11
+**优先级：** P0 · **状态：** **Done** · **验收结论：** **Accepted with follow-ups**（PO 2026-06-30）· **工作分支：** `docs/s11-story-001-aliyun-resource-provisioning` · **staging 验收：** 2026-06-11
+
+**Follow-up（未完成 · 非 PASS）：** OSS · SLS · CloudMonitor 资源未创建；Product Backlog **P1-S11-004** 已登记并保持 **Open**
 
 **目标：** 按 [`aliyun-resource-checklist.md`](../ops/aliyun-resource-checklist.md) 在华北 2 创建轻篇独立 ECS/RDS/OSS/SLS/CloudMonitor 并完成网络最小开放。
 
@@ -4674,7 +4676,7 @@ S11-STORY-001 → 002 → 003 → 004 → 005 → 006
 
 ## S11-STORY-002 Staging 部署与数据库初始化
 
-**优先级：** P0 · **状态：** **In Review** · **工作分支：** `chore/s11-story-002-staging-deploy-db-init` · **staging 验收：** 2026-06-11
+**优先级：** P0 · **状态：** **Done** · **验收结论：** **Accepted**（PO 2026-06-30）· **工作分支：** `chore/s11-story-002-staging-deploy-db-init` · **staging 验收：** 2026-06-11
 
 **目标：** staging ECS 首次部署 · migrate · import · health · admin 列表可读。
 
@@ -4689,7 +4691,7 @@ S11-STORY-001 → 002 → 003 → 004 → 005 → 006
 
 ## S11-STORY-003 Admin 登录与 Staging 治理/用户池验收
 
-**优先级：** P0 · **状态：** **In Review** · **工作分支：** `bugfix/s11-staging-admin-session-cookie`（已 merge sprint @ `7f218e5`）· **staging 验收：** 2026-06-11
+**优先级：** P0 · **状态：** **Done** · **验收结论：** **Accepted**（PO 2026-06-30）· **工作分支：** `bugfix/s11-staging-admin-session-cookie`（已 merge sprint @ `7f218e5`）· **staging 验收：** 2026-06-11
 
 **目标：** S10-STORY-008 公网 staging 验收 · 治理与用户侧 DB pool 冒烟。
 
@@ -4810,7 +4812,9 @@ S11-STORY-001 → 002 → 003 → 004 → 005 → 006
 
 ## S11-STORY-005 Production Monitoring, Alerting & Observation
 
-**优先级：** P1 · **状态：** **In Review**（脚本/文档完成 · ECS cron / T+24h / T+72h 未完成）· **工作分支：** `ops/s11-story-005-monitoring-observation` · **前置：** S11-STORY-004 **Done**
+**优先级：** P1 · **状态：** **Done** · **验收结论：** **Accepted with follow-ups**（PO 2026-06-30 · 脚本/文档已验收 · 运行时观察未完成）· **工作分支：** `ops/s11-story-005-monitoring-observation` · **前置：** S11-STORY-004 **Done**
+
+**Follow-up（未完成 · 非 PASS）：** ECS cron · T+24h · T+72h → Product Backlog **P1-S11-002**
 
 **目标：** 最小可运行监控闭环 · 复用 `status-environment.sh` · `ops:observe` 严格检查 · P0/P1/P2 告警策略 · Prelaunch 24h/72h 观察清单。**本轮提交设计与脚本 · 服务器 cron/CloudMonitor 待审查后部署。**
 
@@ -4831,15 +4835,22 @@ S11-STORY-001 → 002 → 003 → 004 → 005 → 006
 
 ## S11-STORY-006 Sprint 11 Closeout
 
-**优先级：** P0 · **状态：** **Planned** · **工作分支：** `docs/s11-story-006-closeout` · **前置：** S11-STORY-001~005 运维验收 + **用户确认**
+**优先级：** P0 · **状态：** **Done** · **验收结论：** **Accepted**（Product Owner confirmed 2026-06-30）· **工作分支：** `docs/s11-story-006-closeout`
 
-**目标：** S11 audit · staging/production checklist 归档 · 建议 merge `release/1`。
+**目标：** S11 audit · staging/production checklist 归档 · Closeout 状态同步 · 给出 Sprint 关闭与 merge `release/1` 建议 · **不**自行 Closed / merge。
+
+**Closeout 结论（2026-06-30）：**
+
+- Sprint 11：**Accepted with follow-ups / Closed**
+- Release 1：**In Progress / Not Closed**
+- Follow-ups：P1-S11-002 · P1-S11-004 · P2-S11-001～003 **Open**
+- Git：S11 @ `4596f7d` · `release/1` @ `6cd1dfc` · **67 commits ahead** · 本轮授权 merge S11 → `release/1` · **未 push**
 
 **验收标准：**
 
-- [ ] AC-1 staging + production signed checklist 归档 execution report
-- [ ] AC-2 P0=0 · 无 blocking 安全项
-- [ ] AC-3 用户确认关闭 Sprint 11
-- [ ] AC-4 **不**宣布 Release 1 关闭 · **不** merge `main`
+- [x] AC-1 staging + production signed checklist 归档 execution report（2026-06-11 staging · 2026-06-28 production · closeout report 2026-06-30）
+- [x] AC-2 P0=0 · 无 blocking 安全项（Prelaunch 约束保留 · follow-ups Open）
+- [x] AC-3 用户确认关闭 Sprint 11（PO 2026-06-30）
+- [x] AC-4 **不**宣布 Release 1 关闭 · **不** merge `main` · **不** merge `release/1`（本轮）
 
 ---

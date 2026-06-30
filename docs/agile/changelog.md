@@ -736,6 +736,50 @@
 
 ---
 
+## 2026-06-30 · Sprint 11 Review / Retrospective / Closeout Readiness
+
+| 日期       | Sprint          | 变更摘要                                                                                   | 影响范围   | 关联 Story / Decision |
+| ---------- | --------------- | ------------------------------------------------------------------------------------------ | ---------- | --------------------- |
+| 2026-06-30 | Sprint 11       | **Review**：Partially Ready · Prelaunch 2026-06-28 有证据 · 005/006 未完成                 | 敏捷       | S11-STORY-006         |
+| 2026-06-30 | Sprint 11       | **Closeout Readiness**：Not Ready · S11 **未** merge `release/1`（56 commits @ `653c70a`） | Git / 敏捷 | DECISION-111          |
+| 2026-06-30 | Sprint 11       | 新增 `sprint11-review.md` · `sprint11-retrospective.md` · `sprint11-closeout.md`           | 文档       | Closeout Readiness    |
+| 2026-06-30 | Product Backlog | Sprint 11 Carryover P1-S11-002~004 · P2-S11-001~003                                        | Backlog    | Sprint 11             |
+
+---
+
+## 2026-06-30 · S11-STORY-006 Closeout 准备
+
+| 日期       | Sprint    | 变更摘要                                                                                            | 影响范围 | 关联               |
+| ---------- | --------- | --------------------------------------------------------------------------------------------------- | -------- | ------------------ |
+| 2026-06-30 | Sprint 11 | **S11-STORY-006 In Review**：Closeout checklist · 状态同步 · **Ready for PO Decision**              | 敏捷     | S11-STORY-006      |
+| 2026-06-30 | Sprint 11 | Review 推荐 **Ready for Acceptance** · 建议 Sprint **Accepted with follow-ups**（**待 PO**）        | 敏捷     | Sprint 11 Closeout |
+| 2026-06-30 | Git       | S11 @ `4596f7d` · origin @ `653c70a`（本地 +11）· `release/1` @ `6cd1dfc` · **67 ahead** · 未 merge | Git      | DECISION-111       |
+
+---
+
+## 2026-06-30 · Sprint 11 Closeout / Release Merge 授权
+
+| 日期       | Sprint     | 变更摘要                                                                                          | 影响范围 | 关联         |
+| ---------- | ---------- | ------------------------------------------------------------------------------------------------- | -------- | ------------ |
+| 2026-06-30 | Sprint 11  | **S11-STORY-006 Accepted / Done** · Sprint 11 **Accepted with follow-ups / Closed**               | 敏捷     | DECISION-114 |
+| 2026-06-30 | Sprint 11  | Follow-ups 保持 **Open**：P1-S11-002 · P1-S11-004 · P2-S11-001～003；不自动纳入 Sprint 12         | Backlog  | Sprint 11    |
+| 2026-06-30 | Git        | PO 授权 `--no-ff` merge S11 → `release/1`；**未授权 push** · **未授权 release/1 → main**          | Git      | DECISION-114 |
+| 2026-06-30 | Production | Production 仍为 **Prelaunch** · Basic Auth / noindex / robots Disallow 保留；Release 1 **未关闭** | 运维     | DECISION-113 |
+
+---
+
+## 2026-06-30 · Sprint 11 Story Acceptance（PO 确认）
+
+| 日期       | Sprint    | 变更摘要                                                                                                           | 影响范围   | 关联 Story / Backlog  |
+| ---------- | --------- | ------------------------------------------------------------------------------------------------------------------ | ---------- | --------------------- |
+| 2026-06-30 | Sprint 11 | **PO 验收**：001 **Accepted with follow-ups** · 002/003 **Accepted** · 005 **Accepted with follow-ups** · **Done** | 敏捷       | S11-STORY-001~003/005 |
+| 2026-06-30 | Sprint 11 | Follow-ups 保留 Open：**P1-S11-002**（005 运行时）· **P1-S11-004**（OSS/SLS/CloudMonitor）                         | Backlog    | P1-S11-002/004        |
+| 2026-06-30 | Sprint 11 | **P1-S11-003 Resolved**（001～003 PO 签收治理项已解决）                                                            | 治理       | P1-S11-003            |
+| 2026-06-30 | Sprint 11 | Closeout Readiness **仍为 Not Ready** · Sprint **In Progress / Not Closed** · **006 未启动**                       | 敏捷       | S11-STORY-006         |
+| 2026-06-30 | Sprint 11 | **S11 merge `release/1`** @ `3a8203b` · Sprint 11 **Accepted with follow-ups / Closed**                            | Git / 敏捷 | DECISION-114          |
+
+---
+
 ## 2026-06-08 · S10-STORY-011 Done（merge sprint）
 
 | 日期       | Sprint    | 变更摘要                                                                                                                                             | 影响范围               | 关联 Story / Decision        |
@@ -904,7 +948,7 @@
 
 | 日期       | Sprint    | 变更摘要                                                                                                  | 影响范围    | 关联 Story / Decision        |
 | ---------- | --------- | --------------------------------------------------------------------------------------------------------- | ----------- | ---------------------------- |
-| 2026-06-29 | Sprint 12 | **DECISION-114**：Sprint / Release 独立平级目录与全局索引原则                                             | 治理 / 敏捷 | S12-STORY-001 · DECISION-114 |
+| 2026-06-29 | Sprint 12 | **DECISION-115**：Sprint / Release 独立平级目录与全局索引原则                                             | 治理 / 敏捷 | S12-STORY-001 · DECISION-115 |
 | 2026-06-29 | Sprint 12 | 修正 `.cursor/rules/agile-rules.mdc` 等当前规范：全局文件仅索引，详细 Backlog 进 `sprints/` / `releases/` | Cursor 规则 | S12-STORY-001                |
 | 2026-06-29 | Sprint 12 | `release-plan.md` / `sprint-backlog.md` / `sprint-plan.md` 增加索引角色说明；历史详细内容保留             | 敏捷文档    | S12-STORY-001                |
 
@@ -916,3 +960,13 @@
 | ---------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | --------------------- |
 | 2026-06-29 | Sprint 12 | **S12-STORY-001 Accepted / Done**：Product Owner 验收通过；merge `docs/s12-story-001-sprint-release-structure-alignment` → `sprint/s12-product-governance-r2-planning` | 敏捷 / 治理 | S12-STORY-001         |
 | 2026-06-29 | Sprint 12 | 领域规则时效性审计：`style-system-rules.mdc` · `wechat-copy-rules.mdc`；Execution Report commit 记录规则同步                                                           | Cursor 规则 | S12-STORY-001         |
+
+---
+
+## 2026-06-30 · S12 Planning Baseline Alignment
+
+| 日期       | Sprint    | 变更摘要                                                                                                                                        | 影响范围   | 关联 Story / Decision |
+| ---------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | --------------------- |
+| 2026-06-30 | Sprint 12 | **`release/1` @ `3a8203b` merge → `docs/s12-release1-baseline-alignment`** · 保留 S12-STORY-001 治理成果 · 纳入 Sprint 11 Closed / DECISION-114 | Git / 敏捷 | Baseline Alignment    |
+| 2026-06-30 | Sprint 12 | **DECISION-115** 承接 Sprint / Release 目录结构（原 S12 DECISION-114 编号与 S11 Closeout DECISION-114 解冲突）                                  | 治理       | DECISION-115          |
+| 2026-06-30 | Sprint 12 | Sprint 12 Plan **Not Approved** · S12-STORY-002 **Not Started** · 仅基线对齐，不代表 Sprint 12 产品开发启动                                     | 敏捷       | S12-STORY-002         |
