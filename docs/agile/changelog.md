@@ -970,3 +970,13 @@
 | 2026-06-30 | Sprint 12 | **`release/1` @ `3a8203b` merge → `docs/s12-release1-baseline-alignment`** · 保留 S12-STORY-001 治理成果 · 纳入 Sprint 11 Closed / DECISION-114 | Git / 敏捷 | Baseline Alignment    |
 | 2026-06-30 | Sprint 12 | **DECISION-115** 承接 Sprint / Release 目录结构（原 S12 DECISION-114 编号与 S11 Closeout DECISION-114 解冲突）                                  | 治理       | DECISION-115          |
 | 2026-06-30 | Sprint 12 | Sprint 12 Plan **Not Approved** · S12-STORY-002 **Not Started** · 仅基线对齐，不代表 Sprint 12 产品开发启动                                     | 敏捷       | S12-STORY-002         |
+
+---
+
+## 2026-06-30 · Sprint 12 Planning Approval
+
+| 日期       | Sprint    | 变更摘要                                                                                                                               | 影响范围    | 关联 Story / Decision |
+| ---------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------- | ----------- | --------------------- |
+| 2026-06-30 | Sprint 12 | Product Owner 批准 Sprint 12 正式 Planning · **DECISION-116** · Sprint Goal Approved                                                   | 敏捷 / 治理 | DECISION-116          |
+| 2026-06-30 | Sprint 12 | 建立 `docs/agile/sprints/sprint-12/plan.md` · `backlog.md` 为详细事实源；`sprint12-product-governance-r2-planning.md` 保留兼容入口     | 文档        | DECISION-115          |
+| 2026-06-30 | Sprint 12 | committed Stories：S12-STORY-002~009 · 顺序 002→009 · Sprint **Approved / Ready to Start** · S12-STORY-002 **Committed / Not Started** | 敏捷        | S12-STORY-002         |
