@@ -770,13 +770,13 @@
 
 ## 2026-06-30 · Sprint 11 Story Acceptance（PO 确认）
 
-| 日期       | Sprint    | 变更摘要                                                                                                           | 影响范围 | 关联 Story / Backlog  |
-| ---------- | --------- | ------------------------------------------------------------------------------------------------------------------ | -------- | --------------------- |
-| 2026-06-30 | Sprint 11 | **PO 验收**：001 **Accepted with follow-ups** · 002/003 **Accepted** · 005 **Accepted with follow-ups** · **Done** | 敏捷     | S11-STORY-001~003/005 |
-| 2026-06-30 | Sprint 11 | Follow-ups 保留 Open：**P1-S11-002**（005 运行时）· **P1-S11-004**（OSS/SLS/CloudMonitor）                         | Backlog  | P1-S11-002/004        |
-| 2026-06-30 | Sprint 11 | **P1-S11-003 Resolved**（001～003 PO 签收治理项已解决）                                                            | 治理     | P1-S11-003            |
-| 2026-06-30 | Sprint 11 | Closeout Readiness **仍为 Not Ready** · Sprint **In Progress / Not Closed** · **006 未启动**                       | 敏捷     | S11-STORY-006         |
-| 2026-06-30 | Sprint 11 | **S11 merge `release/1`** @ `3a8203b` · Sprint 11 **Accepted with follow-ups / Closed**                          | Git / 敏捷 | DECISION-114          |
+| 日期       | Sprint    | 变更摘要                                                                                                           | 影响范围   | 关联 Story / Backlog  |
+| ---------- | --------- | ------------------------------------------------------------------------------------------------------------------ | ---------- | --------------------- |
+| 2026-06-30 | Sprint 11 | **PO 验收**：001 **Accepted with follow-ups** · 002/003 **Accepted** · 005 **Accepted with follow-ups** · **Done** | 敏捷       | S11-STORY-001~003/005 |
+| 2026-06-30 | Sprint 11 | Follow-ups 保留 Open：**P1-S11-002**（005 运行时）· **P1-S11-004**（OSS/SLS/CloudMonitor）                         | Backlog    | P1-S11-002/004        |
+| 2026-06-30 | Sprint 11 | **P1-S11-003 Resolved**（001～003 PO 签收治理项已解决）                                                            | 治理       | P1-S11-003            |
+| 2026-06-30 | Sprint 11 | Closeout Readiness **仍为 Not Ready** · Sprint **In Progress / Not Closed** · **006 未启动**                       | 敏捷       | S11-STORY-006         |
+| 2026-06-30 | Sprint 11 | **S11 merge `release/1`** @ `3a8203b` · Sprint 11 **Accepted with follow-ups / Closed**                            | Git / 敏捷 | DECISION-114          |
 
 ---
 
@@ -960,3 +960,13 @@
 | ---------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | --------------------- |
 | 2026-06-29 | Sprint 12 | **S12-STORY-001 Accepted / Done**：Product Owner 验收通过；merge `docs/s12-story-001-sprint-release-structure-alignment` → `sprint/s12-product-governance-r2-planning` | 敏捷 / 治理 | S12-STORY-001         |
 | 2026-06-29 | Sprint 12 | 领域规则时效性审计：`style-system-rules.mdc` · `wechat-copy-rules.mdc`；Execution Report commit 记录规则同步                                                           | Cursor 规则 | S12-STORY-001         |
+
+---
+
+## 2026-06-30 · S12 Planning Baseline Alignment
+
+| 日期       | Sprint    | 变更摘要                                                                                                                                        | 影响范围   | 关联 Story / Decision |
+| ---------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | --------------------- |
+| 2026-06-30 | Sprint 12 | **`release/1` @ `3a8203b` merge → `docs/s12-release1-baseline-alignment`** · 保留 S12-STORY-001 治理成果 · 纳入 Sprint 11 Closed / DECISION-114 | Git / 敏捷 | Baseline Alignment    |
+| 2026-06-30 | Sprint 12 | **DECISION-115** 承接 Sprint / Release 目录结构（原 S12 DECISION-114 编号与 S11 Closeout DECISION-114 解冲突）                                  | 治理       | DECISION-115          |
+| 2026-06-30 | Sprint 12 | Sprint 12 Plan **Not Approved** · S12-STORY-002 **Not Started** · 仅基线对齐，不代表 Sprint 12 产品开发启动                                     | 敏捷       | S12-STORY-002         |

@@ -147,7 +147,7 @@ Product Backlog / Decision
 全局索引 + 每个 Sprint / Release 独立目录
 ```
 
-全局文件只保留索引和状态总览；详细 Story、AC、Review、Retro、Closeout 放入 `docs/agile/sprints/sprint-<id>/` 和 `docs/agile/releases/release-<id>/`。**Sprint 与 Release 目录平级**，不嵌套；归属通过元数据（`primaryRelease`、`supportsReleases`、`sprintType`）表达。详见 `product-governance-target-model.md` §9 · **DECISION-114**。历史大文件保持原样，从后续新 Sprint / Release 开始渐进采用；Sprint 12 是否立即迁入独立目录由后续迁移计划决定。
+全局文件只保留索引和状态总览；详细 Story、AC、Review、Retro、Closeout 放入 `docs/agile/sprints/sprint-<id>/` 和 `docs/agile/releases/release-<id>/`。**Sprint 与 Release 目录平级**，不嵌套；归属通过元数据（`primaryRelease`、`supportsReleases`、`sprintType`）表达。详见 `product-governance-target-model.md` §9 · **DECISION-115**。历史大文件保持原样，从后续新 Sprint / Release 开始渐进采用；Sprint 12 是否立即迁入独立目录由后续迁移计划决定。
 
 ## 8. 管理能力矩阵
 

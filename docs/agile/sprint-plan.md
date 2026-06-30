@@ -2,7 +2,7 @@
 
 > 轻篇公众号排版 · qingpian-wechat-editor
 
-> **文档角色（DECISION-114）：** 本文件保留 **Sprint 1~11 历史叙事与关闭摘要**。新 Sprint 优先使用 `docs/agile/sprints/sprint-<id>/plan.md`；全局 Sprint 索引见 [`sprint-backlog.md`](sprint-backlog.md)。
+> **文档角色（DECISION-115）：** 本文件保留 **Sprint 1~11 历史叙事与关闭摘要**。新 Sprint 优先使用 `docs/agile/sprints/sprint-<id>/plan.md`；全局 Sprint 索引见 [`sprint-backlog.md`](sprint-backlog.md)。
 
 ## Sprint 周期原则
 
@@ -67,8 +67,9 @@
 | **Sprint 9**       | **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · P0=0 · S9-STORY-001~009 Done · **已 merge `release/1`** @ `c96e869`） |
 | **Sprint 10**      | **Closed**（2026-06-08 · **DECISION-108** · **DECISION-111** · S10-STORY-001~011 Done）                                                |
 | **Sprint 11**      | **Closed**（2026-06-30 · **Accepted with follow-ups** · **DECISION-114** · Production Ops Go-Live）                                    |
-| **Release 1 主干** | `release/1`                                                                                                                            |
-| **下一步**         | **S12+** Compat / DSL / Release1 Closeout（Sprint 12 Planning 尚未重新 Approved）                                                      |
+| **Sprint 12**      | **Planning Baseline Aligned / Not Approved**（`release/1` @ `3a8203b` · S12-STORY-001 Done · S12-STORY-002 未启动）                    |
+| **Release 1 主干** | `release/1` @ **`3a8203b`**                                                                                                            |
+| **下一步**         | Sprint 12 Planning **Approved**（待 PO）→ S12-STORY-002+；**S12+** Compat / DSL / Release1 Closeout                                    |
 
 ---
 
