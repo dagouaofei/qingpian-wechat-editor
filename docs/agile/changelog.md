@@ -746,6 +746,27 @@
 
 ---
 
+## 2026-06-30 · S11-STORY-006 Closeout 准备
+
+| 日期       | Sprint    | 变更摘要                                                                                            | 影响范围 | 关联               |
+| ---------- | --------- | --------------------------------------------------------------------------------------------------- | -------- | ------------------ |
+| 2026-06-30 | Sprint 11 | **S11-STORY-006 In Review**：Closeout checklist · 状态同步 · **Ready for PO Decision**              | 敏捷     | S11-STORY-006      |
+| 2026-06-30 | Sprint 11 | Review 推荐 **Ready for Acceptance** · 建议 Sprint **Accepted with follow-ups**（**待 PO**）        | 敏捷     | Sprint 11 Closeout |
+| 2026-06-30 | Git       | S11 @ `4596f7d` · origin @ `653c70a`（本地 +11）· `release/1` @ `6cd1dfc` · **67 ahead** · 未 merge | Git      | DECISION-111       |
+
+---
+
+## 2026-06-30 · Sprint 11 Closeout / Release Merge 授权
+
+| 日期       | Sprint     | 变更摘要                                                                                          | 影响范围 | 关联         |
+| ---------- | ---------- | ------------------------------------------------------------------------------------------------- | -------- | ------------ |
+| 2026-06-30 | Sprint 11  | **S11-STORY-006 Accepted / Done** · Sprint 11 **Accepted with follow-ups / Closed**               | 敏捷     | DECISION-114 |
+| 2026-06-30 | Sprint 11  | Follow-ups 保持 **Open**：P1-S11-002 · P1-S11-004 · P2-S11-001～003；不自动纳入 Sprint 12         | Backlog  | Sprint 11    |
+| 2026-06-30 | Git        | PO 授权 `--no-ff` merge S11 → `release/1`；**未授权 push** · **未授权 release/1 → main**          | Git      | DECISION-114 |
+| 2026-06-30 | Production | Production 仍为 **Prelaunch** · Basic Auth / noindex / robots Disallow 保留；Release 1 **未关闭** | 运维     | DECISION-113 |
+
+---
+
 ## 2026-06-30 · Sprint 11 Story Acceptance（PO 确认）
 
 | 日期       | Sprint    | 变更摘要                                                                                                           | 影响范围 | 关联 Story / Backlog  |
