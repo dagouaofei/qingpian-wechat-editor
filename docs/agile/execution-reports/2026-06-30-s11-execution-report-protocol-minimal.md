@@ -27,9 +27,10 @@
 
 ## 4. 实际修改范围
 
-- 新增 `.cursor/rules/agile-governance.mdc`（固定顺序与报告填写要求）
-- 更新 `docs/agile/execution-reports/_template.md`（检查结果与 Commit 分类）
+- ~~新增 `.cursor/rules/agile-governance.mdc`~~ **已撤销**（见 §12 规则事实源修正）
+- 更新 `docs/agile/execution-reports/_template.md`（检查结果与 Commit 分类；引用 `.cursor/rules/agile-rules.mdc`）
 - 修正 `docs/agile/execution-reports/2026-06-30-s11-story-acceptance-sync.md`（真实检查与 `668211e`）
+- 将最小流程并入 `.cursor/rules/agile-rules.mdc`（**CORRECTION_COMMIT**）
 
 ## 5. 明确未做
 
@@ -80,6 +81,18 @@
 | S11-STORY-006 | **Planned / 未启动**         |
 | S12-STORY-002 | **未启动**                   |
 
+## 12. 规则事实源修正（CORRECTION_COMMIT）
+
+1. **`446ab29`** 为初始主要成果 commit；
+2. 初始实现误在 S11 基线上新增 `.cursor/rules/agile-governance.mdc`（S11 基线仅有 `agile-rules.mdc`）；
+3. **`293d057`**（CORRECTION_COMMIT）已：
+   - 删除误建 `.cursor/rules/agile-governance.mdc`；
+   - 将最小流程并入 `.cursor/rules/agile-rules.mdc`；
+   - 将模板引用改为 `agile-rules.mdc`；
+4. 最终不存在与 Sprint 12 同名规则文件的 add/add 冲突风险；
+5. Acceptance Sync 报告修正仍有效（`668211e` · 检查 PASS）；
+6. 未恢复完整 validator / Enabler 方案（`docs/s11-execution-report-governance-hardening` 仍隔离）。
+
 ## Commit 分类
 
 ### 主要成果 commit
@@ -88,7 +101,7 @@
 
 ### 影响实际成果的修正 commit
 
-- 无
+- `293d057` — docs(governance): align report protocol rule source
 
 ### Merge commit
 
