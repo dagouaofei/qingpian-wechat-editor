@@ -1,4 +1,4 @@
-import type { DslNode, DslStyle } from "../runtime/dsl-types";
+import type { DslNode, DslStyle, DslStyleValue } from "../runtime/dsl-types";
 
 const FIDELITY_TAGS = ["section", "span", "strong", "h1", "h2", "h3", "h4", "h5", "h6", "p"] as const;
 type FidelityTag = (typeof FIDELITY_TAGS)[number];
@@ -245,9 +245,90 @@ function parseStyleFontWeight(style: DslStyle | undefined): number {
   return 400;
 }
 
+function parseStyleColor(style: DslStyle | undefined): string {
+  const value = style?.color;
+  return typeof value === "string" ? value.trim() : "";
+}
+
+function isCircularRadiusValue(borderRadius: DslStyleValue | undefined): boolean {
+  if (typeof borderRadius !== "string") {
+    return false;
+  }
+  const trimmed = borderRadius.trim().toLowerCase();
+  return trimmed === "100%" || trimmed === "50%" || trimmed === "9999px";
+}
+
+function isCircularBadgeElement(node: DslNode): boolean {
+  if (node.type !== "element" || !node.style) {
+    return false;
+  }
+  return (
+    Boolean(node.style.backgroundColor) &&
+    isCircularRadiusValue(node.style.borderRadius)
+  );
+}
+
+/** Align with heading slot classifier — opaque rgb/hex accent colors qualify inline numbers. */
+function colorOpacityForNumberInference(color: string): number {
+  if (!color.trim()) {
+    return 1;
+  }
+  const rgbaMatch = color.match(
+    /rgba\s*\(\s*[\d.]+\s*,\s*[\d.]+\s*,\s*[\d.]+\s*,\s*([\d.]+)\s*\)/i,
+  );
+  if (rgbaMatch) {
+    return Number.parseFloat(rgbaMatch[1] ?? "1");
+  }
+  if (/^#[0-9a-f]{6}$/i.test(color.trim())) {
+    const hex = color.trim().slice(1);
+    const r = Number.parseInt(hex.slice(0, 2), 16);
+    const g = Number.parseInt(hex.slice(2, 4), 16);
+    const b = Number.parseInt(hex.slice(4, 6), 16);
+    return (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  }
+  return 1;
+}
+
+function isInferrableNumberLeaf(
+  leaf: {
+    text: string;
+    path: string;
+    fontSizePx: number;
+    fontWeight: number;
+    color: string;
+    isCircularBadge: boolean;
+  },
+  titleBest?: { text: string; path: string },
+): boolean {
+  if (titleBest && leaf.path === titleBest.path) {
+    return false;
+  }
+  if (!isPureNumberText(leaf.text)) {
+    return false;
+  }
+  if (leaf.isCircularBadge) {
+    return true;
+  }
+  if (leaf.fontSizePx >= 36) {
+    return true;
+  }
+  if (leaf.fontWeight >= 700 && leaf.fontSizePx >= 14) {
+    return true;
+  }
+  return leaf.fontSizePx >= 14 && colorOpacityForNumberInference(leaf.color) >= 0.85;
+}
+
 /** Infer title/number bindings from styled tree leaves when exact slot text match fails. */
 export function inferSemanticBindingsFromTree(tree: DslNode): Record<string, SemanticBinding> {
-  const leaves: Array<{ text: string; path: string; tag: string; fontSizePx: number; fontWeight: number }> = [];
+  const leaves: Array<{
+    text: string;
+    path: string;
+    tag: string;
+    fontSizePx: number;
+    fontWeight: number;
+    color: string;
+    isCircularBadge: boolean;
+  }> = [];
 
   const walk = (node: DslNode, path: string) => {
     if (node.type !== "element") {
@@ -261,6 +342,8 @@ export function inferSemanticBindingsFromTree(tree: DslNode): Record<string, Sem
         tag: node.tag,
         fontSizePx: parseStyleFontSizePx(node.style),
         fontWeight: parseStyleFontWeight(node.style),
+        color: parseStyleColor(node.style),
+        isCircularBadge: isCircularBadgeElement(node),
       });
     }
     node.children?.forEach((child, index) => {
@@ -276,17 +359,9 @@ export function inferSemanticBindingsFromTree(tree: DslNode): Record<string, Sem
 
   const bindings: Record<string, SemanticBinding> = {};
 
-  const numberBest = leaves
-    .filter((leaf) => isPureNumberText(leaf.text) && leaf.fontSizePx >= 36)
-    .sort((a, b) => b.fontSizePx - a.fontSizePx)[0];
-  if (numberBest) {
-    bindings.number = { text: numberBest.text, path: numberBest.path, tag: numberBest.tag };
-  }
-
   const titleBest = leaves
     .filter(
       (leaf) =>
-        leaf !== numberBest &&
         !isPureNumberText(leaf.text) &&
         !isWhitespaceOrNbspOnly(leaf.text) &&
         leaf.fontSizePx >= 14 &&
@@ -294,18 +369,50 @@ export function inferSemanticBindingsFromTree(tree: DslNode): Record<string, Sem
         (leaf.fontWeight >= 700 || leaf.fontSizePx >= 16),
     )
     .sort((a, b) => {
-      const score = (leaf: (typeof leaves)[number]) => {
-        let value = leaf.path.split(".children").length * 10;
-        if (leaf.fontSizePx >= 16 && leaf.fontSizePx <= 28) value += 50;
-        if (leaf.fontWeight >= 700) value += 30;
-        if (leaf.tag === "span" || leaf.tag === "strong") value += 20;
-        return value;
-      };
-      return score(b) - score(a);
+      let scoreA = a.path.split(".children").length * 10;
+      let scoreB = b.path.split(".children").length * 10;
+      if (a.fontSizePx >= 16 && a.fontSizePx <= 28) scoreA += 50;
+      if (b.fontSizePx >= 16 && b.fontSizePx <= 28) scoreB += 50;
+      if (a.fontWeight >= 700) scoreA += 30;
+      if (b.fontWeight >= 700) scoreB += 30;
+      if (a.tag === "span" || a.tag === "strong") scoreA += 20;
+      if (b.tag === "span" || b.tag === "strong") scoreB += 20;
+      return scoreB - scoreA;
     })[0];
 
-  if (titleBest) {
-    bindings.title = { text: titleBest.text, path: titleBest.path, tag: titleBest.tag };
+  const numberBest = leaves
+    .filter((leaf) => isInferrableNumberLeaf(leaf, titleBest))
+    .sort((a, b) => b.fontSizePx - a.fontSizePx)[0];
+  if (numberBest) {
+    bindings.number = { text: numberBest.text, path: numberBest.path, tag: numberBest.tag };
+  }
+
+  const titleBinding =
+    titleBest && titleBest.path !== numberBest?.path
+      ? titleBest
+      : leaves
+          .filter(
+            (leaf) =>
+              leaf.path !== numberBest?.path &&
+              !isPureNumberText(leaf.text) &&
+              !isWhitespaceOrNbspOnly(leaf.text) &&
+              leaf.fontSizePx >= 14 &&
+              leaf.fontSizePx < 36 &&
+              (leaf.fontWeight >= 700 || leaf.fontSizePx >= 16),
+          )
+          .sort((a, b) => {
+            const score = (leaf: (typeof leaves)[number]) => {
+              let value = leaf.path.split(".children").length * 10;
+              if (leaf.fontSizePx >= 16 && leaf.fontSizePx <= 28) value += 50;
+              if (leaf.fontWeight >= 700) value += 30;
+              if (leaf.tag === "span" || leaf.tag === "strong") value += 20;
+              return value;
+            };
+            return score(b) - score(a);
+          })[0];
+
+  if (titleBinding) {
+    bindings.title = { text: titleBinding.text, path: titleBinding.path, tag: titleBinding.tag };
   }
 
   return bindings;

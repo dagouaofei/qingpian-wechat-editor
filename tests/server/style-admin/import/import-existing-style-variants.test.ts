@@ -26,9 +26,7 @@ describe("importExistingStyleVariants", () => {
 
     expect(result.summary).toContain("collected=");
     expect(result.report.historicalFirstWave33Imported.length).toBe(33);
-    expect(result.report.userSelectableImported).toContain(
-      "heading_teal_section_label_html_paste_candidate",
-    );
+    expect(result.report.userSelectableImported).toHaveLength(0);
   });
 
   it("reports release1_required lifecycle separately from default_eligible", async () => {
@@ -40,8 +38,19 @@ describe("importExistingStyleVariants", () => {
     expect(result.report.byLifecycle.default_eligible ?? 0).toBe(0);
     expect(result.report.byDistribution.release1Required).toBe(92);
     expect(result.report.byDistribution.defaultEligible).toBe(0);
-    expect(result.report.byDistribution.userSelectable).toBe(7);
+    expect(result.report.byDistribution.userSelectable).toBe(0);
+    expect(result.report.byLifecycle.user_selectable ?? 0).toBe(0);
     expect(result.report.legacySourceTypeCount).toBe(0);
+  });
+
+  it("does not seed userSelectable from legacy lifecycle during code import", async () => {
+    const result = await importExistingStyleVariants({} as StyleAdminPrismaClient, {
+      dryRun: true,
+    });
+
+    expect(result.report.userSelectableImported).not.toContain(
+      "heading_teal_section_label_html_paste_candidate",
+    );
   });
 
   it("repeated import skips unchanged variants", async () => {

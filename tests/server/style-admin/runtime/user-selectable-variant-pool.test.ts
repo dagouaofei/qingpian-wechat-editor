@@ -24,11 +24,12 @@ function createMockDb(rows: unknown[]) {
 }
 
 describe("getUserSelectableVariantPool", () => {
-  it("returns code_fallback when DATABASE_URL is missing", async () => {
+  it("returns degraded empty pool when DATABASE_URL is missing", async () => {
     delete process.env.DATABASE_URL;
     const pool = await getUserSelectableVariantPool({ blockType: "heading" }, createMockDb([]) as never);
-    expect(pool.source).toBe("code_fallback");
-    expect(pool.variants.length).toBeGreaterThan(0);
+    expect(pool.source).toBe("db_unavailable");
+    expect(pool.variants).toHaveLength(0);
+    expect(pool.notice).toContain("degraded");
   });
 
   it("returns database variants for eligible rows only", async () => {

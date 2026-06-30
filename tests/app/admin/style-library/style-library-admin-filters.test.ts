@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  ADMIN_FILTER_OPTIONS,
   ADMIN_FILTER_PRESETS,
   buildAdminListHref,
   isAdminFilterPresetActive,
@@ -76,6 +77,11 @@ describe("parseAdminVariantListFilter", () => {
 });
 
 describe("ADMIN_FILTER_PRESETS", () => {
+  it("admin lifecycle filter dropdown excludes legacy user_selectable", () => {
+    expect(ADMIN_FILTER_OPTIONS.lifecycles).not.toContain("user_selectable");
+    expect(ADMIN_FILTER_OPTIONS.lifecycles).toContain("paste_qa_pass");
+  });
+
   it("includes defaultEligible and hidden presets", () => {
     const ids = ADMIN_FILTER_PRESETS.map((preset) => preset.id);
     expect(ids).toContain("default-eligible-true");

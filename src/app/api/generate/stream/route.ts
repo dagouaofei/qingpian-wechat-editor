@@ -1,5 +1,6 @@
 import type { InputRequest } from "@/core/generation/input";
 import { iterateGenerateStreamSse } from "@/server/generation/run-generate-stream-flow";
+import { buildGenerateStreamSseResponseHeaders } from "@/server/generation/stream-sse";
 
 type GenerateStreamApiRequestBody = InputRequest & {
   requireRealProvider?: boolean;
@@ -25,11 +26,7 @@ export async function POST(request: Request) {
       })}\n\n`,
       {
         status: 400,
-        headers: {
-          "Content-Type": "text/event-stream; charset=utf-8",
-          "Cache-Control": "no-cache, no-transform",
-          Connection: "keep-alive",
-        },
+        headers: buildGenerateStreamSseResponseHeaders(),
       },
     );
   }
@@ -69,10 +66,6 @@ export async function POST(request: Request) {
   });
 
   return new Response(stream, {
-    headers: {
-      "Content-Type": "text/event-stream; charset=utf-8",
-      "Cache-Control": "no-cache, no-transform",
-      Connection: "keep-alive",
-    },
+    headers: buildGenerateStreamSseResponseHeaders(),
   });
 }

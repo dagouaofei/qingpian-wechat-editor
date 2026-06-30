@@ -7,38 +7,33 @@ import type {
 } from "@prisma/client";
 
 import { BLOCKING_QUALITY_STATUSES } from "@/lib/runtime-variant-availability";
+import { isUserSelectablePoolMember } from "@/lib/user-selectable-pool-eligibility";
 import type { DistributionSnapshot } from "./types";
 
 export type UserSelectablePoolCandidate = {
+  runtimeVariantId?: string;
+  blockType?: BlockType | string;
   lifecycle: StyleVariantLifecycle;
   distribution: Pick<
     StyleVariantDistribution,
     "userSelectable" | "hidden" | "deprecated" | "defaultEligible" | "release1Required"
   >;
+  currentVersion?: { qualityStatus: StyleVariantQualityStatus | string } | null;
+  definitionJson?: unknown;
 };
 
-/**
- * User-selectable pool membership is driven only by distribution.userSelectable
- * and exclusion flags — not by defaultEligible or release1Required.
- */
+/** Delegates to shared runtime pool membership — distribution.userSelectable is sole visibility authority. */
 export function isEligibleForUserSelectablePool(
   candidate: UserSelectablePoolCandidate,
 ): boolean {
-  const { lifecycle, distribution } = candidate;
-
-  if (!distribution.userSelectable) {
-    return false;
-  }
-  if (distribution.hidden) {
-    return false;
-  }
-  if (distribution.deprecated) {
-    return false;
-  }
-  if (lifecycle === "deprecated") {
-    return false;
-  }
-  return true;
+  return isUserSelectablePoolMember({
+    runtimeVariantId: candidate.runtimeVariantId ?? "__pool_eligibility__",
+    blockType: candidate.blockType ?? "heading",
+    lifecycle: candidate.lifecycle,
+    distribution: candidate.distribution,
+    currentVersion: candidate.currentVersion ?? { qualityStatus: "paste_qa_pass" },
+    definitionJson: candidate.definitionJson,
+  });
 }
 
 /**
@@ -115,6 +110,7 @@ export function defaultDistributionForLifecycle(
 
   switch (lifecycle) {
     case "user_selectable":
+      // Deprecated lifecycle value — visibility is distribution.userSelectable only.
       return { ...base, userSelectable: true };
     case "default_eligible":
       return {

@@ -1,5 +1,6 @@
 import type { StyleVariantQualityStatus, StyleVariantValidationStatus } from "@prisma/client";
 
+import { invalidateUserSelectableVariantPoolCache } from "../runtime/user-selectable-variant-pool-cache";
 import type { StyleAdminPrismaClient } from "../prisma";
 import type { JsonValue } from "../types";
 import { StyleVariantAuditRepository } from "../repositories/style-variant-audit-repository";
@@ -233,6 +234,9 @@ export async function runCandidateInspectionAndPersist(
     reason: "S10-STORY-010 candidate inspection",
     actor,
   });
+
+  invalidateUserSelectableVariantPoolCache(variant.blockType);
+  invalidateUserSelectableVariantPoolCache();
 
   return {
     ok: true,

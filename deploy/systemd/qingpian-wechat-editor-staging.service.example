@@ -1,0 +1,21 @@
+# systemd unit example — staging
+# Copy to /etc/systemd/system/qingpian-wechat-editor-staging.service
+
+[Unit]
+Description=Qingpian WeChat Editor — staging (Next.js)
+After=network.target
+
+[Service]
+Type=simple
+User=qingpian
+WorkingDirectory=/opt/qingpian-wechat-editor/staging
+EnvironmentFile=/etc/qingpian-wechat-editor-staging.env
+Environment=APP_ENV=staging
+Environment=PORT=3001
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/corepack pnpm start
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

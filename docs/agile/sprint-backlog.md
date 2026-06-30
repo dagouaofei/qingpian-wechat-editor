@@ -12,10 +12,10 @@
 > **Release 1：** **进行中（未关闭）** · 尾声按 **方案 B** 重排（DECISION-070）
 > **Sprint 8：** **Closed**（2026-06-05 · DECISION-093 · audit Grade A- · P0=0 · merged `release/1` @ `806fa47`）
 > **Sprint 9：** **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · **P0=0** · HTML→user preview picker E2E PASS · Preview/Copy parity PASS · default preset / release1_required 未污染 · **已 merge `release/1`** @ `c96e869` · **未 merge `main`**）
-> **Sprint 10：** **Closed**（2026-06-08 · **DECISION-108** · **DECISION-111** · S10-STORY-001~011 Done · merge `release/1` 待确认）· 原 012~014 顺延 Sprint 12+
-> **当前 Sprint：** **Sprint 11** — Production Ops Go-Live（正式部署与运维上线）· **Planned**（2026-06-08 · **DECISION-111**）
-> **Sprint 11 分支：** `sprint/s11-production-ops-go-live`（从 `release/1` · 待创建）
-> **Sprint 10 分支：** `sprint/s10-db-backed-style-admin-v1`（已 merge 或待 merge `release/1` · @ `917244e`）
+> **Sprint 10：** **Closed**（2026-06-08 · **DECISION-108** · **DECISION-111** · S10-STORY-001~011 Done · **已 merge `release/1`** @ `6cd1dfc`）· 原 012~014 顺延 Sprint 12+
+> **当前 Sprint：** **Sprint 11** — Production Ops Go-Live · **Accepted with follow-ups / Closed**（2026-06-30 · Product Owner confirmed）
+> **Sprint 11 分支：** `sprint/s11-production-ops-go-live`（从 `release/1` · @ `6cd1dfc`）
+> **Sprint 10 分支：** `sprint/s10-db-backed-style-admin-v1`（已 merge `release/1` · @ `6cd1dfc`）
 > **Sprint 9 分支：** `sprint/s9-style-management-system-v0`（已 merge `release/1` · 2026-06-05）
 > **上一 Sprint：** **Sprint 8** — **Closed**（2026-06-05）；**Sprint 7** — **Done**（2026-06-03 · merge `release/1`）
 > **当前 Chore：** **Visible Progress & Legacy Convergence** — **Done**（DECISION-080 · 用户验收 2026-06-02 · merged @ `a5704d6`）
@@ -232,7 +232,7 @@
 **验收标准：**
 
 - [x] AC-1 docs/agile/execution-reports/README.md 已建立
-- [x] AC-2 docs/agile/execution-reports/_template.md 已建立
+- [x] AC-2 docs/agile/execution-reports/\_template.md 已建立
 - [x] AC-3 .cursor/rules/agile-rules.mdc 已写入 execution report 默认规则
 - [x] AC-4 .cursor/rules/collaboration-rules.mdc 已写入 ChatGPT + Cursor + docs + execution report 协作机制
 - [x] AC-5 chatgpt-cursor-docs-workflow.md 已同步更新
@@ -663,14 +663,14 @@
 
 > **状态：已关闭**（2026-05-31；用户确认；DECISION-054）
 
-| 项 | 状态 |
-|----|------|
-| S2-STORY-002~007 | Done |
-| Contract audit | ✅ A 级，P0=0，P1=1，P2=3（用户已接受） |
-| Code audit | ✅ A 级，P0=0，P1=3，P2=5（用户已接受） |
-| lint / test / build | PASS |
-| Sprint 2 关闭 | ✅ **已关闭**（2026-05-31） |
-| merge sprint → `release/1` | ✅ 用户已确认执行 |
+| 项                         | 状态                                    |
+| -------------------------- | --------------------------------------- |
+| S2-STORY-002~007           | Done                                    |
+| Contract audit             | ✅ A 级，P0=0，P1=1，P2=3（用户已接受） |
+| Code audit                 | ✅ A 级，P0=0，P1=3，P2=5（用户已接受） |
+| lint / test / build        | PASS                                    |
+| Sprint 2 关闭              | ✅ **已关闭**（2026-05-31）             |
+| merge sprint → `release/1` | ✅ 用户已确认执行                       |
 
 ---
 
@@ -896,15 +896,15 @@
 
 > **状态：已关闭**（2026-05-31；用户确认；DECISION-057）
 
-| 项 | 状态 |
-|----|------|
-| S3A-STORY-001~007 | Done |
-| Contract audit | ✅ A 级，P0=0，P1=4，P2=3（用户已接受） |
-| lint / test / build | PASS（221 tests） |
-| Sprint 3-A 范围未越界 | ✅ |
-| Sprint 3-A 关闭 | ✅ **已关闭**（2026-05-31） |
-| merge sprint → `release/1` | ✅ 用户已确认执行 |
-| 下一步 | Sprint 4-A：Preview / Copy Renderer for Text-first Blocks（**In Progress**，DECISION-060） |
+| 项                         | 状态                                                                                       |
+| -------------------------- | ------------------------------------------------------------------------------------------ |
+| S3A-STORY-001~007          | Done                                                                                       |
+| Contract audit             | ✅ A 级，P0=0，P1=4，P2=3（用户已接受）                                                    |
+| lint / test / build        | PASS（221 tests）                                                                          |
+| Sprint 3-A 范围未越界      | ✅                                                                                         |
+| Sprint 3-A 关闭            | ✅ **已关闭**（2026-05-31）                                                                |
+| merge sprint → `release/1` | ✅ 用户已确认执行                                                                          |
+| 下一步                     | Sprint 4-A：Preview / Copy Renderer for Text-first Blocks（**In Progress**，DECISION-060） |
 
 ---
 
@@ -923,14 +923,14 @@
 
 > **状态：已关闭**（2026-06-01；用户确认；DECISION-059）
 
-| 项 | 状态 |
-|----|------|
-| S3B-STORY-001~007 | Done |
-| Contract audit | ✅ A 级，P0=0，P1=5，P2=3（用户已接受） |
-| lint / test / build | PASS（286 tests） |
-| Sprint 3-B 关闭 | ✅ **已关闭**（2026-06-01） |
-| merge sprint → `release/1` | ✅ 用户已确认执行（`9040ef9`） |
-| 下一步 | Sprint 4-A 启动（DECISION-060） |
+| 项                         | 状态                                    |
+| -------------------------- | --------------------------------------- |
+| S3B-STORY-001~007          | Done                                    |
+| Contract audit             | ✅ A 级，P0=0，P1=5，P2=3（用户已接受） |
+| lint / test / build        | PASS（286 tests）                       |
+| Sprint 3-B 关闭            | ✅ **已关闭**（2026-06-01）             |
+| merge sprint → `release/1` | ✅ 用户已确认执行（`9040ef9`）          |
+| 下一步                     | Sprint 4-A 启动（DECISION-060）         |
 
 ---
 
@@ -999,14 +999,14 @@
 
 **已实现 variants（6）：**
 
-| id | blockType | layoutMode |
-|----|-----------|------------|
-| `title_plain_minimal` | title | `plain` |
-| `title_left_bar_classic` | title | `left_bar` |
-| `title_bottom_line_editorial` | title | `bottom_line` |
-| `heading_plain_minimal` | heading | `plain` |
-| `heading_numbered_section` | heading | `numbered` |
-| `heading_card_centered` | heading | `card` |
+| id                            | blockType | layoutMode    |
+| ----------------------------- | --------- | ------------- |
+| `title_plain_minimal`         | title     | `plain`       |
+| `title_left_bar_classic`      | title     | `left_bar`    |
+| `title_bottom_line_editorial` | title     | `bottom_line` |
+| `heading_plain_minimal`       | heading   | `plain`       |
+| `heading_numbered_section`    | heading   | `numbered`    |
+| `heading_card_centered`       | heading   | `card`        |
 
 **明确不做：**
 
@@ -1033,20 +1033,20 @@
 
 **已实现 variants（12）：**
 
-| id | blockType | copySafety |
-|----|-----------|------------|
-| `lead_plain_intro` | lead | strict |
-| `lead_accent_band` | lead | balanced |
-| `lead_quote_intro` | lead | balanced |
-| `paragraph_plain_body` | paragraph | strict |
-| `paragraph_accent_left` | paragraph | balanced |
-| `paragraph_soft_card` | paragraph | balanced |
-| `divider_simple_line` | divider | strict |
-| `divider_dotted_line` | divider | balanced |
-| `divider_section_space` | divider | strict |
-| `list_plain_bullets` | list | strict |
-| `list_numbered_steps` | list | balanced |
-| `list_checklist_cards` | list | balanced |
+| id                      | blockType | copySafety |
+| ----------------------- | --------- | ---------- |
+| `lead_plain_intro`      | lead      | strict     |
+| `lead_accent_band`      | lead      | balanced   |
+| `lead_quote_intro`      | lead      | balanced   |
+| `paragraph_plain_body`  | paragraph | strict     |
+| `paragraph_accent_left` | paragraph | balanced   |
+| `paragraph_soft_card`   | paragraph | balanced   |
+| `divider_simple_line`   | divider   | strict     |
+| `divider_dotted_line`   | divider   | balanced   |
+| `divider_section_space` | divider   | strict     |
+| `list_plain_bullets`    | list      | strict     |
+| `list_numbered_steps`   | list      | balanced   |
+| `list_checklist_cards`  | list      | balanced   |
 
 **明确不做：**
 
@@ -1072,23 +1072,23 @@
 
 **已实现 variants（15）：**
 
-| id | blockType | copySafety |
-|----|-----------|------------|
-| `quote_plain` | quote | strict |
-| `quote_left_bar` | quote | balanced |
-| `quote_card` | quote | balanced |
-| `highlight_inline_emphasis` | highlight | strict |
-| `highlight_accent_band` | highlight | balanced |
-| `highlight_soft_card` | highlight | balanced |
-| `info_card_key_takeaway` | info_card | balanced |
-| `info_card_steps` | info_card | balanced |
-| `info_card_warning_note` | info_card | balanced |
-| `cta_plain_text` | cta | strict |
-| `cta_button_like` | cta | balanced |
-| `cta_qr_placeholder` | cta | balanced |
-| `image_placeholder_simple` | image_placeholder | strict |
-| `image_placeholder_caption` | image_placeholder | balanced |
-| `image_placeholder_card` | image_placeholder | balanced |
+| id                          | blockType         | copySafety |
+| --------------------------- | ----------------- | ---------- |
+| `quote_plain`               | quote             | strict     |
+| `quote_left_bar`            | quote             | balanced   |
+| `quote_card`                | quote             | balanced   |
+| `highlight_inline_emphasis` | highlight         | strict     |
+| `highlight_accent_band`     | highlight         | balanced   |
+| `highlight_soft_card`       | highlight         | balanced   |
+| `info_card_key_takeaway`    | info_card         | balanced   |
+| `info_card_steps`           | info_card         | balanced   |
+| `info_card_warning_note`    | info_card         | balanced   |
+| `cta_plain_text`            | cta               | strict     |
+| `cta_button_like`           | cta               | balanced   |
+| `cta_qr_placeholder`        | cta               | balanced   |
+| `image_placeholder_simple`  | image_placeholder | strict     |
+| `image_placeholder_caption` | image_placeholder | balanced   |
+| `image_placeholder_card`    | image_placeholder | balanced   |
 
 **明确不做：**
 
@@ -1179,27 +1179,27 @@
 
 > **状态：已关闭**（2026-06-01；用户确认；DECISION-061）
 
-| 项 | 状态 |
-|----|------|
-| S4A-STORY-001~007 | Done |
-| Renderer contract audit | ✅ A 级，P0=0，P1=4，P2=1（用户已接受） |
-| lint / test / build | PASS（378 tests） |
-| Sprint 4-A 关闭 | ✅ **已关闭**（2026-06-01） |
-| merge sprint → `release/1` | ✅ 用户已确认执行（`b2efdb2`） |
-| 下一步 | Sprint 4-B 未启动（待用户确认） |
+| 项                         | 状态                                    |
+| -------------------------- | --------------------------------------- |
+| S4A-STORY-001~007          | Done                                    |
+| Renderer contract audit    | ✅ A 级，P0=0，P1=4，P2=1（用户已接受） |
+| lint / test / build        | PASS（378 tests）                       |
+| Sprint 4-A 关闭            | ✅ **已关闭**（2026-06-01）             |
+| merge sprint → `release/1` | ✅ 用户已确认执行（`b2efdb2`）          |
+| 下一步                     | Sprint 4-B 未启动（待用户确认）         |
 
 ---
 
 ## Sprint 4-A 前置遗留登记（须纳入 planning）
 
-| ID | 问题 | 纳入 Story | 说明 |
-|----|------|------------|------|
-| **P1-S3B-001** | 33 variants 尚未经过 Preview / Copy Renderer 实际保真验证 | S4A-STORY-003~006 | Sprint 4-A 先验证 text-first blocks |
-| **P1-S3B-002** | `balanced` copySafety variants 可能在微信粘贴中出现细节差异 | S4A-STORY-006 | 启动最小 Paste QA seed |
-| **P1-S3B-004** | 缺少 style quality gallery / 人工视觉验收入口 | 登记 · 后续 gallery / QA 支撑 | 不必 Sprint 4-A 实现 |
-| **P2-S3B-002** | WeChat profile 文档字段与代码结构仍有轻微命名差异 | S4A-STORY-002 | Sprint 4-A 前置处理 |
-| **P2-S3B-003 / P1-CODE-002** | InlineMark color 与 Style ColorTokenRef 跨模块校验未打通 | S4A-STORY-004 | copy-safe CSS 映射前置 |
-| **P1-S3A-004** | ResolvedBlockStyle 未展开 componentProtocol | S4A-STORY-002 / S4A-STORY-003 | Renderer 输入契约 |
+| ID                           | 问题                                                        | 纳入 Story                    | 说明                                |
+| ---------------------------- | ----------------------------------------------------------- | ----------------------------- | ----------------------------------- |
+| **P1-S3B-001**               | 33 variants 尚未经过 Preview / Copy Renderer 实际保真验证   | S4A-STORY-003~006             | Sprint 4-A 先验证 text-first blocks |
+| **P1-S3B-002**               | `balanced` copySafety variants 可能在微信粘贴中出现细节差异 | S4A-STORY-006                 | 启动最小 Paste QA seed              |
+| **P1-S3B-004**               | 缺少 style quality gallery / 人工视觉验收入口               | 登记 · 后续 gallery / QA 支撑 | 不必 Sprint 4-A 实现                |
+| **P2-S3B-002**               | WeChat profile 文档字段与代码结构仍有轻微命名差异           | S4A-STORY-002                 | Sprint 4-A 前置处理                 |
+| **P2-S3B-003 / P1-CODE-002** | InlineMark color 与 Style ColorTokenRef 跨模块校验未打通    | S4A-STORY-004                 | copy-safe CSS 映射前置              |
+| **P1-S3A-004**               | ResolvedBlockStyle 未展开 componentProtocol                 | S4A-STORY-002 / S4A-STORY-003 | Renderer 输入契约                   |
 
 ---
 
@@ -1248,19 +1248,19 @@
 
 **实际产物：**
 
-| 路径 | 说明 |
-|------|------|
-| `src/core/renderer/types.ts` | RenderMode / RenderTarget / RendererResult / RendererIssue |
-| `src/core/renderer/context.ts` | Article + ResolvedArticleStyle 输入校验、BlockRenderContext |
-| `src/core/renderer/resolved-view.ts` | componentProtocol 展开、slot disabled/fallback 视图 |
-| `src/core/renderer/registry.ts` | block renderer registry 最小实现 |
-| `src/core/renderer/render-block.ts` | `renderBlock` / `renderArticleBlocks` 编排 |
-| `src/core/renderer/index.ts` | 模块导出 |
-| `src/core/copy/wechat-profile-bridge.ts` | WeChat profile 文档字段 ↔ 代码结构映射（P2-S3B-002） |
-| `src/core/copy/index.ts` | Copy 路径 re-export |
-| `tests/core/renderer/renderer-contract.test.ts` | 契约测试 |
-| `tests/core/renderer/renderer-registry.test.ts` | registry 测试 |
-| `tests/core/copy/wechat-profile-bridge.test.ts` | profile bridge 测试 |
+| 路径                                            | 说明                                                        |
+| ----------------------------------------------- | ----------------------------------------------------------- |
+| `src/core/renderer/types.ts`                    | RenderMode / RenderTarget / RendererResult / RendererIssue  |
+| `src/core/renderer/context.ts`                  | Article + ResolvedArticleStyle 输入校验、BlockRenderContext |
+| `src/core/renderer/resolved-view.ts`            | componentProtocol 展开、slot disabled/fallback 视图         |
+| `src/core/renderer/registry.ts`                 | block renderer registry 最小实现                            |
+| `src/core/renderer/render-block.ts`             | `renderBlock` / `renderArticleBlocks` 编排                  |
+| `src/core/renderer/index.ts`                    | 模块导出                                                    |
+| `src/core/copy/wechat-profile-bridge.ts`        | WeChat profile 文档字段 ↔ 代码结构映射（P2-S3B-002）        |
+| `src/core/copy/index.ts`                        | Copy 路径 re-export                                         |
+| `tests/core/renderer/renderer-contract.test.ts` | 契约测试                                                    |
+| `tests/core/renderer/renderer-registry.test.ts` | registry 测试                                               |
+| `tests/core/copy/wechat-profile-bridge.test.ts` | profile bridge 测试                                         |
 
 **明确不做：**
 
@@ -1296,18 +1296,18 @@
 
 **实际产物：**
 
-| 路径 | 说明 |
-|------|------|
-| `src/core/renderer/title-block-renderer.ts` | titleBlock Preview / Copy 渲染与校验 |
-| `src/core/renderer/title-block-preview.ts` | Preview 结构化输出 |
-| `src/core/renderer/title-block-registry.ts` | 4 路 registry 注册（title/heading × preview/copy） |
-| `src/core/renderer/text-style.ts` | typography / slot 内容解析 |
-| `src/core/copy/title-block-copy.ts` | Copy inline HTML（5 layoutMode） |
-| `src/core/copy/html-escape.ts` | HTML 转义 |
-| `src/core/copy/inline-style.ts` | inline style 构建 |
-| `tests/core/renderer/title-heading-renderer.test.ts` | Preview / registry / fallback 测试 |
-| `tests/core/copy/title-heading-copy-renderer.test.ts` | Copy HTML / escape 测试 |
-| `tests/fixtures/renderer/title-heading-articles.ts` | 测试 fixture helper |
+| 路径                                                  | 说明                                               |
+| ----------------------------------------------------- | -------------------------------------------------- |
+| `src/core/renderer/title-block-renderer.ts`           | titleBlock Preview / Copy 渲染与校验               |
+| `src/core/renderer/title-block-preview.ts`            | Preview 结构化输出                                 |
+| `src/core/renderer/title-block-registry.ts`           | 4 路 registry 注册（title/heading × preview/copy） |
+| `src/core/renderer/text-style.ts`                     | typography / slot 内容解析                         |
+| `src/core/copy/title-block-copy.ts`                   | Copy inline HTML（5 layoutMode）                   |
+| `src/core/copy/html-escape.ts`                        | HTML 转义                                          |
+| `src/core/copy/inline-style.ts`                       | inline style 构建                                  |
+| `tests/core/renderer/title-heading-renderer.test.ts`  | Preview / registry / fallback 测试                 |
+| `tests/core/copy/title-heading-copy-renderer.test.ts` | Copy HTML / escape 测试                            |
+| `tests/fixtures/renderer/title-heading-articles.ts`   | 测试 fixture helper                                |
 
 **明确不做：**
 
@@ -1343,21 +1343,21 @@
 
 **实际产物：**
 
-| 路径 | 说明 |
-|------|------|
-| `src/core/renderer/inline-content-marks.ts` | InlineMark color / link 安全解析与 issue |
-| `src/core/renderer/inline-content-preview.ts` | InlineContent Preview 节点映射 |
-| `src/core/renderer/text-block-typography.ts` | lead / paragraph layout / typography |
-| `src/core/renderer/text-block-preview.ts` | lead / paragraph Preview Renderer |
-| `src/core/renderer/text-block-renderer.ts` | lead / paragraph 成对 render 入口 |
-| `src/core/renderer/text-block-registry.ts` | `createTextBlockRendererRegistry()` |
-| `src/core/copy/inline-content-html.ts` | InlineContent Copy inline HTML |
-| `src/core/copy/text-block-copy.ts` | lead / paragraph variant layout Copy HTML |
-| `src/core/copy/html-escape.ts` | 新增 `escapeHtmlAttribute` |
-| `tests/core/renderer/lead-paragraph-renderer.test.ts` | Preview / registry / fallback 测试 |
-| `tests/core/copy/inline-content-copy-renderer.test.ts` | marks / escape / color / link 测试 |
-| `tests/core/copy/lead-paragraph-copy-renderer.test.ts` | 6 variants Copy HTML 测试 |
-| `tests/fixtures/renderer/lead-paragraph-articles.ts` | lead / paragraph fixture |
+| 路径                                                   | 说明                                      |
+| ------------------------------------------------------ | ----------------------------------------- |
+| `src/core/renderer/inline-content-marks.ts`            | InlineMark color / link 安全解析与 issue  |
+| `src/core/renderer/inline-content-preview.ts`          | InlineContent Preview 节点映射            |
+| `src/core/renderer/text-block-typography.ts`           | lead / paragraph layout / typography      |
+| `src/core/renderer/text-block-preview.ts`              | lead / paragraph Preview Renderer         |
+| `src/core/renderer/text-block-renderer.ts`             | lead / paragraph 成对 render 入口         |
+| `src/core/renderer/text-block-registry.ts`             | `createTextBlockRendererRegistry()`       |
+| `src/core/copy/inline-content-html.ts`                 | InlineContent Copy inline HTML            |
+| `src/core/copy/text-block-copy.ts`                     | lead / paragraph variant layout Copy HTML |
+| `src/core/copy/html-escape.ts`                         | 新增 `escapeHtmlAttribute`                |
+| `tests/core/renderer/lead-paragraph-renderer.test.ts`  | Preview / registry / fallback 测试        |
+| `tests/core/copy/inline-content-copy-renderer.test.ts` | marks / escape / color / link 测试        |
+| `tests/core/copy/lead-paragraph-copy-renderer.test.ts` | 6 variants Copy HTML 测试                 |
+| `tests/fixtures/renderer/lead-paragraph-articles.ts`   | lead / paragraph fixture                  |
 
 **明确不做：**
 
@@ -1393,16 +1393,16 @@
 
 **实际产物：**
 
-| 路径 | 说明 |
-|------|------|
-| `src/core/renderer/divider-layout.ts` | divider layout / spacing 映射 |
-| `src/core/renderer/divider-preview.ts` | divider Preview Renderer |
-| `src/core/renderer/divider-renderer.ts` | divider 成对 render 入口 |
-| `src/core/renderer/divider-registry.ts` | `createDividerRendererRegistry()` |
-| `src/core/copy/divider-copy.ts` | divider Copy inline HTML |
-| `tests/core/renderer/divider-renderer.test.ts` | Preview / registry / fallback 测试 |
-| `tests/core/copy/divider-copy-renderer.test.ts` | Copy HTML / copy-safe 测试 |
-| `tests/fixtures/renderer/divider-articles.ts` | divider fixture |
+| 路径                                            | 说明                               |
+| ----------------------------------------------- | ---------------------------------- |
+| `src/core/renderer/divider-layout.ts`           | divider layout / spacing 映射      |
+| `src/core/renderer/divider-preview.ts`          | divider Preview Renderer           |
+| `src/core/renderer/divider-renderer.ts`         | divider 成对 render 入口           |
+| `src/core/renderer/divider-registry.ts`         | `createDividerRendererRegistry()`  |
+| `src/core/copy/divider-copy.ts`                 | divider Copy inline HTML           |
+| `tests/core/renderer/divider-renderer.test.ts`  | Preview / registry / fallback 测试 |
+| `tests/core/copy/divider-copy-renderer.test.ts` | Copy HTML / copy-safe 测试         |
+| `tests/fixtures/renderer/divider-articles.ts`   | divider fixture                    |
 
 **明确不做：**
 
@@ -1435,20 +1435,20 @@
 
 **实际产物：**
 
-| 路径 | 说明 |
-|------|------|
-| `src/core/copy/copy-safe-html.ts` | Copy HTML snapshot 安全断言 |
-| `src/core/copy/text-first-copy-registry.ts` | Sprint 4-A text-first copy renderer registry |
-| `src/core/copy/copy-html-snapshot.ts` | 基于现有 Copy Renderer 的 snapshot seed builder |
-| `src/core/copy/clipboard-payload.ts` | `text/html` + `text/plain` payload builder（纯函数） |
-| `src/core/copy/plain-text.ts` | text/plain fallback builder |
-| `src/core/copy/paste-qa-seed.ts` | 最小 Paste QA seed 数据结构 |
-| `tests/fixtures/copy/text-first-copy-fixtures.ts` | 6 个代表 variants 的 Article + Style fixture |
-| `tests/core/copy/copy-html-snapshot.test.ts` | snapshot / copy-safe / missing renderer/style 测试 |
-| `tests/core/copy/clipboard-payload.test.ts` | Clipboard 双格式 payload 测试 |
-| `tests/core/copy/plain-text.test.ts` | text/plain fallback 测试 |
-| `tests/core/copy/paste-qa-seed.test.ts` | Paste QA seed 测试 |
-| `docs/agile/paste-qa/sprint4a-text-first-seed.md` | 最小 Paste QA seed 文档 |
+| 路径                                              | 说明                                                 |
+| ------------------------------------------------- | ---------------------------------------------------- |
+| `src/core/copy/copy-safe-html.ts`                 | Copy HTML snapshot 安全断言                          |
+| `src/core/copy/text-first-copy-registry.ts`       | Sprint 4-A text-first copy renderer registry         |
+| `src/core/copy/copy-html-snapshot.ts`             | 基于现有 Copy Renderer 的 snapshot seed builder      |
+| `src/core/copy/clipboard-payload.ts`              | `text/html` + `text/plain` payload builder（纯函数） |
+| `src/core/copy/plain-text.ts`                     | text/plain fallback builder                          |
+| `src/core/copy/paste-qa-seed.ts`                  | 最小 Paste QA seed 数据结构                          |
+| `tests/fixtures/copy/text-first-copy-fixtures.ts` | 6 个代表 variants 的 Article + Style fixture         |
+| `tests/core/copy/copy-html-snapshot.test.ts`      | snapshot / copy-safe / missing renderer/style 测试   |
+| `tests/core/copy/clipboard-payload.test.ts`       | Clipboard 双格式 payload 测试                        |
+| `tests/core/copy/plain-text.test.ts`              | text/plain fallback 测试                             |
+| `tests/core/copy/paste-qa-seed.test.ts`           | Paste QA seed 测试                                   |
+| `docs/agile/paste-qa/sprint4a-text-first-seed.md` | 最小 Paste QA seed 文档                              |
 
 **明确不做：**
 
@@ -1480,10 +1480,10 @@
 
 **实际产物：**
 
-| 路径 | 说明 |
-|------|------|
-| `docs/architecture/audits/sprint4a-renderer-contract-audit.md` | Sprint 4-A Renderer Contract Audit（Grade A；P0=0；P1=4；P2=1） |
-| `docs/agile/execution-reports/2026-06-01-s4a-renderer-contract-audit-close-readiness.md` | 本轮 execution report |
+| 路径                                                                                     | 说明                                                            |
+| ---------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| `docs/architecture/audits/sprint4a-renderer-contract-audit.md`                           | Sprint 4-A Renderer Contract Audit（Grade A；P0=0；P1=4；P2=1） |
+| `docs/agile/execution-reports/2026-06-01-s4a-renderer-contract-audit-close-readiness.md` | 本轮 execution report                                           |
 
 **Close Readiness 摘要：**
 
@@ -1524,28 +1524,28 @@
 
 **Sprint 4-B 关闭摘要（DECISION-063）：**
 
-| 项 | 状态 |
-|----|------|
-| S4B-STORY-001~007 | Done |
-| Renderer Contract Audit | Grade A，P0=0，P1=4，P2=2 |
-| lint / test / build | PASS（491 tests） |
-| Sprint 4-B 关闭 | ✅ 用户已确认 |
-| merge sprint → `release/1` | ✅ 用户已确认执行 |
-| 真实 Paste QA | Not Run，归 Sprint 6-B |
-| 下一步 | 待用户确认；不自动启动 Sprint 5 / Sprint 3-C / Sprint 6-A |
+| 项                         | 状态                                                      |
+| -------------------------- | --------------------------------------------------------- |
+| S4B-STORY-001~007          | Done                                                      |
+| Renderer Contract Audit    | Grade A，P0=0，P1=4，P2=2                                 |
+| lint / test / build        | PASS（491 tests）                                         |
+| Sprint 4-B 关闭            | ✅ 用户已确认                                             |
+| merge sprint → `release/1` | ✅ 用户已确认执行                                         |
+| 真实 Paste QA              | Not Run，归 Sprint 6-B                                    |
+| 下一步                     | 待用户确认；不自动启动 Sprint 5 / Sprint 3-C / Sprint 6-A |
 
 ---
 
 ## Sprint 4-B 前置遗留登记（须纳入 planning）
 
-| ID | 问题 | 纳入 Story | 说明 |
-|----|------|------------|------|
-| **P1-005** | list / info_card copy 结构保真规则未细化 | S4B-STORY-002 / S4B-STORY-004 | Copy HTML 结构保真 |
-| **P1-S3B-003** | cta / image_placeholder 为占位契约，无真实 QR / 链接 / 小程序 / 图片能力 | S4B-STORY-005 | Release 1 占位 Renderer 边界 |
-| **P1-S3B-005** | optional 字段需 renderer 明确 disabled / fallback 行为 | S4B-STORY-004 / S4B-STORY-005 | info_card / cta / image_placeholder |
-| **P1-S4A-002** | `balanced` copySafety variants 仍需粘贴细节验证 | S4B-STORY-006 | 纳入 33 variants Paste QA plan |
-| **P1-S4A-003** | Copy HTML snapshot seed 覆盖不足 | S4B-STORY-006 | 扩展 structured blocks representative snapshot |
-| **P2-S4A-001** | Style Gallery / 人工视觉验收入口缺失 | 登记 · 后续 gallery / QA | 不要求 Sprint 4-B 实现 |
+| ID             | 问题                                                                     | 纳入 Story                    | 说明                                           |
+| -------------- | ------------------------------------------------------------------------ | ----------------------------- | ---------------------------------------------- |
+| **P1-005**     | list / info_card copy 结构保真规则未细化                                 | S4B-STORY-002 / S4B-STORY-004 | Copy HTML 结构保真                             |
+| **P1-S3B-003** | cta / image_placeholder 为占位契约，无真实 QR / 链接 / 小程序 / 图片能力 | S4B-STORY-005                 | Release 1 占位 Renderer 边界                   |
+| **P1-S3B-005** | optional 字段需 renderer 明确 disabled / fallback 行为                   | S4B-STORY-004 / S4B-STORY-005 | info_card / cta / image_placeholder            |
+| **P1-S4A-002** | `balanced` copySafety variants 仍需粘贴细节验证                          | S4B-STORY-006                 | 纳入 33 variants Paste QA plan                 |
+| **P1-S4A-003** | Copy HTML snapshot seed 覆盖不足                                         | S4B-STORY-006                 | 扩展 structured blocks representative snapshot |
+| **P2-S4A-001** | Style Gallery / 人工视觉验收入口缺失                                     | 登记 · 后续 gallery / QA      | 不要求 Sprint 4-B 实现                         |
 
 ---
 
@@ -1601,16 +1601,16 @@
 
 **实际产物：**
 
-| 路径 | 说明 |
-|------|------|
-| `src/core/renderer/list-layout.ts` | list variant layout / typography / item normalization / copySafety |
-| `src/core/renderer/list-preview.ts` | list Preview Renderer 输出 |
-| `src/core/renderer/list-renderer.ts` | list renderer validation、balanced warning、Preview/Copy 调度 |
-| `src/core/renderer/list-registry.ts` | list preview/copy registry |
-| `src/core/copy/list-copy.ts` | list Copy HTML renderer 与 copy-safe CSS assertion |
-| `tests/fixtures/renderer/list-articles.ts` | list renderer/copy fixtures |
-| `tests/core/renderer/list-renderer.test.ts` | list Preview / registry / fallback 测试 |
-| `tests/core/copy/list-copy-renderer.test.ts` | list Copy HTML / escape / copy-safe 测试 |
+| 路径                                         | 说明                                                               |
+| -------------------------------------------- | ------------------------------------------------------------------ |
+| `src/core/renderer/list-layout.ts`           | list variant layout / typography / item normalization / copySafety |
+| `src/core/renderer/list-preview.ts`          | list Preview Renderer 输出                                         |
+| `src/core/renderer/list-renderer.ts`         | list renderer validation、balanced warning、Preview/Copy 调度      |
+| `src/core/renderer/list-registry.ts`         | list preview/copy registry                                         |
+| `src/core/copy/list-copy.ts`                 | list Copy HTML renderer 与 copy-safe CSS assertion                 |
+| `tests/fixtures/renderer/list-articles.ts`   | list renderer/copy fixtures                                        |
+| `tests/core/renderer/list-renderer.test.ts`  | list Preview / registry / fallback 测试                            |
+| `tests/core/copy/list-copy-renderer.test.ts` | list Copy HTML / escape / copy-safe 测试                           |
 
 **实现摘要：**
 
@@ -1690,21 +1690,21 @@ highlight：
 
 **实际产物：**
 
-| 路径 | 说明 |
-|------|------|
-| `src/core/renderer/quote-layout.ts` | quote variant layout / typography / content normalization / copySafety |
-| `src/core/renderer/quote-preview.ts` | quote Preview Renderer 输出 |
-| `src/core/renderer/quote-renderer.ts` | quote renderer validation、balanced warning、Preview/Copy 调度 |
-| `src/core/renderer/quote-registry.ts` | quote preview/copy registry |
-| `src/core/copy/quote-copy.ts` | quote Copy HTML renderer 与 copy-safe CSS assertion |
-| `src/core/renderer/highlight-layout.ts` | highlight variant layout / typography / content normalization / copySafety |
-| `src/core/renderer/highlight-preview.ts` | highlight Preview Renderer 输出 |
-| `src/core/renderer/highlight-renderer.ts` | highlight renderer validation、balanced warning、Preview/Copy 调度 |
-| `src/core/renderer/highlight-registry.ts` | highlight preview/copy registry |
-| `src/core/copy/highlight-copy.ts` | highlight Copy HTML renderer 与 copy-safe CSS assertion |
-| `tests/fixtures/renderer/quote-highlight-articles.ts` | quote/highlight renderer/copy fixtures |
-| `tests/core/renderer/quote-highlight-renderer.test.ts` | quote/highlight Preview / registry / fallback 测试 |
-| `tests/core/copy/quote-highlight-copy-renderer.test.ts` | quote/highlight Copy HTML / escape / copy-safe 测试 |
+| 路径                                                    | 说明                                                                       |
+| ------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `src/core/renderer/quote-layout.ts`                     | quote variant layout / typography / content normalization / copySafety     |
+| `src/core/renderer/quote-preview.ts`                    | quote Preview Renderer 输出                                                |
+| `src/core/renderer/quote-renderer.ts`                   | quote renderer validation、balanced warning、Preview/Copy 调度             |
+| `src/core/renderer/quote-registry.ts`                   | quote preview/copy registry                                                |
+| `src/core/copy/quote-copy.ts`                           | quote Copy HTML renderer 与 copy-safe CSS assertion                        |
+| `src/core/renderer/highlight-layout.ts`                 | highlight variant layout / typography / content normalization / copySafety |
+| `src/core/renderer/highlight-preview.ts`                | highlight Preview Renderer 输出                                            |
+| `src/core/renderer/highlight-renderer.ts`               | highlight renderer validation、balanced warning、Preview/Copy 调度         |
+| `src/core/renderer/highlight-registry.ts`               | highlight preview/copy registry                                            |
+| `src/core/copy/highlight-copy.ts`                       | highlight Copy HTML renderer 与 copy-safe CSS assertion                    |
+| `tests/fixtures/renderer/quote-highlight-articles.ts`   | quote/highlight renderer/copy fixtures                                     |
+| `tests/core/renderer/quote-highlight-renderer.test.ts`  | quote/highlight Preview / registry / fallback 测试                         |
+| `tests/core/copy/quote-highlight-copy-renderer.test.ts` | quote/highlight Copy HTML / escape / copy-safe 测试                        |
 
 **实现摘要：**
 
@@ -1777,16 +1777,16 @@ highlight：
 
 **实际产物：**
 
-| 路径 | 说明 |
-|------|------|
-| `src/core/renderer/info-card-layout.ts` | info_card variant layout / typography / content normalization / copySafety |
-| `src/core/renderer/info-card-preview.ts` | info_card Preview Renderer 输出 |
-| `src/core/renderer/info-card-renderer.ts` | info_card renderer validation、balanced warning、Preview/Copy 调度 |
-| `src/core/renderer/info-card-registry.ts` | info_card preview/copy registry |
-| `src/core/copy/info-card-copy.ts` | info_card Copy HTML renderer 与 copy-safe CSS assertion |
-| `tests/fixtures/renderer/info-card-articles.ts` | info_card renderer/copy fixtures |
-| `tests/core/renderer/info-card-renderer.test.ts` | info_card Preview / registry / fallback 测试 |
-| `tests/core/copy/info-card-copy-renderer.test.ts` | info_card Copy HTML / escape / copy-safe 测试 |
+| 路径                                              | 说明                                                                       |
+| ------------------------------------------------- | -------------------------------------------------------------------------- |
+| `src/core/renderer/info-card-layout.ts`           | info_card variant layout / typography / content normalization / copySafety |
+| `src/core/renderer/info-card-preview.ts`          | info_card Preview Renderer 输出                                            |
+| `src/core/renderer/info-card-renderer.ts`         | info_card renderer validation、balanced warning、Preview/Copy 调度         |
+| `src/core/renderer/info-card-registry.ts`         | info_card preview/copy registry                                            |
+| `src/core/copy/info-card-copy.ts`                 | info_card Copy HTML renderer 与 copy-safe CSS assertion                    |
+| `tests/fixtures/renderer/info-card-articles.ts`   | info_card renderer/copy fixtures                                           |
+| `tests/core/renderer/info-card-renderer.test.ts`  | info_card Preview / registry / fallback 测试                               |
+| `tests/core/copy/info-card-copy-renderer.test.ts` | info_card Copy HTML / escape / copy-safe 测试                              |
 
 **实现摘要：**
 
@@ -1858,21 +1858,21 @@ image_placeholder：
 
 **实际产物：**
 
-| 路径 | 说明 |
-|------|------|
-| `src/core/renderer/cta-layout.ts` | cta layout / typography / copySafety / content normalization |
-| `src/core/renderer/cta-preview.ts` | cta Preview Renderer 输出契约 |
-| `src/core/renderer/cta-renderer.ts` | cta renderer validation、balanced warning 与 Preview / Copy 调度 |
-| `src/core/renderer/cta-registry.ts` | cta Preview / Copy registry |
-| `src/core/copy/cta-copy.ts` | cta copy-safe inline HTML，占位按钮 / QR placeholder 表达 |
-| `src/core/renderer/image-placeholder-layout.ts` | image_placeholder layout / typography / copySafety / placeholder normalization |
-| `src/core/renderer/image-placeholder-preview.ts` | image_placeholder Preview Renderer 输出契约 |
-| `src/core/renderer/image-placeholder-renderer.ts` | image_placeholder renderer validation、balanced warning 与 Preview / Copy 调度 |
-| `src/core/renderer/image-placeholder-registry.ts` | image_placeholder Preview / Copy registry |
-| `src/core/copy/image-placeholder-copy.ts` | image_placeholder copy-safe inline HTML，占位框表达且不输出真实 `<img>` |
-| `tests/fixtures/renderer/cta-image-placeholder-articles.ts` | cta / image_placeholder variant fixtures |
-| `tests/core/renderer/cta-image-placeholder-renderer.test.ts` | cta / image_placeholder Preview、registry、fallback、回归测试 |
-| `tests/core/copy/cta-image-placeholder-copy-renderer.test.ts` | cta / image_placeholder Copy HTML、escape、copy-safe、strict / balanced 测试 |
+| 路径                                                          | 说明                                                                           |
+| ------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| `src/core/renderer/cta-layout.ts`                             | cta layout / typography / copySafety / content normalization                   |
+| `src/core/renderer/cta-preview.ts`                            | cta Preview Renderer 输出契约                                                  |
+| `src/core/renderer/cta-renderer.ts`                           | cta renderer validation、balanced warning 与 Preview / Copy 调度               |
+| `src/core/renderer/cta-registry.ts`                           | cta Preview / Copy registry                                                    |
+| `src/core/copy/cta-copy.ts`                                   | cta copy-safe inline HTML，占位按钮 / QR placeholder 表达                      |
+| `src/core/renderer/image-placeholder-layout.ts`               | image_placeholder layout / typography / copySafety / placeholder normalization |
+| `src/core/renderer/image-placeholder-preview.ts`              | image_placeholder Preview Renderer 输出契约                                    |
+| `src/core/renderer/image-placeholder-renderer.ts`             | image_placeholder renderer validation、balanced warning 与 Preview / Copy 调度 |
+| `src/core/renderer/image-placeholder-registry.ts`             | image_placeholder Preview / Copy registry                                      |
+| `src/core/copy/image-placeholder-copy.ts`                     | image_placeholder copy-safe inline HTML，占位框表达且不输出真实 `<img>`        |
+| `tests/fixtures/renderer/cta-image-placeholder-articles.ts`   | cta / image_placeholder variant fixtures                                       |
+| `tests/core/renderer/cta-image-placeholder-renderer.test.ts`  | cta / image_placeholder Preview、registry、fallback、回归测试                  |
+| `tests/core/copy/cta-image-placeholder-copy-renderer.test.ts` | cta / image_placeholder Copy HTML、escape、copy-safe、strict / balanced 测试   |
 
 **验收标准：**
 
@@ -1920,18 +1920,18 @@ image_placeholder：
 
 **实际产物：**
 
-| 路径 | 说明 |
-|------|------|
-| `src/core/copy/copy-html-snapshot.ts` | snapshot builder 支持传入 `supportedBlockTypes`，默认仍保持 S4A text-first 行为 |
-| `src/core/copy/copy-safe-html.ts` | copy-safe snapshot 断言补充 flex / grid 检查 |
-| `src/core/copy/structured-copy-registry.ts` | Sprint 4-B structured blocks Copy Renderer registry |
-| `src/core/copy/first-wave-copy-registry.ts` | Release 1 first-wave 11 block Copy Renderer registry |
-| `src/core/copy/first-wave-paste-qa-plan.ts` | first-wave 33 variants 最小 Paste QA plan 纯函数 |
-| `tests/fixtures/copy/structured-copy-fixtures.ts` | structured blocks 18 variants snapshot fixture |
+| 路径                                                    | 说明                                                                                  |
+| ------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `src/core/copy/copy-html-snapshot.ts`                   | snapshot builder 支持传入 `supportedBlockTypes`，默认仍保持 S4A text-first 行为       |
+| `src/core/copy/copy-safe-html.ts`                       | copy-safe snapshot 断言补充 flex / grid 检查                                          |
+| `src/core/copy/structured-copy-registry.ts`             | Sprint 4-B structured blocks Copy Renderer registry                                   |
+| `src/core/copy/first-wave-copy-registry.ts`             | Release 1 first-wave 11 block Copy Renderer registry                                  |
+| `src/core/copy/first-wave-paste-qa-plan.ts`             | first-wave 33 variants 最小 Paste QA plan 纯函数                                      |
+| `tests/fixtures/copy/structured-copy-fixtures.ts`       | structured blocks 18 variants snapshot fixture                                        |
 | `tests/core/copy/structured-copy-html-snapshot.test.ts` | structured snapshot seed、copy-safe、missing renderer/style、unsupported variant 测试 |
-| `tests/core/copy/first-wave-paste-qa-plan.test.ts` | 33 variants plan 分布、字段、Not Run、copySafety、placeholder scope 测试 |
-| `docs/agile/paste-qa/sprint4b-structured-seed.md` | Sprint 4-B structured snapshot seed 文档 |
-| `docs/agile/paste-qa/release1-first-wave-33-plan.md` | Release 1 first-wave 33 variants 最小 Paste QA plan |
+| `tests/core/copy/first-wave-paste-qa-plan.test.ts`      | 33 variants plan 分布、字段、Not Run、copySafety、placeholder scope 测试              |
+| `docs/agile/paste-qa/sprint4b-structured-seed.md`       | Sprint 4-B structured snapshot seed 文档                                              |
+| `docs/agile/paste-qa/release1-first-wave-33-plan.md`    | Release 1 first-wave 33 variants 最小 Paste QA plan                                   |
 
 **验收标准：**
 
@@ -1978,13 +1978,13 @@ image_placeholder：
 
 **实际产物：**
 
-| 路径 | 说明 |
-|------|------|
+| 路径                                                           | 说明                                                       |
+| -------------------------------------------------------------- | ---------------------------------------------------------- |
 | `docs/architecture/audits/sprint4b-renderer-contract-audit.md` | Sprint 4-B Renderer Contract Audit 与 Close Readiness 建议 |
-| `docs/agile/sprint-backlog.md` | S4B-STORY-002~006 状态确认、S4B-STORY-007 audit 摘要 |
-| `docs/agile/sprint-plan.md` | Sprint 4-B 更新为 Close Readiness |
-| `docs/agile/product-backlog.md` | TECH-ARCH-021 / 022 / 023 状态同步 |
-| `docs/agile/changelog.md` | 记录 Sprint 4-B renderer contract audit |
+| `docs/agile/sprint-backlog.md`                                 | S4B-STORY-002~006 状态确认、S4B-STORY-007 audit 摘要       |
+| `docs/agile/sprint-plan.md`                                    | Sprint 4-B 更新为 Close Readiness                          |
+| `docs/agile/product-backlog.md`                                | TECH-ARCH-021 / 022 / 023 状态同步                         |
+| `docs/agile/changelog.md`                                      | 记录 Sprint 4-B renderer contract audit                    |
 
 **Audit 摘要：**
 
@@ -2037,14 +2037,14 @@ image_placeholder：
 
 ## Sprint 3-C 前置遗留纳入 planning
 
-| ID | 问题 | 纳入 Story |
-|----|------|------------|
-| **P1-003** | StyleOrchestrator 文章级节奏代码未实现 | S3C-STORY-003 |
-| **TECH-ARCH-010** | VisualAssetRegistry / icon asset pool | S3C-STORY-004 |
-| **TECH-ARCH-011** | StyleOrchestrator / ArticleRhythmPolicy | S3C-STORY-003 |
-| **TECH-ARCH-012** | AI Style Selection Guardrails | S3C-STORY-002 / S3C-STORY-005 |
-| **TECH-ARCH-017** | StyleSelection Validation Pipeline | S3C-STORY-005 |
-| P1-S3B-004 | 缺少 style quality gallery / 人工视觉验收入口 | 登记 · S3C-STORY-006 audit；不要求 Sprint 3-C 实现 |
+| ID                | 问题                                          | 纳入 Story                                         |
+| ----------------- | --------------------------------------------- | -------------------------------------------------- |
+| **P1-003**        | StyleOrchestrator 文章级节奏代码未实现        | S3C-STORY-003                                      |
+| **TECH-ARCH-010** | VisualAssetRegistry / icon asset pool         | S3C-STORY-004                                      |
+| **TECH-ARCH-011** | StyleOrchestrator / ArticleRhythmPolicy       | S3C-STORY-003                                      |
+| **TECH-ARCH-012** | AI Style Selection Guardrails                 | S3C-STORY-002 / S3C-STORY-005                      |
+| **TECH-ARCH-017** | StyleSelection Validation Pipeline            | S3C-STORY-005                                      |
+| P1-S3B-004        | 缺少 style quality gallery / 人工视觉验收入口 | 登记 · S3C-STORY-006 audit；不要求 Sprint 3-C 实现 |
 
 ---
 
@@ -2397,15 +2397,15 @@ S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Done
 
 **实际产物：**
 
-| 路径 | 说明 |
-|------|------|
-| `src/core/generation/input.ts` | InputRequest / NormalizedInput 类型与 limits |
-| `src/core/generation/schemas.ts` | Zod schema（`.strict()`） |
-| `src/core/generation/input.parse.ts` | parse / validate / isInputRequest |
-| `src/core/generation/input.normalize.ts` | normalize / parseAndNormalize |
-| `src/core/generation/index.ts` | 模块导出 |
-| `tests/fixtures/generation/` | input request fixtures |
-| `tests/core/generation/input-request.test.ts` | 契约单元测试 |
+| 路径                                          | 说明                                         |
+| --------------------------------------------- | -------------------------------------------- |
+| `src/core/generation/input.ts`                | InputRequest / NormalizedInput 类型与 limits |
+| `src/core/generation/schemas.ts`              | Zod schema（`.strict()`）                    |
+| `src/core/generation/input.parse.ts`          | parse / validate / isInputRequest            |
+| `src/core/generation/input.normalize.ts`      | normalize / parseAndNormalize                |
+| `src/core/generation/index.ts`                | 模块导出                                     |
+| `tests/fixtures/generation/`                  | input request fixtures                       |
+| `tests/core/generation/input-request.test.ts` | 契约单元测试                                 |
 
 **明确不做：**
 
@@ -2440,17 +2440,17 @@ S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Done
 
 **实际产物：**
 
-| 路径 | 说明 |
-|------|------|
-| `src/core/generation/events.ts` | GenerationEvent 类型与 stream 抽象 |
-| `src/core/generation/event-schemas.ts` | Zod schema + `parseGenerationEvent` |
-| `src/core/generation/sse.ts` | SSE encode / decode helpers |
-| `src/core/generation/stream.ts` | `createGenerationStream` / `collectGenerationStream` / `validateGenerationEventSequence` |
-| `src/core/generation/test-provider.ts` | deterministic provider（NormalizedInput → 固定事件序列） |
-| `tests/fixtures/generation/generation-events.ts` | 事件 fixtures |
-| `tests/core/generation/generation-event.test.ts` | 事件 schema 测试 |
-| `tests/core/generation/generation-sse.test.ts` | SSE 编解码测试 |
-| `tests/core/generation/generation-stream.test.ts` | runtime / sequence 校验测试 |
+| 路径                                              | 说明                                                                                     |
+| ------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `src/core/generation/events.ts`                   | GenerationEvent 类型与 stream 抽象                                                       |
+| `src/core/generation/event-schemas.ts`            | Zod schema + `parseGenerationEvent`                                                      |
+| `src/core/generation/sse.ts`                      | SSE encode / decode helpers                                                              |
+| `src/core/generation/stream.ts`                   | `createGenerationStream` / `collectGenerationStream` / `validateGenerationEventSequence` |
+| `src/core/generation/test-provider.ts`            | deterministic provider（NormalizedInput → 固定事件序列）                                 |
+| `tests/fixtures/generation/generation-events.ts`  | 事件 fixtures                                                                            |
+| `tests/core/generation/generation-event.test.ts`  | 事件 schema 测试                                                                         |
+| `tests/core/generation/generation-sse.test.ts`    | SSE 编解码测试                                                                           |
+| `tests/core/generation/generation-stream.test.ts` | runtime / sequence 校验测试                                                              |
 
 **明确不做：**
 
@@ -2488,12 +2488,12 @@ S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Done
 
 **实际产物：**
 
-| 路径 | 说明 |
-|------|------|
-| `src/core/generation/done-article.ts` | `validateDoneArticleEventSequence` / `extractDoneArticleEvent` |
-| `src/core/generation/article-finalize.ts` | `finalizeGenerationEvents` / `assertFinalizedArticle` |
-| `tests/core/generation/done-article.test.ts` | 事件序列校验测试 |
-| `tests/core/generation/article-finalize.test.ts` | Article 归一与 schema 拒绝测试 |
+| 路径                                             | 说明                                                           |
+| ------------------------------------------------ | -------------------------------------------------------------- |
+| `src/core/generation/done-article.ts`            | `validateDoneArticleEventSequence` / `extractDoneArticleEvent` |
+| `src/core/generation/article-finalize.ts`        | `finalizeGenerationEvents` / `assertFinalizedArticle`          |
+| `tests/core/generation/done-article.test.ts`     | 事件序列校验测试                                               |
+| `tests/core/generation/article-finalize.test.ts` | Article 归一与 schema 拒绝测试                                 |
 
 **明确不做：**
 
@@ -2524,16 +2524,16 @@ S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Done
 
 **实际产物：**
 
-| 路径 | 说明 |
-|------|------|
-| `src/core/generation/model-provider.ts` | Provider / transport 契约 |
-| `src/core/generation/model-provider-config.ts` | `VOLCENGINE_*` env config loader |
-| `src/core/generation/model-provider-errors.ts` | 稳定 error code 与 HTTP / network 映射 |
-| `src/core/generation/model-prompt.ts` | Article JSON prompt builder |
-| `src/core/generation/volcengine-transport.ts` | Ark chat completions transport |
-| `src/core/generation/volcengine-provider.ts` | Volcengine provider → GenerationEvent stream |
-| `.env.example` | Volcengine 环境变量说明 |
-| `tests/core/generation/model-provider*.test.ts` | config / provider / volcengine 测试 |
+| 路径                                            | 说明                                         |
+| ----------------------------------------------- | -------------------------------------------- |
+| `src/core/generation/model-provider.ts`         | Provider / transport 契约                    |
+| `src/core/generation/model-provider-config.ts`  | `VOLCENGINE_*` env config loader             |
+| `src/core/generation/model-provider-errors.ts`  | 稳定 error code 与 HTTP / network 映射       |
+| `src/core/generation/model-prompt.ts`           | Article JSON prompt builder                  |
+| `src/core/generation/volcengine-transport.ts`   | Ark chat completions transport               |
+| `src/core/generation/volcengine-provider.ts`    | Volcengine provider → GenerationEvent stream |
+| `.env.example`                                  | Volcengine 环境变量说明                      |
+| `tests/core/generation/model-provider*.test.ts` | config / provider / volcengine 测试          |
 
 **明确不做：**
 
@@ -2574,13 +2574,13 @@ S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Done
 
 **实际产物：**
 
-| 路径 | 说明 |
-|------|------|
-| `scripts/smoke/volcengine-provider-smoke.ts` | dev-only CLI 入口 |
-| `src/core/generation/volcengine-provider-smoke.ts` | smoke runner + 结果摘要 |
-| `src/core/generation/smoke-env.ts` | `.env.local` / `.env` loader |
-| `docs/agile/smoke/s5-volcengine-provider-smoke.md` | 运行说明 |
-| `package.json` | `smoke:volcengine-provider` |
+| 路径                                               | 说明                         |
+| -------------------------------------------------- | ---------------------------- |
+| `scripts/smoke/volcengine-provider-smoke.ts`       | dev-only CLI 入口            |
+| `src/core/generation/volcengine-provider-smoke.ts` | smoke runner + 结果摘要      |
+| `src/core/generation/smoke-env.ts`                 | `.env.local` / `.env` loader |
+| `docs/agile/smoke/s5-volcengine-provider-smoke.md` | 运行说明                     |
+| `package.json`                                     | `smoke:volcengine-provider`  |
 
 **明确不做：**
 
@@ -2613,14 +2613,14 @@ S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Done
 
 **实际产物：**
 
-| 路径 | 说明 |
-|------|------|
-| `src/core/generation/model-article-candidate.ts` | enrichment 输入 / 输出类型 |
-| `src/core/generation/model-article-enrichment.ts` | `enrichModelArticleCandidate` / UUID / metadata / block content repair |
-| `src/core/generation/volcengine-provider.ts` | provider 接入 enrichment；`done.article` meta 含 `enrichmentWarningCount` |
-| `src/core/generation/model-prompt.ts` | prompt 强化（JSON / UUID / 禁止 HTML） |
-| `src/core/generation/volcengine-provider-smoke.ts` | smoke summary 增加 `finalizationStatus` / `enrichmentWarningCount` |
-| `tests/core/generation/model-article-enrichment.test.ts` | enrichment 单测（18 cases） |
+| 路径                                                     | 说明                                                                      |
+| -------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `src/core/generation/model-article-candidate.ts`         | enrichment 输入 / 输出类型                                                |
+| `src/core/generation/model-article-enrichment.ts`        | `enrichModelArticleCandidate` / UUID / metadata / block content repair    |
+| `src/core/generation/volcengine-provider.ts`             | provider 接入 enrichment；`done.article` meta 含 `enrichmentWarningCount` |
+| `src/core/generation/model-prompt.ts`                    | prompt 强化（JSON / UUID / 禁止 HTML）                                    |
+| `src/core/generation/volcengine-provider-smoke.ts`       | smoke summary 增加 `finalizationStatus` / `enrichmentWarningCount`        |
+| `tests/core/generation/model-article-enrichment.test.ts` | enrichment 单测（18 cases）                                               |
 
 **明确不做：**
 
@@ -2651,13 +2651,13 @@ S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Done
 
 **实际产物：**
 
-| 路径 | 说明 |
-|------|------|
-| `src/core/generation/style-selection.ts` | 样式选择主入口 |
+| 路径                                            | 说明                                        |
+| ----------------------------------------------- | ------------------------------------------- |
+| `src/core/generation/style-selection.ts`        | 样式选择主入口                              |
 | `src/core/generation/style-selection-prompt.ts` | styleIntent heuristics / forbidden 字段检查 |
-| `src/core/generation/style-selection-apply.ts` | validation pipeline + StyleResolver 接入 |
-| `tests/core/generation/style-selection.test.ts` | 14 cases |
-| `tests/fixtures/generation/style-selection.ts` | fixtures |
+| `src/core/generation/style-selection-apply.ts`  | validation pipeline + StyleResolver 接入    |
+| `tests/core/generation/style-selection.test.ts` | 14 cases                                    |
+| `tests/fixtures/generation/style-selection.ts`  | fixtures                                    |
 
 **明确不做：**
 
@@ -2693,15 +2693,15 @@ S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Done
 
 **实际产物：**
 
-| 路径 | 说明 |
-|------|------|
-| `src/app/generate/page.tsx` | `/generate` 页面入口 |
-| `src/app/generate/generate-page-client.tsx` | 输入 / 状态 / 预览 / 复制 UI |
-| `src/app/api/generate/route.ts` | Server API（provider 在服务端） |
-| `src/server/generation/run-generate-main-flow.ts` | 统一主链路 orchestration |
-| `src/core/renderer/first-wave-preview-registry.ts` | Release 1 preview registry |
-| `tests/server/generation/run-generate-main-flow.test.ts` | server flow 单测 |
-| `tests/e2e/generate-page.spec.ts` | Playwright `/generate` smoke |
+| 路径                                                     | 说明                            |
+| -------------------------------------------------------- | ------------------------------- |
+| `src/app/generate/page.tsx`                              | `/generate` 页面入口            |
+| `src/app/generate/generate-page-client.tsx`              | 输入 / 状态 / 预览 / 复制 UI    |
+| `src/app/api/generate/route.ts`                          | Server API（provider 在服务端） |
+| `src/server/generation/run-generate-main-flow.ts`        | 统一主链路 orchestration        |
+| `src/core/renderer/first-wave-preview-registry.ts`       | Release 1 preview registry      |
+| `tests/server/generation/run-generate-main-flow.test.ts` | server flow 单测                |
+| `tests/e2e/generate-page.spec.ts`                        | Playwright `/generate` smoke    |
 
 **明确不做：**
 
@@ -2735,11 +2735,11 @@ S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Done
 
 **实际产物：**
 
-| 路径 | 说明 |
-|------|------|
-| `docs/architecture/audits/sprint5-main-flow-close-readiness-audit.md` | Sprint 5 close readiness audit（P0=0） |
-| `tests/e2e/generate-page.spec.ts` | Playwright `/generate` smoke（3 cases） |
-| `playwright.config.ts` | e2e webServer 默认 `VOLCENGINE_ENABLE_REAL_PROVIDER=false` |
+| 路径                                                                  | 说明                                                       |
+| --------------------------------------------------------------------- | ---------------------------------------------------------- |
+| `docs/architecture/audits/sprint5-main-flow-close-readiness-audit.md` | Sprint 5 close readiness audit（P0=0）                     |
+| `tests/e2e/generate-page.spec.ts`                                     | Playwright `/generate` smoke（3 cases）                    |
+| `playwright.config.ts`                                                | e2e webServer 默认 `VOLCENGINE_ENABLE_REAL_PROVIDER=false` |
 
 **验收标准：**
 
@@ -2762,15 +2762,15 @@ S5-STORY-008 Sprint 5 主链路 Smoke / E2E 与关闭准备 — Done
 
 **Audit 摘要：**
 
-| 项 | 结论 |
-|----|------|
-| Audit 文档 | [`sprint5-main-flow-close-readiness-audit.md`](../architecture/audits/sprint5-main-flow-close-readiness-audit.md) |
-| Grade | A- |
-| P0 | 0 |
-| P1 | 4（登记 Sprint 7 / Sprint 8 / 后续） |
-| P2 | 3 |
-| Paste QA | **Not Run**（归 **Sprint 8**） |
-| Release 1 完成 | **否**（Paste QA 未执行；不宣称 Release 1 完成） |
+| 项             | 结论                                                                                                              |
+| -------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Audit 文档     | [`sprint5-main-flow-close-readiness-audit.md`](../architecture/audits/sprint5-main-flow-close-readiness-audit.md) |
+| Grade          | A-                                                                                                                |
+| P0             | 0                                                                                                                 |
+| P1             | 4（登记 Sprint 7 / Sprint 8 / 后续）                                                                              |
+| P2             | 3                                                                                                                 |
+| Paste QA       | **Not Run**（归 **Sprint 8**）                                                                                    |
+| Release 1 完成 | **否**（Paste QA 未执行；不宣称 Release 1 完成）                                                                  |
 
 **关闭决策（DECISION-069）：**
 
@@ -2889,10 +2889,10 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 **实际产物：**
 
-| 路径 | 说明 |
-|------|------|
-| `/` | 首页：`HomePageClient` |
-| `src/lib/home-input.ts` | 表单 → `InputRequest` / URL 参数 |
+| 路径                           | 说明                                     |
+| ------------------------------ | ---------------------------------------- |
+| `/`                            | 首页：`HomePageClient`                   |
+| `src/lib/home-input.ts`        | 表单 → `InputRequest` / URL 参数         |
 | `src/app/home-page-client.tsx` | 主题 / 场景 / 读者 / 基础风格 + 开始生成 |
 
 **验收标准：**
@@ -2919,11 +2919,11 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 **实际产物：**
 
-| 路径 | 说明 |
-|------|------|
-| `POST /api/generate` | `requireRealProvider: true` 拒绝静默 deterministic fallback |
-| `run-generate-main-flow.ts` | `requireRealProvider` 选项 |
-| `model-prompt.ts` | 公众号长文结构与 block 约束 prompt |
+| 路径                        | 说明                                                        |
+| --------------------------- | ----------------------------------------------------------- |
+| `POST /api/generate`        | `requireRealProvider: true` 拒绝静默 deterministic fallback |
+| `run-generate-main-flow.ts` | `requireRealProvider` 选项                                  |
+| `model-prompt.ts`           | 公众号长文结构与 block 约束 prompt                          |
 
 **验收标准：**
 
@@ -2951,10 +2951,10 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 **实际产物：**
 
-| 路径 | 说明 |
-|------|------|
-| `/preview` | 预览页：加载 / 成功 / 失败；`ArticlePreviewPanel` |
-| `src/app/preview/preview-page-client.tsx` | 承接生成 + Preview Renderer 输出 |
+| 路径                                      | 说明                                              |
+| ----------------------------------------- | ------------------------------------------------- |
+| `/preview`                                | 预览页：加载 / 成功 / 失败；`ArticlePreviewPanel` |
+| `src/app/preview/preview-page-client.tsx` | 承接生成 + Preview Renderer 输出                  |
 
 **验收标准：**
 
@@ -2978,16 +2978,16 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 **实际产物：**
 
-| 路径 | 说明 |
-|------|------|
-| `src/app/api/generate/stream/route.ts` | SSE API |
-| `src/server/generation/run-generate-stream-flow.ts` | stream + phase + flow.complete |
-| `src/core/generation/jsonl-block-stream-parser.ts` | JSONL → GenerationEvent |
-| `src/core/generation/volcengine-streaming-provider.ts` | Ark stream: true |
-| `src/lib/render-streaming-preview.ts` | 流式 block → Style Selection + Preview Renderer |
-| `src/lib/use-preview-stream-scroll.ts` | 自动跟随 + 回到当前位置 |
-| `src/components/preview/` | 成稿分析面板 + 生成状态条 |
-| `src/app/preview/preview-page-client.tsx` | connecting/planning/streaming/finalizing/done UI |
+| 路径                                                   | 说明                                             |
+| ------------------------------------------------------ | ------------------------------------------------ |
+| `src/app/api/generate/stream/route.ts`                 | SSE API                                          |
+| `src/server/generation/run-generate-stream-flow.ts`    | stream + phase + flow.complete                   |
+| `src/core/generation/jsonl-block-stream-parser.ts`     | JSONL → GenerationEvent                          |
+| `src/core/generation/volcengine-streaming-provider.ts` | Ark stream: true                                 |
+| `src/lib/render-streaming-preview.ts`                  | 流式 block → Style Selection + Preview Renderer  |
+| `src/lib/use-preview-stream-scroll.ts`                 | 自动跟随 + 回到当前位置                          |
+| `src/components/preview/`                              | 成稿分析面板 + 生成状态条                        |
+| `src/app/preview/preview-page-client.tsx`              | connecting/planning/streaming/finalizing/done UI |
 
 **验收标准：**
 
@@ -3017,15 +3017,15 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 **实际产物：**
 
-| 路径 | 说明 |
-|------|------|
-| `src/components/preview/preview-style-controls.tsx` | 预览侧栏风格 / 配色切换 UI |
-| `src/lib/preview-style-controls.ts` | 风格控制状态与 styleIntent 映射 |
-| `src/lib/preview-color-palette.ts` | 配色 palette + CSS 变量 |
-| `src/lib/render-article-preview-client.ts` | 客户端重跑 Style Selection + Preview/Copy |
-| `src/core/styles/variants/index.ts` | 新增 `warm-editorial` theme |
-| `src/core/styles/theme-palette-tokens.ts` | Copy / Preview 共享 theme palette 解析 |
-| `docs/agile/paste-qa/s6-minimal-paste-qa.md` | 最小粘贴 QA 手测记录（PO 2026-06-02 通过） |
+| 路径                                                | 说明                                       |
+| --------------------------------------------------- | ------------------------------------------ |
+| `src/components/preview/preview-style-controls.tsx` | 预览侧栏风格 / 配色切换 UI                 |
+| `src/lib/preview-style-controls.ts`                 | 风格控制状态与 styleIntent 映射            |
+| `src/lib/preview-color-palette.ts`                  | 配色 palette + CSS 变量                    |
+| `src/lib/render-article-preview-client.ts`          | 客户端重跑 Style Selection + Preview/Copy  |
+| `src/core/styles/variants/index.ts`                 | 新增 `warm-editorial` theme                |
+| `src/core/styles/theme-palette-tokens.ts`           | Copy / Preview 共享 theme palette 解析     |
+| `docs/agile/paste-qa/s6-minimal-paste-qa.md`        | 最小粘贴 QA 手测记录（PO 2026-06-02 通过） |
 
 **验收标准：**
 
@@ -3051,12 +3051,12 @@ S6-STORY-006 风格 / 配色基础切换与复制到公众号 — Done
 
 **实际产物：**
 
-| 路径 | 说明 |
-|------|------|
-| `src/components/ui-shell/` | 共享页面壳（backdrop / nav / primitives） |
-| `src/app/home-page-client.tsx` | miaopian 风格 Landing 输入区 |
-| `src/app/preview/preview-page-client.tsx` | 双栏工作台 + 复制 |
-| `src/lib/copy-clipboard-payload.ts` | 剪贴板复制工具 |
+| 路径                                      | 说明                                      |
+| ----------------------------------------- | ----------------------------------------- |
+| `src/components/ui-shell/`                | 共享页面壳（backdrop / nav / primitives） |
+| `src/app/home-page-client.tsx`            | miaopian 风格 Landing 输入区              |
+| `src/app/preview/preview-page-client.tsx` | 双栏工作台 + 复制                         |
+| `src/lib/copy-clipboard-payload.ts`       | 剪贴板复制工具                            |
 
 **验收标准：**
 
@@ -3144,11 +3144,11 @@ S7-STORY-007 Sprint 7 手动视觉 QA 与关闭准备 — Deferred
 
 **实际产物：**
 
-| 路径 | 说明 |
-|------|------|
+| 路径                                                      | 说明                                            |
+| --------------------------------------------------------- | ----------------------------------------------- |
 | `docs/agile/miaopian-alignment/s7-workflow-and-ux-gap.md` | 协作 adopt/不 adopt · 交互流 gap · Gallery 边界 |
-| `docs/agile/decisions.md` | DECISION-078 · DECISION-079 |
-| `sprint/s7-wechat-article-experience` | Sprint 7 分支 |
+| `docs/agile/decisions.md`                                 | DECISION-078 · DECISION-079                     |
+| `sprint/s7-wechat-article-experience`                     | Sprint 7 分支                                   |
 
 **验收标准：**
 
@@ -3179,16 +3179,16 @@ S7-STORY-007 Sprint 7 手动视觉 QA 与关闭准备 — Deferred
 
 **8 套样例类型：**
 
-| ID | 类型 |
-|----|------|
-| `sample-knowledge` | 知识科普 / 干货 |
-| `sample-industry` | 行业趋势 / 观察 |
-| `sample-product` | 产品 / 功能解读 |
-| `sample-brand` | 品牌故事 / 价值 |
-| `sample-event` | 活动招募 / 沙龙 |
-| `sample-promo` | 促销 / 转化 |
-| `sample-listicle` | 清单体 / N 个技巧 |
-| `sample-seasonal` | 节点 / 复盘 / 里程碑 |
+| ID                 | 类型                 |
+| ------------------ | -------------------- |
+| `sample-knowledge` | 知识科普 / 干货      |
+| `sample-industry`  | 行业趋势 / 观察      |
+| `sample-product`   | 产品 / 功能解读      |
+| `sample-brand`     | 品牌故事 / 价值      |
+| `sample-event`     | 活动招募 / 沙龙      |
+| `sample-promo`     | 促销 / 转化          |
+| `sample-listicle`  | 清单体 / N 个技巧    |
+| `sample-seasonal`  | 节点 / 复盘 / 里程碑 |
 
 **In Scope：**
 
@@ -4173,14 +4173,14 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 **资产来源（代码事实）：**
 
-| 来源 | 说明 | 数量（dry-run 2026-06-07） |
-|------|------|---------------------------|
-| `createFirstWaveRequiredVariantRegistry()` | Release 1 `release1_required` registry variants | 92 |
-| `HISTORICAL_FIRST_WAVE_33_RUNTIME_IDS` | 历史 first-wave 33（3 title + 3 heading + 9×3 blocks）子集标记 | 33 |
-| `HARVEST_CANDIDATE_VARIANTS` | S8 harvest candidates | 2 |
-| `HTML_PASTE_CANDIDATE_VARIANTS` | S9 HTML paste candidates | 1 |
-| `STYLE_LIBRARY_MANIFEST` / `getStyleLibraryVariantAssets()` | lifecycle / distribution overlay | 按 asset 覆盖 |
-| `DEPRECATED_HEADING_RUNTIME_VARIANT_IDS` | S7 DECISION-087 废弃 heading catalog stubs | 5 |
+| 来源                                                        | 说明                                                           | 数量（dry-run 2026-06-07） |
+| ----------------------------------------------------------- | -------------------------------------------------------------- | -------------------------- |
+| `createFirstWaveRequiredVariantRegistry()`                  | Release 1 `release1_required` registry variants                | 92                         |
+| `HISTORICAL_FIRST_WAVE_33_RUNTIME_IDS`                      | 历史 first-wave 33（3 title + 3 heading + 9×3 blocks）子集标记 | 33                         |
+| `HARVEST_CANDIDATE_VARIANTS`                                | S8 harvest candidates                                          | 2                          |
+| `HTML_PASTE_CANDIDATE_VARIANTS`                             | S9 HTML paste candidates                                       | 1                          |
+| `STYLE_LIBRARY_MANIFEST` / `getStyleLibraryVariantAssets()` | lifecycle / distribution overlay                               | 按 asset 覆盖              |
+| `DEPRECATED_HEADING_RUNTIME_VARIANT_IDS`                    | S7 DECISION-087 废弃 heading catalog stubs                     | 5                          |
 
 **导入策略：** `collect` → `map` → `import`（`src/server/style-admin/import/`）· CLI `pnpm style-admin:import-existing-variants` · `--dry-run` 不写 DB
 
@@ -4209,9 +4209,9 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 **路由：**
 
-| 路由 | 职责 |
-|------|------|
-| `/admin/style-library` | DB-backed 列表 · summary · filters · disabled actions |
+| 路由                                      | 职责                                                                    |
+| ----------------------------------------- | ----------------------------------------------------------------------- |
+| `/admin/style-library`                    | DB-backed 列表 · summary · filters · disabled actions                   |
 | `/admin/style-library/[runtimeVariantId]` | 详情 · distribution · version · source · timeline · validation/evidence |
 
 **实现路径：** `src/app/admin/style-library/` · `src/server/style-admin/queries/style-library-admin-query.ts`
@@ -4565,7 +4565,7 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 > **分支：** `sprint/s11-production-ops-go-live`（从 `release/1`）  
 > **文档：** [`sprint11-production-ops-go-live.md`](sprint11-production-ops-go-live.md) · **DECISION-111**  
-> **状态：** **In Progress**（2026-06-08 启动 · Story 001~006 Planned）
+> **状态：** **Accepted with follow-ups / Closed**（2026-06-30 · DECISION-114 · Production Prelaunch 保持）
 
 **Sprint Goal：**
 
@@ -4588,89 +4588,203 @@ S11-STORY-001 → 002 → 003 → 004 → 005 → 006
 
 ## S11-STORY-001 阿里云资源开通与网络基线
 
-**优先级：** P0 · **状态：** **Planned** · **工作分支：** `docs/s11-story-001-aliyun-resource-provisioning`
+**优先级：** P0 · **状态：** **Done** · **验收结论：** **Accepted with follow-ups**（PO 2026-06-30）· **工作分支：** `docs/s11-story-001-aliyun-resource-provisioning` · **staging 验收：** 2026-06-11
+
+**Follow-up（未完成 · 非 PASS）：** OSS · SLS · CloudMonitor 资源未创建；Product Backlog **P1-S11-004** 已登记并保持 **Open**
 
 **目标：** 按 [`aliyun-resource-checklist.md`](../ops/aliyun-resource-checklist.md) 在华北 2 创建轻篇独立 ECS/RDS/OSS/SLS/CloudMonitor 并完成网络最小开放。
 
+**staging 完成情况：**
+
+- ECS · RDS · 安全组 · DNS · HTTPS **已完成**
+- OSS · SLS · CloudMonitor **未创建**（optional / 预留 · → S11-STORY-005）
+
 **验收标准：**
 
-- [ ] AC-1 checklist §2~§6 staging + production 分别勾选
-- [ ] AC-2 无 secret 入库 · 环境变量仅 ECS
-- [ ] AC-3 资源隔离（不共用秒篇 DB/OSS/应用）
-- [ ] AC-4 [`docs/ops/environments/`](../ops/environments/) staging/production 资源登记表已回填（无密码）
+- [x] AC-1 checklist §2~§3 staging ECS/RDS 已勾选（§4~§6 OSS/SLS/CloudMonitor 待后续）
+- [x] AC-2 无 secret 入库 · 环境变量仅 ECS
+- [x] AC-3 资源隔离（不共用秒篇 DB/OSS/应用）
+- [x] AC-4 [`docs/ops/environments/staging.md`](../ops/environments/staging.md) 已回填（无密码）
 
 ---
 
 ## S11-STORY-002 Staging 部署与数据库初始化
 
-**优先级：** P0 · **状态：** **Planned** · **工作分支：** `chore/s11-story-002-staging-deploy-db-init`
+**优先级：** P0 · **状态：** **Done** · **验收结论：** **Accepted**（PO 2026-06-30）· **工作分支：** `chore/s11-story-002-staging-deploy-db-init` · **staging 验收：** 2026-06-11
 
 **目标：** staging ECS 首次部署 · migrate · import · health · admin 列表可读。
 
 **验收标准：**
 
-- [ ] AC-1 `GET /api/health` → `database: ok`
-- [ ] AC-2 import 报告计数与 S10-STORY-003 dry-run 一致
-- [ ] AC-3 未登录 `/admin/style-library` → login
-- [ ] AC-4 [`production-release-checklist.md`](../ops/production-release-checklist.md) Section A + B staging PASS
+- [x] AC-1 `GET /api/health` → `database: ok`
+- [x] AC-2 import 已执行（release1_required 计数与 S10 dry-run 一致 · 见部署记录）
+- [x] AC-3 未登录 `/admin/style-library` → login
+- [x] AC-4 [`production-release-checklist.md`](../ops/production-release-checklist.md) Section A + B staging PASS
 
 ---
 
 ## S11-STORY-003 Admin 登录与 Staging 治理/用户池验收
 
-**优先级：** P0 · **状态：** **Planned** · **工作分支：** TBD（验收为主）
+**优先级：** P0 · **状态：** **Done** · **验收结论：** **Accepted**（PO 2026-06-30）· **工作分支：** `bugfix/s11-staging-admin-session-cookie`（已 merge sprint @ `7f218e5`）· **staging 验收：** 2026-06-11
 
 **目标：** S10-STORY-008 公网 staging 验收 · 治理与用户侧 DB pool 冒烟。
 
 **验收标准：**
 
-- [ ] AC-1 checklist Section C + D + E staging PASS
-- [ ] AC-2 未登录写操作 `auth_required`
-- [ ] AC-3 至少 1 条 user-selectable hide/restore 路径人工记录
+- [x] AC-1 checklist Section C + D + E staging PASS
+- [x] AC-2 未登录写操作拒绝（login redirect / auth_required）
+- [x] AC-3 Hide / Restore 路径 staging 人工验收 PASS
+
+**关联 bugfix：** admin session · merge `7f218e5` · docs `7fb4d9e`
+
+---
+
+## S11-STORY-003A Staging Volcengine Provider + 首页生成主链路与样式回归验收
+
+**优先级：** P0 · **状态：** **Done** · **工作分支：** `feature/s11-story-003a-staging-volcengine-streaming-numbering` · **merge：** sprint @ `2ee03c5`（`--no-ff`）· **staging 验收：** 2026-06-11 · **production 未启动**
+
+**背景：** staging 暴露 Provider 未配置、生成 loading 非打字机（Nginx SSE 缓冲）、HTML 新增 variant 后章节编号不递增。
+
+**目标：**
+
+- staging 配置 Volcengine provider（变量名见 [`environment-variables.md`](../ops/environment-variables.md) · [`environments/staging.md`](../ops/environments/staging.md)）
+- 首页真实生成主链路验收（主题 → 生成 → `/preview` · DB pool · 复制）
+- 修复 staging SSE 打字机/streaming 回归（`X-Accel-Buffering: no` · Nginx `proxy_buffering off`）
+- 修复 HTML variant 动态章节编号回归（stale `semanticBindings.number` · Preview/Copy 一致）
+
+**验收标准：**
+
+- [x] AC-1 staging Volcengine provider 已配置并可用
+- [x] AC-2 首页真实生成主链路跑通
+- [x] AC-3 staging 生成 loading 有打字机/streaming 效果
+- [x] AC-4 HTML 新增 variant 后章节数字按顺序递增
+- [x] AC-5 Preview 与 Copy 编号一致
+- [x] AC-5b `/preview` heading picker 与 admin userSelectable 池一致 · 无重复
+- [x] AC-6 `/api/health` 仍为 ok · database ok
+- [x] AC-7 admin / style-library / preview DB pool 不回归
+- [x] AC-8 无 secret 入库
+- [x] AC-9 production 未启动 · main 未 merge
+
+**关闭说明：** 用户确认 staging 验收（Volcengine · 打字机 · userSelectable pool · HTML paste 编号/主题 · Preview/Copy 无回归）。Execution report：[`2026-06-10-s11-story-003a-staging-volcengine-streaming-numbering.md`](execution-reports/2026-06-10-s11-story-003a-staging-volcengine-streaming-numbering.md)
+
+---
+
+## S11-STORY-003B Legacy Path Removal & Parallel Implementation Audit
+
+**优先级：** P0 · **状态：** **Done** · **工作分支：** `refactor/s11-story-003b-legacy-path-removal` · **staging 验收：** 2026-06-11 · **merge sprint：** `--no-ff`（本轮）· **production 未启动**
+
+**目标：**
+
+- 删除 003A 暴露问题背后的历史废弃分发/并行实现（P0，不含 LP-008）✓
+- 收敛为 DB `distribution.userSelectable` + 共享 eligibility + DSL fidelity 单轨 ✓
+- 全仓 legacy inventory（P1/P2/P3 backlog）✓
+- Production 在 003B staging 回归前保持 Pending ✓
+
+**Gate A 交付（2026-06-11 · Approved）：**
+
+- [`docs/architecture/legacy-parallel-path-inventory.md`](../architecture/legacy-parallel-path-inventory.md)
+- P0 Gate B Approved：LP-001～007、LP-009、LP-010 · **LP-008 降 P1 · 不纳入**
+- 003A merge 修正：`--no-ff` @ `2ee03c5`
+
+**Gate B 验收标准（staging 验收 2026-06-11 · 全部 PASS）：**
+
+- [x] AC-1 P0 legacy user pool 路径已删除/隔离（LP-001～007、009、010）
+- [x] AC-2 lifecycle 不再参与用户可见性 · Admin UI 无 User Selectable lifecycle
+- [x] AC-3 eligibility 单契约 · admin/runtime/picker 一致
+- [x] AC-4 canonical label = `row.label`
+- [x] AC-5 治理后 cache invalidate · 无需 restart
+- [x] AC-6 HTML paste 编号/主题仅 shared DSL 链路（d26 编号递增 · 主题色跟随）
+- [x] AC-7 architecture regression tests PASS
+- [x] AC-8 staging 验收清单（health · picker · Hide/Restore · SSE · admin auth · Preview/Copy）
+- [x] AC-9 production 未启动 · main 未 merge
+- [x] AC-10 LP-008 **不在** 003B 范围（P1 独立 Story）
+
+**staging 人工验收摘要：** `/api/health` ok · Admin `userSelectable=true+heading` 与用户 picker 一致 · 仅额外「跟随生成结果」· 无静态 fallback · teal hidden 当 userSelectable=false · d26 正常 · Lifecycle 无 User Selectable · Hide/Restore · SSE 打字机 · admin 登录/刷新/logout · Preview/Copy 无回归
+
+**Gate B 阻塞：** 无（已关闭 · 待 merge sprint）
 
 ---
 
 ## S11-STORY-004 Production 部署与上线
 
-**优先级：** P0 · **状态：** **Planned** · **工作分支：** `docs/s11-story-004-production-go-live`
+**优先级：** P0 · **状态：** **Done**（2026-06-28 · 用户确认 Gate B · Prelaunch @ `385422d`）· **Gate A：** **Done** @ `8e01438`
 
-**目标：** staging 通过后 production 部署 · HTTPS · checklist A~E · 回滚演练。
+**工作分支：** `ops/s11-story-004-gate-b-governance-bootstrap`（已 merge sprint @ `385422d` `--no-ff`）
 
-**验收标准：**
+**Story 分阶段：**
 
-- [ ] AC-1 production health PASS
-- [ ] AC-2 production admin 登录 + 治理 PASS
-- [ ] AC-3 production `/preview` DB pool（非长期 code_fallback）
-- [ ] AC-4 回滚演练记录（execution report）
+| Gate       | 范围                                                                  | 状态                 |
+| ---------- | --------------------------------------------------------------------- | -------------------- |
+| **Gate A** | `/api/version` · 运维脚本 · production 模板 · staging 验证 · 回滚演练 | **Done** @ `8e01438` |
+| **Gate B** | production Prelaunch deploy · 验收 · 回滚演练                         | **Done** @ `385422d` |
+
+**Production Prelaunch 事实（用户验收 · 回滚演练 · 用户确认 2026-06-28）：**
+
+| 项                                     | 值                                                               |
+| -------------------------------------- | ---------------------------------------------------------------- |
+| URL                                    | **https://paiban.aiqingpian.cn**（`qingpianai.cn` 未备案未使用） |
+| Deploy commit                          | **`385422d`**                                                    |
+| systemd                                | `qingpian-wechat-editor-production` · PORT 3000                  |
+| health / database                      | ok                                                               |
+| Basic Auth + noindex + robots Disallow | **生效 · 观察期不得移除**                                        |
+| Variant 基线                           | **100** 条 · `heading_highlight_marker` userSelectable=true      |
+| 回滚演练                               | `385422d` → `2f09b0d` → `385422d` PASS · DB 未丢失               |
+| 定位                                   | **Prelaunch** · **非正式公开上线**                               |
+
+**Deferred（DECISION-112 · 不阻塞 Story 004 Done）：** P1-S11-001 · governance apply 暂缓 · staging +2 测试 variant 不迁移
+
+**Gate B 验收标准：**
+
+- [x] AC-1 production health PASS
+- [x] AC-2 production admin 登录 + 治理 PASS
+- [x] AC-3 production `/preview` DB pool + 主链路 PASS
+- [x] AC-4 production 回滚演练记录（`2f09b0d` 基线）
+
+**明确未做：** 解除 Basic Auth/noindex · 正式公开发布 · governance apply · merge `main`
 
 ---
 
-## S11-STORY-005 监控、报警与运维闭环
+## S11-STORY-005 Production Monitoring, Alerting & Observation
 
-**优先级：** P1 · **状态：** **Planned** · **工作分支：** `docs/s11-story-005-monitoring-alerts`
+**优先级：** P1 · **状态：** **Done** · **验收结论：** **Accepted with follow-ups**（PO 2026-06-30 · 脚本/文档已验收 · 运行时观察未完成）· **工作分支：** `ops/s11-story-005-monitoring-observation` · **前置：** S11-STORY-004 **Done**
 
-**目标：** CloudMonitor 基础告警 · SLS 预留 · `alert_events` 验证 · on-call 文档。
+**Follow-up（未完成 · 非 PASS）：** ECS cron · T+24h · T+72h → Product Backlog **P1-S11-002**
+
+**目标：** 最小可运行监控闭环 · 复用 `status-environment.sh` · `ops:observe` 严格检查 · P0/P1/P2 告警策略 · Prelaunch 24h/72h 观察清单。**本轮提交设计与脚本 · 服务器 cron/CloudMonitor 待审查后部署。**
+
+**技术方案：** [`s11-story-005-monitoring-observation.md`](../agile/s11-story-005-monitoring-observation.md)
 
 **验收标准：**
 
-- [ ] AC-1 CloudMonitor 规则清单 + 测试/模拟记录
-- [ ] AC-2 SLS project/logstore 已创建 · 接入状态 documented
-- [ ] AC-3 [`monitoring-and-oncall.md`](../ops/monitoring-and-oncall.md) 已更新
-- [ ] AC-4 checklist Section F staging + production PASS
+- [x] AC-1 技术方案 + 告警分级 + observation checklist
+- [x] AC-2 `pnpm ops:observe:{staging,production}` · 失败 exit 1 · 无 secret
+- [x] AC-3 [`monitoring-and-oncall.md`](../ops/monitoring-and-oncall.md) 更新
+- [x] AC-4 脚本 wiring 测试 · lint · build
+- [ ] AC-5 ECS cron / CloudMonitor 接入（待审查后部署）
+- [ ] AC-6 T+24h / T+72h 观察记录归档
+
+**明确不做：** 移除 Basic Auth/noindex · 正式公开上线 · governance apply · P1-S11-001 · merge main/release/1
 
 ---
 
 ## S11-STORY-006 Sprint 11 Closeout
 
-**优先级：** P0 · **状态：** **Planned** · **工作分支：** `docs/s11-story-006-closeout`
+**优先级：** P0 · **状态：** **Done** · **验收结论：** **Accepted**（Product Owner confirmed 2026-06-30）· **工作分支：** `docs/s11-story-006-closeout`
 
-**目标：** S11 audit · staging/production checklist 归档 · 建议 merge `release/1`。
+**目标：** S11 audit · staging/production checklist 归档 · Closeout 状态同步 · 给出 Sprint 关闭与 merge `release/1` 建议 · **不**自行 Closed / merge。
+
+**Closeout 结论（2026-06-30）：**
+
+- Sprint 11：**Accepted with follow-ups / Closed**
+- Release 1：**In Progress / Not Closed**
+- Follow-ups：P1-S11-002 · P1-S11-004 · P2-S11-001～003 **Open**
+- Git：S11 @ `4596f7d` · `release/1` @ `6cd1dfc` · **67 commits ahead** · 本轮授权 merge S11 → `release/1` · **未 push**
 
 **验收标准：**
 
-- [ ] AC-1 staging + production signed checklist 归档 execution report
-- [ ] AC-2 P0=0 · 无 blocking 安全项
-- [ ] AC-3 用户确认关闭 Sprint 11
-- [ ] AC-4 **不**宣布 Release 1 关闭 · **不** merge `main`
+- [x] AC-1 staging + production signed checklist 归档 execution report（2026-06-11 staging · 2026-06-28 production · closeout report 2026-06-30）
+- [x] AC-2 P0=0 · 无 blocking 安全项（Prelaunch 约束保留 · follow-ups Open）
+- [x] AC-3 用户确认关闭 Sprint 11（PO 2026-06-30）
+- [x] AC-4 **不**宣布 Release 1 关闭 · **不** merge `main` · **不** merge `release/1`（本轮）
 
 ---

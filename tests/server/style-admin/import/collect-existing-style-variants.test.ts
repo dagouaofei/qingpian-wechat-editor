@@ -36,15 +36,17 @@ describe("collectExistingStyleVariants", () => {
     expect(HISTORICAL_FIRST_WAVE_33_RUNTIME_IDS).toHaveLength(33);
   });
 
-  it("keeps userSelectable independent from defaultEligible", () => {
+  it("keeps userSelectable independent from defaultEligible during code import", () => {
     const result = collectExistingStyleVariants();
     const userSelectable = result.variants.filter(
       (variant) => variant.distribution.userSelectable,
     );
 
-    expect(userSelectable.length).toBe(7);
-    for (const variant of userSelectable) {
-      expect(variant.distribution.defaultEligible).toBe(false);
+    expect(userSelectable).toHaveLength(0);
+    for (const variant of result.variants) {
+      if (variant.distribution.userSelectable) {
+        expect(variant.distribution.defaultEligible).toBe(false);
+      }
     }
   });
 
@@ -95,7 +97,7 @@ describe("collectExistingStyleVariants", () => {
     const userSelectableRelease1 = release1.filter(
       (variant) => variant.distribution.userSelectable,
     );
-    expect(userSelectableRelease1).toHaveLength(6);
+    expect(userSelectableRelease1).toHaveLength(0);
     for (const variant of release1) {
       expect(variant.lifecycle).toBe("release1_required");
       expect(variant.distribution.release1Required).toBe(true);

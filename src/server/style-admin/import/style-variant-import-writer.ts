@@ -6,6 +6,7 @@ import type {
 
 import type { StyleAdminDb, StyleAdminPrismaClient } from "../prisma";
 import { toDistributionSnapshot } from "../mappers";
+import { invalidateUserSelectableVariantPoolCache } from "../runtime/user-selectable-variant-pool-cache";
 import type { CollectedStyleVariant } from "./import-types";
 
 export type ImportWriteResult =
@@ -279,6 +280,11 @@ export class StyleVariantImportWriter {
 
     if (!metadataChanged && !distributionChanged && !createdVersion && !qualityStatusChanged) {
       return { action: "skipped_unchanged" };
+    }
+
+    if (distributionChanged || qualityStatusChanged) {
+      invalidateUserSelectableVariantPoolCache(collected.blockType);
+      invalidateUserSelectableVariantPoolCache();
     }
 
     return { action: "updated", createdVersion };

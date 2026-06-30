@@ -4,6 +4,10 @@ import {
   ADMIN_FILTER_PRESETS,
   isAdminFilterPresetActive,
 } from "./style-library-admin-filters";
+import {
+  formatAdminBooleanLabel,
+  formatAdminLifecycleLabel,
+} from "./admin-display-labels";
 import type { AdminVariantListFilter } from "@/server/style-admin/queries/style-library-admin-query";
 import type { AdminVariantSummary } from "@/server/style-admin/queries/style-library-admin-query";
 
@@ -73,7 +77,7 @@ export function SummaryCards({ summary }: { summary: AdminVariantSummary }) {
   const cards = [
     { label: "Total variants", value: summary.total, testId: "summary-total" },
     {
-      label: "User selectable",
+      label: "Distribution: user selectable",
       value: summary.userSelectable,
       testId: "summary-user-selectable",
     },
@@ -163,7 +167,7 @@ export function LifecycleBadge({ lifecycle }: { lifecycle: string }) {
       : lifecycle === "default_eligible"
         ? "bg-emerald-100 text-emerald-900"
         : lifecycle === "user_selectable"
-          ? "bg-sky-100 text-sky-900"
+          ? "bg-amber-100 text-amber-900"
           : lifecycle === "deprecated"
             ? "bg-rose-100 text-rose-900"
             : lifecycle === "paste_qa_pass" || lifecycle === "candidate"
@@ -174,8 +178,9 @@ export function LifecycleBadge({ lifecycle }: { lifecycle: string }) {
     <span
       className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${className}`}
       data-testid={`lifecycle-badge-${lifecycle}`}
+      title="Governance stage — user-side picker uses distribution.userSelectable only"
     >
-      {lifecycle}
+      {formatAdminLifecycleLabel(lifecycle)}
     </span>
   );
 }

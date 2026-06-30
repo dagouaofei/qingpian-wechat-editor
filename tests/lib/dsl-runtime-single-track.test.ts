@@ -27,6 +27,8 @@ import { resolveArticleStyle } from "@/core/styles";
 import { applyPreviewThemeToArticle } from "@/lib/preview-style-controls";
 import { applyHeadingVariantToArticle } from "@/lib/preview-heading-style";
 import { createUserPreviewStyleRegistry } from "@/lib/user-preview-style-registry";
+import type { UserSelectableVariantPoolSnapshot } from "@/lib/user-selectable-variant-pool-types";
+import { createFirstWaveRequiredVariantRegistry } from "@/core/styles";
 
 describe("S10-STORY-011A FIX-A single-track DSL runtime", () => {
   const databaseDslRuntime = buildDatabaseDslRuntimeFixture();
@@ -75,6 +77,22 @@ describe("S10-STORY-011A FIX-A single-track DSL runtime", () => {
   });
 
   it("decodes all userSelectable heading variants via DSL preview and copy", () => {
+    const registry = createFirstWaveRequiredVariantRegistry();
+    const poolVariants = USER_SELECTABLE_HEADING_IDS_FOR_TESTS.map((id) =>
+      registry.variants.find((variant) => variant.id === id) ??
+      (id === headingTealSectionLabelHtmlPasteCandidate.id
+        ? headingTealSectionLabelHtmlPasteCandidate
+        : undefined),
+    ).filter((variant): variant is NonNullable<typeof variant> => variant != null);
+
+    const userSelectablePool: UserSelectableVariantPoolSnapshot = {
+      source: "database",
+      cache: { hit: false, ttlSeconds: 120, generatedAt: "2026-06-07T00:00:00.000Z" },
+      variants: poolVariants,
+      poolVariantIds: [...USER_SELECTABLE_HEADING_IDS_FOR_TESTS],
+      issues: [],
+    };
+
     for (const variantId of USER_SELECTABLE_HEADING_IDS_FOR_TESTS) {
       const preview = renderArticlePreviewClient(
         styleSelectionArticleFixture,
@@ -84,7 +102,7 @@ describe("S10-STORY-011A FIX-A single-track DSL runtime", () => {
           colorPalette: "businessBlue",
           headingVariantId: variantId,
         },
-        { dslRuntime: databaseDslRuntime },
+        { dslRuntime: databaseDslRuntime, userSelectablePool },
       );
 
       const heading = preview.previewBlocks.find((block) => block.blockType === "heading");

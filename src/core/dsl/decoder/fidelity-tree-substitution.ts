@@ -46,18 +46,31 @@ function readSemanticBindings(dsl: VariantDslV1): Record<string, SemanticBinding
   return bindings as Record<string, SemanticBinding>;
 }
 
-function resolveEffectiveSemanticBindings(
+function semanticBindingPathResolves(
+  tree: DslNode,
+  binding: SemanticBinding | undefined,
+): boolean {
+  if (!binding?.path) {
+    return false;
+  }
+  return resolveDslNodeAtPath(tree, binding.path) !== null;
+}
+
+export function resolveEffectiveSemanticBindings(
   tree: DslNode,
   dsl: VariantDslV1,
 ): Record<string, SemanticBinding> {
   const stored = readSemanticBindings(dsl);
   const inferred = inferSemanticBindingsFromTree(tree);
-  return {
-    ...inferred,
-    ...Object.fromEntries(
-      Object.entries(stored).filter(([, binding]) => Boolean(binding?.path)),
-    ),
-  };
+  const effective: Record<string, SemanticBinding> = { ...inferred };
+
+  for (const [role, binding] of Object.entries(stored)) {
+    if (semanticBindingPathResolves(tree, binding)) {
+      effective[role] = binding;
+    }
+  }
+
+  return effective;
 }
 
 function isWhitespaceOrNbspOnly(text: string): boolean {
@@ -260,19 +273,56 @@ function substituteHeadingNumberInTree(
     return { targetPath: null, label: null };
   }
 
-  const numberPath = bindings.number?.path;
-  if (!numberPath) {
-    return { targetPath: null, label: null };
-  }
-
   const label = resolveHeadingIndexLabel(article, block.id, block.meta?.sourceIndex);
-  const target = resolveDslNodeAtPath(tree, numberPath);
-  const replaced = target ? replaceTextInSubtree(target, label, numberPath) : null;
-  if (!replaced?.ok) {
-    return { targetPath: numberPath, label: null };
+  const candidatePaths = [
+    bindings.number?.path,
+    inferSemanticBindingsFromTree(tree).number?.path,
+  ].filter((path): path is string => Boolean(path));
+
+  for (const numberPath of [...new Set(candidatePaths)]) {
+    const target = resolveDslNodeAtPath(tree, numberPath);
+    const replaced = target ? replaceTextInSubtree(target, label, numberPath) : null;
+    if (replaced?.ok) {
+      return { targetPath: numberPath, label };
+    }
   }
 
-  return { targetPath: numberPath, label };
+  return { targetPath: candidatePaths[0] ?? null, label: null };
+}
+
+function readExtractedNumberSlot(dsl: VariantDslV1): string | null {
+  const meta = dsl.meta?.extractedSlots;
+  if (typeof meta !== "object" || meta === null || Array.isArray(meta)) {
+    return null;
+  }
+  const number = (meta as Record<string, unknown>).number;
+  return typeof number === "string" && number.trim() ? number.trim() : null;
+}
+
+/** Surface decode issues when a heading variant expects dynamic numbering but substitution failed. */
+export function collectFidelityNumberSubstitutionIssues(
+  dsl: VariantDslV1,
+  trace: FidelitySubstitutionTrace,
+): string[] {
+  const decorators = dsl.meta?.decorators;
+  const expectsNumber =
+    Boolean(readExtractedNumberSlot(dsl)) ||
+    Boolean(readSemanticBindings(dsl).number) ||
+    (Array.isArray(decorators) && decorators.includes("background_number"));
+
+  if (!expectsNumber) {
+    return [];
+  }
+
+  if (trace.substitutedNumber) {
+    return [];
+  }
+
+  if (trace.numberSubstitutionTargetPath) {
+    return ["fidelity_number_substitution_failed"];
+  }
+
+  return ["fidelity_number_binding_unresolved"];
 }
 
 function substituteEyebrowOrdinalInTree(

@@ -11,17 +11,17 @@ import { TITLE_BLOCK_SUPPORTED_VARIANT_IDS } from "@/core/renderer/title-block-r
 import { pickRegisteredVariantForBlock } from "@/core/generation/style-selection-prompt";
 import {
   getUserSelectablePreviewVariantAssets,
+  getUserSelectablePreviewVariantAssetsForBlockType,
   getUserSelectablePreviewVariantIds,
   isUserSelectablePreviewVariantId,
 } from "@/core/style-library/user-selectable-preview-pool";
 import { HTML_PASTE_TEAL_SECTION_LABEL_ASSET } from "@/core/style-library/assets/html-paste-variant-assets";
+import { headingTealSectionLabelHtmlPasteCandidate } from "@/core/styles/variants/html-paste-candidate-variants";
 import { variantPoolForPresetBlock } from "@/lib/gallery-block-variants";
-import {
-  PREVIEW_HEADING_STYLE_OPTIONS,
-  PREVIEW_USER_SELECTABLE_HEADING_STYLE_OPTIONS,
-} from "@/lib/preview-heading-style";
+import { PREVIEW_HEADING_STYLE_OPTIONS } from "@/lib/preview-heading-style";
 import { createUserPreviewStyleRegistry } from "@/lib/user-preview-style-registry";
 import { renderArticlePreviewClient } from "@/lib/render-article-preview-client";
+import type { UserSelectableVariantPoolSnapshot } from "@/lib/user-selectable-variant-pool-types";
 import { S9_STORY_007B_VARIANT_ID } from "../fixtures/style-library/s9-story-007b-html-paste-e2e-sample";
 import {
   styleSelectionArticleFixture,
@@ -29,13 +29,27 @@ import {
 } from "../fixtures/generation/style-selection";
 
 describe("S9-STORY-007C user-selectable preview picker", () => {
-  it("exposes user_selectable heading variant in preview style options", () => {
-    expect(PREVIEW_USER_SELECTABLE_HEADING_STYLE_OPTIONS).toHaveLength(1);
-    expect(PREVIEW_USER_SELECTABLE_HEADING_STYLE_OPTIONS[0]?.id).toBe(
-      S9_STORY_007B_VARIANT_ID,
-    );
+  const manifestHeadingOptions = getUserSelectablePreviewVariantAssetsForBlockType("heading").map(
+    (asset) => ({
+      id: asset.runtimeVariantId,
+      label: asset.label,
+      source: "user_selectable" as const,
+    }),
+  );
+
+  const dbUserPool: UserSelectableVariantPoolSnapshot = {
+    source: "database",
+    cache: { hit: false, ttlSeconds: 120, generatedAt: "2026-06-07T00:00:00.000Z" },
+    variants: [headingTealSectionLabelHtmlPasteCandidate],
+    poolVariantIds: [headingTealSectionLabelHtmlPasteCandidate.id],
+    issues: [],
+  };
+
+  it("keeps manifest fixtures for dev/test without merging into gallery heading options", () => {
+    expect(manifestHeadingOptions).toHaveLength(1);
+    expect(manifestHeadingOptions[0]?.id).toBe(S9_STORY_007B_VARIANT_ID);
     expect(PREVIEW_HEADING_STYLE_OPTIONS.some((option) => option.id === S9_STORY_007B_VARIANT_ID)).toBe(
-      true,
+      false,
     );
   });
 
@@ -48,14 +62,20 @@ describe("S9-STORY-007C user-selectable preview picker", () => {
     expect(getUserSelectablePreviewVariantAssets()).toContainEqual(asset);
   });
 
-  it("extends user preview registry without polluting release1 required registry", () => {
+  it("extends user preview registry only when DB variants are supplied", () => {
     const releaseRegistry = createFirstWaveRequiredVariantRegistry();
     const previewRegistry = createUserPreviewStyleRegistry();
+    const dbBackedRegistry = createUserPreviewStyleRegistry({
+      dbUserSelectableVariants: [headingTealSectionLabelHtmlPasteCandidate],
+    });
 
     expect(releaseRegistry.variants.map((variant) => variant.id)).not.toContain(
       S9_STORY_007B_VARIANT_ID,
     );
-    expect(previewRegistry.variants.map((variant) => variant.id)).toContain(
+    expect(previewRegistry.variants.map((variant) => variant.id)).not.toContain(
+      S9_STORY_007B_VARIANT_ID,
+    );
+    expect(dbBackedRegistry.variants.map((variant) => variant.id)).toContain(
       S9_STORY_007B_VARIANT_ID,
     );
     expect(FIRST_WAVE_REQUIRED_VARIANT_IDS).not.toContain(S9_STORY_007B_VARIANT_ID);
@@ -111,6 +131,7 @@ describe("S9-STORY-007C user-selectable preview picker", () => {
         colorPalette: "businessBlue",
         headingVariantId: S9_STORY_007B_VARIANT_ID,
       },
+      { userSelectablePool: dbUserPool },
     );
 
     const defaultHeadingVariants = defaultRendered.previewBlocks

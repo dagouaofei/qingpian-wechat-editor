@@ -84,4 +84,100 @@
 
 ---
 
+### BUG-S11-STAGING-001 Staging 生成 loading 非打字机（SSE 被 Nginx 缓冲）
+
+| 字段 | 内容 |
+|------|------|
+| Bug ID | BUG-S11-STAGING-001 |
+| 标题 | staging 生成 loading 一块一块显示，dev 环境为打字机效果 |
+| 发现时间 | 2026-06-10 |
+| 所属 | Sprint 11 · S11-STORY-003A |
+| 严重级别 | P1 |
+| 复现步骤 | staging 首页输入主题 → 生成 → 观察 loading 文本出现方式 |
+| 预期结果 | 与 dev 一致：逐字/逐 chunk 打字机 streaming |
+| 实际结果 | 整块批量出现（Nginx 默认 `proxy_buffering on` 缓冲 SSE） |
+| 状态 | **Fixed**（代码：`X-Accel-Buffering: no` · `deploy/nginx/staging.conf.example` 专用 location） |
+| 处理记录 | ECS 需 reload Nginx · **待 staging 人工复验** |
+
+---
+
+### BUG-S11-STAGING-002 HTML 新增 variant 章节编号不递增
+
+| 字段 | 内容 |
+|------|------|
+| Bug ID | BUG-S11-STAGING-002 |
+| 标题 | HTML paste 新增 DB variant 后多 heading 编号均为 01 |
+| 发现时间 | 2026-06-10 |
+| 所属 | Sprint 11 · S11-STORY-003A · 关联 S10-STORY-011 |
+| 严重级别 | P1 |
+| 复现步骤 | admin HTML 新增 heading variant → 多章节文章 Preview/Copy |
+| 预期结果 | 编号 01 / 02 / 03 按章节顺序递增 |
+| 实际结果 | 静态 HTML 编号未替换（stale `semanticBindings.number.path` 覆盖 infer） |
+| 状态 | **Fixed**（`resolveEffectiveSemanticBindings` 校验 path · number 替换 fallback infer） |
+| 处理记录 | regression test 覆盖 stale binding · **待 staging 人工复验** |
+
+---
+
+### BUG-S11-STAGING-003 Preview heading picker 与 admin userSelectable 不一致且重复
+
+| 字段 | 内容 |
+|------|------|
+| Bug ID | BUG-S11-STAGING-003 |
+| 标题 | `/preview` 小标题样式下拉与 admin userSelectable 池不一致 · 重复项 · 混排 release1 静态 label |
+| 发现时间 | 2026-06-10 |
+| 所属 | Sprint 11 · S11-STORY-003A |
+| 严重级别 | P1 |
+| 复现步骤 | staging 生成文章 → `/preview` → 打开「小标题样式」下拉 |
+| 预期结果 | 仅「跟随生成结果」+ DB userSelectable heading variants（与 admin `userSelectable=true&blockType=heading` 一致） |
+| 实际结果 | release1 publish 静态项与 DB 项混排 · 同 label 重复 · definitionJson 英文 label 与 admin 中文 label 混用 |
+| 状态 | **Fixed**（`resolvePreviewHeadingStyleOptions` · mapper 使用 `row.label`/`runtimeVariantId` · runtimeVariantId 去重） |
+| 处理记录 | **待 staging 人工复验** · ECS rebuild/restart 后验证 |
+
+---
+
+### BUG-S11-STAGING-004 用户池未以 distribution.userSelectable 为唯一权威
+
+| 字段 | 内容 |
+|------|------|
+| Bug ID | BUG-S11-STAGING-004 |
+| 标题 | teal candidate userSelectable=false 仍出现在 picker · d26a6370 userSelectable=true 未出现 |
+| 发现时间 | 2026-06-10 |
+| 所属 | Sprint 11 · S11-STORY-003A |
+| 严重级别 | P0 |
+| 根因 | ① `runtime-variant-seed-config` 硬编码 teal 为 code fallback userSelectable · ② degraded pool 仍注入 static manifest · ③ admin 列表 filter 未对齐 quality gate · ④ lifecycle `user_selectable` 与 distribution 概念混淆 |
+| 状态 | **Fixed** |
+| 处理记录 | DB-only pool · seed 清空 · 治理/inspection/import 后 cache invalidate · lifecycle 数据迁移 SQL · admin UI 分区 |
+
+---
+
+### BUG-S11-STAGING-005 d26 inline heading 编号不递增 · 编号色不随主题
+
+| 字段 | 内容 |
+|------|------|
+| Bug ID | BUG-S11-STAGING-005 |
+| 标题 | `heading_html_paste_d26a6370_candidate` 多 heading 编号均为 01 · 编号色保留 source rgb |
+| 发现时间 | 2026-06-10 |
+| 所属 | Sprint 11 · S11-STORY-003A · 关联 S10-STORY-011 |
+| 严重级别 | P1 |
+| 根因 | ① `inferSemanticBindingsFromTree` 仅 fontSize≥36 漏掉 23px inline accent number · ② stale stored path 时 substitution/theme 均失败 · ③ theme remap 仅读 stored path 未用 effective bindings |
+| 状态 | **Fixed** |
+| 处理记录 | infer 扩展 inline/bold/badge · theme 用 `resolveEffectiveSemanticBindings` · substitution diagnostic · **待 staging 人工复验** |
+
+---
+
 暂无其它 Open Bug（除 DEBT-DSL-RC 架构债务）。
+
+---
+
+### TECH-DEBT-S11-003B Legacy parallel paths（Gate A 登记）
+
+| 字段 | 内容 |
+|------|------|
+| ID | TECH-DEBT-S11-003B |
+| 标题 | Legacy user pool / SSE dual render / lifecycle enum 并行路径 |
+| 发现时间 | 2026-06-11 |
+| 所属 | Sprint 11 · S11-STORY-003B |
+| 文档 | [`docs/architecture/legacy-parallel-path-inventory.md`](../architecture/legacy-parallel-path-inventory.md) |
+| P0 项 | LP-001～007、LP-009、LP-010 **Done**（Gate B 2026-06-11）· LP-008 **P1 backlog** |
+| 状态 | **P0 已收口** · P1/P2/P3 见 inventory backlog |
+| 处理记录 | Gate B staging 验收 PASS @ `d4665ed` · merge sprint `--no-ff` 本轮 · LP-008 未处理 |

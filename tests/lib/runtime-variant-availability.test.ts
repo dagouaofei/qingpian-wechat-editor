@@ -8,6 +8,7 @@ import {
   USER_SELECTABLE_HTML_PASTE_HEADING_ID,
   USER_SELECTABLE_RELEASE1_HEADING_SEED_IDS,
 } from "@/lib/runtime-variant-seed-config";
+import { HEADING_PUBLISH_VARIANT_IDS } from "@/core/styles/variants/heading-publish-pool";
 import {
   isBlockingQualityStatus,
   isCodeBackedRuntimeVariantAvailable,
@@ -38,13 +39,13 @@ describe("runtime variant availability gate", () => {
     }
   });
 
-  it("includes 6 release1 heading seeds and html_paste in code-backed pool", () => {
+  it("includes release1 publish headings but not html_paste user pool seed in code-backed id set", () => {
     const available = getCodeBackedRuntimeAvailableVariantIds();
-    expect(available.size).toBe(7);
+    expect(available.size).toBe(HEADING_PUBLISH_VARIANT_IDS.length);
     for (const id of USER_SELECTABLE_RELEASE1_HEADING_SEED_IDS) {
       expect(available.has(id)).toBe(true);
     }
-    expect(available.has(USER_SELECTABLE_HTML_PASTE_HEADING_ID)).toBe(true);
+    expect(available.has(USER_SELECTABLE_HTML_PASTE_HEADING_ID)).toBe(false);
   });
 
   it("rejects non-available explicit variant with fallback", () => {
@@ -58,11 +59,13 @@ describe("runtime variant availability gate", () => {
     expect(resolved.issue).toContain("variant_not_runtime_available");
   });
 
-  it("limits AI heading candidates to runtime-available variants", () => {
+  it("limits AI heading candidates via code-backed availability gate", () => {
     const registry = createFirstWaveRequiredVariantRegistry();
     const cardCentered = getVariantById(registry, "heading_card_centered");
     const shortLine = getVariantById(registry, "heading_short_line");
-    expect(isVariantDefinitionRuntimeAvailable(cardCentered)).toBe(false);
+    expect(isCodeBackedRuntimeVariantAvailable("heading_card_centered")).toBe(false);
+    expect(getCodeBackedRuntimeAvailableVariantIds().has("heading_short_line")).toBe(true);
     expect(isVariantDefinitionRuntimeAvailable(shortLine)).toBe(true);
+    expect(isVariantDefinitionRuntimeAvailable(cardCentered)).toBe(true);
   });
 });

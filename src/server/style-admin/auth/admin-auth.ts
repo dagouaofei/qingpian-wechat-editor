@@ -1,5 +1,6 @@
 import { cookies, headers } from "next/headers";
 
+import { resolveAdminSessionCookieSecure } from "./admin-request-origin";
 import { getStyleAdminAuthConfig, isStyleAdminAuthConfigured } from "./admin-auth-config";
 import type { StyleAdminIdentity } from "./admin-auth-types";
 import { verifyAdminPassword } from "./admin-password";
@@ -46,16 +47,36 @@ export function buildStyleAdminIdentity(username: string): StyleAdminIdentity {
 }
 
 export function sanitizeAdminNextPath(next: string | null | undefined): string {
-  if (!next || !next.startsWith("/") || next.startsWith("//") || next.includes("://")) {
+  const trimmed = (next ?? "").trim();
+  if (!trimmed) {
     return "/admin/style-library";
   }
-  if (!next.startsWith("/admin")) {
+
+  let candidate = trimmed;
+  if (/%[0-9a-f]{2}/i.test(trimmed)) {
+    try {
+      candidate = decodeURIComponent(trimmed);
+    } catch {
+      return "/admin/style-library";
+    }
+  }
+
+  if (
+    !candidate.startsWith("/") ||
+    candidate.startsWith("//") ||
+    candidate.includes("://") ||
+    candidate.includes("\\") ||
+    candidate.includes("\0")
+  ) {
     return "/admin/style-library";
   }
-  if (next.startsWith("/admin/login") || next.startsWith("/admin/logout")) {
+  if (!candidate.startsWith("/admin")) {
     return "/admin/style-library";
   }
-  return next;
+  if (candidate.startsWith("/admin/login") || candidate.startsWith("/admin/logout")) {
+    return "/admin/style-library";
+  }
+  return candidate;
 }
 
 export function verifyAdminPasswordForConfig(
@@ -115,6 +136,11 @@ export async function requireStyleAdmin(): Promise<StyleAdminIdentity> {
   return admin;
 }
 
+async function resolveAdminSessionCookieSecureFromHeaders(): Promise<boolean> {
+  const headerStore = await headers();
+  return resolveAdminSessionCookieSecure({ headers: headerStore });
+}
+
 export async function setAdminSessionCookie(username: string): Promise<void> {
   const config = getStyleAdminAuthConfig();
   const cookieStore = await cookies();
@@ -124,7 +150,7 @@ export async function setAdminSessionCookie(username: string): Promise<void> {
     token,
     getStyleAdminSessionCookieOptions({
       sessionTtlSeconds: config.sessionTtlSeconds,
-      secure: process.env.NODE_ENV === "production",
+      secure: await resolveAdminSessionCookieSecureFromHeaders(),
     }),
   );
 }
@@ -133,7 +159,7 @@ export async function clearAdminSession(): Promise<void> {
   const cookieStore = await cookies();
   cookieStore.set(STYLE_ADMIN_SESSION_COOKIE, "", {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    secure: await resolveAdminSessionCookieSecureFromHeaders(),
     sameSite: "lax",
     path: "/",
     maxAge: 0,

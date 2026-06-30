@@ -2,102 +2,105 @@
 
 > 轻篇公众号排版 · qingpian-wechat-editor
 
-| ID | 日期 | 决策 | 状态 |
-|----|------|------|------|
-| DECISION-001 | 2026-05-30 | 项目正式命名为 `qingpian-wechat-editor` | 已确认 |
-| DECISION-002 | 2026-05-30 | 产品命名为「轻篇公众号排版」 | 已确认 |
-| DECISION-003 | 2026-05-30 | 本项目不使用 clean-core / v2 / demo / prototype 命名 | 已确认 |
-| DECISION-004 | 2026-05-30 | Release 1 聚焦公众号文章生成、样式排版、流式预览与复制一致性闭环 | 已确认 |
-| DECISION-005 | 2026-05-30 | 样式系统属于 Release 1 核心范围 | 已确认 |
-| DECISION-006 | 2026-05-30 | 公众号复制一致性是 Release 1 P0 质量标准 | 已确认 |
-| DECISION-007 | 2026-05-30 | 后续 Sprint 按合理工作量拆分（Sprint 1 不受 1 人/1 周约束，见 DECISION-011） | 已确认 |
-| DECISION-008 | 2026-05-30 | Sprint 1 不做业务功能实现，只做项目初始化、规则、文档与核心技术方案 | 已确认 |
-| DECISION-009 | 2026-05-30 | 旧一键成稿项目只作为经验来源，不作为代码来源 | 已确认 |
-| DECISION-010 | 2026-05-30 | ChatGPT + Cursor + docs 协作方式中，docs 是共享事实源 | 已确认 |
-| DECISION-011 | 2026-05-30 | 去除 Sprint 1 的 1 人 / 1 周工作量约束 | 已确认 |
-| DECISION-012 | 2026-05-30 | Sprint 1 范围从「项目初始化与文档骨架」扩展为「正式项目启动、核心技术方案定稿与工程治理」 | 已确认 |
-| DECISION-013 | 2026-05-30 | Sprint 1-A 已完成项目初始化与文档骨架；Sprint 1-B 补齐 Git 仓库治理和核心技术方案 | 已确认 |
-| DECISION-014 | 2026-05-30 | style-system.md 必须升级为正式技术方案，不得停留在概念骨架 | 已确认 |
-| DECISION-015 | 2026-05-30 | 业务功能实现必须在核心技术方案完成后再进入后续 Sprint | 已确认 |
-| DECISION-016 | 2026-05-30 | Git 主分支为 `main`，采用 feature/sprint/bugfix/docs 分支策略 | 已确认 |
-| DECISION-017 | 2026-05-30 | Remote 仓库待配置，配置后 push 至 origin | 已确认 |
-| DECISION-018 | 2026-05-30 | 核心技术方案一致性审查完成，9 份架构文档 + 产品/敏捷文档对齐 | 已确认 |
-| DECISION-019 | 2026-05-30 | 建立 execution report 作为 ChatGPT + Cursor 协作交接机制 | 已确认 |
-| DECISION-020 | 2026-05-30 | 建立 Sprint 分支与迭代内工作分支机制 | 已确认 |
-| DECISION-021 | 2026-05-30 | Release 1 整体技术架构 A 版（产品推导） | 已确认 |
-| DECISION-022 | 2026-05-30 | 采用 A/B 架构设计比较方式 | 已确认 |
-| DECISION-023 | 2026-05-30 | 定稿方式：A 为骨、B 风险层并入，形成唯一 architecture-overview | 已确认 |
-| DECISION-024 | 2026-05-30 | GenerationEvent 统一为 block.start / block.delta / block.complete / done.article | 已确认 |
-| DECISION-025 | 2026-05-30 | StyleDefinition 是 Preview / Copy 唯一共享样式来源 | 已确认 |
-| DECISION-026 | 2026-05-30 | Release 1 第一批 11 种 semantic block（含 image_placeholder） | 已确认 |
-| DECISION-027 | 2026-05-30 | Copy Fidelity DoD：Done（代码）与 Done（粘贴 QA）分离 | 已确认 |
-| DECISION-028 | 2026-05-30 | Style Import Adapter 后置，StyleDefinition 预留 sourceType 等扩展点 | 已确认 |
-| DECISION-029 | 2026-05-30 | 将 InlineContent、命名边界、slot copy-safe、WeChatCompatibilityProfile 纳入 Sprint 1-B 实现前契约 | 已确认 |
-| DECISION-030 | 2026-05-30 | Sprint 2 = Article / Block Schema + InlineContent 代码契约 | 已确认 |
-| DECISION-031 | 2026-05-30 | Sprint 3 = Style System 代码契约与第一批 StyleDefinition | 已确认 |
-| DECISION-032 | 2026-05-30 | Sprint 4 = Preview / Copy 最小闭环并启动最小粘贴 QA | 已确认 |
-| DECISION-033 | 2026-05-30 | Sprint 5 / 6 分别聚焦 Generation / Streaming 与 Fixture 三联 + Paste QA 回归 | 已确认 |
-| DECISION-034 | 2026-05-30 | Block 文本字段统一使用 text；paragraph / lead 的 InlineContent 字段不使用 body | 已确认 |
-| DECISION-035 | 2026-05-30 | Sprint 2 启动前收口 audit P1/P2 风险；P1-001 与 P1-008 在 Sprint 1-B 解决，其余登记后续 Sprint | 已确认 |
-| DECISION-036 | 2026-05-30 | 吸收秒篇 Component DSL 的 family / variant / slot / asset / orchestrator 思想，不迁移旧实现代码 | 已确认 |
-| DECISION-037 | 2026-05-30 | title 与 heading 共享 titleBlock visual component，保持不同语义 block | 已确认 |
-| DECISION-038 | 2026-05-30 | Sprint 3 增加 ComponentProtocol 与第一批 titleBlock variants 作为 Style System 前置范围 | 已确认 |
-| DECISION-039 | 2026-05-30 | Release 1 第一批 variant 升级为 11 block × 各 3~5 默认 variant × 若干 VisualAssetRegistry assets | 已确认 |
-| DECISION-040 | 2026-05-30 | Release 1 启用受控 AI 样式选择，AI 不得绕过 Style System | 已确认 |
-| DECISION-041 | 2026-05-30 | titleBlock slot 必须绑定合法内容来源，Style System 不得生成正文语义 | 已确认 |
-| DECISION-042 | 2026-05-30 | Release 1 titleBlock layoutMode 必须通过可执行 copy-safe 约束 | 已确认 |
-| DECISION-043 | 2026-05-30 | Release 1 样式采用 first-wave 11×3 required 与 expansion 分阶段策略 | 已确认 |
-| DECISION-044 | 2026-05-30 | magazine_left_bar_title 降为 release1CandidateVariants，不进入 first-wave required | 已确认 |
-| DECISION-045 | 2026-05-30 | 正式拆分 Sprint 3/4/6 为 3-A/B/C、4-A/B、6-A/B | 已确认 |
-| DECISION-051 | 2026-05-30 | 关闭 Sprint 1-B，并保持 Sprint 2 未启动 | 已确认 |
-| DECISION-052 | 2026-05-31 | 建立 `release/1` 作为 Release 1 主干；Sprint 1-B merge 至 release/1；清理 Sprint 1-B story 工作分支 | 已确认 |
-| DECISION-053 | 2026-05-31 | 正式启动 Sprint 2；范围 Article / Block Schema + InlineContent 代码契约；从 release/1 切 sprint/s2-article-block-schema | 已确认 |
-| DECISION-054 | 2026-05-31 | 关闭 Sprint 2；contract audit A + code audit A；P0=0；merge sprint/s2-article-block-schema → release/1 | 已确认 |
-| DECISION-055 | 2026-05-31 | 正式启动 Sprint 3-A；Style System Contract & Registry Infrastructure；从 release/1 切 sprint/s3a-style-system-infra | 已确认 |
-| DECISION-056 | 2026-05-31 | StyleResolver：explicit variant 失败但 preset default 成功时 source=preset_default 并记录 variant_not_found issue；S3A-STORY-002 Done；merge feature/s3a-style-resolver → sprint | 已确认 |
-| DECISION-057 | 2026-05-31 | 关闭 Sprint 3-A；contract audit A，P0=0；merge sprint/s3a-style-system-infra → release/1 | 已确认 |
-| DECISION-058 | 2026-05-31 | 正式启动 Sprint 3-B；First-wave Required Variant Registry；从 release/1 切 sprint/s3b-first-wave-variant-registry | 已确认 |
-| DECISION-059 | 2026-06-01 | 关闭 Sprint 3-B；contract audit A，P0=0；merge sprint/s3b-first-wave-variant-registry → release/1 | 已确认 |
-| DECISION-060 | 2026-06-01 | 正式启动 Sprint 4-A；Preview / Copy Renderer for Text-first Blocks；从 release/1 切 sprint/s4a-text-first-renderer | 已确认 |
-| DECISION-061 | 2026-06-01 | 关闭 Sprint 4-A；renderer contract audit A，P0=0；merge sprint/s4a-text-first-renderer → release/1 | 已确认 |
-| DECISION-062 | 2026-06-01 | 正式启动 Sprint 4-B；Preview / Copy Renderer for Structured Blocks；从 release/1 切 sprint/s4b-structured-block-renderer | 已确认 |
-| DECISION-063 | 2026-06-01 | 关闭 Sprint 4-B；renderer contract audit A，P0=0；merge sprint/s4b-structured-block-renderer → release/1 | 已确认 |
-| DECISION-064 | 2026-06-01 | 正式启动 Sprint 3-C；Style Assignment / Selection Validation + Orchestrator + VisualAssetRegistry | 已确认 |
-| DECISION-065 | 2026-06-01 | 关闭 Sprint 3-C；contract audit A，P0=0；merge sprint/s3c-style-assignment-validation → release/1 | 已确认 |
-| DECISION-066 | 2026-06-02 | Sprint 5 范围调整为 Generation / Streaming + Release 1 真实 UI 主流程闭环 | 已确认 |
-| DECISION-068 | 2026-06-02 | Sprint 5 必须纳入真实模型 API Provider 对接（Volcengine / Doubao） | 已确认 |
-| DECISION-069 | 2026-06-02 | 关闭 Sprint 5；main-flow audit A-，P0=0；merge sprint/s5-generation-ui-main-flow → release/1 | 已确认 |
-| DECISION-070 | 2026-06-02 | Release 1 尾声方案 B：Sprint 6 Visible Main Flow · Sprint 7 样式体验 · Sprint 8 复制保真与关闭 | 已确认 |
-| DECISION-071 | 2026-06-02 | 正式启动 Sprint 6：Release 1 Visible AI Main Flow；PB-R1-01~08；真实 AI 用户侧最小闭环 | 已确认 |
-| DECISION-072 | 2026-06-02 | Sprint 6 用户主流程：`/` + `/preview` + `requireRealProvider`；禁止静默 mock fallback | 已确认 |
-| DECISION-075 | 2026-06-02 | Sprint 6 UX 参考 miaopian-demo Landing；UI Shell + 预览页复制（主路径后续升级为 SSE · DECISION-077） | 已确认 |
-| DECISION-076 | 2026-06-02 | S6-STORY-005 客户端 batch 后 block/char 打字机；参考 miaopian 分析面板 UX；非 SSE token stream | **已废弃**（由 DECISION-077 取代） |
-| DECISION-077 | 2026-06-02 | S6-STORY-005 真实 SSE block-aware stream + phase 事件 + 即时预览 UI | 已确认 |
-| DECISION-078 | 2026-06-02 | 关闭 Sprint 6；visible main-flow audit A-，P0=0；merge sprint/s6-visible-ai-main-flow → release/1 | 已确认 |
-| DECISION-079 | 2026-06-02 | 正式启动 Sprint 7；S7-STORY-001 含 miaopian 协作对齐 + UX gap 文档；样式/Gallery 归 S7-STORY-002~006 | 已确认 |
-| DECISION-080 | 2026-06-02 | 暂停 Sprint 7 功能线；Visible-first Cursor 轮次规则；先行 `/gallery` 进展展台；`/generate` 页面已删除 | 已确认 |
-| DECISION-081 | 2026-06-02 | 恢复 Sprint 7；S7-STORY-002 样例集扩至 **8 套**常见公众号文章类型 | 已确认 |
-| DECISION-082 | 2026-06-02 | 合并 S7-STORY-003 与 S7-STORY-004 为单一 Story 003（Gallery UX + title/heading 丰富度）；004 标 Merged | 已确认 |
-| DECISION-083 | 2026-06-02 | 成稿风格/配色对齐 miaopian-demo 6+6；PresetBundle（defaultVariant + variantPools + defaultTheme）；heading +4；其它 block 扩至 9 variant/类 | 已确认 |
-| DECISION-084 | 2026-06-02 | S7 文章级卡片节奏：Orchestrator R4 + RCARD（连续卡片化≤2）；生成 plain-first rotation + hint 平衡 | 已确认 |
-| DECISION-085 | 2026-06-02 | S7-STORY-007A：R1 默认成稿样式保真；golden fixture + RLAYOUT；Copy 微信安全；007 Deferred | 已确认 |
-| DECISION-086 | 2026-06-02 | R1 默认 preset  canonical=`business`；`classic-news` 仅 legacy alias；golden/生成/fixture 对齐 | 已确认 |
-| DECISION-087 | 2026-06-03 | Heading 仅保留 8 款发布池；审美优先；废弃 5 款旧 heading ID | 已确认 |
-| DECISION-088 | 2026-06-04 | Sprint 8 重定义：WeChat-safe CSS Contract & Fidelity Test System（S8-STORY-001~008） | 已确认 |
-| DECISION-089 | 2026-06-04 | WeChat-safe Contract v1（`wechat-safe-contract-v1`）为后续 Copy HTML 约束依据 | 已确认 |
-| DECISION-090 | 2026-06-04 | Contract v1 代码化：`src/core/wechat-compat` 为默认 `WECHAT_MP_COMPATIBILITY_PROFILE` | 已确认 |
-| DECISION-091 | 2026-06-04 | Copy-safe Pattern Library v0.1（文档）；Drift triage；006C/007/S9 路由；本轮不改 Contract/Renderer | 已确认 |
-| DECISION-092 | 2026-06-05 | Style Management System v0 独立为 Sprint 9；主项目内 file-backed 子系统；采集入库仅为入口之一 | 已确认 |
-| DECISION-093 | 2026-06-05 | 关闭 Sprint 8；接受 Contract & Fidelity Audit Grade A- · P0=0；merge `sprint/s8-wechat-safe-css-contract` → `release/1`；不 merge `main`；Sprint 9 可从 `release/1` 启动 | 已确认 |
-| DECISION-094 | 2026-06-05 | 正式启动 Sprint 9：Style Management System v0；从 `release/1` 创建 `sprint/s9-style-management-system-v0`；首轮执行 S9-STORY-001 Style Management Domain Model | 已确认 |
-| DECISION-095 | 2026-06-05 | Style Library v0 采用 code-backed TypeScript manifest；独立 `@/core/style-library`；不接入 runtime StyleRegistry 默认加载路径 | 已确认 |
-| DECISION-096 | 2026-06-05 | Style Library Admin Shell v0 使用 `/dev/style-library`；内部只读治理工具；无权限系统；非正式 SaaS 后台 | 已确认 |
-| DECISION-106 | 2026-06-05 | 关闭 Sprint 9：Style Management System v0 · 接受 v2 audit Grade A- · P0=0 · HTML→user preview picker E2E PASS · Preview/Copy parity PASS · default/release1 未污染 · **不 merge `main`** · sprint→`release/1` 需另行确认 | **已确认** |
-| DECISION-107 | 2026-06-05 | S9-STORY-007C：user_selectable 暴露至用户预览页样式选择器；Gallery/AI/release1 边界不变 | **已确认** · merged sprint @ `da5be1e` |
-| DECISION-108 | 2026-06-07 | 正式启动 Sprint 10：Database-backed Style Management Admin v1；从 `release/1` 创建 `sprint/s10-db-backed-style-admin-v1`；第一闭环为既有 variant 入库→后台上下架→用户侧 DB 分发；HTML Harvest 放后半段；不 merge `main` | **已确认** |
-| DECISION-109 | 2026-06-08 | 全局 WeChat Compatibility Mode 默认 off；DEBT-WC-001~007 归档 deferred；sanitize 常开；Release 1 收口前恢复 report/enforce | **已确认** |
-| DECISION-110 | 2026-06-08 | Registry `renderContract` + title_block 双轨 Preview/Copy renderer 为过渡债务；目标为 DB tree DSL 统一 decode；DEBT-DSL-RC-001~006 deferred · 本轮不批量迁移 | **已确认** |
-| DECISION-111 | 2026-06-08 | 关闭 Sprint 10（001~011）；新建 Sprint 11 Production Ops Go-Live（部署优先）；原 S10-012/013/014 顺延 Sprint 12+；staging 先于 production | **已确认** |
+| ID           | 日期       | 决策                                                                                                                                                                                                                                                                | 状态                                   |
+| ------------ | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
+| DECISION-001 | 2026-05-30 | 项目正式命名为 `qingpian-wechat-editor`                                                                                                                                                                                                                             | 已确认                                 |
+| DECISION-002 | 2026-05-30 | 产品命名为「轻篇公众号排版」                                                                                                                                                                                                                                        | 已确认                                 |
+| DECISION-003 | 2026-05-30 | 本项目不使用 clean-core / v2 / demo / prototype 命名                                                                                                                                                                                                                | 已确认                                 |
+| DECISION-004 | 2026-05-30 | Release 1 聚焦公众号文章生成、样式排版、流式预览与复制一致性闭环                                                                                                                                                                                                    | 已确认                                 |
+| DECISION-005 | 2026-05-30 | 样式系统属于 Release 1 核心范围                                                                                                                                                                                                                                     | 已确认                                 |
+| DECISION-006 | 2026-05-30 | 公众号复制一致性是 Release 1 P0 质量标准                                                                                                                                                                                                                            | 已确认                                 |
+| DECISION-007 | 2026-05-30 | 后续 Sprint 按合理工作量拆分（Sprint 1 不受 1 人/1 周约束，见 DECISION-011）                                                                                                                                                                                        | 已确认                                 |
+| DECISION-008 | 2026-05-30 | Sprint 1 不做业务功能实现，只做项目初始化、规则、文档与核心技术方案                                                                                                                                                                                                 | 已确认                                 |
+| DECISION-009 | 2026-05-30 | 旧一键成稿项目只作为经验来源，不作为代码来源                                                                                                                                                                                                                        | 已确认                                 |
+| DECISION-010 | 2026-05-30 | ChatGPT + Cursor + docs 协作方式中，docs 是共享事实源                                                                                                                                                                                                               | 已确认                                 |
+| DECISION-011 | 2026-05-30 | 去除 Sprint 1 的 1 人 / 1 周工作量约束                                                                                                                                                                                                                              | 已确认                                 |
+| DECISION-012 | 2026-05-30 | Sprint 1 范围从「项目初始化与文档骨架」扩展为「正式项目启动、核心技术方案定稿与工程治理」                                                                                                                                                                           | 已确认                                 |
+| DECISION-013 | 2026-05-30 | Sprint 1-A 已完成项目初始化与文档骨架；Sprint 1-B 补齐 Git 仓库治理和核心技术方案                                                                                                                                                                                   | 已确认                                 |
+| DECISION-014 | 2026-05-30 | style-system.md 必须升级为正式技术方案，不得停留在概念骨架                                                                                                                                                                                                          | 已确认                                 |
+| DECISION-015 | 2026-05-30 | 业务功能实现必须在核心技术方案完成后再进入后续 Sprint                                                                                                                                                                                                               | 已确认                                 |
+| DECISION-016 | 2026-05-30 | Git 主分支为 `main`，采用 feature/sprint/bugfix/docs 分支策略                                                                                                                                                                                                       | 已确认                                 |
+| DECISION-017 | 2026-05-30 | Remote 仓库待配置，配置后 push 至 origin                                                                                                                                                                                                                            | 已确认                                 |
+| DECISION-018 | 2026-05-30 | 核心技术方案一致性审查完成，9 份架构文档 + 产品/敏捷文档对齐                                                                                                                                                                                                        | 已确认                                 |
+| DECISION-019 | 2026-05-30 | 建立 execution report 作为 ChatGPT + Cursor 协作交接机制                                                                                                                                                                                                            | 已确认                                 |
+| DECISION-020 | 2026-05-30 | 建立 Sprint 分支与迭代内工作分支机制                                                                                                                                                                                                                                | 已确认                                 |
+| DECISION-021 | 2026-05-30 | Release 1 整体技术架构 A 版（产品推导）                                                                                                                                                                                                                             | 已确认                                 |
+| DECISION-022 | 2026-05-30 | 采用 A/B 架构设计比较方式                                                                                                                                                                                                                                           | 已确认                                 |
+| DECISION-023 | 2026-05-30 | 定稿方式：A 为骨、B 风险层并入，形成唯一 architecture-overview                                                                                                                                                                                                      | 已确认                                 |
+| DECISION-024 | 2026-05-30 | GenerationEvent 统一为 block.start / block.delta / block.complete / done.article                                                                                                                                                                                    | 已确认                                 |
+| DECISION-025 | 2026-05-30 | StyleDefinition 是 Preview / Copy 唯一共享样式来源                                                                                                                                                                                                                  | 已确认                                 |
+| DECISION-026 | 2026-05-30 | Release 1 第一批 11 种 semantic block（含 image_placeholder）                                                                                                                                                                                                       | 已确认                                 |
+| DECISION-027 | 2026-05-30 | Copy Fidelity DoD：Done（代码）与 Done（粘贴 QA）分离                                                                                                                                                                                                               | 已确认                                 |
+| DECISION-028 | 2026-05-30 | Style Import Adapter 后置，StyleDefinition 预留 sourceType 等扩展点                                                                                                                                                                                                 | 已确认                                 |
+| DECISION-029 | 2026-05-30 | 将 InlineContent、命名边界、slot copy-safe、WeChatCompatibilityProfile 纳入 Sprint 1-B 实现前契约                                                                                                                                                                   | 已确认                                 |
+| DECISION-030 | 2026-05-30 | Sprint 2 = Article / Block Schema + InlineContent 代码契约                                                                                                                                                                                                          | 已确认                                 |
+| DECISION-031 | 2026-05-30 | Sprint 3 = Style System 代码契约与第一批 StyleDefinition                                                                                                                                                                                                            | 已确认                                 |
+| DECISION-032 | 2026-05-30 | Sprint 4 = Preview / Copy 最小闭环并启动最小粘贴 QA                                                                                                                                                                                                                 | 已确认                                 |
+| DECISION-033 | 2026-05-30 | Sprint 5 / 6 分别聚焦 Generation / Streaming 与 Fixture 三联 + Paste QA 回归                                                                                                                                                                                        | 已确认                                 |
+| DECISION-034 | 2026-05-30 | Block 文本字段统一使用 text；paragraph / lead 的 InlineContent 字段不使用 body                                                                                                                                                                                      | 已确认                                 |
+| DECISION-035 | 2026-05-30 | Sprint 2 启动前收口 audit P1/P2 风险；P1-001 与 P1-008 在 Sprint 1-B 解决，其余登记后续 Sprint                                                                                                                                                                      | 已确认                                 |
+| DECISION-036 | 2026-05-30 | 吸收秒篇 Component DSL 的 family / variant / slot / asset / orchestrator 思想，不迁移旧实现代码                                                                                                                                                                     | 已确认                                 |
+| DECISION-037 | 2026-05-30 | title 与 heading 共享 titleBlock visual component，保持不同语义 block                                                                                                                                                                                               | 已确认                                 |
+| DECISION-038 | 2026-05-30 | Sprint 3 增加 ComponentProtocol 与第一批 titleBlock variants 作为 Style System 前置范围                                                                                                                                                                             | 已确认                                 |
+| DECISION-039 | 2026-05-30 | Release 1 第一批 variant 升级为 11 block × 各 3~5 默认 variant × 若干 VisualAssetRegistry assets                                                                                                                                                                    | 已确认                                 |
+| DECISION-040 | 2026-05-30 | Release 1 启用受控 AI 样式选择，AI 不得绕过 Style System                                                                                                                                                                                                            | 已确认                                 |
+| DECISION-041 | 2026-05-30 | titleBlock slot 必须绑定合法内容来源，Style System 不得生成正文语义                                                                                                                                                                                                 | 已确认                                 |
+| DECISION-042 | 2026-05-30 | Release 1 titleBlock layoutMode 必须通过可执行 copy-safe 约束                                                                                                                                                                                                       | 已确认                                 |
+| DECISION-043 | 2026-05-30 | Release 1 样式采用 first-wave 11×3 required 与 expansion 分阶段策略                                                                                                                                                                                                 | 已确认                                 |
+| DECISION-044 | 2026-05-30 | magazine_left_bar_title 降为 release1CandidateVariants，不进入 first-wave required                                                                                                                                                                                  | 已确认                                 |
+| DECISION-045 | 2026-05-30 | 正式拆分 Sprint 3/4/6 为 3-A/B/C、4-A/B、6-A/B                                                                                                                                                                                                                      | 已确认                                 |
+| DECISION-051 | 2026-05-30 | 关闭 Sprint 1-B，并保持 Sprint 2 未启动                                                                                                                                                                                                                             | 已确认                                 |
+| DECISION-052 | 2026-05-31 | 建立 `release/1` 作为 Release 1 主干；Sprint 1-B merge 至 release/1；清理 Sprint 1-B story 工作分支                                                                                                                                                                 | 已确认                                 |
+| DECISION-053 | 2026-05-31 | 正式启动 Sprint 2；范围 Article / Block Schema + InlineContent 代码契约；从 release/1 切 sprint/s2-article-block-schema                                                                                                                                             | 已确认                                 |
+| DECISION-054 | 2026-05-31 | 关闭 Sprint 2；contract audit A + code audit A；P0=0；merge sprint/s2-article-block-schema → release/1                                                                                                                                                              | 已确认                                 |
+| DECISION-055 | 2026-05-31 | 正式启动 Sprint 3-A；Style System Contract & Registry Infrastructure；从 release/1 切 sprint/s3a-style-system-infra                                                                                                                                                 | 已确认                                 |
+| DECISION-056 | 2026-05-31 | StyleResolver：explicit variant 失败但 preset default 成功时 source=preset_default 并记录 variant_not_found issue；S3A-STORY-002 Done；merge feature/s3a-style-resolver → sprint                                                                                    | 已确认                                 |
+| DECISION-057 | 2026-05-31 | 关闭 Sprint 3-A；contract audit A，P0=0；merge sprint/s3a-style-system-infra → release/1                                                                                                                                                                            | 已确认                                 |
+| DECISION-058 | 2026-05-31 | 正式启动 Sprint 3-B；First-wave Required Variant Registry；从 release/1 切 sprint/s3b-first-wave-variant-registry                                                                                                                                                   | 已确认                                 |
+| DECISION-059 | 2026-06-01 | 关闭 Sprint 3-B；contract audit A，P0=0；merge sprint/s3b-first-wave-variant-registry → release/1                                                                                                                                                                   | 已确认                                 |
+| DECISION-060 | 2026-06-01 | 正式启动 Sprint 4-A；Preview / Copy Renderer for Text-first Blocks；从 release/1 切 sprint/s4a-text-first-renderer                                                                                                                                                  | 已确认                                 |
+| DECISION-061 | 2026-06-01 | 关闭 Sprint 4-A；renderer contract audit A，P0=0；merge sprint/s4a-text-first-renderer → release/1                                                                                                                                                                  | 已确认                                 |
+| DECISION-062 | 2026-06-01 | 正式启动 Sprint 4-B；Preview / Copy Renderer for Structured Blocks；从 release/1 切 sprint/s4b-structured-block-renderer                                                                                                                                            | 已确认                                 |
+| DECISION-063 | 2026-06-01 | 关闭 Sprint 4-B；renderer contract audit A，P0=0；merge sprint/s4b-structured-block-renderer → release/1                                                                                                                                                            | 已确认                                 |
+| DECISION-064 | 2026-06-01 | 正式启动 Sprint 3-C；Style Assignment / Selection Validation + Orchestrator + VisualAssetRegistry                                                                                                                                                                   | 已确认                                 |
+| DECISION-065 | 2026-06-01 | 关闭 Sprint 3-C；contract audit A，P0=0；merge sprint/s3c-style-assignment-validation → release/1                                                                                                                                                                   | 已确认                                 |
+| DECISION-066 | 2026-06-02 | Sprint 5 范围调整为 Generation / Streaming + Release 1 真实 UI 主流程闭环                                                                                                                                                                                           | 已确认                                 |
+| DECISION-068 | 2026-06-02 | Sprint 5 必须纳入真实模型 API Provider 对接（Volcengine / Doubao）                                                                                                                                                                                                  | 已确认                                 |
+| DECISION-069 | 2026-06-02 | 关闭 Sprint 5；main-flow audit A-，P0=0；merge sprint/s5-generation-ui-main-flow → release/1                                                                                                                                                                        | 已确认                                 |
+| DECISION-070 | 2026-06-02 | Release 1 尾声方案 B：Sprint 6 Visible Main Flow · Sprint 7 样式体验 · Sprint 8 复制保真与关闭                                                                                                                                                                      | 已确认                                 |
+| DECISION-071 | 2026-06-02 | 正式启动 Sprint 6：Release 1 Visible AI Main Flow；PB-R1-01~08；真实 AI 用户侧最小闭环                                                                                                                                                                              | 已确认                                 |
+| DECISION-072 | 2026-06-02 | Sprint 6 用户主流程：`/` + `/preview` + `requireRealProvider`；禁止静默 mock fallback                                                                                                                                                                               | 已确认                                 |
+| DECISION-075 | 2026-06-02 | Sprint 6 UX 参考 miaopian-demo Landing；UI Shell + 预览页复制（主路径后续升级为 SSE · DECISION-077）                                                                                                                                                                | 已确认                                 |
+| DECISION-076 | 2026-06-02 | S6-STORY-005 客户端 batch 后 block/char 打字机；参考 miaopian 分析面板 UX；非 SSE token stream                                                                                                                                                                      | **已废弃**（由 DECISION-077 取代）     |
+| DECISION-077 | 2026-06-02 | S6-STORY-005 真实 SSE block-aware stream + phase 事件 + 即时预览 UI                                                                                                                                                                                                 | 已确认                                 |
+| DECISION-078 | 2026-06-02 | 关闭 Sprint 6；visible main-flow audit A-，P0=0；merge sprint/s6-visible-ai-main-flow → release/1                                                                                                                                                                   | 已确认                                 |
+| DECISION-079 | 2026-06-02 | 正式启动 Sprint 7；S7-STORY-001 含 miaopian 协作对齐 + UX gap 文档；样式/Gallery 归 S7-STORY-002~006                                                                                                                                                                | 已确认                                 |
+| DECISION-080 | 2026-06-02 | 暂停 Sprint 7 功能线；Visible-first Cursor 轮次规则；先行 `/gallery` 进展展台；`/generate` 页面已删除                                                                                                                                                               | 已确认                                 |
+| DECISION-081 | 2026-06-02 | 恢复 Sprint 7；S7-STORY-002 样例集扩至 **8 套**常见公众号文章类型                                                                                                                                                                                                   | 已确认                                 |
+| DECISION-082 | 2026-06-02 | 合并 S7-STORY-003 与 S7-STORY-004 为单一 Story 003（Gallery UX + title/heading 丰富度）；004 标 Merged                                                                                                                                                              | 已确认                                 |
+| DECISION-083 | 2026-06-02 | 成稿风格/配色对齐 miaopian-demo 6+6；PresetBundle（defaultVariant + variantPools + defaultTheme）；heading +4；其它 block 扩至 9 variant/类                                                                                                                         | 已确认                                 |
+| DECISION-084 | 2026-06-02 | S7 文章级卡片节奏：Orchestrator R4 + RCARD（连续卡片化≤2）；生成 plain-first rotation + hint 平衡                                                                                                                                                                   | 已确认                                 |
+| DECISION-085 | 2026-06-02 | S7-STORY-007A：R1 默认成稿样式保真；golden fixture + RLAYOUT；Copy 微信安全；007 Deferred                                                                                                                                                                           | 已确认                                 |
+| DECISION-086 | 2026-06-02 | R1 默认 preset canonical=`business`；`classic-news` 仅 legacy alias；golden/生成/fixture 对齐                                                                                                                                                                       | 已确认                                 |
+| DECISION-087 | 2026-06-03 | Heading 仅保留 8 款发布池；审美优先；废弃 5 款旧 heading ID                                                                                                                                                                                                         | 已确认                                 |
+| DECISION-088 | 2026-06-04 | Sprint 8 重定义：WeChat-safe CSS Contract & Fidelity Test System（S8-STORY-001~008）                                                                                                                                                                                | 已确认                                 |
+| DECISION-089 | 2026-06-04 | WeChat-safe Contract v1（`wechat-safe-contract-v1`）为后续 Copy HTML 约束依据                                                                                                                                                                                       | 已确认                                 |
+| DECISION-090 | 2026-06-04 | Contract v1 代码化：`src/core/wechat-compat` 为默认 `WECHAT_MP_COMPATIBILITY_PROFILE`                                                                                                                                                                               | 已确认                                 |
+| DECISION-091 | 2026-06-04 | Copy-safe Pattern Library v0.1（文档）；Drift triage；006C/007/S9 路由；本轮不改 Contract/Renderer                                                                                                                                                                  | 已确认                                 |
+| DECISION-092 | 2026-06-05 | Style Management System v0 独立为 Sprint 9；主项目内 file-backed 子系统；采集入库仅为入口之一                                                                                                                                                                       | 已确认                                 |
+| DECISION-093 | 2026-06-05 | 关闭 Sprint 8；接受 Contract & Fidelity Audit Grade A- · P0=0；merge `sprint/s8-wechat-safe-css-contract` → `release/1`；不 merge `main`；Sprint 9 可从 `release/1` 启动                                                                                            | 已确认                                 |
+| DECISION-094 | 2026-06-05 | 正式启动 Sprint 9：Style Management System v0；从 `release/1` 创建 `sprint/s9-style-management-system-v0`；首轮执行 S9-STORY-001 Style Management Domain Model                                                                                                      | 已确认                                 |
+| DECISION-095 | 2026-06-05 | Style Library v0 采用 code-backed TypeScript manifest；独立 `@/core/style-library`；不接入 runtime StyleRegistry 默认加载路径                                                                                                                                       | 已确认                                 |
+| DECISION-096 | 2026-06-05 | Style Library Admin Shell v0 使用 `/dev/style-library`；内部只读治理工具；无权限系统；非正式 SaaS 后台                                                                                                                                                              | 已确认                                 |
+| DECISION-106 | 2026-06-05 | 关闭 Sprint 9：Style Management System v0 · 接受 v2 audit Grade A- · P0=0 · HTML→user preview picker E2E PASS · Preview/Copy parity PASS · default/release1 未污染 · **不 merge `main`** · sprint→`release/1` 需另行确认                                            | **已确认**                             |
+| DECISION-107 | 2026-06-05 | S9-STORY-007C：user_selectable 暴露至用户预览页样式选择器；Gallery/AI/release1 边界不变                                                                                                                                                                             | **已确认** · merged sprint @ `da5be1e` |
+| DECISION-108 | 2026-06-07 | 正式启动 Sprint 10：Database-backed Style Management Admin v1；从 `release/1` 创建 `sprint/s10-db-backed-style-admin-v1`；第一闭环为既有 variant 入库→后台上下架→用户侧 DB 分发；HTML Harvest 放后半段；不 merge `main`                                             | **已确认**                             |
+| DECISION-109 | 2026-06-08 | 全局 WeChat Compatibility Mode 默认 off；DEBT-WC-001~007 归档 deferred；sanitize 常开；Release 1 收口前恢复 report/enforce                                                                                                                                          | **已确认**                             |
+| DECISION-110 | 2026-06-08 | Registry `renderContract` + title_block 双轨 Preview/Copy renderer 为过渡债务；目标为 DB tree DSL 统一 decode；DEBT-DSL-RC-001~006 deferred · 本轮不批量迁移                                                                                                        | **已确认**                             |
+| DECISION-111 | 2026-06-08 | 关闭 Sprint 10（001~011）；新建 Sprint 11 Production Ops Go-Live（部署优先）；原 S10-012/013/014 顺延 Sprint 12+；staging 先于 production                                                                                                                           | **已确认**                             |
+| DECISION-112 | 2026-06-10 | Gate B Prelaunch 代码冻结：各环境 DB 为 variant 唯一事实来源；`import-existing-variants` 为待审计历史 bootstrap；Dev/Staging/Production DB 同步方案 deferred；production 100 variant 已初始化；staging 独有 2 条测试 variant 不迁移；暂不 governance snapshot apply | **已确认**                             |
+| DECISION-113 | 2026-06-28 | Production Prelaunch 已部署 @ `385422d` · URL `paiban.aiqingpian.cn`（`qingpianai.cn` 未备案）；Prelaunch 非公开发布；Basic Auth + noindex 观察期不得移除；回滚基线 `2f09b0d`                                                                                       | **已确认**                             |
+| DECISION-114 | 2026-06-30 | Sprint 11 Accepted with follow-ups / Closed；S11-STORY-006 Accepted / Done；follow-ups 保持 Open；授权 `--no-ff` merge S11 → `release/1`；未授权 push；Release 1 未关闭；Production 仍为 Prelaunch                                                                  | **已确认**                             |
 
 ### DECISION-019 详情
 
@@ -1193,3 +1196,65 @@
 - **关联：** DECISION-108 · S10-STORY-007~008 · DEBT-WC · DEBT-DSL-RC
 - **状态：** **已确认**（2026-06-08）
 
+### DECISION-112 详情（Gate B Prelaunch 代码冻结 · DB 权威 · 同步方案 deferred）
+
+- **日期：** 2026-06-10
+- **背景：**
+  - Gate B 已完成 governance snapshot export/import 工具链与 `qualityStatus` 契约对齐（`d99aa1a`）
+  - Production 独立 DB 已通过 `import-existing-variants` 初始化 **100** 条 variant
+  - Staging DB 较 production 多 **2** 条 staging 独有测试 variant（**不迁移** production）
+  - Dev / Staging / Production 之间 variant 内容维护、发布与同步的最终方案 **尚未确定**
+- **决策：**
+  1. **各环境 PostgreSQL DB 为 variant 治理与内容的唯一事实来源**（lifecycle · distribution · qualityStatus · label 等）
+  2. 代码侧 `pnpm style-admin:import-existing-variants` 属于 **历史 bootstrap 路径**，Prelaunch 后须单独审计，不得视为长期同步机制
+  3. **Dev / Staging / Production 数据库内容维护、发布与同步方案** 登记为后续待办（**本轮不设计、不实现**）
+  4. 上述待办 **不阻塞** Production Prelaunch 代码冻结与 deploy
+  5. **暂不执行** governance snapshot **apply**（`import-governance-snapshot` 非 apply）；dry-run / export 工具保留供后续决策
+  6. Staging 独有 2 条测试 variant **明确不迁移** production
+- **影响范围：** `product-backlog.md` · `production.md` · S11-STORY-004 Gate B
+- **关联：** S11-STORY-004 · DECISION-111 · `quality-status-contract.ts`
+- **状态：** **已确认**（2026-06-10 · Gate B 代码冻结）
+
+### DECISION-113 详情（Production Prelaunch 部署完成 · 域名与观察约束）
+
+- **日期：** 2026-06-28
+- **背景：**
+  - S11-STORY-004 Gate B 用户人工验收 PASS
+  - Production 部署 commit **`385422d`** · systemd `qingpian-wechat-editor-production` · PORT 3000
+  - 原计划 `qingpianai.cn` 因 **ICP 未备案** 未继续使用
+- **决策：**
+  1. Production 公网 URL 为 **`https://paiban.aiqingpian.cn`**
+  2. 当前阶段为 **Prelaunch** · **非正式公开上线**
+  3. **不得移除** Nginx Basic Auth · **不得移除** noindex / robots Disallow，直至独立 go-live 批准
+  4. 回滚演练基线 commit：**`2f09b0d`** · 当前恢复版本：**`385422d`**
+  5. S11-STORY-004 标记 **Done** · 监控观察移交 S11-STORY-005
+- **关联：** S11-STORY-004 · DECISION-112 · `production.md`
+- **状态：** **已确认**（2026-06-28 · 用户验收 · 回滚演练）
+
+### DECISION-114 详情（Sprint 11 Closeout · Accepted with follow-ups / Closed）
+
+- **日期：** 2026-06-30
+- **Product Owner 授权原文：**
+
+  ```text
+  S11-STORY-006 Accepted / Done；
+  Sprint 11 Accepted with follow-ups / Closed；
+  授权 merge S11 → release/1
+  ```
+
+- **背景：**
+  - S11-STORY-001 / 005 已按 **Accepted with follow-ups** 验收；S11-STORY-002 / 003 / 004 已完成验收
+  - S11-STORY-006 Closeout checklist、状态同步、分支与 evidence 核查已完成
+  - Follow-up Backlog 已登记并保持 Open
+- **决策：**
+  1. **S11-STORY-006** 标记 **Accepted / Done**
+  2. **Sprint 11** 验收结论为 **Accepted with follow-ups / Closed**（关闭日期 2026-06-30）
+  3. Follow-ups **P1-S11-002 · P1-S11-004 · P2-S11-001 · P2-S11-002 · P2-S11-003** 保持 **Open**；Sprint 关闭不代表完成或豁免
+  4. 授权使用 `--no-ff` merge `sprint/s11-production-ops-go-live` → `release/1`
+  5. **未授权 push**
+  6. **Release 1 未关闭**，不得 merge `release/1` → `main`
+  7. Production 仍为 **Prelaunch**；Basic Auth / noindex / robots Disallow 保留
+  8. Sprint 12 后续必须基于最新 `release/1` 单独对齐；本决策不启动 S12-STORY-002
+- **影响范围：** `sprint11-closeout.md` · `sprint11-review.md` · `sprint-backlog.md` · `release-plan.md` · `changelog.md`
+- **关联：** S11-STORY-006 · DECISION-111 · DECISION-113
+- **状态：** **已确认**（2026-06-30 · PO 授权）

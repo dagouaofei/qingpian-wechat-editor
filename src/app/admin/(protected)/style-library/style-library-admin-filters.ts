@@ -27,6 +27,11 @@ const LIFECYCLE_VALUES: StyleVariantLifecycle[] = [
   "deprecated",
 ];
 
+/** Lifecycle values shown in admin filter dropdown — excludes legacy user_selectable. */
+const LIFECYCLE_FILTER_VALUES: StyleVariantLifecycle[] = LIFECYCLE_VALUES.filter(
+  (lifecycle) => lifecycle !== "user_selectable",
+);
+
 function parseBooleanParam(value: string | string[] | undefined): boolean | undefined {
   if (value === undefined) return undefined;
   const raw = Array.isArray(value) ? value[0] : value;
@@ -108,7 +113,7 @@ export function buildAdminListHref(filter: AdminVariantListFilter): string {
 
 export const ADMIN_FILTER_OPTIONS = {
   blockTypes: BLOCK_TYPES,
-  lifecycles: LIFECYCLE_VALUES,
+  lifecycles: LIFECYCLE_FILTER_VALUES,
 };
 
 export type AdminFilterPreset = {
@@ -134,7 +139,7 @@ export const ADMIN_FILTER_PRESETS: AdminFilterPreset[] = [
   },
   {
     id: "user-selectable-true",
-    label: "userSelectable=true",
+    label: "distribution.userSelectable=true (user pool)",
     href: buildAdminListHref({ userSelectable: true }),
     filter: { userSelectable: true },
   },

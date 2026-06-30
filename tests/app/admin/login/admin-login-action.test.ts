@@ -3,15 +3,8 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { hashAdminPassword } from "@/server/style-admin/auth/admin-password";
 import { sanitizeAdminNextPath } from "@/server/style-admin/auth/admin-auth";
 
-const { redirect, setAdminSessionCookie } = vi.hoisted(() => ({
-  redirect: vi.fn((path: string) => {
-    throw new Error(`REDIRECT:${path}`);
-  }),
+const { setAdminSessionCookie } = vi.hoisted(() => ({
   setAdminSessionCookie: vi.fn(),
-}));
-
-vi.mock("next/navigation", () => ({
-  redirect,
 }));
 
 vi.mock("@/server/style-admin/auth", async (importOriginal) => {
@@ -55,21 +48,24 @@ describe("loginAdminAction", () => {
     expect(setAdminSessionCookie).not.toHaveBeenCalled();
   });
 
-  it("creates a session and redirects to a safe next path", async () => {
+  it("creates a session and returns a safe redirect path", async () => {
     configureAuth("correct-password");
 
-    await expect(
-      loginAdminAction({
-        username: "admin",
-        password: "correct-password",
-        next: "/admin/style-library/heading_short_line",
-      }),
-    ).rejects.toThrow("REDIRECT:/admin/style-library/heading_short_line");
+    const result = await loginAdminAction({
+      username: "admin",
+      password: "correct-password",
+      next: "/admin/style-library/heading_short_line",
+    });
 
+    expect(result).toEqual({
+      ok: true,
+      redirectTo: "/admin/style-library/heading_short_line",
+    });
     expect(setAdminSessionCookie).toHaveBeenCalledWith("admin");
   });
 
   it("blocks open redirect next paths", () => {
     expect(sanitizeAdminNextPath("https://evil.example/admin")).toBe("/admin/style-library");
+    expect(sanitizeAdminNextPath("//evil.example/admin")).toBe("/admin/style-library");
   });
 });

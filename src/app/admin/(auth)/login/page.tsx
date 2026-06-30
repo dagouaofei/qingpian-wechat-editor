@@ -31,6 +31,11 @@ export default async function AdminLoginPage({ searchParams }: PageProps) {
       ? "Configure STYLE_ADMIN_USERNAME, STYLE_ADMIN_PASSWORD_HASH, and STYLE_ADMIN_SESSION_SECRET in .env.local."
       : null;
 
+  const loginError =
+    params.error === "invalid_credentials"
+      ? "Invalid username or password."
+      : null;
+
   return (
     <main className="mx-auto flex min-h-screen max-w-md items-center px-4 py-12">
       <div className="w-full rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
@@ -47,7 +52,7 @@ export default async function AdminLoginPage({ searchParams }: PageProps) {
           </p>
         ) : null}
         <div className="mt-6">
-          <AdminLoginForm nextPath={nextPath} />
+          <AdminLoginForm nextPath={nextPath} errorMessage={loginError} />
         </div>
       </div>
     </main>

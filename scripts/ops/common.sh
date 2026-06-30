@@ -1,0 +1,337 @@
+#!/usr/bin/env bash
+# Shared helpers for staging/production ops scripts.
+set -euo pipefail
+
+OPS_SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "${OPS_SCRIPT_DIR}/../.." && pwd)"
+
+# Canonical ECS environment files (override with OPS_ENV_FILE only when intentional).
+readonly OPS_CANONICAL_STAGING_ENV_FILE="/etc/qingpian-wechat-editor-staging.env"
+readonly OPS_CANONICAL_PRODUCTION_ENV_FILE="/etc/qingpian-wechat-editor-production.env"
+readonly OPS_CANONICAL_STAGING_LOCK_FILE="/tmp/qingpian-wechat-editor-staging-deploy.lock"
+readonly OPS_CANONICAL_PRODUCTION_LOCK_FILE="/tmp/qingpian-wechat-editor-production-deploy.lock"
+
+RED=$'\033[0;31m'
+GREEN=$'\033[0;32m'
+YELLOW=$'\033[1;33m'
+NC=$'\033[0m'
+
+log_info() { printf '%s\n' "$*"; }
+log_ok() { printf '%s%s%s\n' "${GREEN}" "$*" "${NC}"; }
+log_warn() { printf '%s%s%s\n' "${YELLOW}" "$*" "${NC}"; }
+log_err() { printf '%s%s%s\n' "${RED}" "$*" "${NC}" >&2; }
+
+usage_environments() {
+  cat <<'EOF'
+Usage environments: staging | production
+
+Examples:
+  pnpm ops:deploy:staging -- origin/sprint/s11-production-ops-go-live
+  pnpm ops:deploy:production -- edc1fd7 --confirm-production
+  pnpm ops:status:staging
+  pnpm ops:status:production
+  pnpm ops:observe:staging
+  pnpm ops:observe:production
+  pnpm ops:rollback:staging -- <commit>
+EOF
+}
+
+resolve_environment_config() {
+  local env_name="$1"
+  case "${env_name}" in
+    staging)
+      OPS_APP_DIR="${OPS_APP_DIR:-/opt/qingpian-wechat-editor/staging}"
+      OPS_SERVICE="${OPS_SERVICE:-qingpian-wechat-editor-staging}"
+      OPS_PORT="${OPS_PORT:-3001}"
+      OPS_ENV_FILE="${OPS_ENV_FILE:-${OPS_CANONICAL_STAGING_ENV_FILE}}"
+      OPS_HEALTH_URL="${OPS_HEALTH_URL:-http://127.0.0.1:3001/api/health}"
+      OPS_VERSION_URL="${OPS_VERSION_URL:-http://127.0.0.1:3001/api/version}"
+      OPS_PUBLIC_URL="${OPS_PUBLIC_URL:-https://staging.qingpianai.cn}"
+      OPS_APP_ENV="${OPS_APP_ENV:-staging}"
+      OPS_LOCK_FILE="${OPS_LOCK_FILE:-${OPS_CANONICAL_STAGING_LOCK_FILE}}"
+      ;;
+    production)
+      OPS_APP_DIR="${OPS_APP_DIR:-/opt/qingpian-wechat-editor/production}"
+      OPS_SERVICE="${OPS_SERVICE:-qingpian-wechat-editor-production}"
+      OPS_PORT="${OPS_PORT:-3000}"
+      OPS_ENV_FILE="${OPS_ENV_FILE:-${OPS_CANONICAL_PRODUCTION_ENV_FILE}}"
+      OPS_HEALTH_URL="${OPS_HEALTH_URL:-http://127.0.0.1:3000/api/health}"
+      OPS_VERSION_URL="${OPS_VERSION_URL:-http://127.0.0.1:3000/api/version}"
+      OPS_PUBLIC_URL="${OPS_PUBLIC_URL:-https://paiban.aiqingpian.cn}"
+      OPS_APP_ENV="${OPS_APP_ENV:-production}"
+      OPS_LOCK_FILE="${OPS_LOCK_FILE:-${OPS_CANONICAL_PRODUCTION_LOCK_FILE}}"
+      ;;
+    *)
+      log_err "Unknown environment: ${env_name}"
+      usage_environments
+      exit 1
+      ;;
+  esac
+}
+
+assert_canonical_lock_paths() {
+  if [[ "${OPS_CANONICAL_STAGING_LOCK_FILE}" == "${OPS_CANONICAL_PRODUCTION_LOCK_FILE}" ]]; then
+    log_err "Canonical staging and production lock paths must differ"
+    exit 1
+  fi
+  if [[ "${OPS_ENV_NAME:-}" == "staging" && "${OPS_LOCK_FILE}" == "${OPS_CANONICAL_PRODUCTION_LOCK_FILE}" ]]; then
+    log_err "staging must not use production deploy lock: ${OPS_LOCK_FILE}"
+    exit 1
+  fi
+  if [[ "${OPS_ENV_NAME:-}" == "production" && "${OPS_LOCK_FILE}" == "${OPS_CANONICAL_STAGING_LOCK_FILE}" ]]; then
+    log_err "production must not use staging deploy lock: ${OPS_LOCK_FILE}"
+    exit 1
+  fi
+}
+
+assert_lock_path_outside_worktree() {
+  assert_canonical_lock_paths
+
+  if [[ "${OPS_LOCK_FILE}" == "${OPS_APP_DIR}"/* ]]; then
+    log_err "Deploy lock must not live inside app directory: ${OPS_LOCK_FILE}"
+    exit 1
+  fi
+  if [[ "${OPS_LOCK_FILE}" == *"/.deploy.lock" ]]; then
+    log_err "Deploy lock must not use in-repo .deploy.lock: ${OPS_LOCK_FILE}"
+    exit 1
+  fi
+}
+
+assert_canonical_env_paths() {
+  if [[ "${OPS_CANONICAL_STAGING_ENV_FILE}" == "${OPS_CANONICAL_PRODUCTION_ENV_FILE}" ]]; then
+    log_err "Canonical staging and production env paths must differ"
+    exit 1
+  fi
+  if [[ "${OPS_ENV_NAME:-}" == "staging" && "${OPS_ENV_FILE}" == "${OPS_CANONICAL_PRODUCTION_ENV_FILE}" ]]; then
+    log_err "staging must not use production env file: ${OPS_ENV_FILE}"
+    exit 1
+  fi
+  if [[ "${OPS_ENV_NAME:-}" == "production" && "${OPS_ENV_FILE}" == "${OPS_CANONICAL_STAGING_ENV_FILE}" ]]; then
+    log_err "production must not use staging env file: ${OPS_ENV_FILE}"
+    exit 1
+  fi
+}
+
+require_env_file_accessible() {
+  assert_canonical_env_paths
+
+  if [[ ! -e "${OPS_ENV_FILE}" ]]; then
+    log_err "Environment file not found: ${OPS_ENV_FILE}"
+    exit 1
+  fi
+  if [[ ! -f "${OPS_ENV_FILE}" ]]; then
+    log_err "Environment path is not a regular file: ${OPS_ENV_FILE}"
+    exit 1
+  fi
+  if [[ ! -r "${OPS_ENV_FILE}" ]]; then
+    log_err "Environment file is not readable by $(id -un): ${OPS_ENV_FILE}"
+    exit 1
+  fi
+
+  log_info "Environment file: ${OPS_ENV_FILE} (readable; contents not shown)"
+}
+
+WORKTREE_DIRTY_AT_START=""
+
+worktree_list_dirty_paths() {
+  {
+    git -C "${OPS_APP_DIR}" diff --name-only 2>/dev/null || true
+    git -C "${OPS_APP_DIR}" diff --cached --name-only 2>/dev/null || true
+    git -C "${OPS_APP_DIR}" ls-files -o --exclude-standard 2>/dev/null || true
+  } | sed '/^$/d' | sort -u
+}
+
+worktree_path_allowed_at_start() {
+  local path="$1"
+  case "${path}" in
+    .next/*|.next|src/generated/*|src/generated)
+      return 0
+      ;;
+  esac
+  return 1
+}
+
+require_acceptable_worktree() {
+  if [[ ! -d "${OPS_APP_DIR}/.git" ]]; then
+    return 0
+  fi
+
+  WORKTREE_DIRTY_AT_START="$(worktree_list_dirty_paths)"
+  local path
+  while IFS= read -r path; do
+    [[ -z "${path}" ]] && continue
+    if ! worktree_path_allowed_at_start "${path}"; then
+      log_err "Working tree has uncommitted changes; resolve before deploy/rollback: ${path}"
+      log_err "Only .next/ and src/generated/ may be dirty at script start."
+      log_err "Unexpected changes (e.g. pnpm-workspace.yaml) must be committed or stashed first."
+      exit 1
+    fi
+  done <<< "${WORKTREE_DIRTY_AT_START}"
+}
+
+restore_script_induced_worktree_changes() {
+  if [[ ! -d "${OPS_APP_DIR}/.git" ]]; then
+    return 0
+  fi
+
+  local after path
+  after="$(worktree_list_dirty_paths)"
+  while IFS= read -r path; do
+    [[ -z "${path}" ]] && continue
+    if ! grep -Fxq "${path}" <<< "${WORKTREE_DIRTY_AT_START}"; then
+      if git -C "${OPS_APP_DIR}" ls-files --error-unmatch "${path}" >/dev/null 2>&1; then
+        log_warn "Restoring script-modified tracked file: ${path}"
+        git -C "${OPS_APP_DIR}" checkout -- "${path}" 2>/dev/null || true
+      fi
+    fi
+  done <<< "${after}"
+}
+
+require_command() {
+  local cmd="$1"
+  if ! command -v "${cmd}" >/dev/null 2>&1; then
+    log_err "Required command not found: ${cmd}"
+    exit 1
+  fi
+}
+
+require_ops_prerequisites() {
+  require_command git
+  require_command corepack
+  require_command curl
+  require_command systemctl
+  require_command flock
+}
+
+acquire_deploy_lock() {
+  assert_lock_path_outside_worktree
+
+  exec 9>>"${OPS_LOCK_FILE}"
+  if ! flock -n 9; then
+    log_err "Another deploy/rollback is in progress for ${OPS_ENV_NAME} (${OPS_LOCK_FILE})"
+    exit 1
+  fi
+  log_info "Deploy lock: ${OPS_LOCK_FILE}"
+}
+
+release_deploy_lock() {
+  flock -u 9 2>/dev/null || true
+  exec 9>&- 2>/dev/null || true
+}
+
+git_is_exact_commit() {
+  local ref="$1"
+  git -C "${OPS_APP_DIR}" cat-file -e "${ref}^{commit}" >/dev/null 2>&1
+}
+
+resolve_git_ref() {
+  local env_name="$1"
+  local ref="$2"
+
+  if [[ -z "${ref}" ]]; then
+    log_err "Missing target commit/ref argument"
+    exit 1
+  fi
+
+  git -C "${OPS_APP_DIR}" fetch origin --prune --tags
+
+  if [[ "${env_name}" == "production" ]]; then
+    if [[ "${ref}" == *"/"* ]]; then
+      log_err "production deploy requires an exact commit hash, not a branch/ref: ${ref}"
+      exit 1
+    fi
+    if ! git_is_exact_commit "${ref}"; then
+      log_err "production deploy target is not a resolvable commit: ${ref}"
+      exit 1
+    fi
+    RESOLVED_COMMIT="$(git -C "${OPS_APP_DIR}" rev-parse "${ref}^{commit}")"
+  else
+    if git_is_exact_commit "${ref}"; then
+      RESOLVED_COMMIT="$(git -C "${OPS_APP_DIR}" rev-parse "${ref}^{commit}")"
+    else
+      git -C "${OPS_APP_DIR}" fetch origin "${ref}" || true
+      RESOLVED_COMMIT="$(git -C "${OPS_APP_DIR}" rev-parse "FETCH_HEAD^{commit}")"
+    fi
+  fi
+
+  RESOLVED_COMMIT_SHORT="$(git -C "${OPS_APP_DIR}" rev-parse --short=12 "${RESOLVED_COMMIT}")"
+}
+
+current_deployed_commit() {
+  if [[ -d "${OPS_APP_DIR}/.git" ]]; then
+    git -C "${OPS_APP_DIR}" rev-parse HEAD 2>/dev/null || echo "unknown"
+  else
+    echo "unknown"
+  fi
+}
+
+load_env_file_safely() {
+  require_env_file_accessible
+  set -a
+  # shellcheck disable=SC1090
+  source "${OPS_ENV_FILE}"
+  set +a
+}
+
+curl_json_field() {
+  local url="$1"
+  local field="$2"
+  curl -fsS "${url}" | node -e "
+    const data = JSON.parse(require('fs').readFileSync(0, 'utf8'));
+    const value = data['${field}'];
+    if (value === undefined || value === null) process.exit(2);
+    process.stdout.write(String(value));
+  "
+}
+
+check_health_and_version() {
+  local expected_env="$1"
+  local expected_sha="$2"
+
+  log_info "Checking ${OPS_HEALTH_URL} ..."
+  local health_ok
+  health_ok="$(curl_json_field "${OPS_HEALTH_URL}" "ok" || true)"
+  if [[ "${health_ok}" != "true" ]]; then
+    log_err "Health check failed: ${OPS_HEALTH_URL}"
+    curl -fsS "${OPS_HEALTH_URL}" || true
+    exit 1
+  fi
+  log_ok "Health OK"
+
+  log_info "Checking ${OPS_VERSION_URL} ..."
+  local version_env version_sha
+  version_env="$(curl_json_field "${OPS_VERSION_URL}" "environment")"
+  version_sha="$(curl_json_field "${OPS_VERSION_URL}" "gitSha")"
+
+  if [[ "${version_env}" != "${expected_env}" ]]; then
+    log_err "/api/version environment mismatch: expected=${expected_env} actual=${version_env}"
+    exit 1
+  fi
+
+  if [[ "${version_sha}" != "${expected_sha}" && "${version_sha}" != "${expected_sha:0:7}" && "${version_sha}" != "${expected_sha:0:12}" ]]; then
+    log_warn "/api/version gitSha=${version_sha} (expected ${expected_sha}) — verify short hash prefix"
+  fi
+  log_ok "Version OK · env=${version_env} · gitSha=${version_sha}"
+}
+
+print_systemd_status() {
+  systemctl is-active "${OPS_SERVICE}" || true
+  systemctl show "${OPS_SERVICE}" -p ActiveState -p SubState -p MainPID --no-pager || true
+}
+
+print_environment_status() {
+  if [[ -z "${OPS_ENV_NAME:-}" ]]; then
+    log_err "Cannot print environment status without OPS_ENV_NAME"
+    exit 1
+  fi
+
+  case "${OPS_ENV_NAME}" in
+    staging|production)
+      bash "${OPS_SCRIPT_DIR}/status-environment.sh" "${OPS_ENV_NAME}"
+      ;;
+    *)
+      log_err "Unsupported environment for status: ${OPS_ENV_NAME}"
+      exit 1
+      ;;
+  esac
+}

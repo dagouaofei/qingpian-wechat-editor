@@ -3,10 +3,6 @@ import {
   type StyleRegistry,
 } from "@/core/styles";
 import type { VariantDefinition } from "@/core/styles/types";
-import {
-  getUserSelectablePreviewVariantAssets,
-  getUserSelectablePreviewVariantDefinition,
-} from "@/core/style-library/user-selectable-preview-pool";
 
 function mergeExtraVariants(
   base: StyleRegistry,
@@ -20,25 +16,18 @@ function mergeExtraVariants(
   };
 }
 
-function getCodeBackedUserSelectableVariants(): VariantDefinition[] {
-  return getUserSelectablePreviewVariantAssets()
-    .map((asset) => getUserSelectablePreviewVariantDefinition(asset.runtimeVariantId))
-    .filter((variant): variant is VariantDefinition => variant != null);
-}
-
 /**
- * User preview path only — extends release1 registry with user_selectable variants.
- * Does not modify preset defaults, variant pools, or generation selection.
+ * User preview path — extends release1 registry with DB-backed userSelectable variants only.
+ * Does not merge file manifest / lifecycle fixtures.
  */
 export function createUserPreviewStyleRegistry(options?: {
   dbUserSelectableVariants?: VariantDefinition[];
-  preferDatabaseVariants?: boolean;
 }): StyleRegistry {
   const base = createFirstWaveRequiredVariantRegistry();
 
-  if (options?.preferDatabaseVariants && options.dbUserSelectableVariants?.length) {
+  if (options?.dbUserSelectableVariants?.length) {
     return mergeExtraVariants(base, options.dbUserSelectableVariants);
   }
 
-  return mergeExtraVariants(base, getCodeBackedUserSelectableVariants());
+  return base;
 }

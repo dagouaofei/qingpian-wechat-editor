@@ -6,6 +6,8 @@
 
 开通后资源 ID / endpoint 登记（无 secret）：[`environments/`](environments/README.md)（staging · production 分开记录）。
 
+> **Staging 进度（2026-06-11）：** §2 ECS · §3 RDS · §7 网络 **已完成** · §4 OSS · §5 SLS · §6 CloudMonitor **未创建（optional / 预留）** · production **未启动**
+
 ---
 
 ## 1. 资源隔离原则
@@ -23,78 +25,79 @@
 
 ## 2. ECS
 
-| # | 检查项 | 状态 |
-|---|--------|------|
-| 1 | 地域：**华北 2（北京）** | ☐ |
-| 2 | 规格满足 Node.js Next.js 生产运行（建议 2 vCPU / 4 GiB 起） | ☐ |
-| 3 | 系统盘 ≥ 40 GiB | ☐ |
-| 4 | 操作系统：Ubuntu 22.04 LTS 或 Alibaba Cloud Linux 3 | ☐ |
-| 5 | 安全组：仅开放 80/443（及 SSH 管理来源 IP 限制） | ☐ |
-| 6 | 已安装 Node.js LTS（与项目兼容） | ☐ |
-| 7 | 已启用 `corepack` · 可执行 `pnpm` | ☐ |
-| 8 | 部署用户非 root · 具备读写应用目录权限 | ☐ |
-| 9 | 进程管理：systemd 或 PM2 已规划 | ☐ |
+| # | 检查项 | Staging | Production |
+|---|--------|---------|------------|
+| 1 | 地域：**华北 2（北京）** | ✅ | ☐ |
+| 2 | 规格满足 Node.js Next.js 生产运行（建议 2 vCPU / 4 GiB 起） | ✅ 2C4G u2a | ☐ |
+| 3 | 系统盘 ≥ 40 GiB | ✅ 40 GiB | ☐ |
+| 4 | 操作系统：Ubuntu 22.04 LTS 或 Alibaba Cloud Linux 3 | ✅ Ubuntu 22.04.5 | ☐ |
+| 5 | 安全组：仅开放 80/443（及 SSH 管理来源 IP 限制） | ✅ | ☐ |
+| 6 | 已安装 Node.js LTS（与项目兼容） | ✅ | ☐ |
+| 7 | 已启用 `corepack` · 可执行 `pnpm` | ✅ | ☐ |
+| 8 | 部署用户非 root · 具备读写应用目录权限 | ✅ `qingpian` | ☐ |
+| 9 | 进程管理：systemd 或 PM2 已规划 | ✅ `qingpian-wechat-editor-staging` | ☐ |
 
 ---
 
 ## 3. RDS PostgreSQL
 
-| # | 检查项 | 状态 |
-|---|--------|------|
-| 1 | 引擎：**PostgreSQL**（版本与 Prisma 兼容，建议 14+） | ☐ |
-| 2 | 地域与 ECS 同地域（华北 2） | ☐ |
-| 3 | 独立实例 · 独立数据库名（如 `qingpian_style_admin`） | ☐ |
-| 4 | 业务账号最小权限（非 superuser） | ☐ |
-| 5 | **白名单 / 安全组：仅允许 ECS 内网 IP 访问** | ☐ |
-| 6 | **禁止 0.0.0.0/0 公网开放数据库端口** | ☐ |
-| 7 | 自动备份策略已启用 | ☐ |
-| 8 | `DATABASE_URL` 仅配置在 ECS 环境变量 · **未提交 Git** | ☐ |
+| # | 检查项 | Staging | Production |
+|---|--------|---------|------------|
+| 1 | 引擎：**PostgreSQL**（版本与 Prisma 兼容，建议 14+） | ✅ PG 17 | ☐ |
+| 2 | 地域与 ECS 同地域（华北 2） | ✅ | ☐ |
+| 3 | 独立实例 · 独立数据库名 | ✅ `qingpian_style_admin_staging` | ☐ |
+| 4 | 业务账号最小权限（非 superuser） | ✅ `qingpian_app` | ☐ |
+| 5 | **白名单 / 安全组：仅允许 ECS 内网 IP 访问** | ✅ `172.26.166.87` | ☐ |
+| 6 | **禁止 0.0.0.0/0 公网开放数据库端口** | ✅ | ☐ |
+| 7 | 自动备份策略已启用 | ☐ 待确认 | ☐ |
+| 8 | `DATABASE_URL` 仅配置在 ECS 环境变量 · **未提交 Git** | ✅ | ☐ |
 
 ---
 
 ## 4. OSS（预留 · S10 前半段非强制）
 
-| # | 检查项 | 状态 |
-|---|--------|------|
-| 1 | 独立 bucket（如 `qingpian-style-evidence-<env>`） | ☐ |
-| 2 | 地域：华北 2 | ☐ |
-| 3 | 用途登记：evidence 截图 · raw HTML 归档（S10-STORY-009~011） | ☐ |
-| 4 | RAM 子账号最小权限（后续接入 SDK 时） | ☐ |
-| 5 | AccessKey 仅环境变量 · **未提交 Git** | ☐ |
-| 6 | S10-STORY-003~008 **可不启用 OSS** | ☐ |
+| # | 检查项 | Staging | Production |
+|---|--------|---------|------------|
+| 1 | 独立 bucket（如 `qingpian-style-evidence-<env>`） | ☐ 未创建 | ☐ |
+| 2 | 地域：华北 2 | — | ☐ |
+| 3 | 用途登记：evidence 截图 · raw HTML 归档（S10-STORY-009~011） | — | ☐ |
+| 4 | RAM 子账号最小权限（后续接入 SDK 时） | — | ☐ |
+| 5 | AccessKey 仅环境变量 · **未提交 Git** | — | ☐ |
+| 6 | S10-STORY-003~008 **可不启用 OSS** | ✅ 未启用 | ☐ |
 
 ---
 
 ## 5. SLS（预留）
 
-| # | 检查项 | 状态 |
-|---|--------|------|
-| 1 | 独立 project（如 `qingpian-style-admin`） | ☐ |
-| 2 | 独立 logstore（如 `admin-audit` · `runtime-error`） | ☐ |
-| 3 | 当前事件先写 DB（`admin_audit_logs` · `runtime_error_logs` · `alert_events`） | ☐ |
-| 4 | SLS SDK 接入可后置至运维迭代 | ☐ |
+| # | 检查项 | Staging | Production |
+|---|--------|---------|------------|
+| 1 | 独立 project（如 `qingpian-style-admin`） | ☐ 未创建 | ☐ |
+| 2 | 独立 logstore（如 `admin-audit` · `runtime-error`） | ☐ 未创建 | ☐ |
+| 3 | 当前事件先写 DB（`admin_audit_logs` · `runtime_error_logs` · `alert_events`） | ✅ | ☐ |
+| 4 | SLS SDK 接入可后置至运维迭代 | ✅ 后置 | ☐ |
 
 ---
 
 ## 6. CloudMonitor
 
-| # | 检查项 | 状态 |
-|---|--------|------|
-| 1 | ECS：CPU · 内存 · 磁盘 · 网络 | ☐ |
-| 2 | RDS：连接数 · CPU · 存储空间 · IOPS | ☐ |
-| 3 | 告警联系人 / 通知渠道已配置 | ☐ |
-| 4 | 磁盘 > 80% · RDS 连接数异常 · CPU 持续高占用告警 | ☐ |
+| # | 检查项 | Staging | Production |
+|---|--------|---------|------------|
+| 1 | ECS：CPU · 内存 · 磁盘 · 网络 | ☐ 基础纳管 · 告警待配 | ☐ |
+| 2 | RDS：连接数 · CPU · 存储空间 · IOPS | ☐ 基础纳管 · 告警待配 | ☐ |
+| 3 | 告警联系人 / 通知渠道已配置 | ☐ → S11-STORY-005 | ☐ |
+| 4 | 磁盘 > 80% · RDS 连接数异常 · CPU 持续高占用告警 | ☐ → S11-STORY-005 | ☐ |
 
 ---
 
 ## 7. 网络与安全
 
-| # | 检查项 | 状态 |
-|---|--------|------|
-| 1 | ECS ↔ RDS 走内网 | ☐ |
-| 2 | `/admin/*` 已规划 S10-STORY-008 登录保护（部署必配 `STYLE_ADMIN_*`） | ☐ |
-| 3 | production 写操作须 `STYLE_ADMIN_WRITE_ENABLED=true` 显式开启 | ☐ |
-| 4 | 无 secret 写入仓库 · 无 `.env` 提交 | ☐ |
+| # | 检查项 | Staging | Production |
+|---|--------|---------|------------|
+| 1 | ECS ↔ RDS 走内网 | ✅ | ☐ |
+| 2 | `/admin/*` 已规划 S10-STORY-008 登录保护（部署必配 `STYLE_ADMIN_*`） | ✅ | ☐ |
+| 3 | production 写操作须 `STYLE_ADMIN_WRITE_ENABLED=true` 显式开启 | ✅ staging=`true` | ☐ |
+| 4 | 无 secret 写入仓库 · 无 `.env` 提交 | ✅ | ☐ |
+| 5 | 未对公网开放 3000/3001/5432/3389 | ✅ | ☐ |
 
 ---
 
@@ -102,6 +105,10 @@
 
 完整步骤见 [`production-release-checklist.md`](production-release-checklist.md)。
 
+**Staging（2026-06-11 · PASS）：**
+
 - `GET /api/health` → `database: ok`
-- `/admin/login` → 登录 → `/admin/style-library`
+- `/admin/login` → 登录 → `/admin/style-library` · Hide/Restore · Logout
 - `/preview` 用户侧 DB pool 可用
+
+**Production：** 未启动

@@ -4,7 +4,9 @@ import { isVariantDslV1 } from "@/core/dsl/runtime";
 import type { CopySafety, VariantDefinition, VariantStatus } from "@/core/styles/types";
 import { STYLE_SCHEMA_VERSION } from "@/core/styles/types";
 
-import { isRuntimeVariantAvailable } from "@/lib/runtime-variant-availability";
+import {
+  evaluateUserSelectablePoolMembership,
+} from "@/lib/user-selectable-pool-eligibility";
 import type { RuntimeVariantPoolIssue } from "./user-selectable-variant-pool-types";
 
 type DbPoolRow = StyleVariant & {
@@ -37,44 +39,31 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 export function mapDbPoolRowToVariantDefinition(
   row: DbPoolRow,
 ): { variant: VariantDefinition | null; issue?: RuntimeVariantPoolIssue } {
-  const availability = isRuntimeVariantAvailable({
+  const trace = evaluateUserSelectablePoolMembership({
     runtimeVariantId: row.runtimeVariantId,
-    distribution: row.distribution,
+    blockType: row.blockType,
+    lifecycle: row.lifecycle,
+    distribution: row.distribution
+      ? {
+          userSelectable: row.distribution.userSelectable,
+          hidden: row.distribution.hidden,
+          deprecated: row.distribution.deprecated,
+        }
+      : null,
     currentVersion: row.currentVersion
       ? { qualityStatus: row.currentVersion.qualityStatus }
       : null,
+    definitionJson: row.currentVersion?.definitionJson,
   });
 
-  if (!availability) {
-    const qualityStatus = row.currentVersion?.qualityStatus;
-    const code =
-      qualityStatus === "copy_fidelity_failed" ||
-      qualityStatus === "validator_failed" ||
-      qualityStatus === "blocked"
-        ? "ineligible_distribution"
-        : row.distribution?.userSelectable
-          ? "ineligible_distribution"
-          : "ineligible_distribution";
-
+  if (!trace.eligible) {
     return {
       variant: null,
       issue: {
         runtimeVariantId: row.runtimeVariantId,
-        code,
-        message: row.currentVersion?.qualityStatus
-          ? `Variant blocked by qualityStatus=${row.currentVersion.qualityStatus}`
-          : "Variant is not runtime available",
-      },
-    };
-  }
-
-  if (row.lifecycle === "deprecated") {
-    return {
-      variant: null,
-      issue: {
-        runtimeVariantId: row.runtimeVariantId,
-        code: "deprecated_lifecycle",
-        message: "Deprecated lifecycle variants are excluded from user pool",
+        code: "ineligible_distribution",
+        message:
+          trace.exclusionReasons.join(", ") || "Variant excluded from user pool",
       },
     };
   }
@@ -103,18 +92,22 @@ export function mapDbPoolRowToVariantDefinition(
   }
 
   const isDsl = isVariantDslV1(definition);
-  const id = String(isDsl ? definition.id : (definition.id ?? row.runtimeVariantId));
-  const blockType = (isDsl ? definition.blockType : (definition.blockType ?? row.blockType)) as BlockType;
+  const blockType = (isDsl
+    ? definition.blockType
+    : (definition.blockType ?? row.blockType)) as BlockType;
 
   const variant: VariantDefinition = {
-    id,
+    id: row.runtimeVariantId,
     schemaVersion: isDsl
       ? STYLE_SCHEMA_VERSION
-      : ((definition.schemaVersion as VariantDefinition["schemaVersion"]) ?? STYLE_SCHEMA_VERSION),
+      : ((definition.schemaVersion as VariantDefinition["schemaVersion"]) ??
+        STYLE_SCHEMA_VERSION),
     blockType,
-    family: String(isDsl ? (definition.family ?? row.styleFamily) : (definition.family ?? row.styleFamily)),
-    name: String(isDsl ? definition.id : (definition.name ?? row.runtimeVariantId)),
-    label: String(isDsl ? (definition.label ?? row.label) : (definition.label ?? row.label)),
+    family: String(
+      isDsl ? (definition.family ?? row.styleFamily) : (definition.family ?? row.styleFamily),
+    ),
+    name: row.runtimeVariantId,
+    label: row.label,
     description:
       typeof definition.description === "string" ? definition.description : row.description ?? undefined,
     status: (definition.status as VariantStatus) ?? "experimental",

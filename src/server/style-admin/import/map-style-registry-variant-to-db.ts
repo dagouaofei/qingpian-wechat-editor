@@ -15,6 +15,7 @@ import {
   mapStyleLibraryAssetToLifecycle,
   mapVariantStatusToLifecycle,
   mergeDistribution,
+  normalizeImportLifecycle,
   resolveImportSeedFields,
 } from "./lifecycle-distribution-mapper";
 
@@ -62,11 +63,12 @@ export function mapVariantDefinitionToCollected(
     dslEncoderIssues: encoded.ok ? encoded.issues : undefined,
   };
 
-  const lifecycle =
+  const lifecycle = normalizeImportLifecycle(
     input.lifecycleOverride ??
-    (styleLibraryAsset
-      ? mapStyleLibraryAssetToLifecycle(styleLibraryAsset)
-      : mapVariantStatusToLifecycle(variant.status));
+      (styleLibraryAsset
+        ? mapStyleLibraryAssetToLifecycle(styleLibraryAsset)
+        : mapVariantStatusToLifecycle(variant.status)),
+  );
 
   const baseDistribution = styleLibraryAsset
     ? mapStyleLibraryAssetToDistribution(styleLibraryAsset)
