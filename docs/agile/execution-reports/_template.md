@@ -1,7 +1,7 @@
 # Execution Report：<任务名称>
 
 > 模板文件 · 复制后须替换全部占位内容 · **不得**将本模板直接作为最终报告提交
-> 固定顺序见 `.cursor/rules/agile-governance.mdc`
+> 固定顺序见 `.cursor/rules/agile-rules.mdc`
 
 ## 1. 基本信息
 
