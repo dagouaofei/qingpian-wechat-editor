@@ -68,19 +68,20 @@ Partially Ready
 Closeout Readiness: Not Ready
 ```
 
-- PO 未 Accepted · 005 运行时未完成 · 006 未执行 · 未 merge `release/1`
+- 阻塞项：005 / 006 / 001～003 PO 验收 · PO 未接受 Sprint 11 · Closeout checklist 未完成（见 [`sprint11-closeout.md`](../sprint11-closeout.md) §2）
+- **S11 → `release/1` merge** 已从「当前阻塞项」调整为「Sprint 关闭与 PO 授权后的待执行动作」
 - 详见 [`sprint11-closeout.md`](../sprint11-closeout.md) · 状态 **In Review / Not Closed**
 
 ## 8. 缺失证据
 
-| 项                       | 说明                          |
-| ------------------------ | ----------------------------- |
-| OSS / SLS / CloudMonitor | 资源未创建                    |
-| ECS cron + T+24h/T+72h   | 005 未部署/未归档             |
-| RDS 备份恢复演练         | production.md 待确认          |
-| On-call 联系人           | monitoring-and-oncall.md 待填 |
-| PO Sprint Accepted 记录  | 无                            |
-| S11 → `release/1` merge  | 未执行                        |
+| 项                       | 说明                                                 |
+| ------------------------ | ---------------------------------------------------- |
+| OSS / SLS / CloudMonitor | 资源未创建                                           |
+| ECS cron + T+24h/T+72h   | 005 未部署/未归档                                    |
+| RDS 备份恢复演练         | production.md 待确认                                 |
+| On-call 联系人           | monitoring-and-oncall.md 待填                        |
+| PO Sprint Accepted 记录  | 无                                                   |
+| S11 → `release/1` merge  | 未执行（**关闭后待执行动作** · 非 Story 006 前阻塞） |
 
 ## 9. 未完成项（摘要）
 
@@ -88,7 +89,7 @@ Closeout Readiness: Not Ready
 - S11-STORY-006 Planned
 - S11-STORY-001~003 In Review（PO 签收）
 - P1-S11-001 Deferred
-- merge sprint → release/1（待 PO）
+- S11 → `release/1` merge（Sprint Closed + PO 授权后 · 待执行）
 - Release 1 / Sprint 11 关闭（待用户）
 
 ## 10. 修改文件
@@ -143,3 +144,11 @@ git status
 - push：**本轮未执行**
 - Sprint 11 Closed：**否**
 - S12-STORY-002 启动：**否**
+
+## 16. 后续记录修正（2026-06-30 · 未回填 HEAD）
+
+- [`sprint11-closeout.md`](../sprint11-closeout.md) working tree 状态已更新为 **clean @ ca98e0e**
+- 已将 **S11 → `release/1`** 从「Closeout Readiness 当前阻塞项」调整为「Sprint 关闭与 PO 授权后的待执行动作」
+- **Closeout Readiness** 仍为 **Not Ready**
+- 本轮 **未**验收任何 Story · **未**启动 S11-STORY-006 · **未** merge · **未** push
+- 本轮最新 HEAD at review time 见 Cursor 最终回复（不回填本文件）

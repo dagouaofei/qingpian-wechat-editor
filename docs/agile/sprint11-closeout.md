@@ -7,21 +7,21 @@
 
 ## 1. 核对清单
 
-| 项                            | 状态                                                       | 说明                                                                  |
-| ----------------------------- | ---------------------------------------------------------- | --------------------------------------------------------------------- |
-| Sprint Review 文档            | **完成**                                                   | [`sprint11-review.md`](sprint11-review.md) · 结论 **Partially Ready** |
-| Product Owner Sprint 验收     | **未完成**                                                 | 无 PO Accepted 记录 · Review 仅 **Partially Ready**                   |
-| Retrospective 文档            | **完成**                                                   | [`sprint11-retrospective.md`](sprint11-retrospective.md)              |
-| 未完成项回到 Product Backlog  | **完成**                                                   | § Sprint 11 Closeout Carryover                                        |
-| Sprint 全局索引同步           | **本轮更新**                                               | `sprint-backlog.md` · `sprint-plan.md` · `release-plan.md` 摘要       |
-| Release 1 状态同步            | **本轮更新**                                               | 仍 **进行中** · S11 In Progress                                       |
-| Decision Log                  | **已同步**                                                 | DECISION-111~113 · 本轮无新 Decision                                  |
-| Changelog                     | **本轮追加**                                               | Closeout Readiness 条目                                               |
-| Execution evidence            | **部分完整**                                               | 缺 005 运行时 · RDS 备份 · T+24h/T+72h                                |
-| Working tree（closeout 分支） | **待 commit 后核查**                                       | 本轮仅 docs                                                           |
-| Sprint 分支 vs `release/1`    | **56 commits ahead**                                       | **未 merge**                                                          |
-| 本地 vs 远程 S11              | **一致** @ `653c70a`                                       | 2026-06-30 核查                                                       |
-| 允许 merge S11 → `release/1`  | **待 PO 授权**                                             | git 上 **未**发生未经授权 merge                                       |
+| 项                            | 状态                                                       | 说明                                                                                   |
+| ----------------------------- | ---------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| Sprint Review 文档            | **完成**                                                   | [`sprint11-review.md`](sprint11-review.md) · 结论 **Partially Ready**                  |
+| Product Owner Sprint 验收     | **未完成**                                                 | 无 PO Accepted 记录 · Review 仅 **Partially Ready**                                    |
+| Retrospective 文档            | **完成**                                                   | [`sprint11-retrospective.md`](sprint11-retrospective.md)                               |
+| 未完成项回到 Product Backlog  | **完成**                                                   | § Sprint 11 Closeout Carryover                                                         |
+| Sprint 全局索引同步           | **本轮更新**                                               | `sprint-backlog.md` · `sprint-plan.md` · `release-plan.md` 摘要                        |
+| Release 1 状态同步            | **本轮更新**                                               | 仍 **进行中** · S11 In Progress                                                        |
+| Decision Log                  | **已同步**                                                 | DECISION-111~113 · 本轮无新 Decision                                                   |
+| Changelog                     | **本轮追加**                                               | Closeout Readiness 条目                                                                |
+| Execution evidence            | **部分完整**                                               | 缺 005 运行时 · RDS 备份 · T+24h/T+72h                                                 |
+| Working tree（closeout 分支） | **clean** @ `ca98e0e`                                      | `.pnpm-store/` 已加入本地 `.git/info/exclude` · 未修改仓库 `.gitignore` · 未提交该目录 |
+| Sprint 分支 vs `release/1`    | **56 commits ahead**                                       | **未 merge**                                                                           |
+| 本地 vs 远程 S11              | **一致** @ `653c70a`                                       | 2026-06-30 核查                                                                        |
+| 允许 merge S11 → `release/1`  | **待 PO 授权**                                             | git 上 **未**发生未经授权 merge                                                        |
 | 允许 push                     | **已 push** @ `653c70a`（历史）· 本轮 closeout **不 push** |
 
 ---
@@ -32,14 +32,17 @@
 Closeout Readiness: Not Ready
 ```
 
-**理由（摘要）：**
+**理由（摘要 — Closeout Readiness 前置阻塞）：**
 
-1. S11-STORY-005 **In Review** — 无 ECS cron / T+24h / T+72h 证据
-2. S11-STORY-006 **Planned** — Closeout Story 未执行
-3. Stories 001~003 仍为 **In Review** — 无 PO 单独 Done 签收
-4. S11 sprint **未** merge `release/1`
-5. Product Owner **未** Accepted Sprint 11
-6. Release 1 **未**关闭 · `main` **未** merge
+1. **S11-STORY-005** 尚未完成，或尚未获得 Product Owner 接受遗留项
+2. **S11-STORY-006** 尚未执行
+3. **S11-STORY-001～003** 尚未获得 Product Owner 验收
+4. **Product Owner** 尚未接受 Sprint 11
+5. **Closeout checklist** 尚未完成
+
+**说明（非 Story 006 前阻塞 · git 事实）：**
+
+S11 → `release/1` merge 是 **Sprint 关闭和用户授权后的待执行动作**，**不是** S11-STORY-006 之前的 Closeout Readiness 前置条件。当前 sprint 分支相对 `release/1` 仍 **56 commits ahead** · **未 merge**（待 PO 授权后按 §3 顺序执行）。
 
 即使未来改为 `Ready`，Sprint 状态仍须 **用户授权** 后方可 Closed。
 
