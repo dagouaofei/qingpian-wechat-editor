@@ -101,8 +101,8 @@
 | DECISION-112 | 2026-06-10 | Gate B Prelaunch 代码冻结：各环境 DB 为 variant 唯一事实来源；`import-existing-variants` 为待审计历史 bootstrap；Dev/Staging/Production DB 同步方案 deferred；production 100 variant 已初始化；staging 独有 2 条测试 variant 不迁移；暂不 governance snapshot apply | **已确认**                             |
 | DECISION-113 | 2026-06-28 | Production Prelaunch 已部署 @ `385422d` · URL `paiban.aiqingpian.cn`（`qingpianai.cn` 未备案）；Prelaunch 非公开发布；Basic Auth + noindex 观察期不得移除；回滚基线 `2f09b0d`                                                                                       | **已确认**                             |
 | DECISION-114 | 2026-06-30 | Sprint 11 Accepted with follow-ups / Closed；S11-STORY-006 Accepted / Done；follow-ups 保持 Open；授权 `--no-ff` merge S11 → `release/1`；未授权 push；Release 1 未关闭；Production 仍为 Prelaunch                                                                  | **已确认**                             |
-| DECISION-115 | 2026-06-29 | Sprint / Release 独立平级目录与全局索引：`sprints/` 与 `releases/` 平级；全局索引文件仅索引；详细 Backlog 进独立目录；历史不批量迁移 | **已确认** |
-
+| DECISION-115 | 2026-06-29 | Sprint / Release 独立平级目录与全局索引：`sprints/` 与 `releases/` 平级；全局索引文件仅索引；详细 Backlog 进独立目录；历史不批量迁移                                                                                                                                | **已确认**                             |
+| DECISION-116 | 2026-06-30 | Product Owner 批准 Sprint 12 正式 Planning；Sprint Goal · committed Stories 002~009 · 顺序 · 范围与非目标 · 容量规则 · 验收方式；Sprint 状态 `Approved / Ready to Start`；S12-STORY-002 未启动；不授权 merge/push/产品代码                                          | **已确认**                             |
 
 ### DECISION-019 详情
 
@@ -1280,3 +1280,28 @@
 - **关联：** S12-STORY-001 · S12-STORY-006（DoR/DoD 模板）· `product-governance-migration-plan.md`
 - **状态：** **已确认**（2026-06-29 · S12-STORY-001 治理结构补充）
 
+### DECISION-116 详情（Sprint 12 Planning Approval）
+
+- **日期：** 2026-06-30
+- **Product Owner 授权原文：**
+
+  ```text
+  Approved Sprint 12 正式 Planning 提案
+  ```
+
+- **背景：**
+  - Sprint 12 已完成 S12-STORY-001 治理审计与 `release/1` @ `3a8203b` 基线对齐（merge @ `93a13ff`）
+  - Sprint 12 Plan 此前为 **Planning Baseline Aligned / Not Approved**
+  - Product Owner 于 2026-06-30 批准正式 Planning 提案
+- **决策：**
+  1. **Sprint 12 Plan** 标记 **Approved**
+  2. **Sprint 状态** 为 **Approved / Ready to Start**
+  3. **Sprint Goal Approved：** 建立轻篇完整、稳定、可持续维护的产品治理与规划体系，使产品愿景、用户与场景、产品模块、功能目录、用户旅程、Story Map、Product Backlog、Release、Sprint 和 Execution Evidence 形成清晰、可追踪且不存在多套事实源的治理链路
+  4. **Committed Stories：** S12-STORY-002 ~ S12-STORY-009（S12-STORY-001 为 Planning 前治理审计，**Accepted / Done**）
+  5. **Story 顺序：** 002 → 003 → 004 → 005 → 006 → 007 → 008 → 009；默认一次只启动一个 Story
+  6. **In Scope / 非目标 / 容量取舍 / 验收方式** 见 `docs/agile/sprints/sprint-12/plan.md`
+  7. **S12-STORY-002** 保持 **Committed / Not Started**；启动前须单独 DoR 与 PO 授权
+  8. **不授权** merge 工作分支、push、产品代码开发、Release 1 关闭或 merge `main`
+- **影响范围：** `docs/agile/sprints/sprint-12/` · `sprint12-product-governance-r2-planning.md` · `sprint-backlog.md` · `release-plan.md` · `changelog.md`
+- **关联：** S12-STORY-001 · DECISION-115 · Sprint 12 Planning Approval Sync
+- **状态：** **已确认**（2026-06-30 · Product Owner 授权）

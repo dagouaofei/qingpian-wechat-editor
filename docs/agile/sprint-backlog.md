@@ -16,7 +16,7 @@
 > **Sprint 9：** **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · **P0=0** · HTML→user preview picker E2E PASS · Preview/Copy parity PASS · default preset / release1_required 未污染 · **已 merge `release/1`** @ `c96e869` · **未 merge `main`**）
 > **Sprint 10：** **Closed**（2026-06-08 · **DECISION-108** · **DECISION-111** · S10-STORY-001~011 Done · **已 merge `release/1`** @ `6cd1dfc`）· 原 012~014 顺延 Sprint 12+
 > **Sprint 11：** Production Ops Go-Live · **Accepted with follow-ups / Closed**（2026-06-30 · Product Owner confirmed · **DECISION-114**）
-> **专项 Sprint 12：** Product Governance & Release 2 Planning · **Planning Baseline Aligned / Not Approved**（2026-06-30 · `release/1` @ `3a8203b` · S12-STORY-001 **Done** · S12-STORY-002 未启动）
+> **专项 Sprint 12：** Product Governance & Release 2 Planning · **Approved / Ready to Start**（2026-06-30 · **DECISION-116** · `release/1` @ `3a8203b` · S12-STORY-001 **Done** · S12-STORY-002 **Committed / Not Started** · 详细：[`sprints/sprint-12/plan.md`](sprints/sprint-12/plan.md)）
 > **Sprint 12 分支：** `sprint/s12-product-governance-r2-planning` · 基线对齐工作分支：`docs/s12-release1-baseline-alignment`
 > **Sprint 11 分支：** `sprint/s11-production-ops-go-live`（从 `release/1` · @ `6cd1dfc`）
 > **Sprint 10 分支：** `sprint/s10-db-backed-style-admin-v1`（已 merge `release/1` · @ `6cd1dfc`）
@@ -3803,8 +3803,8 @@ S8-STORY-009 S8 Contract Audit 与关闭准备 — **Done**（2026-06-05 · DECI
 
 # Sprint 9 — Style Management System v0（样式管理后台 v0）
 
-> **状态：** **In Progress**（2026-06-05 启动 · **DECISION-094**）  
-> **文档：** [`sprint9-style-management-system-v0.md`](sprint9-style-management-system-v0.md) · [`style-management-domain-model.md`](../architecture/style-management-domain-model.md) · **DECISION-092** · **DECISION-094**  
+> **状态：** **In Progress**（2026-06-05 启动 · **DECISION-094**）
+> **文档：** [`sprint9-style-management-system-v0.md`](sprint9-style-management-system-v0.md) · [`style-management-domain-model.md`](../architecture/style-management-domain-model.md) · **DECISION-092** · **DECISION-094**
 > **分支：** `sprint/s9-style-management-system-v0`（从 `release/1` · S8 merge 后）
 
 ## S9 建议执行顺序
@@ -4097,8 +4097,8 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 
 # Sprint 10 — Database-backed Style Management Admin v1（数据库版正式样式管理后台 v1）
 
-> **状态：** **Closed**（2026-06-08 · **DECISION-111** · 范围 S10-STORY-001~011 + CHORE-011B · 用户确认关闭）  
-> **分支：** `sprint/s10-db-backed-style-admin-v1`（从 `release/1` · 2026-06-07 · merge @ `917244e`）  
+> **状态：** **Closed**（2026-06-08 · **DECISION-111** · 范围 S10-STORY-001~011 + CHORE-011B · 用户确认关闭）
+> **分支：** `sprint/s10-db-backed-style-admin-v1`（从 `release/1` · 2026-06-07 · merge @ `917244e`）
 > **文档：** [`sprint10-database-backed-style-admin-v1.md`](sprint10-database-backed-style-admin-v1.md) · [`style-management-admin-v1.md`](../architecture/style-management-admin-v1.md) · **DECISION-108**
 
 **Sprint Goal（第一验收闭环）：**
@@ -4529,11 +4529,13 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 # Sprint 12 — Product Governance & Release 2 Planning
 
-> **文档：** [`sprint12-product-governance-r2-planning.md`](sprint12-product-governance-r2-planning.md)  
-> **分支：** `sprint/s12-product-governance-r2-planning`  
-> **来源基线：** `sprint/s11-production-ops-go-live` @ `653c70a`  
-> **状态：** In Progress / Needs Review  
-> **说明：** `release/1` 尚未包含 Sprint 11 最新完整状态；本 Sprint 分支从当前完整的 `sprint/s11-production-ops-go-live` 创建，等待人工审查后决定后续合并路径。**S12-STORY-001 Done（Accepted · 2026-06-29）**；启动 S12-STORY-002 前必须确认 Sprint 11 最终 merge 状态，并在 Sprint 11 merge `release/1` 后对齐 Sprint 12 与最新 `release/1`（本轮不执行）。
+> **Plan（权威）：** [`sprints/sprint-12/plan.md`](sprints/sprint-12/plan.md)
+> **Backlog（权威）：** [`sprints/sprint-12/backlog.md`](sprints/sprint-12/backlog.md)
+> **兼容入口：** [`sprint12-product-governance-r2-planning.md`](sprint12-product-governance-r2-planning.md)
+> **分支：** `sprint/s12-product-governance-r2-planning`
+> **Release 基线：** `release/1` @ `3a8203b`
+> **状态：** **Approved / Ready to Start**（2026-06-30 · **DECISION-116**）
+> **S12-STORY-002：** **Committed / Not Started**
 
 ## S12-STORY-001 现有项目管理与产品文档体系审计
 
@@ -4569,20 +4571,20 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 **明确不做：** 不开发 Release 2 功能 · 不实现 Compat / DSL 债务 · 不重写 Release 1 历史 · 不关闭 Sprint 11 / Release 1 · 不 merge `release/1` / `main`。
 
-## Sprint 12 后续候选 Story（Proposed）
+## Sprint 12 Committed Stories
 
-> 以下为治理迁移建议，未由 Cursor 自行关闭或启动，需用户确认后逐个执行。
+> 详细 Backlog 见 [`sprints/sprint-12/backlog.md`](sprints/sprint-12/backlog.md) · **DECISION-116**
 
-| Story         | 名称                                                | 状态     |
-| ------------- | --------------------------------------------------- | -------- |
-| S12-STORY-002 | 产品愿景、目标用户、核心场景与系统边界              | Proposed |
-| S12-STORY-003 | 完整产品模块树与产品功能目录                        | Proposed |
-| S12-STORY-004 | 用户旅程、用户活动与完整 Story Map                  | Proposed |
-| S12-STORY-005 | Product Backlog、Release、Sprint 与模块覆盖追踪体系 | Proposed |
-| S12-STORY-006 | 敏捷事件、流程闸门、DoR/DoD 与标准模板              | Proposed |
-| S12-STORY-007 | Release 1 历史能力、模块及功能映射                  | Proposed |
-| S12-STORY-008 | Release 2 及后续产品路线与渐进式迭代计划            | Proposed |
-| S12-STORY-009 | 全局一致性审计、治理验收与 Sprint 12 关闭           | Proposed |
+| Story         | 名称                                                | 状态                    |
+| ------------- | --------------------------------------------------- | ----------------------- |
+| S12-STORY-002 | 产品愿景、目标用户、核心场景与系统边界              | Committed / Not Started |
+| S12-STORY-003 | 完整产品模块树与产品功能目录                        | Committed / Not Started |
+| S12-STORY-004 | 用户旅程、用户活动与完整 Story Map                  | Committed / Not Started |
+| S12-STORY-005 | Product Backlog、Release、Sprint 与模块覆盖追踪体系 | Committed / Not Started |
+| S12-STORY-006 | 敏捷事件、流程闸门、DoR/DoD 与标准模板              | Committed / Not Started |
+| S12-STORY-007 | Release 1 历史能力、模块及功能映射                  | Committed / Not Started |
+| S12-STORY-008 | Release 2 及后续产品路线与渐进式迭代计划            | Committed / Not Started |
+| S12-STORY-009 | 全局一致性审计、治理验收与 Sprint 12 关闭           | Committed / Not Started |
 
 Deferred Debt Replanning 不作为 Sprint 12 核心 Story；Compat / DSL / DB sync 等 deferred 项回到 Product Backlog / Deferred Register 候选池。
 
@@ -4629,8 +4631,8 @@ Deferred Debt Replanning 不作为 Sprint 12 核心 Story；Compat / DSL / DB sy
 
 # Sprint 11 — Production Ops Go-Live（正式部署与运维上线）
 
-> **分支：** `sprint/s11-production-ops-go-live`（从 `release/1`）  
-> **文档：** [`sprint11-production-ops-go-live.md`](sprint11-production-ops-go-live.md) · **DECISION-111**  
+> **分支：** `sprint/s11-production-ops-go-live`（从 `release/1`）
+> **文档：** [`sprint11-production-ops-go-live.md`](sprint11-production-ops-go-live.md) · **DECISION-111**
 > **状态：** **Accepted with follow-ups / Closed**（2026-06-30 · DECISION-114 · Production Prelaunch 保持）
 
 **Sprint Goal：**
