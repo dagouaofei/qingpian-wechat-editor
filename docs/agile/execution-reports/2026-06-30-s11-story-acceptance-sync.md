@@ -95,15 +95,39 @@
 
 ## 12. 运行检查
 
-| 命令             | 结果             |
-| ---------------- | ---------------- |
-| git diff --check | 待 commit 后执行 |
-| prettier         | 待 commit 前执行 |
-| pnpm lint        | 待 commit 前执行 |
+| 命令             | 结果                                | 说明           |
+| ---------------- | ----------------------------------- | -------------- |
+| git diff --check | PASS                                | 无冲突标记     |
+| prettier         | PASS                                | 格式化通过     |
+| eslint           | PASS（0 errors · 34 warnings 既有） | `npx eslint .` |
 
-## 13. Commit
+## 13. merge / push / working tree
 
-- Commit hash：待 commit 后回填（本轮 HEAD at review time 见 Cursor 最终回复）
+| 项                   | 状态                      |
+| -------------------- | ------------------------- |
+| merge 至 sprint      | N/A（直接在 sprint 分支） |
+| merge 至 `release/1` | **未执行**                |
+| push                 | **未执行**                |
+| working tree         | clean（提交后）           |
+
+## Commit 分类
+
+### 主要成果 commit
+
+- `668211e` — docs(s11): record story acceptance and follow-ups
+
+### 影响实际成果的修正 commit
+
+- 无
+
+### Merge commit
+
+- 未执行
+
+### Report-only commit
+
+本报告的 report-only commit 不回填本文件；
+最终 HEAD at review time 由 Cursor 最终回复报告。
 
 ## 14. 建议下一步
 

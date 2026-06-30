@@ -86,6 +86,25 @@ YYYY-MM-DD-<short-task-slug>.md
 - 仅当用户**明确要求本轮不生成** execution report 时，才可跳过，并在 Cursor 回复中说明原因
 - 使用 [`docs/agile/execution-reports/_template.md`](../../docs/agile/execution-reports/_template.md) 作为模板
 
+### 固定顺序与提交
+
+1. 完成实际工作并运行检查；
+2. 提交**主要成果 commit**；
+3. 使用**真实 commit hash**和**真实检查结果**完成 execution report；
+4. 单独提交 **report-only commit**；
+5. report-only commit **不回填**报告正文；
+6. 最终回复报告 **HEAD at review time**（= report-only commit，仅出现在 Cursor 最终回复）。
+
+### 最终报告要求
+
+- 不得保留未完成占位状态（如检查或 commit 尚未填写）；
+- 未运行的检查必须写 **`未运行：具体原因`**；
+- 必须记录**主要成果 commit**；
+- **影响实际成果的修正 commit** 也必须记录（如有）；
+- report-only commit **不要求**在报告中自引用其 hash；
+- **不得**为回填最新 HEAD 而循环修改报告或反复 report-only commit。
+- **已 commit** ≠ **已 merge** ≠ **已 push**。
+
 ### Sprint / Story 关闭
 
 - Cursor **不应仅凭自己的总结**宣布 Sprint 或 Story 完成
