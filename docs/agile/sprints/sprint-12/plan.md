@@ -8,7 +8,7 @@ supportsReleases:
 sprintType: governance
 releaseBaseline: release/1 @ 3a8203b
 planningStatus: Approved
-sprintStatus: Approved / Ready to Start
+sprintStatus: Approved / In Progress
 approvedDate: 2026-06-30
 approvedBy: Product Owner
 planningApprovalDecision: DECISION-116
@@ -25,7 +25,7 @@ planningApprovalDecision: DECISION-116
 | 项                 | 值                                                                                  |
 | ------------------ | ----------------------------------------------------------------------------------- |
 | **planningStatus** | **Approved**                                                                        |
-| **sprintStatus**   | **Approved / Ready to Start**                                                       |
+| **sprintStatus**   | **Approved / In Progress**                                                          |
 | **approvedDate**   | 2026-06-30                                                                          |
 | **approvedBy**     | Product Owner                                                                       |
 | **Release 基线**   | `release/1` @ `3a8203b`                                                             |

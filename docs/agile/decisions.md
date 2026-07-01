@@ -103,6 +103,7 @@
 | DECISION-114 | 2026-06-30 | Sprint 11 Accepted with follow-ups / Closed；S11-STORY-006 Accepted / Done；follow-ups 保持 Open；授权 `--no-ff` merge S11 → `release/1`；未授权 push；Release 1 未关闭；Production 仍为 Prelaunch                                                                  | **已确认**                             |
 | DECISION-115 | 2026-06-29 | Sprint / Release 独立平级目录与全局索引：`sprints/` 与 `releases/` 平级；全局索引文件仅索引；详细 Backlog 进独立目录；历史不批量迁移                                                                                                                                | **已确认**                             |
 | DECISION-116 | 2026-06-30 | Product Owner 批准 Sprint 12 正式 Planning；Sprint Goal · committed Stories 002~009 · 顺序 · 范围与非目标 · 容量规则 · 验收方式；Sprint 状态 `Approved / Ready to Start`；S12-STORY-002 未启动；不授权 merge/push/产品代码                                          | **已确认**                             |
+| DECISION-117 | 2026-07-01 | S12-STORY-002：PO 确认轻篇为 AI 内容营销工作台；目标用户层次；五个核心场景；十个完整产品能力域；灵感中心与内容计划独立；品牌档案与品牌知识库合并为品牌与知识中心；不提前划分当前/近期/远期；系统边界；具体优先级留待后续规划                                        | **已确认**                             |
 
 ### DECISION-019 详情
 
@@ -1305,3 +1306,20 @@
 - **影响范围：** `docs/agile/sprints/sprint-12/` · `sprint12-product-governance-r2-planning.md` · `sprint-backlog.md` · `release-plan.md` · `changelog.md`
 - **关联：** S12-STORY-001 · DECISION-115 · Sprint 12 Planning Approval Sync
 - **状态：** **已确认**（2026-06-30 · Product Owner 授权）
+
+### DECISION-117 详情（S12-STORY-002 产品愿景、用户、场景与系统边界）
+
+- **日期：** 2026-07-01
+- **关联 Story：** S12-STORY-002
+- **背景：** Product Owner 已确认本 Story 产品内容与 DoR；Cursor 将已确认决策整理为正式产品事实源，不重新设计产品定位。
+- **决策：**
+  1. **产品愿景：** 轻篇为面向高频内容生产者的 **AI 内容营销工作台**；微信公众号为当前深度验证核心平台；保留多平台方向
+  2. **目标用户：** 内部核心用户（PO）· 内部试点品牌（鲁老师等）· 首要商业用户（高频自媒体作者）· 次要（小企业老板、个人创业者）· 非优先（低频单篇用户）
+  3. **五个核心场景：** 品牌长期内容运营 · 灵感/选题/计划 · 公众号成品文章 · 已有文章排版适配 · 系列化高频生产与资产沉淀
+  4. **十个完整产品能力域：** 品牌与知识中心 · 灵感中心 · 内容计划 · 内容创作 · 编辑与质量控制 · 排版与视觉 · 平台适配发布分发 · 内容资产 · 数据分析复盘 · 协作与运营支持
+  5. **灵感中心与内容计划**为独立能力域；**品牌档案与品牌知识库**合并为**品牌与知识中心**
+  6. **不采用**提前划分当前、近期、远期的范围结构；**不在本 Story 决定** Release 2 范围或平台开发顺序
+  7. **系统边界：** 负责内容营销闭环；不负责 CRM、销售成交、财务合同、广告投放、代运营公司经营管理系统等
+  8. 正式事实源：`docs/product/product-vision.md` · `docs/product/users-and-scenarios.md`
+- **影响范围：** `product-scope.md`（索引说明）· Sprint 12 backlog · 后续 S12-STORY-003 模块树输入
+- **状态：** **已确认**（2026-07-01 · S12-STORY-002 · PO 已确认决策）

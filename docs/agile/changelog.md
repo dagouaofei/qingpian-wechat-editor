@@ -980,3 +980,12 @@
 | 2026-06-30 | Sprint 12 | Product Owner 批准 Sprint 12 正式 Planning · **DECISION-116** · Sprint Goal Approved                                                   | 敏捷 / 治理 | DECISION-116          |
 | 2026-06-30 | Sprint 12 | 建立 `docs/agile/sprints/sprint-12/plan.md` · `backlog.md` 为详细事实源；`sprint12-product-governance-r2-planning.md` 保留兼容入口     | 文档        | DECISION-115          |
 | 2026-06-30 | Sprint 12 | committed Stories：S12-STORY-002~009 · 顺序 002→009 · Sprint **Approved / Ready to Start** · S12-STORY-002 **Committed / Not Started** | 敏捷        | S12-STORY-002         |
+
+---
+
+## 2026-07-01 · S12-STORY-002 产品愿景、用户与系统边界
+
+| 日期       | Sprint    | 变更摘要                                                                                                        | 影响范围 | 关联 Story / Decision |
+| ---------- | --------- | --------------------------------------------------------------------------------------------------------------- | -------- | --------------------- |
+| 2026-07-01 | Sprint 12 | **S12-STORY-002 In Review**：更新 `product-vision.md` · 新增 `users-and-scenarios.md` · **DECISION-117**        | 产品     | S12-STORY-002         |
+| 2026-07-01 | Sprint 12 | PO 确认：AI 内容营销工作台 · 十个能力域 · 五核心场景 · 不划分当前/近期/远期 · Sprint **Approved / In Progress** | 产品治理 | DECISION-117          |
