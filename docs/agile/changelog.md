@@ -987,5 +987,6 @@
 
 | 日期       | Sprint    | 变更摘要                                                                                                        | 影响范围 | 关联 Story / Decision |
 | ---------- | --------- | --------------------------------------------------------------------------------------------------------------- | -------- | --------------------- |
+| 2026-07-01 | Sprint 12 | **S12-STORY-002 Accepted / Done**：PO 验收 · 状态同步 · merge 至 sprint 分支（`--no-ff`）                       | 产品治理 | S12-STORY-002         |
 | 2026-07-01 | Sprint 12 | **S12-STORY-002 In Review**：更新 `product-vision.md` · 新增 `users-and-scenarios.md` · **DECISION-117**        | 产品     | S12-STORY-002         |
 | 2026-07-01 | Sprint 12 | PO 确认：AI 内容营销工作台 · 十个能力域 · 五核心场景 · 不划分当前/近期/远期 · Sprint **Approved / In Progress** | 产品治理 | DECISION-117          |

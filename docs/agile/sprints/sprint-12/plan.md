@@ -37,9 +37,10 @@ planningApprovalDecision: DECISION-116
 
 ## 已完成前置 Story
 
-| Story             | 状态                | 说明                                                                     |
-| ----------------- | ------------------- | ------------------------------------------------------------------------ |
-| **S12-STORY-001** | **Accepted / Done** | Planning 前治理审计成果；输出审计报告、目标模型、迁移方案与 DECISION-115 |
+| Story             | 状态                | 说明                                                                                          |
+| ----------------- | ------------------- | --------------------------------------------------------------------------------------------- |
+| **S12-STORY-001** | **Accepted / Done** | Planning 前治理审计成果；输出审计报告、目标模型、迁移方案与 DECISION-115                      |
+| **S12-STORY-002** | **Accepted / Done** | 产品愿景、用户、场景与系统边界；DECISION-117 · `product-vision.md` · `users-and-scenarios.md` |
 
 ## Committed Stories 与顺序
 
@@ -111,7 +112,7 @@ planningApprovalDecision: DECISION-116
 **说明：**
 
 - Sprint Plan **Approved** 不代表所有 Story 已启动
-- **S12-STORY-002** 启动前仍需单独完成 DoR
+- **S12-STORY-003** 启动前须 PO 明确授权与独立 DoR
 - Cursor 不得自动启动后续 Story
 - Sprint 12 关闭仍需独立 Review、Retrospective、Closeout 和 PO 授权
 
