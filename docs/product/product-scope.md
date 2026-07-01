@@ -1,6 +1,13 @@
 # 产品范围
 
 > 轻篇公众号排版 · qingpian-wechat-editor
+>
+> **当前完整产品事实源（S12-STORY-002 · DECISION-117）：**
+>
+> - 愿景、使命、完整范围、主链路、系统边界 → [`product-vision.md`](product-vision.md)
+> - 目标用户与五个核心场景 → [`users-and-scenarios.md`](users-and-scenarios.md)
+>
+> **以下内容为 Release 1 / 早期工程阶段的范围记录，保留作历史交付边界；不等同于完整产品范围。**
 
 ## 核心用户
 
@@ -50,4 +57,5 @@
 ## 相关文档
 
 - [产品愿景](product-vision.md)
+- [目标用户与核心场景](users-and-scenarios.md)
 - [Release 1 范围](release-1-scope.md)
