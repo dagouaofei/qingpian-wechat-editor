@@ -63,7 +63,7 @@ alwaysApply: true
 
 ## 关键规则
 
-1. **执行前读 docs** — 含 `git-workflow.md`、`sprint-plan.md`、`sprint-backlog.md`
+1. **执行前读 docs** — 含 `git-workflow.md`、`release-plan.md`、`sprint-backlog.md`（全局索引）及对应 `sprints/` / `releases/` 目录文档
 2. **执行后写 docs** — 代码/文档变更必须同步
 3. **执行后写 execution report** — 摘要必须沉淀到项目文件
 4. **冲突以 docs 为准** — 记录到 `decisions.md` 待用户确认
@@ -86,6 +86,7 @@ alwaysApply: true
 
 ## 参考文档
 
+- `.cursor/rules/agile-governance.mdc` — Sprint / Story 治理闸门与产品决策权限
 - `docs/agile/git-workflow.md`
 - `docs/agile/chatgpt-cursor-docs-workflow.md`
 - `docs/agile/execution-reports/README.md`

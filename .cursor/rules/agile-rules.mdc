@@ -5,18 +5,21 @@ alwaysApply: true
 
 # 敏捷规则
 
+> Sprint / Story 启动、DoR、范围、合并与强制停止闸门见 [`.cursor/rules/agile-governance.mdc`](./agile-governance.mdc)。
+
 ## 任务管理
 
 - 所有任务必须对应 **Story / Bug / Decision**
 - 每个 Story 必须有验收标准（AC）
-- 每个 Sprint 必须更新 `docs/agile/sprint-backlog.md`
+- 每个**新 Sprint** 必须建立或更新 `docs/agile/sprints/sprint-<id>/backlog.md`（及 `plan.md` 等 Sprint 目录文件）
+- **`docs/agile/sprint-backlog.md` 只同步**全局 Sprint 索引、状态摘要、所属或服务的 Release 与独立 Sprint 目录链接；**不**作为全部 Story 详细 AC 的唯一容器
 - **每个 Story / Bug / Docs / Chore 任务应对应一个独立工作分支**
-- `sprint-backlog.md` 中应记录任务分支名（如有）
+- Sprint 目录 `plan.md` / `backlog.md` 中应记录任务分支名（如有）；全局索引可摘要并链接
 
 ## Git 分支与任务
 
 - 每个 Release 从 `main` 新建 `release/<n>` 分支（Release 1：`release/1`）
-- 每个 Sprint 从**当前 release 主干**新建 `sprint/<sprint-slug>` 分支
+- 每个 Sprint **默认**从**当前 release 主干**新建 `sprint/<sprint-slug>` 分支；经用户批准且已在文档记录的特殊基线例外，允许按批准基线执行
 - Sprint 内任务从**当前 sprint 分支**切出 `feature/` / `docs/` / `bugfix/` / `chore/` 分支
 - 一个工作分支只解决一个问题
 - 工作分支完成后合并回 sprint 分支，**不直接合并 release 或 main**
@@ -25,12 +28,15 @@ alwaysApply: true
 ## 范围变更
 
 - 涉及需求范围变化时，必须更新 Product Backlog 或 Release Scope
+- 每个**新 Release** 必须建立或更新 `docs/agile/releases/release-<id>/backlog.md`（及 `plan.md` 等 Release 目录文件）
+- **`docs/agile/release-plan.md` 只同步**全局 Release 索引、状态摘要与独立 Release 目录链接；**不**作为全部 Release Backlog 详细内容的唯一容器
 - 重大决策记录到 `docs/agile/decisions.md`
 
 ## Sprint 周期原则
 
 - 后续 Sprint 可按合理工作量拆分
-- 每个 Sprint 必须更新 `docs/agile/sprint-backlog.md`
+- 每个**新 Sprint** 须维护 `docs/agile/sprints/sprint-<id>/` 下的详细 Plan / Backlog / Review / Retro / Closeout
+- **`docs/agile/sprint-backlog.md` 只同步**全局 Sprint 索引与链接，不承载全部详细 Story 记录
 
 ## Execution Report（默认必须）
 
@@ -115,9 +121,11 @@ YYYY-MM-DD-<short-task-slug>.md
 ## 文档位置
 
 - Product Backlog：`docs/agile/product-backlog.md`
-- Sprint Plan：`docs/agile/sprint-plan.md`
-- Sprint Backlog：`docs/agile/sprint-backlog.md`
+- Release 全局索引：`docs/agile/release-plan.md`（索引与状态总览；详细 Release Backlog 见 `docs/agile/releases/release-<id>/`）
+- Sprint 全局索引：`docs/agile/sprint-backlog.md`（索引与状态总览；详细 Sprint Backlog 见 `docs/agile/sprints/sprint-<id>/`）
+- Sprint 历史叙事：`docs/agile/sprint-plan.md`（历史；新 Sprint 优先使用 `docs/agile/sprints/sprint-<id>/plan.md`）
 - Bug Backlog：`docs/agile/bugs.md`
 - 决策记录：`docs/agile/decisions.md`
 - 变更日志：`docs/agile/changelog.md`
 - Execution Reports：`docs/agile/execution-reports/`
+- 文档结构原则：见 `docs/governance/product-governance-target-model.md` §9 · **DECISION-114**

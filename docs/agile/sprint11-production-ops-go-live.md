@@ -36,16 +36,16 @@
 
 ## 3. Story 索引
 
-| Story          | 名称                                                       | 优先级 | 状态                                                                                                                             |
-| -------------- | ---------------------------------------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------- |
-| S11-STORY-001  | 阿里云资源开通与网络基线                                   | P0     | **Done** · **Accepted with follow-ups**（PO 2026-06-30 · ECS/RDS/网络/HTTPS 已验收 · OSS/SLS/CloudMonitor → **P1-S11-004**）     |
-| S11-STORY-002  | Staging 部署与数据库初始化                                 | P0     | **Done** · **Accepted**（PO 2026-06-30 · staging deploy · migrate · import · health PASS）                                       |
-| S11-STORY-003  | Admin 登录与 Staging 治理/用户池验收                       | P0     | **Done** · **Accepted**（PO 2026-06-30 · admin session · 治理 · preview pool PASS）                                              |
-| S11-STORY-003A | Staging Volcengine Provider + 首页生成主链路与样式回归验收 | P0     | **Done**（staging 验收 2026-06-11 · merge sprint `2ee03c5` `--no-ff`）                                                           |
-| S11-STORY-003B | Legacy Path Removal & Parallel Implementation Audit        | P0     | **Done**（merge sprint `8da62e9` `--no-ff` · staging 2026-06-11）                                                                |
-| S11-STORY-004  | Production 部署与上线                                      | P0     | **Done** · Prelaunch @ `385422d` · https://paiban.aiqingpian.cn                                                                  |
-| S11-STORY-005  | Production Monitoring, Alerting & Observation              | P1     | **Done** · **Accepted with follow-ups**（PO 2026-06-30 · `ops:observe` 脚本/文档已验收 · ECS cron/T+24h/T+72h → **P1-S11-002**） |
-| S11-STORY-006  | Sprint 11 Closeout                                         | P0     | **Done** · **Accepted**（Product Owner confirmed 2026-06-30）                                                                    |
+| Story          | 名称                                                       | 优先级 | 状态                                                                                                                                                                   |
+| -------------- | ---------------------------------------------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| S11-STORY-001  | 阿里云资源开通与网络基线                                   | P0     | **Done** · **Accepted with follow-ups**（PO 2026-06-30 · ECS/RDS/网络/HTTPS 已验收 · OSS/SLS/CloudMonitor → **P1-S11-004**）                                           |
+| S11-STORY-002  | Staging 部署与数据库初始化                                 | P0     | **Done** · **Accepted**（PO 2026-06-30 · staging deploy · migrate · import · health PASS）                                                                             |
+| S11-STORY-003  | Admin 登录与 Staging 治理/用户池验收                       | P0     | **Done** · **Accepted**（PO 2026-06-30 · admin session · 治理 · preview pool PASS）                                                                                    |
+| S11-STORY-003A | Staging Volcengine Provider + 首页生成主链路与样式回归验收 | P0     | **Done**（staging 验收 2026-06-11 · merge sprint `2ee03c5` `--no-ff`）                                                                                                 |
+| S11-STORY-003B | Legacy Path Removal & Parallel Implementation Audit        | P0     | **Done**（merge sprint `8da62e9` `--no-ff` · staging 2026-06-11）                                                                                                      |
+| S11-STORY-004  | Production 部署与上线                                      | P0     | **Done** · Prelaunch @ `385422d` · https://paiban.aiqingpian.cn                                                                                                        |
+| S11-STORY-005  | Production Monitoring, Alerting & Observation              | P1     | **Done** · **Accepted with follow-ups**（PO 2026-06-30 · `ops:observe` 脚本/文档已验收 · **Production Observation Completed** 2026-07-01 · ECS cron → **P1-S11-002**） |
+| S11-STORY-006  | Sprint 11 Closeout                                         | P0     | **Done** · **Accepted**（Product Owner confirmed 2026-06-30）                                                                                                          |
 
 完整 AC 见 [`sprint-backlog.md`](sprint-backlog.md) Sprint 11 章节。
 
@@ -111,7 +111,8 @@
 - OSS / SLS / CloudMonitor 创建与告警（→ **P1-S11-004** · Backlog 已登记并保持 Open；资源未创建）
 - ~~首页 Volcengine AI 生成主链路 staging env 与验收~~ → **S11-STORY-003A**（Volcengine env · streaming · HTML variant 编号回归）
 - Production Prelaunch 部署（→ S11-STORY-004 · **Done** @ `385422d`）
-- Production 监控观察运行时闭环（→ **P1-S11-002** · S11-STORY-005 follow-up · ECS cron/T+24h/T+72h **未完成**）
+- Production 监控观察：**Production Observation Completed**（T+72h · 2026-07-01 · Closing Evidence · [`sprint11-closeout.md`](sprint11-closeout.md) §8～§9）
+- ECS cron / `ops:observe` 自动化部署（→ **P1-S11-002** · **Open**）
 
 **明确未做：** merge `main` · 关闭 Release 1 · 正式公开发布（Prelaunch 仍 active）
 

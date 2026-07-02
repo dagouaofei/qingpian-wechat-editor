@@ -101,6 +101,9 @@
 | DECISION-112 | 2026-06-10 | Gate B Prelaunch 代码冻结：各环境 DB 为 variant 唯一事实来源；`import-existing-variants` 为待审计历史 bootstrap；Dev/Staging/Production DB 同步方案 deferred；production 100 variant 已初始化；staging 独有 2 条测试 variant 不迁移；暂不 governance snapshot apply | **已确认**                             |
 | DECISION-113 | 2026-06-28 | Production Prelaunch 已部署 @ `385422d` · URL `paiban.aiqingpian.cn`（`qingpianai.cn` 未备案）；Prelaunch 非公开发布；Basic Auth + noindex 观察期不得移除；回滚基线 `2f09b0d`                                                                                       | **已确认**                             |
 | DECISION-114 | 2026-06-30 | Sprint 11 Accepted with follow-ups / Closed；S11-STORY-006 Accepted / Done；follow-ups 保持 Open；授权 `--no-ff` merge S11 → `release/1`；未授权 push；Release 1 未关闭；Production 仍为 Prelaunch                                                                  | **已确认**                             |
+| DECISION-115 | 2026-06-29 | Sprint / Release 独立平级目录与全局索引：`sprints/` 与 `releases/` 平级；全局索引文件仅索引；详细 Backlog 进独立目录；历史不批量迁移                                                                                                                                | **已确认**                             |
+| DECISION-116 | 2026-06-30 | Product Owner 批准 Sprint 12 正式 Planning；Sprint Goal · committed Stories 002~009 · 顺序 · 范围与非目标 · 容量规则 · 验收方式；Sprint 状态 `Approved / Ready to Start`；S12-STORY-002 未启动；不授权 merge/push/产品代码                                          | **已确认**                             |
+| DECISION-117 | 2026-07-01 | S12-STORY-002：PO 确认轻篇为 AI 内容营销工作台；目标用户层次；五个核心场景；十个完整产品能力域；灵感中心与内容计划独立；品牌档案与品牌知识库合并为品牌与知识中心；不提前划分当前/近期/远期；系统边界；具体优先级留待后续规划                                        | **已确认**                             |
 
 ### DECISION-019 详情
 
@@ -1258,3 +1261,65 @@
 - **影响范围：** `sprint11-closeout.md` · `sprint11-review.md` · `sprint-backlog.md` · `release-plan.md` · `changelog.md`
 - **关联：** S11-STORY-006 · DECISION-111 · DECISION-113
 - **状态：** **已确认**（2026-06-30 · PO 授权）
+
+### DECISION-115 详情（Sprint / Release 独立平级目录与全局索引原则）
+
+- **日期：** 2026-06-29
+- **背景：**
+  - S12-STORY-001 目标模型已提出「全局索引 + 独立目录」，但 Cursor 规则与部分协作文档仍将 `sprint-backlog.md` / `release-plan.md` 表述为必须更新的详细唯一容器
+  - 历史 `sprint-backlog.md` / `release-plan.md` / `sprint-plan.md` 体积大、职责与索引混存，继续扩张会放大重复维护风险
+- **决策：**
+  1. **每个新 Sprint** 建立 `docs/agile/sprints/sprint-<id>/`（含 `plan.md`、`backlog.md`、`review.md`、`retrospective.md`、`closeout.md`）
+  2. **每个新 Release** 建立 `docs/agile/releases/release-<id>/`（含 `plan.md`、`backlog.md`、`coverage.md`、`review.md`、`closeout.md`）
+  3. **`docs/agile/sprints/` 与 `docs/agile/releases/` 平级**；**不**采用 Release 目录下嵌套 Sprint 目录
+  4. **`docs/agile/sprint-backlog.md`** 只作 Sprint 全局索引（名称、Goal 摘要、状态、Release 关系、目录链接）
+  5. **`docs/agile/release-plan.md`** 只作 Release 全局索引（名称、目标摘要、状态、时间范围、目录链接）
+  6. Sprint 归属通过 `plan.md` 元数据表达：`primaryRelease` · `supportsReleases` · `sprintType`（`product` / `governance` / `operations` / `hardening` / `release-closeout`）
+  7. Backlog 追踪：`Product Backlog Item → Release Backlog Item → Sprint Backlog Item → Story/Task → Execution Evidence`
+  8. **历史已关闭 Sprint / Release 详细内容保留原位**；不批量迁移；旧链接继续有效；Sprint 12 是否立即迁入独立目录由后续迁移 Story 决定
+- **影响范围：** `.cursor/rules/agile-rules.mdc` · `product-governance-target-model.md` · `git-workflow.md` · `chatgpt-cursor-docs-workflow.md` · 全局索引文件头说明
+- **关联：** S12-STORY-001 · S12-STORY-006（DoR/DoD 模板）· `product-governance-migration-plan.md`
+- **状态：** **已确认**（2026-06-29 · S12-STORY-001 治理结构补充）
+
+### DECISION-116 详情（Sprint 12 Planning Approval）
+
+- **日期：** 2026-06-30
+- **Product Owner 授权原文：**
+
+  ```text
+  Approved Sprint 12 正式 Planning 提案
+  ```
+
+- **背景：**
+  - Sprint 12 已完成 S12-STORY-001 治理审计与 `release/1` @ `3a8203b` 基线对齐（merge @ `93a13ff`）
+  - Sprint 12 Plan 此前为 **Planning Baseline Aligned / Not Approved**
+  - Product Owner 于 2026-06-30 批准正式 Planning 提案
+- **决策：**
+  1. **Sprint 12 Plan** 标记 **Approved**
+  2. **Sprint 状态** 为 **Approved / Ready to Start**
+  3. **Sprint Goal Approved：** 建立轻篇完整、稳定、可持续维护的产品治理与规划体系，使产品愿景、用户与场景、产品模块、功能目录、用户旅程、Story Map、Product Backlog、Release、Sprint 和 Execution Evidence 形成清晰、可追踪且不存在多套事实源的治理链路
+  4. **Committed Stories：** S12-STORY-002 ~ S12-STORY-009（S12-STORY-001 为 Planning 前治理审计，**Accepted / Done**）
+  5. **Story 顺序：** 002 → 003 → 004 → 005 → 006 → 007 → 008 → 009；默认一次只启动一个 Story
+  6. **In Scope / 非目标 / 容量取舍 / 验收方式** 见 `docs/agile/sprints/sprint-12/plan.md`
+  7. **S12-STORY-002** 保持 **Committed / Not Started**；启动前须单独 DoR 与 PO 授权
+  8. **不授权** merge 工作分支、push、产品代码开发、Release 1 关闭或 merge `main`
+- **影响范围：** `docs/agile/sprints/sprint-12/` · `sprint12-product-governance-r2-planning.md` · `sprint-backlog.md` · `release-plan.md` · `changelog.md`
+- **关联：** S12-STORY-001 · DECISION-115 · Sprint 12 Planning Approval Sync
+- **状态：** **已确认**（2026-06-30 · Product Owner 授权）
+
+### DECISION-117 详情（S12-STORY-002 产品愿景、用户、场景与系统边界）
+
+- **日期：** 2026-07-01
+- **关联 Story：** S12-STORY-002
+- **背景：** Product Owner 已确认本 Story 产品内容与 DoR；Cursor 将已确认决策整理为正式产品事实源，不重新设计产品定位。
+- **决策：**
+  1. **产品愿景：** 轻篇为面向高频内容生产者的 **AI 内容营销工作台**；微信公众号为当前深度验证核心平台；保留多平台方向
+  2. **目标用户：** 内部核心用户（PO）· 内部试点品牌（鲁老师等）· 首要商业用户（高频自媒体作者）· 次要（小企业老板、个人创业者）· 非优先（低频单篇用户）
+  3. **五个核心场景：** 品牌长期内容运营 · 灵感/选题/计划 · 公众号成品文章 · 已有文章排版适配 · 系列化高频生产与资产沉淀
+  4. **十个完整产品能力域：** 品牌与知识中心 · 灵感中心 · 内容计划 · 内容创作 · 编辑与质量控制 · 排版与视觉 · 平台适配发布分发 · 内容资产 · 数据分析复盘 · 协作与运营支持
+  5. **灵感中心与内容计划**为独立能力域；**品牌档案与品牌知识库**合并为**品牌与知识中心**
+  6. **不采用**提前划分当前、近期、远期的范围结构；**不在本 Story 决定** Release 2 范围或平台开发顺序
+  7. **系统边界：** 负责内容营销闭环；不负责 CRM、销售成交、财务合同、广告投放、代运营公司经营管理系统等
+  8. 正式事实源：`docs/product/product-vision.md` · `docs/product/users-and-scenarios.md`
+- **影响范围：** `product-scope.md`（索引说明）· Sprint 12 backlog · 后续 S12-STORY-003 模块树输入
+- **状态：** **已确认**（2026-07-01 · S12-STORY-002 · PO 已确认决策）

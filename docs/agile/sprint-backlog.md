@@ -1,5 +1,7 @@
 # Sprint Backlog
 
+> **文档角色（DECISION-115）：** 本文件为 **Sprint 全局索引与状态总览**。Sprint 名称、Sprint Goal 摘要、状态、所属或服务的 Release 及指向 `docs/agile/sprints/sprint-<id>/` 的链接在此维护。**不**作为全部 Story 详细 AC、非目标和执行记录的唯一容器。下方 Sprint 1~12 历史详细 Backlog 保留；从后续新 Sprint 起，详细 Plan / Backlog / Review / Retro / Closeout 写入独立 Sprint 目录。
+
 > **Sprint 1：** 正式项目启动、核心技术方案定稿与工程治理 · Sprint 1-A / 1-B：**Closed**
 > **Sprint 2：** Article / Block Schema + InlineContent 代码契约 · **Closed**（2026-05-31；DECISION-054）
 > **Sprint 3-A：** Style System Contract & Registry Infrastructure · **Closed**（2026-05-31；DECISION-057）
@@ -13,7 +15,9 @@
 > **Sprint 8：** **Closed**（2026-06-05 · DECISION-093 · audit Grade A- · P0=0 · merged `release/1` @ `806fa47`）
 > **Sprint 9：** **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · **P0=0** · HTML→user preview picker E2E PASS · Preview/Copy parity PASS · default preset / release1_required 未污染 · **已 merge `release/1`** @ `c96e869` · **未 merge `main`**）
 > **Sprint 10：** **Closed**（2026-06-08 · **DECISION-108** · **DECISION-111** · S10-STORY-001~011 Done · **已 merge `release/1`** @ `6cd1dfc`）· 原 012~014 顺延 Sprint 12+
-> **当前 Sprint：** **Sprint 11** — Production Ops Go-Live · **Accepted with follow-ups / Closed**（2026-06-30 · Product Owner confirmed）
+> **Sprint 11：** Production Ops Go-Live · **Accepted with follow-ups / Closed**（2026-06-30 · Product Owner confirmed · **DECISION-114**）
+> **专项 Sprint 12：** Product Governance & Release 2 Planning · **Approved / In Progress**（**DECISION-116** · S12-STORY-001/002 **Done** · S12-STORY-003 未启动 · 详细：[`sprints/sprint-12/plan.md`](sprints/sprint-12/plan.md)）
+> **Sprint 12 分支：** `sprint/s12-product-governance-r2-planning` · 基线对齐工作分支：`docs/s12-release1-baseline-alignment`
 > **Sprint 11 分支：** `sprint/s11-production-ops-go-live`（从 `release/1` · @ `6cd1dfc`）
 > **Sprint 10 分支：** `sprint/s10-db-backed-style-admin-v1`（已 merge `release/1` · @ `6cd1dfc`）
 > **Sprint 9 分支：** `sprint/s9-style-management-system-v0`（已 merge `release/1` · 2026-06-05）
@@ -3799,8 +3803,8 @@ S8-STORY-009 S8 Contract Audit 与关闭准备 — **Done**（2026-06-05 · DECI
 
 # Sprint 9 — Style Management System v0（样式管理后台 v0）
 
-> **状态：** **In Progress**（2026-06-05 启动 · **DECISION-094**）  
-> **文档：** [`sprint9-style-management-system-v0.md`](sprint9-style-management-system-v0.md) · [`style-management-domain-model.md`](../architecture/style-management-domain-model.md) · **DECISION-092** · **DECISION-094**  
+> **状态：** **In Progress**（2026-06-05 启动 · **DECISION-094**）
+> **文档：** [`sprint9-style-management-system-v0.md`](sprint9-style-management-system-v0.md) · [`style-management-domain-model.md`](../architecture/style-management-domain-model.md) · **DECISION-092** · **DECISION-094**
 > **分支：** `sprint/s9-style-management-system-v0`（从 `release/1` · S8 merge 后）
 
 ## S9 建议执行顺序
@@ -4093,8 +4097,8 @@ S9-STORY-001 → 002 → 003 → 004 → 006 ∥ 005 → 007 → 008 → 009
 
 # Sprint 10 — Database-backed Style Management Admin v1（数据库版正式样式管理后台 v1）
 
-> **状态：** **Closed**（2026-06-08 · **DECISION-111** · 范围 S10-STORY-001~011 + CHORE-011B · 用户确认关闭）  
-> **分支：** `sprint/s10-db-backed-style-admin-v1`（从 `release/1` · 2026-06-07 · merge @ `917244e`）  
+> **状态：** **Closed**（2026-06-08 · **DECISION-111** · 范围 S10-STORY-001~011 + CHORE-011B · 用户确认关闭）
+> **分支：** `sprint/s10-db-backed-style-admin-v1`（从 `release/1` · 2026-06-07 · merge @ `917244e`）
 > **文档：** [`sprint10-database-backed-style-admin-v1.md`](sprint10-database-backed-style-admin-v1.md) · [`style-management-admin-v1.md`](../architecture/style-management-admin-v1.md) · **DECISION-108**
 
 **Sprint Goal（第一验收闭环）：**
@@ -4523,9 +4527,73 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 ---
 
+# Sprint 12 — Product Governance & Release 2 Planning
+
+> **Plan（权威）：** [`sprints/sprint-12/plan.md`](sprints/sprint-12/plan.md)
+> **Backlog（权威）：** [`sprints/sprint-12/backlog.md`](sprints/sprint-12/backlog.md)
+> **兼容入口：** [`sprint12-product-governance-r2-planning.md`](sprint12-product-governance-r2-planning.md)
+> **分支：** `sprint/s12-product-governance-r2-planning`
+> **Release 基线：** `release/1` @ `3a8203b`
+> **状态：** **Approved / In Progress** · S12-STORY-002 **Accepted / Done** · S12-STORY-003 未启动
+> **S12-STORY-002 产品事实源：** [`../../product/product-vision.md`](../../product/product-vision.md) · [`../../product/users-and-scenarios.md`](../../product/users-and-scenarios.md)
+
+## S12-STORY-001 现有项目管理与产品文档体系审计
+
+**优先级：** P0 · **状态：** **Done** · **验收：** **Accepted**（2026-06-29 · Product Owner 明确授权）· **工作分支：** `docs/s12-story-001-sprint-release-structure-alignment`（已 merge 至 `sprint/s12-product-governance-r2-planning`）
+
+**用户故事：** 作为产品负责人，我希望审计当前项目管理与产品文档体系，明确已有能力、重复冲突、真实缺口和增量升级路径，以便 Sprint 12 后续为 Release 2 建立完整产品全景。
+
+**目标：**
+
+- 审计产品规划、用户故事地图、Backlog、Sprint/Release 状态、DoR/DoD、Review/Audit/Closeout、Decision、Changelog、Risk/Debt/Deferred、分支/commit/测试/验收证据、Cursor 规则、目录结构和命名方式。
+- 输出当前体系审计报告、目标体系蓝图、增量迁移方案。
+- 建立 Sprint 12 与 S12-STORY-001 正式记录。
+
+**验收标准：**
+
+- [x] AC-1 已扫描并列出仓库内相关文档目录、数量和关键文件。
+- [x] AC-2 审计结论基于实际文件和规则。
+- [x] AC-3 已明确当前体系已有能力和真实缺口。
+- [x] AC-4 已明确新旧体系增量兼容方式。
+- [x] AC-5 未破坏 Release 1 或 Sprint 11 历史。
+- [x] AC-6 未批量重写现有文档。
+- [x] AC-7 未开发产品代码。
+- [x] AC-8 已建立 Sprint 12 和 Story 001 正式记录。
+- [x] AC-9 已记录 S12 ID 冲突和后续处理原则。
+- [x] AC-10 检查命令已运行；commit hash 提交后在 execution report / 最终回复中记录。
+
+**关键输出：**
+
+- [`../governance/s12-current-system-audit.md`](../governance/s12-current-system-audit.md)
+- [`../governance/product-governance-target-model.md`](../governance/product-governance-target-model.md)
+- [`../governance/product-governance-migration-plan.md`](../governance/product-governance-migration-plan.md)
+- [`sprint12-product-governance-r2-planning.md`](sprint12-product-governance-r2-planning.md)
+
+**明确不做：** 不开发 Release 2 功能 · 不实现 Compat / DSL 债务 · 不重写 Release 1 历史 · 不关闭 Sprint 11 / Release 1 · 不 merge `release/1` / `main`。
+
+## Sprint 12 Committed Stories
+
+> 详细 Backlog 见 [`sprints/sprint-12/backlog.md`](sprints/sprint-12/backlog.md) · **DECISION-116**
+
+| Story         | 名称                                                | 状态                    |
+| ------------- | --------------------------------------------------- | ----------------------- |
+| S12-STORY-002 | 产品愿景、目标用户、核心场景与系统边界              | Accepted / Done         |
+| S12-STORY-003 | 完整产品模块树与产品功能目录                        | Committed / Not Started |
+| S12-STORY-004 | 用户旅程、用户活动与完整 Story Map                  | Committed / Not Started |
+| S12-STORY-005 | Product Backlog、Release、Sprint 与模块覆盖追踪体系 | Committed / Not Started |
+| S12-STORY-006 | 敏捷事件、流程闸门、DoR/DoD 与标准模板              | Committed / Not Started |
+| S12-STORY-007 | Release 1 历史能力、模块及功能映射                  | Committed / Not Started |
+| S12-STORY-008 | Release 2 及后续产品路线与渐进式迭代计划            | Committed / Not Started |
+| S12-STORY-009 | 全局一致性审计、治理验收与 Sprint 12 关闭           | Committed / Not Started |
+
+Deferred Debt Replanning 不作为 Sprint 12 核心 Story；Compat / DSL / DB sync 等 deferred 项回到 Product Backlog / Deferred Register 候选池。
+
+---
+
 # Deferred · Sprint 12+（原 S10-STORY-012~014 · DECISION-111 顺延）
 
 > **说明：** Release 1 部署优先（Sprint 11）完成后启动。编号映射见 **DECISION-111**。
+> **S12-STORY-001 ID 冲突说明（2026-06-28）：** 当前治理 Sprint 的 `S12-STORY-001~009` 为正式 Sprint 12 Story。本 section 中的旧 Compat / DSL 占位项早于 Sprint 12 Product Governance 重新规划，仅保留为历史 deferred 占位，不得继续作为正式 Story ID 使用。本轮不删除、不重编号旧记录，也不修改旧 Decision 原文；后续需在专门治理决策中为旧 deferred 项分配新的 Backlog / Story ID。
 
 ## S12-STORY-001 WeChat Compatibility Spec Recalibration（原 S10-STORY-012）
 
@@ -4563,8 +4631,8 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 
 # Sprint 11 — Production Ops Go-Live（正式部署与运维上线）
 
-> **分支：** `sprint/s11-production-ops-go-live`（从 `release/1`）  
-> **文档：** [`sprint11-production-ops-go-live.md`](sprint11-production-ops-go-live.md) · **DECISION-111**  
+> **分支：** `sprint/s11-production-ops-go-live`（从 `release/1`）
+> **文档：** [`sprint11-production-ops-go-live.md`](sprint11-production-ops-go-live.md) · **DECISION-111**
 > **状态：** **Accepted with follow-ups / Closed**（2026-06-30 · DECISION-114 · Production Prelaunch 保持）
 
 **Sprint Goal：**
@@ -4748,7 +4816,9 @@ S11-STORY-001 → 002 → 003 → 004 → 005 → 006
 
 **优先级：** P1 · **状态：** **Done** · **验收结论：** **Accepted with follow-ups**（PO 2026-06-30 · 脚本/文档已验收 · 运行时观察未完成）· **工作分支：** `ops/s11-story-005-monitoring-observation` · **前置：** S11-STORY-004 **Done**
 
-**Follow-up（未完成 · 非 PASS）：** ECS cron · T+24h · T+72h → Product Backlog **P1-S11-002**
+**Follow-up（未完成 · 非 PASS）：** ECS cron / `ops:observe` 自动化部署 → Product Backlog **P1-S11-002**（T+72h Closing Evidence 已归档 · 2026-07-01）
+
+**Production Observation：** **Completed**（T+72h · 2026-07-01 · [`sprint11-closeout.md`](../agile/sprint11-closeout.md) §8～§9）
 
 **目标：** 最小可运行监控闭环 · 复用 `status-environment.sh` · `ops:observe` 严格检查 · P0/P1/P2 告警策略 · Prelaunch 24h/72h 观察清单。**本轮提交设计与脚本 · 服务器 cron/CloudMonitor 待审查后部署。**
 
@@ -4761,7 +4831,7 @@ S11-STORY-001 → 002 → 003 → 004 → 005 → 006
 - [x] AC-3 [`monitoring-and-oncall.md`](../ops/monitoring-and-oncall.md) 更新
 - [x] AC-4 脚本 wiring 测试 · lint · build
 - [ ] AC-5 ECS cron / CloudMonitor 接入（待审查后部署）
-- [ ] AC-6 T+24h / T+72h 观察记录归档
+- [x] AC-6 T+72h 观察记录归档（2026-07-01 · Closing Evidence · ECS cron 仍属 **P1-S11-002** Open）
 
 **明确不做：** 移除 Basic Auth/noindex · 正式公开上线 · governance apply · P1-S11-001 · merge main/release/1
 

@@ -31,14 +31,15 @@ alwaysApply: true
 
 ## Sprint 约束
 
-- Sprint 1 整体状态为 **In Review**（1-A Done，1-B In Review）
+- 当前 Sprint、Release、Story 状态必须从 `docs/agile/release-plan.md`、`docs/agile/sprint-backlog.md`、对应 `docs/agile/sprints/sprint-<id>/` / `docs/agile/releases/release-<id>/` 文档读取；**规则文件不得硬编码动态状态**。
 - 后续 Sprint 按合理工作量拆分，业务功能实现必须在核心技术方案完成之后进入
 - 不允许把 Release 1 的全部实现范围塞进单个 Sprint
 
 ## Git 分支规则
 
 - 每个 Release 有独立 **`release/<n>`** 主干（Release 1 为 `release/1`）
-- 每个 Sprint 从**当前 release 主干**新建 **`sprint/<sprint编号>-<sprint-slug>`** 分支
+- 每个 Sprint **默认**从**当前 release 主干**新建 **`sprint/<sprint编号>-<sprint-slug>`** 分支
+- 如存在用户明确批准且已在文档记录的特殊基线，可按该批准例外执行
 - Sprint 内每个具体任务必须从**当前 sprint 分支**新建独立工作分支（`feature/` / `docs/` / `bugfix/` / `chore/`）
 - **不得在 main 分支直接开发具体任务**
 - **不得把多个无关任务混在同一个工作分支中**

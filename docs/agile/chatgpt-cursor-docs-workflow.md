@@ -60,7 +60,7 @@
 
 ## 关键规则
 
-1. **执行前读 docs** — 含 `git-workflow.md`、`sprint-plan.md`、`sprint-backlog.md`
+1. **执行前读 docs** — 含 `git-workflow.md`、`release-plan.md`、`sprint-backlog.md`（全局索引）及对应 `docs/agile/sprints/` / `docs/agile/releases/` 目录
 2. **执行后写 docs** — 代码变更必须同步更新对应文档
 3. **执行后写 execution report** — 见 `.cursor/rules/agile-rules.mdc`
 4. **冲突以 docs 为准** — 记录到 `decisions.md` 待用户确认
@@ -79,17 +79,20 @@
 
 ## 文档索引
 
-| 类型 | 路径 |
-|------|------|
-| 产品 | `docs/product/` |
-| 敏捷 | `docs/agile/` |
-| 架构 | `docs/architecture/` |
-| Git 工作流 | `docs/agile/git-workflow.md` |
-| Cursor 规则 | `.cursor/rules/` |
-| Execution Reports | `docs/agile/execution-reports/` |
+| 类型                      | 路径                                                                    |
+| ------------------------- | ----------------------------------------------------------------------- |
+| 产品                      | `docs/product/`                                                         |
+| 敏捷                      | `docs/agile/`                                                           |
+| 敏捷全局索引              | `docs/agile/release-plan.md` · `docs/agile/sprint-backlog.md`           |
+| Sprint / Release 独立目录 | `docs/agile/sprints/` · `docs/agile/releases/`（平级；见 DECISION-114） |
+| 架构                      | `docs/architecture/`                                                    |
+| Git 工作流                | `docs/agile/git-workflow.md`                                            |
+| 治理目标模型              | `docs/governance/product-governance-target-model.md`                    |
+| Cursor 规则               | `.cursor/rules/`                                                        |
+| Execution Reports         | `docs/agile/execution-reports/`                                         |
 
 ## 相关决策
 
 - DECISION-010：docs 是 ChatGPT 与 Cursor 之间的共享事实源
 - DECISION-019：建立 execution report 作为协作交接机制
-- DECISION-020：建立 Sprint 分支与迭代内工作分支机制
+- DECISION-114：Sprint / Release 独立平级目录与全局索引原则

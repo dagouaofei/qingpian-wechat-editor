@@ -732,6 +732,7 @@
 | 2026-06-11 | Sprint 11 | full test 2 failures `wechat-paste-qa-pack` 既有 · 非本轮修复                                                                                    | 测试                   | —                     |
 | 2026-06-11 | Sprint 11 | **admin session bugfix**：`POST /api/admin/login` + `303` · logout POST-only · 移除 GET logout 清 session                                        | Admin auth             | merge `7f218e5`       |
 | 2026-06-11 | Sprint 11 | 修复 RSC prefetch `GET /admin/logout?_rsc=...` 自动清 cookie                                                                                     | Admin auth             | bugfix                |
+| 2026-06-11 | Git       | **`bugfix/s11-staging-admin-session-cookie` merge → sprint** @ `7f218e5` · docs @ `7fb4d9e` · **未 merge main**                                  | Git                    | bugfix                |
 
 ---
 
@@ -756,6 +757,16 @@
 
 ---
 
+## 2026-07-01 · Sprint 11 Production T+72h Observe（Closing Documentation Sync）
+
+| 日期       | Sprint    | 变更摘要                                                                                                         | 影响范围 | 关联              |
+| ---------- | --------- | ---------------------------------------------------------------------------------------------------------------- | -------- | ----------------- |
+| 2026-07-01 | Sprint 11 | **Production T+72h Observe Completed**：OBSERVE · Health · Database · HTTPS · TLS OK · NRestarts=0 · errors=none | 运维     | S11-STORY-005     |
+| 2026-07-01 | Sprint 11 | **Production Observation Completed** · Sprint 11 保持 **Closed** · **Accepted with follow-ups**                  | 敏捷     | sprint11-closeout |
+| 2026-07-01 | Sprint 11 | T+72h 作为 **Closing Evidence** 归档；follow-ups **P1-S11-002 · P1-S11-004 · P2-S11-001～003** 仍为 **Open**     | Backlog  | P1-S11-002        |
+
+---
+
 ## 2026-06-30 · Sprint 11 Closeout / Release Merge 授权
 
 | 日期       | Sprint     | 变更摘要                                                                                          | 影响范围 | 关联         |
@@ -769,16 +780,13 @@
 
 ## 2026-06-30 · Sprint 11 Story Acceptance（PO 确认）
 
-| 日期       | Sprint    | 变更摘要                                                                                                           | 影响范围 | 关联 Story / Backlog  |
-| ---------- | --------- | ------------------------------------------------------------------------------------------------------------------ | -------- | --------------------- |
-| 2026-06-30 | Sprint 11 | **PO 验收**：001 **Accepted with follow-ups** · 002/003 **Accepted** · 005 **Accepted with follow-ups** · **Done** | 敏捷     | S11-STORY-001~003/005 |
-| 2026-06-30 | Sprint 11 | Follow-ups 保留 Open：**P1-S11-002**（005 运行时）· **P1-S11-004**（OSS/SLS/CloudMonitor）                         | Backlog  | P1-S11-002/004        |
-| 2026-06-30 | Sprint 11 | **P1-S11-003 Resolved**（001～003 PO 签收治理项已解决）                                                            | 治理     | P1-S11-003            |
-| 2026-06-30 | Sprint 11 | Closeout Readiness **仍为 Not Ready** · Sprint **In Progress / Not Closed** · **006 未启动**                       | 敏捷     | S11-STORY-006         |
-
----
-
-| 2026-06-11 | Git | **`bugfix/s11-staging-admin-session-cookie` merge → sprint** @ `7f218e5` · docs @ `7fb4d9e` · **未 merge main** | Git | bugfix |
+| 日期       | Sprint    | 变更摘要                                                                                                           | 影响范围   | 关联 Story / Backlog  |
+| ---------- | --------- | ------------------------------------------------------------------------------------------------------------------ | ---------- | --------------------- |
+| 2026-06-30 | Sprint 11 | **PO 验收**：001 **Accepted with follow-ups** · 002/003 **Accepted** · 005 **Accepted with follow-ups** · **Done** | 敏捷       | S11-STORY-001~003/005 |
+| 2026-06-30 | Sprint 11 | Follow-ups 保留 Open：**P1-S11-002**（005 运行时）· **P1-S11-004**（OSS/SLS/CloudMonitor）                         | Backlog    | P1-S11-002/004        |
+| 2026-06-30 | Sprint 11 | **P1-S11-003 Resolved**（001～003 PO 签收治理项已解决）                                                            | 治理       | P1-S11-003            |
+| 2026-06-30 | Sprint 11 | Closeout Readiness **仍为 Not Ready** · Sprint **In Progress / Not Closed** · **006 未启动**                       | 敏捷       | S11-STORY-006         |
+| 2026-06-30 | Sprint 11 | **S11 merge `release/1`** @ `3a8203b` · Sprint 11 **Accepted with follow-ups / Closed**                            | Git / 敏捷 | DECISION-114          |
 
 ---
 
@@ -921,3 +929,74 @@
 | 2026-06-07 | Sprint 10 | 新增 `GET /api/health` · `pnpm db:migrate:deploy` · `.env.example` pool/OSS 占位                                                                         | 代码 / 运维 | S10-STORY-007         |
 | 2026-06-07 | Sprint 10 | 阿里云资源隔离：独立 ECS / RDS / OSS · 华北 2 · 不共用秒篇服务                                                                                           | 文档 / 架构 | S10-STORY-007         |
 | 2026-06-07 | Sprint 10 | **S10-STORY-007 Done**：fast-forward merge `docs/s10-story-007-aliyun-deployment-runbook` → `sprint/s10-db-backed-style-admin-v1` @ `03ec49b` · 审查通过 | Git / 运维  | S10-STORY-007         |
+
+---
+
+## 2026-06-28 · Sprint 12 Product Governance Audit
+
+| 日期       | Sprint    | 变更摘要                                                                                                                         | 影响范围                           | 关联 Story / Decision |
+| ---------- | --------- | -------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | --------------------- |
+| 2026-06-28 | Sprint 12 | **S12-STORY-001 启动并进入审查**：现有项目管理与产品文档体系审计 · Product Governance & Release 2 Planning                       | 产品治理 / 敏捷                    | S12-STORY-001         |
+| 2026-06-28 | Sprint 12 | 新增 `docs/governance/s12-current-system-audit.md`、`product-governance-target-model.md`、`product-governance-migration-plan.md` | 文档 / 治理                        | S12-STORY-001         |
+| 2026-06-28 | Sprint 12 | 新增 `sprint12-product-governance-r2-planning.md`，并在 `sprint-backlog.md` 记录 Sprint 12 基线依赖与 S12 ID 冲突                | 敏捷 / Backlog                     | S12-STORY-001         |
+| 2026-06-28 | Sprint 12 | **S12-STORY-001 审查修正**：Sprint 12 恢复为 9 Story；Deferred Debt Replanning 移回 Product Backlog / Deferred Register 候选     | 产品治理 / 敏捷                    | S12-STORY-001         |
+| 2026-06-28 | Sprint 12 | 修正目标模型：Journey → Activity → Step → User Story；User Story 明确为 Product Backlog Item 类型之一                            | 产品治理                           | S12-STORY-001         |
+| 2026-06-28 | Sprint 12 | 旧 Release 2 规划标记为 Superseded / Pending Replanning；S12-STORY-008 重新制定正式 Release 2 Scope                              | Product Backlog / Release Planning | S12-STORY-001         |
+
+---
+
+## 2026-06-28 · S12-STORY-001 Cursor Governance Rule Sync
+
+| 日期       | Sprint    | 变更摘要                                                                                                                       | 影响范围           | 关联 Story / Decision |
+| ---------- | --------- | ------------------------------------------------------------------------------------------------------------------------------ | ------------------ | --------------------- |
+| 2026-06-28 | Sprint 12 | **S12-STORY-001 治理验收补充**：新增 `.cursor/rules/agile-governance.mdc`，固化 Sprint / Story 启动、DoR、范围、合并与停止闸门 | Cursor 规则 / 治理 | S12-STORY-001         |
+| 2026-06-28 | Sprint 12 | `agile-rules.mdc`、`collaboration-rules.mdc` 最小引用更新，指向新治理闸门文件                                                  | Cursor 规则        | S12-STORY-001         |
+
+---
+
+## 2026-06-29 · S12-STORY-001 Sprint / Release 文档结构对齐
+
+| 日期       | Sprint    | 变更摘要                                                                                                  | 影响范围    | 关联 Story / Decision        |
+| ---------- | --------- | --------------------------------------------------------------------------------------------------------- | ----------- | ---------------------------- |
+| 2026-06-29 | Sprint 12 | **DECISION-115**：Sprint / Release 独立平级目录与全局索引原则                                             | 治理 / 敏捷 | S12-STORY-001 · DECISION-115 |
+| 2026-06-29 | Sprint 12 | 修正 `.cursor/rules/agile-rules.mdc` 等当前规范：全局文件仅索引，详细 Backlog 进 `sprints/` / `releases/` | Cursor 规则 | S12-STORY-001                |
+| 2026-06-29 | Sprint 12 | `release-plan.md` / `sprint-backlog.md` / `sprint-plan.md` 增加索引角色说明；历史详细内容保留             | 敏捷文档    | S12-STORY-001                |
+
+---
+
+## 2026-06-29 · S12-STORY-001 Accepted / Done
+
+| 日期       | Sprint    | 变更摘要                                                                                                                                                               | 影响范围    | 关联 Story / Decision |
+| ---------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | --------------------- |
+| 2026-06-29 | Sprint 12 | **S12-STORY-001 Accepted / Done**：Product Owner 验收通过；merge `docs/s12-story-001-sprint-release-structure-alignment` → `sprint/s12-product-governance-r2-planning` | 敏捷 / 治理 | S12-STORY-001         |
+| 2026-06-29 | Sprint 12 | 领域规则时效性审计：`style-system-rules.mdc` · `wechat-copy-rules.mdc`；Execution Report commit 记录规则同步                                                           | Cursor 规则 | S12-STORY-001         |
+
+---
+
+## 2026-06-30 · S12 Planning Baseline Alignment
+
+| 日期       | Sprint    | 变更摘要                                                                                                                                        | 影响范围   | 关联 Story / Decision |
+| ---------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | --------------------- |
+| 2026-06-30 | Sprint 12 | **`release/1` @ `3a8203b` merge → `docs/s12-release1-baseline-alignment`** · 保留 S12-STORY-001 治理成果 · 纳入 Sprint 11 Closed / DECISION-114 | Git / 敏捷 | Baseline Alignment    |
+| 2026-06-30 | Sprint 12 | **DECISION-115** 承接 Sprint / Release 目录结构（原 S12 DECISION-114 编号与 S11 Closeout DECISION-114 解冲突）                                  | 治理       | DECISION-115          |
+| 2026-06-30 | Sprint 12 | Sprint 12 Plan **Not Approved** · S12-STORY-002 **Not Started** · 仅基线对齐，不代表 Sprint 12 产品开发启动                                     | 敏捷       | S12-STORY-002         |
+
+---
+
+## 2026-06-30 · Sprint 12 Planning Approval
+
+| 日期       | Sprint    | 变更摘要                                                                                                                               | 影响范围    | 关联 Story / Decision |
+| ---------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------- | ----------- | --------------------- |
+| 2026-06-30 | Sprint 12 | Product Owner 批准 Sprint 12 正式 Planning · **DECISION-116** · Sprint Goal Approved                                                   | 敏捷 / 治理 | DECISION-116          |
+| 2026-06-30 | Sprint 12 | 建立 `docs/agile/sprints/sprint-12/plan.md` · `backlog.md` 为详细事实源；`sprint12-product-governance-r2-planning.md` 保留兼容入口     | 文档        | DECISION-115          |
+| 2026-06-30 | Sprint 12 | committed Stories：S12-STORY-002~009 · 顺序 002→009 · Sprint **Approved / Ready to Start** · S12-STORY-002 **Committed / Not Started** | 敏捷        | S12-STORY-002         |
+
+---
+
+## 2026-07-01 · S12-STORY-002 产品愿景、用户与系统边界
+
+| 日期       | Sprint    | 变更摘要                                                                                                        | 影响范围 | 关联 Story / Decision |
+| ---------- | --------- | --------------------------------------------------------------------------------------------------------------- | -------- | --------------------- |
+| 2026-07-01 | Sprint 12 | **S12-STORY-002 Accepted / Done**：PO 验收 · 状态同步 · merge 至 sprint 分支（`--no-ff`）                       | 产品治理 | S12-STORY-002         |
+| 2026-07-01 | Sprint 12 | **S12-STORY-002 In Review**：更新 `product-vision.md` · 新增 `users-and-scenarios.md` · **DECISION-117**        | 产品     | S12-STORY-002         |
+| 2026-07-01 | Sprint 12 | PO 确认：AI 内容营销工作台 · 十个能力域 · 五核心场景 · 不划分当前/近期/远期 · Sprint **Approved / In Progress** | 产品治理 | DECISION-117          |
