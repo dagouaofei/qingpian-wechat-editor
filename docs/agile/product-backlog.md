@@ -169,14 +169,14 @@ Story 详情见 [`sprint-backlog.md`](sprint-backlog.md) · S11 见 [`sprint11-p
 
 > 自 [`sprint11-review.md`](sprint11-review.md) / [`sprint11-retrospective.md`](sprint11-retrospective.md) 登记 · **不得**伪造完成 · Sprint 11 Closed 不代表 follow-ups 完成 · 后续由 Product Owner 重新排序和规划
 
-| ID             | 问题                                                                      | 类型        | 状态         | 来源 Story · 验收结论 · 说明                                                                                      |
-| -------------- | ------------------------------------------------------------------------- | ----------- | ------------ | ----------------------------------------------------------------------------------------------------------------- |
-| **P1-S11-002** | S11-STORY-005 运行时闭环：ECS cron · `ops:observe` · T+24h/T+72h 观察归档 | 运维/验证   | **Open**     | **S11-STORY-005** · **Accepted with follow-ups** · 脚本已 merge sprint · **未**部署服务器                         |
-| **P1-S11-003** | Stories 001~003 PO 签收（In Review → Done 或明确豁免）                    | 治理        | **Resolved** | **S11-STORY-001~003** · PO 2026-06-30 验收 **Done** · 历史登记保留 · **不再** carryover 阻塞                      |
-| **P1-S11-004** | OSS / SLS / CloudMonitor 创建或 Release 1 豁免决策                        | 运维        | **Open**     | **S11-STORY-001** · **Accepted with follow-ups** · Backlog 已登记并保持 Open；OSS / SLS / CloudMonitor 资源未创建 |
-| **P2-S11-001** | RDS 自动备份策略确认与恢复演练                                            | 运维/验证   | **Open**     | Closeout 遗留 · 待规划                                                                                            |
-| **P2-S11-002** | On-call 联系人回填（`monitoring-and-oncall.md`）                          | 运维文档    | **Open**     | Closeout 遗留 · 待填                                                                                              |
-| **P2-S11-003** | 全量 test `wechat-paste-qa-pack` 2 failures                               | 技术债/测试 | **Open**     | Sprint 11 changelog 登记 · 非阻塞 Prelaunch                                                                       |
+| ID             | 问题                                                          | 类型        | 状态         | 来源 Story · 验收结论 · 说明                                                                                                                                                      |
+| -------------- | ------------------------------------------------------------- | ----------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **P1-S11-002** | S11-STORY-005 运行时闭环：ECS cron · `ops:observe` 自动化部署 | 运维/验证   | **Open**     | **S11-STORY-005** · **Accepted with follow-ups** · T+72h Closing Evidence 已归档（2026-07-01 · [`sprint11-closeout.md`](sprint11-closeout.md) §8～§9）· ECS cron **未**部署服务器 |
+| **P1-S11-003** | Stories 001~003 PO 签收（In Review → Done 或明确豁免）        | 治理        | **Resolved** | **S11-STORY-001~003** · PO 2026-06-30 验收 **Done** · 历史登记保留 · **不再** carryover 阻塞                                                                                      |
+| **P1-S11-004** | OSS / SLS / CloudMonitor 创建或 Release 1 豁免决策            | 运维        | **Open**     | **S11-STORY-001** · **Accepted with follow-ups** · Backlog 已登记并保持 Open；OSS / SLS / CloudMonitor 资源未创建                                                                 |
+| **P2-S11-001** | RDS 自动备份策略确认与恢复演练                                | 运维/验证   | **Open**     | Closeout 遗留 · 待规划                                                                                                                                                            |
+| **P2-S11-002** | On-call 联系人回填（`monitoring-and-oncall.md`）              | 运维文档    | **Open**     | Closeout 遗留 · 待填                                                                                                                                                              |
+| **P2-S11-003** | 全量 test `wechat-paste-qa-pack` 2 failures                   | 技术债/测试 | **Open**     | Sprint 11 changelog 登记 · 非阻塞 Prelaunch                                                                                                                                       |
 
 ---
 

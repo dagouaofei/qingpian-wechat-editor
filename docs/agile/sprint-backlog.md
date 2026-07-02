@@ -4816,7 +4816,9 @@ S11-STORY-001 → 002 → 003 → 004 → 005 → 006
 
 **优先级：** P1 · **状态：** **Done** · **验收结论：** **Accepted with follow-ups**（PO 2026-06-30 · 脚本/文档已验收 · 运行时观察未完成）· **工作分支：** `ops/s11-story-005-monitoring-observation` · **前置：** S11-STORY-004 **Done**
 
-**Follow-up（未完成 · 非 PASS）：** ECS cron · T+24h · T+72h → Product Backlog **P1-S11-002**
+**Follow-up（未完成 · 非 PASS）：** ECS cron / `ops:observe` 自动化部署 → Product Backlog **P1-S11-002**（T+72h Closing Evidence 已归档 · 2026-07-01）
+
+**Production Observation：** **Completed**（T+72h · 2026-07-01 · [`sprint11-closeout.md`](../agile/sprint11-closeout.md) §8～§9）
 
 **目标：** 最小可运行监控闭环 · 复用 `status-environment.sh` · `ops:observe` 严格检查 · P0/P1/P2 告警策略 · Prelaunch 24h/72h 观察清单。**本轮提交设计与脚本 · 服务器 cron/CloudMonitor 待审查后部署。**
 
@@ -4829,7 +4831,7 @@ S11-STORY-001 → 002 → 003 → 004 → 005 → 006
 - [x] AC-3 [`monitoring-and-oncall.md`](../ops/monitoring-and-oncall.md) 更新
 - [x] AC-4 脚本 wiring 测试 · lint · build
 - [ ] AC-5 ECS cron / CloudMonitor 接入（待审查后部署）
-- [ ] AC-6 T+24h / T+72h 观察记录归档
+- [x] AC-6 T+72h 观察记录归档（2026-07-01 · Closing Evidence · ECS cron 仍属 **P1-S11-002** Open）
 
 **明确不做：** 移除 Basic Auth/noindex · 正式公开上线 · governance apply · P1-S11-001 · merge main/release/1
 
