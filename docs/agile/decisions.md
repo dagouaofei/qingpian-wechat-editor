@@ -104,6 +104,7 @@
 | DECISION-115 | 2026-06-29 | Sprint / Release 独立平级目录与全局索引：`sprints/` 与 `releases/` 平级；全局索引文件仅索引；详细 Backlog 进独立目录；历史不批量迁移                                                                                                                                | **已确认**                             |
 | DECISION-116 | 2026-06-30 | Product Owner 批准 Sprint 12 正式 Planning；Sprint Goal · committed Stories 002~009 · 顺序 · 范围与非目标 · 容量规则 · 验收方式；Sprint 状态 `Approved / Ready to Start`；S12-STORY-002 未启动；不授权 merge/push/产品代码                                          | **已确认**                             |
 | DECISION-117 | 2026-07-01 | S12-STORY-002：PO 确认轻篇为 AI 内容营销工作台；目标用户层次；五个核心场景；十个完整产品能力域；灵感中心与内容计划独立；品牌档案与品牌知识库合并为品牌与知识中心；不提前划分当前/近期/远期；系统边界；具体优先级留待后续规划                                        | **已确认**                             |
+| DECISION-118 | 2026-07-04 | S12-STORY-003：轻篇完整产品模块树 M01–M11（M10 横向支撑 · M11 受众洞察）；C01 多模态媒体制作中心为候选一级模块；抖音/视频纳入多平台多模态横向能力不设独立一级模块；功能目录为产品地图不构成 Release/Sprint 开发承诺；M06 样式来源与匹配逻辑                         | **已确认**                             |
 
 ### DECISION-019 详情
 
@@ -1323,3 +1324,29 @@
   8. 正式事实源：`docs/product/product-vision.md` · `docs/product/users-and-scenarios.md`
 - **影响范围：** `product-scope.md`（索引说明）· Sprint 12 backlog · 后续 S12-STORY-003 模块树输入
 - **状态：** **已确认**（2026-07-01 · S12-STORY-002 · PO 已确认决策）
+
+### DECISION-118 详情（S12-STORY-003 产品模块树与功能目录）
+
+- **日期：** 2026-07-04
+- **关联 Story：** S12-STORY-003
+- **Product Owner 授权原文：**
+
+  ```text
+  确认 S12-STORY-003：完整产品模块树与产品功能目录正式候选稿。
+  ```
+
+- **背景：** Product Owner 已确认本 Story 产品方案与 DoR；Cursor 将已确认决策整理为正式产品事实源，不重新设计模块结构。
+- **决策：**
+  1. **一级产品模块：** M01–M09 内容营销核心链路 + M10 工作空间与协作（横向支撑）+ M11 受众洞察与互动运营；**M10 保留原编号，M11 为新增编号**
+  2. **候选二级模块：** 各一级模块下候选二级结构（M01-01 ~ M11-06）为当前候选，允许后续调整
+  3. **横向能力：** X01–X07；**AI 是能力方式，不是独立产品模块**
+  4. **C01 多模态媒体制作中心：** 候选一级模块，**当前不正式升级**；预估优先级靠后
+  5. **抖音与视频：** 纳入多平台（X03）、多模态（X04）方向，分布在 M02/M04/M07/M08/M09/M11；**不设独立抖音一级模块**；强调拆解、提取与再创作
+  6. **M11：** 受众洞察与互动运营纳入**完整产品范围**，当前预估优先级靠后
+  7. **M06：** 样式来源完整链路（人工设计 + 外部采集 + AI 生成 + 品牌规则 + 内容结构 + 用户自定义 + 数据反馈 → 样式库）；样式匹配综合品牌/内容/平台/偏好/质量/组合/反馈/人工可控
+  8. **M06 vs M07 边界：** M06 负责视觉与品牌视觉；M07 负责复制、导出、发布与平台一致
+  9. **功能目录原则：** 功能目录 = 全景地图；**不是** Release Backlog 或 Sprint Backlog；**不决定** Release 2 范围
+  10. 正式事实源：`docs/product/product-module-tree.md` · `docs/product/product-feature-catalog.md`
+- **影响范围：** `product-scope.md`（索引）· Sprint 12 backlog · 后续 S12-STORY-004 Story Map 输入
+- **验收（2026-07-04）：** Product Owner 验收结论 **Accepted**；S12-STORY-003 标记 **Accepted / Done**；主要成果 commit **`d1811ab`**；授权 `--no-ff` merge 至 `sprint/s12-product-governance-r2-planning`；**未授权 push**；**未启动 S12-STORY-004**
+- **状态：** **已确认**（2026-07-04 · S12-STORY-003 · PO 已确认候选稿 · **Accepted / Done**）
