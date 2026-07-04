@@ -5,17 +5,17 @@
 > **Plan（权威）：** [`sprints/sprint-12/plan.md`](sprints/sprint-12/plan.md)
 > **Backlog（权威）：** [`sprints/sprint-12/backlog.md`](sprints/sprint-12/backlog.md)
 
-| 项                    | 值                                                                                            |
-| --------------------- | --------------------------------------------------------------------------------------------- |
-| **分支**              | `sprint/s12-product-governance-r2-planning`                                                   |
-| **Release 基线**      | `release/1` @ `3a8203b`                                                                       |
-| **planningStatus**    | **Approved**                                                                                  |
-| **sprintStatus**      | **Approved / In Progress**                                                                    |
-| **approvedDate**      | 2026-06-30                                                                                    |
-| **approvedBy**        | Product Owner                                                                                 |
-| **Planning Approval** | **DECISION-116**                                                                              |
-| **S12-STORY-002**     | **Accepted / Done**（DECISION-117 · [`product-vision.md`](../product/product-vision.md)）     |
-| **S12-STORY-003**     | **In Review**（DECISION-118 · [`product-module-tree.md`](../product/product-module-tree.md)） |
+| 项                    | 值                                                                                                  |
+| --------------------- | --------------------------------------------------------------------------------------------------- |
+| **分支**              | `sprint/s12-product-governance-r2-planning`                                                         |
+| **Release 基线**      | `release/1` @ `3a8203b`                                                                             |
+| **planningStatus**    | **Approved**                                                                                        |
+| **sprintStatus**      | **Approved / In Progress**                                                                          |
+| **approvedDate**      | 2026-06-30                                                                                          |
+| **approvedBy**        | Product Owner                                                                                       |
+| **Planning Approval** | **DECISION-116**                                                                                    |
+| **S12-STORY-002**     | **Accepted / Done**（DECISION-117 · [`product-vision.md`](../product/product-vision.md)）           |
+| **S12-STORY-003**     | **Accepted / Done**（DECISION-118 · [`product-module-tree.md`](../product/product-module-tree.md)） |
 
 > **说明：** 本文件保留 S12-STORY-001 历史记录与兼容链接；**不得**在此复制完整 committed Story AC 或形成第二套详细事实源。
 
@@ -31,7 +31,7 @@
 | ------------------- | ------------------------------------------ |
 | S12-STORY-001       | **Accepted / Done**（Planning 前治理审计） |
 | S12-STORY-002       | **Accepted / Done**                        |
-| S12-STORY-003       | **In Review**                              |
+| S12-STORY-003       | **Accepted / Done**                        |
 | S12-STORY-004 ~ 009 | **Committed / Not Started**                |
 
 ## S12-STORY-001（历史记录 · Done）
@@ -52,4 +52,4 @@
 ## 启动闸门
 
 - Sprint 12 Plan **Approved**（2026-06-30 · DECISION-116）· Sprint **In Progress**
-- **S12-STORY-002 Accepted / Done**（2026-07-01 · DECISION-117）；**S12-STORY-003 In Review**（2026-07-04 · DECISION-118）；**S12-STORY-004 未启动**
+- **S12-STORY-003 Accepted / Done**（2026-07-04 · DECISION-118 · `d1811ab`）；**S12-STORY-004 未启动**
