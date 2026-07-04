@@ -1348,4 +1348,5 @@
   9. **功能目录原则：** 功能目录 = 全景地图；**不是** Release Backlog 或 Sprint Backlog；**不决定** Release 2 范围
   10. 正式事实源：`docs/product/product-module-tree.md` · `docs/product/product-feature-catalog.md`
 - **影响范围：** `product-scope.md`（索引）· Sprint 12 backlog · 后续 S12-STORY-004 Story Map 输入
-- **状态：** **已确认**（2026-07-04 · S12-STORY-003 · PO 已确认候选稿）
+- **验收（2026-07-04）：** Product Owner 验收结论 **Accepted**；S12-STORY-003 标记 **Accepted / Done**；主要成果 commit **`d1811ab`**；授权 `--no-ff` merge 至 `sprint/s12-product-governance-r2-planning`；**未授权 push**；**未启动 S12-STORY-004**
+- **状态：** **已确认**（2026-07-04 · S12-STORY-003 · PO 已确认候选稿 · **Accepted / Done**）

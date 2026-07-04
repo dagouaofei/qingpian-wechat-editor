@@ -1007,5 +1007,6 @@
 
 | 日期       | Sprint    | 变更摘要                                                                                                                                           | 影响范围 | 关联 Story / Decision |
 | ---------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | --------------------- |
+| 2026-07-04 | Sprint 12 | **S12-STORY-003 Accepted / Done**：PO 验收 · 主要成果 `d1811ab` · merge 至 sprint 分支（`--no-ff`）                                                | 产品治理 | S12-STORY-003         |
 | 2026-07-04 | Sprint 12 | **S12-STORY-003 In Review**：新增 `product-module-tree.md` · `product-feature-catalog.md` · M01–M11 模块树 · M06 样式来源与匹配 · **DECISION-118** | 产品     | S12-STORY-003         |
 | 2026-07-04 | Sprint 12 | docs(s12): add product module tree and feature catalog — 功能目录为产品全景地图，不构成 Release/Sprint 开发承诺                                    | 产品治理 | DECISION-118          |
