@@ -7,6 +7,11 @@
 > - 愿景、使命、完整范围、主链路、系统边界 → [`product-vision.md`](product-vision.md)
 > - 目标用户与五个核心场景 → [`users-and-scenarios.md`](users-and-scenarios.md)
 >
+> **产品结构事实源（S12-STORY-003 · DECISION-118）：**
+>
+> - 产品模块树 → [`product-module-tree.md`](product-module-tree.md)
+> - 产品功能目录 → [`product-feature-catalog.md`](product-feature-catalog.md)
+>
 > **以下内容为 Release 1 / 早期工程阶段的范围记录，保留作历史交付边界；不等同于完整产品范围。**
 
 ## 核心用户
