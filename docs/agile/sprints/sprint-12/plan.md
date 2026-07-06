@@ -114,8 +114,8 @@ planningApprovalDecision: DECISION-116
 **说明：**
 
 - Sprint Plan **Approved** 不代表所有 Story 已启动
-- **S12-STORY-004** **Accepted / Done**（DECISION-119 · `62a6202`）；**S12-STORY-005** 未启动
-- Cursor 不得自动启动 S12-STORY-005
+- **S12-STORY-005** **In Review**（DECISION-120）；**S12-STORY-006** 未启动
+- Cursor 不得自动启动 S12-STORY-006
 - Sprint 12 关闭仍需独立 Review、Retrospective、Closeout 和 PO 授权
 
 ## 关联决策
