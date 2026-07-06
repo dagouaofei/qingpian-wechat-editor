@@ -15,7 +15,8 @@
 | **approvedBy**        | Product Owner                                                                                       |
 | **Planning Approval** | **DECISION-116**                                                                                    |
 | **S12-STORY-002**     | **Accepted / Done**（DECISION-117 · [`product-vision.md`](../product/product-vision.md)）           |
-| **S12-STORY-003**     | **Accepted / Done**（DECISION-118 · [`product-module-tree.md`](../product/product-module-tree.md)） |
+| **S12-STORY-003**     | **Accepted / Done**（DECISION-118 · [`product-module-tree.md`](../product/product-module-tree.md)）     |
+| **S12-STORY-004**     | **Accepted / Done**（DECISION-119 · [`user-story-map.md`](../product/user-story-map.md)）               |
 
 > **说明：** 本文件保留 S12-STORY-001 历史记录与兼容链接；**不得**在此复制完整 committed Story AC 或形成第二套详细事实源。
 
@@ -32,7 +33,8 @@
 | S12-STORY-001       | **Accepted / Done**（Planning 前治理审计） |
 | S12-STORY-002       | **Accepted / Done**                        |
 | S12-STORY-003       | **Accepted / Done**                        |
-| S12-STORY-004 ~ 009 | **Committed / Not Started**                |
+| S12-STORY-004       | **Accepted / Done**                        |
+| S12-STORY-005 ~ 009 | **Committed / Not Started**                |
 
 ## S12-STORY-001（历史记录 · Done）
 
@@ -52,4 +54,4 @@
 ## 启动闸门
 
 - Sprint 12 Plan **Approved**（2026-06-30 · DECISION-116）· Sprint **In Progress**
-- **S12-STORY-003 Accepted / Done**（2026-07-04 · DECISION-118 · `d1811ab`）；**S12-STORY-004 未启动**
+- **S12-STORY-004 Accepted / Done**（2026-07-06 · DECISION-119 · `62a6202`）；**S12-STORY-005 未启动**
