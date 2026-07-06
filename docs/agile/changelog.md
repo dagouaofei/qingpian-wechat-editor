@@ -1030,3 +1030,13 @@
 | 2026-07-06 | Sprint 12 | **S12-STORY-005 Accepted / Done**：PO 验收 · 主要成果 `32d8c47` · merge 至 sprint 分支（`--no-ff`）                         | 产品治理 | S12-STORY-005         |
 | 2026-07-06 | Sprint 12 | **S12-STORY-005 In Review**：Backlog 追踪模型 · PBI-QP-001~010 · Coverage Matrix · Outcome/假设/指标追踪 · **DECISION-120** | 产品治理 | S12-STORY-005         |
 | 2026-07-06 | Sprint 12 | docs(s12): add backlog tracking model and coverage matrix — 不决定 R2 最终范围 · 不生成全部开发 Story                       | 产品治理 | DECISION-120          |
+
+---
+
+## 2026-07-06 · S12-STORY-006 敏捷 Operating Model 与模板
+
+| 日期       | Sprint    | 变更摘要                                                                                                                                     | 影响范围 | 关联 Story / Decision |
+| ---------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------- | --------------------- |
+| 2026-07-06 | Sprint 12 | **S12-STORY-006 Accepted / Done**：PO 验收 · 主要成果 `cb0fae3` · 证据同步 `afd8557` · merge 至 sprint 分支（`--no-ff`）                     | 敏捷治理 | S12-STORY-006         |
+| 2026-07-06 | Sprint 12 | **S12-STORY-006 In Review**：Agile Operating Model · DoR/DoD/Cursor/Report/Review 模板 · Refinement/Change Control/Triage · **DECISION-121** | 敏捷治理 | S12-STORY-006         |
+| 2026-07-06 | Sprint 12 | docs(s12): add agile operating model and standard templates — 纳入 S12-STORY-005 追踪字段 · 未改 `.cursor/rules/`                            | 敏捷治理 | DECISION-121          |

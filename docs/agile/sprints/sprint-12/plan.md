@@ -44,6 +44,7 @@ planningApprovalDecision: DECISION-116
 | **S12-STORY-003** | **Accepted / Done** | 产品模块树与功能目录；DECISION-118 · `product-module-tree.md` · `product-feature-catalog.md`  |
 | **S12-STORY-004** | **Accepted / Done** | 用户旅程与 Story Map；DECISION-119 · `user-story-map.md` · `product-success-model.md`         |
 | **S12-STORY-005** | **Accepted / Done** | Backlog 追踪体系；DECISION-120 · `backlog-tracking-model.md` · `product-coverage-matrix.md`   |
+| **S12-STORY-006** | **Accepted / Done** | Agile Operating Model 与标准模板；DECISION-121 · `agile-operating-model.md` · `templates/`    |
 
 ## Committed Stories 与顺序
 
@@ -115,8 +116,8 @@ planningApprovalDecision: DECISION-116
 **说明：**
 
 - Sprint Plan **Approved** 不代表所有 Story 已启动
-- **S12-STORY-005** **Accepted / Done**（DECISION-120 · `32d8c47`）；**S12-STORY-006** 未启动
-- Cursor 不得自动启动 S12-STORY-006
+- **S12-STORY-006** **Accepted / Done**（DECISION-121）；**S12-STORY-007** 未启动
+- Cursor 不得自动启动 S12-STORY-007
 - Sprint 12 关闭仍需独立 Review、Retrospective、Closeout 和 PO 授权
 
 ## 关联决策

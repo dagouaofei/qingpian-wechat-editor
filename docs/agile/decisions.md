@@ -107,6 +107,7 @@
 | DECISION-118 | 2026-07-04 | S12-STORY-003：轻篇完整产品模块树 M01–M11（M10 横向支撑 · M11 受众洞察）；C01 多模态媒体制作中心为候选一级模块；抖音/视频纳入多平台多模态横向能力不设独立一级模块；功能目录为产品地图不构成 Release/Sprint 开发承诺；M06 样式来源与匹配逻辑                         | **已确认**                             |
 | DECISION-119 | 2026-07-06 | S12-STORY-004：Story Map 以用户旅程为中心 A01–A11；持续内容运营与系列化生产；高表现内容拆解与再创作；R2 最小成功闭环候选；产品成功模型（Outcome/假设/指标/失败信号/反馈）                                                                                           | **已确认**                             |
 | DECISION-120 | 2026-07-06 | S12-STORY-005：Backlog 追踪模型 PBI→RBI→SBI→Evidence；PBI 必填追踪用户活动/Slice/模块/假设/指标/失败信号；PBI-QP-001~010；Coverage Matrix；不决定 R2 最终范围                                                                                                       | **已确认**                             |
+| DECISION-121 | 2026-07-06 | S12-STORY-006：Agile Operating Model；Backlog Refinement/Change Control/Triage/Progress Check；DoR/DoD/Cursor/Report/Review 模板；PBI 追踪字段；PBI-QP-009 条件触发须 PO 确认                                                                                       | **已确认**                             |
 
 ### DECISION-019 详情
 
@@ -1404,3 +1405,33 @@
 - **影响范围：** Sprint 12 backlog · 后续 S12-STORY-006 / 007 / 008 输入
 - **验收（2026-07-06）：** Product Owner 验收结论 **Accepted**；S12-STORY-005 标记 **Accepted / Done**；主要成果 commit **`32d8c47`**；授权 `--no-ff` merge 至 `sprint/s12-product-governance-r2-planning`；**未授权 push**；**未启动 S12-STORY-006**
 - **状态：** **已确认**（2026-07-06 · S12-STORY-005 · PO 已确认候选稿 · **Accepted / Done**）
+
+### DECISION-121 详情（S12-STORY-006 Agile Operating Model 与标准模板）
+
+- **日期：** 2026-07-06
+- **关联 Story：** S12-STORY-006
+- **Product Owner 授权原文：**
+
+  ```text
+  S12-STORY-006 应建立敏捷事件、流程闸门、DoR/DoD 与标准模板；
+  Backlog Refinement 应纳入敏捷流程；
+  Change Control 应纳入敏捷流程；
+  Bug / Debt / Follow-up Triage 应纳入敏捷流程；
+  不采用完整 Daily Standup，仅保留轻量 Progress Check。
+  ```
+
+- **背景：** Product Owner 已确认本 Story 方案与 DoR；建立从 S12 起向后生效的敏捷执行标准；不修改 `.cursor/rules/`（留待 S12-STORY-009）。
+- **决策：**
+  1. **Operating Model：** Product Backlog → Refinement → DoR → Cursor 指令 → 执行 → Report → Review → PO Acceptance → Merge → Evidence → Next Ready
+  2. **敏捷事件：** Sprint Planning · Backlog Refinement · Story Ready · Cursor Execution · Execution Report · ChatGPT Review · PO Acceptance · Merge Gate · Sprint Review · Retrospective · Closeout · Release Planning · Release Review/Closeout · Change Control · Triage · **轻量 Progress Check**（无完整 Daily Standup）
+  3. **Backlog Refinement：** 只形成建议与候选，不替代 PO 决策，不自动 Committed，不决定 R2 范围
+  4. **Change Control：** Sprint Approved 后范围变更须记录影响、取舍与 PO 决策
+  5. **Triage：** 范围外问题默认进 Backlog，不静默扩大 Story
+  6. **标准模板：** DoR · DoD · Cursor 指令 · Execution Report · Review/Acceptance — 位于 `docs/agile/templates/`
+  7. **Backlog 追踪字段：** 纳入模板 — PBI/RBI/SBI · 用户活动 · Slice · 模块 · 假设 · 成功/失败指标 · Evidence
+  8. **PBI-QP-009：** 条件触发字段入 DoR；**不得自动升 P0**，须 PO 明确确认
+  9. **权限边界：** Cursor 完成 ≠ Story Done；ChatGPT 建议 ≠ PO Accepted；merge ≠ Sprint Closed
+  10. 正式事实源：`docs/agile/agile-operating-model.md` · `docs/agile/templates/*`
+- **影响范围：** Sprint 12 backlog · 后续 S12-STORY-007 / 008 / 009 输入
+- **验收（2026-07-06）：** Product Owner 验收结论 **Accepted**；S12-STORY-006 标记 **Accepted / Done**；主要成果 commit **`cb0fae3`**；证据同步 commit **`afd8557`**；授权 `--no-ff` merge 至 `sprint/s12-product-governance-r2-planning`；**未授权 push**；**未启动 S12-STORY-007**
+- **状态：** **已确认**（2026-07-06 · S12-STORY-006 · PO 已确认候选稿 · **Accepted / Done**）

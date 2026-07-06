@@ -28,7 +28,7 @@ S12-STORY-002 → 003 → 004 → 005 → 006 → 007 → 008 → 009
 | 2    | S12-STORY-003 | 完整产品模块树与产品功能目录                        | P0     | **Accepted / Done**         |
 | 3    | S12-STORY-004 | 用户旅程、用户活动与完整 Story Map                  | P0     | **Accepted / Done**         |
 | 4    | S12-STORY-005 | Product Backlog、Release、Sprint 与模块覆盖追踪体系 | P0     | **Accepted / Done**         |
-| 5    | S12-STORY-006 | 敏捷事件、流程闸门、DoR/DoD 与标准模板              | P1     | **Committed / Not Started** |
+| 5    | S12-STORY-006 | 敏捷事件、流程闸门、DoR/DoD 与标准模板              | P1     | **Accepted / Done**         |
 | 6    | S12-STORY-007 | Release 1 历史能力、模块及功能映射                  | P1     | **Committed / Not Started** |
 | 7    | S12-STORY-008 | Release 2 及后续产品路线与渐进式迭代计划            | P0     | **Committed / Not Started** |
 | 8    | S12-STORY-009 | 全局一致性审计、治理验收与 Sprint 12 Closeout       | P0     | **Committed / Not Started** |
@@ -86,8 +86,21 @@ S12-STORY-002 → 003 → 004 → 005 → 006 → 007 → 008 → 009
 **Execution Report：** [`../../execution-reports/2026-07-06-s12-story-005-backlog-tracking-system.md`](../../execution-reports/2026-07-06-s12-story-005-backlog-tracking-system.md)
 **检查说明：** git status clean · git diff --check PASS；execution report 中检查结果表格保留「待执行」字样，PO 已补充终端证据确认实际检查通过；本轮不为 report-only 回填追加修正 commit。
 
+## S12-STORY-006（Accepted / Done）
+
+**状态：** **Accepted / Done**（2026-07-06 · Product Owner 验收 · 授权 merge 至 `sprint/s12-product-governance-r2-planning`）
+**验收结论：** **Accepted**
+**主要成果 commit：** `cb0fae3`
+**证据同步 commit：** `afd8557`
+**工作分支：** `docs/s12-story-006-agile-operating-model-templates`（已 merge）
+**产品事实源：** [`../../agile-operating-model.md`](../../agile-operating-model.md) · [`../../templates/`](../../templates/)
+**Decision：** **DECISION-121**
+**Execution Report：** [`../../execution-reports/2026-07-06-s12-story-006-agile-operating-model-templates.md`](../../execution-reports/2026-07-06-s12-story-006-agile-operating-model-templates.md)
+**检查说明：** git status clean · git diff --check PASS · prettier PASS；lint/test/build 未运行（无产品代码变更）
+**说明：** S12-STORY-006 建立 Agile Operating Model、Backlog Refinement、Change Control、Triage、Progress Check、DoR/DoD、Cursor 指令、Execution Report、Review/Acceptance 标准模板；未修改产品代码；未修改 `.cursor/rules/`；未启动 S12-STORY-007。
+
 ## 启动闸门
 
-- **S12-STORY-005** **Accepted / Done** · **S12-STORY-006** 仍为 **Committed / Not Started**
-- 启动 S12-STORY-006 前须 PO 明确授权与独立 DoR
-- Cursor 不得自动启动 S12-STORY-006
+- **S12-STORY-006** **Accepted / Done**
+- **S12-STORY-007** 仍为 **Committed / Not Started** · 未授权启动
+- Cursor 不得自动启动 S12-STORY-007
