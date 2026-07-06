@@ -1020,3 +1020,13 @@
 | 2026-07-06 | Sprint 12 | **S12-STORY-004 Accepted / Done**：PO 验收 · 主要成果 `62a6202` · merge 至 sprint 分支（`--no-ff`）                                    | 产品治理 | S12-STORY-004         |
 | 2026-07-06 | Sprint 12 | **S12-STORY-004 In Review**：更新 `user-story-map.md` · 新增 `product-success-model.md` · A01–A11 · R2 最小闭环候选 · **DECISION-119** | 产品     | S12-STORY-004         |
 | 2026-07-06 | Sprint 12 | docs(s12): add user story map and product success model — 持续运营与系列化 · 高表现拆解再创作 · 不决定 R2 最终范围                     | 产品治理 | DECISION-119          |
+
+---
+
+## 2026-07-06 · S12-STORY-005 Backlog 追踪体系
+
+| 日期       | Sprint    | 变更摘要                                                                                                                    | 影响范围 | 关联 Story / Decision |
+| ---------- | --------- | --------------------------------------------------------------------------------------------------------------------------- | -------- | --------------------- |
+| 2026-07-06 | Sprint 12 | **S12-STORY-005 Accepted / Done**：PO 验收 · 主要成果 `32d8c47` · merge 至 sprint 分支（`--no-ff`）                         | 产品治理 | S12-STORY-005         |
+| 2026-07-06 | Sprint 12 | **S12-STORY-005 In Review**：Backlog 追踪模型 · PBI-QP-001~010 · Coverage Matrix · Outcome/假设/指标追踪 · **DECISION-120** | 产品治理 | S12-STORY-005         |
+| 2026-07-06 | Sprint 12 | docs(s12): add backlog tracking model and coverage matrix — 不决定 R2 最终范围 · 不生成全部开发 Story                       | 产品治理 | DECISION-120          |

@@ -106,6 +106,7 @@
 | DECISION-117 | 2026-07-01 | S12-STORY-002：PO 确认轻篇为 AI 内容营销工作台；目标用户层次；五个核心场景；十个完整产品能力域；灵感中心与内容计划独立；品牌档案与品牌知识库合并为品牌与知识中心；不提前划分当前/近期/远期；系统边界；具体优先级留待后续规划                                        | **已确认**                             |
 | DECISION-118 | 2026-07-04 | S12-STORY-003：轻篇完整产品模块树 M01–M11（M10 横向支撑 · M11 受众洞察）；C01 多模态媒体制作中心为候选一级模块；抖音/视频纳入多平台多模态横向能力不设独立一级模块；功能目录为产品地图不构成 Release/Sprint 开发承诺；M06 样式来源与匹配逻辑                         | **已确认**                             |
 | DECISION-119 | 2026-07-06 | S12-STORY-004：Story Map 以用户旅程为中心 A01–A11；持续内容运营与系列化生产；高表现内容拆解与再创作；R2 最小成功闭环候选；产品成功模型（Outcome/假设/指标/失败信号/反馈）                                                                                           | **已确认**                             |
+| DECISION-120 | 2026-07-06 | S12-STORY-005：Backlog 追踪模型 PBI→RBI→SBI→Evidence；PBI 必填追踪用户活动/Slice/模块/假设/指标/失败信号；PBI-QP-001~010；Coverage Matrix；不决定 R2 最终范围                                                                                                       | **已确认**                             |
 
 ### DECISION-019 详情
 
@@ -1375,3 +1376,31 @@
 - **影响范围：** `product-scope.md`（索引）· Sprint 12 backlog · 后续 S12-STORY-005 / S12-STORY-008 输入
 - **验收（2026-07-06）：** Product Owner 验收结论 **Accepted**；S12-STORY-004 标记 **Accepted / Done**；主要成果 commit **`62a6202`**；授权 `--no-ff` merge 至 `sprint/s12-product-governance-r2-planning`；**未授权 push**；**未启动 S12-STORY-005**
 - **状态：** **已确认**（2026-07-06 · S12-STORY-004 · PO 已确认候选稿 · **Accepted / Done**）
+
+### DECISION-120 详情（S12-STORY-005 Backlog 追踪模型与 Product Coverage Matrix）
+
+- **日期：** 2026-07-06
+- **关联 Story：** S12-STORY-005
+- **Product Owner 授权原文：**
+
+  ```text
+  确认 S12-STORY-005 重点是追踪体系，不是完整拆任务；
+  确认新增或更新 backlog-tracking-model.md、product-backlog.md、product-coverage-matrix.md；
+  确认 Product Backlog 初始只做 8–10 个 PBI 群组，不细拆全部功能；
+  确认 Outcome / 假设 / 成功指标 / 失败信号作为 Backlog 必填追踪字段。
+  ```
+
+- **背景：** Product Owner 已确认本 Story 方案与 DoR；Cursor 建立 Backlog 追踪体系，不生成全部开发 Story，不决定 Release 2 最终范围。
+- **决策：**
+  1. **追踪链路：** Product Backlog Item → Release Backlog Item → Sprint Backlog Item → Story / Task / Bug / Enabler → Execution Evidence
+  2. **PBI 必填追踪：** 用户活动 A01–A11 · Story Map Slice · 产品模块 M01–M11 · 功能目录 · 假设 H01–H10 · 成功指标 · 失败信号 · 验收方向
+  3. **缺字段规则：** 缺少上述追踪字段的 PBI 只能保持 Candidate，不应进入 Release Committed Scope
+  4. **初始 PBI 群组：** PBI-QP-001 ~ PBI-QP-010（产品级群组，**不是**开发 Story，**不构成** Release 2 承诺）
+  5. **PBI-QP-009：** 优先级 P1/P0 条件触发，由 PO 自己运营需求决定
+  6. **Product Coverage Matrix：** 覆盖 A01–A11、Slice 1–7、M01–M11、H01–H10 与 PBI 关系
+  7. **Backlog 调整：** 真实使用 → 指标/失败信号 → 假设验证 → PBI/RBI/SBI 优先级调整
+  8. **Release 2 范围：** **本 Story 不最终决定**；由 **S12-STORY-008** 决定
+  9. 正式事实源：`docs/agile/backlog-tracking-model.md` · `docs/agile/product-backlog.md`（产品级 PBI 区 + Release 1 历史保留）· `docs/agile/product-coverage-matrix.md`
+- **影响范围：** Sprint 12 backlog · 后续 S12-STORY-006 / 007 / 008 输入
+- **验收（2026-07-06）：** Product Owner 验收结论 **Accepted**；S12-STORY-005 标记 **Accepted / Done**；主要成果 commit **`32d8c47`**；授权 `--no-ff` merge 至 `sprint/s12-product-governance-r2-planning`；**未授权 push**；**未启动 S12-STORY-006**
+- **状态：** **已确认**（2026-07-06 · S12-STORY-005 · PO 已确认候选稿 · **Accepted / Done**）

@@ -16,7 +16,7 @@
 > **Sprint 9：** **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · **P0=0** · HTML→user preview picker E2E PASS · Preview/Copy parity PASS · default preset / release1_required 未污染 · **已 merge `release/1`** @ `c96e869` · **未 merge `main`**）
 > **Sprint 10：** **Closed**（2026-06-08 · **DECISION-108** · **DECISION-111** · S10-STORY-001~011 Done · **已 merge `release/1`** @ `6cd1dfc`）· 原 012~014 顺延 Sprint 12+
 > **Sprint 11：** Production Ops Go-Live · **Accepted with follow-ups / Closed**（2026-06-30 · Product Owner confirmed · **DECISION-114**）
-> **专项 Sprint 12：** Product Governance & Release 2 Planning · **Approved / In Progress**（**DECISION-116** · S12-STORY-001/002/003/004 **Done** · 详细：[`sprints/sprint-12/plan.md`](sprints/sprint-12/plan.md)）
+> **专项 Sprint 12：** Product Governance & Release 2 Planning · **Approved / In Progress**（**DECISION-116** · S12-STORY-001/002/003/004/005 **Done** · 详细：[`sprints/sprint-12/plan.md`](sprints/sprint-12/plan.md)）
 > **Sprint 12 分支：** `sprint/s12-product-governance-r2-planning` · 基线对齐工作分支：`docs/s12-release1-baseline-alignment`
 > **Sprint 11 分支：** `sprint/s11-production-ops-go-live`（从 `release/1` · @ `6cd1dfc`）
 > **Sprint 10 分支：** `sprint/s10-db-backed-style-admin-v1`（已 merge `release/1` · @ `6cd1dfc`）
@@ -4534,7 +4534,7 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 > **兼容入口：** [`sprint12-product-governance-r2-planning.md`](sprint12-product-governance-r2-planning.md)
 > **分支：** `sprint/s12-product-governance-r2-planning`
 > **Release 基线：** `release/1` @ `3a8203b`
-> **状态：** **Approved / In Progress** · S12-STORY-004 **Accepted / Done** · S12-STORY-005 未启动
+> **状态：** **Approved / In Progress** · S12-STORY-005 **Accepted / Done** · S12-STORY-006 未启动
 > **S12-STORY-002 产品事实源：** [`../../product/product-vision.md`](../../product/product-vision.md) · [`../../product/users-and-scenarios.md`](../../product/users-and-scenarios.md)
 
 ## S12-STORY-001 现有项目管理与产品文档体系审计
@@ -4580,7 +4580,7 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 | S12-STORY-002 | 产品愿景、目标用户、核心场景与系统边界              | Accepted / Done         |
 | S12-STORY-003 | 完整产品模块树与产品功能目录                        | Accepted / Done         |
 | S12-STORY-004 | 用户旅程、用户活动与完整 Story Map                  | Accepted / Done         |
-| S12-STORY-005 | Product Backlog、Release、Sprint 与模块覆盖追踪体系 | Committed / Not Started |
+| S12-STORY-005 | Product Backlog、Release、Sprint 与模块覆盖追踪体系 | Accepted / Done         |
 | S12-STORY-006 | 敏捷事件、流程闸门、DoR/DoD 与标准模板              | Committed / Not Started |
 | S12-STORY-007 | Release 1 历史能力、模块及功能映射                  | Committed / Not Started |
 | S12-STORY-008 | Release 2 及后续产品路线与渐进式迭代计划            | Committed / Not Started |
