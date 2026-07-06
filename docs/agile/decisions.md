@@ -1373,4 +1373,5 @@
   7. **产品成功模型：** 纳入 Outcome Goal、假设 H01–H10、成功指标、失败信号、上线反馈与 Backlog 调整机制
   8. 正式事实源：`docs/product/user-story-map.md`（Release 1 历史段落保留）· `docs/product/product-success-model.md`
 - **影响范围：** `product-scope.md`（索引）· Sprint 12 backlog · 后续 S12-STORY-005 / S12-STORY-008 输入
-- **状态：** **已确认**（2026-07-06 · S12-STORY-004 · PO 已确认候选稿）
+- **验收（2026-07-06）：** Product Owner 验收结论 **Accepted**；S12-STORY-004 标记 **Accepted / Done**；主要成果 commit **`62a6202`**；授权 `--no-ff` merge 至 `sprint/s12-product-governance-r2-planning`；**未授权 push**；**未启动 S12-STORY-005**
+- **状态：** **已确认**（2026-07-06 · S12-STORY-004 · PO 已确认候选稿 · **Accepted / Done**）
