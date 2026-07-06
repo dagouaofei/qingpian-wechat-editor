@@ -105,6 +105,7 @@
 | DECISION-116 | 2026-06-30 | Product Owner 批准 Sprint 12 正式 Planning；Sprint Goal · committed Stories 002~009 · 顺序 · 范围与非目标 · 容量规则 · 验收方式；Sprint 状态 `Approved / Ready to Start`；S12-STORY-002 未启动；不授权 merge/push/产品代码                                          | **已确认**                             |
 | DECISION-117 | 2026-07-01 | S12-STORY-002：PO 确认轻篇为 AI 内容营销工作台；目标用户层次；五个核心场景；十个完整产品能力域；灵感中心与内容计划独立；品牌档案与品牌知识库合并为品牌与知识中心；不提前划分当前/近期/远期；系统边界；具体优先级留待后续规划                                        | **已确认**                             |
 | DECISION-118 | 2026-07-04 | S12-STORY-003：轻篇完整产品模块树 M01–M11（M10 横向支撑 · M11 受众洞察）；C01 多模态媒体制作中心为候选一级模块；抖音/视频纳入多平台多模态横向能力不设独立一级模块；功能目录为产品地图不构成 Release/Sprint 开发承诺；M06 样式来源与匹配逻辑                         | **已确认**                             |
+| DECISION-119 | 2026-07-06 | S12-STORY-004：Story Map 以用户旅程为中心 A01–A11；持续内容运营与系列化生产；高表现内容拆解与再创作；R2 最小成功闭环候选；产品成功模型（Outcome/假设/指标/失败信号/反馈）                                                                                           | **已确认**                             |
 
 ### DECISION-019 详情
 
@@ -1350,3 +1351,27 @@
 - **影响范围：** `product-scope.md`（索引）· Sprint 12 backlog · 后续 S12-STORY-004 Story Map 输入
 - **验收（2026-07-04）：** Product Owner 验收结论 **Accepted**；S12-STORY-003 标记 **Accepted / Done**；主要成果 commit **`d1811ab`**；授权 `--no-ff` merge 至 `sprint/s12-product-governance-r2-planning`；**未授权 push**；**未启动 S12-STORY-004**
 - **状态：** **已确认**（2026-07-04 · S12-STORY-003 · PO 已确认候选稿 · **Accepted / Done**）
+
+### DECISION-119 详情（S12-STORY-004 User Story Map 与产品成功模型）
+
+- **日期：** 2026-07-06
+- **关联 Story：** S12-STORY-004
+- **Product Owner 授权原文：**
+
+  ```text
+  确认 S12-STORY-004 用户旅程、用户活动与完整 Story Map 候选稿。
+  ```
+
+- **背景：** Product Owner 已确认本 Story 方案与 DoR；Cursor 将已确认决策整理为正式产品事实源，不重新设计用户旅程结构。
+- **决策：**
+  1. **Story Map 组织方式：** 以**用户旅程**为中心，**不按模块**拆分；模块是后台能力，Story Map 是用户完成任务的路径
+  2. **顶层用户活动：** A01–A11；显性加入 **A04 持续内容运营与系列化生产**
+  3. **高表现内容拆解与再创作：** 纳入 A02 及相关 Slice；支持借鉴模式与结构，**不鼓励**洗稿或高度近似复制；优先级由 PO 自己运营需求决定
+  4. **Story Map 切片：** Slice 1–7 为**候选**，不构成 Release 2 承诺
+  5. **Release 2 最小成功闭环候选：** 品牌资料 → 灵感 → 选题 → 创作 → 编辑 → 排版 → 复制发布 → 资产 → 手动复盘；首要验证 PO 自己高频运营
+  6. **Release 2 范围：** **本 Story 不最终决定**；由 **S12-STORY-008** 决定
+  7. **产品成功模型：** 纳入 Outcome Goal、假设 H01–H10、成功指标、失败信号、上线反馈与 Backlog 调整机制
+  8. 正式事实源：`docs/product/user-story-map.md`（Release 1 历史段落保留）· `docs/product/product-success-model.md`
+- **影响范围：** `product-scope.md`（索引）· Sprint 12 backlog · 后续 S12-STORY-005 / S12-STORY-008 输入
+- **验收（2026-07-06）：** Product Owner 验收结论 **Accepted**；S12-STORY-004 标记 **Accepted / Done**；主要成果 commit **`62a6202`**；授权 `--no-ff` merge 至 `sprint/s12-product-governance-r2-planning`；**未授权 push**；**未启动 S12-STORY-005**
+- **状态：** **已确认**（2026-07-06 · S12-STORY-004 · PO 已确认候选稿 · **Accepted / Done**）
