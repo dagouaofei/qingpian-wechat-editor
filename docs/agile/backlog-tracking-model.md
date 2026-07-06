@@ -212,7 +212,7 @@ Outcome Goal 来自 [`product-success-model.md`](../product/product-success-mode
 
 ### 给 S12-STORY-006 的输入
 
-DoR 模板 · DoD 模板 · Story 启动检查 · Execution Report 模板 · Review / Acceptance 模板
+DoR 模板 · DoD 模板 · Story 启动检查 · Execution Report 模板 · Review / Acceptance 模板 — 见 [`agile-operating-model.md`](agile-operating-model.md)（S12-STORY-006 · DECISION-121）
 
 ### 给 S12-STORY-007 的输入
 
