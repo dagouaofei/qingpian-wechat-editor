@@ -1027,5 +1027,6 @@
 
 | 日期       | Sprint    | 变更摘要                                                                                                                    | 影响范围 | 关联 Story / Decision |
 | ---------- | --------- | --------------------------------------------------------------------------------------------------------------------------- | -------- | --------------------- |
+| 2026-07-06 | Sprint 12 | **S12-STORY-005 Accepted / Done**：PO 验收 · 主要成果 `32d8c47` · merge 至 sprint 分支（`--no-ff`）                         | 产品治理 | S12-STORY-005         |
 | 2026-07-06 | Sprint 12 | **S12-STORY-005 In Review**：Backlog 追踪模型 · PBI-QP-001~010 · Coverage Matrix · Outcome/假设/指标追踪 · **DECISION-120** | 产品治理 | S12-STORY-005         |
 | 2026-07-06 | Sprint 12 | docs(s12): add backlog tracking model and coverage matrix — 不决定 R2 最终范围 · 不生成全部开发 Story                       | 产品治理 | DECISION-120          |

@@ -1402,4 +1402,5 @@
   8. **Release 2 范围：** **本 Story 不最终决定**；由 **S12-STORY-008** 决定
   9. 正式事实源：`docs/agile/backlog-tracking-model.md` · `docs/agile/product-backlog.md`（产品级 PBI 区 + Release 1 历史保留）· `docs/agile/product-coverage-matrix.md`
 - **影响范围：** Sprint 12 backlog · 后续 S12-STORY-006 / 007 / 008 输入
-- **状态：** **已确认**（2026-07-06 · S12-STORY-005 · PO 已确认候选稿）
+- **验收（2026-07-06）：** Product Owner 验收结论 **Accepted**；S12-STORY-005 标记 **Accepted / Done**；主要成果 commit **`32d8c47`**；授权 `--no-ff` merge 至 `sprint/s12-product-governance-r2-planning`；**未授权 push**；**未启动 S12-STORY-006**
+- **状态：** **已确认**（2026-07-06 · S12-STORY-005 · PO 已确认候选稿 · **Accepted / Done**）
