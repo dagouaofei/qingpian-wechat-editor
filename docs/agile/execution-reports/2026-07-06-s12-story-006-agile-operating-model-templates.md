@@ -91,9 +91,9 @@
 
 | 命令                       | 结果                     |
 | -------------------------- | ------------------------ |
-| `git diff --check`         | 待执行                   |
-| `git status --short`       | 待执行                   |
-| prettier（本轮修改文件）   | 待执行                   |
+| `git diff --check`         | PASS                     |
+| `git status --short`       | PASS（commit 后 clean）  |
+| prettier（本轮修改文件）   | PASS                     |
 | `pnpm lint` / test / build | 未运行（无产品代码变更） |
 
 ## 10. 风险与遗留
@@ -110,8 +110,8 @@
 
 ## 12. Commit 与 Git 状态
 
-- **主要 commit：** 见 `docs(s12): add agile operating model and standard templates`
+- **主要 commit：** `cb0fae3` — `docs(s12): add agile operating model and standard templates`
 - merge：**未 merge** · push：**未 push** · 下一 Story：**S12-STORY-007 未启动**
-- HEAD at review time：见 commit 后 `git rev-parse HEAD`
+- HEAD at review time：`cb0fae335c5d84bf6b6f2bf9199c79508694a2ea`
 
 **必须明确：** 未 merge。未 push。未启动 S12-STORY-007。未标记 Story Done。未决定 Release 2 最终范围。未生成全部未来开发 Story。未修改产品代码。未修改 `.cursor/rules/`。未关闭 Sprint 12。未关闭 Release 1。
