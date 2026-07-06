@@ -1433,4 +1433,5 @@
   9. **权限边界：** Cursor 完成 ≠ Story Done；ChatGPT 建议 ≠ PO Accepted；merge ≠ Sprint Closed
   10. 正式事实源：`docs/agile/agile-operating-model.md` · `docs/agile/templates/*`
 - **影响范围：** Sprint 12 backlog · 后续 S12-STORY-007 / 008 / 009 输入
-- **状态：** **已确认**（2026-07-06 · S12-STORY-006 · PO 已确认候选稿）
+- **验收（2026-07-06）：** Product Owner 验收结论 **Accepted**；S12-STORY-006 标记 **Accepted / Done**；主要成果 commit **`cb0fae3`**；证据同步 commit **`afd8557`**；授权 `--no-ff` merge 至 `sprint/s12-product-governance-r2-planning`；**未授权 push**；**未启动 S12-STORY-007**
+- **状态：** **已确认**（2026-07-06 · S12-STORY-006 · PO 已确认候选稿 · **Accepted / Done**）
