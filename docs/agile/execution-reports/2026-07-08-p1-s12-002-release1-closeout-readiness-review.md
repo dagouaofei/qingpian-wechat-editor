@@ -102,10 +102,11 @@ PO-R1-001 ~ PO-R1-007（见 readiness-review.md §11）
 
 | 命令                       | 结果                                   |
 | -------------------------- | -------------------------------------- |
-| `git diff --check`         | 待执行                                 |
-| `git status --short`       | 待执行                                 |
-| `pnpm prettier --check`    | 待执行                                 |
-| `pnpm lint` / test / build | 未运行（治理文档审查，无产品代码变更） |
+| `git diff --check`         | PASS                                                             |
+| `git status --short`       | PASS（commit 后 working tree clean）                             |
+| `pnpm prettier --write`    | PASS                                                             |
+| `pnpm prettier --check`    | PASS（readiness-review · backlog · changelog · execution report） |
+| `pnpm lint` / test / build | 未运行（治理文档审查，无产品代码变更）                           |
 
 ## 14. Commit 与 Git 状态
 
