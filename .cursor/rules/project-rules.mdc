@@ -32,6 +32,8 @@ alwaysApply: true
 ## Sprint 约束
 
 - 当前 Sprint、Release、Story 状态必须从 `docs/agile/release-plan.md`、`docs/agile/sprint-backlog.md`、对应 `docs/agile/sprints/sprint-<id>/` / `docs/agile/releases/release-<id>/` 文档读取；**规则文件不得硬编码动态状态**。
+- 敏捷执行标准见 [`docs/agile/agile-operating-model.md`](../../docs/agile/agile-operating-model.md)（**DECISION-121**）
+- **Release 2 候选规划**（`docs/agile/releases/release-2/` · **DECISION-123**）**不等于** Release 2 已启动；**未经授权不得启动 R2 Sprint**
 - 后续 Sprint 按合理工作量拆分，业务功能实现必须在核心技术方案完成之后进入
 - 不允许把 Release 1 的全部实现范围塞进单个 Sprint
 
@@ -43,11 +45,16 @@ alwaysApply: true
 - Sprint 内每个具体任务必须从**当前 sprint 分支**新建独立工作分支（`feature/` / `docs/` / `bugfix/` / `chore/`）
 - **不得在 main 分支直接开发具体任务**
 - **不得把多个无关任务混在同一个工作分支中**
-- 工作分支完成后合并回 **sprint 分支**；Sprint 验收通过后 merge **release 主干**；Release 整体验收通过后才 merge **main**
-- Cursor **不得未经用户确认**自行关闭 Sprint / Release 或合并 main
+- 工作分支完成后合并回 **sprint 分支**（须经 PO 授权）；Sprint 验收通过后 merge **release 主干**；Release 整体验收通过后才 merge **main**
+- 默认 merge 使用 **`--no-ff`**
+- Cursor **不得未经 PO 明确授权**自行关闭 Sprint / Release、merge `release/1` / `main` 或 **push**
+- 每份 Cursor 指令应明确：当前分支、来源分支、工作分支、目标合并分支
 - 详见 `docs/agile/git-workflow.md`
 
 ## 事实来源
 
 - 产品、架构、敏捷决策以 `docs/` 为共享事实源
+- 敏捷 Operating Model：`docs/agile/agile-operating-model.md`
+- Sprint 详细事实源：`docs/agile/sprints/sprint-<id>/`
+- Release 详细事实源：`docs/agile/releases/release-<id>/`
 - 执行前优先阅读相关 docs，执行后同步更新 docs

@@ -5,16 +5,18 @@ alwaysApply: true
 
 # 敏捷治理闸门
 
-> 本文件补充 `.cursor/rules/agile-rules.mdc`、`.cursor/rules/collaboration-rules.mdc` 与 `.cursor/rules/project-rules.mdc`，重点固化 Sprint / Story 启动、范围、审查、合并与停止条件。  
+> 本文件补充 `.cursor/rules/agile-rules.mdc`、`.cursor/rules/collaboration-rules.mdc` 与 `.cursor/rules/project-rules.mdc`，重点固化 Sprint / Story / Chore 启动、范围、审查、合并与停止条件。
+> **上游事实源（S12 起）：** [`docs/agile/agile-operating-model.md`](../../docs/agile/agile-operating-model.md)（**DECISION-121**）
 > 与既有规则冲突时，以**更严格**的闸门为准；流程细节仍以 `docs/agile/git-workflow.md` 与 `docs/agile/chatgpt-cursor-docs-workflow.md` 为事实来源。
 
 ## 1. 产品决策权限
 
-- **用户**是 Product Owner，负责产品目标、范围、优先级和最终取舍。
-- **ChatGPT**可提出方案、分析风险和组织规划，但建议**不等于**批准。
-- **Cursor**只执行已经批准的计划和**明确指令**。
-- Cursor **不得**自行改变 Sprint Goal、Release 范围、Story 优先级或产品方案。
+- **Product Owner（用户）**是唯一产品决策者，负责产品目标、范围、优先级和最终取舍。
+- **ChatGPT** 可提出方案、分析风险和组织规划，但建议**不等于** PO 批准。
+- **Cursor** 只执行已经批准的计划和**明确指令**。
+- Cursor **不得**自行改变 Sprint Goal、Release 范围、Story 优先级、Release 2 范围或产品方案。
 - 不得把推断、建议或技术偏好视为已批准决策。
+- **测试通过不等于用户验收通过**；**merge 完成不等于 Sprint Closed**；**Sprint Closed 不等于 Release Closed**。
 
 ## 2. Sprint Planning 闸门
 
@@ -66,11 +68,21 @@ Sprint Plan 至少应明确：
 
 前置活动（如 Planning、Review、治理修正）**不触发**本闸门；但前置活动不得顺带实施产品功能或未经批准的 Story 范围。
 
-## 4. 单 Story 推进
+## 3.1 Chore 闸门（治理 follow-up）
 
-- 默认**一次只执行一个 Story**。
-- 当前 Story 未完成审查和处理结论前，**不启动下一 Story**。
-- 不得在同一指令中顺带实现后续 Story。
+**Chore**（如 Product Backlog 中的 `P1-S12-*` 治理项）不是 Sprint Story，但须遵守：
+
+- 须有明确 Chore ID、本轮目标、允许/禁止修改范围、commit/merge/push 边界；
+- 默认从来源分支新建 `chore/` 工作分支（PO 明确授权时可在 Sprint 分支直接提交）；
+- 默认**一次只执行一个 Chore**；
+- 完成后默认 **commit 并停止**；**未经授权不得 merge / push / 标记 Done**；
+- 验收结论同样只允许：**Accepted** · **Accepted with follow-ups** · **Not Accepted**。
+
+## 4. 单 Story / Chore 推进
+
+- 默认**一次只执行一个 Story 或 Chore**。
+- 当前 Story / Chore 未完成审查和处理结论前，**不启动下一 Story / Chore**。
+- 不得在同一指令中顺带实现后续 Story 或 Chore。
 - 不得以「代码相关」「方便一起改」或「顺手」为理由扩大范围。
 
 ## 5. 范围与变更控制
@@ -82,7 +94,7 @@ Sprint Plan 至少应明确：
 
 ## 6. Execution Report
 
-每轮完成后**必须**提交 execution report（模板与路径见 `agile-rules.mdc`），至少包含：
+每轮完成后**必须**提交 execution report（**标准模板：** `docs/agile/templates/execution-report-template.md`；历史兼容：`docs/agile/execution-reports/_template.md`；详见 `agile-rules.mdc`），至少包含：
 
 - 执行分支、来源分支、目标合并分支；
 - `HEAD at review time` 所在分支与 merge 后所在分支（未 merge 时写 N/A）；
@@ -95,7 +107,9 @@ Sprint Plan 至少应明确：
 - working tree 状态；
 - merge 和 push 状态。
 
-**状态默认 `In Review`：** Cursor 完成执行并提交报告时，默认标记为 `In Review`。**`Done` 只能在 Product Owner 明确验收并允许标记 Done 后使用。**
+**状态默认 `In Review`：** Cursor 完成执行并提交报告时，默认标记为 `In Review`。**`Done` / `Accepted` 只能在 Product Owner 明确验收并允许标记后使用。**
+
+**验收结论只允许：** **Accepted** · **Accepted with follow-ups** · **Not Accepted**。Cursor 完成实现并 commit **不等于** PO Accepted；ChatGPT Review 建议 **不等于** PO Accepted。
 
 **分支不得混淆：** 不得将「执行分支」与「merge 后所在分支」混为一谈。
 
@@ -139,19 +153,22 @@ Sprint Plan 至少应明确：
 
 ## 7. 状态与合并闸门
 
-未经用户**明确授权**，Cursor 不得：
+未经 Product Owner **明确授权**，Cursor 不得：
 
-- 将 Story 标记为 Done；
+- 将 Story 或 Chore 标记为 Done / Accepted；
 - 将 Sprint 标记为 Closed；
 - 将 Release 标记为 Closed；
-- merge Story 分支到 Sprint 分支；
+- **启动 Release 2 或 R2 Sprint**（候选规划见 `docs/agile/releases/release-2/` **不等于**已启动）；
+- merge Story / Chore 分支到 Sprint 分支；
 - merge Sprint 分支到 Release 分支；
 - merge Release 分支到 `main`；
 - push 远程仓库。
 
-只有**当前 Cursor 指令明确授权**的 merge 才能执行。
+只有**当前 Cursor 指令明确授权**的 merge 才能执行。默认 merge 使用 **`--no-ff`**。
 
-「代码已完成」「检查通过」或「已 merge 到 Sprint」**均不自动等于** Story 已被用户验收。
+「代码已完成」「检查通过」或「已 merge 到 Sprint」**均不自动等于** Story / Chore 已被 PO 验收。
+
+**默认行为：** Cursor 完成本轮工作后 **commit 并停止**，等待 ChatGPT 审查与 PO 验收；**未经授权不得 merge 或 push**。
 
 ## 8. Sprint 关闭闸门
 
@@ -165,14 +182,28 @@ Sprint Plan 至少应明确：
 - 分支与 working tree 状态已检查；
 - **用户明确确认关闭**。
 
-## 9. 历史保护
+## 9. 历史保护与事实冲突
 
-- 不重写已关闭 Sprint、Story、Decision 和 Release 的历史事实。
+- 不重写已关闭 Sprint、Story、Decision 和 Release 的**历史事实正文**。
 - 不重新编号已经正式使用的记录。
-- 历史冲突通过新增说明、映射或新 Decision 修正。
+- 历史冲突通过新增说明、映射或新 Decision 修正；**不得批量迁移或删除** closed 记录。
 - 新治理规则默认**只向前生效**。
+- 多份权威文档状态不一致时，**必须停止并报告**；**不得静默选择其中一个**。
+- 权威优先级：`docs/agile/sprints/sprint-<id>/` · `docs/agile/releases/release-<id>/` **>** 全局索引摘要（`sprint-backlog.md` · `release-plan.md`）**>** 历史正文段落。
 
-## 10. 强制停止条件
+## 10. 文档结构职责
+
+| 路径                               | 职责                                           |
+| ---------------------------------- | ---------------------------------------------- |
+| `docs/agile/sprints/sprint-<id>/`  | Sprint 详细事实源（plan · backlog · review · closeout） |
+| `docs/agile/releases/release-<id>/`| Release 详细事实源（plan · backlog · coverage）  |
+| `docs/agile/sprint-backlog.md`     | 全局 Sprint **索引与状态摘要**；不承载未来 Sprint 完整 Story 详情 |
+| `docs/agile/release-plan.md`       | 全局 Release **索引与状态摘要**；不承载未来 Release 完整 Backlog 详情 |
+| `docs/agile/templates/`            | S12 起标准模板入口                             |
+
+历史正文可保留在原位；**不批量迁移或删除**。
+
+## 11. 强制停止条件
 
 出现以下任一情况，**必须停止并报告**：
 
@@ -184,13 +215,18 @@ Sprint Plan 至少应明确：
 - **启动或执行 Story 时**，Story DoR 不完整；
 - 必须扩大范围才能继续；
 - 检查失败，且修复超出当前范围；
-- 指令未授权必要的 merge、状态修改或产品决策。
+- 指令未授权必要的 merge、状态修改或产品决策；
+- 需要启动 **Release 2 / R2 Sprint** 但指令未授权；
+- 需要关闭 **Release 1** 但指令未授权。
 
 ## 参考文档
 
+- `docs/agile/agile-operating-model.md`（**DECISION-121**）
+- `docs/agile/templates/`（标准模板）
 - `docs/agile/git-workflow.md`
 - `docs/agile/chatgpt-cursor-docs-workflow.md`
 - `docs/agile/sprint-backlog.md`（全局 Sprint 索引）
 - `docs/agile/release-plan.md`（全局 Release 索引）
-- `docs/governance/product-governance-target-model.md`（Sprint / Release 目录结构与归属 · DECISION-114）
+- `docs/agile/releases/release-2/`（R2 **候选**；**不等于**已启动）
+- `docs/governance/product-governance-target-model.md`（Sprint / Release 目录结构与归属 · **DECISION-115**）
 - `docs/agile/execution-reports/README.md`

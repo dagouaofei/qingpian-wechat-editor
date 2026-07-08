@@ -1079,3 +1079,12 @@
 | ---------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | --------------------- |
 | 2026-07-08 | Sprint 12 | **Sprint 12 Closed with follow-ups**（**DECISION-124**）：S12-STORY-001~009 Done（009 with follow-ups）· Review/Retro Final · follow-ups 已登记 · **未 merge release/1** · **未 push** | 敏捷治理 | DECISION-124          |
 | 2026-07-08 | Sprint 12 | docs(s12): close sprint 12 — Release 1 未关闭 · Release 2 Planned / Not Started · R2 Sprint 未启动                                                                                     | 敏捷治理 | DECISION-124          |
+
+---
+
+## 2026-07-08 · P1-S12-001 Cursor Rules / Operating Model Alignment
+
+| 日期       | Chore      | 变更摘要                                                                                                                                     | 影响范围 | 关联                |
+| ---------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ------------------- |
+| 2026-07-08 | P1-S12-001 | **P1-S12-001 In Review**：align `.cursor/rules/` with S12 Operating Model and `docs/agile/templates/` · No product code · No merge · No push | 治理规则 | P1-S12-001 · FU-001 |
+| 2026-07-08 | P1-S12-001 | docs(governance): align cursor rules with s12 operating model — Release 2 未启动 · R2 Sprint 未启动 · Release 1 未关闭                       | 治理规则 | P1-S12-001          |
