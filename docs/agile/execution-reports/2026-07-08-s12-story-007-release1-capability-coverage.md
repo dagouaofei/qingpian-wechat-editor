@@ -5,7 +5,7 @@
 - 日期：2026-07-08
 - Story：S12-STORY-007 · Release 1 历史能力、模块及功能映射
 - Sprint：Sprint 12 — Product Governance & Release 2 Planning
-- 状态：**In Review**
+- 状态：**In Review** → **Accepted / Done**（2026-07-08 · PO 验收 · merge 授权）
 - 执行分支：`docs/s12-story-007-release1-capability-coverage`
 - 来源分支：`sprint/s12-product-governance-r2-planning` @ `9f025cc`
 - 目标合并分支：`sprint/s12-product-governance-r2-planning`（本轮**未** merge）

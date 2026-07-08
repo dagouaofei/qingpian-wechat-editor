@@ -1460,4 +1460,5 @@
   6. **不关闭 Release 1**；**不决定 Release 2 最终范围**；R2 Must/Should/Could/Won't 由 **S12-STORY-008** 处理
   7. 正式事实源：[`release-1-capability-coverage.md`](release-1-capability-coverage.md)
 - **影响范围：** product-coverage-matrix · backlog-tracking-model · S12-STORY-008 输入
-- **状态：** **已确认**（2026-07-08 · S12-STORY-007 · PO 已确认候选稿）
+- **验收（2026-07-08）：** Product Owner 验收结论 **Accepted**；S12-STORY-007 标记 **Accepted / Done**；主要成果 commit **`bb45f7a`**；证据同步 commit **`ab3bdcf`**；授权 `--no-ff` merge 至 `sprint/s12-product-governance-r2-planning`；**未授权 push**；**未启动 S12-STORY-008**
+- **状态：** **已确认**（2026-07-08 · S12-STORY-007 · PO 已确认候选稿 · **Accepted / Done**）
