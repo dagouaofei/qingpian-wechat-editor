@@ -1060,3 +1060,12 @@
 | 2026-07-08 | Sprint 12 | **S12-STORY-008 Accepted / Done**：PO 验收 · 主要成果 `a9abd62` · 证据同步 `0cf746d` · merge 至 sprint 分支（`--no-ff`） · R2 仍为 Planned / Not Started | 产品治理 | S12-STORY-008         |
 | 2026-07-08 | Sprint 12 | **S12-STORY-008 In Review**：Release 2 候选规划 · Must/Should/Could/Won't · 双验证对象 · **DECISION-123**                                                | 产品治理 | S12-STORY-008         |
 | 2026-07-08 | Sprint 12 | docs(s12): plan release 2 roadmap and candidate scope — R2 未启动 · 未关闭 R1 · 未启动 S12-STORY-009                                                     | 产品治理 | DECISION-123          |
+
+---
+
+## 2026-07-08 · S12-STORY-009 Review / Audit / Closeout Readiness
+
+| 日期       | Sprint    | 变更摘要                                                                                                     | 影响范围 | 关联 Story / Decision |
+| ---------- | --------- | ------------------------------------------------------------------------------------------------------------ | -------- | --------------------- |
+| 2026-07-08 | Sprint 12 | **S12-STORY-009 In Review**：Review/Retro/Closeout 草案 · 一致性审计 PASS with follow-ups · Sprint 12 未关闭 | 敏捷治理 | S12-STORY-009         |
+| 2026-07-08 | Sprint 12 | docs(s12): prepare sprint 12 review and closeout readiness — Release 2 未启动 · 未修改 `.cursor/rules/`      | 敏捷治理 | S12-STORY-009         |

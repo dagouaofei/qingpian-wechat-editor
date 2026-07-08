@@ -21,17 +21,17 @@ S12-STORY-002 → 003 → 004 → 005 → 006 → 007 → 008 → 009
 
 ## Committed Stories
 
-| 顺序 | Story         | 名称                                                | 优先级 | 状态                        |
-| ---- | ------------- | --------------------------------------------------- | ------ | --------------------------- |
-| —    | S12-STORY-001 | 现有项目管理与产品文档体系审计                      | P0     | **Accepted / Done**         |
-| 1    | S12-STORY-002 | 产品愿景、目标用户、核心场景与系统边界              | P0     | **Accepted / Done**         |
-| 2    | S12-STORY-003 | 完整产品模块树与产品功能目录                        | P0     | **Accepted / Done**         |
-| 3    | S12-STORY-004 | 用户旅程、用户活动与完整 Story Map                  | P0     | **Accepted / Done**         |
-| 4    | S12-STORY-005 | Product Backlog、Release、Sprint 与模块覆盖追踪体系 | P0     | **Accepted / Done**         |
-| 5    | S12-STORY-006 | 敏捷事件、流程闸门、DoR/DoD 与标准模板              | P1     | **Accepted / Done**         |
-| 6    | S12-STORY-007 | Release 1 历史能力、模块及功能映射                  | P1     | **Accepted / Done**         |
-| 7    | S12-STORY-008 | Release 2 及后续产品路线与渐进式迭代计划            | P0     | **Accepted / Done**         |
-| 8    | S12-STORY-009 | 全局一致性审计、治理验收与 Sprint 12 Closeout       | P0     | **Committed / Not Started** |
+| 顺序 | Story         | 名称                                                | 优先级 | 状态                |
+| ---- | ------------- | --------------------------------------------------- | ------ | ------------------- |
+| —    | S12-STORY-001 | 现有项目管理与产品文档体系审计                      | P0     | **Accepted / Done** |
+| 1    | S12-STORY-002 | 产品愿景、目标用户、核心场景与系统边界              | P0     | **Accepted / Done** |
+| 2    | S12-STORY-003 | 完整产品模块树与产品功能目录                        | P0     | **Accepted / Done** |
+| 3    | S12-STORY-004 | 用户旅程、用户活动与完整 Story Map                  | P0     | **Accepted / Done** |
+| 4    | S12-STORY-005 | Product Backlog、Release、Sprint 与模块覆盖追踪体系 | P0     | **Accepted / Done** |
+| 5    | S12-STORY-006 | 敏捷事件、流程闸门、DoR/DoD 与标准模板              | P1     | **Accepted / Done** |
+| 6    | S12-STORY-007 | Release 1 历史能力、模块及功能映射                  | P1     | **Accepted / Done** |
+| 7    | S12-STORY-008 | Release 2 及后续产品路线与渐进式迭代计划            | P0     | **Accepted / Done** |
+| 8    | S12-STORY-009 | 全局一致性审计、治理验收与 Sprint 12 Closeout       | P0     | **In Review**       |
 
 ## S12-STORY-001（Done · Planning 前置）
 
@@ -125,9 +125,16 @@ S12-STORY-002 → 003 → 004 → 005 → 006 → 007 → 008 → 009
 **检查说明：** git status clean · git diff --check PASS · prettier PASS；lint/test/build 未运行（无产品代码变更）
 **说明：** PO accepted Release 2 roadmap and candidate scope planning. R2 remains **Planned / Candidate / Not Started**. No Release 2 Sprint has been started. S12-STORY-009 remains **Committed / Not Started**. 未修改产品代码；未修改 `.cursor/rules/`；未为鲁老师或秒篇 AIPPT 做项目定制功能。
 
+## S12-STORY-009（In Review）
+
+**状态：** **In Review**（2026-07-08 · 执行完成，待 ChatGPT 审查与 PO 验收）
+**工作分支：** `docs/s12-story-009-review-consistency-closeout-readiness`
+**产出：** [`review.md`](review.md) · [`retrospective.md`](retrospective.md) · [`closeout.md`](closeout.md) · [`consistency-audit.md`](consistency-audit.md)
+**Execution Report：** [`../../execution-reports/2026-07-08-s12-story-009-review-consistency-closeout-readiness.md`](../../execution-reports/2026-07-08-s12-story-009-review-consistency-closeout-readiness.md)
+
 ## 启动闸门
 
-- **S12-STORY-008** **Accepted / Done**
-- **S12-STORY-009** 仍为 **Committed / Not Started** · 未授权启动
-- Cursor 不得自动启动 S12-STORY-009
+- **S12-STORY-008** **Accepted / Done** · **S12-STORY-009** **In Review**
+- Sprint 12 **未关闭** · Release 1 **未关闭**
 - Release 2 **Planned / Candidate / Not Started** · R2 Sprint **尚未启动**
+- Cursor 不得自动关闭 Sprint 12 · 不得启动 Release 2
