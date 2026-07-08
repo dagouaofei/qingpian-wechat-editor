@@ -77,9 +77,9 @@
 
 | 命令                       | 结果                     |
 | -------------------------- | ------------------------ |
-| `git diff --check`         | 待执行                   |
-| `git status --short`       | 待执行                   |
-| prettier（本轮修改文件）   | 待执行                   |
+| `git diff --check`         | PASS                     |
+| `git status --short`       | PASS（commit 后 clean）  |
+| prettier（本轮修改文件）   | PASS                     |
 | `pnpm lint` / test / build | 未运行（无产品代码变更） |
 
 ## 10. 风险与遗留
@@ -96,8 +96,8 @@
 
 ## 12. Commit 与 Git 状态
 
-- **主要 commit：** 见 `docs(s12): map release 1 capabilities to product coverage`
+- **主要 commit：** `bb45f7a` — `docs(s12): map release 1 capabilities to product coverage`
 - merge：**未 merge** · push：**未 push** · 下一 Story：**S12-STORY-008 未启动**
-- HEAD at review time：见 commit 后 `git rev-parse HEAD`
+- HEAD at review time：`bb45f7ab74b68a9b56713def0453cbfc788d1968`
 
 **必须明确：** 未 merge。未 push。未启动 S12-STORY-008。未标记 Story Done。未决定 Release 2 最终范围。未关闭 Release 1。未生成 Release 2 Sprint / Story。未修改产品代码。未修改 `.cursor/rules/`。未关闭 Sprint 12。
