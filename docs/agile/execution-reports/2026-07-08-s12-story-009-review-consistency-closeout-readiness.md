@@ -99,12 +99,13 @@
 
 ## 12. 检查命令与结果
 
-| 命令                       | 结果                     |
-| -------------------------- | ------------------------ |
-| `git diff --check`         | 待执行                   |
-| `git status --short`       | 待执行                   |
-| prettier                   | 待执行                   |
-| `pnpm lint` / test / build | 未运行（无产品代码变更） |
+| 命令                       | 结果                                      |
+| -------------------------- | ----------------------------------------- |
+| `git diff --check`         | PASS（无 trailing whitespace 冲突）       |
+| `git status --short`       | PASS（commit 后 working tree clean）      |
+| `pnpm prettier --write`    | PASS（14 个目标文件已格式化）               |
+| `pnpm prettier --check`    | PASS（`docs/agile/sprints/sprint-12/*.md` · `README.md`） |
+| `pnpm lint` / test / build | 未运行（本轮为文档与治理审计，无产品代码变更） |
 
 ## 13. 风险与遗留
 
@@ -119,8 +120,8 @@
 
 ## 15. Commit 与 Git 状态
 
-- **主要 commit：** 见 `docs(s12): prepare sprint 12 review and closeout readiness`
+- **主要 commit：** `6f30c73` — `docs(s12): prepare sprint 12 review and closeout readiness`
 - merge：**未 merge** · push：**未 push**
-- HEAD at review time：见 commit 后 `git rev-parse HEAD`
+- HEAD at review time：`6f30c73`
 
 **必须明确：** 未 merge。未 push。未标记 S12-STORY-009 Done。未关闭 Sprint 12。未关闭 Release 1。未启动 Release 2。未启动 R2 Sprint。未启动任何后续 Story。未修改产品代码。未修改 `.cursor/rules/`。
