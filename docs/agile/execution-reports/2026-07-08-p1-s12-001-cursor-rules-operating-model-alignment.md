@@ -116,12 +116,13 @@
 
 ## 12. 检查命令与结果
 
-| 命令                       | 结果                                         |
-| -------------------------- | -------------------------------------------- |
-| `git diff --check`         | 待执行                                       |
-| `git status --short`       | 待执行                                       |
-| `pnpm prettier --check`    | 待执行                                       |
-| `pnpm lint` / test / build | 未运行（治理规则与文档修改，无产品代码变更） |
+| 命令                       | 结果                                                             |
+| -------------------------- | ---------------------------------------------------------------- |
+| `git diff --check`         | PASS                                                             |
+| `git status --short`       | PASS（commit 后 working tree clean）                             |
+| `pnpm prettier --check`    | PASS（`product-backlog.md` · `changelog.md` · execution report） |
+| `.cursor/rules/*.mdc`      | `git diff --check` PASS；Prettier 无 `.mdc` parser（已说明）     |
+| `pnpm lint` / test / build | 未运行（治理规则与文档修改，无产品代码变更）                     |
 
 ## 13. Commit 与 Git 状态
 
