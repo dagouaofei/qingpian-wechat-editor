@@ -1,14 +1,16 @@
 ---
 sprintId: sprint-12
 documentType: review
-status: Draft
-sprintStatus: Approved / In Progress
+status: Final / Completed
+sprintStatus: Closed
+closedDate: 2026-07-08
+closeoutDecision: DECISION-124
 associatedStory: S12-STORY-009
 ---
 
-# Sprint 12 Review（草案）
+# Sprint 12 Review
 
-> **状态：** **Draft** — 非 Sprint Closed；S12-STORY-009 **Accepted with follow-ups / Done**；Sprint Closeout 仍待 PO 独立授权。
+> **状态：** **Final / Completed** — Sprint 12 **Closed**（2026-07-08 · **DECISION-124**）
 
 ---
 
@@ -18,7 +20,7 @@ associatedStory: S12-STORY-009
 
 建立轻篇完整、稳定、可持续维护的产品治理与规划体系，使产品愿景、用户与场景、产品模块、功能目录、用户旅程、Story Map、Product Backlog、Release、Sprint 和 Execution Evidence 形成清晰、可追踪且不存在多套事实源的治理链路。
 
-**回顾判断：** 目标**基本达成**（文档与治理链路已建立）；Sprint 12 **尚未正式 Closeout**。
+**回顾判断：** 目标**基本达成**（文档与治理链路已建立）；Sprint 12 **已 Closed**。
 
 ---
 
@@ -47,14 +49,14 @@ associatedStory: S12-STORY-009
 
 ---
 
-## 4. 未完成事项
+## 4. 遗留事项（Follow-ups · 已登记）
 
-| 项                    | 状态                                              |
-| --------------------- | ------------------------------------------------- |
-| S12-STORY-009 验收    | **Accepted with follow-ups / Done**（2026-07-08） |
-| Sprint 12 Closeout    | 未执行（待 PO 独立授权）                          |
-| `.cursor/rules/` 对齐 | Follow-up FU-001                                  |
-| Release 1 Closeout    | 未执行（Follow-up FU-002）                        |
+| 项                    | 状态                                    |
+| --------------------- | --------------------------------------- |
+| `.cursor/rules/` 对齐 | **P1-S12-001** · Open                   |
+| Release 1 Closeout    | **P1-S12-002** · Open（需 PO 独立决策） |
+| Release 2 正式启动    | **P1-S12-003** · Open（需 PO 独立决策） |
+| 双模板入口说明        | **P2-S12-001** · Open                   |
 
 ---
 
@@ -69,32 +71,32 @@ associatedStory: S12-STORY-009
 
 ## 6. 验收证据摘要
 
-- S12-STORY-002~008：各 Story execution report + PO acceptance commit + `--no-ff` merge 至 `sprint/s12-product-governance-r2-planning`
-- DECISION-117~123 已写入 `decisions.md`
-- Changelog 已记录各 Story In Review / Accepted 条目
+- S12-STORY-001~009：各 Story execution report + PO acceptance commit + `--no-ff` merge 至 `sprint/s12-product-governance-r2-planning`
+- DECISION-117~124 已写入 `decisions.md`
+- Changelog 已记录各 Story 与 Sprint 12 Closed 条目
+- Closeout execution report：[`../../execution-reports/2026-07-08-s12-closeout.md`](../../execution-reports/2026-07-08-s12-closeout.md)
 
 ---
 
 ## 7. 风险与遗留
 
-- 全局索引文件（`release-plan.md` · `sprint-plan.md` · `product-backlog.md`）易滞后于 `sprints/sprint-12/` 权威状态
-- execution report 旧 `_template.md` 与新 `templates/` 并存
+- 全局索引文件易滞后于 `sprints/sprint-12/` 权威状态（Closeout 已同步；后续须保持习惯）
+- execution report 旧 `_template.md` 与新 `templates/` 并存（**P2-S12-001**）
 - Compat / DSL 债务仍 deferred（Sprint 12+）
 
 ---
 
-## 8. 是否建议进入 Sprint Closeout
+## 8. Closeout 结论
 
-**建议：** 在 PO 明确授权后，可进入 Sprint 12 Closeout 流程。
-
-**当前：** S12-STORY-009 **Accepted with follow-ups / Done**；Sprint Closeout **仍待 PO 独立授权**（Sprint 12 **Not Closed**）。
+**Sprint 12 Closed**（2026-07-08 · **DECISION-124**）
 
 **必须明确：**
 
-- S12-STORY-001~009 **Accepted / Done**（009 with follow-ups）
-- Release 2 **Planned / Candidate / Not Started**
+- Sprint Goal **基本达成**
+- S12-STORY-001~009 **均已完成**（009 with follow-ups）
+- Sprint 12 **已 Closed**
 - Release 1 **未关闭**
-- Sprint 12 **未关闭**
+- Release 2 **未启动**
 - **未 push** · **未 merge** 到 `release/1` 或 `main`
 
 ---

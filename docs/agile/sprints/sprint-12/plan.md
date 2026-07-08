@@ -8,7 +8,9 @@ supportsReleases:
 sprintType: governance
 releaseBaseline: release/1 @ 3a8203b
 planningStatus: Approved
-sprintStatus: Approved / In Progress
+sprintStatus: Closed
+closedDate: 2026-07-08
+closeoutDecision: DECISION-124
 approvedDate: 2026-06-30
 approvedBy: Product Owner
 planningApprovalDecision: DECISION-116
@@ -25,7 +27,8 @@ planningApprovalDecision: DECISION-116
 | 项                 | 值                                                                                  |
 | ------------------ | ----------------------------------------------------------------------------------- |
 | **planningStatus** | **Approved**                                                                        |
-| **sprintStatus**   | **Approved / In Progress**                                                          |
+| **sprintStatus**   | **Closed**（2026-07-08 · **DECISION-124**）                                         |
+| **closedDate**     | 2026-07-08                                                                          |
 | **approvedDate**   | 2026-06-30                                                                          |
 | **approvedBy**     | Product Owner                                                                       |
 | **Release 基线**   | `release/1` @ `3a8203b`                                                             |
@@ -118,13 +121,13 @@ planningApprovalDecision: DECISION-116
 **说明：**
 
 - Sprint Plan **Approved** 不代表所有 Story 已启动
-- **S12-STORY-009** **Accepted with follow-ups / Done**；Sprint 12 **未关闭**
+- **S12-STORY-009** **Accepted with follow-ups / Done**；Sprint 12 **Closed**（**DECISION-124**）
 - Release 2 **Planned / Candidate / Not Started** — 见 [`../../releases/release-2/plan.md`](../../releases/release-2/plan.md)
-- Closeout 准备见 [`closeout.md`](closeout.md) · 审计见 [`consistency-audit.md`](consistency-audit.md)
-- Cursor 不得自动关闭 Sprint 12 · 不得启动 Release 2
-- Sprint 12 关闭仍需独立 Review、Retrospective、Closeout 和 PO 授权
+- Closeout 见 [`closeout.md`](closeout.md) · 审计见 [`consistency-audit.md`](consistency-audit.md)
+- Release 1 **未关闭** · **未 merge** `release/1` / `main` · **未 push**
 
 ## 关联决策
 
 - **DECISION-115** — Sprint / Release 独立目录与全局索引
+- **DECISION-124** — Sprint 12 Closed with follow-ups
 - **DECISION-116** — Sprint 12 Planning Approval（本 Sprint 正式批准）

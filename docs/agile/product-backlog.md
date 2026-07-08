@@ -350,7 +350,7 @@
 ## Release 1 剩余 Sprint Story 索引（Planned · 未启动）
 
 | **Sprint 11** | Production Ops Go-Live | S11-STORY-001 ~ S11-STORY-006 | **P0 · Closed**（Accepted with follow-ups · **DECISION-114**） |
-| **Sprint 12** | Product Governance & Release 2 Planning | S12-STORY-001 ~ 009 | **Approved / In Progress**（S12-STORY-001~009 **Done**（009 with follow-ups）· [`sprints/sprint-12/plan.md`](sprints/sprint-12/plan.md)） |
+| **Sprint 12** | Product Governance & Release 2 Planning | S12-STORY-001 ~ 009 | **Closed**（Accepted with follow-ups · **DECISION-124** · [`sprints/sprint-12/plan.md`](sprints/sprint-12/plan.md)） |
 | **Sprint 12+** | Compat / DSL 债务（原 S10-012/013） | 旧 S12-STORY-001 ~ 002 历史占位，需分配新 Backlog / Story ID | **P1/P2 · Planned** |
 
 Story 详情见 [`sprint-backlog.md`](sprint-backlog.md) · S11 见 [`sprint11-production-ops-go-live.md`](sprint11-production-ops-go-live.md) · S12 治理见 [`sprint12-product-governance-r2-planning.md`](sprint12-product-governance-r2-planning.md)。
@@ -368,6 +368,21 @@ Story 详情见 [`sprint-backlog.md`](sprint-backlog.md) · S11 见 [`sprint11-p
 | ID             | 问题                                                      | 状态         | 说明                                                                                                                                                               |
 | -------------- | --------------------------------------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | **P1-S11-001** | Dev / Staging / Production 数据库内容维护、发布与同步方案 | **Deferred** | DB 为 variant **唯一事实来源**；`import-existing-variants` 为待审计历史 bootstrap；governance snapshot apply 暂缓；staging 独有 2 条测试 variant 不迁移 production |
+
+---
+
+---
+
+## Sprint 12 Closeout Follow-ups（Review 2026-07-08 · Sprint Closed 2026-07-08 · DECISION-124）
+
+> 自 [`sprints/sprint-12/review.md`](sprints/sprint-12/review.md) / [`retrospective.md`](sprints/sprint-12/retrospective.md) / [`consistency-audit.md`](sprints/sprint-12/consistency-audit.md) 登记 · **不得**伪造完成 · Sprint 12 Closed 不代表 follow-ups 完成 · 后续由 Product Owner 重新排序和规划
+
+| ID             | 问题                                                  | 类型     | 状态     | 来源 Story · 说明                                                          |
+| -------------- | ----------------------------------------------------- | -------- | -------- | -------------------------------------------------------------------------- |
+| **P1-S12-001** | `.cursor/rules/` 与 S12 新模板 / Operating Model 对齐 | 治理     | **Open** | **S12-STORY-009** · FU-001 · 建议作为独立 governance chore；**不自动启动** |
+| **P1-S12-002** | Release 1 Closeout 时机与流程确认                     | 治理     | **Open** | **S12-STORY-009** · FU-002 · 需 PO 独立决策；**不代表 R1 Closeout 已启动** |
+| **P1-S12-003** | Release 2 正式启动授权与 R2-Sprint-01 Planning        | 产品规划 | **Open** | **S12-STORY-009** · FU-003 · 需 PO 独立决策；**不代表 Release 2 已启动**   |
+| **P2-S12-001** | execution report 双模板入口统一说明                   | 治理     | **Open** | **S12-STORY-009** · FU-004 · 建议与 P1-S12-001 一并处理                    |
 
 ---
 

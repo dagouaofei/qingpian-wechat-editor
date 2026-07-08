@@ -10,7 +10,8 @@
 | **分支**              | `sprint/s12-product-governance-r2-planning`                                                                               |
 | **Release 基线**      | `release/1` @ `3a8203b`                                                                                                   |
 | **planningStatus**    | **Approved**                                                                                                              |
-| **sprintStatus**      | **Approved / In Progress**                                                                                                |
+| **sprintStatus**      | **Closed**（2026-07-08 · **DECISION-124**）                                                                               |
+| **closedDate**        | 2026-07-08                                                                                                                |
 | **approvedDate**      | 2026-06-30                                                                                                                |
 | **approvedBy**        | Product Owner                                                                                                             |
 | **Planning Approval** | **DECISION-116**                                                                                                          |

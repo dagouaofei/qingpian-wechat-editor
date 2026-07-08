@@ -110,6 +110,7 @@
 | DECISION-121 | 2026-07-06 | S12-STORY-006：Agile Operating Model；Backlog Refinement/Change Control/Triage/Progress Check；DoR/DoD/Cursor/Report/Review 模板；PBI 追踪字段；PBI-QP-009 条件触发须 PO 确认                                                                                       | **已确认**                             |
 | DECISION-122 | 2026-07-08 | S12-STORY-007：Release 1 能力覆盖映射；R1→A01–A11/Slice/模块/PBI/假设/Evidence；R1 重心为单篇公众号生成排版复制；不等同工作台；不决定 R2 范围；作为 S12-STORY-008 输入                                                                                              | **已确认**                             |
 | DECISION-123 | 2026-07-08 | S12-STORY-008：Release 2 品牌/项目驱动最小内容工作台；鲁老师+秒篇 AIPPT 双验证；双入口；R1 复用；Must/Should/Could/Won't；R2 候选未启动                                                                                                                             | **已确认**                             |
+| DECISION-124 | 2026-07-08 | Sprint 12 Closed with follow-ups；S12-STORY-001~008 Done；S12-STORY-009 Accepted with follow-ups / Done；Consistency Audit PASS with follow-ups；follow-ups 已登记；不关闭 R1；不启动 R2；不 merge release/1/main；不 push                                          | **已确认**                             |
 
 ### DECISION-019 详情
 
@@ -1486,3 +1487,35 @@
   8. 正式事实源：`releases/release-2/plan.md` · `backlog.md` · `coverage.md` · `product-roadmap.md`
 - **影响范围：** release-plan · product-backlog · product-coverage-matrix · S12-STORY-009 输入
 - **状态：** **已确认**（2026-07-08 · S12-STORY-008 · PO 已确认候选稿）
+
+### DECISION-124 详情（Sprint 12 Closeout · Closed with follow-ups）
+
+- **日期：** 2026-07-08
+- **Product Owner 授权原文：**
+
+  ```text
+  允许关闭 Sprint 12；
+  不 merge 到 release/1；
+  不 push；
+  不启动 Release 2；
+  不启动 R2 Sprint。
+  ```
+
+- **背景：**
+  - S12-STORY-001~008 均已 **Accepted / Done**
+  - S12-STORY-009 **Accepted with follow-ups / Done**（Consistency Audit **PASS with follow-ups**）
+  - Sprint Review · Retrospective · Closeout Readiness 草案已完成并定稿
+  - Follow-up Backlog 已登记（P1-S12-001~003 · P2-S12-001）
+- **决策：**
+  1. **Sprint 12** 验收结论为 **Closed with follow-ups**（关闭日期 2026-07-08）
+  2. **S12-STORY-001~008** **Accepted / Done**；**S12-STORY-009** **Accepted with follow-ups / Done**
+  3. Consistency Audit 结论：**PASS with follow-ups**（无 BLOCKED 项）
+  4. Follow-ups **P1-S12-001 · P1-S12-002 · P1-S12-003 · P2-S12-001** 保持 **Open**；Sprint 关闭不代表完成或自动启动
+  5. **不关闭 Release 1**；Release 1 保持 **In Progress / Not Closed**
+  6. **不启动 Release 2**；R2 保持 **Planned / Candidate / Not Started**；**不启动 R2 Sprint**
+  7. **未授权** merge `sprint/s12-product-governance-r2-planning` → `release/1` 或 `main`
+  8. **未授权 push**
+  9. **未修改**产品代码 · **未修改** `.cursor/rules/`
+- **影响范围：** `sprints/sprint-12/closeout.md` · `review.md` · `retrospective.md` · `sprint-backlog.md` · `release-plan.md` · `product-backlog.md` · `changelog.md`
+- **关联：** S12-STORY-009 · DECISION-116 · DECISION-123
+- **状态：** **已确认**（2026-07-08 · PO 授权）

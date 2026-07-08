@@ -1,7 +1,9 @@
 ---
 sprintId: sprint-12
 planningStatus: Approved
-sprintStatus: Approved / In Progress
+sprintStatus: Closed
+closedDate: 2026-07-08
+closeoutDecision: DECISION-124
 approvedDate: 2026-06-30
 storyOrder: "002 → 003 → 004 → 005 → 006 → 007 → 008 → 009"
 ---
@@ -133,22 +135,24 @@ S12-STORY-002 → 003 → 004 → 005 → 006 → 007 → 008 → 009
 **主要成果 commit：** `6f30c73`
 **证据同步 commit：** `353a4d3`
 **HEAD at review time：** `353a4d3`
-**工作分支：** `docs/s12-story-009-review-consistency-closeout-readiness`（待 merge）
+**工作分支：** `docs/s12-story-009-review-consistency-closeout-readiness`（已 merge @ `158e044`）
 **产出：** [`review.md`](review.md) · [`retrospective.md`](retrospective.md) · [`closeout.md`](closeout.md) · [`consistency-audit.md`](consistency-audit.md)
 **审计结论：** **PASS with follow-ups**
 **Execution Report：** [`../../execution-reports/2026-07-08-s12-story-009-review-consistency-closeout-readiness.md`](../../execution-reports/2026-07-08-s12-story-009-review-consistency-closeout-readiness.md)
-**Follow-ups（不阻塞 Done）：**
+**Follow-ups（已登记 · 不阻塞 Closeout）：**
 
-- **FU-001：** `.cursor/rules/` 与 S12 新模板 / Operating Model 对齐，建议作为独立 governance chore
-- **FU-002：** Release 1 Closeout 时机，需 Product Owner 独立决策
-- **FU-003：** Release 2 正式启动授权，需 Product Owner 独立决策
-- **FU-004：** execution report 双模板入口统一说明，建议与 `.cursor/rules` 对齐一并处理
-  **说明：** PO accepted Sprint 12 review, consistency audit and closeout readiness draft with follow-ups. Sprint 12 remains **Approved / In Progress** and **Not Closed**. Release 1 remains **In Progress / Not Closed**. Release 2 remains **Planned / Candidate / Not Started**. No Release 2 Sprint has been started. No push has been performed. 未修改产品代码；未修改 `.cursor/rules/`。
+- **FU-001 / P1-S12-001：** `.cursor/rules/` 与 S12 新模板 / Operating Model 对齐
+- **FU-002 / P1-S12-002：** Release 1 Closeout 时机与流程确认
+- **FU-003 / P1-S12-003：** Release 2 正式启动授权与 R2-Sprint-01 Planning
+- **FU-004 / P2-S12-001：** execution report 双模板入口统一说明
 
-## 启动闸门
+**说明：** PO accepted Sprint 12 review, consistency audit and closeout readiness draft with follow-ups. Sprint 12 **Closed**（**DECISION-124**）. Release 1 remains **In Progress / Not Closed**. Release 2 remains **Planned / Candidate / Not Started**. No Release 2 Sprint has been started. No push has been performed. 未修改产品代码；未修改 `.cursor/rules/`。
 
-- **S12-STORY-001~009** **Accepted / Done**（009 with follow-ups）
-- Sprint 12 **未关闭** · Release 1 **未关闭**
-- Release 2 **Planned / Candidate / Not Started** · R2 Sprint **尚未启动**
-- Sprint 12 Closeout 仍需 PO 独立授权
-- Cursor 不得自动关闭 Sprint 12 · 不得启动 Release 2
+## Closeout 状态
+
+- **Sprint 12：** **Closed**（2026-07-08 · **DECISION-124**）
+- **S12-STORY-001~009：** **Accepted / Done**（009 with follow-ups）
+- **Release 1：** **In Progress / Not Closed**
+- **Release 2：** **Planned / Candidate / Not Started** · R2 Sprint **未启动**
+- **merge `release/1` / `main`：** **未执行** · **push：** **未执行**
+- **Follow-ups：** 已登记至 [`../../product-backlog.md`](../../product-backlog.md) §Sprint 12 Closeout Follow-ups

@@ -1070,3 +1070,12 @@
 | 2026-07-08 | Sprint 12 | **S12-STORY-009 In Review**：Review/Retro/Closeout 草案 · 一致性审计 PASS with follow-ups · Sprint 12 未关闭                                                            | 敏捷治理 | S12-STORY-009         |
 | 2026-07-08 | Sprint 12 | docs(s12): prepare sprint 12 review and closeout readiness — Release 2 未启动 · 未修改 `.cursor/rules/`                                                                 | 敏捷治理 | S12-STORY-009         |
 | 2026-07-08 | Sprint 12 | **S12-STORY-009 Accepted with follow-ups / Done**：PO 验收 · 主要成果 `6f30c73` · 证据同步 `353a4d3` · merge 至 sprint 分支（`--no-ff`） · Sprint 12 未关闭 · R2 未启动 | 敏捷治理 | S12-STORY-009         |
+
+---
+
+## 2026-07-08 · Sprint 12 Closeout
+
+| 日期       | Sprint    | 变更摘要                                                                                                                                                                               | 影响范围 | 关联 Story / Decision |
+| ---------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | --------------------- |
+| 2026-07-08 | Sprint 12 | **Sprint 12 Closed with follow-ups**（**DECISION-124**）：S12-STORY-001~009 Done（009 with follow-ups）· Review/Retro Final · follow-ups 已登记 · **未 merge release/1** · **未 push** | 敏捷治理 | DECISION-124          |
+| 2026-07-08 | Sprint 12 | docs(s12): close sprint 12 — Release 1 未关闭 · Release 2 Planned / Not Started · R2 Sprint 未启动                                                                                     | 敏捷治理 | DECISION-124          |

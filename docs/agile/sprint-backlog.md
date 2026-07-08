@@ -16,7 +16,7 @@
 > **Sprint 9：** **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · **P0=0** · HTML→user preview picker E2E PASS · Preview/Copy parity PASS · default preset / release1_required 未污染 · **已 merge `release/1`** @ `c96e869` · **未 merge `main`**）
 > **Sprint 10：** **Closed**（2026-06-08 · **DECISION-108** · **DECISION-111** · S10-STORY-001~011 Done · **已 merge `release/1`** @ `6cd1dfc`）· 原 012~014 顺延 Sprint 12+
 > **Sprint 11：** Production Ops Go-Live · **Accepted with follow-ups / Closed**（2026-06-30 · Product Owner confirmed · **DECISION-114**）
-> **专项 Sprint 12：** Product Governance & Release 2 Planning · **Approved / In Progress**（**DECISION-116** · S12-STORY-001~009 **Done**（009 with follow-ups）· 详细：[`sprints/sprint-12/plan.md`](sprints/sprint-12/plan.md)）
+> **专项 Sprint 12：** Product Governance & Release 2 Planning · **Closed**（2026-07-08 · **DECISION-124** · S12-STORY-001~009 **Done**（009 with follow-ups）· 详细：[`sprints/sprint-12/plan.md`](sprints/sprint-12/plan.md)）
 > **Sprint 12 分支：** `sprint/s12-product-governance-r2-planning` · 基线对齐工作分支：`docs/s12-release1-baseline-alignment`
 > **Sprint 11 分支：** `sprint/s11-production-ops-go-live`（从 `release/1` · @ `6cd1dfc`）
 > **Sprint 10 分支：** `sprint/s10-db-backed-style-admin-v1`（已 merge `release/1` · @ `6cd1dfc`）
@@ -4534,7 +4534,7 @@ S10-STORY-001 → 002 → 003 → 008 ∥ 004 → 005 → 006 → 007
 > **兼容入口：** [`sprint12-product-governance-r2-planning.md`](sprint12-product-governance-r2-planning.md)
 > **分支：** `sprint/s12-product-governance-r2-planning`
 > **Release 基线：** `release/1` @ `3a8203b`
-> **状态：** **Approved / In Progress** · S12-STORY-009 **Accepted with follow-ups / Done** · Sprint 12 **未关闭** · Release 2 **Planned / Not Started**
+> **状态：** **Closed**（2026-07-08 · **DECISION-124**）· S12-STORY-009 **Accepted with follow-ups / Done** · Release 2 **Planned / Not Started** · Release 1 **未关闭**
 > **S12-STORY-002 产品事实源：** [`../../product/product-vision.md`](../../product/product-vision.md) · [`../../product/users-and-scenarios.md`](../../product/users-and-scenarios.md)
 
 ## S12-STORY-001 现有项目管理与产品文档体系审计
