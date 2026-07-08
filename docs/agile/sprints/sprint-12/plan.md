@@ -118,7 +118,7 @@ planningApprovalDecision: DECISION-116
 **说明：**
 
 - Sprint Plan **Approved** 不代表所有 Story 已启动
-- **S12-STORY-009** **In Review**；Sprint 12 **未关闭**
+- **S12-STORY-009** **Accepted with follow-ups / Done**；Sprint 12 **未关闭**
 - Release 2 **Planned / Candidate / Not Started** — 见 [`../../releases/release-2/plan.md`](../../releases/release-2/plan.md)
 - Closeout 准备见 [`closeout.md`](closeout.md) · 审计见 [`consistency-audit.md`](consistency-audit.md)
 - Cursor 不得自动关闭 Sprint 12 · 不得启动 Release 2

@@ -67,7 +67,7 @@
 | **Sprint 9**       | **Closed**（2026-06-05 · **DECISION-106** · audit Grade **A-** · P0=0 · S9-STORY-001~009 Done · **已 merge `release/1`** @ `c96e869`） |
 | **Sprint 10**      | **Closed**（2026-06-08 · **DECISION-108** · **DECISION-111** · S10-STORY-001~011 Done）                                                |
 | **Sprint 11**      | **Closed**（2026-06-30 · **Accepted with follow-ups** · **DECISION-114** · Production Ops Go-Live）                                    |
-| **Sprint 12**      | **Approved / In Progress**（2026-06-30 · **DECISION-116** · S12-STORY-001~008 **Done** · S12-STORY-009 **In Review**）                 |
+| **Sprint 12**      | **Approved / In Progress**（2026-06-30 · **DECISION-116** · S12-STORY-001~009 **Done**（009 with follow-ups））                        |
 | **Release 1 主干** | `release/1` @ **`3a8203b`**                                                                                                            |
 | **下一步**         | S12-STORY-009 验收；Sprint 12 Closeout（待 PO）；**R2 候选未启动**；**S12+** Compat / DSL / Release1 Closeout                          |
 

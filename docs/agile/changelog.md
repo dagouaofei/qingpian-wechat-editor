@@ -1065,7 +1065,8 @@
 
 ## 2026-07-08 · S12-STORY-009 Review / Audit / Closeout Readiness
 
-| 日期       | Sprint    | 变更摘要                                                                                                     | 影响范围 | 关联 Story / Decision |
-| ---------- | --------- | ------------------------------------------------------------------------------------------------------------ | -------- | --------------------- |
-| 2026-07-08 | Sprint 12 | **S12-STORY-009 In Review**：Review/Retro/Closeout 草案 · 一致性审计 PASS with follow-ups · Sprint 12 未关闭 | 敏捷治理 | S12-STORY-009         |
-| 2026-07-08 | Sprint 12 | docs(s12): prepare sprint 12 review and closeout readiness — Release 2 未启动 · 未修改 `.cursor/rules/`      | 敏捷治理 | S12-STORY-009         |
+| 日期       | Sprint    | 变更摘要                                                                                                                                                                | 影响范围 | 关联 Story / Decision |
+| ---------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | --------------------- |
+| 2026-07-08 | Sprint 12 | **S12-STORY-009 In Review**：Review/Retro/Closeout 草案 · 一致性审计 PASS with follow-ups · Sprint 12 未关闭                                                            | 敏捷治理 | S12-STORY-009         |
+| 2026-07-08 | Sprint 12 | docs(s12): prepare sprint 12 review and closeout readiness — Release 2 未启动 · 未修改 `.cursor/rules/`                                                                 | 敏捷治理 | S12-STORY-009         |
+| 2026-07-08 | Sprint 12 | **S12-STORY-009 Accepted with follow-ups / Done**：PO 验收 · 主要成果 `6f30c73` · 证据同步 `353a4d3` · merge 至 sprint 分支（`--no-ff`） · Sprint 12 未关闭 · R2 未启动 | 敏捷治理 | S12-STORY-009         |

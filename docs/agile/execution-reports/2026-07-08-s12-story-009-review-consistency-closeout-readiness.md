@@ -5,7 +5,7 @@
 - 日期：2026-07-08
 - Story：S12-STORY-009 · 全局一致性审计、治理验收与 Sprint 12 Closeout Readiness
 - Sprint：Sprint 12 — Product Governance & Release 2 Planning
-- 状态：**In Review**
+- 状态：**Accepted with follow-ups / Done**（2026-07-08 · Product Owner 验收）
 - 执行分支：`docs/s12-story-009-review-consistency-closeout-readiness`
 - 来源分支：`sprint/s12-product-governance-r2-planning` @ `f6ad972`
 - 目标合并分支：`sprint/s12-product-governance-r2-planning`（本轮**未** merge）
@@ -99,13 +99,13 @@
 
 ## 12. 检查命令与结果
 
-| 命令                       | 结果                                      |
-| -------------------------- | ----------------------------------------- |
-| `git diff --check`         | PASS（无 trailing whitespace 冲突）       |
-| `git status --short`       | PASS（commit 后 working tree clean）      |
-| `pnpm prettier --write`    | PASS（14 个目标文件已格式化）               |
+| 命令                       | 结果                                                      |
+| -------------------------- | --------------------------------------------------------- |
+| `git diff --check`         | PASS（无 trailing whitespace 冲突）                       |
+| `git status --short`       | PASS（commit 后 working tree clean）                      |
+| `pnpm prettier --write`    | PASS（14 个目标文件已格式化）                             |
 | `pnpm prettier --check`    | PASS（`docs/agile/sprints/sprint-12/*.md` · `README.md`） |
-| `pnpm lint` / test / build | 未运行（本轮为文档与治理审计，无产品代码变更） |
+| `pnpm lint` / test / build | 未运行（本轮为文档与治理审计，无产品代码变更）            |
 
 ## 13. 风险与遗留
 
@@ -121,7 +121,19 @@
 ## 15. Commit 与 Git 状态
 
 - **主要 commit：** `6f30c73` — `docs(s12): prepare sprint 12 review and closeout readiness`
-- merge：**未 merge** · push：**未 push**
-- HEAD at review time：`6f30c73`
+- **证据同步 commit：** `353a4d3` — `docs(s12): sync story 009 execution report check evidence`
+- **验收状态 commit：** 见 `docs(s12): accept story 009`
+- **merge commit：** merge 后记录
+- merge：**待 merge 至 sprint 分支** · push：**未 push**
+- HEAD at review time：`353a4d3`
 
-**必须明确：** 未 merge。未 push。未标记 S12-STORY-009 Done。未关闭 Sprint 12。未关闭 Release 1。未启动 Release 2。未启动 R2 Sprint。未启动任何后续 Story。未修改产品代码。未修改 `.cursor/rules/`。
+**PO 验收（2026-07-08）：** **Accepted with follow-ups** — Consistency Audit **PASS with follow-ups**
+
+**Follow-ups（不阻塞 Done）：**
+
+- FU-001：`.cursor/rules/` 与 S12 新模板 / Operating Model 对齐
+- FU-002：Release 1 Closeout 时机
+- FU-003：Release 2 正式启动授权
+- FU-004：execution report 双模板入口统一说明
+
+**必须明确：** Sprint 12 **未关闭**。Release 1 **未关闭**。Release 2 **未启动**。R2 Sprint **未启动**。未修改产品代码。未修改 `.cursor/rules/`。

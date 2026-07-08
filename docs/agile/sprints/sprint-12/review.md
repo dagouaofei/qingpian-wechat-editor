@@ -8,7 +8,7 @@ associatedStory: S12-STORY-009
 
 # Sprint 12 Review（草案）
 
-> **状态：** **Draft** — 非 Sprint Closed；待 S12-STORY-009 验收与 PO Closeout 授权。
+> **状态：** **Draft** — 非 Sprint Closed；S12-STORY-009 **Accepted with follow-ups / Done**；Sprint Closeout 仍待 PO 独立授权。
 
 ---
 
@@ -24,17 +24,17 @@ associatedStory: S12-STORY-009
 
 ## 2. Committed Stories 完成情况
 
-| Story         | 状态            | 主要产出摘要                                  |
-| ------------- | --------------- | --------------------------------------------- |
-| S12-STORY-001 | Accepted / Done | 治理审计 · 目标模型 · 迁移方案 · DECISION-115 |
-| S12-STORY-002 | Accepted / Done | 产品愿景 · 用户场景 · DECISION-117            |
-| S12-STORY-003 | Accepted / Done | 模块树 · 功能目录 · DECISION-118              |
-| S12-STORY-004 | Accepted / Done | Story Map · 成功模型 · DECISION-119           |
-| S12-STORY-005 | Accepted / Done | Backlog 追踪 · Coverage Matrix · DECISION-120 |
-| S12-STORY-006 | Accepted / Done | Operating Model · 标准模板 · DECISION-121     |
-| S12-STORY-007 | Accepted / Done | R1 能力覆盖映射 · DECISION-122                |
-| S12-STORY-008 | Accepted / Done | R2 候选规划 · DECISION-123                    |
-| S12-STORY-009 | **In Review**   | Review / Audit / Closeout Readiness（本轮）   |
+| Story         | 状态                                | 主要产出摘要                                  |
+| ------------- | ----------------------------------- | --------------------------------------------- |
+| S12-STORY-001 | Accepted / Done                     | 治理审计 · 目标模型 · 迁移方案 · DECISION-115 |
+| S12-STORY-002 | Accepted / Done                     | 产品愿景 · 用户场景 · DECISION-117            |
+| S12-STORY-003 | Accepted / Done                     | 模块树 · 功能目录 · DECISION-118              |
+| S12-STORY-004 | Accepted / Done                     | Story Map · 成功模型 · DECISION-119           |
+| S12-STORY-005 | Accepted / Done                     | Backlog 追踪 · Coverage Matrix · DECISION-120 |
+| S12-STORY-006 | Accepted / Done                     | Operating Model · 标准模板 · DECISION-121     |
+| S12-STORY-007 | Accepted / Done                     | R1 能力覆盖映射 · DECISION-122                |
+| S12-STORY-008 | Accepted / Done                     | R2 候选规划 · DECISION-123                    |
+| S12-STORY-009 | **Accepted with follow-ups / Done** | Review / Audit / Closeout Readiness           |
 
 ---
 
@@ -49,12 +49,12 @@ associatedStory: S12-STORY-009
 
 ## 4. 未完成事项
 
-| 项                    | 状态                              |
-| --------------------- | --------------------------------- |
-| S12-STORY-009 验收    | In Review                         |
-| Sprint 12 Closeout    | 未执行                            |
-| `.cursor/rules/` 对齐 | Follow-up（见 consistency-audit） |
-| Release 1 Closeout    | 未执行                            |
+| 项                    | 状态                                              |
+| --------------------- | ------------------------------------------------- |
+| S12-STORY-009 验收    | **Accepted with follow-ups / Done**（2026-07-08） |
+| Sprint 12 Closeout    | 未执行（待 PO 独立授权）                          |
+| `.cursor/rules/` 对齐 | Follow-up FU-001                                  |
+| Release 1 Closeout    | 未执行（Follow-up FU-002）                        |
 
 ---
 
@@ -85,14 +85,13 @@ associatedStory: S12-STORY-009
 
 ## 8. 是否建议进入 Sprint Closeout
 
-**建议：** 在 **S12-STORY-009 Accepted / Done** 且 PO 明确授权后，可进入 Sprint 12 Closeout 流程。
+**建议：** 在 PO 明确授权后，可进入 Sprint 12 Closeout 流程。
 
-**当前：** **不建议**立即 Closeout（S12-STORY-009 仍为 In Review）。
+**当前：** S12-STORY-009 **Accepted with follow-ups / Done**；Sprint Closeout **仍待 PO 独立授权**（Sprint 12 **Not Closed**）。
 
 **必须明确：**
 
-- S12-STORY-002~008 **Accepted / Done**
-- S12-STORY-009 本轮结束后仅 **In Review**
+- S12-STORY-001~009 **Accepted / Done**（009 with follow-ups）
 - Release 2 **Planned / Candidate / Not Started**
 - Release 1 **未关闭**
 - Sprint 12 **未关闭**

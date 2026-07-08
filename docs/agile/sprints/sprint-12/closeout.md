@@ -16,17 +16,17 @@ associatedStory: S12-STORY-009
 
 ## 1. Story 状态表
 
-| Story         | 状态            | Closeout 就绪 |
-| ------------- | --------------- | ------------- |
-| S12-STORY-001 | Accepted / Done | Yes           |
-| S12-STORY-002 | Accepted / Done | Yes           |
-| S12-STORY-003 | Accepted / Done | Yes           |
-| S12-STORY-004 | Accepted / Done | Yes           |
-| S12-STORY-005 | Accepted / Done | Yes           |
-| S12-STORY-006 | Accepted / Done | Yes           |
-| S12-STORY-007 | Accepted / Done | Yes           |
-| S12-STORY-008 | Accepted / Done | Yes           |
-| S12-STORY-009 | **In Review**   | **Pending**   |
+| Story         | 状态                                | Closeout 就绪 |
+| ------------- | ----------------------------------- | ------------- |
+| S12-STORY-001 | Accepted / Done                     | Yes           |
+| S12-STORY-002 | Accepted / Done                     | Yes           |
+| S12-STORY-003 | Accepted / Done                     | Yes           |
+| S12-STORY-004 | Accepted / Done                     | Yes           |
+| S12-STORY-005 | Accepted / Done                     | Yes           |
+| S12-STORY-006 | Accepted / Done                     | Yes           |
+| S12-STORY-007 | Accepted / Done                     | Yes           |
+| S12-STORY-008 | Accepted / Done                     | Yes           |
+| S12-STORY-009 | **Accepted with follow-ups / Done** | Yes           |
 
 ---
 
@@ -48,7 +48,7 @@ associatedStory: S12-STORY-009
 | Release Plan       | 已含 R1/R2 全局状态（本轮索引修正）               |
 | Sprint 12 backlog  | 权威 — `sprints/sprint-12/backlog.md`             |
 | Decision Log       | DECISION-115~123 已记录                           |
-| Changelog          | S12-STORY-002~008 已记录                          |
+| Changelog          | S12-STORY-002~009 已记录                          |
 | Execution Evidence | 各 Story execution report + merge commit 可追溯   |
 | Release 2 规划     | `releases/release-2/` · **Planned / Not Started** |
 
@@ -56,12 +56,12 @@ associatedStory: S12-STORY-009
 
 ## 4. 未完成项与 follow-ups
 
-| ID     | 描述                               | 阻塞 Closeout |
-| ------ | ---------------------------------- | ------------- |
-| FU-001 | S12-STORY-009 PO 验收              | **Yes**       |
-| FU-002 | `.cursor/rules/` 与 S12 治理对齐   | No            |
-| FU-003 | Compat / DSL deferred 债务重新编号 | No            |
-| FU-004 | Release 1 Closeout                 | No（独立）    |
+| ID     | 描述                                                                | 阻塞 Closeout |
+| ------ | ------------------------------------------------------------------- | ------------- |
+| FU-001 | `.cursor/rules/` 与 S12 新模板 / Operating Model 对齐（独立 chore） | No            |
+| FU-002 | Release 1 Closeout 时机（需 PO 独立决策）                           | No            |
+| FU-003 | Release 2 正式启动授权（需 PO 独立决策）                            | No            |
+| FU-004 | execution report 双模板入口统一说明（建议与 FU-001 一并处理）       | No            |
 
 ---
 
@@ -70,11 +70,11 @@ associatedStory: S12-STORY-009
 | 项           | 值                                             |
 | ------------ | ---------------------------------------------- |
 | Sprint 分支  | `sprint/s12-product-governance-r2-planning`    |
-| 预期 HEAD    | `f6ad972`（Merge S12-STORY-008）+ 009 工作分支 |
+| 预期 HEAD    | `353a4d3`（009 验收同步）+ merge commit 待记录 |
 | merge R1     | **未执行**                                     |
 | merge main   | **未执行**                                     |
 | push         | **未执行**                                     |
-| working tree | 待 009 commit 后应为 clean                     |
+| working tree | 验收同步后应为 clean                           |
 
 ---
 
@@ -89,8 +89,8 @@ associatedStory: S12-STORY-009
 
 ## 7. Closeout 前仍需 PO 明确确认
 
-1. **PO 验收 S12-STORY-009**
-2. **PO 允许标记 S12-STORY-009 Done**
+1. ~~**PO 验收 S12-STORY-009**~~（**Done** · 2026-07-08 · Accepted with follow-ups）
+2. ~~**PO 允许标记 S12-STORY-009 Done**~~（**Done** · 2026-07-08）
 3. **PO 允许关闭 Sprint 12**（独立授权，非本 Story）
 4. 如需 **merge sprint → release/1**，须**另行明确授权**
 5. 如需 **push**，须**另行明确授权**
@@ -100,7 +100,7 @@ associatedStory: S12-STORY-009
 
 ## 8. Closeout 检查清单（待 PO 授权后执行）
 
-- [ ] S12-STORY-009 Accepted / Done
+- [x] S12-STORY-009 Accepted with follow-ups / Done
 - [ ] Sprint Review 定稿（非 Draft）
 - [ ] Retrospective 定稿
 - [ ] Consistency Audit 无 BLOCKED 项

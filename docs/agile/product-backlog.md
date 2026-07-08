@@ -350,7 +350,7 @@
 ## Release 1 剩余 Sprint Story 索引（Planned · 未启动）
 
 | **Sprint 11** | Production Ops Go-Live | S11-STORY-001 ~ S11-STORY-006 | **P0 · Closed**（Accepted with follow-ups · **DECISION-114**） |
-| **Sprint 12** | Product Governance & Release 2 Planning | S12-STORY-001 ~ 009 | **Approved / In Progress**（S12-STORY-001~008 **Done** · S12-STORY-009 **In Review** · [`sprints/sprint-12/plan.md`](sprints/sprint-12/plan.md)） |
+| **Sprint 12** | Product Governance & Release 2 Planning | S12-STORY-001 ~ 009 | **Approved / In Progress**（S12-STORY-001~009 **Done**（009 with follow-ups）· [`sprints/sprint-12/plan.md`](sprints/sprint-12/plan.md)） |
 | **Sprint 12+** | Compat / DSL 债务（原 S10-012/013） | 旧 S12-STORY-001 ~ 002 历史占位，需分配新 Backlog / Story ID | **P1/P2 · Planned** |
 
 Story 详情见 [`sprint-backlog.md`](sprint-backlog.md) · S11 见 [`sprint11-production-ops-go-live.md`](sprint11-production-ops-go-live.md) · S12 治理见 [`sprint12-product-governance-r2-planning.md`](sprint12-product-governance-r2-planning.md)。
