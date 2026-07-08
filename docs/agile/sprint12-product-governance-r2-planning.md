@@ -20,6 +20,7 @@
 | **S12-STORY-005**     | **Accepted / Done**（DECISION-120 · [`backlog-tracking-model.md`](backlog-tracking-model.md)）               |
 | **S12-STORY-006**     | **Accepted / Done**（DECISION-121 · [`agile-operating-model.md`](agile-operating-model.md)）                 |
 | **S12-STORY-007**     | **Accepted / Done**（DECISION-122 · [`release-1-capability-coverage.md`](release-1-capability-coverage.md)） |
+| **S12-STORY-008**     | **In Review**（DECISION-123 · [`releases/release-2/plan.md`](releases/release-2/plan.md)）                   |
 
 > **说明：** 本文件保留 S12-STORY-001 历史记录与兼容链接；**不得**在此复制完整 committed Story AC 或形成第二套详细事实源。
 
@@ -31,16 +32,17 @@
 
 顺序：`002 → 003 → 004 → 005 → 006 → 007 → 008 → 009` · 详见 [`sprints/sprint-12/backlog.md`](sprints/sprint-12/backlog.md)
 
-| Story               | 状态                                       |
-| ------------------- | ------------------------------------------ |
-| S12-STORY-001       | **Accepted / Done**（Planning 前治理审计） |
-| S12-STORY-002       | **Accepted / Done**                        |
-| S12-STORY-003       | **Accepted / Done**                        |
-| S12-STORY-004       | **Accepted / Done**                        |
-| S12-STORY-005       | **Accepted / Done**                        |
-| S12-STORY-006       | **Accepted / Done**                        |
-| S12-STORY-007       | **Accepted / Done**                        |
-| S12-STORY-008 ~ 009 | **Committed / Not Started**                |
+| Story         | 状态                                       |
+| ------------- | ------------------------------------------ |
+| S12-STORY-001 | **Accepted / Done**（Planning 前治理审计） |
+| S12-STORY-002 | **Accepted / Done**                        |
+| S12-STORY-003 | **Accepted / Done**                        |
+| S12-STORY-004 | **Accepted / Done**                        |
+| S12-STORY-005 | **Accepted / Done**                        |
+| S12-STORY-006 | **Accepted / Done**                        |
+| S12-STORY-007 | **Accepted / Done**                        |
+| S12-STORY-008 | **In Review**                              |
+| S12-STORY-009 | **Committed / Not Started**                |
 
 ## S12-STORY-001（历史记录 · Done）
 

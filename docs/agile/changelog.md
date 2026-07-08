@@ -1050,3 +1050,12 @@
 | 2026-07-08 | Sprint 12 | **S12-STORY-007 Accepted / Done**：PO 验收 · 主要成果 `bb45f7a` · 证据同步 `ab3bdcf` · merge 至 sprint 分支（`--no-ff`） | 产品治理 | S12-STORY-007         |
 | 2026-07-08 | Sprint 12 | **S12-STORY-007 In Review**：Release 1 能力覆盖映射 · R1-CAP-001~008 · PBI/Evidence/Gap · **DECISION-122**               | 产品治理 | S12-STORY-007         |
 | 2026-07-08 | Sprint 12 | docs(s12): map release 1 capabilities to product coverage — 为 S12-STORY-008 提供输入 · 不决定 R2 范围 · 未改产品代码    | 产品治理 | DECISION-122          |
+
+---
+
+## 2026-07-08 · S12-STORY-008 Release 2 路线与候选范围
+
+| 日期       | Sprint    | 变更摘要                                                                                                  | 影响范围 | 关联 Story / Decision |
+| ---------- | --------- | --------------------------------------------------------------------------------------------------------- | -------- | --------------------- |
+| 2026-07-08 | Sprint 12 | **S12-STORY-008 In Review**：Release 2 候选规划 · Must/Should/Could/Won't · 双验证对象 · **DECISION-123** | 产品治理 | S12-STORY-008         |
+| 2026-07-08 | Sprint 12 | docs(s12): plan release 2 roadmap and candidate scope — R2 未启动 · 未关闭 R1 · 未启动 S12-STORY-009      | 产品治理 | DECISION-123          |

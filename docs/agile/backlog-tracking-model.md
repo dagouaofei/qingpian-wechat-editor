@@ -224,6 +224,8 @@ Release 1 已完成能力 → 对应用户活动 → 对应模块 → 对应 PBI
 
 最小成功闭环 → 必须做 PBI → 可以做 PBI → 明确不做 PBI → Release Outcome Goal → 成功指标 → 失败信号
 
+**正式事实源：** [`releases/release-2/plan.md`](releases/release-2/plan.md) · [`product-roadmap.md`](product-roadmap.md)（S12-STORY-008 · **DECISION-123**）
+
 ---
 
 ## 相关文档
