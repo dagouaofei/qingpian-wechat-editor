@@ -5,22 +5,23 @@
 > **Plan（权威）：** [`sprints/sprint-12/plan.md`](sprints/sprint-12/plan.md)
 > **Backlog（权威）：** [`sprints/sprint-12/backlog.md`](sprints/sprint-12/backlog.md)
 
-| 项                    | 值                                                                                                           |
-| --------------------- | ------------------------------------------------------------------------------------------------------------ |
-| **分支**              | `sprint/s12-product-governance-r2-planning`                                                                  |
-| **Release 基线**      | `release/1` @ `3a8203b`                                                                                      |
-| **planningStatus**    | **Approved**                                                                                                 |
-| **sprintStatus**      | **Approved / In Progress**                                                                                   |
-| **approvedDate**      | 2026-06-30                                                                                                   |
-| **approvedBy**        | Product Owner                                                                                                |
-| **Planning Approval** | **DECISION-116**                                                                                             |
-| **S12-STORY-002**     | **Accepted / Done**（DECISION-117 · [`product-vision.md`](../product/product-vision.md)）                    |
-| **S12-STORY-003**     | **Accepted / Done**（DECISION-118 · [`product-module-tree.md`](../product/product-module-tree.md)）          |
-| **S12-STORY-004**     | **Accepted / Done**（DECISION-119 · [`user-story-map.md`](../product/user-story-map.md)）                    |
-| **S12-STORY-005**     | **Accepted / Done**（DECISION-120 · [`backlog-tracking-model.md`](backlog-tracking-model.md)）               |
-| **S12-STORY-006**     | **Accepted / Done**（DECISION-121 · [`agile-operating-model.md`](agile-operating-model.md)）                 |
-| **S12-STORY-007**     | **Accepted / Done**（DECISION-122 · [`release-1-capability-coverage.md`](release-1-capability-coverage.md)） |
-| **S12-STORY-008**     | **Accepted / Done**（DECISION-123 · [`releases/release-2/plan.md`](releases/release-2/plan.md)）             |
+| 项                    | 值                                                                                                                        |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| **分支**              | `sprint/s12-product-governance-r2-planning`                                                                               |
+| **Release 基线**      | `release/1` @ `3a8203b`                                                                                                   |
+| **planningStatus**    | **Approved**                                                                                                              |
+| **sprintStatus**      | **Approved / In Progress**                                                                                                |
+| **approvedDate**      | 2026-06-30                                                                                                                |
+| **approvedBy**        | Product Owner                                                                                                             |
+| **Planning Approval** | **DECISION-116**                                                                                                          |
+| **S12-STORY-002**     | **Accepted / Done**（DECISION-117 · [`product-vision.md`](../product/product-vision.md)）                                 |
+| **S12-STORY-003**     | **Accepted / Done**（DECISION-118 · [`product-module-tree.md`](../product/product-module-tree.md)）                       |
+| **S12-STORY-004**     | **Accepted / Done**（DECISION-119 · [`user-story-map.md`](../product/user-story-map.md)）                                 |
+| **S12-STORY-005**     | **Accepted / Done**（DECISION-120 · [`backlog-tracking-model.md`](backlog-tracking-model.md)）                            |
+| **S12-STORY-006**     | **Accepted / Done**（DECISION-121 · [`agile-operating-model.md`](agile-operating-model.md)）                              |
+| **S12-STORY-007**     | **Accepted / Done**（DECISION-122 · [`release-1-capability-coverage.md`](release-1-capability-coverage.md)）              |
+| **S12-STORY-008**     | **Accepted / Done**（DECISION-123 · [`releases/release-2/plan.md`](releases/release-2/plan.md)）                          |
+| **S12-STORY-009**     | **Accepted with follow-ups / Done**（[`sprints/sprint-12/consistency-audit.md`](sprints/sprint-12/consistency-audit.md)） |
 
 > **说明：** 本文件保留 S12-STORY-001 历史记录与兼容链接；**不得**在此复制完整 committed Story AC 或形成第二套详细事实源。
 
@@ -42,7 +43,7 @@
 | S12-STORY-006 | **Accepted / Done**                        |
 | S12-STORY-007 | **Accepted / Done**                        |
 | S12-STORY-008 | **Accepted / Done**                        |
-| S12-STORY-009 | **Committed / Not Started**                |
+| S12-STORY-009 | **Accepted with follow-ups / Done**        |
 
 ## S12-STORY-001（历史记录 · Done）
 

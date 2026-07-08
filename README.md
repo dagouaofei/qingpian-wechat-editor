@@ -81,6 +81,10 @@ tests/            # 测试
 | [docs/product/release-1-scope.md](docs/product/release-1-scope.md)                         | Release 1 范围             |
 | [docs/governance/s12-current-system-audit.md](docs/governance/s12-current-system-audit.md) | Sprint 12 当前治理体系审计 |
 | [docs/agile/product-backlog.md](docs/agile/product-backlog.md)                             | Product Backlog            |
+| [docs/agile/product-roadmap.md](docs/agile/product-roadmap.md)                             | 产品路线图（R1/R2/R3+）    |
+| [docs/agile/releases/release-2/plan.md](docs/agile/releases/release-2/plan.md)             | Release 2 候选规划         |
+| [docs/agile/agile-operating-model.md](docs/agile/agile-operating-model.md)                 | 敏捷 Operating Model       |
+| [docs/agile/sprints/sprint-12/plan.md](docs/agile/sprints/sprint-12/plan.md)               | Sprint 12 Plan             |
 | [docs/agile/sprint-backlog.md](docs/agile/sprint-backlog.md)                               | Sprint 全局索引与状态总览  |
 | [docs/agile/git-workflow.md](docs/agile/git-workflow.md)                                   | Git 工作流与分支策略       |
 | [docs/architecture/architecture-overview.md](docs/architecture/architecture-overview.md)   | 架构总览                   |
