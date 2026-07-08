@@ -109,8 +109,8 @@ PO-R1-001 ~ PO-R1-007（见 readiness-review.md §11）
 
 ## 14. Commit 与 Git 状态
 
-- **主要 commit：** 见 `docs(release1): prepare closeout readiness review`
+- **主要 commit：** `8c29831` — `docs(release1): prepare closeout readiness review`
 - merge：**未 merge** · push：**未 push**
-- HEAD at review time：见 commit 后
+- HEAD at review time：`8c29831`
 
 **必须明确：** 未关闭 Release 1。未 merge release/1。未 merge main。未 push。未启动 Release 2。未启动 R2 Sprint。未修改产品代码。未修改 `.cursor/rules/`。
