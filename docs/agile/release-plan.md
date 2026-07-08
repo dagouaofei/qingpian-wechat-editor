@@ -16,15 +16,15 @@
 
 ## Release 1 状态
 
-| 项                      | 状态                                                                                                                                                                   |
-| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Release**             | Release 1 — **进行中（未关闭）**                                                                                                                                       |
-| **主干分支**            | `release/1` @ **`3a8203b`**                                                                                                                                            |
-| **已完成 Sprint**       | Sprint 1-A/B · Sprint 2 · Sprint 3-A/B/C · Sprint 4-A/B · Sprint 5 · Sprint 6 · Sprint 7 · **Sprint 8** · **Sprint 9** · **Sprint 10** · **Sprint 11** · **Sprint 12** |
-| **当前状态**            | Release 1 **In Progress / Not Closed** · Sprint 12 **Closed**（**DECISION-124** · 2026-07-08）· S11 merge `release/1` @ `3a8203b`                                      |
-| **专项 Sprint（治理）** | **Sprint 12** — Product Governance & Release 2 Planning（**Closed** · **DECISION-124** · [`sprints/sprint-12/plan.md`](sprints/sprint-12/plan.md)）                    |
-| **下一 Sprint（规划）** | Release 1 Closeout / Sprint 12+ Compat·DSL 债务 / **Release 2** 候选见 [`releases/release-2/plan.md`](releases/release-2/plan.md)（**Planned / Not Started**）         |
-| **merge `main`**        | **未执行** — Release 1 整体验收通过后才 merge                                                                                                                          |
+| 项                      | 状态                                                                                                                                                                                                                                     |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Release**             | Release 1 — **进行中（未关闭）**                                                                                                                                                                                                         |
+| **主干分支**            | `release/1` @ **`3a8203b`**                                                                                                                                                                                                              |
+| **已完成 Sprint**       | Sprint 1-A/B · Sprint 2 · Sprint 3-A/B/C · Sprint 4-A/B · Sprint 5 · Sprint 6 · Sprint 7 · **Sprint 8** · **Sprint 9** · **Sprint 10** · **Sprint 11** · **Sprint 12**                                                                   |
+| **当前状态**            | Release 1 **In Progress / Not Closed** · Sprint 12 **Closed**（**DECISION-124** · 2026-07-08）· S11 merge `release/1` @ `3a8203b`                                                                                                        |
+| **专项 Sprint（治理）** | **Sprint 12** — Product Governance & Release 2 Planning（**Closed** · **DECISION-124** · [`sprints/sprint-12/plan.md`](sprints/sprint-12/plan.md)）                                                                                      |
+| **下一 Sprint（规划）** | **P1-S12-002** Release 1 Closeout Readiness **Accepted / Done** · R1 Closeout 执行待 PO 授权 · Sprint 12+ Compat·DSL 债务 / **Release 2** 候选见 [`releases/release-2/plan.md`](releases/release-2/plan.md)（**Planned / Not Started**） |
+| **merge `main`**        | **未执行** — Release 1 整体验收通过后才 merge                                                                                                                                                                                            |
 
 > Sprint 5~10 已交付可见主链路、样式管理 v0/v1、DSL runtime、Harvest/Promote 等；**Release 1 不能以 lint/test/build alone 关闭**。S11 目标为 **staging/production 正式部署上线**（DECISION-111）。
 
