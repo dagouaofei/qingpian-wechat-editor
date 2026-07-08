@@ -1094,7 +1094,8 @@
 
 ## 2026-07-08 · P1-S12-002 Release 1 Closeout Readiness Review
 
-| 日期       | Chore      | 变更摘要                                                                                                                         | 影响范围 | 关联       |
-| ---------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------- | -------- | ---------- |
-| 2026-07-08 | P1-S12-002 | **P1-S12-002 In Review**：Release 1 Closeout Planning / Readiness Review started · No R1 closeout · No merge release/1 · No push | 治理     | P1-S12-002 |
-| 2026-07-08 | P1-S12-002 | docs(release1): prepare closeout readiness review — Release 2 未启动 · R2 Sprint 未启动 · Release 1 未关闭                       | 治理     | P1-S12-002 |
+| 日期       | Chore      | 变更摘要                                                                                                                                                                        | 影响范围 | 关联       |
+| ---------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ---------- |
+| 2026-07-08 | P1-S12-002 | **P1-S12-002 In Review**：Release 1 Closeout Planning / Readiness Review started · No R1 closeout · No merge release/1 · No push                                                | 治理     | P1-S12-002 |
+| 2026-07-08 | P1-S12-002 | docs(release1): prepare closeout readiness review — Release 2 未启动 · R2 Sprint 未启动 · Release 1 未关闭                                                                      | 治理     | P1-S12-002 |
+| 2026-07-08 | P1-S12-002 | **P1-S12-002 Accepted / Done**：PO 验收 Readiness Review · 结论 READY WITH CONDITIONS · merge 至 sprint 分支（`--no-ff`）· **未关闭 R1** · **未 merge release/1** · **未 push** | 治理     | P1-S12-002 |

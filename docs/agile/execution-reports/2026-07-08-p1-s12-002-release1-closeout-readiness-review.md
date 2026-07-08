@@ -5,7 +5,7 @@
 - 日期：2026-07-08
 - Chore ID：**P1-S12-002**
 - 类型：Release 1 Closeout 准备审查（非 Closeout 执行）
-- 状态：**In Review**
+- 状态：**Accepted / Done**（2026-07-08 · Product Owner 验收）
 - 当前分支：`docs/p1-s12-002-release1-closeout-readiness-review`
 - 来源分支：`sprint/s12-product-governance-r2-planning` @ `cdbc481`
 - 工作分支：`docs/p1-s12-002-release1-closeout-readiness-review`
@@ -23,7 +23,7 @@
 - 分支审计：`release/1` @ `dc4b746` · sprint @ `cdbc481` · 0/38 left-right · FF 可行 · **未 diverged**
 - 关闭标准 10 项检查：7 PASS · 3 PARTIAL
 - Readiness 结论：**READY WITH CONDITIONS**
-- P1-S12-002 → **In Review**
+- P1-S12-002 → **Accepted / Done**（2026-07-08）
 - `release-plan.md` 补充 P1-S12-002 In Review 入口
 
 ## 4. 明确未做事项
@@ -100,18 +100,28 @@ PO-R1-001 ~ PO-R1-007（见 readiness-review.md §11）
 
 ## 13. 检查命令与结果
 
-| 命令                       | 结果                                   |
-| -------------------------- | -------------------------------------- |
-| `git diff --check`         | PASS                                                             |
-| `git status --short`       | PASS（commit 后 working tree clean）                             |
-| `pnpm prettier --write`    | PASS                                                             |
+| 命令                       | 结果                                                              |
+| -------------------------- | ----------------------------------------------------------------- |
+| `git diff --check`         | PASS                                                              |
+| `git status --short`       | PASS（commit 后 working tree clean）                              |
+| `pnpm prettier --write`    | PASS                                                              |
 | `pnpm prettier --check`    | PASS（readiness-review · backlog · changelog · execution report） |
-| `pnpm lint` / test / build | 未运行（治理文档审查，无产品代码变更）                           |
+| `pnpm lint` / test / build | 未运行（治理文档审查，无产品代码变更）                            |
 
 ## 14. Commit 与 Git 状态
 
 - **主要 commit：** `8c29831` — `docs(release1): prepare closeout readiness review`
-- merge：**未 merge** · push：**未 push**
-- HEAD at review time：`8c29831`
+- **验收状态 commit：** 见 `docs(release1): accept closeout readiness review`
+- **merge commit：** merge 后记录
+- merge：**待 merge 至 sprint 分支** · push：**未 push**
+- HEAD at review time：见验收 commit 后
 
-**必须明确：** 未关闭 Release 1。未 merge release/1。未 merge main。未 push。未启动 Release 2。未启动 R2 Sprint。未修改产品代码。未修改 `.cursor/rules/`。
+## 15. PO 验收（2026-07-08）
+
+**验收结论：** **Accepted / Done**
+
+PO accepted Release 1 Closeout Readiness Review. Readiness conclusion remains **READY WITH CONDITIONS**. This acceptance means the readiness review chore is complete; **it does not close Release 1**.
+
+Release 1 remains **In Progress / Not Closed**. Release 2 remains **Planned / Candidate / Not Started**. No merge to release/1. No merge to main. No push. No R2 Sprint start.
+
+**必须明确：** P1-S12-002 **Accepted / Done**。Release 1 **未关闭**。未 merge release/1。未 merge main。未 push。未启动 Release 2。未启动 R2 Sprint。未修改产品代码。未修改 `.cursor/rules/`。

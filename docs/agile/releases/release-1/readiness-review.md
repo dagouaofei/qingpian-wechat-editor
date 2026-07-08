@@ -1,15 +1,17 @@
 ---
 releaseId: release-1
 documentType: closeout-readiness-review
-readinessStatus: Draft / Not Closed
+readinessStatus: Review Complete / Not Closed
 associatedChore: P1-S12-002
+associatedChoreStatus: Accepted / Done
+poAcceptedDate: 2026-07-08
 reviewDate: 2026-07-08
 readinessConclusion: READY WITH CONDITIONS
 ---
 
 # Release 1 Closeout Readiness Review
 
-> **文档角色：** Release 1 Closeout **准备审查**（P1-S12-002）— **不是** Release 1 Closeout，**不代表** Release 1 已关闭。
+> **文档角色：** Release 1 Closeout **准备审查**（P1-S12-002 · **Accepted / Done** 2026-07-08）— **不是** Release 1 Closeout，**不代表** Release 1 已关闭。
 >
 > **关联：** [`../../release-plan.md`](../../release-plan.md) · [`../../release-1-capability-coverage.md`](../../release-1-capability-coverage.md) · [`../../../product/release-1-scope.md`](../../../product/release-1-scope.md)
 
@@ -171,12 +173,12 @@ readinessConclusion: READY WITH CONDITIONS
 
 ### 8.2 Sprint 12 Follow-ups
 
-| ID             | 问题                     | 状态                               |
-| -------------- | ------------------------ | ---------------------------------- |
-| **P1-S12-001** | `.cursor/rules/` 对齐    | **Accepted / Done**                |
-| **P1-S12-002** | R1 Closeout 时机（本轮） | **In Review**                      |
-| **P1-S12-003** | R2 正式启动              | Open · **不得**随 R1 Closeout 启动 |
-| **P2-S12-001** | 双模板入口               | **Resolved by P1-S12-001**         |
+| ID             | 问题                         | 状态                               |
+| -------------- | ---------------------------- | ---------------------------------- |
+| **P1-S12-001** | `.cursor/rules/` 对齐        | **Accepted / Done**                |
+| **P1-S12-002** | R1 Closeout Readiness Review | **Accepted / Done**（2026-07-08）  |
+| **P1-S12-003** | R2 正式启动                  | Open · **不得**随 R1 Closeout 启动 |
+| **P2-S12-001** | 双模板入口                   | **Resolved by P1-S12-001**         |
 
 ### 8.3 Deferred 技术债（Sprint 12+）
 
