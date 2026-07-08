@@ -111,10 +111,10 @@ PO-R1-001 ~ PO-R1-007（见 readiness-review.md §11）
 ## 14. Commit 与 Git 状态
 
 - **主要 commit：** `8c29831` — `docs(release1): prepare closeout readiness review`
-- **验收状态 commit：** 见 `docs(release1): accept closeout readiness review`
-- **merge commit：** merge 后记录
-- merge：**待 merge 至 sprint 分支** · push：**未 push**
-- HEAD at review time：见验收 commit 后
+- **验收状态 commit：** `411c593` — `docs(release1): accept closeout readiness review`
+- **merge commit：** `4c8c021` — `Merge P1-S12-002 release 1 closeout readiness review`
+- merge：**已 merge** 至 `sprint/s12-product-governance-r2-planning` · push：**未 push**
+- HEAD at review time：`411c593`
 
 ## 15. PO 验收（2026-07-08）
 
