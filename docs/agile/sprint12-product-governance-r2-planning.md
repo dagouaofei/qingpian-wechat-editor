@@ -20,7 +20,7 @@
 | **S12-STORY-005**     | **Accepted / Done**（DECISION-120 · [`backlog-tracking-model.md`](backlog-tracking-model.md)）               |
 | **S12-STORY-006**     | **Accepted / Done**（DECISION-121 · [`agile-operating-model.md`](agile-operating-model.md)）                 |
 | **S12-STORY-007**     | **Accepted / Done**（DECISION-122 · [`release-1-capability-coverage.md`](release-1-capability-coverage.md)） |
-| **S12-STORY-008**     | **In Review**（DECISION-123 · [`releases/release-2/plan.md`](releases/release-2/plan.md)）                   |
+| **S12-STORY-008**     | **Accepted / Done**（DECISION-123 · [`releases/release-2/plan.md`](releases/release-2/plan.md)）             |
 
 > **说明：** 本文件保留 S12-STORY-001 历史记录与兼容链接；**不得**在此复制完整 committed Story AC 或形成第二套详细事实源。
 
@@ -41,7 +41,7 @@
 | S12-STORY-005 | **Accepted / Done**                        |
 | S12-STORY-006 | **Accepted / Done**                        |
 | S12-STORY-007 | **Accepted / Done**                        |
-| S12-STORY-008 | **In Review**                              |
+| S12-STORY-008 | **Accepted / Done**                        |
 | S12-STORY-009 | **Committed / Not Started**                |
 
 ## S12-STORY-001（历史记录 · Done）

@@ -5,7 +5,7 @@
 - 日期：2026-07-08
 - Story：S12-STORY-008 · Release 2 及后续产品路线与渐进式迭代计划
 - Sprint：Sprint 12 — Product Governance & Release 2 Planning
-- 状态：**In Review**
+- 状态：**Accepted / Done**（2026-07-08 · PO 验收 · merge 授权）
 - 执行分支：`docs/s12-story-008-release2-roadmap-planning`
 - 来源分支：`sprint/s12-product-governance-r2-planning` @ `28ee702`
 - 目标合并分支：`sprint/s12-product-governance-r2-planning`（本轮**未** merge）
@@ -108,7 +108,8 @@
 ## 12. Commit 与 Git 状态
 
 - **主要 commit：** `a9abd62` — `docs(s12): plan release 2 roadmap and candidate scope`
-- merge：**未 merge** · push：**未 push** · 下一 Story：**S12-STORY-009 未启动**
-- HEAD at review time：`a9abd6286713547d6786b2b2d7052401e9ed887c`
+- **证据同步 commit：** `0cf746d` — `docs(s12): sync story 008 execution report check evidence`
+- merge：**未 merge**（验收轮待 merge）· push：**未 push** · 下一 Story：**S12-STORY-009 未启动**
+- HEAD at review time：`0cf746d`
 
 **必须明确：** 未 merge。未 push。未启动 S12-STORY-009。未启动 Release 2。未启动 R2 Sprint。未关闭 Release 1。未关闭 Sprint 12。未标记 Story Done。未修改产品代码。未修改 `.cursor/rules/`。未决定公开 SaaS 商业化策略。未为鲁老师或秒篇 AIPPT 做项目定制功能。
