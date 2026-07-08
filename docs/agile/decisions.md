@@ -108,6 +108,7 @@
 | DECISION-119 | 2026-07-06 | S12-STORY-004：Story Map 以用户旅程为中心 A01–A11；持续内容运营与系列化生产；高表现内容拆解与再创作；R2 最小成功闭环候选；产品成功模型（Outcome/假设/指标/失败信号/反馈）                                                                                           | **已确认**                             |
 | DECISION-120 | 2026-07-06 | S12-STORY-005：Backlog 追踪模型 PBI→RBI→SBI→Evidence；PBI 必填追踪用户活动/Slice/模块/假设/指标/失败信号；PBI-QP-001~010；Coverage Matrix；不决定 R2 最终范围                                                                                                       | **已确认**                             |
 | DECISION-121 | 2026-07-06 | S12-STORY-006：Agile Operating Model；Backlog Refinement/Change Control/Triage/Progress Check；DoR/DoD/Cursor/Report/Review 模板；PBI 追踪字段；PBI-QP-009 条件触发须 PO 确认                                                                                       | **已确认**                             |
+| DECISION-122 | 2026-07-08 | S12-STORY-007：Release 1 能力覆盖映射；R1→A01–A11/Slice/模块/PBI/假设/Evidence；R1 重心为单篇公众号生成排版复制；不等同工作台；不决定 R2 范围；作为 S12-STORY-008 输入                                                                                              | **已确认**                             |
 
 ### DECISION-019 详情
 
@@ -1435,3 +1436,28 @@
 - **影响范围：** Sprint 12 backlog · 后续 S12-STORY-007 / 008 / 009 输入
 - **验收（2026-07-06）：** Product Owner 验收结论 **Accepted**；S12-STORY-006 标记 **Accepted / Done**；主要成果 commit **`cb0fae3`**；证据同步 commit **`afd8557`**；授权 `--no-ff` merge 至 `sprint/s12-product-governance-r2-planning`；**未授权 push**；**未启动 S12-STORY-007**
 - **状态：** **已确认**（2026-07-06 · S12-STORY-006 · PO 已确认候选稿 · **Accepted / Done**）
+
+### DECISION-122 详情（S12-STORY-007 Release 1 能力覆盖映射）
+
+- **日期：** 2026-07-08
+- **关联 Story：** S12-STORY-007
+- **Product Owner 授权原文：**
+
+  ```text
+  S12-STORY-007 的范围保持为 Release 1 能力覆盖映射 + Release 2 缺口输入；
+  不做 Release 1 Closeout；
+  不做 Release 2 Planning；
+  不决定 Release 2 最终范围。
+  ```
+
+- **背景：** S12-STORY-005 建立 PBI 追踪体系；S12-STORY-006 建立 Operating Model；本 Story 将 Release 1 历史能力映射到当前产品治理体系。
+- **决策：**
+  1. **映射范围：** R1 Evidence → R1-CAP-001~008 → 用户活动 A01–A11 → Story Map Slice 1–7 → 模块 M01–M11 → PBI-QP-001~010 → 假设 H01–H10 → 成功/失败指标
+  2. **R1 产品重心：** 单篇公众号文章生成、排版、复制一致性、样式治理和上线基础；**不等于**完整 AI 内容营销工作台
+  3. **最强 R1 覆盖：** PBI-QP-005（Partial）· PBI-QP-006（Partial / Strongest）
+  4. **主要 R2 缺口输入：** 品牌、灵感、计划、持续运营、资产、复盘；R1 能力与新工作台体验整合
+  5. **PB-R1-01~08 → PBI-QP-005/006** 关系已建立；EPIC-001~010 历史记录保留
+  6. **不关闭 Release 1**；**不决定 Release 2 最终范围**；R2 Must/Should/Could/Won't 由 **S12-STORY-008** 处理
+  7. 正式事实源：[`release-1-capability-coverage.md`](release-1-capability-coverage.md)
+- **影响范围：** product-coverage-matrix · backlog-tracking-model · S12-STORY-008 输入
+- **状态：** **已确认**（2026-07-08 · S12-STORY-007 · PO 已确认候选稿）

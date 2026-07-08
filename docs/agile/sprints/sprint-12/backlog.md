@@ -29,7 +29,7 @@ S12-STORY-002 → 003 → 004 → 005 → 006 → 007 → 008 → 009
 | 3    | S12-STORY-004 | 用户旅程、用户活动与完整 Story Map                  | P0     | **Accepted / Done**         |
 | 4    | S12-STORY-005 | Product Backlog、Release、Sprint 与模块覆盖追踪体系 | P0     | **Accepted / Done**         |
 | 5    | S12-STORY-006 | 敏捷事件、流程闸门、DoR/DoD 与标准模板              | P1     | **Accepted / Done**         |
-| 6    | S12-STORY-007 | Release 1 历史能力、模块及功能映射                  | P1     | **Committed / Not Started** |
+| 6    | S12-STORY-007 | Release 1 历史能力、模块及功能映射                  | P1     | **In Review**               |
 | 7    | S12-STORY-008 | Release 2 及后续产品路线与渐进式迭代计划            | P0     | **Committed / Not Started** |
 | 8    | S12-STORY-009 | 全局一致性审计、治理验收与 Sprint 12 Closeout       | P0     | **Committed / Not Started** |
 
@@ -99,8 +99,31 @@ S12-STORY-002 → 003 → 004 → 005 → 006 → 007 → 008 → 009
 **检查说明：** git status clean · git diff --check PASS · prettier PASS；lint/test/build 未运行（无产品代码变更）
 **说明：** S12-STORY-006 建立 Agile Operating Model、Backlog Refinement、Change Control、Triage、Progress Check、DoR/DoD、Cursor 指令、Execution Report、Review/Acceptance 标准模板；未修改产品代码；未修改 `.cursor/rules/`；未启动 S12-STORY-007。
 
+## S12-STORY-007（In Review）
+
+**状态：** **In Review**（2026-07-08 · 执行完成，待 ChatGPT 审查与 PO 验收）
+**工作分支：** `docs/s12-story-007-release1-capability-coverage`
+**产品事实源：** [`../../release-1-capability-coverage.md`](../../release-1-capability-coverage.md)
+**Decision：** **DECISION-122**
+
+**追踪字段：**
+
+| 字段     | 内容                                                                       |
+| -------- | -------------------------------------------------------------------------- |
+| PBI      | PBI-QP-001 ~ PBI-QP-010 全部涉及；重点 PBI-QP-005 / 006                    |
+| RBI      | N/A（本 Story 不决定 R2 Release Backlog）                                  |
+| SBI      | S12-STORY-007                                                              |
+| 用户活动 | A05–A09 为重点；A01–A04、A10–A11 主要为缺口                                |
+| Slice    | Slice 1 部分覆盖；Slice 5–7 主要缺口；Slice 4 条件触发                     |
+| 模块     | M04–M07 覆盖较多；M01–M03、M08–M09、M11 缺口明显                           |
+| 假设     | H04–H06 有较多 R1 evidence；H01–H03、H07–H10 待 R2 验证                    |
+| 成功指标 | 成稿质量、效率、复制稳定性、使用频率、内容连续性、资产复用、复盘反馈       |
+| 失败信号 | 只能单篇生成、品牌不贴合、复制失真、无法持续规划、资产不能复用、无复盘闭环 |
+
+**Execution Report：** [`../../execution-reports/2026-07-08-s12-story-007-release1-capability-coverage.md`](../../execution-reports/2026-07-08-s12-story-007-release1-capability-coverage.md)
+
 ## 启动闸门
 
-- **S12-STORY-006** **Accepted / Done**
-- **S12-STORY-007** 仍为 **Committed / Not Started** · 未授权启动
-- Cursor 不得自动启动 S12-STORY-007
+- **S12-STORY-006** **Accepted / Done** · **S12-STORY-007** **In Review**
+- **S12-STORY-008** 仍为 **Committed / Not Started** · 未授权启动
+- Cursor 不得自动启动 S12-STORY-008
