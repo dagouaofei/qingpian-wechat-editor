@@ -125,9 +125,9 @@
 
 ## 13. Commit 与 Git 状态
 
-- **主要 commit：** 见 `docs(governance): align cursor rules with s12 operating model`
+- **主要 commit：** `d04deca` — `docs(governance): align cursor rules with s12 operating model`
 - merge：**未 merge** · push：**未 push**
-- HEAD at review time：见 commit 后
+- HEAD at review time：`d04deca`
 
 ## 14. 状态摘要
 
