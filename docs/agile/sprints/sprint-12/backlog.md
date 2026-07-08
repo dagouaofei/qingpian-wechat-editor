@@ -30,7 +30,7 @@ S12-STORY-002 → 003 → 004 → 005 → 006 → 007 → 008 → 009
 | 4    | S12-STORY-005 | Product Backlog、Release、Sprint 与模块覆盖追踪体系 | P0     | **Accepted / Done**         |
 | 5    | S12-STORY-006 | 敏捷事件、流程闸门、DoR/DoD 与标准模板              | P1     | **Accepted / Done**         |
 | 6    | S12-STORY-007 | Release 1 历史能力、模块及功能映射                  | P1     | **Accepted / Done**         |
-| 7    | S12-STORY-008 | Release 2 及后续产品路线与渐进式迭代计划            | P0     | **Committed / Not Started** |
+| 7    | S12-STORY-008 | Release 2 及后续产品路线与渐进式迭代计划            | P0     | **Accepted / Done**         |
 | 8    | S12-STORY-009 | 全局一致性审计、治理验收与 Sprint 12 Closeout       | P0     | **Committed / Not Started** |
 
 ## S12-STORY-001（Done · Planning 前置）
@@ -112,8 +112,22 @@ S12-STORY-002 → 003 → 004 → 005 → 006 → 007 → 008 → 009
 **检查说明：** git status clean · git diff --check PASS · prettier PASS；lint/test/build 未运行（无产品代码变更）
 **说明：** S12-STORY-007 建立 Release 1 能力覆盖映射，将 R1 历史能力映射到用户活动、Story Map Slice、产品模块、PBI、假设、成功指标、失败信号与 Evidence；明确 R1 不等于完整 AI 内容营销工作台；作为 S12-STORY-008 输入；未决定 R2 最终范围；未关闭 Release 1；未启动 S12-STORY-008；未修改产品代码。
 
+## S12-STORY-008（Accepted / Done）
+
+**状态：** **Accepted / Done**（2026-07-08 · Product Owner 验收 · 授权 merge 至 `sprint/s12-product-governance-r2-planning`）
+**验收结论：** **Accepted**
+**主要成果 commit：** `a9abd62`
+**证据同步 commit：** `0cf746d`
+**工作分支：** `docs/s12-story-008-release2-roadmap-planning`（已 merge）
+**产品事实源：** [`../../releases/release-2/plan.md`](../../releases/release-2/plan.md) · [`../../product-roadmap.md`](../../product-roadmap.md)
+**Decision：** **DECISION-123**
+**Execution Report：** [`../../execution-reports/2026-07-08-s12-story-008-release2-roadmap-planning.md`](../../execution-reports/2026-07-08-s12-story-008-release2-roadmap-planning.md)
+**检查说明：** git status clean · git diff --check PASS · prettier PASS；lint/test/build 未运行（无产品代码变更）
+**说明：** PO accepted Release 2 roadmap and candidate scope planning. R2 remains **Planned / Candidate / Not Started**. No Release 2 Sprint has been started. S12-STORY-009 remains **Committed / Not Started**. 未修改产品代码；未修改 `.cursor/rules/`；未为鲁老师或秒篇 AIPPT 做项目定制功能。
+
 ## 启动闸门
 
-- **S12-STORY-007** **Accepted / Done**
-- **S12-STORY-008** 仍为 **Committed / Not Started** · 未授权启动
-- Cursor 不得自动启动 S12-STORY-008
+- **S12-STORY-008** **Accepted / Done**
+- **S12-STORY-009** 仍为 **Committed / Not Started** · 未授权启动
+- Cursor 不得自动启动 S12-STORY-009
+- Release 2 **Planned / Candidate / Not Started** · R2 Sprint **尚未启动**

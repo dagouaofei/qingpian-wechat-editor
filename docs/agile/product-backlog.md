@@ -10,7 +10,9 @@
 
 **S12-STORY-005** 的目标是建立轻篇产品治理中的 Backlog 追踪体系，使产品愿景、用户旅程、Story Map、产品模块、功能目录、产品假设、成功指标、Release Backlog、Sprint Backlog 与 Execution Evidence 形成可追踪链路。
 
-> **Release 2 的最终范围由 S12-STORY-008 决定。** 本 Story 不决定 Release 2 最终范围，不生成全部未来开发 Story。
+> **Release 2 正式候选规划（S12-STORY-008 · DECISION-123）：** [`releases/release-2/plan.md`](releases/release-2/plan.md) · [`backlog.md`](releases/release-2/backlog.md) · [`coverage.md`](releases/release-2/coverage.md) · [`product-roadmap.md`](product-roadmap.md)
+>
+> **Release 2 的最终范围由 S12-STORY-008 候选规划形成；Release 2 尚未启动，须 PO 明确批准后方可启动。**
 
 ### PBI 索引
 
@@ -232,7 +234,7 @@
 ### Release 2：样式增强、轻编辑与手动配图
 
 > **状态：Superseded / Pending Replanning（2026-06-28 · S12-STORY-001 审查修正）**  
-> 本小节为早期规划保留，不再作为当前正式 Release 2 承诺。Release 2 正式范围将在 **S12-STORY-008 Release 2 及后续产品路线与渐进式迭代计划** 中重新制定。新的 Release 2 Scope 获批前，不得将本旧规划直接拆入 Sprint。
+> 本小节为早期规划保留，**Superseded**。正式 Release 2 候选规划见 [`releases/release-2/plan.md`](releases/release-2/plan.md)（**DECISION-123** · S12-STORY-008）。Release 2 **尚未启动**；获批前不得将本旧规划或新候选规划直接拆入 Sprint。
 
 **目标：** 支持更多样式、基础编辑、整篇风格切换、手动上传 / 替换图片。
 

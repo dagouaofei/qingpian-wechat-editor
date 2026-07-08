@@ -145,7 +145,7 @@
 | 排版/复制 | A08,A09  | PBI-QP-006     | 部分（样式/Copy） | 品牌驱动增强 |
 | 资产/复盘 | A10,A11  | PBI-QP-007,008 | 无                | 轻量版候选   |
 
-> **S12-STORY-008** 将据此定义 Must / Should / Could / Won't。
+> **S12-STORY-008** 已形成 Release 2 候选 Must/Should/Could/Won't — 见 [`releases/release-2/plan.md`](releases/release-2/plan.md)。Release 2 **尚未启动**。
 
 ---
 
@@ -155,7 +155,7 @@
 | --------------------------- | ----------------------------------------------------------------------------------------------- |
 | Release 1 能力 → PBI 映射   | **S12-STORY-007 Done** · [`release-1-capability-coverage.md`](release-1-capability-coverage.md) |
 | DoR/DoD 与 Backlog 字段模板 | S12-STORY-006                                                                                   |
-| Release 2 Must/Should 范围  | S12-STORY-008                                                                                   |
+| Release 2 Must/Should 范围  | [`releases/release-2/plan.md`](releases/release-2/plan.md)（S12-STORY-008 · DECISION-123）      |
 | PBI → 开发 Story 细拆       | 后续开发 Sprint · 非本 Story                                                                    |
 
 ---

@@ -4,17 +4,27 @@
 
 > **文档角色（DECISION-115）：** 本文件为 **Release 全局索引与状态总览**。Release 名称、目标摘要、状态、时间范围及指向 `docs/agile/releases/release-<id>/` 的链接在此维护。**不**作为全部详细 Release Backlog 与验收内容的唯一容器。下方 Release 1 历史详细内容保留；从后续新 Release 起，详细 Plan / Backlog / Coverage / Review / Closeout 写入独立 Release 目录。
 
+## Release 全局状态
+
+| Release    | 状态                                  | 详细规划                                                                                   |
+| ---------- | ------------------------------------- | ------------------------------------------------------------------------------------------ |
+| Release 1  | **In Progress / Not Closed**          | 见下方 §Release 1 · [`release-1-capability-coverage.md`](release-1-capability-coverage.md) |
+| Release 2  | **Planned / Candidate / Not Started** | [`releases/release-2/plan.md`](releases/release-2/plan.md) · **DECISION-123**              |
+| Release 3+ | **候选 · 非承诺**                     | [`product-roadmap.md`](product-roadmap.md)                                                 |
+
+> Release 2 **尚未启动**；R2 Sprint 候选顺序见 Release 2 Plan，不代表正式 Sprint Plan。
+
 ## Release 1 状态
 
-| 项                      | 状态                                                                                                                                                                                                                                |
-| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Release**             | Release 1 — **进行中（未关闭）**                                                                                                                                                                                                    |
-| **主干分支**            | `release/1` @ **`3a8203b`**                                                                                                                                                                                                         |
-| **已完成 Sprint**       | Sprint 1-A/B · Sprint 2 · Sprint 3-A/B/C · Sprint 4-A/B · Sprint 5 · Sprint 6 · Sprint 7 · **Sprint 8** · **Sprint 9** · **Sprint 10** · **Sprint 11**                                                                              |
-| **当前状态**            | Release 1 **In Progress / Not Closed** · Sprint 11 **Accepted with follow-ups / Closed**（**DECISION-114**）· S11 已 merge `release/1` @ `3a8203b`                                                                                  |
-| **专项 Sprint（治理）** | **Sprint 12** — Product Governance & Release 2 Planning（**Approved / Ready to Start** · **DECISION-116** · S12-STORY-001 Done · S12-STORY-002 Committed / Not Started · [`sprints/sprint-12/plan.md`](sprints/sprint-12/plan.md)） |
-| **下一 Sprint（规划）** | Sprint 12 执行 S12-STORY-002~009（002 未启动）；**Sprint 12+** Compat / DSL / Release 1 Closeout                                                                                                                                    |
-| **merge `main`**        | **未执行** — Release 1 整体验收通过后才 merge                                                                                                                                                                                       |
+| 项                      | 状态                                                                                                                                                                                                        |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Release**             | Release 1 — **进行中（未关闭）**                                                                                                                                                                            |
+| **主干分支**            | `release/1` @ **`3a8203b`**                                                                                                                                                                                 |
+| **已完成 Sprint**       | Sprint 1-A/B · Sprint 2 · Sprint 3-A/B/C · Sprint 4-A/B · Sprint 5 · Sprint 6 · Sprint 7 · **Sprint 8** · **Sprint 9** · **Sprint 10** · **Sprint 11**                                                      |
+| **当前状态**            | Release 1 **In Progress / Not Closed** · Sprint 11 **Accepted with follow-ups / Closed**（**DECISION-114**）· S11 已 merge `release/1` @ `3a8203b`                                                          |
+| **专项 Sprint（治理）** | **Sprint 12** — Product Governance & Release 2 Planning（**Approved / In Progress** · S12-STORY-001~007 **Done** · S12-STORY-008 **In Review** · [`sprints/sprint-12/plan.md`](sprints/sprint-12/plan.md)） |
+| **下一 Sprint（规划）** | Sprint 12 执行 S12-STORY-009；**Release 2** 候选规划见 [`releases/release-2/plan.md`](releases/release-2/plan.md)（**未启动**）                                                                             |
+| **merge `main`**        | **未执行** — Release 1 整体验收通过后才 merge                                                                                                                                                               |
 
 > Sprint 5~10 已交付可见主链路、样式管理 v0/v1、DSL runtime、Harvest/Promote 等；**Release 1 不能以 lint/test/build alone 关闭**。S11 目标为 **staging/production 正式部署上线**（DECISION-111）。
 
@@ -89,4 +99,5 @@ Release 1 **不再**仅以 `lint` / `test` / `build` / renderer snapshot 作为�
 - [Sprint Plan](sprint-plan.md)
 - [Sprint Backlog](sprint-backlog.md)
 - [Sprint 11 Plan](sprint11-production-ops-go-live.md)
-- [Decisions](decisions.md) — DECISION-070 · 108 · 111
+- [Product Roadmap](product-roadmap.md)
+- [Release 2 Plan](releases/release-2/plan.md) — DECISION-123

@@ -46,6 +46,7 @@ planningApprovalDecision: DECISION-116
 | **S12-STORY-005** | **Accepted / Done** | Backlog 追踪体系；DECISION-120 · `backlog-tracking-model.md` · `product-coverage-matrix.md`   |
 | **S12-STORY-006** | **Accepted / Done** | Agile Operating Model 与标准模板；DECISION-121 · `agile-operating-model.md` · `templates/`    |
 | **S12-STORY-007** | **Accepted / Done** | Release 1 能力覆盖映射；DECISION-122 · `release-1-capability-coverage.md`                     |
+| **S12-STORY-008** | **Accepted / Done** | Release 2 候选规划；DECISION-123 · `releases/release-2/plan.md` · `product-roadmap.md`        |
 
 ## Committed Stories 与顺序
 
@@ -117,8 +118,9 @@ planningApprovalDecision: DECISION-116
 **说明：**
 
 - Sprint Plan **Approved** 不代表所有 Story 已启动
-- **S12-STORY-007** **Accepted / Done**（DECISION-122）；**S12-STORY-008** 未启动
-- Cursor 不得自动启动 S12-STORY-008
+- **S12-STORY-008** **Accepted / Done**（DECISION-123）；**S12-STORY-009** 未启动
+- Release 2 **Planned / Candidate / Not Started** — 见 [`../../releases/release-2/plan.md`](../../releases/release-2/plan.md)
+- Cursor 不得自动启动 S12-STORY-009
 - Sprint 12 关闭仍需独立 Review、Retrospective、Closeout 和 PO 授权
 
 ## 关联决策

@@ -109,6 +109,7 @@
 | DECISION-120 | 2026-07-06 | S12-STORY-005：Backlog 追踪模型 PBI→RBI→SBI→Evidence；PBI 必填追踪用户活动/Slice/模块/假设/指标/失败信号；PBI-QP-001~010；Coverage Matrix；不决定 R2 最终范围                                                                                                       | **已确认**                             |
 | DECISION-121 | 2026-07-06 | S12-STORY-006：Agile Operating Model；Backlog Refinement/Change Control/Triage/Progress Check；DoR/DoD/Cursor/Report/Review 模板；PBI 追踪字段；PBI-QP-009 条件触发须 PO 确认                                                                                       | **已确认**                             |
 | DECISION-122 | 2026-07-08 | S12-STORY-007：Release 1 能力覆盖映射；R1→A01–A11/Slice/模块/PBI/假设/Evidence；R1 重心为单篇公众号生成排版复制；不等同工作台；不决定 R2 范围；作为 S12-STORY-008 输入                                                                                              | **已确认**                             |
+| DECISION-123 | 2026-07-08 | S12-STORY-008：Release 2 品牌/项目驱动最小内容工作台；鲁老师+秒篇 AIPPT 双验证；双入口；R1 复用；Must/Should/Could/Won't；R2 候选未启动                                                                                                                             | **已确认**                             |
 
 ### DECISION-019 详情
 
@@ -1462,3 +1463,26 @@
 - **影响范围：** product-coverage-matrix · backlog-tracking-model · S12-STORY-008 输入
 - **验收（2026-07-08）：** Product Owner 验收结论 **Accepted**；S12-STORY-007 标记 **Accepted / Done**；主要成果 commit **`bb45f7a`**；证据同步 commit **`ab3bdcf`**；授权 `--no-ff` merge 至 `sprint/s12-product-governance-r2-planning`；**未授权 push**；**未启动 S12-STORY-008**
 - **状态：** **已确认**（2026-07-08 · S12-STORY-007 · PO 已确认候选稿 · **Accepted / Done**）
+
+### DECISION-123 详情（S12-STORY-008 Release 2 候选规划）
+
+- **日期：** 2026-07-08
+- **关联 Story：** S12-STORY-008
+- **Product Owner 授权原文：**
+
+  ```text
+  确认 S12-STORY-008 收敛版 DoR，允许启动 S12-STORY-008。
+  ```
+
+- **背景：** S12-STORY-002~007 已验收；PO 确认 6 个产品取舍；形成 Release 2 正式候选规划。
+- **决策：**
+  1. **R2 主线：** 品牌 / 项目驱动的最小内容工作台；兼顾新用户快速写文章 + 工作台增强入口
+  2. **验证方式：** 内部真实运营优先；主验证鲁老师项目 · 辅验证秒篇 AIPPT；**不做项目定制功能**
+  3. **最小闭环：** 品牌资料 → 灵感 → 选题 → 成稿 → 排版复制 → 内容资产 → 手动复盘 → 反哺选题
+  4. **R1 复用：** 生成、预览、排版、复制；改造生成入口接入品牌/灵感/选题/任务上下文
+  5. **Must/Should/Could/Won't：** 见 `releases/release-2/backlog.md`；PBI-QP-009 不自动升 P0
+  6. **渐进式候选：** R2-Sprint-01~04；**不是正式 Sprint Plan**
+  7. **R2 状态：** **Planned / Candidate / Not Started**；不代表 Release 2 已启动
+  8. 正式事实源：`releases/release-2/plan.md` · `backlog.md` · `coverage.md` · `product-roadmap.md`
+- **影响范围：** release-plan · product-backlog · product-coverage-matrix · S12-STORY-009 输入
+- **状态：** **已确认**（2026-07-08 · S12-STORY-008 · PO 已确认候选稿）
