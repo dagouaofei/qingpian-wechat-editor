@@ -377,12 +377,12 @@ Story 详情见 [`sprint-backlog.md`](sprint-backlog.md) · S11 见 [`sprint11-p
 
 > 自 [`sprints/sprint-12/review.md`](sprints/sprint-12/review.md) / [`retrospective.md`](sprints/sprint-12/retrospective.md) / [`consistency-audit.md`](sprints/sprint-12/consistency-audit.md) 登记 · **不得**伪造完成 · Sprint 12 Closed 不代表 follow-ups 完成 · 后续由 Product Owner 重新排序和规划
 
-| ID             | 问题                                                  | 类型     | 状态                       | 来源 Story · 说明                                                                                                     |
-| -------------- | ----------------------------------------------------- | -------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| **P1-S12-001** | `.cursor/rules/` 与 S12 新模板 / Operating Model 对齐 | 治理     | **Accepted / Done**        | **S12-STORY-009** · FU-001 · PO 验收 2026-07-08 · 主要成果 `d04deca` · merge 至 sprint 分支（`--no-ff`）· **未 push** |
-| **P1-S12-002** | Release 1 Closeout 时机与流程确认                     | 治理     | **Open**                   | **S12-STORY-009** · FU-002 · 需 PO 独立决策；**不代表 R1 Closeout 已启动**                                            |
-| **P1-S12-003** | Release 2 正式启动授权与 R2-Sprint-01 Planning        | 产品规划 | **Open**                   | **S12-STORY-009** · FU-003 · 需 PO 独立决策；**不代表 Release 2 已启动**                                              |
-| **P2-S12-001** | execution report 双模板入口统一说明                   | 治理     | **Resolved by P1-S12-001** | **S12-STORY-009** · FU-004 · 模板优先级已在 `.cursor/rules/` 对齐（`templates/` > `_template.md`）                    |
+| ID             | 问题                                                  | 类型     | 状态                       | 来源 Story · 说明                                                                                                                                                          |
+| -------------- | ----------------------------------------------------- | -------- | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **P1-S12-001** | `.cursor/rules/` 与 S12 新模板 / Operating Model 对齐 | 治理     | **Accepted / Done**        | **S12-STORY-009** · FU-001 · PO 验收 2026-07-08 · 主要成果 `d04deca` · merge 至 sprint 分支（`--no-ff`）· **未 push**                                                      |
+| **P1-S12-002** | Release 1 Closeout 时机与流程确认                     | 治理     | **In Review**              | **S12-STORY-009** · FU-002 · 本轮 Release 1 Closeout Readiness Review · [`releases/release-1/readiness-review.md`](releases/release-1/readiness-review.md) · **未关闭 R1** |
+| **P1-S12-003** | Release 2 正式启动授权与 R2-Sprint-01 Planning        | 产品规划 | **Open**                   | **S12-STORY-009** · FU-003 · 需 PO 独立决策；**不代表 Release 2 已启动**                                                                                                   |
+| **P2-S12-001** | execution report 双模板入口统一说明                   | 治理     | **Resolved by P1-S12-001** | **S12-STORY-009** · FU-004 · 模板优先级已在 `.cursor/rules/` 对齐（`templates/` > `_template.md`）                                                                         |
 
 ---
 

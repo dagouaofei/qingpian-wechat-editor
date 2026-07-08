@@ -1089,3 +1089,12 @@
 | 2026-07-08 | P1-S12-001 | **P1-S12-001 In Review**：align `.cursor/rules/` with S12 Operating Model and `docs/agile/templates/` · No product code · No merge · No push                                         | 治理规则 | P1-S12-001 · FU-001 |
 | 2026-07-08 | P1-S12-001 | docs(governance): align cursor rules with s12 operating model — Release 2 未启动 · R2 Sprint 未启动 · Release 1 未关闭                                                               | 治理规则 | P1-S12-001          |
 | 2026-07-08 | P1-S12-001 | **P1-S12-001 Accepted / Done**：PO 验收 · 主要成果 `d04deca` · **P2-S12-001 Resolved by P1-S12-001** · merge 至 sprint 分支（`--no-ff`）· **未 push** · No R1 closeout · No R2 start | 治理规则 | P1-S12-001          |
+
+---
+
+## 2026-07-08 · P1-S12-002 Release 1 Closeout Readiness Review
+
+| 日期       | Chore      | 变更摘要                                                                                                                         | 影响范围 | 关联       |
+| ---------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------- | -------- | ---------- |
+| 2026-07-08 | P1-S12-002 | **P1-S12-002 In Review**：Release 1 Closeout Planning / Readiness Review started · No R1 closeout · No merge release/1 · No push | 治理     | P1-S12-002 |
+| 2026-07-08 | P1-S12-002 | docs(release1): prepare closeout readiness review — Release 2 未启动 · R2 Sprint 未启动 · Release 1 未关闭                       | 治理     | P1-S12-002 |
