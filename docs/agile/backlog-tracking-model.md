@@ -218,6 +218,8 @@ DoR 模板 · DoD 模板 · Story 启动检查 · Execution Report 模板 · Rev
 
 Release 1 已完成能力 → 对应用户活动 → 对应模块 → 对应 PBI → 已有 Evidence → 缺口与债务
 
+**正式事实源：** [`release-1-capability-coverage.md`](release-1-capability-coverage.md)（S12-STORY-007 · **DECISION-122**）
+
 ### 给 S12-STORY-008 的输入
 
 最小成功闭环 → 必须做 PBI → 可以做 PBI → 明确不做 PBI → Release Outcome Goal → 成功指标 → 失败信号

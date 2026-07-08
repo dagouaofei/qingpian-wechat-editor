@@ -1040,3 +1040,13 @@
 | 2026-07-06 | Sprint 12 | **S12-STORY-006 Accepted / Done**：PO 验收 · 主要成果 `cb0fae3` · 证据同步 `afd8557` · merge 至 sprint 分支（`--no-ff`）                     | 敏捷治理 | S12-STORY-006         |
 | 2026-07-06 | Sprint 12 | **S12-STORY-006 In Review**：Agile Operating Model · DoR/DoD/Cursor/Report/Review 模板 · Refinement/Change Control/Triage · **DECISION-121** | 敏捷治理 | S12-STORY-006         |
 | 2026-07-06 | Sprint 12 | docs(s12): add agile operating model and standard templates — 纳入 S12-STORY-005 追踪字段 · 未改 `.cursor/rules/`                            | 敏捷治理 | DECISION-121          |
+
+---
+
+## 2026-07-08 · S12-STORY-007 Release 1 能力覆盖映射
+
+| 日期       | Sprint    | 变更摘要                                                                                                                 | 影响范围 | 关联 Story / Decision |
+| ---------- | --------- | ------------------------------------------------------------------------------------------------------------------------ | -------- | --------------------- |
+| 2026-07-08 | Sprint 12 | **S12-STORY-007 Accepted / Done**：PO 验收 · 主要成果 `bb45f7a` · 证据同步 `ab3bdcf` · merge 至 sprint 分支（`--no-ff`） | 产品治理 | S12-STORY-007         |
+| 2026-07-08 | Sprint 12 | **S12-STORY-007 In Review**：Release 1 能力覆盖映射 · R1-CAP-001~008 · PBI/Evidence/Gap · **DECISION-122**               | 产品治理 | S12-STORY-007         |
+| 2026-07-08 | Sprint 12 | docs(s12): map release 1 capabilities to product coverage — 为 S12-STORY-008 提供输入 · 不决定 R2 范围 · 未改产品代码    | 产品治理 | DECISION-122          |
