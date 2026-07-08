@@ -88,9 +88,9 @@
 
 | 命令                       | 结果                     |
 | -------------------------- | ------------------------ |
-| `git diff --check`         | 待执行                   |
-| `git status --short`       | 待执行                   |
-| prettier（本轮修改文件）   | 待执行                   |
+| `git diff --check`         | PASS                     |
+| `git status --short`       | PASS（commit 后 clean）  |
+| prettier（本轮修改文件）   | PASS                     |
 | `pnpm lint` / test / build | 未运行（无产品代码变更） |
 
 ## 10. 风险与遗留
@@ -107,8 +107,8 @@
 
 ## 12. Commit 与 Git 状态
 
-- **主要 commit：** 见 `docs(s12): plan release 2 roadmap and candidate scope`
+- **主要 commit：** `a9abd62` — `docs(s12): plan release 2 roadmap and candidate scope`
 - merge：**未 merge** · push：**未 push** · 下一 Story：**S12-STORY-009 未启动**
-- HEAD at review time：见 commit 后 `git rev-parse HEAD`
+- HEAD at review time：`a9abd6286713547d6786b2b2d7052401e9ed887c`
 
 **必须明确：** 未 merge。未 push。未启动 S12-STORY-009。未启动 Release 2。未启动 R2 Sprint。未关闭 Release 1。未关闭 Sprint 12。未标记 Story Done。未修改产品代码。未修改 `.cursor/rules/`。未决定公开 SaaS 商业化策略。未为鲁老师或秒篇 AIPPT 做项目定制功能。
