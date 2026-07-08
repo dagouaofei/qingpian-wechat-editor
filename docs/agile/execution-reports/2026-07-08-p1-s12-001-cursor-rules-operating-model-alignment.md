@@ -5,7 +5,7 @@
 - 日期：2026-07-08
 - Chore ID：**P1-S12-001**
 - 类型：治理 chore（非 Sprint Story）
-- 状态：**In Review**
+- 状态：**Accepted / Done**（2026-07-08 · Product Owner 验收）
 - 当前分支：`chore/p1-s12-001-cursor-rules-operating-model-alignment`
 - 来源分支：`sprint/s12-product-governance-r2-planning` @ `9a0710d`
 - 工作分支：`chore/p1-s12-001-cursor-rules-operating-model-alignment`
@@ -87,11 +87,16 @@
 ## 9. 未处理项
 
 - `wechat-copy-rules.mdc` · `style-system-rules.mdc` · `architecture-rules.mdc` — 与敏捷治理无关，未审计修改
-- **P2-S12-001**（双模板入口）— 规则层已对齐；Backlog 条目仍 **Open**，待 PO 验收 P1-S12-001 后决定是否关闭
 
-## 10. 需要 PO 决策项
+## 10. PO 验收（2026-07-08）
 
-无新产品取舍。PO 验收 P1-S12-001 后决定是否 merge 至 sprint 分支及是否将 P2-S12-001 标 Resolved。
+**验收结论：** **Accepted / Done**
+
+PO accepted Cursor rules alignment with S12 Operating Model. Core `.cursor/rules` files now reference S12 Operating Model / DECISION-121 governance boundaries, template precedence, PO authorization semantics, commit/merge/push rules, Sprint/Release directory responsibilities, and history protection.
+
+**P2-S12-001：** **Resolved by P1-S12-001** — execution report template precedence clarified: `docs/agile/templates/` is the S12+ standard template entry; `docs/agile/execution-reports/_template.md` remains historical-compatible only.
+
+**边界：** No Release 1 closeout. No Release 2 start. No R2 Sprint start. No push.
 
 ## 11. 验收标准完成情况
 
@@ -127,16 +132,19 @@
 ## 13. Commit 与 Git 状态
 
 - **主要 commit：** `d04deca` — `docs(governance): align cursor rules with s12 operating model`
-- merge：**未 merge** · push：**未 push**
-- HEAD at review time：`d04deca`
+- **验收状态 commit：** 见 `docs(governance): accept p1-s12-001`
+- **merge commit：** merge 后记录
+- merge：**待 merge 至 sprint 分支** · push：**未 push**
+- HEAD at review time：见验收 commit 后
 
 ## 14. 状态摘要
 
 | 项         | 状态                                  |
 | ---------- | ------------------------------------- |
-| P1-S12-001 | **In Review**                         |
+| P1-S12-001 | **Accepted / Done**                   |
+| P2-S12-001 | **Resolved by P1-S12-001**            |
 | Release 1  | **In Progress / Not Closed**          |
 | Release 2  | **Planned / Candidate / Not Started** |
 | R2 Sprint  | **未启动**                            |
 
-**必须明确：** 未 merge。未 push。未标记 P1-S12-001 Done。未启动 Release 2。未启动 R2 Sprint。未关闭 Release 1。未修改产品代码。
+**必须明确：** P1-S12-001 **Accepted / Done**。P2-S12-001 **Resolved**。Release 1 **未关闭**。Release 2 **未启动**。未 push。未修改产品代码。
