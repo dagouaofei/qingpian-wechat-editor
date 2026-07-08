@@ -132,10 +132,10 @@ PO accepted Cursor rules alignment with S12 Operating Model. Core `.cursor/rules
 ## 13. Commit 与 Git 状态
 
 - **主要 commit：** `d04deca` — `docs(governance): align cursor rules with s12 operating model`
-- **验收状态 commit：** 见 `docs(governance): accept p1-s12-001`
-- **merge commit：** merge 后记录
-- merge：**待 merge 至 sprint 分支** · push：**未 push**
-- HEAD at review time：见验收 commit 后
+- **验收状态 commit：** `f5e3093` — `docs(governance): accept p1-s12-001`
+- **merge commit：** `53e0bea` — `Merge P1-S12-001 cursor rules operating model alignment`
+- merge：**已 merge** 至 `sprint/s12-product-governance-r2-planning` · push：**未 push**
+- HEAD at review time：`f5e3093`
 
 ## 14. 状态摘要
 
