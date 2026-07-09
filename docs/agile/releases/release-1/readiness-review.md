@@ -210,6 +210,8 @@ readinessConclusion: READY WITH CONDITIONS
 
 ## 10. 必须在 Release 1 Closeout 前处理项
 
+> **P0-R1-BUG-001 diagnosis started; Release 1 Closeout readiness remains blocked pending diagnosis.**
+
 | #   | 项                                                                           | 负责方           |
 | --- | ---------------------------------------------------------------------------- | ---------------- |
 | 1   | **PO 明确授权** Release 1 Closeout 执行（独立于本 Readiness Review）         | PO               |

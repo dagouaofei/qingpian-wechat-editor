@@ -1099,3 +1099,12 @@
 | 2026-07-08 | P1-S12-002 | **P1-S12-002 In Review**：Release 1 Closeout Planning / Readiness Review started · No R1 closeout · No merge release/1 · No push                                                | 治理     | P1-S12-002 |
 | 2026-07-08 | P1-S12-002 | docs(release1): prepare closeout readiness review — Release 2 未启动 · R2 Sprint 未启动 · Release 1 未关闭                                                                      | 治理     | P1-S12-002 |
 | 2026-07-08 | P1-S12-002 | **P1-S12-002 Accepted / Done**：PO 验收 Readiness Review · 结论 READY WITH CONDITIONS · merge 至 sprint 分支（`--no-ff`）· **未关闭 R1** · **未 merge release/1** · **未 push** | 治理     | P1-S12-002 |
+
+---
+
+## 2026-07-08 · P0-R1-BUG-001 生成 fallback 占位文案泄漏诊断
+
+| 日期       | Bug           | 变更摘要                                                                                                                                                                  | 影响范围   | 关联          |
+| ---------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------------- |
+| 2026-07-08 | P0-R1-BUG-001 | **P0-R1-BUG-001 diagnosis started** · Production 主链路偶发混入 “Release 1 生成正文” 内部占位文案 · 根因定位至 `model-article-enrichment` · **未修复** · **未改产品代码** | 生成主链路 | P0-R1-BUG-001 |
+| 2026-07-08 | Release 1     | **Release 1 Closeout paused pending diagnosis** · P0 Closeout Blocker · No Release 1 closeout · No Release 2 start · No R2 Sprint start                                   | 治理       | Release 1     |

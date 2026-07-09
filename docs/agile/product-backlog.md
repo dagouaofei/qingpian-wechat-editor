@@ -373,6 +373,16 @@ Story 详情见 [`sprint-backlog.md`](sprint-backlog.md) · S11 见 [`sprint11-p
 
 ---
 
+## Release 1 Closeout Blockers（P0 · 2026-07-08）
+
+| Bug ID            | 标题                                                        | Status                  | Release   | Blocks                 |
+| ----------------- | ----------------------------------------------------------- | ----------------------- | --------- | ---------------------- |
+| **P0-R1-BUG-001** | Production 主链路偶发混入 Release 1 fallback 文案并重复拼接 | **Diagnosis In Review** | Release 1 | **Release 1 Closeout** |
+
+> 诊断文档：[`bugs/p0-r1-bug-001-generation-fallback-placeholder.md`](bugs/p0-r1-bug-001-generation-fallback-placeholder.md)
+
+---
+
 ## Sprint 12 Closeout Follow-ups（Review 2026-07-08 · Sprint Closed 2026-07-08 · DECISION-124）
 
 > 自 [`sprints/sprint-12/review.md`](sprints/sprint-12/review.md) / [`retrospective.md`](sprints/sprint-12/retrospective.md) / [`consistency-audit.md`](sprints/sprint-12/consistency-audit.md) 登记 · **不得**伪造完成 · Sprint 12 Closed 不代表 follow-ups 完成 · 后续由 Product Owner 重新排序和规划
