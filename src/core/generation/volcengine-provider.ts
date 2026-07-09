@@ -64,6 +64,7 @@ export function enrichArticleCandidate(
     providerName: "volcengine",
     modelName: modelId,
     timestamp: startedAt,
+    strictContent: true,
   });
 
   if (!result.ok) {
@@ -271,6 +272,7 @@ export async function generateVolcengineProviderEvents(
     providerName: "volcengine",
     modelName: resolvedConfig.model,
     timestamp: streamContext.startedAt,
+    strictContent: true,
   });
 
   if (!enrichment.ok) {

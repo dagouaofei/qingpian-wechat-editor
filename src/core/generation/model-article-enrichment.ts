@@ -133,9 +133,9 @@ function resolveFallbackParagraph(input: NormalizedInput): string {
     return input.materials.map((source) => source.text).join("\n\n");
   }
   if (input.topic && input.topic.trim().length > 0) {
-    return `围绕「${input.topic.trim()}」展开的 Release 1 生成正文。`;
+    return input.topic.trim();
   }
-  return "这是一段由模型 enrichment 补齐的默认正文。";
+  return input.inputSummary.trim() || "轻篇生成正文";
 }
 
 function resolveFallbackQuote(input: NormalizedInput): string {
@@ -182,10 +182,38 @@ export function stripForbiddenFieldsFromCandidate(
   return { candidate: stripped, warnings };
 }
 
-function coercePlainText(value: unknown, fallback: string): string {
-  if (typeof value === "string" && value.trim().length > 0) {
-    return value.trim();
+
+function hasNonEmptyText(value: unknown): boolean {
+  return typeof value === "string" && value.trim().length > 0;
+}
+
+function resolveRequiredPlainText(
+  value: unknown,
+  fallback: string,
+  strictContent: boolean,
+  warnings: ModelArticleEnrichmentIssue[],
+  errors: ModelArticleEnrichmentIssue[],
+  path: Array<string | number>,
+  fieldLabel: string,
+): string | null {
+  if (hasNonEmptyText(value)) {
+    return (value as string).trim();
   }
+  if (strictContent) {
+    pushError(
+      errors,
+      "missing_required_block_text",
+      `Missing or empty required ${fieldLabel}`,
+      path,
+    );
+    return null;
+  }
+  pushWarning(
+    warnings,
+    "block_text_fallback",
+    `${fieldLabel} filled from fallback content`,
+    path,
+  );
   return fallback;
 }
 
@@ -196,24 +224,46 @@ function enrichBlockContent(
     input: NormalizedInput;
     title: string;
     paragraph: string;
+    strictContent: boolean;
   },
   warnings: ModelArticleEnrichmentIssue[],
+  errors: ModelArticleEnrichmentIssue[],
   path: Array<string | number>,
 ): Record<string, unknown> | null {
   const content = isPlainObject(rawContent) ? { ...rawContent } : {};
+  const { strictContent } = context;
 
   switch (blockType) {
-    case "title":
-      return {
-        text: coercePlainText(content.text, context.title),
-      };
-    case "lead":
-      return {
-        text: coercePlainText(
-          content.text,
-          context.paragraph.slice(0, 160),
-        ),
-      };
+    case "title": {
+      const text = resolveRequiredPlainText(
+        content.text,
+        context.title,
+        strictContent,
+        warnings,
+        errors,
+        [...path, "text"],
+        "title text",
+      );
+      if (text == null) {
+        return null;
+      }
+      return { text };
+    }
+    case "lead": {
+      const text = resolveRequiredPlainText(
+        content.text,
+        context.paragraph.slice(0, 160),
+        strictContent,
+        warnings,
+        errors,
+        [...path, "text"],
+        "lead text",
+      );
+      if (text == null) {
+        return null;
+      }
+      return { text };
+    }
     case "heading": {
       const level = content.level;
       const normalizedLevel =
@@ -226,15 +276,38 @@ function enrichBlockContent(
           [...path, "level"],
         );
       }
+      const text = resolveRequiredPlainText(
+        content.text,
+        context.title,
+        strictContent,
+        warnings,
+        errors,
+        [...path, "text"],
+        "heading text",
+      );
+      if (text == null) {
+        return null;
+      }
       return {
-        text: coercePlainText(content.text, context.title),
+        text,
         level: normalizedLevel,
       };
     }
-    case "paragraph":
-      return {
-        text: coercePlainText(content.text, context.paragraph),
-      };
+    case "paragraph": {
+      const text = resolveRequiredPlainText(
+        content.text,
+        context.paragraph,
+        strictContent,
+        warnings,
+        errors,
+        [...path, "text"],
+        "paragraph text",
+      );
+      if (text == null) {
+        return null;
+      }
+      return { text };
+    }
     case "list": {
       let items = content.items;
       if (Array.isArray(items) && items.every((item) => typeof item === "string")) {
@@ -247,6 +320,15 @@ function enrichBlockContent(
         items = items.map((item) => ({ text: String(item) }));
       }
       if (!Array.isArray(items) || items.length === 0) {
+        if (strictContent) {
+          pushError(
+            errors,
+            "missing_required_block_text",
+            "List block requires at least one item",
+            [...path, "items"],
+          );
+          return null;
+        }
         pushWarning(
           warnings,
           "list_items_generated",
@@ -254,6 +336,20 @@ function enrichBlockContent(
           [...path, "items"],
         );
         items = [{ text: context.paragraph.slice(0, 80) }];
+      } else if (strictContent) {
+        for (let itemIndex = 0; itemIndex < items.length; itemIndex += 1) {
+          const item = items[itemIndex];
+          const itemText = isPlainObject(item) ? item.text : item;
+          if (!hasNonEmptyText(itemText)) {
+            pushError(
+              errors,
+              "missing_required_block_text",
+              "List item requires non-empty text",
+              [...path, "items", itemIndex, "text"],
+            );
+            return null;
+          }
+        }
       }
       return {
         ordered: typeof content.ordered === "boolean" ? content.ordered : false,
@@ -261,8 +357,20 @@ function enrichBlockContent(
       };
     }
     case "quote": {
-      const text = coercePlainText(content.text, resolveFallbackQuote(context.input));
-      if (!isPlainObject(rawContent) || typeof rawContent.text !== "string") {
+      const fallbackQuote = resolveFallbackQuote(context.input);
+      const text = resolveRequiredPlainText(
+        content.text,
+        fallbackQuote,
+        strictContent,
+        warnings,
+        errors,
+        [...path, "text"],
+        "quote text",
+      );
+      if (text == null) {
+        return null;
+      }
+      if (!strictContent && !hasNonEmptyText(content.text)) {
         pushWarning(
           warnings,
           "quote_text_fallback",
@@ -277,32 +385,63 @@ function enrichBlockContent(
         text,
       };
     }
-    case "highlight":
+    case "highlight": {
+      const text = resolveRequiredPlainText(
+        content.text,
+        context.paragraph.slice(0, 120),
+        strictContent,
+        warnings,
+        errors,
+        [...path, "text"],
+        "highlight text",
+      );
+      if (text == null) {
+        return null;
+      }
       return {
-        text: coercePlainText(
-          content.text,
-          context.paragraph.slice(0, 120),
-        ),
+        text,
         ...(typeof content.label === "string" ? { label: content.label } : {}),
       };
+    }
     case "info_card": {
-      const body = coercePlainText(content.body, context.paragraph.slice(0, 160));
-      const title = coercePlainText(content.title, context.title);
-      if (typeof content.title !== "string") {
-        pushWarning(
-          warnings,
-          "info_card_title_fallback",
-          "Info card title filled from fallback",
-          [...path, "title"],
-        );
+      const body = resolveRequiredPlainText(
+        content.body,
+        context.paragraph.slice(0, 160),
+        strictContent,
+        warnings,
+        errors,
+        [...path, "body"],
+        "info_card body",
+      );
+      const title = resolveRequiredPlainText(
+        content.title,
+        context.title,
+        strictContent,
+        warnings,
+        errors,
+        [...path, "title"],
+        "info_card title",
+      );
+      if (body == null || title == null) {
+        return null;
       }
-      if (typeof content.body !== "string") {
-        pushWarning(
-          warnings,
-          "info_card_body_fallback",
-          "Info card body filled from fallback",
-          [...path, "body"],
-        );
+      if (!strictContent) {
+        if (typeof content.title !== "string") {
+          pushWarning(
+            warnings,
+            "info_card_title_fallback",
+            "Info card title filled from fallback",
+            [...path, "title"],
+          );
+        }
+        if (typeof content.body !== "string") {
+          pushWarning(
+            warnings,
+            "info_card_body_fallback",
+            "Info card body filled from fallback",
+            [...path, "body"],
+          );
+        }
       }
       return {
         title,
@@ -311,8 +450,19 @@ function enrichBlockContent(
       };
     }
     case "cta": {
-      const text = coercePlainText(content.text, "了解更多");
-      if (typeof content.text !== "string") {
+      const text = resolveRequiredPlainText(
+        content.text,
+        "了解更多",
+        strictContent,
+        warnings,
+        errors,
+        [...path, "text"],
+        "cta text",
+      );
+      if (text == null) {
+        return null;
+      }
+      if (!strictContent && typeof content.text !== "string") {
         pushWarning(
           warnings,
           "cta_text_fallback",
@@ -385,14 +535,24 @@ function enrichBlocks(
   rawBlocks: unknown,
   input: NormalizedInput,
   generateId: () => string,
+  strictContent: boolean,
   warnings: ModelArticleEnrichmentIssue[],
   errors: ModelArticleEnrichmentIssue[],
 ): Record<string, unknown>[] | null {
   const title = resolveFallbackTitle(input);
   const paragraph = resolveFallbackParagraph(input);
-  const context = { input, title, paragraph };
+  const context = { input, title, paragraph, strictContent };
 
   if (!Array.isArray(rawBlocks) || rawBlocks.length === 0) {
+    if (strictContent) {
+      pushError(
+        errors,
+        "missing_blocks",
+        "Article must include at least one block",
+        ["blocks"],
+      );
+      return null;
+    }
     return createMinimalBlocks(input, generateId, warnings);
   }
 
@@ -426,16 +586,19 @@ function enrichBlocks(
       rawBlock.content,
       context,
       warnings,
+      errors,
       ["blocks", index, "content"],
     );
 
     if (content == null) {
-      pushError(
-        errors,
-        "unrecoverable_block_content",
-        `Unable to enrich content for block type ${blockType}`,
-        ["blocks", index, "content"],
-      );
+      if (errors.length === 0) {
+        pushError(
+          errors,
+          "unrecoverable_block_content",
+          `Unable to enrich content for block type ${blockType}`,
+          ["blocks", index, "content"],
+        );
+      }
       return null;
     }
 
@@ -459,6 +622,7 @@ export function enrichModelArticleCandidate(
   input: ModelArticleEnrichmentInput,
 ): ModelArticleEnrichmentResult {
   const generateId = input.generateId ?? defaultGenerateId;
+  const strictContent = input.strictContent === true;
   const warnings: ModelArticleEnrichmentIssue[] = [];
   const errors: ModelArticleEnrichmentIssue[] = [];
 
@@ -484,6 +648,7 @@ export function enrichModelArticleCandidate(
     raw.blocks,
     input.normalizedInput,
     generateId,
+    strictContent,
     warnings,
     errors,
   );

@@ -375,11 +375,13 @@ Story 详情见 [`sprint-backlog.md`](sprint-backlog.md) · S11 见 [`sprint11-p
 
 ## Release 1 Closeout Blockers（P0 · 2026-07-08）
 
-| Bug ID            | 标题                                                        | DIAG 状态           | Bug 状态                     | Release   | Blocks                 |
-| ----------------- | ----------------------------------------------------------- | ------------------- | ---------------------------- | --------- | ---------------------- |
-| **P0-R1-BUG-001** | Production 主链路偶发混入 Release 1 fallback 文案并重复拼接 | **Accepted / Done** | **Open / Blocking / To Fix** | Release 1 | **Release 1 Closeout** |
+| Bug ID            | 标题                                                        | FIX 状态                     | Bug 状态                       | Release   | Blocks                 |
+| ----------------- | ----------------------------------------------------------- | ---------------------------- | ------------------------------ | --------- | ---------------------- |
+| **P0-R1-BUG-001** | Production 主链路偶发混入 Release 1 fallback 文案并重复拼接 | **Accepted with follow-ups** | **Fixed Pending Verification** | Release 1 | **Release 1 Closeout** |
 
-> 诊断文档：[`bugs/p0-r1-bug-001-generation-fallback-placeholder.md`](bugs/p0-r1-bug-001-generation-fallback-placeholder.md)
+> Closeout **仍阻塞** · pending staging + production verification · 部署 **Not Deployed**
+
+> Follow-ups（全量 test 5 个无关失败）：见 [`bugs/p0-r1-bug-001-generation-fallback-placeholder.md`](bugs/p0-r1-bug-001-generation-fallback-placeholder.md) §21 · **P2-R1-FU-001 ~ FU-005**
 
 ---
 
