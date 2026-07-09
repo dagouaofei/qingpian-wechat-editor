@@ -1000,3 +1000,114 @@
 | 2026-07-01 | Sprint 12 | **S12-STORY-002 Accepted / Done**：PO 验收 · 状态同步 · merge 至 sprint 分支（`--no-ff`）                       | 产品治理 | S12-STORY-002         |
 | 2026-07-01 | Sprint 12 | **S12-STORY-002 In Review**：更新 `product-vision.md` · 新增 `users-and-scenarios.md` · **DECISION-117**        | 产品     | S12-STORY-002         |
 | 2026-07-01 | Sprint 12 | PO 确认：AI 内容营销工作台 · 十个能力域 · 五核心场景 · 不划分当前/近期/远期 · Sprint **Approved / In Progress** | 产品治理 | DECISION-117          |
+
+---
+
+## 2026-07-04 · S12-STORY-003 产品模块树与功能目录
+
+| 日期       | Sprint    | 变更摘要                                                                                                                                           | 影响范围 | 关联 Story / Decision |
+| ---------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | --------------------- |
+| 2026-07-04 | Sprint 12 | **S12-STORY-003 Accepted / Done**：PO 验收 · 主要成果 `d1811ab` · merge 至 sprint 分支（`--no-ff`）                                                | 产品治理 | S12-STORY-003         |
+| 2026-07-04 | Sprint 12 | **S12-STORY-003 In Review**：新增 `product-module-tree.md` · `product-feature-catalog.md` · M01–M11 模块树 · M06 样式来源与匹配 · **DECISION-118** | 产品     | S12-STORY-003         |
+| 2026-07-04 | Sprint 12 | docs(s12): add product module tree and feature catalog — 功能目录为产品全景地图，不构成 Release/Sprint 开发承诺                                    | 产品治理 | DECISION-118          |
+
+---
+
+## 2026-07-06 · S12-STORY-004 用户旅程与 Story Map
+
+| 日期       | Sprint    | 变更摘要                                                                                                                               | 影响范围 | 关联 Story / Decision |
+| ---------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------- | --------------------- |
+| 2026-07-06 | Sprint 12 | **S12-STORY-004 Accepted / Done**：PO 验收 · 主要成果 `62a6202` · merge 至 sprint 分支（`--no-ff`）                                    | 产品治理 | S12-STORY-004         |
+| 2026-07-06 | Sprint 12 | **S12-STORY-004 In Review**：更新 `user-story-map.md` · 新增 `product-success-model.md` · A01–A11 · R2 最小闭环候选 · **DECISION-119** | 产品     | S12-STORY-004         |
+| 2026-07-06 | Sprint 12 | docs(s12): add user story map and product success model — 持续运营与系列化 · 高表现拆解再创作 · 不决定 R2 最终范围                     | 产品治理 | DECISION-119          |
+
+---
+
+## 2026-07-06 · S12-STORY-005 Backlog 追踪体系
+
+| 日期       | Sprint    | 变更摘要                                                                                                                    | 影响范围 | 关联 Story / Decision |
+| ---------- | --------- | --------------------------------------------------------------------------------------------------------------------------- | -------- | --------------------- |
+| 2026-07-06 | Sprint 12 | **S12-STORY-005 Accepted / Done**：PO 验收 · 主要成果 `32d8c47` · merge 至 sprint 分支（`--no-ff`）                         | 产品治理 | S12-STORY-005         |
+| 2026-07-06 | Sprint 12 | **S12-STORY-005 In Review**：Backlog 追踪模型 · PBI-QP-001~010 · Coverage Matrix · Outcome/假设/指标追踪 · **DECISION-120** | 产品治理 | S12-STORY-005         |
+| 2026-07-06 | Sprint 12 | docs(s12): add backlog tracking model and coverage matrix — 不决定 R2 最终范围 · 不生成全部开发 Story                       | 产品治理 | DECISION-120          |
+
+---
+
+## 2026-07-06 · S12-STORY-006 敏捷 Operating Model 与模板
+
+| 日期       | Sprint    | 变更摘要                                                                                                                                     | 影响范围 | 关联 Story / Decision |
+| ---------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------- | --------------------- |
+| 2026-07-06 | Sprint 12 | **S12-STORY-006 Accepted / Done**：PO 验收 · 主要成果 `cb0fae3` · 证据同步 `afd8557` · merge 至 sprint 分支（`--no-ff`）                     | 敏捷治理 | S12-STORY-006         |
+| 2026-07-06 | Sprint 12 | **S12-STORY-006 In Review**：Agile Operating Model · DoR/DoD/Cursor/Report/Review 模板 · Refinement/Change Control/Triage · **DECISION-121** | 敏捷治理 | S12-STORY-006         |
+| 2026-07-06 | Sprint 12 | docs(s12): add agile operating model and standard templates — 纳入 S12-STORY-005 追踪字段 · 未改 `.cursor/rules/`                            | 敏捷治理 | DECISION-121          |
+
+---
+
+## 2026-07-08 · S12-STORY-007 Release 1 能力覆盖映射
+
+| 日期       | Sprint    | 变更摘要                                                                                                                 | 影响范围 | 关联 Story / Decision |
+| ---------- | --------- | ------------------------------------------------------------------------------------------------------------------------ | -------- | --------------------- |
+| 2026-07-08 | Sprint 12 | **S12-STORY-007 Accepted / Done**：PO 验收 · 主要成果 `bb45f7a` · 证据同步 `ab3bdcf` · merge 至 sprint 分支（`--no-ff`） | 产品治理 | S12-STORY-007         |
+| 2026-07-08 | Sprint 12 | **S12-STORY-007 In Review**：Release 1 能力覆盖映射 · R1-CAP-001~008 · PBI/Evidence/Gap · **DECISION-122**               | 产品治理 | S12-STORY-007         |
+| 2026-07-08 | Sprint 12 | docs(s12): map release 1 capabilities to product coverage — 为 S12-STORY-008 提供输入 · 不决定 R2 范围 · 未改产品代码    | 产品治理 | DECISION-122          |
+
+---
+
+## 2026-07-08 · S12-STORY-008 Release 2 路线与候选范围
+
+| 日期       | Sprint    | 变更摘要                                                                                                                                                 | 影响范围 | 关联 Story / Decision |
+| ---------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | --------------------- |
+| 2026-07-08 | Sprint 12 | **S12-STORY-008 Accepted / Done**：PO 验收 · 主要成果 `a9abd62` · 证据同步 `0cf746d` · merge 至 sprint 分支（`--no-ff`） · R2 仍为 Planned / Not Started | 产品治理 | S12-STORY-008         |
+| 2026-07-08 | Sprint 12 | **S12-STORY-008 In Review**：Release 2 候选规划 · Must/Should/Could/Won't · 双验证对象 · **DECISION-123**                                                | 产品治理 | S12-STORY-008         |
+| 2026-07-08 | Sprint 12 | docs(s12): plan release 2 roadmap and candidate scope — R2 未启动 · 未关闭 R1 · 未启动 S12-STORY-009                                                     | 产品治理 | DECISION-123          |
+
+---
+
+## 2026-07-08 · S12-STORY-009 Review / Audit / Closeout Readiness
+
+| 日期       | Sprint    | 变更摘要                                                                                                                                                                | 影响范围 | 关联 Story / Decision |
+| ---------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | --------------------- |
+| 2026-07-08 | Sprint 12 | **S12-STORY-009 In Review**：Review/Retro/Closeout 草案 · 一致性审计 PASS with follow-ups · Sprint 12 未关闭                                                            | 敏捷治理 | S12-STORY-009         |
+| 2026-07-08 | Sprint 12 | docs(s12): prepare sprint 12 review and closeout readiness — Release 2 未启动 · 未修改 `.cursor/rules/`                                                                 | 敏捷治理 | S12-STORY-009         |
+| 2026-07-08 | Sprint 12 | **S12-STORY-009 Accepted with follow-ups / Done**：PO 验收 · 主要成果 `6f30c73` · 证据同步 `353a4d3` · merge 至 sprint 分支（`--no-ff`） · Sprint 12 未关闭 · R2 未启动 | 敏捷治理 | S12-STORY-009         |
+
+---
+
+## 2026-07-08 · Sprint 12 Closeout
+
+| 日期       | Sprint    | 变更摘要                                                                                                                                                                               | 影响范围 | 关联 Story / Decision |
+| ---------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | --------------------- |
+| 2026-07-08 | Sprint 12 | **Sprint 12 Closed with follow-ups**（**DECISION-124**）：S12-STORY-001~009 Done（009 with follow-ups）· Review/Retro Final · follow-ups 已登记 · **未 merge release/1** · **未 push** | 敏捷治理 | DECISION-124          |
+| 2026-07-08 | Sprint 12 | docs(s12): close sprint 12 — Release 1 未关闭 · Release 2 Planned / Not Started · R2 Sprint 未启动                                                                                     | 敏捷治理 | DECISION-124          |
+
+---
+
+## 2026-07-08 · P1-S12-001 Cursor Rules / Operating Model Alignment
+
+| 日期       | Chore      | 变更摘要                                                                                                                                                                             | 影响范围 | 关联                |
+| ---------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- | ------------------- |
+| 2026-07-08 | P1-S12-001 | **P1-S12-001 In Review**：align `.cursor/rules/` with S12 Operating Model and `docs/agile/templates/` · No product code · No merge · No push                                         | 治理规则 | P1-S12-001 · FU-001 |
+| 2026-07-08 | P1-S12-001 | docs(governance): align cursor rules with s12 operating model — Release 2 未启动 · R2 Sprint 未启动 · Release 1 未关闭                                                               | 治理规则 | P1-S12-001          |
+| 2026-07-08 | P1-S12-001 | **P1-S12-001 Accepted / Done**：PO 验收 · 主要成果 `d04deca` · **P2-S12-001 Resolved by P1-S12-001** · merge 至 sprint 分支（`--no-ff`）· **未 push** · No R1 closeout · No R2 start | 治理规则 | P1-S12-001          |
+
+---
+
+## 2026-07-08 · P1-S12-002 Release 1 Closeout Readiness Review
+
+| 日期       | Chore      | 变更摘要                                                                                                                                                                        | 影响范围 | 关联       |
+| ---------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ---------- |
+| 2026-07-08 | P1-S12-002 | **P1-S12-002 In Review**：Release 1 Closeout Planning / Readiness Review started · No R1 closeout · No merge release/1 · No push                                                | 治理     | P1-S12-002 |
+| 2026-07-08 | P1-S12-002 | docs(release1): prepare closeout readiness review — Release 2 未启动 · R2 Sprint 未启动 · Release 1 未关闭                                                                      | 治理     | P1-S12-002 |
+| 2026-07-08 | P1-S12-002 | **P1-S12-002 Accepted / Done**：PO 验收 Readiness Review · 结论 READY WITH CONDITIONS · merge 至 sprint 分支（`--no-ff`）· **未关闭 R1** · **未 merge release/1** · **未 push** | 治理     | P1-S12-002 |
+
+---
+
+## 2026-07-08 · P0-R1-BUG-001 生成 fallback 占位文案泄漏诊断
+
+| 日期       | Bug           | 变更摘要                                                                                                                                                                                                                                      | 影响范围   | 关联          |
+| ---------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------------- |
+| 2026-07-08 | P0-R1-BUG-001 | **P0-R1-BUG-001 diagnosis started** · Production 主链路偶发混入 “Release 1 生成正文” 内部占位文案 · 根因定位至 `model-article-enrichment` · **未修复** · **未改产品代码**                                                                     | 生成主链路 | P0-R1-BUG-001 |
+| 2026-07-08 | Release 1     | **Release 1 Closeout paused pending diagnosis** · P0 Closeout Blocker · No Release 1 closeout · No Release 2 start · No R2 Sprint start                                                                                                       | 治理       | Release 1     |
+| 2026-07-08 | P0-R1-BUG-001 | **P0-R1-BUG-001-DIAG Accepted / Done**（PO 2026-07-08）· 诊断验收通过 · **P0-R1-BUG-001 仍为 Open / Blocking / To Fix** · Release 1 Closeout **仍阻塞** · merge 至 sprint 分支（`--no-ff`）· **未 push** · **未启动修复**                     | 生成主链路 | P0-R1-BUG-001 |
+| 2026-07-08 | P0-R1-BUG-001 | **P0-R1-BUG-001-FIX In Review**：`strictContent` enrichment fail-fast · 移除 “Release 1 生成正文” · regression tests · **未部署** · **未 merge sprint** · Release 1 Closeout **仍阻塞 pending review/verification**                           | 生成主链路 | P0-R1-BUG-001 |
+| 2026-07-08 | P0-R1-BUG-001 | **P0-R1-BUG-001-FIX Accepted with follow-ups**（PO 2026-07-08）· **Fixed Pending Verification** · merge 至 sprint 分支（`--no-ff`）· 全量 test 5 个无关失败登记为 P2-R1-FU-001~005 · **未 push** · **未部署** · Release 1 Closeout **仍阻塞** | 生成主链路 | P0-R1-BUG-001 |

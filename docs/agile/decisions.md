@@ -104,6 +104,13 @@
 | DECISION-115 | 2026-06-29 | Sprint / Release 独立平级目录与全局索引：`sprints/` 与 `releases/` 平级；全局索引文件仅索引；详细 Backlog 进独立目录；历史不批量迁移                                                                                                                                | **已确认**                             |
 | DECISION-116 | 2026-06-30 | Product Owner 批准 Sprint 12 正式 Planning；Sprint Goal · committed Stories 002~009 · 顺序 · 范围与非目标 · 容量规则 · 验收方式；Sprint 状态 `Approved / Ready to Start`；S12-STORY-002 未启动；不授权 merge/push/产品代码                                          | **已确认**                             |
 | DECISION-117 | 2026-07-01 | S12-STORY-002：PO 确认轻篇为 AI 内容营销工作台；目标用户层次；五个核心场景；十个完整产品能力域；灵感中心与内容计划独立；品牌档案与品牌知识库合并为品牌与知识中心；不提前划分当前/近期/远期；系统边界；具体优先级留待后续规划                                        | **已确认**                             |
+| DECISION-118 | 2026-07-04 | S12-STORY-003：轻篇完整产品模块树 M01–M11（M10 横向支撑 · M11 受众洞察）；C01 多模态媒体制作中心为候选一级模块；抖音/视频纳入多平台多模态横向能力不设独立一级模块；功能目录为产品地图不构成 Release/Sprint 开发承诺；M06 样式来源与匹配逻辑                         | **已确认**                             |
+| DECISION-119 | 2026-07-06 | S12-STORY-004：Story Map 以用户旅程为中心 A01–A11；持续内容运营与系列化生产；高表现内容拆解与再创作；R2 最小成功闭环候选；产品成功模型（Outcome/假设/指标/失败信号/反馈）                                                                                           | **已确认**                             |
+| DECISION-120 | 2026-07-06 | S12-STORY-005：Backlog 追踪模型 PBI→RBI→SBI→Evidence；PBI 必填追踪用户活动/Slice/模块/假设/指标/失败信号；PBI-QP-001~010；Coverage Matrix；不决定 R2 最终范围                                                                                                       | **已确认**                             |
+| DECISION-121 | 2026-07-06 | S12-STORY-006：Agile Operating Model；Backlog Refinement/Change Control/Triage/Progress Check；DoR/DoD/Cursor/Report/Review 模板；PBI 追踪字段；PBI-QP-009 条件触发须 PO 确认                                                                                       | **已确认**                             |
+| DECISION-122 | 2026-07-08 | S12-STORY-007：Release 1 能力覆盖映射；R1→A01–A11/Slice/模块/PBI/假设/Evidence；R1 重心为单篇公众号生成排版复制；不等同工作台；不决定 R2 范围；作为 S12-STORY-008 输入                                                                                              | **已确认**                             |
+| DECISION-123 | 2026-07-08 | S12-STORY-008：Release 2 品牌/项目驱动最小内容工作台；鲁老师+秒篇 AIPPT 双验证；双入口；R1 复用；Must/Should/Could/Won't；R2 候选未启动                                                                                                                             | **已确认**                             |
+| DECISION-124 | 2026-07-08 | Sprint 12 Closed with follow-ups；S12-STORY-001~008 Done；S12-STORY-009 Accepted with follow-ups / Done；Consistency Audit PASS with follow-ups；follow-ups 已登记；不关闭 R1；不启动 R2；不 merge release/1/main；不 push                                          | **已确认**                             |
 
 ### DECISION-019 详情
 
@@ -1323,3 +1330,192 @@
   8. 正式事实源：`docs/product/product-vision.md` · `docs/product/users-and-scenarios.md`
 - **影响范围：** `product-scope.md`（索引说明）· Sprint 12 backlog · 后续 S12-STORY-003 模块树输入
 - **状态：** **已确认**（2026-07-01 · S12-STORY-002 · PO 已确认决策）
+
+### DECISION-118 详情（S12-STORY-003 产品模块树与功能目录）
+
+- **日期：** 2026-07-04
+- **关联 Story：** S12-STORY-003
+- **Product Owner 授权原文：**
+
+  ```text
+  确认 S12-STORY-003：完整产品模块树与产品功能目录正式候选稿。
+  ```
+
+- **背景：** Product Owner 已确认本 Story 产品方案与 DoR；Cursor 将已确认决策整理为正式产品事实源，不重新设计模块结构。
+- **决策：**
+  1. **一级产品模块：** M01–M09 内容营销核心链路 + M10 工作空间与协作（横向支撑）+ M11 受众洞察与互动运营；**M10 保留原编号，M11 为新增编号**
+  2. **候选二级模块：** 各一级模块下候选二级结构（M01-01 ~ M11-06）为当前候选，允许后续调整
+  3. **横向能力：** X01–X07；**AI 是能力方式，不是独立产品模块**
+  4. **C01 多模态媒体制作中心：** 候选一级模块，**当前不正式升级**；预估优先级靠后
+  5. **抖音与视频：** 纳入多平台（X03）、多模态（X04）方向，分布在 M02/M04/M07/M08/M09/M11；**不设独立抖音一级模块**；强调拆解、提取与再创作
+  6. **M11：** 受众洞察与互动运营纳入**完整产品范围**，当前预估优先级靠后
+  7. **M06：** 样式来源完整链路（人工设计 + 外部采集 + AI 生成 + 品牌规则 + 内容结构 + 用户自定义 + 数据反馈 → 样式库）；样式匹配综合品牌/内容/平台/偏好/质量/组合/反馈/人工可控
+  8. **M06 vs M07 边界：** M06 负责视觉与品牌视觉；M07 负责复制、导出、发布与平台一致
+  9. **功能目录原则：** 功能目录 = 全景地图；**不是** Release Backlog 或 Sprint Backlog；**不决定** Release 2 范围
+  10. 正式事实源：`docs/product/product-module-tree.md` · `docs/product/product-feature-catalog.md`
+- **影响范围：** `product-scope.md`（索引）· Sprint 12 backlog · 后续 S12-STORY-004 Story Map 输入
+- **验收（2026-07-04）：** Product Owner 验收结论 **Accepted**；S12-STORY-003 标记 **Accepted / Done**；主要成果 commit **`d1811ab`**；授权 `--no-ff` merge 至 `sprint/s12-product-governance-r2-planning`；**未授权 push**；**未启动 S12-STORY-004**
+- **状态：** **已确认**（2026-07-04 · S12-STORY-003 · PO 已确认候选稿 · **Accepted / Done**）
+
+### DECISION-119 详情（S12-STORY-004 User Story Map 与产品成功模型）
+
+- **日期：** 2026-07-06
+- **关联 Story：** S12-STORY-004
+- **Product Owner 授权原文：**
+
+  ```text
+  确认 S12-STORY-004 用户旅程、用户活动与完整 Story Map 候选稿。
+  ```
+
+- **背景：** Product Owner 已确认本 Story 方案与 DoR；Cursor 将已确认决策整理为正式产品事实源，不重新设计用户旅程结构。
+- **决策：**
+  1. **Story Map 组织方式：** 以**用户旅程**为中心，**不按模块**拆分；模块是后台能力，Story Map 是用户完成任务的路径
+  2. **顶层用户活动：** A01–A11；显性加入 **A04 持续内容运营与系列化生产**
+  3. **高表现内容拆解与再创作：** 纳入 A02 及相关 Slice；支持借鉴模式与结构，**不鼓励**洗稿或高度近似复制；优先级由 PO 自己运营需求决定
+  4. **Story Map 切片：** Slice 1–7 为**候选**，不构成 Release 2 承诺
+  5. **Release 2 最小成功闭环候选：** 品牌资料 → 灵感 → 选题 → 创作 → 编辑 → 排版 → 复制发布 → 资产 → 手动复盘；首要验证 PO 自己高频运营
+  6. **Release 2 范围：** **本 Story 不最终决定**；由 **S12-STORY-008** 决定
+  7. **产品成功模型：** 纳入 Outcome Goal、假设 H01–H10、成功指标、失败信号、上线反馈与 Backlog 调整机制
+  8. 正式事实源：`docs/product/user-story-map.md`（Release 1 历史段落保留）· `docs/product/product-success-model.md`
+- **影响范围：** `product-scope.md`（索引）· Sprint 12 backlog · 后续 S12-STORY-005 / S12-STORY-008 输入
+- **验收（2026-07-06）：** Product Owner 验收结论 **Accepted**；S12-STORY-004 标记 **Accepted / Done**；主要成果 commit **`62a6202`**；授权 `--no-ff` merge 至 `sprint/s12-product-governance-r2-planning`；**未授权 push**；**未启动 S12-STORY-005**
+- **状态：** **已确认**（2026-07-06 · S12-STORY-004 · PO 已确认候选稿 · **Accepted / Done**）
+
+### DECISION-120 详情（S12-STORY-005 Backlog 追踪模型与 Product Coverage Matrix）
+
+- **日期：** 2026-07-06
+- **关联 Story：** S12-STORY-005
+- **Product Owner 授权原文：**
+
+  ```text
+  确认 S12-STORY-005 重点是追踪体系，不是完整拆任务；
+  确认新增或更新 backlog-tracking-model.md、product-backlog.md、product-coverage-matrix.md；
+  确认 Product Backlog 初始只做 8–10 个 PBI 群组，不细拆全部功能；
+  确认 Outcome / 假设 / 成功指标 / 失败信号作为 Backlog 必填追踪字段。
+  ```
+
+- **背景：** Product Owner 已确认本 Story 方案与 DoR；Cursor 建立 Backlog 追踪体系，不生成全部开发 Story，不决定 Release 2 最终范围。
+- **决策：**
+  1. **追踪链路：** Product Backlog Item → Release Backlog Item → Sprint Backlog Item → Story / Task / Bug / Enabler → Execution Evidence
+  2. **PBI 必填追踪：** 用户活动 A01–A11 · Story Map Slice · 产品模块 M01–M11 · 功能目录 · 假设 H01–H10 · 成功指标 · 失败信号 · 验收方向
+  3. **缺字段规则：** 缺少上述追踪字段的 PBI 只能保持 Candidate，不应进入 Release Committed Scope
+  4. **初始 PBI 群组：** PBI-QP-001 ~ PBI-QP-010（产品级群组，**不是**开发 Story，**不构成** Release 2 承诺）
+  5. **PBI-QP-009：** 优先级 P1/P0 条件触发，由 PO 自己运营需求决定
+  6. **Product Coverage Matrix：** 覆盖 A01–A11、Slice 1–7、M01–M11、H01–H10 与 PBI 关系
+  7. **Backlog 调整：** 真实使用 → 指标/失败信号 → 假设验证 → PBI/RBI/SBI 优先级调整
+  8. **Release 2 范围：** **本 Story 不最终决定**；由 **S12-STORY-008** 决定
+  9. 正式事实源：`docs/agile/backlog-tracking-model.md` · `docs/agile/product-backlog.md`（产品级 PBI 区 + Release 1 历史保留）· `docs/agile/product-coverage-matrix.md`
+- **影响范围：** Sprint 12 backlog · 后续 S12-STORY-006 / 007 / 008 输入
+- **验收（2026-07-06）：** Product Owner 验收结论 **Accepted**；S12-STORY-005 标记 **Accepted / Done**；主要成果 commit **`32d8c47`**；授权 `--no-ff` merge 至 `sprint/s12-product-governance-r2-planning`；**未授权 push**；**未启动 S12-STORY-006**
+- **状态：** **已确认**（2026-07-06 · S12-STORY-005 · PO 已确认候选稿 · **Accepted / Done**）
+
+### DECISION-121 详情（S12-STORY-006 Agile Operating Model 与标准模板）
+
+- **日期：** 2026-07-06
+- **关联 Story：** S12-STORY-006
+- **Product Owner 授权原文：**
+
+  ```text
+  S12-STORY-006 应建立敏捷事件、流程闸门、DoR/DoD 与标准模板；
+  Backlog Refinement 应纳入敏捷流程；
+  Change Control 应纳入敏捷流程；
+  Bug / Debt / Follow-up Triage 应纳入敏捷流程；
+  不采用完整 Daily Standup，仅保留轻量 Progress Check。
+  ```
+
+- **背景：** Product Owner 已确认本 Story 方案与 DoR；建立从 S12 起向后生效的敏捷执行标准；不修改 `.cursor/rules/`（留待 S12-STORY-009）。
+- **决策：**
+  1. **Operating Model：** Product Backlog → Refinement → DoR → Cursor 指令 → 执行 → Report → Review → PO Acceptance → Merge → Evidence → Next Ready
+  2. **敏捷事件：** Sprint Planning · Backlog Refinement · Story Ready · Cursor Execution · Execution Report · ChatGPT Review · PO Acceptance · Merge Gate · Sprint Review · Retrospective · Closeout · Release Planning · Release Review/Closeout · Change Control · Triage · **轻量 Progress Check**（无完整 Daily Standup）
+  3. **Backlog Refinement：** 只形成建议与候选，不替代 PO 决策，不自动 Committed，不决定 R2 范围
+  4. **Change Control：** Sprint Approved 后范围变更须记录影响、取舍与 PO 决策
+  5. **Triage：** 范围外问题默认进 Backlog，不静默扩大 Story
+  6. **标准模板：** DoR · DoD · Cursor 指令 · Execution Report · Review/Acceptance — 位于 `docs/agile/templates/`
+  7. **Backlog 追踪字段：** 纳入模板 — PBI/RBI/SBI · 用户活动 · Slice · 模块 · 假设 · 成功/失败指标 · Evidence
+  8. **PBI-QP-009：** 条件触发字段入 DoR；**不得自动升 P0**，须 PO 明确确认
+  9. **权限边界：** Cursor 完成 ≠ Story Done；ChatGPT 建议 ≠ PO Accepted；merge ≠ Sprint Closed
+  10. 正式事实源：`docs/agile/agile-operating-model.md` · `docs/agile/templates/*`
+- **影响范围：** Sprint 12 backlog · 后续 S12-STORY-007 / 008 / 009 输入
+- **验收（2026-07-06）：** Product Owner 验收结论 **Accepted**；S12-STORY-006 标记 **Accepted / Done**；主要成果 commit **`cb0fae3`**；证据同步 commit **`afd8557`**；授权 `--no-ff` merge 至 `sprint/s12-product-governance-r2-planning`；**未授权 push**；**未启动 S12-STORY-007**
+- **状态：** **已确认**（2026-07-06 · S12-STORY-006 · PO 已确认候选稿 · **Accepted / Done**）
+
+### DECISION-122 详情（S12-STORY-007 Release 1 能力覆盖映射）
+
+- **日期：** 2026-07-08
+- **关联 Story：** S12-STORY-007
+- **Product Owner 授权原文：**
+
+  ```text
+  S12-STORY-007 的范围保持为 Release 1 能力覆盖映射 + Release 2 缺口输入；
+  不做 Release 1 Closeout；
+  不做 Release 2 Planning；
+  不决定 Release 2 最终范围。
+  ```
+
+- **背景：** S12-STORY-005 建立 PBI 追踪体系；S12-STORY-006 建立 Operating Model；本 Story 将 Release 1 历史能力映射到当前产品治理体系。
+- **决策：**
+  1. **映射范围：** R1 Evidence → R1-CAP-001~008 → 用户活动 A01–A11 → Story Map Slice 1–7 → 模块 M01–M11 → PBI-QP-001~010 → 假设 H01–H10 → 成功/失败指标
+  2. **R1 产品重心：** 单篇公众号文章生成、排版、复制一致性、样式治理和上线基础；**不等于**完整 AI 内容营销工作台
+  3. **最强 R1 覆盖：** PBI-QP-005（Partial）· PBI-QP-006（Partial / Strongest）
+  4. **主要 R2 缺口输入：** 品牌、灵感、计划、持续运营、资产、复盘；R1 能力与新工作台体验整合
+  5. **PB-R1-01~08 → PBI-QP-005/006** 关系已建立；EPIC-001~010 历史记录保留
+  6. **不关闭 Release 1**；**不决定 Release 2 最终范围**；R2 Must/Should/Could/Won't 由 **S12-STORY-008** 处理
+  7. 正式事实源：[`release-1-capability-coverage.md`](release-1-capability-coverage.md)
+- **影响范围：** product-coverage-matrix · backlog-tracking-model · S12-STORY-008 输入
+- **验收（2026-07-08）：** Product Owner 验收结论 **Accepted**；S12-STORY-007 标记 **Accepted / Done**；主要成果 commit **`bb45f7a`**；证据同步 commit **`ab3bdcf`**；授权 `--no-ff` merge 至 `sprint/s12-product-governance-r2-planning`；**未授权 push**；**未启动 S12-STORY-008**
+- **状态：** **已确认**（2026-07-08 · S12-STORY-007 · PO 已确认候选稿 · **Accepted / Done**）
+
+### DECISION-123 详情（S12-STORY-008 Release 2 候选规划）
+
+- **日期：** 2026-07-08
+- **关联 Story：** S12-STORY-008
+- **Product Owner 授权原文：**
+
+  ```text
+  确认 S12-STORY-008 收敛版 DoR，允许启动 S12-STORY-008。
+  ```
+
+- **背景：** S12-STORY-002~007 已验收；PO 确认 6 个产品取舍；形成 Release 2 正式候选规划。
+- **决策：**
+  1. **R2 主线：** 品牌 / 项目驱动的最小内容工作台；兼顾新用户快速写文章 + 工作台增强入口
+  2. **验证方式：** 内部真实运营优先；主验证鲁老师项目 · 辅验证秒篇 AIPPT；**不做项目定制功能**
+  3. **最小闭环：** 品牌资料 → 灵感 → 选题 → 成稿 → 排版复制 → 内容资产 → 手动复盘 → 反哺选题
+  4. **R1 复用：** 生成、预览、排版、复制；改造生成入口接入品牌/灵感/选题/任务上下文
+  5. **Must/Should/Could/Won't：** 见 `releases/release-2/backlog.md`；PBI-QP-009 不自动升 P0
+  6. **渐进式候选：** R2-Sprint-01~04；**不是正式 Sprint Plan**
+  7. **R2 状态：** **Planned / Candidate / Not Started**；不代表 Release 2 已启动
+  8. 正式事实源：`releases/release-2/plan.md` · `backlog.md` · `coverage.md` · `product-roadmap.md`
+- **影响范围：** release-plan · product-backlog · product-coverage-matrix · S12-STORY-009 输入
+- **状态：** **已确认**（2026-07-08 · S12-STORY-008 · PO 已确认候选稿）
+
+### DECISION-124 详情（Sprint 12 Closeout · Closed with follow-ups）
+
+- **日期：** 2026-07-08
+- **Product Owner 授权原文：**
+
+  ```text
+  允许关闭 Sprint 12；
+  不 merge 到 release/1；
+  不 push；
+  不启动 Release 2；
+  不启动 R2 Sprint。
+  ```
+
+- **背景：**
+  - S12-STORY-001~008 均已 **Accepted / Done**
+  - S12-STORY-009 **Accepted with follow-ups / Done**（Consistency Audit **PASS with follow-ups**）
+  - Sprint Review · Retrospective · Closeout Readiness 草案已完成并定稿
+  - Follow-up Backlog 已登记（P1-S12-001~003 · P2-S12-001）
+- **决策：**
+  1. **Sprint 12** 验收结论为 **Closed with follow-ups**（关闭日期 2026-07-08）
+  2. **S12-STORY-001~008** **Accepted / Done**；**S12-STORY-009** **Accepted with follow-ups / Done**
+  3. Consistency Audit 结论：**PASS with follow-ups**（无 BLOCKED 项）
+  4. Follow-ups **P1-S12-001 · P1-S12-002 · P1-S12-003 · P2-S12-001** 保持 **Open**；Sprint 关闭不代表完成或自动启动
+  5. **不关闭 Release 1**；Release 1 保持 **In Progress / Not Closed**
+  6. **不启动 Release 2**；R2 保持 **Planned / Candidate / Not Started**；**不启动 R2 Sprint**
+  7. **未授权** merge `sprint/s12-product-governance-r2-planning` → `release/1` 或 `main`
+  8. **未授权 push**
+  9. **未修改**产品代码 · **未修改** `.cursor/rules/`
+- **影响范围：** `sprints/sprint-12/closeout.md` · `review.md` · `retrospective.md` · `sprint-backlog.md` · `release-plan.md` · `product-backlog.md` · `changelog.md`
+- **关联：** S12-STORY-009 · DECISION-116 · DECISION-123
+- **状态：** **已确认**（2026-07-08 · PO 授权）

@@ -1,6 +1,212 @@
 # Product Backlog
 
 > 轻篇公众号排版 · qingpian-wechat-editor
+>
+> **当前产品级 Backlog 事实源（S12-STORY-005 · DECISION-120）：** 本节 PBI-QP-001 ~ PBI-QP-010 为**产品级群组**，不是开发 Story，**不构成 Release 2 承诺**。追踪模型见 [`backlog-tracking-model.md`](backlog-tracking-model.md) · 覆盖矩阵见 [`product-coverage-matrix.md`](product-coverage-matrix.md)。
+
+---
+
+## S12-STORY-005 产品级 PBI 群组（当前生效）
+
+**S12-STORY-005** 的目标是建立轻篇产品治理中的 Backlog 追踪体系，使产品愿景、用户旅程、Story Map、产品模块、功能目录、产品假设、成功指标、Release Backlog、Sprint Backlog 与 Execution Evidence 形成可追踪链路。
+
+> **Release 2 正式候选规划（S12-STORY-008 · DECISION-123）：** [`releases/release-2/plan.md`](releases/release-2/plan.md) · [`backlog.md`](releases/release-2/backlog.md) · [`coverage.md`](releases/release-2/coverage.md) · [`product-roadmap.md`](product-roadmap.md)
+>
+> **Release 2 的最终范围由 S12-STORY-008 候选规划形成；Release 2 尚未启动，须 PO 明确批准后方可启动。**
+
+### PBI 索引
+
+| PBI ID     | 名称                     | 初始优先级     | 状态      |
+| ---------- | ------------------------ | -------------- | --------- |
+| PBI-QP-001 | 品牌与知识基础           | P0             | Candidate |
+| PBI-QP-002 | 灵感收集与外部信号       | P0             | Candidate |
+| PBI-QP-003 | 选题与内容计划           | P0             | Candidate |
+| PBI-QP-004 | 持续内容运营与系列化生产 | P0             | Candidate |
+| PBI-QP-005 | 单篇文章生成与编辑       | P0             | Candidate |
+| PBI-QP-006 | 公众号排版与复制一致性   | P0             | Candidate |
+| PBI-QP-007 | 内容资产沉淀与复用       | P1             | Candidate |
+| PBI-QP-008 | 轻量复盘与反馈迭代       | P1             | Candidate |
+| PBI-QP-009 | 高表现内容拆解与再创作   | P1/P0 条件触发 | Candidate |
+| PBI-QP-010 | 多平台适配与改编         | P2             | Candidate |
+
+> **PBI-QP-009** 的优先级由 Product Owner 自己运营工作是否强需要决定；如 PO 真实运营中频繁需要从高表现内容出发快速再创作，可提升为 P0。
+
+---
+
+### PBI-QP-001 品牌与知识基础
+
+| 字段            | 内容                                  |
+| --------------- | ------------------------------------- |
+| 类型            | Feature                               |
+| 用户价值        | 让生成内容贴合品牌、产品与目标用户    |
+| 目标用户        | 高频内容生产者 · PO 自己运营          |
+| 用户活动        | A01、A05、A06、A07、A08               |
+| Story Map Slice | Slice 2、Slice 5                      |
+| 产品模块        | M01、M08、M10                         |
+| 产品假设        | H02、H05、H07                         |
+| 成功指标        | 成稿质量、内容连续性、资产复用        |
+| 失败信号        | 生成内容不贴合品牌；品牌资料混用      |
+| 候选 Release    | Release 2 候选（Must 方向 · 非承诺）  |
+| 验收方向        | PO 能否为品牌录入资料并在生成中被调用 |
+
+---
+
+### PBI-QP-002 灵感收集与外部信号
+
+| 字段            | 内容                             |
+| --------------- | -------------------------------- |
+| 类型            | Feature                          |
+| 用户价值        | 解决「写什么」的上游输入         |
+| 用户活动        | A02、A03                         |
+| Story Map Slice | Slice 3、Slice 4、Slice 5        |
+| 产品模块        | M02、M03、M11                    |
+| 产品假设        | H03、H09                         |
+| 成功指标        | 闭环完成、内容连续性、商业潜力   |
+| 失败信号        | 仍不知道写什么；灵感无法进入计划 |
+| 候选 Release    | Release 2 候选                   |
+| 验收方向        | PO 能否记录灵感并转为选题        |
+
+---
+
+### PBI-QP-003 选题与内容计划
+
+| 字段            | 内容                           |
+| --------------- | ------------------------------ |
+| 类型            | Feature                        |
+| 用户价值        | 把灵感变成可执行的选题与排期   |
+| 用户活动        | A03、A04、A05、A11             |
+| Story Map Slice | Slice 3、Slice 5、Slice 7      |
+| 产品模块        | M03、M02、M09                  |
+| 产品假设        | H03、H08、H10                  |
+| 成功指标        | 使用频率、内容连续性、复盘反馈 |
+| 失败信号        | 计划无法持续；选题与执行脱节   |
+| 候选 Release    | Release 2 候选                 |
+| 验收方向        | PO 能否维护选题池与内容任务    |
+
+---
+
+### PBI-QP-004 持续内容运营与系列化生产
+
+| 字段            | 内容                                      |
+| --------------- | ----------------------------------------- |
+| 类型            | Feature                                   |
+| 用户价值        | 支持品牌长期、系列化、多篇内容生产        |
+| 用户活动        | A04、A10、A11                             |
+| Story Map Slice | Slice 5、Slice 6、Slice 7                 |
+| 产品模块        | M03、M04、M08、M09、M11                   |
+| 产品假设        | H07、H08、H10                             |
+| 成功指标        | 使用频率、内容连续性、资产复用、复盘反馈  |
+| 失败信号        | 只能单篇生成；无法维持栏目/系列           |
+| 候选 Release    | Release 2+ 候选                           |
+| 验收方向        | PO 能否围绕一个品牌持续规划并生产多篇内容 |
+
+---
+
+### PBI-QP-005 单篇文章生成与编辑
+
+| 字段            | 内容                                    |
+| --------------- | --------------------------------------- |
+| 类型            | Feature                                 |
+| 用户价值        | 从 brief 到可编辑成稿                   |
+| 用户活动        | A05、A06、A07                           |
+| Story Map Slice | Slice 1、Slice 2、Slice 3、Slice 4      |
+| 产品模块        | M04、M05、M01、M02                      |
+| 产品假设        | H02、H04、H09                           |
+| 成功指标        | 闭环完成、成稿质量、效率                |
+| 失败信号        | 生成内容需大量重写；效率无提升          |
+| 候选 Release    | Release 1 部分已有 · Release 2 增强候选 |
+| 验收方向        | PO 能否从选题生成并编辑到可发布初稿     |
+
+---
+
+### PBI-QP-006 公众号排版与复制一致性
+
+| 字段            | 内容                                    |
+| --------------- | --------------------------------------- |
+| 类型            | Feature                                 |
+| 用户价值        | 成品级公众号排版与可靠复制              |
+| 用户活动        | A08、A09                                |
+| Story Map Slice | Slice 1、Slice 2、Slice 3、Slice 5      |
+| 产品模块        | M06、M07                                |
+| 产品假设        | H05、H06                                |
+| 成功指标        | 成稿质量、复制稳定性                    |
+| 失败信号        | 复制到公众号频繁失真；排版不专业        |
+| 候选 Release    | Release 1 部分已有 · Release 2 增强候选 |
+| 验收方向        | Preview/Copy 一致 · 公众号粘贴 QA       |
+
+---
+
+### PBI-QP-007 内容资产沉淀与复用
+
+| 字段            | 内容                            |
+| --------------- | ------------------------------- |
+| 类型            | Feature                         |
+| 用户价值        | 历史内容、片段、案例可持续复用  |
+| 用户活动        | A10、A05、A06                   |
+| Story Map Slice | Slice 5、Slice 6                |
+| 产品模块        | M08、M01、M09                   |
+| 产品假设        | H07、H10                        |
+| 成功指标        | 资产复用、内容连续性、效率      |
+| 失败信号        | 历史内容没有被复用              |
+| 候选 Release    | Release 2 / 3 候选              |
+| 验收方向        | PO 能否检索并复用历史内容与片段 |
+
+---
+
+### PBI-QP-008 轻量复盘与反馈迭代
+
+| 字段            | 内容                            |
+| --------------- | ------------------------------- |
+| 类型            | Feature                         |
+| 用户价值        | 发布后反馈影响下一轮选题与计划  |
+| 用户活动        | A11、A02、A03                   |
+| Story Map Slice | Slice 7                         |
+| 产品模块        | M09、M11、M02、M03              |
+| 产品假设        | H08                             |
+| 成功指标        | 复盘反馈、内容连续性            |
+| 失败信号        | 发布后反馈没有进入下一轮计划    |
+| 候选 Release    | Release 2 轻量版候选            |
+| 验收方向        | PO 能否手动复盘并调整下一轮选题 |
+
+---
+
+### PBI-QP-009 高表现内容拆解与再创作
+
+| 字段            | 内容                                         |
+| --------------- | -------------------------------------------- |
+| 类型            | Feature                                      |
+| 用户价值        | 从高表现内容快速形成自己的品牌化版本         |
+| 用户活动        | A02、A03、A05、A06、A07                      |
+| Story Map Slice | Slice 4                                      |
+| 产品模块        | M02、M04、M05、M08                           |
+| 产品假设        | H09                                          |
+| 成功指标        | 效率、商业潜力、风险控制                     |
+| 失败信号        | 明显洗稿、侵权、平台风险、生成结果高度同质化 |
+| 候选 Release    | 条件触发 · PO 运营强需要时可升 P0            |
+| 验收方向        | 拆解模式可借鉴；输出具备品牌差异与合规边界   |
+
+---
+
+### PBI-QP-010 多平台适配与改编
+
+| 字段            | 内容                              |
+| --------------- | --------------------------------- |
+| 类型            | Feature                           |
+| 用户价值        | 同一内容多平台版本与改编          |
+| 用户活动        | A06、A09、A10                     |
+| Story Map Slice | Slice 5、Slice 6                  |
+| 产品模块        | M07、M08、M04                     |
+| 产品假设        | H07、H10                          |
+| 成功指标        | 内容连续性、资产复用、商业潜力    |
+| 失败信号        | 多平台改编成本过高或无实际使用    |
+| 候选 Release    | Release 2+ 候选                   |
+| 验收方向        | PO 能否生成并管理非公众号平台版本 |
+
+---
+
+## 历史记录 · Release 1 及工程 Backlog（保留）
+
+> **说明：** 以下 Epic、PB、Enabler、债务与 Sprint 索引为 Release 1 及工程阶段历史记录，**保留作历史事实**；不等同于 S12-STORY-005 当前产品级 PBI 群组。Release 2 旧规划已 Superseded，正式 R2 范围待 S12-STORY-008。
 
 ## Release 规划
 
@@ -28,7 +234,7 @@
 ### Release 2：样式增强、轻编辑与手动配图
 
 > **状态：Superseded / Pending Replanning（2026-06-28 · S12-STORY-001 审查修正）**  
-> 本小节为早期规划保留，不再作为当前正式 Release 2 承诺。Release 2 正式范围将在 **S12-STORY-008 Release 2 及后续产品路线与渐进式迭代计划** 中重新制定。新的 Release 2 Scope 获批前，不得将本旧规划直接拆入 Sprint。
+> 本小节为早期规划保留，**Superseded**。正式 Release 2 候选规划见 [`releases/release-2/plan.md`](releases/release-2/plan.md)（**DECISION-123** · S12-STORY-008）。Release 2 **尚未启动**；获批前不得将本旧规划或新候选规划直接拆入 Sprint。
 
 **目标：** 支持更多样式、基础编辑、整篇风格切换、手动上传 / 替换图片。
 
@@ -144,7 +350,7 @@
 ## Release 1 剩余 Sprint Story 索引（Planned · 未启动）
 
 | **Sprint 11** | Production Ops Go-Live | S11-STORY-001 ~ S11-STORY-006 | **P0 · Closed**（Accepted with follow-ups · **DECISION-114**） |
-| **Sprint 12** | Product Governance & Release 2 Planning | S12-STORY-001 ~ 009 | **P0/P1 · Approved / Ready to Start**（DECISION-116 · S12-STORY-001 Done · S12-STORY-002 Committed / Not Started · [`sprints/sprint-12/plan.md`](sprints/sprint-12/plan.md)） |
+| **Sprint 12** | Product Governance & Release 2 Planning | S12-STORY-001 ~ 009 | **Closed**（Accepted with follow-ups · **DECISION-124** · [`sprints/sprint-12/plan.md`](sprints/sprint-12/plan.md)） |
 | **Sprint 12+** | Compat / DSL 债务（原 S10-012/013） | 旧 S12-STORY-001 ~ 002 历史占位，需分配新 Backlog / Story ID | **P1/P2 · Planned** |
 
 Story 详情见 [`sprint-backlog.md`](sprint-backlog.md) · S11 见 [`sprint11-production-ops-go-live.md`](sprint11-production-ops-go-live.md) · S12 治理见 [`sprint12-product-governance-r2-planning.md`](sprint12-product-governance-r2-planning.md)。
@@ -162,6 +368,33 @@ Story 详情见 [`sprint-backlog.md`](sprint-backlog.md) · S11 见 [`sprint11-p
 | ID             | 问题                                                      | 状态         | 说明                                                                                                                                                               |
 | -------------- | --------------------------------------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | **P1-S11-001** | Dev / Staging / Production 数据库内容维护、发布与同步方案 | **Deferred** | DB 为 variant **唯一事实来源**；`import-existing-variants` 为待审计历史 bootstrap；governance snapshot apply 暂缓；staging 独有 2 条测试 variant 不迁移 production |
+
+---
+
+---
+
+## Release 1 Closeout Blockers（P0 · 2026-07-08）
+
+| Bug ID            | 标题                                                        | FIX 状态                     | Bug 状态                       | Release   | Blocks                 |
+| ----------------- | ----------------------------------------------------------- | ---------------------------- | ------------------------------ | --------- | ---------------------- |
+| **P0-R1-BUG-001** | Production 主链路偶发混入 Release 1 fallback 文案并重复拼接 | **Accepted with follow-ups** | **Fixed Pending Verification** | Release 1 | **Release 1 Closeout** |
+
+> Closeout **仍阻塞** · pending staging + production verification · 部署 **Not Deployed**
+
+> Follow-ups（全量 test 5 个无关失败）：见 [`bugs/p0-r1-bug-001-generation-fallback-placeholder.md`](bugs/p0-r1-bug-001-generation-fallback-placeholder.md) §21 · **P2-R1-FU-001 ~ FU-005**
+
+---
+
+## Sprint 12 Closeout Follow-ups（Review 2026-07-08 · Sprint Closed 2026-07-08 · DECISION-124）
+
+> 自 [`sprints/sprint-12/review.md`](sprints/sprint-12/review.md) / [`retrospective.md`](sprints/sprint-12/retrospective.md) / [`consistency-audit.md`](sprints/sprint-12/consistency-audit.md) 登记 · **不得**伪造完成 · Sprint 12 Closed 不代表 follow-ups 完成 · 后续由 Product Owner 重新排序和规划
+
+| ID             | 问题                                                  | 类型     | 状态                       | 来源 Story · 说明                                                                                                                                                                                               |
+| -------------- | ----------------------------------------------------- | -------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **P1-S12-001** | `.cursor/rules/` 与 S12 新模板 / Operating Model 对齐 | 治理     | **Accepted / Done**        | **S12-STORY-009** · FU-001 · PO 验收 2026-07-08 · 主要成果 `d04deca` · merge 至 sprint 分支（`--no-ff`）· **未 push**                                                                                           |
+| **P1-S12-002** | Release 1 Closeout 时机与流程确认                     | 治理     | **Accepted / Done**        | **S12-STORY-009** · FU-002 · PO 验收 2026-07-08 · Readiness **READY WITH CONDITIONS** · 主要成果 `8c29831` · [`releases/release-1/readiness-review.md`](releases/release-1/readiness-review.md) · **R1 未关闭** |
+| **P1-S12-003** | Release 2 正式启动授权与 R2-Sprint-01 Planning        | 产品规划 | **Open**                   | **S12-STORY-009** · FU-003 · 需 PO 独立决策；**不代表 Release 2 已启动**                                                                                                                                        |
+| **P2-S12-001** | execution report 双模板入口统一说明                   | 治理     | **Resolved by P1-S12-001** | **S12-STORY-009** · FU-004 · 模板优先级已在 `.cursor/rules/` 对齐（`templates/` > `_template.md`）                                                                                                              |
 
 ---
 

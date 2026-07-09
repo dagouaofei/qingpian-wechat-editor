@@ -139,6 +139,7 @@ export function createVolcengineStreamingModelProvider(
         providerName: "volcengine",
         modelName: resolvedConfig.model,
         timestamp: streamContext.startedAt,
+        strictContent: true,
       });
 
       if (!enrichment.ok) {

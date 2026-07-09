@@ -219,6 +219,9 @@
 ## 相关文档
 
 - [目标用户与核心场景](users-and-scenarios.md)
+- [产品模块树](product-module-tree.md)（S12-STORY-003 · DECISION-118）
+- [产品功能目录](product-feature-catalog.md)（S12-STORY-003 · DECISION-118）
 - [Release 1 范围](release-1-scope.md)（已交付 / 进行中工程边界）
 - [产品范围（Release 1 阶段历史）](product-scope.md)
-- [用户故事地图](user-story-map.md)（待 S12-STORY-004 升级）
+- [User Story Map](user-story-map.md)（S12-STORY-004 · DECISION-119）
+- [产品成功模型](product-success-model.md)（S12-STORY-004 · DECISION-119）

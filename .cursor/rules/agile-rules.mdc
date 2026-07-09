@@ -5,16 +5,18 @@ alwaysApply: true
 
 # 敏捷规则
 
-> Sprint / Story 启动、DoR、范围、合并与强制停止闸门见 [`.cursor/rules/agile-governance.mdc`](./agile-governance.mdc)。
+> **上游事实源（S12 起）：** [`docs/agile/agile-operating-model.md`](../../docs/agile/agile-operating-model.md)（**DECISION-121**）
+> Sprint / Story / Chore 启动、DoR、范围、合并与强制停止闸门见 [`.cursor/rules/agile-governance.mdc`](./agile-governance.mdc)。
 
 ## 任务管理
 
-- 所有任务必须对应 **Story / Bug / Decision**
-- 每个 Story 必须有验收标准（AC）
+- 所有任务必须对应 **Story / Bug / Decision / Chore（治理 follow-up）**
+- 每个 Story 必须有验收标准（AC）；Chore 须有明确边界与验收方向（见 `agile-governance.mdc` §Chore）
 - 每个**新 Sprint** 必须建立或更新 `docs/agile/sprints/sprint-<id>/backlog.md`（及 `plan.md` 等 Sprint 目录文件）
 - **`docs/agile/sprint-backlog.md` 只同步**全局 Sprint 索引、状态摘要、所属或服务的 Release 与独立 Sprint 目录链接；**不**作为全部 Story 详细 AC 的唯一容器
-- **每个 Story / Bug / Docs / Chore 任务应对应一个独立工作分支**
+- **每个 Story / Bug / Docs / Chore 任务应对应一个独立工作分支**（纯 Sprint Closeout 等经 PO 明确授权时，可在 Sprint 分支直接提交）
 - Sprint 目录 `plan.md` / `backlog.md` 中应记录任务分支名（如有）；全局索引可摘要并链接
+- **默认一次只推进一个 Story 或 Chore**
 
 ## Git 分支与任务
 
@@ -90,7 +92,21 @@ YYYY-MM-DD-<short-task-slug>.md
 
 - 项目规则已默认要求 execution report，**无需在每条 Cursor 指令中重复要求**
 - 仅当用户**明确要求本轮不生成** execution report 时，才可跳过，并在 Cursor 回复中说明原因
-- 使用 [`docs/agile/execution-reports/_template.md`](../../docs/agile/execution-reports/_template.md) 作为模板
+### 模板入口（S12 起）
+
+**标准模板（优先）：** [`docs/agile/templates/`](../../docs/agile/templates/) — 见 Operating Model §3.5
+
+| 用途              | 标准模板                                                                 |
+| ----------------- | ------------------------------------------------------------------------ |
+| Execution Report  | [`templates/execution-report-template.md`](../../docs/agile/templates/execution-report-template.md) |
+| Story DoR         | [`templates/story-dor-template.md`](../../docs/agile/templates/story-dor-template.md)             |
+| Story DoD         | [`templates/story-dod-template.md`](../../docs/agile/templates/story-dod-template.md)               |
+| Cursor 指令       | [`templates/cursor-instruction-template.md`](../../docs/agile/templates/cursor-instruction-template.md) |
+| Review / 验收     | [`templates/review-acceptance-template.md`](../../docs/agile/templates/review-acceptance-template.md) |
+
+**历史兼容入口（保留，不删除）：** [`docs/agile/execution-reports/_template.md`](../../docs/agile/execution-reports/_template.md)
+
+**优先级：** `docs/agile/agile-operating-model.md` + `docs/agile/templates/` **>** 旧 `_template.md`。新 Story / Chore 优先使用 `templates/`；已关闭 Sprint 的历史 report **不批量回填**。
 
 ### 固定顺序与提交
 
@@ -113,13 +129,17 @@ YYYY-MM-DD-<short-task-slug>.md
 
 ### Sprint / Story 关闭
 
-- Cursor **不应仅凭自己的总结**宣布 Sprint 或 Story 完成
-- **任务完成状态不等于 Sprint 关闭**；Sprint 关闭必须由**用户确认**
-- Sprint / Story 的最终关闭需要**用户确认**
+- Cursor **不应仅凭自己的总结**宣布 Sprint、Story 或 Chore 完成
+- **任务完成状态不等于 Sprint 关闭**；Sprint 关闭必须由 **Product Owner 明确授权**
+- Sprint / Story 的最终关闭需要 **PO 明确确认**；验收结论只允许：**Accepted** · **Accepted with follow-ups** · **Not Accepted**
+- **Cursor 完成并 commit ≠ PO Accepted**；**ChatGPT 建议 Accepted ≠ PO Accepted**；**测试通过 ≠ 用户验收通过**
 - 存在争议时，状态标记为 `In Review` 或 `Needs Review`，而非直接 `Done`
+- **Release 2 候选规划（`docs/agile/releases/release-2/`）≠ Release 2 已启动**；**未经授权不得启动 Release 2 或 R2 Sprint**
 
 ## 文档位置
 
+- **敏捷 Operating Model：** `docs/agile/agile-operating-model.md`（S12 起向后生效标准）
+- **标准模板：** `docs/agile/templates/`
 - Product Backlog：`docs/agile/product-backlog.md`
 - Release 全局索引：`docs/agile/release-plan.md`（索引与状态总览；详细 Release Backlog 见 `docs/agile/releases/release-<id>/`）
 - Sprint 全局索引：`docs/agile/sprint-backlog.md`（索引与状态总览；详细 Sprint Backlog 见 `docs/agile/sprints/sprint-<id>/`）
@@ -128,4 +148,4 @@ YYYY-MM-DD-<short-task-slug>.md
 - 决策记录：`docs/agile/decisions.md`
 - 变更日志：`docs/agile/changelog.md`
 - Execution Reports：`docs/agile/execution-reports/`
-- 文档结构原则：见 `docs/governance/product-governance-target-model.md` §9 · **DECISION-114**
+- 文档结构原则：见 `docs/governance/product-governance-target-model.md` §9 · **DECISION-115**

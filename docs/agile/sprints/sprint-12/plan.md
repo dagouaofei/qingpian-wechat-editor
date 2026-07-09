@@ -8,7 +8,9 @@ supportsReleases:
 sprintType: governance
 releaseBaseline: release/1 @ 3a8203b
 planningStatus: Approved
-sprintStatus: Approved / In Progress
+sprintStatus: Closed
+closedDate: 2026-07-08
+closeoutDecision: DECISION-124
 approvedDate: 2026-06-30
 approvedBy: Product Owner
 planningApprovalDecision: DECISION-116
@@ -25,7 +27,8 @@ planningApprovalDecision: DECISION-116
 | 项                 | 值                                                                                  |
 | ------------------ | ----------------------------------------------------------------------------------- |
 | **planningStatus** | **Approved**                                                                        |
-| **sprintStatus**   | **Approved / In Progress**                                                          |
+| **sprintStatus**   | **Closed**（2026-07-08 · **DECISION-124**）                                         |
+| **closedDate**     | 2026-07-08                                                                          |
 | **approvedDate**   | 2026-06-30                                                                          |
 | **approvedBy**     | Product Owner                                                                       |
 | **Release 基线**   | `release/1` @ `3a8203b`                                                             |
@@ -41,6 +44,12 @@ planningApprovalDecision: DECISION-116
 | ----------------- | ------------------- | --------------------------------------------------------------------------------------------- |
 | **S12-STORY-001** | **Accepted / Done** | Planning 前治理审计成果；输出审计报告、目标模型、迁移方案与 DECISION-115                      |
 | **S12-STORY-002** | **Accepted / Done** | 产品愿景、用户、场景与系统边界；DECISION-117 · `product-vision.md` · `users-and-scenarios.md` |
+| **S12-STORY-003** | **Accepted / Done** | 产品模块树与功能目录；DECISION-118 · `product-module-tree.md` · `product-feature-catalog.md`  |
+| **S12-STORY-004** | **Accepted / Done** | 用户旅程与 Story Map；DECISION-119 · `user-story-map.md` · `product-success-model.md`         |
+| **S12-STORY-005** | **Accepted / Done** | Backlog 追踪体系；DECISION-120 · `backlog-tracking-model.md` · `product-coverage-matrix.md`   |
+| **S12-STORY-006** | **Accepted / Done** | Agile Operating Model 与标准模板；DECISION-121 · `agile-operating-model.md` · `templates/`    |
+| **S12-STORY-007** | **Accepted / Done** | Release 1 能力覆盖映射；DECISION-122 · `release-1-capability-coverage.md`                     |
+| **S12-STORY-008** | **Accepted / Done** | Release 2 候选规划；DECISION-123 · `releases/release-2/plan.md` · `product-roadmap.md`        |
 
 ## Committed Stories 与顺序
 
@@ -112,11 +121,13 @@ planningApprovalDecision: DECISION-116
 **说明：**
 
 - Sprint Plan **Approved** 不代表所有 Story 已启动
-- **S12-STORY-003** 启动前须 PO 明确授权与独立 DoR
-- Cursor 不得自动启动后续 Story
-- Sprint 12 关闭仍需独立 Review、Retrospective、Closeout 和 PO 授权
+- **S12-STORY-009** **Accepted with follow-ups / Done**；Sprint 12 **Closed**（**DECISION-124**）
+- Release 2 **Planned / Candidate / Not Started** — 见 [`../../releases/release-2/plan.md`](../../releases/release-2/plan.md)
+- Closeout 见 [`closeout.md`](closeout.md) · 审计见 [`consistency-audit.md`](consistency-audit.md)
+- Release 1 **未关闭** · **未 merge** `release/1` / `main` · **未 push**
 
 ## 关联决策
 
 - **DECISION-115** — Sprint / Release 独立目录与全局索引
+- **DECISION-124** — Sprint 12 Closed with follow-ups
 - **DECISION-116** — Sprint 12 Planning Approval（本 Sprint 正式批准）

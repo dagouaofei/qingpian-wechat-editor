@@ -25,7 +25,10 @@ function createIdGenerator(ids: string[]) {
   return () => ids[index++] ?? `cccccccc-cccc-4ccc-8ccc-${String(index).padStart(12, "0")}`;
 }
 
-function enrichBaseInput(rawCandidate: unknown) {
+function enrichBaseInput(
+  rawCandidate: unknown,
+  options?: { strictContent?: boolean },
+) {
   const normalizedInput = parseAndNormalizeInputRequest(topicOnlyInputRequestFixture);
   return enrichModelArticleCandidate({
     rawCandidate,
@@ -35,6 +38,7 @@ function enrichBaseInput(rawCandidate: unknown) {
     modelName: "doubao-pro-32k",
     timestamp: TIMESTAMP,
     generateId: createIdGenerator([GENERATED_ARTICLE_ID, GENERATED_BLOCK_ID]),
+    strictContent: options?.strictContent,
   });
 }
 
@@ -153,7 +157,7 @@ describe("model article enrichment", () => {
     });
   });
 
-  it("fills title and paragraph content minimally", () => {
+  it("fills title and paragraph content minimally in permissive mode", () => {
     const result = enrichBaseInput({
       ...validDoneArticleCandidate,
       blocks: [
@@ -172,6 +176,112 @@ describe("model article enrichment", () => {
     const blocks = result.candidate.blocks as Array<{ content: { text: string } }>;
     expect(blocks[0]?.content.text).toBeTruthy();
     expect(blocks[1]?.content.text).toBeTruthy();
+    expect(JSON.stringify(result.candidate)).not.toContain("Release 1 生成正文");
+  });
+
+  it("fails in strict mode when paragraph content.text is empty", () => {
+    const result = enrichBaseInput(
+      {
+        ...validDoneArticleCandidate,
+        blocks: [
+          { id: GENERATED_BLOCK_ID, type: "title", content: { text: "标题" } },
+          {
+            id: "cccccccc-cccc-4ccc-8ccc-000000000002",
+            type: "paragraph",
+            content: {},
+          },
+        ],
+      },
+      { strictContent: true },
+    );
+    expect(result.ok).toBe(false);
+    if (result.ok) {
+      return;
+    }
+    expect(result.errors.some((issue) => issue.code === "missing_required_block_text")).toBe(
+      true,
+    );
+  });
+
+  it("does not emit internal Release fallback copy in strict mode success path", () => {
+    const result = enrichBaseInput(
+      {
+        ...validDoneArticleCandidate,
+        blocks: [
+          { id: GENERATED_BLOCK_ID, type: "title", content: { text: "标题" } },
+          {
+            id: "cccccccc-cccc-4ccc-8ccc-000000000002",
+            type: "paragraph",
+            content: { text: "正文" },
+          },
+        ],
+      },
+      { strictContent: true },
+    );
+    expect(result.ok).toBe(true);
+    if (!result.ok) {
+      return;
+    }
+    expect(JSON.stringify(result.candidate)).not.toContain("Release 1 生成正文");
+  });
+
+  it("allows divider blocks without text in strict mode", () => {
+    const result = enrichBaseInput(
+      {
+        ...validDoneArticleCandidate,
+        blocks: [
+          { id: GENERATED_BLOCK_ID, type: "title", content: { text: "标题" } },
+          {
+            id: "cccccccc-cccc-4ccc-8ccc-000000000002",
+            type: "paragraph",
+            content: { text: "正文" },
+          },
+          {
+            id: "dddddddd-dddd-4ddd-8ddd-000000000003",
+            type: "divider",
+            content: {},
+          },
+        ],
+      },
+      { strictContent: true },
+    );
+    expect(result.ok).toBe(true);
+  });
+
+  it("still defaults non-blocking metadata in strict mode", () => {
+    const result = enrichBaseInput(
+      {
+        ...validDoneArticleCandidate,
+        metadata: {},
+        blocks: [
+          { id: GENERATED_BLOCK_ID, type: "title", content: { text: "标题" } },
+          {
+            id: "cccccccc-cccc-4ccc-8ccc-000000000002",
+            type: "paragraph",
+            content: { text: "正文" },
+          },
+        ],
+      },
+      { strictContent: true },
+    );
+    expect(result.ok).toBe(true);
+    if (!result.ok) {
+      return;
+    }
+    const metadata = result.candidate.metadata as Record<string, unknown>;
+    expect(metadata.title).toBeTruthy();
+    expect(metadata.locale).toBe("zh-CN");
+  });
+
+  it("fails in strict mode when blocks array is missing", () => {
+    const rest = { ...validDoneArticleCandidate };
+    delete (rest as { blocks?: unknown }).blocks;
+    const result = enrichBaseInput(rest, { strictContent: true });
+    expect(result.ok).toBe(false);
+    if (result.ok) {
+      return;
+    }
+    expect(result.errors.some((issue) => issue.code === "missing_blocks")).toBe(true);
   });
 
   it("coerces list items from string array", () => {

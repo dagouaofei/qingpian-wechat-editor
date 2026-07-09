@@ -17,6 +17,8 @@ export type ModelArticleEnrichmentInput = {
   modelName?: string;
   timestamp: string;
   generateId?: () => string;
+  /** When true, missing user-visible block text is a blocking error (real provider path). */
+  strictContent?: boolean;
 };
 
 export type ModelArticleEnrichmentSuccess = {
