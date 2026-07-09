@@ -210,7 +210,7 @@ readinessConclusion: READY WITH CONDITIONS
 
 ## 10. 必须在 Release 1 Closeout 前处理项
 
-> **P0-R1-BUG-001-FIX In Review**（2026-07-08）· Release 1 Closeout **仍阻塞** pending bugfix review and staging/production verification.
+> **P0-R1-BUG-001-FIX Accepted with follow-ups**（2026-07-08）· **Fixed Pending Verification** · Release 1 Closeout **仍阻塞** pending staging + production verification · **Not Deployed**
 
 | #   | 项                                                                           | 负责方           |
 | --- | ---------------------------------------------------------------------------- | ---------------- |

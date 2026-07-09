@@ -10,7 +10,7 @@
 - **目标合并分支：** `sprint/s12-product-governance-r2-planning`
 - **基线 HEAD：** `9920c8a`
 - **Sprint：** Sprint 12（Closed）— Release 1 Closeout Blocker 修复
-- **状态：** In Review
+- **状态：** **Accepted with follow-ups**（PO 验收 2026-07-08）
 
 ## 2. 本轮目标
 
@@ -109,15 +109,37 @@
 
 ## 14. Commit
 
-- （提交后回填）— `fix(generation): block real provider placeholder fallback leakage`
+### 主要修复 commit
 
-## 15. merge / push / Release 状态
+- `22c7c48` — `fix(generation): block real provider placeholder fallback leakage`
 
-| 项              | 状态                              |
-| --------------- | --------------------------------- |
-| merge 至 sprint | **未执行**                        |
-| push            | **未 push**                       |
-| 部署 production | **未部署**                        |
-| Release 1       | In Progress / Not Closed          |
-| Release 2       | Planned / Candidate / Not Started |
-| 修改产品代码    | **是**                            |
+### 验收状态同步 commit
+
+- （提交后回填）— `docs(release1): accept p0 fallback placeholder fix`
+
+## 15. PO 验收结论
+
+**P0-R1-BUG-001-FIX Accepted with follow-ups**（2026-07-08）
+
+PO accepted the code fix as **Fixed Pending Verification**. Release 1 Closeout **remains blocked** pending staging and production manual verification. Not deployed. Not pushed.
+
+## 16. Follow-ups（全量 test 无关失败 · 本轮未修复）
+
+| ID           | 摘要                                                      | 状态 |
+| ------------ | --------------------------------------------------------- | ---- |
+| P2-R1-FU-001 | pnpm-workspace `allowBuilds`：sharp / unrs-resolver       | Open |
+| P2-R1-FU-002 | DSL title slot：`slotSubstitutionPath` 仍为 `slots.title` | Open |
+| P2-R1-FU-003 | 006D Paste QA pack markdown snapshot diff                 | Open |
+| P2-R1-FU-004 | Paste QA pack markdown snapshot diff                      | Open |
+| P2-R1-FU-005 | Style Library admin detail shell 与测试断言不同步         | Open |
+
+## 17. merge / push / Release 状态
+
+| 项              | 状态                                      |
+| --------------- | ----------------------------------------- |
+| merge 至 sprint | **已执行**（`--no-ff` · 提交后回填 hash） |
+| push            | **未 push**                               |
+| 部署 production | **未部署**                                |
+| Release 1       | In Progress / Not Closed                  |
+| Release 2       | Planned / Candidate / Not Started         |
+| 修改产品代码    | **是**（`22c7c48`）                       |

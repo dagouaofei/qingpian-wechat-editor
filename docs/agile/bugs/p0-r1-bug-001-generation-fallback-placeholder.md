@@ -3,23 +3,25 @@
 > **诊断轮次：** P0-R1-BUG-001-DIAG · 2026-07-08
 > **诊断状态：** **Accepted / Done**（PO 验收 2026-07-08）
 > **修复轮次：** P0-R1-BUG-001-FIX · 2026-07-08
-> **Bug 状态：** **Fix In Review** — 代码已修复，**待 PO 审查与 staging/production 验证**
-> **修复状态：** **Fixed Pending Review**（未部署 · 未 merge sprint）
+> **Fix 状态：** **Accepted with follow-ups**（PO 验收 2026-07-08）
+> **Bug 状态：** **Fixed Pending Verification** — 代码已 merge sprint，**待 staging/production 人工验证**
+> **部署状态：** **Not Deployed**
 
 ---
 
 ## 1. Bug 摘要
 
-| 字段             | 内容                                                  |
-| ---------------- | ----------------------------------------------------- |
-| **Bug ID**       | P0-R1-BUG-001                                         |
-| **严重级别**     | **P0 Closeout Blocker**                               |
-| **发现时间**     | 2026-07-08（Release 1 Closeout 前 PO 人工主链路检查） |
-| **所属 Release** | Release 1                                             |
-| **阻塞**         | **Release 1 Closeout**                                |
-| **Bug 状态**     | **Fix In Review / Fixed Pending Review**              |
-| **诊断状态**     | **P0-R1-BUG-001-DIAG Accepted / Done**（2026-07-08）  |
-| **修复状态**     | **Fixed Pending Review**（2026-07-08 · 未部署）       |
+| 字段             | 内容                                                         |
+| ---------------- | ------------------------------------------------------------ |
+| **Bug ID**       | P0-R1-BUG-001                                                |
+| **严重级别**     | **P0 Closeout Blocker**                                      |
+| **发现时间**     | 2026-07-08（Release 1 Closeout 前 PO 人工主链路检查）        |
+| **所属 Release** | Release 1                                                    |
+| **阻塞**         | **Release 1 Closeout**                                       |
+| **Bug 状态**     | **Fixed Pending Verification**                               |
+| **Fix 状态**     | **P0-R1-BUG-001-FIX Accepted with follow-ups**（2026-07-08） |
+| **诊断状态**     | **P0-R1-BUG-001-DIAG Accepted / Done**（2026-07-08）         |
+| **部署状态**     | **Not Deployed**                                             |
 
 ---
 
@@ -271,8 +273,34 @@ No product code changes. No bugfix started. No Release 1 closeout. No merge to `
 
 ---
 
-## 19. 修复记录（P0-R1-BUG-001-FIX · 2026-07-08 · In Review）
+## 19. 修复记录（P0-R1-BUG-001-FIX · 2026-07-08）
 
 **策略：** 新增 `strictContent` enrichment 选项；Volcengine real provider 路径启用 `strictContent: true`；缺失用户可见 block text 时产出 blocking error（`missing_required_block_text` / `missing_blocks`），不再静默补正文；移除 `resolveFallbackParagraph` 中 “Release 1 生成正文” 内部文案；dev deterministic provider 改用中性示例段落。
 
-**状态：** Fix In Review · Fixed Pending Review · **未部署** · **未 merge sprint** · Release 1 Closeout **仍阻塞** pending PO 审查与 staging/production 人工验证。
+**主要 commit：** `22c7c48` — `fix(generation): block real provider placeholder fallback leakage`
+
+---
+
+## 20. PO 验收记录（P0-R1-BUG-001-FIX）
+
+**P0-R1-BUG-001-FIX Accepted with follow-ups**（2026-07-08）
+
+PO accepted the code fix for P0-R1-BUG-001 as **Fixed Pending Verification**. The fix removes the user-visible Release 1 fallback placeholder leakage from production code paths and makes real provider empty required text blocks fail fast instead of silently producing a successful article.
+
+This acceptance does **not** mean production has been verified. **Release 1 Closeout remains blocked** pending staging and production manual verification.
+
+No deployment. No Release 1 closeout. No merge to `release/1`. No merge to `main`. No push. No Release 2 start. No R2 Sprint start.
+
+---
+
+## 21. Follow-ups（Accepted with follow-ups · 全量 test 无关失败）
+
+> **归类：** P1/P2 Release 1 Closeout follow-ups / existing test debt · **不阻塞** P0-R1-BUG-001-FIX merge · 是否阻塞 Release 1 Closeout 由后续 Closeout 决策确认
+
+| ID               | 问题                                                                                                                                         | 类型     | 状态 |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ---- |
+| **P2-R1-FU-001** | `pnpm-workspace.yaml`：`sharp` / `unrs-resolver` 的 `allowBuilds` 期望 `true` 实际 `undefined`（`pnpm-workspace-config.test.ts`）            | 测试债务 | Open |
+| **P2-R1-FU-002** | DSL title slot：`runtimeTrace.slotSubstitutionPath` 仍为 `slots.title`（`dsl-tree-html-preview.test.ts`）                                    | 测试债务 | Open |
+| **P2-R1-FU-003** | 006D Paste QA pack markdown 与 committed snapshot 不一致（`wechat-paste-qa-pack-006d.test.ts`）                                              | 测试债务 | Open |
+| **P2-R1-FU-004** | Paste QA pack markdown 与 committed snapshot 不一致（`wechat-paste-qa-pack.test.ts`）                                                        | 测试债务 | Open |
+| **P2-R1-FU-005** | Style Library admin detail shell 文案/结构与测试断言不同步（缺少 `userSelectable ≠ defaultEligible`）（`style-library-admin-page.test.tsx`） | 测试债务 | Open |
