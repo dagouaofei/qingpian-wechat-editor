@@ -1,8 +1,9 @@
 # P0-R1-BUG-001：Production 主链路偶发混入 Release 1 fallback 文案并重复拼接
 
-> **诊断轮次：** P0-R1-BUG-001-DIAG · 2026-07-08  
-> **状态：** Diagnosis In Review  
-> **本轮：** 仅定位根因，**未修复**、**未改产品代码**
+> **诊断轮次：** P0-R1-BUG-001-DIAG · 2026-07-08
+> **诊断状态：** **Accepted / Done**（PO 验收 2026-07-08）
+> **Bug 状态：** **Open / Blocking / To Fix** — 修复 **Not Started**
+> **本轮诊断：** 仅定位根因，**未修复**、**未改产品代码**
 
 ---
 
@@ -15,7 +16,9 @@
 | **发现时间**     | 2026-07-08（Release 1 Closeout 前 PO 人工主链路检查） |
 | **所属 Release** | Release 1                                             |
 | **阻塞**         | **Release 1 Closeout**                                |
-| **状态**         | Diagnosis In Review                                   |
+| **Bug 状态**     | **Open / Blocking / To Fix**                          |
+| **诊断状态**     | **P0-R1-BUG-001-DIAG Accepted / Done**（2026-07-08）  |
+| **修复状态**     | **Not Started**                                       |
 
 ---
 
@@ -252,3 +255,15 @@ Volcengine 流式完成后 enrichment **不因 warnings 失败**：
 | `pnpm test fallback`                 | 未单独命中（无 dedicated suite） |
 
 **缺口：** 无 regression test 禁止 “Release 1 生成正文” 泄漏至用户可见 enrichment 输出。
+
+---
+
+## 18. PO 验收记录（P0-R1-BUG-001-DIAG）
+
+**P0-R1-BUG-001-DIAG Accepted / Done**（2026-07-08）
+
+PO accepted the diagnosis of P0-R1-BUG-001. The diagnosis confirmed that user-visible “Release 1 生成正文” placeholder leakage originates from `model-article-enrichment` fallback behavior when real-provider blocks contain empty or missing `content.text`.
+
+This acceptance closes the diagnosis only. **P0-R1-BUG-001 remains Open / Blocking / To Fix.** Release 1 Closeout remains blocked pending bugfix and verification.
+
+No product code changes. No bugfix started. No Release 1 closeout. No merge to `release/1`. No merge to `main`. No push. No Release 2 start. No R2 Sprint start.

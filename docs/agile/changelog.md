@@ -1104,7 +1104,8 @@
 
 ## 2026-07-08 · P0-R1-BUG-001 生成 fallback 占位文案泄漏诊断
 
-| 日期       | Bug           | 变更摘要                                                                                                                                                                  | 影响范围   | 关联          |
-| ---------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------------- |
-| 2026-07-08 | P0-R1-BUG-001 | **P0-R1-BUG-001 diagnosis started** · Production 主链路偶发混入 “Release 1 生成正文” 内部占位文案 · 根因定位至 `model-article-enrichment` · **未修复** · **未改产品代码** | 生成主链路 | P0-R1-BUG-001 |
-| 2026-07-08 | Release 1     | **Release 1 Closeout paused pending diagnosis** · P0 Closeout Blocker · No Release 1 closeout · No Release 2 start · No R2 Sprint start                                   | 治理       | Release 1     |
+| 日期       | Bug           | 变更摘要                                                                                                                                                                                                                  | 影响范围   | 关联          |
+| ---------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------------- |
+| 2026-07-08 | P0-R1-BUG-001 | **P0-R1-BUG-001 diagnosis started** · Production 主链路偶发混入 “Release 1 生成正文” 内部占位文案 · 根因定位至 `model-article-enrichment` · **未修复** · **未改产品代码**                                                 | 生成主链路 | P0-R1-BUG-001 |
+| 2026-07-08 | Release 1     | **Release 1 Closeout paused pending diagnosis** · P0 Closeout Blocker · No Release 1 closeout · No Release 2 start · No R2 Sprint start                                                                                   | 治理       | Release 1     |
+| 2026-07-08 | P0-R1-BUG-001 | **P0-R1-BUG-001-DIAG Accepted / Done**（PO 2026-07-08）· 诊断验收通过 · **P0-R1-BUG-001 仍为 Open / Blocking / To Fix** · Release 1 Closeout **仍阻塞** · merge 至 sprint 分支（`--no-ff`）· **未 push** · **未启动修复** | 生成主链路 | P0-R1-BUG-001 |

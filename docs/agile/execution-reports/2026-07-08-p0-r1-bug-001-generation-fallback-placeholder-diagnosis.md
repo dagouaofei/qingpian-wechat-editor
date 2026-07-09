@@ -14,7 +14,7 @@
 - **Sprint：** Sprint 12（Closed · DECISION-124）— 本轮为 Release 1 Closeout Blocker 诊断
 - **关联 Story / Bug / Decision：** P0-R1-BUG-001 · P0-R1-BUG-001-DIAG
 - **执行者：** Cursor
-- **状态：** In Review
+- **状态：** **Accepted / Done**（PO 验收 2026-07-08）
 
 ## 2. 本轮目标
 
@@ -137,28 +137,42 @@
 3. 从 sprint 分支切 `bugfix/p0-r1-bug-001-generation-fallback-placeholder` 实施修复 + regression test
 4. 修复验收通过后再恢复 Release 1 Closeout 流程
 
-## 18. Commit
+## 18. PO 验收结论
 
-### 主要 commit
+**P0-R1-BUG-001-DIAG Accepted / Done**（2026-07-08）
 
-- （提交后回填 hash）— `docs(release1): diagnose generation fallback placeholder leak`
+PO accepted the diagnosis of P0-R1-BUG-001. The diagnosis confirmed that user-visible “Release 1 生成正文” placeholder leakage originates from `model-article-enrichment` fallback behavior when real-provider blocks contain empty or missing `content.text`.
+
+This acceptance closes the diagnosis only. **P0-R1-BUG-001 remains Open / Blocking / To Fix.** Release 1 Closeout remains blocked pending bugfix and verification.
+
+No product code changes. No bugfix started. No Release 1 closeout. No merge to `release/1`. No merge to `main`. No push. No Release 2 start. No R2 Sprint start.
+
+## 19. Commit
+
+### 主要诊断 commit
+
+- `eb915b4` — `docs(release1): diagnose generation fallback placeholder leak`
+
+### 验收状态同步 commit
+
+- （提交后回填 hash）— `docs(release1): accept p0 fallback placeholder diagnosis`
 
 ### merge / push / working tree
 
-| 项                             | 状态             |
-| ------------------------------ | ---------------- |
-| merge 至 sprint                | **未执行**       |
-| merge 至 release/main          | **未执行**       |
-| push                           | **未 push**      |
-| working tree                   | 提交后应为 clean |
-| 是否修改产品代码               | **否**           |
-| 是否关闭 Release 1             | **否**           |
-| 是否启动 Release 2 / R2 Sprint | **否**           |
-| 是否启动修复                   | **否**           |
+| 项                             | 状态                                      |
+| ------------------------------ | ----------------------------------------- |
+| merge 至 sprint                | **已执行**（`--no-ff` · 提交后回填 hash） |
+| merge 至 release/main          | **未执行**                                |
+| push                           | **未 push**                               |
+| working tree                   | merge 后应为 clean                        |
+| 是否修改产品代码               | **否**                                    |
+| 是否关闭 Release 1             | **否**                                    |
+| 是否启动 Release 2 / R2 Sprint | **否**                                    |
+| 是否启动修复                   | **否**                                    |
 
-## 19. Release 状态
+## 20. Release 状态
 
-| Release   | 状态                                                             |
-| --------- | ---------------------------------------------------------------- |
-| Release 1 | In Progress / Not Closed — Closeout **blocked** by P0-R1-BUG-001 |
-| Release 2 | Planned / Candidate / Not Started                                |
+| Release   | 状态                                                                                             |
+| --------- | ------------------------------------------------------------------------------------------------ |
+| Release 1 | In Progress / Not Closed — Closeout **blocked** by P0-R1-BUG-001（诊断 Done · 修复 Not Started） |
+| Release 2 | Planned / Candidate / Not Started                                                                |
