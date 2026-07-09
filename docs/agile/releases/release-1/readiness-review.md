@@ -210,6 +210,8 @@ readinessConclusion: READY WITH CONDITIONS
 
 ## 10. 必须在 Release 1 Closeout 前处理项
 
+> **P0-R1-BUG-001-DIAG Accepted / Done**（2026-07-08）· Release 1 Closeout **仍阻塞** pending bugfix and verification.
+
 | #   | 项                                                                           | 负责方           |
 | --- | ---------------------------------------------------------------------------- | ---------------- |
 | 1   | **PO 明确授权** Release 1 Closeout 执行（独立于本 Readiness Review）         | PO               |
