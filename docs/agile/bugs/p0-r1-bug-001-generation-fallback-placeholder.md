@@ -2,8 +2,9 @@
 
 > **诊断轮次：** P0-R1-BUG-001-DIAG · 2026-07-08
 > **诊断状态：** **Accepted / Done**（PO 验收 2026-07-08）
-> **Bug 状态：** **Open / Blocking / To Fix** — 修复 **Not Started**
-> **本轮诊断：** 仅定位根因，**未修复**、**未改产品代码**
+> **修复轮次：** P0-R1-BUG-001-FIX · 2026-07-08
+> **Bug 状态：** **Fix In Review** — 代码已修复，**待 PO 审查与 staging/production 验证**
+> **修复状态：** **Fixed Pending Review**（未部署 · 未 merge sprint）
 
 ---
 
@@ -16,9 +17,9 @@
 | **发现时间**     | 2026-07-08（Release 1 Closeout 前 PO 人工主链路检查） |
 | **所属 Release** | Release 1                                             |
 | **阻塞**         | **Release 1 Closeout**                                |
-| **Bug 状态**     | **Open / Blocking / To Fix**                          |
+| **Bug 状态**     | **Fix In Review / Fixed Pending Review**              |
 | **诊断状态**     | **P0-R1-BUG-001-DIAG Accepted / Done**（2026-07-08）  |
-| **修复状态**     | **Not Started**                                       |
+| **修复状态**     | **Fixed Pending Review**（2026-07-08 · 未部署）       |
 
 ---
 
@@ -267,3 +268,11 @@ PO accepted the diagnosis of P0-R1-BUG-001. The diagnosis confirmed that user-vi
 This acceptance closes the diagnosis only. **P0-R1-BUG-001 remains Open / Blocking / To Fix.** Release 1 Closeout remains blocked pending bugfix and verification.
 
 No product code changes. No bugfix started. No Release 1 closeout. No merge to `release/1`. No merge to `main`. No push. No Release 2 start. No R2 Sprint start.
+
+---
+
+## 19. 修复记录（P0-R1-BUG-001-FIX · 2026-07-08 · In Review）
+
+**策略：** 新增 `strictContent` enrichment 选项；Volcengine real provider 路径启用 `strictContent: true`；缺失用户可见 block text 时产出 blocking error（`missing_required_block_text` / `missing_blocks`），不再静默补正文；移除 `resolveFallbackParagraph` 中 “Release 1 生成正文” 内部文案；dev deterministic provider 改用中性示例段落。
+
+**状态：** Fix In Review · Fixed Pending Review · **未部署** · **未 merge sprint** · Release 1 Closeout **仍阻塞** pending PO 审查与 staging/production 人工验证。

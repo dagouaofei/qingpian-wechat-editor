@@ -29,7 +29,7 @@ function resolveParagraph(input: NormalizedInput): string {
   if (input.materials.length > 0) {
     return input.materials.map((source) => source.text).join("\n\n");
   }
-  return `围绕「${resolveTitle(input)}」展开的 Release 1 示例正文。`;
+  return `围绕「${resolveTitle(input)}」的示例段落。`;
 }
 
 function buildDeterministicEvents(

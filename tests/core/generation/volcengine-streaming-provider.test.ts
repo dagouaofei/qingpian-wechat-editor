@@ -48,4 +48,33 @@ describe("Volcengine streaming provider sequences", () => {
       expect(done.sequence).toBeGreaterThan(Math.max(...sequences.filter((s) => s !== done.sequence)));
     }
   });
+
+  it("emits provider error instead of done.article when paragraph text is empty", async () => {
+    const input = parseAndNormalizeInputRequest(topicOnlyInputRequestFixture);
+    const jsonl =
+      '{"type":"title","id":"11111111-1111-4111-8111-000000000001","content":{"text":"标题"}}\n' +
+      '{"type":"paragraph","id":"22222222-2222-4222-8222-000000000002","content":{}}\n';
+
+    const mockStreamTransport: VolcengineStreamTransport = {
+      async *streamCompletion() {
+        yield jsonl;
+      },
+    };
+
+    const provider = createVolcengineStreamingModelProvider({
+      config: {
+        provider: "volcengine",
+        enabled: true,
+        apiKey: "test-key",
+        model: "test-model",
+        baseUrl: "https://ark.example.com/api/v3",
+        timeoutMs: 5_000,
+      },
+      streamTransport: mockStreamTransport,
+    });
+
+    const events = await collectGenerationStream(provider.generate(input));
+    expect(events.some((event) => event.type === "done.article")).toBe(false);
+    expect(events.some((event) => event.type === "error")).toBe(true);
+  });
 });
